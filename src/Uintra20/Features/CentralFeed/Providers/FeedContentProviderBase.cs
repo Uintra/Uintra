@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Umbraco.Core.Models.PublishedContent;
-using Umbraco.Web;
 
 namespace Uintra20.Features.CentralFeed.Providers
 {

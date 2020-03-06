@@ -7,8 +7,6 @@ using UBaseline.Core.RequestContext;
 using Uintra20.Core.Authentication;
 using Uintra20.Core.Controls.LightboxGallery;
 using Uintra20.Core.Localization;
-using Uintra20.Core.Member.Services;
-using Uintra20.Features.Groups.Services;
 using Uintra20.Features.Information;
 using Uintra20.Features.Media;
 using Uintra20.Features.Permissions;

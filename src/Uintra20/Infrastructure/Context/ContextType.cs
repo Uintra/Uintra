@@ -14,7 +14,6 @@
 //        CentralFeed = 32,
 //        GroupFeed = 64,
 //        Feed = CentralFeed | GroupFeed,
-//        PagePromotion = 128,
 //        ContentPage = 256,
 //        Any = int.MaxValue
 //    }

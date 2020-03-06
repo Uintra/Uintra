@@ -1,0 +1,26 @@
+<section *ngIf="data && tabs" class="central-feed">
+  <app-central-feed-filters
+    [tabs]="tabs"
+    (selectFilters)="selectFilters($event)"
+  ></app-central-feed-filters>
+
+  <div
+    class="search-results"
+    infiniteScroll
+    [infiniteScrollDistance]="2"
+    [infiniteScrollThrottle]="250"
+    [infiniteScrollDisabled]="isScrollDisabled"
+    (scrolled)="onScroll()"
+  >
+    <app-central-feed-publication
+      *ngFor="let publication of feed"
+      [publication]="publication"
+    ></app-central-feed-publication>
+
+    <div *ngIf="isFeedLoading" class="central-feed__loader-wrapper">
+      <div class="central-feed__loader"></div>
+    </div>
+
+    <div *ngIf="!isFeedLoading && !isResponseFailed && !feed.length" class="central-feed__empty-feed">{{'centralFeedList.Empty.lbl' | translate}}</div>
+  </div>
+</section>

@@ -1,4 +1,3 @@
-using System;
 using Uintra20.Features.Notification.Models.NotifierTemplates;
 
 namespace Uintra20.Features.Notification.Models.Configuration

@@ -4,9 +4,7 @@ using Uintra20.Core;
 using Uintra20.Core.Activity;
 using Uintra20.Features.Comments.CommandBus.Commands;
 using Uintra20.Features.Comments.Services;
-using Uintra20.Infrastructure.Context;
 using Uintra20.Infrastructure.Extensions;
-using static Uintra20.Infrastructure.Extensions.ContextExtensions;
 
 namespace Uintra20.Features.Comments.CommandBus
 {

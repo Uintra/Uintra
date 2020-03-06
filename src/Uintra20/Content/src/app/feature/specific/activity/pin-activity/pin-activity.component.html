@@ -1,0 +1,26 @@
+<div class="pin-block form-row">
+  <h3 class="pin-block__title subtitle">{{'pin.Activity.lbl' | translate}}</h3>
+  <checkbox-input [(ngModel)]="isPinCheked" (ngModelChange)='onAcceptedChange()'>
+    {{'pin.SetPinned.lbl' | translate}}
+  </checkbox-input>
+  <div *ngIf="isPinCheked" class="pin-info">
+    <div class="pin-info__box">
+      <div class="pin-info__text">
+        {{'pin.AcceptPinText.lbl' | translate}}
+      </div>
+      <checkbox-input [(ngModel)]="pinedDateValue.isAccepted" (ngModelChange)='onAcceptedChange()'>
+        {{'pin.AcceptPin.lbl' | translate}}
+      </checkbox-input>
+    </div>
+    <div class="pin-info__datepicker">
+      <h5 class="pin-info__datepicker-title subtitle">
+        {{'pin.EndPinDate.lbl' | translate} }
+      </h5>
+      <!--TODO add css-->
+      <div class="datepicker">
+        <sq-datetimepicker [groupClass]="'udatepicker'" [inputClass]="'udatepicker-input'" [(ngModel)]="pinDate"
+          [options]='options' [mode]="'input'" (dpChange)='onDateChange()'></sq-datetimepicker>
+      </div>
+    </div>
+  </div>
+</div>

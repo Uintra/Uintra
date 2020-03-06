@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Web.Http;
 using EmailWorker.Data.Features.Gdpr;
-using Uintra20.Core.Member.Abstractions;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Services;
 using Uintra20.Features.Groups.Models;

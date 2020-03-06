@@ -3,7 +3,6 @@ using Uintra20.Core;
 using Uintra20.Core.Activity;
 using Uintra20.Features.Likes.CommandBus.Commands;
 using Uintra20.Features.Notification.Configuration;
-using Uintra20.Infrastructure.Context;
 using Uintra20.Infrastructure.Extensions;
 
 namespace Uintra20.Features.Likes.CommandBus

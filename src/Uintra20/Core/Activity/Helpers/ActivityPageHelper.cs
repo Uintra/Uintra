@@ -2,28 +2,22 @@
 using System.Linq;
 using UBaseline.Core.Node;
 using UBaseline.Core.RequestContext;
-using Uintra20.Core.Article;
-using Uintra20.Core.UbaselineModels;
 using Uintra20.Features.Links.Models;
+using Uintra20.Features.News.Models;
+using Uintra20.Features.Social.Models;
 using Uintra20.Infrastructure.Extensions;
-using Uintra20.Infrastructure.Providers;
 
 namespace Uintra20.Core.Activity.Helpers
 {
     public class ActivityPageHelper : IActivityPageHelper//TODO: Needs research
     {
-        private const string NewsCreateName = "News Create";
-
-        private readonly IDocumentTypeAliasProvider _aliasProvider;
         private readonly INodeModelService _nodeModelService;
         private readonly IUBaselineRequestContext _uBaselineRequestContext;
 
         public ActivityPageHelper(
-            IDocumentTypeAliasProvider aliasProvider,
             INodeModelService nodeModelService,
             IUBaselineRequestContext uBaselineRequestContext)
         {
-            _aliasProvider = aliasProvider;
             _nodeModelService = nodeModelService;
             _uBaselineRequestContext = uBaselineRequestContext;
 
@@ -37,27 +31,56 @@ namespace Uintra20.Core.Activity.Helpers
 
         public UintraLinkModel GetDetailsPageUrl(Enum activityType, Guid? activityId = null)
         {
-            var pageAlias = _aliasProvider.GetDetailsPage(activityType);
-            var currentNode = _uBaselineRequestContext.Node;
-            var detailsPageUrl = currentNode != null ? _nodeModelService.GetByAlias(pageAlias, currentNode.RootId)?.Url : null;
-            
+            var intranetActivityType = activityType is IntranetActivityTypeEnum @enum ? @enum : 0;
+            UintraLinkModel detailsPageUrl;
+
+            switch (intranetActivityType)
+            {
+                case IntranetActivityTypeEnum.News:
+                {
+                    var detailsPage = _nodeModelService.AsEnumerable()
+                        .OfType<UintraNewsDetailsPageModel>()
+                        .Single();
+
+                    detailsPageUrl = detailsPage.Url.ToLinkModel();
+                    break;
+                }
+                case IntranetActivityTypeEnum.Events:
+                {
+                    detailsPageUrl = null;
+                    break;
+                }
+                case IntranetActivityTypeEnum.Social:
+                {
+                    var detailsPage = _nodeModelService.AsEnumerable()
+                        .OfType<SocialDetailsPageModel>()
+                        .Single();
+
+                    detailsPageUrl = detailsPage.Url.ToLinkModel();
+                    break;
+                }
+                default:
+                    detailsPageUrl = null;
+                    break;
+            }
+
             return activityId.HasValue
-                ? detailsPageUrl?.AddIdParameter(activityId).ToLinkModel()
-                : detailsPageUrl?.ToLinkModel();
+                ? detailsPageUrl?.AddParameter("id", activityId.ToString())
+                : detailsPageUrl;
         }
 
         public UintraLinkModel GetCreatePageUrl(Enum activityType)
         {
 
             var intranetActivityType = activityType is IntranetActivityTypeEnum @enum ? @enum : 0;
-            var pageAlias = _aliasProvider.GetCreatePage(activityType);
 
             switch (intranetActivityType)
             {
                 case IntranetActivityTypeEnum.News:
                 {
-                    var createPage = _nodeModelService.AsEnumerable().OfType<ArticlePageModel>()
-                                    .Single(x => x.Name.Equals(NewsCreateName, StringComparison.CurrentCultureIgnoreCase));
+                    var createPage = _nodeModelService.AsEnumerable()
+                                    .OfType<UintraNewsCreatePageModel>()
+                                    .Single();
 
                     return createPage.Url.ToLinkModel();
                 }
@@ -70,13 +93,44 @@ namespace Uintra20.Core.Activity.Helpers
             }
         }
 
-        public UintraLinkModel GetEditPageUrl(Enum activityType, Guid activityId)
+        public UintraLinkModel GetEditPageUrl(Enum activityType, Guid? activityId = null)
         {
-            var pageAlias = _aliasProvider.GetEditPage(activityType);
-            var currentNode = _uBaselineRequestContext.Node;
-            var detailsPageUrl = currentNode != null ? _nodeModelService.GetByAlias(pageAlias, currentNode.RootId)?.Url : null;
+            var intranetActivityType = activityType is IntranetActivityTypeEnum @enum ? @enum : 0;
+            UintraLinkModel editPageUrl;
 
-            return detailsPageUrl?.AddIdParameter(activityId)?.ToLinkModel();
+            switch (intranetActivityType)
+            {
+                case IntranetActivityTypeEnum.News:
+                {
+                    var editPage = _nodeModelService.AsEnumerable()
+                        .OfType<UintraNewsEditPageModel>()
+                        .Single();
+
+                    editPageUrl = editPage.Url.ToLinkModel();
+                    break;
+                }
+                case IntranetActivityTypeEnum.Events:
+                {
+                    editPageUrl = null;
+                    break;
+                }
+                case IntranetActivityTypeEnum.Social:
+                {
+                    var editPage = _nodeModelService.AsEnumerable()
+                        .OfType<SocialEditPageModel>()
+                        .Single();
+
+                    editPageUrl = editPage.Url.ToLinkModel();
+                    break;
+                }
+                default:
+                    editPageUrl = null;
+                    break;
+            }
+
+            return activityId.HasValue
+                ? editPageUrl?.AddParameter("id", activityId.ToString())
+                : editPageUrl;
         }
     }
 }

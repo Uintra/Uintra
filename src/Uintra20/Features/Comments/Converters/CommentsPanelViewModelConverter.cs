@@ -1,15 +1,17 @@
 ﻿using System;
+using System.Linq;
 using System.Web;
 using UBaseline.Core.Node;
 using UBaseline.Core.RequestContext;
+using Uintra20.Core;
 using Uintra20.Core.Activity;
-using Uintra20.Core.Activity.Entities;
 using Uintra20.Core.Activity.Helpers;
+using Uintra20.Core.Member.Entities;
+using Uintra20.Core.Member.Services;
 using Uintra20.Features.Comments.Helpers;
 using Uintra20.Features.Comments.Models;
 using Uintra20.Features.Comments.Services;
 using Uintra20.Features.Groups.Services;
-using Uintra20.Infrastructure.Context;
 using Uintra20.Infrastructure.Extensions;
 
 namespace Uintra20.Features.Comments.Converters
@@ -20,17 +22,23 @@ namespace Uintra20.Features.Comments.Converters
         private readonly ICommentsService _commentsService;
         private readonly ICommentsHelper _commentsHelper;
         private readonly IActivityTypeHelper _activityTypeHelper;
+        private readonly IGroupActivityService _groupActivityService;
+        private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
 
         public CommentsPanelViewModelConverter(
             IUBaselineRequestContext requestContext,
             ICommentsService commentsService,
             ICommentsHelper commentsHelper,
-            IActivityTypeHelper activityTypeHelper)
+            IActivityTypeHelper activityTypeHelper,
+            IGroupActivityService groupActivityService,
+            IIntranetMemberService<IntranetMember> intranetMemberService)
         {
             _requestContext = requestContext;
             _commentsService = commentsService;
             _commentsHelper = commentsHelper;
             _activityTypeHelper = activityTypeHelper;
+            _groupActivityService = groupActivityService;
+            _intranetMemberService = intranetMemberService;
         }
 
         public void Map(CommentsPanelModel node, CommentsPanelViewModel viewModel)
@@ -47,12 +55,20 @@ namespace Uintra20.Features.Comments.Converters
 
             if (!id.HasValue)
                 return;
+            
+            var groupId = _groupActivityService.GetGroupId(activityId);
+            var currentMember = _intranetMemberService.GetCurrentMember();
+
+            viewModel.IsGroupMember = !groupId.HasValue || currentMember.GroupIds.Contains(groupId.Value);
+
+            if(!viewModel.IsGroupMember) return;
 
             var comments = _commentsService.GetMany(id.Value);
 
-            viewModel.ActivityType = activityType;
             viewModel.Comments = _commentsHelper.GetCommentViews(comments);
+            viewModel.ActivityType = activityType;
             viewModel.EntityId = id.Value;
+            viewModel.CommentsType = IntranetEntityTypeEnum.Comment;
         }
     }
 }

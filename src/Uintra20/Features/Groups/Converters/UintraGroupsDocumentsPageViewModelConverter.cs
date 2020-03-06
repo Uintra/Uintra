@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Web;
 using UBaseline.Core.Node;
-using Uintra20.Core.Member.Entities;
-using Uintra20.Core.Member.Services;
+using Uintra20.Features.Groups.Helpers;
 using Uintra20.Features.Groups.Models;
 using Uintra20.Features.Groups.Services;
 using Uintra20.Features.Media;
@@ -13,16 +12,17 @@ namespace Uintra20.Features.Groups.Converters
     public class UintraGroupsDocumentsPageViewModelConverter : INodeViewModelConverter<UintraGroupsDocumentsPageModel, UintraGroupsDocumentsPageViewModel>
     {
         private readonly IMediaHelper _mediaHelper;
-        private readonly IGroupMemberService _groupMemberService;
-        private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
+        private readonly IGroupDocumentsService _groupDocumentsService;
+        private readonly IGroupHelper _groupHelper;
 
-        public UintraGroupsDocumentsPageViewModelConverter(IMediaHelper mediaHelper, 
-            IGroupMemberService groupMemberService, 
-            IIntranetMemberService<IntranetMember> intranetMemberService)
+        public UintraGroupsDocumentsPageViewModelConverter(
+            IMediaHelper mediaHelper,
+            IGroupDocumentsService groupDocumentsService,
+            IGroupHelper groupHelper)
         {
             _mediaHelper = mediaHelper;
-            _groupMemberService = groupMemberService;
-            _intranetMemberService = intranetMemberService;
+            _groupDocumentsService = groupDocumentsService;
+            _groupHelper = groupHelper;
         }
 
         public void Map(UintraGroupsDocumentsPageModel node, UintraGroupsDocumentsPageViewModel viewModel)
@@ -36,7 +36,8 @@ namespace Uintra20.Features.Groups.Converters
             if (!Guid.TryParse(idStr, out var id))
                 return;
             
-            viewModel.CanUpload = _groupMemberService.IsGroupMember(id, _intranetMemberService.GetCurrentMemberId());
+            viewModel.CanUpload = _groupDocumentsService.CanUpload(id);
+            viewModel.GroupHeader = _groupHelper.GetHeader(id);
             viewModel.GroupId = id;
         }
     }

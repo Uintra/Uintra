@@ -14,7 +14,7 @@ using Uintra20.Infrastructure.Extensions;
 
 namespace Uintra20.Features.CentralFeed.Services
 {
-    public class CentralFeedService : FeedService, ICentralFeedService
+    public class CentralFeedService : FeedSettingsService, ICentralFeedService
     {
         private readonly IEnumerable<IFeedItemService> _feedItemServices;
         private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
@@ -40,7 +40,7 @@ namespace Uintra20.Features.CentralFeed.Services
 
         public IEnumerable<IFeedItem> GetFeed(Enum type)
         {
-            if (!_permissionsService.Check((PermissionResourceTypeEnum) type.ToInt(), PermissionActionEnum.View))
+            if (!_permissionsService.Check((PermissionResourceTypeEnum)type.ToInt(), PermissionActionEnum.View))
             {
                 return Enumerable.Empty<IFeedItem>();
             }
@@ -68,11 +68,12 @@ namespace Uintra20.Features.CentralFeed.Services
         private IEnumerable<IFeedItem> AdditionalFilters(IEnumerable<IFeedItem> items)
         {
             var currentMember = _intranetMemberService.GetCurrentMember();
-            return items.Where(x => 
+            return items.Where(x =>
                 !((IGroupActivity)x).GroupId.HasValue || currentMember.GroupIds.Any(g => g == ((IGroupActivity)x).GroupId.Value));
         }
 
         private bool IsCentralFeedActivity(IFeedItem item) =>
             (item as IGroupActivity)?.GroupId == null;
+
     }
 }

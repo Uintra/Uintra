@@ -1,0 +1,25 @@
+<div>
+    <section>
+        <div class="holder">
+            <h2 class="holder__title">{{title}}</h2>
+            <div class="holder__teaser rte" [innerHTML]="teaser"></div>
+            <div
+                *ngFor="let cell of activityCells"
+                class="block-item">
+                <latest-activity
+                    [activityType]="cell.get().type.get()"
+                    [activityDate]="cell.get().dates.get()[0]"
+                    [activityId]="cell.get().id.get()"
+                    [activityLinks]="cell.get().links.get()"
+                    [activityDescription]="cell.get().description.get()">
+                </latest-activity>
+            </div>
+            <a
+              routerLink="socials"
+              class="holder__button"
+              *ngIf="showAll">
+              {{'latestActivities.SeeAll.btn' | translate}}
+            </a>
+        </div>
+    </section>
+</div>

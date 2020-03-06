@@ -1,7 +1,6 @@
 ﻿using Uintra20.Features.CentralFeed.Providers;
 using Uintra20.Infrastructure.Providers;
 using Umbraco.Core.Models.PublishedContent;
-using Umbraco.Web;
 
 namespace Uintra20.Features.Notification.Configuration.BackofficeSettings.Providers
 {

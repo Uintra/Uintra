@@ -1,0 +1,73 @@
+<ng-container *ngIf="!groupHeader">
+  <ng-container *ngTemplateOutlet="component"></ng-container>
+</ng-container>
+
+<app-group-details-wrapper *ngIf="groupHeader" [data]="groupHeader">
+  <div class="group-details-padding">
+    <ng-container *ngTemplateOutlet="component"></ng-container>
+  </div>
+</app-group-details-wrapper>
+
+<ng-template #component>
+  <div class="page-wrapper">
+    <div class="row-flex">
+      <div class="col-md-8">
+        <div class="bulletin-details-content">
+          <div class="feed-header">
+            <a [routerLink]="details?.links?.feed?.originalUrl" class="feed-header__back-link">{{'detailsView.GoToList.lbl' | translate}}</a>
+            <a
+              *ngIf="details?.canEdit"
+              [routerLink]="details?.links?.edit?.originalUrl"
+              class="feed-header__edit-link"
+              >{{'detailsView.Edit.lbl' | translate}}</a
+            >
+          </div>
+          <div class="feed-item">
+            <app-detailas-header
+              class="feed-item__header"
+              [details]="details"
+              [activityName]="activityName"
+            ></app-detailas-header>
+            <div class="feed-item__text rte" [innerHtml]="detailsDescription"></div>
+            <div class="feed-item-tags" *ngIf="tags.length !== 0">
+              <span class="feed-item-tags__text">{{'userTagsView.Title.lbl' | translate}}</span>
+              <!-- TODO: get from details.links -->
+              <a
+                *ngFor="let tag of tags"
+                class="feed-item-tags__tag"
+                [routerLink]="['/search']"
+                [queryParams]="{ query: tag.text }"
+                [innerHTML]="tag.text"
+              ></a>
+            </div>
+            <div *ngIf="medias.length !== 0 || documents.length !== 0" class="attachments">
+              <ul *ngIf="medias.length !== 0" class="feed-item-images">
+                <li
+                  class="feed-item-images__item"
+                  *ngFor="let image of medias; index as i"
+                >
+                  <img
+                    class="feed-item-images__image"
+                    [src]="image.previewUrl"
+                    (click)="openGallery(i)"
+                  />
+                </li>
+              </ul>
+              <ng-container *ngIf="documents.length !== 0">
+                <h3 class="feed-item__subtitle">
+                  {{'lightboxGallery.AttachedDocuments.lbl' | translate}}
+                </h3>
+                <app-attachments [documents]="documents"></app-attachments>
+              </ng-container>
+            </div>
+            <ubl-dynamic-component
+              *ngFor="let panel of data.panels.get()"
+              [data]="panel.get()"
+            >
+            </ubl-dynamic-component>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

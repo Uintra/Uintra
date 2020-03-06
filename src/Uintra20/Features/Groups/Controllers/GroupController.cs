@@ -8,19 +8,14 @@ using AutoMapper;
 using Compent.CommandBus;
 using UBaseline.Core.Controllers;
 using UBaseline.Core.Media;
-using UBaseline.Core.Node;
 using Uintra20.Attributes;
 using Uintra20.Core.Member.Entities;
-using Uintra20.Core.Member.Models;
 using Uintra20.Core.Member.Services;
 using Uintra20.Features.Groups.CommandBus.Commands;
 using Uintra20.Features.Groups.Links;
 using Uintra20.Features.Groups.Models;
 using Uintra20.Features.Groups.Services;
 using Uintra20.Features.Media;
-using Uintra20.Features.Permissions;
-using Uintra20.Features.Permissions.Interfaces;
-using Uintra20.Features.Permissions.Models;
 using Uintra20.Infrastructure.Constants;
 using Uintra20.Infrastructure.Extensions;
 
@@ -39,9 +34,7 @@ namespace Uintra20.Features.Groups.Controllers
         private readonly IImageHelper _imageHelper;
         private readonly ICommandPublisher _commandPublisher;
         private readonly IMediaModelService _mediaModelService;
-        private readonly INodeModelService _nodeModelService;
         private readonly IGroupLinkProvider _groupLinkProvider;
-        private readonly IPermissionsService _permissionsService;
 
         public GroupController(
             IGroupService groupService,
@@ -52,9 +45,7 @@ namespace Uintra20.Features.Groups.Controllers
             IImageHelper imageHelper,
             ICommandPublisher commandPublisher,
             IMediaModelService mediaModelService,
-            INodeModelService nodeModelService,
-            IGroupLinkProvider groupLinkProvider,
-            IPermissionsService permissionsService)
+            IGroupLinkProvider groupLinkProvider)
         {
             _groupService = groupService;
             _groupMemberService = groupMemberService;
@@ -64,48 +55,7 @@ namespace Uintra20.Features.Groups.Controllers
             _imageHelper = imageHelper;
             _commandPublisher = commandPublisher;
             _mediaModelService = mediaModelService;
-            _nodeModelService = nodeModelService;
             _groupLinkProvider = groupLinkProvider;
-            _permissionsService = permissionsService;
-        }
-
-        [HttpGet]
-        public GroupLeftNavigationMenuViewModel LeftNavigation()
-        {
-            var rootGroupPage = _nodeModelService.AsEnumerable().OfType<UintraGroupsPageModel>().First();
-
-            var groupPageChildren = _nodeModelService.AsEnumerable().Where(x =>
-                x is IGroupNavigationComposition navigation && navigation.GroupNavigation.ShowInMenu &&
-                x.ParentId == rootGroupPage.Id);
-
-            groupPageChildren = groupPageChildren.Where(x =>
-            {
-                if (x is UintraGroupsCreatePageModel)
-                {
-                    return _permissionsService.Check(new PermissionSettingIdentity(PermissionActionEnum.Create,
-                        PermissionResourceTypeEnum.Groups));
-                }
-
-                return true;
-            });
-
-            var menuItems = groupPageChildren.OrderBy(x => ((IGroupNavigationComposition)x).GroupNavigation.SortOrder.Value).Select(x => new GroupLeftNavigationItemViewModel
-            {
-                Title = ((IGroupNavigationComposition)x).GroupNavigation.NavigationTitle,
-                Link = x.Url.ToLinkModel()
-            });
-
-            var result = new GroupLeftNavigationMenuViewModel
-            {
-                Items = menuItems,
-                GroupPageItem = new GroupLeftNavigationItemViewModel
-                {
-                    Link = rootGroupPage.Url.ToLinkModel(),
-                    Title = ((IGroupNavigationComposition)rootGroupPage).GroupNavigation.NavigationTitle
-                }
-            };
-
-            return result;
         }
 
         [HttpPost]
@@ -176,22 +126,6 @@ namespace Uintra20.Features.Groups.Controllers
                 .Take(take);
 
             return groups;
-        }
-
-        [HttpGet]
-        public async Task<GroupHeaderViewModel> Header(Guid groupId)
-        {
-            var group = await _groupService.GetAsync(groupId);
-            var canEdit = await _groupService.CanEditAsync(group);
-
-            var links = _groupLinkProvider.GetGroupLinks(groupId, canEdit);
-
-            return new GroupHeaderViewModel
-            {
-                Title = group.Title,
-                RoomPageLink = links.GroupRoomPage,
-                GroupLinks = links
-            };
         }
 
         [HttpPost]

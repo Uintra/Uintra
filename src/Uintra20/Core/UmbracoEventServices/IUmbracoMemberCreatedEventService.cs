@@ -6,6 +6,6 @@ namespace Uintra20.Core.UmbracoEventServices
 {
     public interface IUmbracoMemberCreatedEventService
     {
-        void ProcessMemberCreated(IMemberService sender, NewEventArgs<IMember> args);
+        void ProcessMemberCreated(IMemberService sender, SaveEventArgs<IMember> args);
     }
 }

@@ -11,5 +11,6 @@ namespace Uintra20.Features.Groups.Models
         public GroupNavigationCompositionViewModel GroupNavigation { get; set; }
         public string AllowedMediaExtensions { get; set; }
         public bool CanCreate { get; set; }
+        public GroupLeftNavigationMenuViewModel Navigation { get; set; }
     }
 }

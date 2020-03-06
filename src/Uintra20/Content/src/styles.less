@@ -1,0 +1,110 @@
+@import "./styles/reset/_index.less";
+
+@import "base.less";
+
+@import "./styles/abstracts/_index.less";
+@import "./styles/temp/_index.less";
+@import "./styles/typography/_index.less";
+
+
+@import "./styles/libs/datepicker/bootstrap-datetimepicker-build.less";
+@import "./styles/libs/simple-scroll/styles.less";
+
+
+@debug: true;
+
+* {
+  box-sizing: border-box;
+}
+
+head {
+  display: none;
+
+  &::after {
+    .ubl-debug();
+  }
+}
+
+body {
+    margin: 0;
+    background-color: @main-body-bg;
+    color: @body-text-color;
+    font: @body-font;
+
+    &.nav--open {
+      overflow: hidden;
+    }
+}
+
+/* apply to correct element */
+
+breadcrumb {
+  font: bold 13px/22px @font;
+  color: #261d43;
+  margin: 0 0 20px;
+}
+
+.main {
+  .centering;
+  display: block;
+  padding: 70px 15px 0 0;
+
+  @media @md-down {
+    padding: 60px 0 0;
+  }
+}
+
+.content {
+  display: flex;
+
+  // @media @sm-up {
+  //   overflow: hidden;
+  // }
+
+  &__wrap {
+    padding: 0;
+    flex-grow: 1;
+    width: 100%;
+  }
+}
+
+.page-wrapper {
+  padding: 0;
+
+  @media @md-down {
+    overflow: hidden;
+  }
+
+  @media @md-up {
+    padding: 15px 0 0 15px;
+  }
+
+  @media @lg-up {
+    padding: 47px 0 0 45px;
+  }
+}
+
+comments-panel {
+  .comments-panel {
+    @media @md-down {
+      padding: 0 15px;
+    }
+  }
+}
+.disable-scroll,
+.disable-scroll body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+}
+.group-details-padding {
+  padding-top: 164px;
+
+  @media @sm-up {
+    padding-top: 144px;
+  }
+
+  @media @md-up {
+    padding-top: 134px;
+  }
+}

@@ -21,9 +21,7 @@ using Uintra20.Features.Comments.Models;
 using Uintra20.Features.Comments.Services;
 using Uintra20.Features.Groups.Services;
 using Uintra20.Features.Notification;
-using Uintra20.Infrastructure.Context;
 using Uintra20.Infrastructure.Extensions;
-using Umbraco.Web;
 
 namespace Uintra20.Features.Comments.Controllers
 {

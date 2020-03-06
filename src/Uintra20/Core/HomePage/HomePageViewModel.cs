@@ -1,5 +1,7 @@
 ﻿using UBaseline.Shared.Node;
 using UBaseline.Shared.Property;
+using Uintra20.Features.Links.Models;
+using Uintra20.Features.Social.Models;
 
 namespace Uintra20.Core.HomePage
 {
@@ -12,5 +14,8 @@ namespace Uintra20.Core.HomePage
         public string Url { get; set; }
         public NodeType NodeType { get; set; }
         public PropertyViewModel<INodeViewModel[]> Panels { get; set; }
+        public UintraLinkModel CreateNewsLink { get; set; }
+        public UintraLinkModel CreateEventsLink { get; set; }
+        public SocialCreatePageViewModel SocialCreateModel { get; set; }
     }
 }
