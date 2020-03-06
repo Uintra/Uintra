@@ -1,11 +1,18 @@
+@import 'base.less';
+
 .type-and-date {
   margin-bottom: 6px;
 }
 
 .block-subtitle-clamp {
+  display: block;
   font-weight: bold;
   font-size: 14px;
+  line-height: 1.43;
   cursor: pointer;
   text-decoration: none;
-  color: rgb(85, 85, 85);
+  color: @body-text-color;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-height: 60px;
 }
