@@ -1,6 +1,6 @@
 ﻿using Compent.Shared.DependencyInjection.Contract;
 using Uintra20.Core.Member.Events;
-using Uintra20.Core.UmbracoEventServices;
+using Uintra20.Core.UmbracoEvents.Services;
 
 namespace Uintra20.Infrastructure.Ioc
 {
