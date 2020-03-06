@@ -1,5 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import ParseHelper from 'src/app/shared/utils/parse.helper';
 
 @Component({
@@ -13,11 +13,16 @@ export class UintraNewsCreatePage {
   parsedData: any;
 
   constructor(
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router,
   ) {
     this.route.data.subscribe(data => {
-      this.data = data;
-      this.parsedData = ParseHelper.parseUbaselineData(this.data);
+      if (!data.requiresRedirect.get()) {
+        this.data = data;
+        this.parsedData = ParseHelper.parseUbaselineData(this.data);
+      } else {
+        this.router.navigate([data.errorLink.get().originalUrl.get()]);
+      }
     });
   }
 }
