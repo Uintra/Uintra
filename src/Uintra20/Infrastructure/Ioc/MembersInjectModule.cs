@@ -6,7 +6,6 @@ using Uintra20.Core.Member.Profile.Services;
 using Uintra20.Core.Member.Services;
 using Uintra20.Core.User;
 using Uintra20.Core.User.Models;
-using Uintra20.Features.Groups;
 using Uintra20.Features.Tagging.UserTags.Services;
 
 namespace Uintra20.Infrastructure.Ioc

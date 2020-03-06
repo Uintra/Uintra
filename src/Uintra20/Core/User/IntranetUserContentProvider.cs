@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using Uintra20.Infrastructure.Providers;
 using Umbraco.Core.Models.PublishedContent;
-using Umbraco.Web;
 
 namespace Uintra20.Core.User
 {

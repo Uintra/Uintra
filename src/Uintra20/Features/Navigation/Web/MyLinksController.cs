@@ -33,12 +33,6 @@ namespace Uintra20.Features.Navigation.Web
             _uBaselineRequestContext = uBaselineRequestContext;
         }
 
-        [HttpGet]
-        public virtual async Task<IEnumerable<MyLinkItemViewModel>> List()
-        {
-            return await GetMyLinkItemViewModelAsync();
-        }
-
         [HttpPost]
         public virtual async Task<IEnumerable<MyLinkItemViewModel>> Add()
         {

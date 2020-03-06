@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Web;
 using EmailWorker.Data.Infrastructure;
-using Skybrud.Essentials.Strings.Extensions;
 using UBaseline.Core.Domain;
 using UBaseline.Core.Node;
 using UBaseline.Core.RequestContext;

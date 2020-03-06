@@ -5,7 +5,6 @@ using System.Web;
 using UBaseline.Core.Node;
 using Uintra20.Core.Feed;
 using Uintra20.Core.Feed.Models;
-using Uintra20.Core.Feed.State;
 using Uintra20.Features.CentralFeed.Builders;
 using Uintra20.Features.CentralFeed.Enums;
 using Uintra20.Features.CentralFeed.Models;
@@ -16,20 +15,17 @@ namespace Uintra20.Features.CentralFeed
     public class CentralFeedPanelViewModelConverter :
         INodeViewModelConverter<CentralFeedPanelModel, CentralFeedPanelViewModel>
     {
-        private readonly IFeedFilterStateService<FeedFiltersState> _feedFilterStateService;
         //private readonly IPermissionsService _permissionsService;
         //private readonly IPermissionResourceTypeProvider _permissionResourceTypeProvider;
         private readonly IFeedTypeProvider _feedTypeProvider;
         private readonly IActivityTabsBuilder _activityTabsBuilder;
 
         public CentralFeedPanelViewModelConverter(
-            IFeedFilterStateService<FeedFiltersState> feedFilterStateService,
             //IPermissionsService permissionsService,
             //IPermissionResourceTypeProvider permissionResourceTypeProvider,
             IFeedTypeProvider feedTypeProvider,
             IActivityTabsBuilder activityTabsBuilder)
         {
-            _feedFilterStateService = feedFilterStateService;
             //_permissionsService = permissionsService;
             //_permissionResourceTypeProvider = permissionResourceTypeProvider;
             _feedTypeProvider = feedTypeProvider;
@@ -38,7 +34,6 @@ namespace Uintra20.Features.CentralFeed
 
         public void Map(CentralFeedPanelModel node, CentralFeedPanelViewModel viewModel)
         {
-            var centralFeedState = _feedFilterStateService.GetFiltersState();
             viewModel.Type = _feedTypeProvider[node.TabType];
 
             viewModel.Tabs = _activityTabsBuilder
@@ -48,7 +43,6 @@ namespace Uintra20.Features.CentralFeed
                 .Build();
 
             //viewModel.TabsWithCreateUrl = GetTabsWithCreateUrl(activityTabs).Where(tab => _permissionsService.Check(_permissionResourceTypeProvider[tab.Type.ToInt()], PermissionActionEnum.Create));
-            viewModel.IsFiltersOpened = centralFeedState.IsFiltersOpened;
             viewModel.ItemsPerRequest = node.ItemsPerRequest.Value == 0 ? 10 : node.ItemsPerRequest.Value;
             viewModel.GroupId = HttpContext.Current.Request.GetRequestQueryValue("groupId").TryParseGuid();
         }

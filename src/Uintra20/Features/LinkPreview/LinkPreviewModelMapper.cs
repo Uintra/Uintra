@@ -1,7 +1,6 @@
 ﻿using System;
 using Compent.LinkPreview.HttpClient;
 using Uintra20.Features.LinkPreview.Sql;
-using Umbraco.Web;
 
 namespace Uintra20.Features.LinkPreview
 {

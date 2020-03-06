@@ -28,5 +28,10 @@ namespace Uintra20.Core.Activity
             var services= Current.Factory.EnsureScope(s=>(IEnumerable<TService>)s.GetAllInstances(typeof(TService)));
             return services.FirstOrDefault(s => Equals(s.Type, type));
         }
+
+        public IEnumerable<TService> GetServices<TService>() where TService : class, ITypedService
+        {
+            return DependencyResolver.Current.GetServices<TService>();
+        }
     }
 }

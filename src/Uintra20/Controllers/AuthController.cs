@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
-using System.Web.Http.Results;
-using System.Web.Mvc;
 using System.Web.Security;
 using Uintra20.Core.Authentication;
 using Uintra20.Core.Authentication.Models;

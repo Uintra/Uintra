@@ -9,12 +9,10 @@ using Uintra20.Core.Activity;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Services;
 using Uintra20.Features.Comments.Services;
-using Uintra20.Features.Notification;
 using Uintra20.Features.Notification.Configuration;
 using Uintra20.Features.Notification.Entities.Base;
 using Uintra20.Features.Notification.Services;
 using Uintra20.Infrastructure.Helpers;
-using Umbraco.Web;
 
 namespace Uintra20.Features.ContentPage.Services
 {

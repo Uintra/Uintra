@@ -1,0 +1,55 @@
+<section class="create-bulletin" *ngIf="data && canCreatePosts()">
+  <div class="create-bulletin__input" (click)="onShowPopUp()">
+    <app-user-avatar [photo]="userAvatar?.photo" [name]="userAvatar?.name"></app-user-avatar>
+    <button class="create-bulletin__input-placeholder"
+        (focus)="onShowPopUp()">{{getPlaceholder() | translate}}
+    </button>
+  </div>
+  <div class="feed-btns">
+    <div class="feed-btns__other-activities">
+      <a
+        *ngIf="panelData.createEventsLink"
+        class="button-default"
+        [routerLink]="['/events-create']"
+        >
+        {{'centralFeed.CreateLink_Events.lnk' | translate}}
+      </a>
+          <!-- TODO Add correct param to routerLink when event create will be done -->
+      <a
+        *ngIf="panelData.createNewsLink"
+        class="button-default"
+        [routerLink]="panelData.createNewsLink.originalUrl | ulink">
+        {{'centralFeed.CreateLink_News.lnk' | translate}}
+      </a>
+    </div>
+    <button class="button" [disabled]="!panelData.canCreate" (click)="onShowPopUp()">{{'bulletinsCreate.ExpandBulletin.lbl' | translate}}</button>
+  </div>
+  <div class="bulletin-popup__wrapper" *ngIf="isPopupShowing">
+    <div class="bulletin-popup__background" (click)="onHidePopUp()"></div>
+    <div class="bulletin-popup">
+      <button class="bulletin-popup__close-button" (click)="onHidePopUp()">&times;</button>
+      <app-publication-header class="bulletin-popup__header" [avatar]="userAvatar?.photo" [title]="userAvatar.name">
+        <div subtitle>{{panelData.date}} - Social</div>
+      </app-publication-header>
+      <app-tag-multiselect
+        class="bulletin-popup__multiselect"
+        [availableTags]="availableTags"
+        [ngModel]="tags"
+        (ngModelChange)="onTagsChange($event)"></app-tag-multiselect>
+      <dropzone #dropdownRef (success)="onUploadSuccess($event)" (removedFile)="onFileRemoved($event)"></dropzone>
+      <app-rich-text-editor
+      [ngModel]="description"
+      (ngModelChange)="onDescriptionChange($event)"
+      (addAttachment)="addAttachment()"
+      [isUnderline]="false"
+      [placeholder]="'bulletinsCreate.FormPlaceholder.lbl' | translate">
+
+        <button submit [disabled]="isSubmitDisabled" class="bulletin-popup__submit-button" (click)="onSubmit()">
+          <span *ngIf="inProgress" class="bulletin-popup__submit-button-spinner"></span>
+          <span *ngIf="!inProgress">{{'bulletinsCreate.Post.lbl' | translate}}</span>
+        </button>
+
+      </app-rich-text-editor>
+    </div>
+  </div>
+</section>

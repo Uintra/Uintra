@@ -4,6 +4,7 @@ using System;
 using System.Linq;
 using Uintra20.Core.Activity.Models;
 using Uintra20.Core.Activity.Models.Headers;
+using Uintra20.Core.Feed.Models;
 using Uintra20.Features.CentralFeed.Models;
 using Uintra20.Features.Groups.Links;
 using Uintra20.Features.News.Models;
@@ -71,7 +72,13 @@ namespace Uintra20.Features.News.AutoMapperPrfiles
                 .ForMember(dst => dst.IsPinActual, o => o.Ignore())
                 .ForMember(dst => dst.GroupInfo, o => o.Ignore())
                 .ForMember(dst => dst.IsGroupMember, o => o.Ignore())
-                .ForMember(dst => dst.ActivityType, o => o.MapFrom(src => src.Type));
+                .ForMember(dst => dst.ActivityType, o => o.MapFrom(src => src.Type))
+                .ForMember(dst => dst.Dates, o => o.MapFrom(src => src.PublishDate.ToDateFormat().ToEnumerable()));
+
+            CreateMap<Entities.News, LatestActivitiesItemViewModel>()
+                .ForMember(dst => dst.Links, o => o.Ignore())
+                .ForMember(dst => dst.Owner, o => o.Ignore())
+                .ForMember(dst => dst.Dates, o => o.Ignore());
 
             CreateMap<Entities.News, IntranetActivityDetailsViewModel>()
                 .ForMember(dst => dst.CanEdit, o => o.Ignore())

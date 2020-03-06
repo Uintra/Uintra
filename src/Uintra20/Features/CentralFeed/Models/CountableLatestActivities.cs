@@ -6,8 +6,7 @@ namespace Uintra20.Features.CentralFeed.Models
 {
     public class CountableLatestActivities
     {
-        public IEnumerable<IFeedItem> activities =
-            Enumerable.Empty<IFeedItem>();
+        public IEnumerable<IFeedItem> Activities = Enumerable.Empty<IFeedItem>();
         public int TotalCount { get; set; }
     }
 }

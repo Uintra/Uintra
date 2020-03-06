@@ -1,0 +1,3 @@
+<app-groups-wrapper *ngIf="data?.canCreate" [data]="data?.navigation">
+  <groups-form [allowedExtensions]="data?.allowedMediaExtensions"></groups-form>
+</app-groups-wrapper>

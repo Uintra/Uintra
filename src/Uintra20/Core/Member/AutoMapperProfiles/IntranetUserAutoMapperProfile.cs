@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Uintra20.Core.Member.Commands;
+﻿using Uintra20.Core.Member.Commands;
 using Uintra20.Core.Member.Models;
 
 namespace Uintra20.Core.Member.AutoMapperProfiles

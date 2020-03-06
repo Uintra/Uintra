@@ -1,0 +1,203 @@
+@import "base.less";
+
+:host {
+  font: @body-font;
+  font-size: 13px;
+}
+
+.news-create-panel {
+  background-color: @main-color;
+  padding: 20px 20px 33px;
+
+  .ql-editor {
+    border: 1px solid @border-color;
+    border-top: none;
+    height: 149px;
+    padding: 6px 10px !important;
+    margin: 0 !important;
+  }
+
+  .ql-toolbar button {
+    margin: 0;
+  }
+
+  .icon-smily {
+    font-size: 18px;
+  }
+}
+
+.form-row {
+  margin-bottom: 25px;
+}
+
+.subtitle {
+  .subtitle();
+}
+
+.required {
+  &::after {
+    content: "*";
+    color: red;
+    margin-left: 2px;
+  }
+}
+
+.news-title__input,
+.description__rte {
+  &.invalid {
+    border: 2px solid red;
+  }
+}
+
+.alert {
+  color: red;
+  margin-bottom: 8px;
+}
+
+.news-title__input,
+.location__input {
+  border: 1px solid @border-color;
+}
+
+.datepickers {
+  display: flex;
+
+  &-publish,
+  &-unpublish {
+    flex: 50%;
+  }
+}
+
+.pin-info {
+  padding-right: 40px;
+  padding-left: 40px;
+
+  &__box {
+    padding: 10px 0;
+  }
+
+  &__text {
+    padding-bottom: 10px;
+  }
+}
+
+.buttons {
+  margin-top: 50px;
+  &__submit {
+    .button;
+    margin-right: 10px;
+  }
+
+  &__cancel {
+    .button-white;
+  }
+}
+
+// Styles for Images component
+.images {
+  margin: 0 0 0 -2px;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+
+  &__item {
+    position: relative;
+    padding: 0 0 2px 2px;
+    flex-grow: 1;
+    max-width: 25%;
+    flex-shrink: 1;
+
+    &-name {
+      display: block;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    .icon-close {
+      position: absolute;
+      top: 1px;
+      right: 1px;
+      width: 25px;
+      height: 25px;
+      padding: 7px;
+      text-align: center;
+      border-radius: 50%;
+      background: #fff;
+      box-shadow: 0 0 5px rgba(0, 0, 0, .5);
+      cursor: pointer;
+      color: #555;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    img {
+      width: 100%;
+    }
+  }
+}
+
+// Styles for Select2 that need to be encapsulated
+
+.select2-dropdown {
+  background-color: @main-color;
+  border: 1px solid @border-color;
+  border-radius: 4px;
+  border-top-left-radius: unset;
+  border-top-right-radius: unset;
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 100%;
+}
+
+.select2-search--dropdown {
+  display: block;
+  padding: 4px;
+}
+
+.select2-search--dropdown .select2-search__field {
+  padding: 4px;
+  width: 100%;
+  border: 1px solid @border-color;
+}
+
+.select2-results__option {
+  padding: 6px;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.select2-results__option[aria-selected] {
+  cursor: pointer;
+}
+
+.select2-container--default
+  .select2-results__option--highlighted[aria-selected="true"],
+.select2-container--default .select2-results__option[aria-selected="true"] {
+  background-color: #fff !important;
+  color: @border-color !important;
+  pointer-events: none;
+  cursor: default;
+}
+
+.select2-container--default
+  .select2-results__option--highlighted[aria-selected] {
+  background-color: #5c5c5c;
+  color: white;
+}
+
+.select2-container--default .select2-results > .select2-results__options {
+  max-height: 204px;
+  overflow-y: auto;
+}
+
+.select2-results__options {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}

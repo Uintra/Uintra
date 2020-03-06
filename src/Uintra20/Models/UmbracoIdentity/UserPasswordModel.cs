@@ -1,4 +1,3 @@
-using System.Collections;
 using System.ComponentModel.DataAnnotations;
 
 namespace Uintra20.Models.UmbracoIdentity

@@ -25,9 +25,12 @@ namespace Uintra20.Features.Navigation.AutoMapperProfiles
             CreateMap<TopNavigationItem, TopNavigationItemViewModel>();
 
             CreateMap<MenuItemModel, MenuItemViewModel>();
-            CreateMap<MenuModel, MenuViewModel>();
-            CreateMap<TreeNavigationItemModel, MenuViewModel>()
-                .ForMember(dst => dst.MenuItems, o => o.MapFrom(src => src.Children));
+
+            CreateMap<TreeNavigationItemModel, LeftNavigationViewModel>()
+                .ForMember(dst => dst.MenuItems, o => o.MapFrom(src => src.Children))
+                .ForMember(dst => dst.GroupItems, o => o.Ignore())
+                .ForMember(dst => dst.SharedLinks, o => o.Ignore())
+                .ForMember(dst => dst.MyLinks, o => o.Ignore());
             CreateMap<SubNavigationMenuModel, SubNavigationMenuViewModel>();
             //CreateMap<TopNavigationModel, TopNavigationViewModel>();
 
