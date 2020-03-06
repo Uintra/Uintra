@@ -38,13 +38,13 @@ steps:
 - task: Npm@1
   inputs:
     command: 'custom'
-    workingDir: 'src/Uintra20/Content/uintra20'
+    workingDir: 'src/Uintra20/Content'
     customCommand: 'install'
 
 - task: Npm@1
   inputs:
     command: 'custom'
-    workingDir: 'src/Uintra20/Content/uintra20'
+    workingDir: 'src/Uintra20/Content'
     customCommand: 'run build'
 
 - task: UseNode@1
