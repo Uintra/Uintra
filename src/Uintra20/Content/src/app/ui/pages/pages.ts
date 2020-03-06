@@ -115,5 +115,11 @@ export const pages = [
     loadChildren: './ui/pages/news/uintra-news-create/uintra-news-create-page.module#UintraNewsCreatePageModule',
     cache: false
   },
+  {
+    id: 'pageNotFoundPage',
+    path: '__dynamic__',
+    loadChildren: './ui/pages/page-not-found/page-not-found-page.module#PageNotFoundPageModule'
+  },
 ];
+
 
