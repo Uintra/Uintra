@@ -16,17 +16,17 @@ export class ProfilePage implements OnInit {
   public profile: IProfilePage;
 
   constructor(
-    private route: ActivatedRoute, 
+    private route: ActivatedRoute,
     private addButtonService: AddButtonService,
     private router: Router) {
   }
 
   public ngOnInit(): void {
     this.route.data.subscribe(data => {
-      this.data = data;
-      this.addButtonService.setPageId(data.id);
-      
-      if (data.requiresRedirect.get()) {
+      if (!data.requiresRedirect.get()) {
+        this.data = data;
+        this.addButtonService.setPageId(data.id);
+      } else {
         this.router.navigate([data.errorLink.get().originalUrl.get()]);
       }
     });
