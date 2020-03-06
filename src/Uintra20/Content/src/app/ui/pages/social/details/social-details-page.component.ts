@@ -32,6 +32,7 @@ export class SocialDetailsPanelComponent implements OnInit {
   detailsDescription: SafeHtml;
   groupId: string;
   isGroupMember: boolean;
+  canView: boolean;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -57,6 +58,7 @@ export class SocialDetailsPanelComponent implements OnInit {
       entityId: parsedData.details.id,
       entityType: parsedData.details.activityType
     };
+    this.canView = !parsedData.requiresRedirect;
     this.isGroupMember = parsedData.isGroupMember;
     this.groupId = parsedData.groupId;
     this.activityName = ParseHelper.parseActivityType(

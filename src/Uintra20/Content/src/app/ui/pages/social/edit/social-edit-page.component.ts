@@ -64,7 +64,7 @@ export class SocialEditPageComponent {
       groupId: parsedSocialEdit.groupId,
       links: parsedSocialEdit.links,
       canDelete: !!parsedSocialEdit.canDelete,
-      canEdit: !!parsedSocialEdit.canEdit,
+      canEdit: !parsedSocialEdit.requiresRedirect,
       name: parsedSocialEdit.name,
       tagIdsData: new Array<string>(),
       newMedia: null,

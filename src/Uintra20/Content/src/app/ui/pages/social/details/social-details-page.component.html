@@ -1,12 +1,14 @@
-<ng-container *ngIf="!groupId">
-  <ng-container *ngTemplateOutlet="component"></ng-container>
-</ng-container>
-
-<app-group-details-wrapper *ngIf="groupId" [id]="groupId">
-  <div class="group-details-padding">
+<ng-container *ngIf="canView">
+  <ng-container *ngIf="!groupId">
     <ng-container *ngTemplateOutlet="component"></ng-container>
-  </div>
-</app-group-details-wrapper>
+  </ng-container>
+
+  <app-group-details-wrapper *ngIf="groupId" [id]="groupId">
+    <div class="group-details-padding">
+      <ng-container *ngTemplateOutlet="component"></ng-container>
+    </div>
+  </app-group-details-wrapper>
+</ng-container>
 
 <ng-template #component>
   <div class="page-wrapper">
