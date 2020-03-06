@@ -120,6 +120,12 @@ export const pages = [
     path: '__dynamic__',
     loadChildren: './ui/pages/page-not-found/page-not-found-page.module#PageNotFoundPageModule'
   },
+  {
+    id: 'forbiddenPage',
+    path: '__dynamic__',
+    loadChildren: './ui/pages/forbidden/forbidden-page.module#ForbiddenPageModule'
+  },
 ];
+
 
 

@@ -1,14 +1,16 @@
 <div class="page-wrapper">
-  <div class="not-found col-md-8">
-    <h2 class="not-found__title">404 ERROR</h2>
-    <div class="not-found__info">
-      <p class="not-found__info-description">404 error page description</p>
-      <h3 class="not-found__info-text">Sorry we can't find this page :(</h3>
+  <div class="col-md-8">
+    <div class="not-found">
+      <h2 class="not-found__title">404 ERROR</h2>
+      <div class="not-found__info">
+        <p class="not-found__info-description">404 error page description</p>
+        <h3 class="not-found__info-text">Sorry we can't find this page :(</h3>
+      </div>
     </div>
+    <ubl-dynamic-component
+      *ngFor="let panel of data.panels.get()"
+      [data]="panel.get()"
+    >
+    </ubl-dynamic-component>
   </div>
-  <ubl-dynamic-component
-    *ngFor="let panel of data.panels.get()"
-    [data]="panel.get()"
-  >
-  </ubl-dynamic-component>
 </div>

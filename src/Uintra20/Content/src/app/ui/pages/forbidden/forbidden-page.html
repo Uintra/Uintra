@@ -1,0 +1,16 @@
+<div class="page-wrapper">
+  <div class="col-md-8">
+    <div class="forbidden">
+      <h2 class="forbidden__title">404 ERROR</h2>
+      <div class="forbidden__info">
+        <p class="forbidden__info-description">404 error page description</p>
+        <h3 class="forbidden__info-text">Sorry we can't find this page :(</h3>
+      </div>
+    </div>
+    <ubl-dynamic-component
+      *ngFor="let panel of data.panels.get()"
+      [data]="panel.get()"
+    >
+    </ubl-dynamic-component>
+  </div>
+</div>
