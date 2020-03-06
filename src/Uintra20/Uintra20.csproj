@@ -924,6 +924,8 @@
     <Compile Include="Core\UmbracoEvents\Services\IUmbracoMemberGroupSavedEventService.cs" />
     <Compile Include="Core\UmbracoEvents\Services\IUmbracoMemberRemovedRolesEventService.cs" />
     <Compile Include="Core\UmbracoEvents\Modules\UmbracoEventsModule.cs" />
+    <Compile Include="Features\CentralFeed\Commands\CentralFeedFilterCommand.cs" />
+    <Compile Include="Features\CentralFeed\Models\CentralFeedFilterPermissionModel.cs" />
     <Compile Include="Features\Groups\Converters\UintraGroupsCreatePageViewModelConverter.cs" />
     <Compile Include="Features\Groups\Converters\UintraGroupsDocumentsPageViewModelConverter.cs" />
     <Compile Include="Features\Groups\Converters\UintraGroupsEditPageViewModelConverter.cs" />
@@ -1084,6 +1086,7 @@
     <Compile Include="Infrastructure\Context\IntranetRequestContext.cs" />
     <Compile Include="Infrastructure\Extensions\ArrayExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\InconsistentDataException.cs" />
+    <Compile Include="Infrastructure\Helpers\EnumHelper.cs" />
     <Compile Include="Infrastructure\Helpers\TransferRequestHelper.cs" />
     <Compile Include="Infrastructure\Ioc\GroupInjectModule.cs" />
     <Compile Include="Infrastructure\Ioc\LightInjectScopedConnection.cs" />

@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Uintra20.Core.Feed.Models;
 using Uintra20.Core.Localization;
+using Uintra20.Features.CentralFeed.Commands;
 using Uintra20.Features.CentralFeed.Enums;
+using Uintra20.Features.Permissions;
 
 namespace Uintra20.Features.CentralFeed.Builders
 {
@@ -16,12 +19,34 @@ namespace Uintra20.Features.CentralFeed.Builders
             _localizationService = localizationService;
         }
 
-
-        public IEnumerable<ActivityFeedTabViewModel> Build()
+        public IEnumerable<ActivityFeedTabViewModel> Build(CentralFeedFilterCommand command)
         {
+            foreach (var permission in command.CentralFeedPermissions)
+            {
+                if (permission.CanView)
+                {
+                    switch ((PermissionResourceTypeEnum) permission.Permission)
+                    {
+                        case PermissionResourceTypeEnum.Social:
+                            BuildSocialTab();
+                            break;
+                        case PermissionResourceTypeEnum.News:
+                            BuildNewsTab();
+                            break;
+                        case PermissionResourceTypeEnum.Events:
+                            BuildEventsTab();
+                            break;
+                        case PermissionResourceTypeEnum.Groups:
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }    
+                }
+            }
+            
             return _tabs;
         }
-
+        
         public ActivityTabsBuilder BuildSocialTab()
         {
             _tabs.Add(new ActivityFeedTabViewModel
