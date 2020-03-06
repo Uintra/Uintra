@@ -6,6 +6,7 @@ using UBaseline.Core.Node;
 using Uintra20.Core.Activity;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Services;
+using Uintra20.Core.UbaselineModels.RestrictedNode;
 using Uintra20.Features.Groups.Services;
 using Uintra20.Features.Links;
 using Uintra20.Features.Social.Models;
@@ -17,7 +18,7 @@ using Uintra20.Infrastructure.Extensions;
 
 namespace Uintra20.Features.Social.Converters
 {
-    public class SocialCreatePageViewModelConverter : INodeViewModelConverter<SocialCreatePageModel, SocialCreatePageViewModel>
+    public class SocialCreatePageViewModelConverter : UintraRestrictedNodeViewModelConverter<SocialCreatePageModel, SocialCreatePageViewModel>
     {
         private const IntranetActivityTypeEnum ActivityType = IntranetActivityTypeEnum.Social;
         private const PermissionResourceTypeEnum PermissionType = PermissionResourceTypeEnum.Social;
@@ -35,7 +36,9 @@ namespace Uintra20.Features.Social.Converters
             IPermissionsService permissionsService,
             IUserTagProvider tagProvider,
             IFeedLinkService feedLinkService,
-            IGroupMemberService groupMemberService)
+            IGroupMemberService groupMemberService,
+            IErrorLinksService errorLinksService)
+        : base(errorLinksService)
         {
             _socialService = socialService;
             _memberService = memberService;
@@ -45,15 +48,16 @@ namespace Uintra20.Features.Social.Converters
             _groupMemberService = groupMemberService;
         }
 
-        public void Map(SocialCreatePageModel node, SocialCreatePageViewModel viewModel)
+        public override ConverterResponseModel MapViewModel(SocialCreatePageModel node, SocialCreatePageViewModel viewModel)
         {
             if(!HasPermission())
             {
-                return;
+                return ForbiddenResult();
             }
 
-            viewModel.CanCreate = true;
             viewModel.Data = GetData();
+
+            return OkResult();
         }
 
         private SocialCreateDataViewModel GetData()

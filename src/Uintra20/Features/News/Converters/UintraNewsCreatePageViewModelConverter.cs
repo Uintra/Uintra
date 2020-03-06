@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using UBaseline.Core.Node;
 using Uintra20.Core.Activity;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Services;
+using Uintra20.Core.UbaselineModels.RestrictedNode;
 using Uintra20.Features.Groups.Services;
 using Uintra20.Features.Links;
 using Uintra20.Features.News.Models;
@@ -17,7 +17,7 @@ using Uintra20.Infrastructure.Extensions;
 
 namespace Uintra20.Features.News.Converters
 {
-    public class UintraNewsCreatePageViewModelConverter : INodeViewModelConverter<UintraNewsCreatePageModel, UintraNewsCreatePageViewModel>
+    public class UintraNewsCreatePageViewModelConverter : UintraRestrictedNodeViewModelConverter<UintraNewsCreatePageModel, UintraNewsCreatePageViewModel>
     {
         private const PermissionResourceTypeEnum PermissionType = PermissionResourceTypeEnum.News;
         private const IntranetActivityTypeEnum ActivityType = IntranetActivityTypeEnum.News;
@@ -35,7 +35,9 @@ namespace Uintra20.Features.News.Converters
             IPermissionsService permissionsService,
             IUserTagProvider tagProvider,
             IFeedLinkService feedLinkService,
-            IGroupMemberService groupMemberService)
+            IGroupMemberService groupMemberService,
+            IErrorLinksService errorLinksService)
+        : base(errorLinksService)
         {
             _memberService = memberService;
             _permissionsService = permissionsService;
@@ -45,15 +47,16 @@ namespace Uintra20.Features.News.Converters
             _groupMemberService = groupMemberService;
         }
 
-        public void Map(UintraNewsCreatePageModel node, UintraNewsCreatePageViewModel viewModel)
+        public override ConverterResponseModel MapViewModel(UintraNewsCreatePageModel node, UintraNewsCreatePageViewModel viewModel)
         {
             if (!HasPermission())
             {
-                return;
+                return ForbiddenResult();
             }
 
-            viewModel.CanCreate = true;
             viewModel.Data = GetData();
+
+            return OkResult();
         }
 
         private NewsCreateDataViewModel GetData()
