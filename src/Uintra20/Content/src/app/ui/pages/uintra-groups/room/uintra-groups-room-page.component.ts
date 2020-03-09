@@ -34,10 +34,13 @@ export class UintraGroupsRoomPage {
     private translate: TranslateService,
   ) {
     this.route.data.subscribe(data => {
-      this.data = data;
-      this.parsedData = ParseHelper.parseUbaselineData(data);
-      this.addButtonService.setPageId(data.id);
-      this.routerResolverService.removePageRouter(this.parsedData.groupInfo.groupUrl.originalUrl);
+      if (!data.requiresRedirect.get()) {
+        this.data = data;
+        this.parsedData = ParseHelper.parseUbaselineData(data);
+        this.addButtonService.setPageId(data.id);
+      } else {
+        this.router.navigate([data.errorLink.get().originalUrl.get()]);
+      }
     });
   }
 

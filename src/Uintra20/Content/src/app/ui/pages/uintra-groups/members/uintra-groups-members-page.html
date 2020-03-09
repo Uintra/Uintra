@@ -1,4 +1,4 @@
-<app-group-details-wrapper [id]="data?.groupId">
+<app-group-details-wrapper *ngIf="data" [id]="data?.groupId">
   <div class="page-wrapper row-flex">
     <div class="group-details-padding col-md-8">
       <div class="group-members">

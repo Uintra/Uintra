@@ -25,10 +25,12 @@ export class UintraGroupsEditPage {
     private routerResolverService: RouterResolverService,
   ) {
     this.route.data.subscribe(data => {
-      this.data = ParseHelper.parseUbaselineData(data);
-      this.addButtonService.setPageId(data.id);
-      //TODO refactor it
-      this.routerResolverService.removePageRouter(this.router.url);
+      if (!data.requiresRedirect.get()) {
+        this.data = ParseHelper.parseUbaselineData(data);
+        this.addButtonService.setPageId(data.id);
+      } else {
+        this.router.navigate([data.errorLink.get().originalUrl.get()]);
+      }
     });
   }
 

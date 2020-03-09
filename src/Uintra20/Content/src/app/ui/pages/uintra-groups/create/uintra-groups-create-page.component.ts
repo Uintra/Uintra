@@ -1,5 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import ParseHelper from 'src/app/shared/utils/parse.helper';
 import { AddButtonService } from 'src/app/ui/main-layout/left-navigation/components/my-links/add-button.service';
 import { HasDataChangedService } from 'src/app/shared/services/general/has-data-changed.service';
@@ -20,10 +20,15 @@ export class UintraGroupsCreatePage {
     private addButtonService: AddButtonService,
     private hasDataChangedService: HasDataChangedService,
     private canDeactivateService: CanDeactivateGuard,
+    private router: Router,
   ) {
     this.route.data.subscribe(data => {
-      this.data = ParseHelper.parseUbaselineData(data);
-      this.addButtonService.setPageId(data.id);
+      if (!data.requiresRedirect.get()) {
+        this.data = ParseHelper.parseUbaselineData(data);
+        this.addButtonService.setPageId(data.id);
+      } else {
+        this.router.navigate([data.errorLink.get().originalUrl.get()]);
+      }
     });
   }
 

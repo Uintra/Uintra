@@ -1,4 +1,4 @@
-<app-group-details-wrapper *ngIf="data?.canEdit" [id]="data?.info?.id">
+<app-group-details-wrapper *ngIf="data" [id]="data?.info?.id">
   <div class="group-details-padding">
     <groups-form [data]="data?.info" edit></groups-form>
   </div>
