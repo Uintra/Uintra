@@ -13,8 +13,8 @@ export class AddButtonService {
 
   constructor() { }
 
-  setPageId(id: UmbracoFlatPropertyModel) {
-    this.pageId = id.get();
+  setPageId(id: number) {
+    this.pageId = id;
     this.pageIdTrigger.next(this.pageId);
   }
 }

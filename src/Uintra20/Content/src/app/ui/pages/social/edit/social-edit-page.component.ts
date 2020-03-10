@@ -39,7 +39,7 @@ export class SocialEditPageComponent {
     this.route.data.subscribe(data => {
       if (!data.requiresRedirect.get()) {
         this.data = data;
-        this.addButtonService.setPageId(data.id);
+        this.addButtonService.setPageId(data.id.get());
       } else {
         this.router.navigate([data.errorLink.get().originalUrl.get()]);
       }

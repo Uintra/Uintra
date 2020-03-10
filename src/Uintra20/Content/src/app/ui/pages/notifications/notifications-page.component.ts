@@ -2,6 +2,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AddButtonService } from '../../main-layout/left-navigation/components/my-links/add-button.service';
 import { INotificationsData, NavNotificationsService } from 'src/app/feature/specific/nav-notifications/nav-notifications.service';
+import umbracoMapper from 'src/app/shared/utils/umapper';
 
 @Component({
   selector: 'notifications-page',
@@ -12,6 +13,7 @@ import { INotificationsData, NavNotificationsService } from 'src/app/feature/spe
 // tslint:disable-next-line: component-class-suffix
 export class NotificationsPage {
   data: any;
+  parsedData: any;
   notifications: INotificationsData[] = [];
   currentPage: number;
   isLoading: boolean = false;
@@ -29,6 +31,7 @@ export class NotificationsPage {
   }
 
   ngOnInit() {
+    umbracoMapper(this.data);
     this.currentPage = 1;
     this.getNotifications();
   }

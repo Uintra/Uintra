@@ -25,7 +25,7 @@ export class HomePage implements OnInit {
   ) {
     this.route.data.subscribe(data => {
       this.data = data;
-      this.addButtonService.setPageId(data.id);
+      this.addButtonService.setPageId(data.id.get());
     });
   }
 

@@ -25,7 +25,7 @@ export class ArticlePage {
     this.route.data.subscribe(data => {
       this.data = data;
       this.parsedData = ParseHelper.parseUbaselineData(data);
-      this.addButtonService.setPageId(data.id);
+      this.addButtonService.setPageId(data.id.get());
     });
   }
 

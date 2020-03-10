@@ -37,7 +37,7 @@ export class UintraGroupsRoomPage {
       if (!data.requiresRedirect.get()) {
         this.data = data;
         this.parsedData = ParseHelper.parseUbaselineData(data);
-        this.addButtonService.setPageId(data.id);
+        this.addButtonService.setPageId(data.id.get());
       } else {
         this.router.navigate([data.errorLink.get().originalUrl.get()]);
       }

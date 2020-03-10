@@ -25,7 +25,7 @@ export class UintraGroupsCreatePage {
     this.route.data.subscribe(data => {
       if (!data.requiresRedirect.get()) {
         this.data = ParseHelper.parseUbaselineData(data);
-        this.addButtonService.setPageId(data.id);
+        this.addButtonService.setPageId(data.id.get());
       } else {
         this.router.navigate([data.errorLink.get().originalUrl.get()]);
       }

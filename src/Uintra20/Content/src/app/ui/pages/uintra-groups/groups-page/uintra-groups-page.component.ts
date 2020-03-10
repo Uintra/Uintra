@@ -18,7 +18,7 @@ export class UintraGroupsPage {
   ) {
     this.route.data.subscribe(data => {
       this.data = ParseHelper.parseUbaselineData(data);
-      this.addButtonService.setPageId(data.id);
+      this.addButtonService.setPageId(data.id.get());
     });
   }
 }
