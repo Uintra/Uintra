@@ -1,16 +1,16 @@
 <section class="news-create-panel" *ngIf="newsData">
   <h2 class="news-create-panel__title form-row">
-    {{getFormTitleLbl()}}
+    {{translate.instant(edit ? 'newsEdit.Title.lbl' : 'newsCreatePage.Title.lbl')}}
   </h2>
   <div *ngIf="owners?.length > 1" class="owner form-row">
     <h3 class="owner__title subtitle">
-      {{getOwnerLbl()}}
+      {{translate.instant(edit ? 'newsEdit.Owner.lbl' : 'newsCreate.Owner.lbl')}}
     </h3>
     <app-select [items]="owners" [ngModel]="defaultOwner" (ngModelChange)="changeOwner($event)"></app-select>
   </div>
   <div class="news-title form-row">
     <h3 class="news-title__title subtitle required">
-      {{getTitleLbl()}}
+      {{translate.instant(edit ? 'newsEdit.Title.lbl' : 'newsCreate.Title.lbl')}}
     </h3>
     <text-input
       [ngModel]="newsData.title"
@@ -24,7 +24,7 @@
   </div>
   <div class="description form-row">
     <h3 class="description__title subtitle required">
-      {{getDescriptionLbl()}}
+      {{translate.instant(edit ? 'newsEdit.Description.lbl' : 'newsCreate.Description.lbl')}}
     </h3>
     <app-rich-text-editor
     [ngModel]="newsData.description"
@@ -70,7 +70,9 @@
   ></app-pin-activity>
 
   <div class="form-row" *ngIf="newsData.media">
-    <label>{{getFilesLbl()}}</label>
+    <label>
+      {{translate.instant(edit ? 'newsEdit.UploadFiles.lbl' : 'newsCreate.UploadFiles.lbl')}}
+    </label>
     <app-dropzone-existing-images
       [medias]="newsData.media.medias"
       [otherFiles]="newsData.media.otherFiles"
@@ -89,22 +91,22 @@
   <div class="form-row" *ngIf="isShowValidation">
     <div *ngIf="!newsData.title.trim()"
         class="alert alert-danger">
-        {{getTitleValidationMessage()}}
+        {{translate.instant(edit ? 'newsEdit.TitleRequired.btn' : 'createNews.TitleRequired.lbl')}}
     </div>
 
     <div *ngIf="!getStripDescription()"
         class="alert alert-danger">
-        {{getDescriptionValidationMessage()}}
+        {{translate.instant(edit ? 'newsEdit.DescriptionRequired.btn' : 'createNews.DescriptionRequired.lbl')}}
     </div>
 
     <div *ngIf="newsData.isPinned && !isAccepted"
         class="alert alert-danger">
-        Accept should be checked
+        {{'newsEdit.AcceptValidation.lbl' | translate}}
     </div>
 
     <div *ngIf="isInvalidEndPinDate"
         class="alert alert-danger">
-        Unpin date should be between the Publish date and the Unpublish date
+        {{'newsEdit.PinValidation.lbl' | translate}}
     </div>
 
   </div>
@@ -112,8 +114,8 @@
 
   <div class="buttons">
     <button class="buttons__submit" [disabled]="isSubmitLoading" (click)="onSubmit()">
-      {{getSubmitBtn()}}
+      {{translate.instant(edit ? 'newsEdit.Edit.btn' : 'newsCreate.Create.btn')}}
     </button>
-    <button class="buttons__cancel" (click)="onCancel()">{{'common.AreYouSure.Cancel' | translate}}</button>
+    <button class="buttons__cancel" (click)="onCancel()">{{'common.Cancel.lnk' | translate}}</button>
   </div>
 </section>
