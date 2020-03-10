@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using UBaseline.Shared.Node;
+using Uintra20.Core.UbaselineModels.RestrictedNode;
 
 namespace Uintra20.Features.Likes.Models
 {
-    public class LikesPanelViewModel : NodeViewModel
+    public class LikesPanelViewModel : UintraRestrictedNodeViewModel
     {
         public Guid? EntityId { get; set; }
         public bool? LikedByCurrentUser { get; set; }

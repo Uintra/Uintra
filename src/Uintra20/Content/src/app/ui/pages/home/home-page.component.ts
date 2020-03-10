@@ -35,7 +35,7 @@ export class HomePage implements OnInit {
       this.otherPanels = this.data.panels.get().filter(p => p.data.contentTypeAlias !== 'latestActivitiesPanel');
     }
     this.socialCreateData = this.data.socialCreateModel.get().data.get();
-    this.socialCreateData.canCreate = this.data.socialCreateModel.get().canCreate.get();
+    this.socialCreateData.canCreate = !this.data.socialCreateModel.get().requiresRedirect.get();
     this.socialCreateData.createNewsLink = this.data.createNewsLink.get();
     this.socialCreateData.createEventsLink = this.data.createEventsLink.get();
   }

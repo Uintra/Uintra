@@ -1,5 +1,5 @@
-<ng-container *ngIf="parsedData?.canCreate">
-  <app-group-details-wrapper *ngIf="parsedData?.groupHeader" [data]="parsedData.groupHeader">
+<ng-container *ngIf="parsedData">
+  <app-group-details-wrapper *ngIf="parsedData?.data?.groupId" [id]="parsedData.data.groupId">
     <div class="group-details-padding">
       <div class="page-wrapper col-md-8">
         <app-news-create *ngIf='data.data' [data]='data.data'></app-news-create>

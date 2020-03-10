@@ -2,11 +2,11 @@
 using System.Linq;
 using System.Web;
 using Compent.Extensions;
-using UBaseline.Core.Node;
 using Uintra20.Core.Activity.Models.Headers;
 using Uintra20.Core.Controls.LightboxGallery;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Services;
+using Uintra20.Core.UbaselineModels.RestrictedNode;
 using Uintra20.Features.Groups.Helpers;
 using Uintra20.Features.Links;
 using Uintra20.Features.Media;
@@ -19,8 +19,8 @@ using Uintra20.Infrastructure.Extensions;
 
 namespace Uintra20.Features.Social.Converters
 {
-    public class SocialDetailsPageViewModelConverter : 
-        INodeViewModelConverter<SocialDetailsPageModel, SocialDetailsPageViewModel>
+    public class SocialDetailsPageViewModelConverter :
+        UintraRestrictedNodeViewModelConverter<SocialDetailsPageModel, SocialDetailsPageViewModel>
     {
         private readonly IFeedLinkService _feedLinkService;
         private readonly IUserTagService _userTagService;
@@ -37,7 +37,9 @@ namespace Uintra20.Features.Social.Converters
             ISocialService<Entities.Social> socialsService,
             ILightboxHelper lightboxHelper,
             IPermissionsService permissionsService,
-            IGroupHelper groupHelper)
+            IGroupHelper groupHelper,
+            IErrorLinksService errorLinksService)
+            : base(errorLinksService)
         {
             _feedLinkService = feedLinkService;
             _userTagService = userTagService;
@@ -48,33 +50,39 @@ namespace Uintra20.Features.Social.Converters
             _groupHelper = groupHelper;
         }
 
-        public void Map(SocialDetailsPageModel node, SocialDetailsPageViewModel viewModel)
+        public override ConverterResponseModel MapViewModel(SocialDetailsPageModel node, SocialDetailsPageViewModel viewModel)
         {
             var id = HttpContext.Current.Request.GetRequestQueryValue("id");
 
             if (!Guid.TryParse(id, out var parseId)) 
-                return;
+                return NotFoundResult();
 
-            viewModel.CanView = _permissionsService.Check(PermissionResourceTypeEnum.Social, PermissionActionEnum.View);
+            var social = _socialService.Get(parseId);
 
-            if (!viewModel.CanView)
+            if (social == null)
             {
-                return;
+                return NotFoundResult();
+            }
+
+            if (!_permissionsService.Check(PermissionResourceTypeEnum.Social, PermissionActionEnum.View))
+            {
+                return ForbiddenResult();
             }
 
             var member = _memberService.GetCurrentMember();
-            var social = _socialService.Get(parseId);
-
+            
             viewModel.Details = GetViewModel(social);
             viewModel.Tags = _userTagService.Get(parseId);
             viewModel.CanEdit = _socialService.CanEdit(parseId);
             viewModel.IsGroupMember = !social.GroupId.HasValue || member.GroupIds.Contains(social.GroupId.Value);
 
             var groupIdStr = HttpContext.Current.Request["groupId"];
-            if (!Guid.TryParse(groupIdStr, out var groupId) || social.GroupId != groupId)
-                return;
+            if (Guid.TryParse(groupIdStr, out var groupId) && social.GroupId == groupId)
+            {
+                viewModel.GroupHeader = _groupHelper.GetHeader(groupId);
+            }
 
-            viewModel.GroupHeader = _groupHelper.GetHeader(groupId);
+            return OkResult();
         }
 
         protected SocialExtendedViewModel GetViewModel(Entities.Social social)

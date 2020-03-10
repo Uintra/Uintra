@@ -24,7 +24,7 @@ using UmbracoIdentity;
 
 namespace Uintra20.Controllers
 {
-    [System.Web.Http.RoutePrefix("api/auth")]
+    [RoutePrefix("api/auth")]
     public class AuthController : ApiController
     {
         private readonly UmbracoMembersUserManager<UmbracoApplicationMember> _userManager;
@@ -59,9 +59,9 @@ namespace Uintra20.Controllers
             _umbracoContext = umbracoContext;
         }
 
-        [System.Web.Http.HttpPost]
-        [System.Web.Http.AllowAnonymous]
-        [System.Web.Http.Route("login")]
+        [HttpPost]
+        [AllowAnonymous]
+        [Route("login")]
         public async Task<IHttpActionResult> Login(LoginModelBase loginModel)
         {
             if (!ModelState.IsValid)
@@ -86,8 +86,8 @@ namespace Uintra20.Controllers
             return Ok();
         }
 
-        [System.Web.Http.HttpPost]
-        [System.Web.Http.Route("login/umbraco")]
+        [HttpPost]
+        [Route("login/umbraco")]
         public IHttpActionResult LoginToUmbraco()
         {
             var currentMember = _intranetMemberService.GetCurrentMember();
@@ -98,8 +98,8 @@ namespace Uintra20.Controllers
             return Ok();
         }
 
-        [System.Web.Http.HttpPost]
-        [System.Web.Http.Route("logout")]
+        [HttpPost]
+        [Route("logout")]
         public IHttpActionResult Logout()
         {
             _authenticationService.Logout();

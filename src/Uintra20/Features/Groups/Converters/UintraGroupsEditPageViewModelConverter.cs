@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Linq;
 using System.Web;
-using UBaseline.Core.Node;
 using Uintra20.Core.Controls.LightboxGallery;
 using Uintra20.Features.Groups.Helpers;
+using Uintra20.Core.UbaselineModels.RestrictedNode;
 using Uintra20.Features.Groups.Models;
 using Uintra20.Features.Groups.Services;
+using Uintra20.Features.Links;
 using Uintra20.Features.Media;
 using Uintra20.Infrastructure.Extensions;
 
 namespace Uintra20.Features.Groups.Converters
 {
-    public class UintraGroupsEditPageViewModelConverter : INodeViewModelConverter<UintraGroupsEditPageModel, UintraGroupsEditPageViewModel>
+    public class UintraGroupsEditPageViewModelConverter : UintraRestrictedNodeViewModelConverter<UintraGroupsEditPageModel, UintraGroupsEditPageViewModel>
     {
         private readonly IGroupService _groupService;
         private readonly IMediaHelper _mediaHelper;
@@ -20,25 +21,32 @@ namespace Uintra20.Features.Groups.Converters
         public UintraGroupsEditPageViewModelConverter(
             IGroupService groupService,
             IMediaHelper mediaHelper,
-            IGroupHelper groupHelper)
+            IGroupHelper groupHelper,
+            IErrorLinksService errorLinksService)
+            : base(errorLinksService)
         {
             _groupService = groupService;
             _mediaHelper = mediaHelper;
             _groupHelper = groupHelper;
         }
 
-        public void Map(UintraGroupsEditPageModel node, UintraGroupsEditPageViewModel viewModel)
+        public override ConverterResponseModel MapViewModel(UintraGroupsEditPageModel node, UintraGroupsEditPageViewModel viewModel)
         {
             var idStr = HttpContext.Current.Request.GetRequestQueryValue("groupId");
 
             if (!Guid.TryParse(idStr, out var id))
-                return;
+                return NotFoundResult();
 
-            viewModel.CanEdit = _groupService.CanEdit(id);
+            var group = _groupService.Get(id);
 
-            if (!viewModel.CanEdit)
+            if (group == null)
             {
-                return;
+                return NotFoundResult();
+            }
+
+            if (!_groupService.CanEdit(id))
+            {
+                return ForbiddenResult();
             }
 
             var settings = _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.GroupsContent);
@@ -47,6 +55,8 @@ namespace Uintra20.Features.Groups.Converters
             viewModel.Info = _groupHelper.GetInfoViewModel(id);
             viewModel.GroupHeader = _groupHelper.GetHeader(id);
             viewModel.GroupId = id;
+
+            return OkResult();
         }
     }
 }

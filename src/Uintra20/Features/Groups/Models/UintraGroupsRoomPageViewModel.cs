@@ -2,12 +2,13 @@
 using UBaseline.Shared.Node;
 using UBaseline.Shared.PageSettings;
 using UBaseline.Shared.Property;
+using Uintra20.Core.UbaselineModels.RestrictedNode;
 using Uintra20.Features.Links.Models;
 using Uintra20.Features.Social.Models;
 
 namespace Uintra20.Features.Groups.Models
 {
-    public class UintraGroupsRoomPageViewModel : NodeViewModel, IGroupHeader
+    public class UintraGroupsRoomPageViewModel : UintraRestrictedNodeViewModel, IGroupHeader
     {
         public PropertyViewModel<INodeViewModel[]> Panels { get; set; }
         public PageSettingsCompositionViewModel PageSettings { get; set; }

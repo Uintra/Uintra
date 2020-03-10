@@ -1,5 +1,5 @@
 import { Component, ViewEncapsulation, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { SafeHtml, DomSanitizer } from "@angular/platform-browser";
 import ParseHelper from "src/app/shared/utils/parse.helper";
 import { AddButtonService } from 'src/app/ui/main-layout/left-navigation/components/my-links/add-button.service';
@@ -30,11 +30,16 @@ export class UintraNewsDetailsPage implements OnInit {
     private activatedRoute: ActivatedRoute,
     private imageGalleryService: ImageGalleryService,
     private sanitizer: DomSanitizer,
-    private addButtonService: AddButtonService
+    private addButtonService: AddButtonService,
+    private router: Router,
   ) {
     this.activatedRoute.data.subscribe(data => {
-      this.data = data;
-      this.addButtonService.setPageId(data.id);
+      if (!data.requiresRedirect.get()) {
+        this.data = data;
+        this.addButtonService.setPageId(data.id);
+      } else {
+        this.router.navigate([data.errorLink.get().originalUrl.get()]);
+      }
     });
   }
 

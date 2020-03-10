@@ -1,6 +1,8 @@
-﻿using Uintra20.Core.Member.Abstractions;
-using Uintra20.Core.UmbracoEventServices;
+﻿using System.Linq;
+using Uintra20.Core.Member.Abstractions;
+using Uintra20.Core.UmbracoEvents.Services;
 using Uintra20.Features.Permissions.Interfaces;
+using Uintra20.Infrastructure.Extensions;
 using Umbraco.Core.Events;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
@@ -28,47 +30,50 @@ namespace Uintra20.Core.Member.Events
             _intranetMemberGroupService = intranetMemberGroupService;
         }
 
-        public void ProcessMemberCreated(IMemberService sender, SaveEventArgs<IMember> args)
+        public void ProcessMemberCreated(
+            IMemberService sender, 
+            SaveEventArgs<IMember> @event)
         {
-            var members = args.SavedEntities;
-
-            foreach (var member in members)
+            foreach (var member in @event.SavedEntities)
             {
                 _intranetMemberGroupService.AssignDefaultMemberGroup(member.Id);
                 _cacheableIntranetMemberService.UpdateMemberCache(member.Id);
             }
         }
 
-        public void ProcessMemberDeleting(IMemberService sender, DeleteEventArgs<IMember> args)
+        public void ProcessMemberDeleting(
+            IMemberService sender, 
+            DeleteEventArgs<IMember> @event)
         {
-            foreach (var member in args.DeletedEntities)
+            foreach (var member in @event.DeletedEntities)
             {
                 member.IsLockedOut = true;
                 _memberService.Save(member);
                 _cacheableIntranetMemberService.UpdateMemberCache(member.Key);
             }
 
-            if (args.CanCancel)
-            {
-                args.Cancel = true;
-            }
+            if (@event.CanCancel) @event.Cancel = true;
         }
 
-        public void ProcessMemberAssignedRoles(IMemberService sender, RolesEventArgs e)
+        public void ProcessMemberAssignedRoles(
+            IMemberService sender, 
+            RolesEventArgs @event)
         {
-            foreach (var memberId in e.MemberIds)
-            {
-                _cacheableIntranetMemberService.UpdateMemberCache(memberId);
-            }
+            @event.MemberIds.ForEach(memberId => _cacheableIntranetMemberService.UpdateMemberCache(memberId));
         }
 
-        public void ProcessMemberRemovedRoles(IMemberService sender, RolesEventArgs e)
+        public void ProcessMemberRemovedRoles(
+            IMemberService sender, 
+            RolesEventArgs @event)
         {
-            foreach (var memberId in e.MemberIds)
+            @event.MemberIds.ForEach(memberId =>
             {
-                _intranetMemberGroupService.AssignDefaultMemberGroup(memberId);
+                var groups = _memberService.GetAllRoles(memberId);
+
+                if (!groups.Any()) _intranetMemberGroupService.AssignDefaultMemberGroup(memberId);
+
                 _cacheableIntranetMemberService.UpdateMemberCache(memberId);
-            }
+            });
         }
     }
 }

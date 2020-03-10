@@ -6,6 +6,7 @@ using UBaseline.Core.Node;
 using Uintra20.Core.Activity;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Services;
+using Uintra20.Core.UbaselineModels.RestrictedNode;
 using Uintra20.Features.Groups.Helpers;
 using Uintra20.Features.Groups.Services;
 using Uintra20.Features.Links;
@@ -18,7 +19,7 @@ using Uintra20.Infrastructure.Extensions;
 
 namespace Uintra20.Features.Social.Converters
 {
-    public class SocialCreatePageViewModelConverter : INodeViewModelConverter<SocialCreatePageModel, SocialCreatePageViewModel>
+    public class SocialCreatePageViewModelConverter : UintraRestrictedNodeViewModelConverter<SocialCreatePageModel, SocialCreatePageViewModel>
     {
         private const IntranetActivityTypeEnum ActivityType = IntranetActivityTypeEnum.Social;
         private const PermissionResourceTypeEnum PermissionType = PermissionResourceTypeEnum.Social;
@@ -38,7 +39,9 @@ namespace Uintra20.Features.Social.Converters
             IUserTagProvider tagProvider,
             IFeedLinkService feedLinkService,
             IGroupMemberService groupMemberService,
-            IGroupHelper groupHelper)
+            IGroupHelper groupHelper,
+            IErrorLinksService errorLinksService)
+            : base(errorLinksService)
         {
             _socialService = socialService;
             _memberService = memberService;
@@ -49,18 +52,18 @@ namespace Uintra20.Features.Social.Converters
             _groupHelper = groupHelper;
         }
 
-        public void Map(SocialCreatePageModel node, SocialCreatePageViewModel viewModel)
+        public override ConverterResponseModel MapViewModel(SocialCreatePageModel node, SocialCreatePageViewModel viewModel)
         {
             var groupId = GetGroupId();
 
             if (!HasPermission(groupId))
             {
-                return;
+                return ForbiddenResult();
             }
-
-            viewModel.CanCreate = true;
             viewModel.Data = GetData(groupId);
             viewModel.GroupHeader = groupId.HasValue ? _groupHelper.GetHeader(groupId.Value) : null;
+
+            return OkResult();
         }
 
         private SocialCreateDataViewModel GetData(Guid? groupId)

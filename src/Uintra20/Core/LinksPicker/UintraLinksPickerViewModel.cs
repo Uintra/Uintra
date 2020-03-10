@@ -1,6 +1,6 @@
 ﻿using Uintra20.Features.Links.Models;
 
-namespace Uintra20.Core.UbaselineModels
+namespace Uintra20.Core.LinksPicker
 {
     public class UintraLinksPickerViewModel
     {

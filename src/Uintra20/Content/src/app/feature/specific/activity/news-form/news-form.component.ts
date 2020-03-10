@@ -15,7 +15,6 @@ import { INewsCreateModel, IOwner } from "../activity.interfaces";
 import { ILocationResult } from "../../../reusable/ui-elements/location-picker/location-picker.interface";
 import { NewsFormService } from "./news-form.service";
 import { PinActivityService } from '../pin-activity/pin-activity.service';
-import { Router } from '@angular/router';
 import { HasDataChangedService } from 'src/app/shared/services/general/has-data-changed.service';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -58,9 +57,8 @@ export class NewsFormComponent implements OnInit {
   constructor(
     private newsFormService: NewsFormService,
     private pinActivityService: PinActivityService,
-    private router: Router,
     private hasDataChangedService: HasDataChangedService,
-    private translate: TranslateService,
+    public translate: TranslateService,
     ) {}
 
   ngOnInit() {
@@ -131,10 +129,12 @@ export class NewsFormComponent implements OnInit {
     this.newsData.unpublishDate = value.to;
   }
   setPinValue(value: IPinedData) {
+    if (this.data.endPinDate !== this.newsData.endPinDate) {
+      this.hasDataChangedService.onDataChanged();
+    }
     this.newsData.endPinDate = value.pinDate;
     this.newsData.isPinned = value.isPinCheked;
     this.isAccepted = value.isAccepted;
-    this.hasDataChangedService.onDataChanged();
   }
   setLocationValue(location: ILocationResult): void {
     this.newsData.location.address = location.address;
@@ -226,37 +226,5 @@ export class NewsFormComponent implements OnInit {
       id: member.id,
       text: member.displayedName
     }));
-  }
-
-  getFormTitleLbl() {
-    return this.edit ? this.translate.instant('newsEdit.Title.lbl') : this.translate.instant('newsCreatePage.Title.lbl');
-  }
-
-  getOwnerLbl() {
-    return this.edit ? this.translate.instant('newsEdit.Owner.lbl') : this.translate.instant('newsCreate.Owner.lbl');
-  }
-
-  getTitleLbl() {
-    return this.edit ? this.translate.instant('newsEdit.Title.lbl') : this.translate.instant('newsCreate.Title.lbl');
-  }
-
-  getDescriptionLbl() {
-    return this.edit ? this.translate.instant('newsEdit.Description.lbl') : this.translate.instant('newsCreate.Description.lbl');
-  }
-
-  getFilesLbl() {
-    return this.edit ? this.translate.instant('newsEdit.UploadFiles.lbl') : this.translate.instant('newsCreate.UploadFiles.lbl');
-  }
-
-  getTitleValidationMessage() {
-    return this.edit ? this.translate.instant('newsEdit.TitleRequired.btn') : this.translate.instant('createNews.TitleRequired.lbl');
-  }
-
-  getDescriptionValidationMessage() {
-    return this.edit ? this.translate.instant('newsEdit.DescriptionRequired.btn') : this.translate.instant('createNews.DescriptionRequired.lbl');
-  }
-
-  getSubmitBtn() {
-    return this.edit ? this.translate.instant('newsEdit.Edit.btn') : this.translate.instant('newsCreate.Create.btn');
   }
 }

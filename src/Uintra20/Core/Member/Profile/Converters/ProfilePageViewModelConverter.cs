@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Web;
-using UBaseline.Core.Node;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Profile.Models;
 using Uintra20.Core.Member.Services;
+using Uintra20.Core.UbaselineModels.RestrictedNode;
 using Uintra20.Core.User;
+using Uintra20.Features.Links;
 using Uintra20.Features.Media;
 using Uintra20.Features.Media.Strategies.Preset;
 using Uintra20.Features.Tagging.UserTags.Services;
@@ -12,7 +13,7 @@ using Uintra20.Infrastructure.Extensions;
 
 namespace Uintra20.Core.Member.Profile.Converters
 {
-    public class ProfilePageViewModelConverter : INodeViewModelConverter<ProfilePageModel, ProfilePageViewModel>
+    public class ProfilePageViewModelConverter : UintraRestrictedNodeViewModelConverter<ProfilePageModel, ProfilePageViewModel>
     {
         private readonly IIntranetMemberService<IntranetMember> _memberService;
         private readonly IUserTagService _userTagService;
@@ -25,7 +26,9 @@ namespace Uintra20.Core.Member.Profile.Converters
             IUserTagService userTagService,
             IIntranetUserContentProvider intranetUserContentProvider,
             IImageHelper imageHelper,
-            IMediaHelper mediaHelper)
+            IMediaHelper mediaHelper,
+            IErrorLinksService errorLinksService)
+        : base(errorLinksService)
         {
             _memberService = memberService;
             _userTagService = userTagService;
@@ -34,15 +37,21 @@ namespace Uintra20.Core.Member.Profile.Converters
             _mediaHelper = mediaHelper;
         }
 
-        public void Map(
-            ProfilePageModel node, 
-            ProfilePageViewModel viewModel)
+        public override ConverterResponseModel MapViewModel(ProfilePageModel node, ProfilePageViewModel viewModel)
         {
             var id = HttpContext.Current.Request.GetRequestQueryValue("id");
 
-            if (!Guid.TryParse(id, out var parseId))  return;
+            if (!Guid.TryParse(id, out var parseId))
+            {
+                return NotFoundResult();
+            }
 
             var member = _memberService.Get(parseId);
+
+            if (member == null)
+            {
+                return NotFoundResult();
+            }
 
             var currentMemberId = _memberService.GetCurrentMemberId();
 
@@ -57,6 +66,8 @@ namespace Uintra20.Core.Member.Profile.Converters
             viewModel.Profile.Photo = _imageHelper.GetImageWithResize(member.Photo, PresetStrategies.ForMemberProfile.ThumbnailPreset);
             viewModel.Profile.AllowedMediaExtensions = mediaSettings.AllowedMediaExtensions;
             viewModel.Tags = _userTagService.Get(member.Id);
+
+            return OkResult();
         }
     }
 }

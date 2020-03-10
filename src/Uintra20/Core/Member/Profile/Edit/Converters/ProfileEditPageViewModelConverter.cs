@@ -5,7 +5,6 @@ using Uintra20.Core.Member.Services;
 using Uintra20.Features.Notification.Services;
 using Uintra20.Features.Tagging.UserTags.Services;
 using Uintra20.Infrastructure.Extensions;
-using Umbraco.Core.Services;
 
 namespace Uintra20.Core.Member.Profile.Edit.Converters
 {
@@ -16,20 +15,17 @@ namespace Uintra20.Core.Member.Profile.Edit.Converters
         private readonly IUserTagService _userTagService;
         private readonly IUserTagProvider _userTagProvider;
         private readonly IMemberNotifiersSettingsService _memberNotifiersSettingsService;
-        private readonly IMediaService _mediaService;
 
         public ProfileEditPageViewModelConverter(
             IIntranetMemberService<IntranetMember> intranetMemberService,
             IUserTagService userTagService,
             IUserTagProvider userTagProvider,
-            IMemberNotifiersSettingsService memberNotifiersSettingsService,
-            IMediaService mediaService)
+            IMemberNotifiersSettingsService memberNotifiersSettingsService)
         {
             _intranetMemberService = intranetMemberService;
             _userTagService = userTagService;
             _userTagProvider = userTagProvider;
             _memberNotifiersSettingsService = memberNotifiersSettingsService;
-            _mediaService = mediaService;
         }
 
         public void Map(

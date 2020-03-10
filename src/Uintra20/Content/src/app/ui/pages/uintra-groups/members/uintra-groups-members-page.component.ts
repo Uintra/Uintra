@@ -1,5 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import ParseHelper from 'src/app/shared/utils/parse.helper';
 import { AddButtonService } from 'src/app/ui/main-layout/left-navigation/components/my-links/add-button.service';
 
@@ -14,12 +14,16 @@ export class UintraGroupsMembersPage {
 
   constructor(
     private route: ActivatedRoute,
-    private addButtonService: AddButtonService
-
+    private addButtonService: AddButtonService,
+    private router: Router,
   ) {
     this.route.data.subscribe(data => {
-      this.data = ParseHelper.parseUbaselineData(data);
-      this.addButtonService.setPageId(data.id);
+      if (!data.requiresRedirect.get()) {
+        this.data = ParseHelper.parseUbaselineData(data);
+        this.addButtonService.setPageId(data.id);
+      } else {
+        this.router.navigate([data.errorLink.get().originalUrl.get()]);
+      }
     });
   }
 }

@@ -1,40 +1,44 @@
 ﻿using UBaseline.Core.Node;
 using Uintra20.Features.Groups.Helpers;
+using Uintra20.Core.UbaselineModels.RestrictedNode;
 using Uintra20.Features.Groups.Models;
 using Uintra20.Features.Groups.Services;
+using Uintra20.Features.Links;
 using Uintra20.Features.Media;
 
 namespace Uintra20.Features.Groups.Converters
 {
-    public class UintraGroupsCreatePageViewModelConverter : INodeViewModelConverter<UintraGroupsCreatePageModel, UintraGroupsCreatePageViewModel>
+    public class UintraGroupsCreatePageViewModelConverter : UintraRestrictedNodeViewModelConverter<UintraGroupsCreatePageModel, UintraGroupsCreatePageViewModel>
     {
         private readonly IMediaHelper _mediaHelper;
         private readonly IGroupService _groupService;
         private readonly IGroupHelper _groupHelper;
 
         public UintraGroupsCreatePageViewModelConverter(
-            IMediaHelper mediaHelper, 
+            IMediaHelper mediaHelper,
             IGroupService groupService,
-            IGroupHelper groupHelper)
+            IGroupHelper groupHelper,
+            IErrorLinksService errorLinksService)
+        : base(errorLinksService)
         {
             _mediaHelper = mediaHelper;
             _groupService = groupService;
             _groupHelper = groupHelper;
         }
 
-        public void Map(UintraGroupsCreatePageModel node, UintraGroupsCreatePageViewModel viewModel)
+        public override ConverterResponseModel MapViewModel(UintraGroupsCreatePageModel node, UintraGroupsCreatePageViewModel viewModel)
         {
-            viewModel.CanCreate = _groupService.CanCreate();
-
-            if (!viewModel.CanCreate)
+            if (!_groupService.CanCreate())
             {
-                return;
+                return ForbiddenResult();
             }
-            
+
             var settings = _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.GroupsContent);
 
             viewModel.Navigation = _groupHelper.GroupNavigation();
             viewModel.AllowedMediaExtensions = settings?.AllowedMediaExtensions;
+
+            return OkResult();
         }
     }
 }
