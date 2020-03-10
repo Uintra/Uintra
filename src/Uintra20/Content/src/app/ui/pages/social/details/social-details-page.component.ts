@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 
 import ParseHelper from "src/app/shared/utils/parse.helper";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
@@ -33,16 +33,22 @@ export class SocialDetailsPanelComponent implements OnInit {
   detailsDescription: SafeHtml;
   groupHeader: IGroupDetailsHeaderData;
   isGroupMember: boolean;
+  canView: boolean;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private imageGalleryService: ImageGalleryService,
     private sanitizer: DomSanitizer,
-    private addButtonService: AddButtonService
+    private addButtonService: AddButtonService,
+    private router: Router,
   ) {
     this.activatedRoute.data.subscribe(data => {
-      this.data = data;
-      this.addButtonService.setPageId(data.id);
+      if (!data.requiresRedirect.get()) {
+        this.data = data;
+        this.addButtonService.setPageId(data.id);
+      } else {
+        this.router.navigate([data.errorLink.get().originalUrl.get()]);
+      }
     });
   }
 
@@ -53,6 +59,7 @@ export class SocialDetailsPanelComponent implements OnInit {
       entityId: parsedData.details.id,
       entityType: parsedData.details.activityType
     };
+    this.canView = !parsedData.requiresRedirect;
     this.isGroupMember = parsedData.isGroupMember;
     this.groupHeader = parsedData.groupHeader;
     this.activityName = ParseHelper.parseActivityType(

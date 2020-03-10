@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using UBaseline.Shared.Node;
+using Uintra20.Core.UbaselineModels.RestrictedNode;
 
 namespace Uintra20.Features.Comments.Models
 {
-    public class CommentsPanelViewModel : NodeViewModel
+    public class CommentsPanelViewModel : UintraRestrictedNodeViewModel
     {
         public IEnumerable<CommentViewModel> Comments { get; set; }
         public Enum ActivityType { get; set; }

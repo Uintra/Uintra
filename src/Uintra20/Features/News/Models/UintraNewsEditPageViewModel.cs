@@ -7,11 +7,12 @@ using UBaseline.Shared.Property;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Features.Groups;
 using Uintra20.Features.Groups.Models;
+using Uintra20.Core.UbaselineModels.RestrictedNode;
 using Uintra20.Features.Links.Models;
 
 namespace Uintra20.Features.News.Models
 {
-    public class UintraNewsEditPageViewModel : NodeViewModel, IGroupHeader
+    public class UintraNewsEditPageViewModel : UintraRestrictedNodeViewModel, IGroupHeader
     {
         public PropertyViewModel<INodeViewModel[]> Panels { get; set; }
         public PageSettingsCompositionViewModel PageSettings { get; set; }
@@ -20,7 +21,6 @@ namespace Uintra20.Features.News.Models
         public bool PinAllowed { get; set; }
         public IEnumerable<IntranetMember> Members { get; set; } = Enumerable.Empty<IntranetMember>();
         public string AllowedMediaExtensions { get; set; }
-        public bool CanEdit { get; set; }
         public IActivityLinks Links { get; set; }
         public GroupHeaderViewModel GroupHeader { get; set; }
     }

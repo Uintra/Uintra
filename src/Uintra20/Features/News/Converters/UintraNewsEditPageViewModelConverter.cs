@@ -3,11 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using UBaseline.Core.Node;
 using Uintra20.Core.Activity.Models.Headers;
 using Uintra20.Core.Controls.LightboxGallery;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Services;
+using Uintra20.Core.UbaselineModels.RestrictedNode;
 using Uintra20.Features.Groups.Helpers;
 using Uintra20.Features.Links;
 using Uintra20.Features.Media;
@@ -22,7 +22,7 @@ using Uintra20.Infrastructure.Extensions;
 namespace Uintra20.Features.News.Converters
 {
     public class UintraNewsEditPageViewModelConverter :
-        INodeViewModelConverter<UintraNewsEditPageModel, UintraNewsEditPageViewModel>
+        UintraRestrictedNodeViewModelConverter<UintraNewsEditPageModel, UintraNewsEditPageViewModel>
     {
         private readonly IPermissionsService _permissionsService;
         private readonly IFeedLinkService _feedLinkService;
@@ -41,7 +41,9 @@ namespace Uintra20.Features.News.Converters
             IUserTagService userTagService,
             IUserTagProvider userTagProvider,
             ILightboxHelper lightboxHelper,
-            IGroupHelper groupHelper)
+            IGroupHelper groupHelper,
+            IErrorLinksService errorLinksService)
+            : base(errorLinksService)
         {
             _permissionsService = permissionsService;
             _feedLinkService = feedLinkService;
@@ -53,17 +55,20 @@ namespace Uintra20.Features.News.Converters
             _groupHelper = groupHelper;
         }
 
-        public void Map(UintraNewsEditPageModel node, UintraNewsEditPageViewModel viewModel)
+        public override ConverterResponseModel MapViewModel(UintraNewsEditPageModel node, UintraNewsEditPageViewModel viewModel)
         {
             var requestId = HttpContext.Current.Request.GetRequestQueryValue("id");
 
-            if (!Guid.TryParse(requestId, out var parsedId)) return;
-
-            viewModel.CanEdit = _newsService.CanEdit(parsedId);
-
-            if (!viewModel.CanEdit) return;
+            if (!Guid.TryParse(requestId, out var parsedId)) return NotFoundResult();
 
             var news = _newsService.Get(parsedId);
+
+            if (news == null)
+            {
+                return NotFoundResult();
+            }
+
+            if (!_newsService.CanEdit(parsedId)) return ForbiddenResult();
 
             viewModel.Details = GetDetails(news);
             viewModel.Links = _feedLinkService.GetLinks(news.Id);
@@ -76,10 +81,12 @@ namespace Uintra20.Features.News.Converters
 
             var requestGroupId = HttpContext.Current.Request["groupId"];
 
-            if (!Guid.TryParse(requestGroupId, out var groupId) || news.GroupId != groupId)
-                return;
+            if (Guid.TryParse(requestGroupId, out var groupId) && news.GroupId == groupId)
+            {
+                viewModel.GroupHeader = _groupHelper.GetHeader(groupId);
+            }
 
-            viewModel.GroupHeader = _groupHelper.GetHeader(groupId);
+            return OkResult();
         }
 
         //TODO Refactor this code. Method is duplicated in ActivityCreatePanelConverter

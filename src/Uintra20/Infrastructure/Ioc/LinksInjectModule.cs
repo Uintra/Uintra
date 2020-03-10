@@ -23,6 +23,7 @@ namespace Uintra20.Infrastructure.Ioc
             services.AddTransient<IActivityLinkPreviewService, ActivityLinkPreviewService>();
             services.AddScoped<IProfileLinkProvider, ProfileLinkProvider>();
             services.AddScoped<ILinkPreviewConfiguration, LinkPreviewConfiguration>();
+            services.AddScoped<IErrorLinksService, ErrorLinksService>();
 
             return services;
 		}

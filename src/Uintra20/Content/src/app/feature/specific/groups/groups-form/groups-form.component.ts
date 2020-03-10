@@ -2,7 +2,6 @@ import { Component, Input, HostListener } from '@angular/core';
 import { MAX_FILES_FOR_SINGLE } from 'src/app/shared/constants/dropzone/drop-zone.const';
 import { IMedia } from '../../activity/activity.interfaces';
 import { Router } from '@angular/router';
-import { RouterResolverService } from 'src/app/shared/services/general/router-resolver.service';
 import { HasDataChangedService } from 'src/app/shared/services/general/has-data-changed.service';
 import { TITLE_MAX_LENGTH } from 'src/app/shared/constants/activity/activity-create.const';
 import { GroupsService } from '../groups.service';
@@ -45,7 +44,7 @@ export class GroupsFormComponent {
     private groupsService: GroupsService,
     private router: Router,
     private hasDataChangedService: HasDataChangedService,
-    private translate: TranslateService,
+    public translate: TranslateService,
   ) { }
 
   ngOnInit() {
@@ -132,7 +131,7 @@ export class GroupsFormComponent {
   }
 
   validate(): boolean {
-    if (this.title && this.description && this.files.length <= MAX_FILES_FOR_SINGLE) {
+    if (this.title && this.title.length < MAX_FILES_FOR_SINGLE && this.description && this.files.length <= MAX_FILES_FOR_SINGLE) {
       return true;
     }
 
@@ -157,23 +156,7 @@ export class GroupsFormComponent {
     return (this.isShowValidation && !this.title) || (this.isShowValidation && this.title.length > TITLE_MAX_LENGTH)
   }
 
-  getFormTitleLbl() {
-    return this.edit ? this.translate.instant('groupEdit.PageTitle.lbl') : this.translate.instant('groupCreate.FormTitle.lbl');
-  }
-
-  getGroupTitleLbl() {
-    return this.edit ? this.translate.instant('groupEdit.Title.lbl') : this.translate.instant('groupCreate.GroupTitle.lbl');
-  }
-
-  getDescriptionLbl() {
-    return this.edit ? this.translate.instant('groupEdit.Description.lbl') : this.translate.instant('groupCreate.Description.lbl');
-  }
-
-  getGroupImageLbl() {
-    return this.edit ? this.translate.instant('groupEdit.GroupImage.lbl') : this.translate.instant('groupCreate.GroupImage.lbl');
-  }
-
-  getSubmitBtn() {
-    return this.edit ? this.translate.instant('groupEdit.Update.btn') : this.translate.instant('groupCreate.Create.btn');
+  getTitleLengthValidationMessage() {
+    return this.translate.instant('groupEdit.TitleLengthValidation.lbl').replace('{{0}}', TITLE_MAX_LENGTH);
   }
 }

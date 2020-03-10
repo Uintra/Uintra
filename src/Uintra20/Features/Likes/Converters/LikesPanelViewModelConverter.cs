@@ -1,20 +1,21 @@
 ﻿using System;
 using System.Linq;
 using System.Web;
-using UBaseline.Core.Node;
 using UBaseline.Core.RequestContext;
 using Uintra20.Core.Activity;
 using Uintra20.Core.Activity.Helpers;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Services;
+using Uintra20.Core.UbaselineModels.RestrictedNode;
 using Uintra20.Features.Groups.Services;
 using Uintra20.Features.Likes.Models;
 using Uintra20.Features.Likes.Services;
+using Uintra20.Features.Links;
 using Uintra20.Infrastructure.Extensions;
 
 namespace Uintra20.Features.Likes.Converters
 {
-    public class LikesPanelViewModelConverter : INodeViewModelConverter<LikesPanelModel, LikesPanelViewModel>
+    public class LikesPanelViewModelConverter : UintraRestrictedNodeViewModelConverter<LikesPanelModel, LikesPanelViewModel>
     {
         private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
         private readonly IUBaselineRequestContext _requestContext;
@@ -27,7 +28,9 @@ namespace Uintra20.Features.Likes.Converters
             IIntranetMemberService<IntranetMember> intranetMemberService, 
             ILikesService likesService,
             IActivityTypeHelper activityTypeHelper,
-            IGroupActivityService groupActivityService)
+            IGroupActivityService groupActivityService,
+            IErrorLinksService errorLinksService)
+        : base(errorLinksService)
         {
             _requestContext = requestContext;
             _likesService = likesService;
@@ -36,7 +39,7 @@ namespace Uintra20.Features.Likes.Converters
             _groupActivityService = groupActivityService;
         }
 
-        public void Map(LikesPanelModel node, LikesPanelViewModel viewModel)
+        public override ConverterResponseModel MapViewModel(LikesPanelModel node, LikesPanelViewModel viewModel)
         {
             var activityIdStr = HttpContext.Current.Request.GetRequestQueryValue("id");
 
@@ -49,14 +52,14 @@ namespace Uintra20.Features.Likes.Converters
                 : activityId;
 
             if (!id.HasValue)
-                return;
+                return NotFoundResult();
 
             var groupId = _groupActivityService.GetGroupId(activityId);
             var currentMember = _intranetMemberService.GetCurrentMember();
 
             viewModel.IsGroupMember = !groupId.HasValue || currentMember.GroupIds.Contains(groupId.Value);
 
-            if (!viewModel.IsGroupMember) return;
+            if (!viewModel.IsGroupMember) return ForbiddenResult();
 
             var likes = _likesService.GetLikeModels(id.Value).ToArray();
 
@@ -64,6 +67,8 @@ namespace Uintra20.Features.Likes.Converters
             viewModel.EntityId = id.Value;
             viewModel.LikedByCurrentUser = likes.Any(el => el.UserId == currentMember.Id);
             viewModel.ActivityType = activityType;
+
+            return OkResult();
         }
     }
 }

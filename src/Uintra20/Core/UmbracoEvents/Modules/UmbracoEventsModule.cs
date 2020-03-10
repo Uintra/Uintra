@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
+using Uintra20.Core.UmbracoEvents.Services;
 using Umbraco.Core.Events;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using Umbraco.Core.Services.Implement;
 
-namespace Uintra20.Core.UmbracoEventServices
+namespace Uintra20.Core.UmbracoEvents.Modules
 {
     public static class UmbracoEventsModule
     {
@@ -28,9 +27,12 @@ namespace Uintra20.Core.UmbracoEventServices
             //MediaService.Saving += ProcessMediaSaving;
         }
 
-        private static void MemberRemovedRolesHandler(IMemberService sender, RolesEventArgs e)
+        private static void MemberRemovedRolesHandler(
+            IMemberService sender,
+            RolesEventArgs e)
         {
-            var services = DependencyResolver.Current.GetServices<IUmbracoMemberRemovedRolesEventService>();
+            var services =
+                DependencyResolver.Current.GetServices<IUmbracoMemberRemovedRolesEventService>();
 
             foreach (var service in services)
             {
@@ -38,9 +40,12 @@ namespace Uintra20.Core.UmbracoEventServices
             }
         }
 
-        private static void AssignedRolesHandler(IMemberService sender, RolesEventArgs e)
+        private static void AssignedRolesHandler(
+            IMemberService sender,
+            RolesEventArgs e)
         {
-            var services = DependencyResolver.Current.GetServices<IUmbracoMemberAssignedRolesEventService>();
+            var services =
+                DependencyResolver.Current.GetServices<IUmbracoMemberAssignedRolesEventService>();
 
             foreach (var service in services)
             {
@@ -48,9 +53,12 @@ namespace Uintra20.Core.UmbracoEventServices
             }
         }
 
-        private static void MemberGroupSavedHandler(IMemberGroupService sender, SaveEventArgs<IMemberGroup> e)
+        private static void MemberGroupSavedHandler(
+            IMemberGroupService sender,
+            SaveEventArgs<IMemberGroup> e)
         {
-            var services = DependencyResolver.Current.GetServices<IUmbracoMemberGroupSavedEventService>();
+            var services =
+                DependencyResolver.Current.GetServices<IUmbracoMemberGroupSavedEventService>();
 
             foreach (var service in services)
             {
@@ -58,9 +66,12 @@ namespace Uintra20.Core.UmbracoEventServices
             }
         }
 
-        private static void MemberCreateOrUpdateHandler(IMemberService sender, SaveEventArgs<IMember> e)
+        private static void MemberCreateOrUpdateHandler(
+            IMemberService sender,
+            SaveEventArgs<IMember> e)
         {
-            var services = DependencyResolver.Current.GetServices<IUmbracoMemberCreatedEventService>();
+            var services =
+                DependencyResolver.Current.GetServices<IUmbracoMemberCreatedEventService>();
 
             foreach (var service in services)
             {
@@ -68,9 +79,12 @@ namespace Uintra20.Core.UmbracoEventServices
             }
         }
 
-        private static void ProcessPanelSaving(IContentService sender, SaveEventArgs<IContent> e)
+        private static void ProcessPanelSaving(
+            IContentService sender,
+            SaveEventArgs<IContent> e)
         {
-            var services = DependencyResolver.Current.GetServices<IUmbracoContentSavingEventService>();
+            var services =
+                DependencyResolver.Current.GetServices<IUmbracoContentSavingEventService>();
 
             foreach (var service in services)
             {
@@ -78,9 +92,12 @@ namespace Uintra20.Core.UmbracoEventServices
             }
         }
 
-        private static void MemberGroupDeletingHandler(IMemberGroupService sender, DeleteEventArgs<IMemberGroup> e)
+        private static void MemberGroupDeletingHandler(
+            IMemberGroupService sender,
+            DeleteEventArgs<IMemberGroup> e)
         {
-            var services = DependencyResolver.Current.GetServices<IUmbracoMemberGroupDeletingEventService>();
+            var services =
+                DependencyResolver.Current.GetServices<IUmbracoMemberGroupDeletingEventService>();
 
             foreach (var service in services)
             {
@@ -88,9 +105,12 @@ namespace Uintra20.Core.UmbracoEventServices
             }
         }
 
-        private static void ProcessMediaSaving(IMediaService sender, SaveEventArgs<IMedia> e)
+        private static void ProcessMediaSaving(
+            IMediaService sender,
+            SaveEventArgs<IMedia> e)
         {
-            var services = DependencyResolver.Current.GetServices<IUmbracoMediaSavingEventService>();
+            var services =
+                DependencyResolver.Current.GetServices<IUmbracoMediaSavingEventService>();
 
             foreach (var service in services)
             {
@@ -98,9 +118,12 @@ namespace Uintra20.Core.UmbracoEventServices
             }
         }
 
-        private static void ProcessMediaTrashed(IMediaService sender, MoveEventArgs<IMedia> e)
+        private static void ProcessMediaTrashed(
+            IMediaService sender,
+            MoveEventArgs<IMedia> e)
         {
-            var services = DependencyResolver.Current.GetServices<IUmbracoMediaTrashedEventService>();
+            var services =
+                DependencyResolver.Current.GetServices<IUmbracoMediaTrashedEventService>();
 
             foreach (var service in services)
             {
@@ -108,9 +131,12 @@ namespace Uintra20.Core.UmbracoEventServices
             }
         }
 
-        private static void ProcessMediaSaved(IMediaService sender, SaveEventArgs<IMedia> e)
+        private static void ProcessMediaSaved(
+            IMediaService sender,
+            SaveEventArgs<IMedia> e)
         {
-            var services = DependencyResolver.Current.GetServices<IUmbracoMediaSavedEventService>();
+            var services =
+                DependencyResolver.Current.GetServices<IUmbracoMediaSavedEventService>();
 
             foreach (var service in services)
             {
@@ -118,9 +144,12 @@ namespace Uintra20.Core.UmbracoEventServices
             }
         }
 
-        private static void MemberDeletingHandler(IMemberService sender, DeleteEventArgs<IMember> e)
+        private static void MemberDeletingHandler(
+            IMemberService sender,
+            DeleteEventArgs<IMember> e)
         {
-            var services = DependencyResolver.Current.GetServices<IUmbracoMemberDeletingEventService>();
+            var services =
+                DependencyResolver.Current.GetServices<IUmbracoMemberDeletingEventService>();
 
             foreach (var service in services)
             {
@@ -140,9 +169,12 @@ namespace Uintra20.Core.UmbracoEventServices
         //    foreach (var service in services) service.ProcessContentUnPublished(sender, e);
         //}
 
-        private static void ProcessContentTrashed(IContentService sender, MoveEventArgs<IContent> e)
+        private static void ProcessContentTrashed(
+            IContentService sender,
+            MoveEventArgs<IContent> e)
         {
-            var services = DependencyResolver.Current.GetServices<IUmbracoContentTrashedEventService>();
+            var services = 
+                DependencyResolver.Current.GetServices<IUmbracoContentTrashedEventService>();
 
             foreach (var service in services)
             {
