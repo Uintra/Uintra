@@ -149,8 +149,6 @@ export class NewsFormComponent implements OnInit {
     if (this.validate()) {
       this.newsDataBuilder();
       this.handleSubmit.emit(this.newsData);
-    } else {
-      // TODO: scroll to invalid input
     }
   }
 
