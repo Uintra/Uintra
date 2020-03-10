@@ -5,7 +5,6 @@ import { AddButtonService } from 'src/app/ui/main-layout/left-navigation/compone
 import { Observable } from 'rxjs';
 import { HasDataChangedService } from 'src/app/shared/services/general/has-data-changed.service';
 import { CanDeactivateGuard } from 'src/app/shared/services/general/can-deactivate.service';
-import { RouterResolverService } from 'src/app/shared/services/general/router-resolver.service';
 
 @Component({
   selector: 'uintra-groups-edit-page',
@@ -22,7 +21,6 @@ export class UintraGroupsEditPage {
     private router: Router,
     private hasDataChangedService: HasDataChangedService,
     private canDeactivateService: CanDeactivateGuard,
-    private routerResolverService: RouterResolverService,
   ) {
     this.route.data.subscribe(data => {
       if (!data.requiresRedirect.get()) {

@@ -1,4 +1,4 @@
-<app-group-details-wrapper *ngIf="data?.canEdit" [data]="data?.groupHeader">
+<app-group-details-wrapper *ngIf="data" [data]="data.groupHeader">
     <div class="group-details-padding">
         <groups-form [data]="data?.info" [allowedExtensions]="data?.allowedMediaExtensions" edit></groups-form>
     </div>

@@ -30,6 +30,7 @@ export class UintraGroupsDocumentsPage {
       if (!data.requiresRedirect.get()) {
         this.data = data;
         this.addButtonService.setPageId(data.id);
+        this.parsedData = ParseHelper.parseUbaselineData(this.data);
       } else {
         this.router.navigate([data.errorLink.get().originalUrl.get()]);
       }
