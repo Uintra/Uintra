@@ -1,5 +1,5 @@
 <ng-container *ngIf="data">
-  <app-group-details-wrapper *ngIf="panelData?.groupId" [id]="panelData.groupId">
+  <app-group-details-wrapper *ngIf="panelData?.groupHeader" [data]="panelData.groupHeader">
     <div class="page-wrapper">
       <app-news-form
         edit
