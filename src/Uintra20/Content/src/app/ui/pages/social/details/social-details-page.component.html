@@ -1,13 +1,13 @@
 <ng-container *ngIf="canView">
-  <ng-container *ngIf="!groupId">
-    <ng-container *ngTemplateOutlet="component"></ng-container>
-  </ng-container>
+<ng-container *ngIf="!groupHeader">
+  <ng-container *ngTemplateOutlet="component"></ng-container>
+</ng-container>
 
-  <app-group-details-wrapper *ngIf="groupId" [id]="groupId">
+<app-group-details-wrapper *ngIf="groupHeader" [data]="groupHeader">
     <div class="group-details-padding">
-      <ng-container *ngTemplateOutlet="component"></ng-container>
+        <ng-container *ngTemplateOutlet="component"></ng-container>
     </div>
-  </app-group-details-wrapper>
+</app-group-details-wrapper>
 </ng-container>
 
 <ng-template #component>

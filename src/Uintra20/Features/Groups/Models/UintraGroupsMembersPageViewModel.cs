@@ -6,11 +6,11 @@ using Uintra20.Core.UbaselineModels.RestrictedNode;
 
 namespace Uintra20.Features.Groups.Models
 {
-    public class UintraGroupsMembersPageViewModel : UintraRestrictedNodeViewModel
+    public class UintraGroupsMembersPageViewModel : UintraRestrictedNodeViewModel, IGroupHeader
     {
         public PropertyViewModel<INodeViewModel[]> Panels { get; set; }
         public PageSettingsCompositionViewModel PageSettings { get; set; }
         public GroupNavigationCompositionViewModel GroupNavigation { get; set; }
-        public Guid? GroupId { get; set; }
+        public GroupHeaderViewModel GroupHeader { get; set; }
     }
 }

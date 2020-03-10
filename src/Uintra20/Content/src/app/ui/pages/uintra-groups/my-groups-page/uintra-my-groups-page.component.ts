@@ -1,6 +1,7 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AddButtonService } from '../../../main-layout/left-navigation/components/my-links/add-button.service';
+import ParseHelper from 'src/app/shared/utils/parse.helper';
 
 @Component({
   selector: 'uintra-my-groups-page',
@@ -17,7 +18,7 @@ export class UintraMyGroupsPage {
 
   ) {
     this.route.data.subscribe(data => {
-      this.data = data;
+      this.data = ParseHelper.parseUbaselineData(data);
       this.addButtonService.setPageId(data.id);
     });
   }

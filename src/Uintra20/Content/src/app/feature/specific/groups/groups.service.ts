@@ -14,14 +14,6 @@ export class GroupsService {
 
   constructor(private http: HttpClient, private cookieService: CookieService) {}
 
-  getGroupsLinks(): Observable<IGroupsData> {
-    return this.http.get<IGroupsData>(groupsApi + `/LeftNavigation`);
-  }
-
-  getGroupDetailsLinks(id: string): Observable<IGroupDetailsHeaderData> {
-    return this.http.get<IGroupDetailsHeaderData>(groupsApi + `/Header?groupId=${id}`);
-  }
-
   createGroup(groupCreateModel: IGroupModel): Observable<IULink> {
     return this.http.post<IULink>(groupsApi + '/Create', groupCreateModel)
   }
@@ -43,7 +35,7 @@ export class GroupsService {
   }
 
   getBreadcrumbs(): Observable<IBreadcrumbsItem[]> {
-    return this.http.post<IBreadcrumbsItem[]>("/ubaseline/api/intranetNavigation/Breadcrumbs", {});
+    return this.http.get<IBreadcrumbsItem[]>("/ubaseline/api/intranetNavigation/Breadcrumbs");
   }
 
   setOpenState(openState: boolean = false): void {

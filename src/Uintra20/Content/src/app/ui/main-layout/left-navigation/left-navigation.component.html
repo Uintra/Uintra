@@ -10,9 +10,9 @@
       </ng-container>
     </ul>
 
-    <left-nav-groups></left-nav-groups>
-    <app-shared-links></app-shared-links>
-    <app-my-links></app-my-links>
+    <left-nav-groups *ngIf="groupItems" [data]="groupItems"></left-nav-groups>
+    <app-shared-links *ngIf="sharedLinks" [sharedLinks]="sharedLinks"></app-shared-links>
+    <app-my-links *ngIf="myLinks" [myLinks]="myLinks"></app-my-links>
     <app-user-nav-mobile *ngIf="isNotDesktop" (closeLeftNavigation)="closeLeftNav()"></app-user-nav-mobile>
   </div>
 </div>

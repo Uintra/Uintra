@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Input } from "@angular/core";
 import { SharedLinksService, ISharedNavData } from "./shared-links.service";
 
 @Component({
@@ -7,15 +7,12 @@ import { SharedLinksService, ISharedNavData } from "./shared-links.service";
   styleUrls: ["./shared-links.component.less"]
 })
 export class SharedLinksComponent implements OnInit {
-  sharedLinks: Array<ISharedNavData>;
+  @Input() sharedLinks: Array<ISharedNavData>;
   isOpen: boolean;
 
   constructor(private sharedLinksService: SharedLinksService) {}
 
   ngOnInit() {
-    this.sharedLinksService.getSharedLinks().subscribe(r => {
-      this.sharedLinks = r;
-    });
     this.isOpen = this.sharedLinksService.getOpenState();
   }
 

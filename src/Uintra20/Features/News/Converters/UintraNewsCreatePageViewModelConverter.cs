@@ -5,6 +5,7 @@ using System.Web;
 using Uintra20.Core.Activity;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Services;
+using Uintra20.Features.Groups.Helpers;
 using Uintra20.Core.UbaselineModels.RestrictedNode;
 using Uintra20.Features.Groups.Services;
 using Uintra20.Features.Links;
@@ -28,6 +29,7 @@ namespace Uintra20.Features.News.Converters
         private readonly IUserTagProvider _tagProvider;
         private readonly IFeedLinkService _feedLinkService;
         private readonly IGroupMemberService _groupMemberService;
+        private readonly IGroupHelper _groupHelper;
 
         public UintraNewsCreatePageViewModelConverter(
             INewsService<Entities.News> newsService,
@@ -36,8 +38,9 @@ namespace Uintra20.Features.News.Converters
             IUserTagProvider tagProvider,
             IFeedLinkService feedLinkService,
             IGroupMemberService groupMemberService,
+            IGroupHelper groupHelper,
             IErrorLinksService errorLinksService)
-        : base(errorLinksService)
+            : base(errorLinksService)
         {
             _memberService = memberService;
             _permissionsService = permissionsService;
@@ -45,21 +48,25 @@ namespace Uintra20.Features.News.Converters
             _newsService = newsService;
             _feedLinkService = feedLinkService;
             _groupMemberService = groupMemberService;
+            _groupHelper = groupHelper;
         }
 
         public override ConverterResponseModel MapViewModel(UintraNewsCreatePageModel node, UintraNewsCreatePageViewModel viewModel)
         {
-            if (!HasPermission())
+            var groupId = GetGroupId();
+
+            if (!HasPermission(groupId))
             {
                 return ForbiddenResult();
             }
 
-            viewModel.Data = GetData();
+            viewModel.Data = GetData(groupId);
+            viewModel.GroupHeader = groupId.HasValue ? _groupHelper.GetHeader(groupId.Value) : null;
 
             return OkResult();
         }
 
-        private NewsCreateDataViewModel GetData()
+        private NewsCreateDataViewModel GetData(Guid? groupId)
         {
             var model = new NewsCreateDataViewModel();
 
@@ -80,7 +87,7 @@ namespace Uintra20.Features.News.Converters
             model.AllowedMediaExtensions = mediaSettings.AllowedMediaExtensions;
             model.Tags = _tagProvider.GetAll();
             model.Creator = currentMember.ToViewModel();
-            model.GroupId = GetGroupId();
+            model.GroupId = groupId;
 
             model.PublishDate = DateTime.UtcNow;
 
@@ -94,10 +101,9 @@ namespace Uintra20.Features.News.Converters
             return Guid.TryParse(groupIdStr, out var parsedGroupId) ? (Guid?)parsedGroupId : null;
         }
 
-        private bool HasPermission()
+        private bool HasPermission(Guid? groupId)
         {
             var hasPermission = _permissionsService.Check(PermissionType, PermissionActionEnum.Create);
-            var groupId = GetGroupId();
 
             if (groupId.HasValue)
             {

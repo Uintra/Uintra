@@ -1,11 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Http;
 using UBaseline.Core.Controllers;
 using UBaseline.Core.Navigation;
 using UBaseline.Core.Node;
 using Uintra20.Core.HomePage;
+using Uintra20.Features.Groups.Helpers;
 using Uintra20.Features.Navigation.Models;
+using Uintra20.Features.Navigation.Models.MyLinks;
 using Uintra20.Infrastructure.Extensions;
 
 namespace Uintra20.Features.Navigation.Web
@@ -14,13 +17,19 @@ namespace Uintra20.Features.Navigation.Web
     {
         private readonly INavigationModelsBuilder _navigationModelsBuilder;
         private readonly INodeModelService _nodeModelService;
+        private readonly IMyLinksHelper _myLinksHelper;
+        private readonly IGroupHelper _groupHelper;
 
         public IntranetNavigationController(
             INavigationModelsBuilder navigationModelsBuilder,
-            INodeModelService nodeModelService)
+            INodeModelService nodeModelService,
+            IMyLinksHelper myLinksHelper,
+            IGroupHelper groupHelper)
         {
             _navigationModelsBuilder = navigationModelsBuilder;
             _nodeModelService = nodeModelService;
+            _myLinksHelper = myLinksHelper;
+            _groupHelper = groupHelper;
         }
 
         [HttpGet]
@@ -42,39 +51,56 @@ namespace Uintra20.Features.Navigation.Web
         }
 
         [HttpGet]
-        public virtual MenuViewModel LeftNavigation()
+        public virtual async Task<LeftNavigationViewModel> LeftNavigation()
         {
-            var leftNavigation = _navigationModelsBuilder.GetLeftSideNavigation();
-            var result = new MenuViewModel { MenuItems = leftNavigation.Select(MapMenuItem) };
+            var result = new LeftNavigationViewModel
+            {
+                MenuItems = GetMenuItems(),
+                GroupItems = _groupHelper.GroupNavigation(),
+                MyLinks = await GetMyLinksAsync(),
+                SharedLinks = GetSharedLinks()
+            };
 
             return result;
         }
 
         [HttpGet]
-        public virtual IEnumerable<SharedLinkApiViewModel> SystemLinks()
-        {
-            var sharedLinks = _nodeModelService.AsEnumerable().OfType<SharedLinkItemModel>().Where(sl => sl.Links.Value != null);
-
-            var result = sharedLinks.Select(MapSharedLinkItemModel).OrderBy(sl => sl.Sort);
-            return result;
-        }
-
         public virtual IEnumerable<BreadcrumbItemViewModel> Breadcrumbs()
         {
             return _navigationModelsBuilder.GetBreadcrumbsItems().ToList();
         }
 
-        private SharedLinkApiViewModel MapSharedLinkItemModel(SharedLinkItemModel model)
+        private IEnumerable<SharedLinkApiViewModel> GetSharedLinks()
+        {
+            var sharedLinks = _nodeModelService.AsEnumerable().OfType<SharedLinkItemModel>().Where(sl => sl.Links.Value != null);
+
+            sharedLinks = sharedLinks.ToArray();
+
+            var result = sharedLinks.OrderBy(sl => sl.Sort.Value).Select(MapSharedLinkItemModel);
+            return result;
+        }
+
+        private IEnumerable<MenuItemViewModel> GetMenuItems()
+        {
+            return _navigationModelsBuilder.GetLeftSideNavigation().Select(MapMenuItem);
+        }
+        
+        protected virtual async Task<IEnumerable<MyLinkItemViewModel>> GetMyLinksAsync()
+        {
+            var linkModels = await _myLinksHelper.GetMenuAsync();
+            return linkModels.Map<IEnumerable<MyLinkItemViewModel>>();
+        }
+
+        protected virtual SharedLinkApiViewModel MapSharedLinkItemModel(SharedLinkItemModel model)
         {
             return new SharedLinkApiViewModel
             {
                 LinksGroupTitle = model.LinksGroupTitle,
-                Sort = model.Sort,
                 Links = model.Links.Value.Select(sharedLink => sharedLink.ToViewModel())
             };
         }
 
-        private MenuItemViewModel MapMenuItem(TreeNavigationItemModel model)
+        protected virtual MenuItemViewModel MapMenuItem(TreeNavigationItemModel model)
         {
             var item = _nodeModelService.Get(model.Id);
 

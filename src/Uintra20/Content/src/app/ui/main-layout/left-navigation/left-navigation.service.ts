@@ -24,23 +24,25 @@ export class LeftNavigationService {
     this.updateOpeningState();
   }
 
-  getNavigation(): Observable<INavigationItem[]> {
+  getNavigation(): Observable<INavigationData> {
     return this.http.get<INavigationData>(this.api + `/LeftNavigation`).pipe(
       map(r => this.correctNestingLevel(r)),
       map(r => this.setOpenProperties(r))
     );
   }
 
-  private correctNestingLevel(data: INavigationData): INavigationItem[] {
-    return data.menuItems.map(item => {
+  private correctNestingLevel(data: INavigationData): INavigationData {
+    data.menuItems = data.menuItems.map(item => {
       item.level = 0;
       return item;
     });
+
+    return data;
   }
 
-  private setOpenProperties(data: INavigationItem[]): INavigationItem[] {
+  private setOpenProperties(data: INavigationData): INavigationData {
     if (this.openingState) {
-      this.checkNavigationItem(data);
+      data.menuItems = this.checkNavigationItem(data.menuItems);
     }
     return data;
   }
@@ -53,6 +55,7 @@ export class LeftNavigationService {
       if (item.children.length) {
         this.checkNavigationItem(item.children);
       }
+      return item;
     });
   }
 

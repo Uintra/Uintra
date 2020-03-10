@@ -131,10 +131,12 @@ export class NewsFormComponent implements OnInit {
     this.newsData.unpublishDate = value.to;
   }
   setPinValue(value: IPinedData) {
+    if (this.data.endPinDate !== this.newsData.endPinDate) {
+      this.hasDataChangedService.onDataChanged();
+    }
     this.newsData.endPinDate = value.pinDate;
     this.newsData.isPinned = value.isPinCheked;
     this.isAccepted = value.isAccepted;
-    this.hasDataChangedService.onDataChanged();
   }
   setLocationValue(location: ILocationResult): void {
     this.newsData.location.address = location.address;

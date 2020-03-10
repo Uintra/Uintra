@@ -31,12 +31,6 @@ export class MyLinksService {
       .pipe(map(links => this.sortLinks(links)));
   }
 
-  getMyLinks(): Observable<Array<IMyLink>> {
-    return this.http
-      .get<Array<IMyLink>>(this.api + `/List`)
-      .pipe(map(links => this.sortLinks(links)));
-  }
-
   removeMyLink(id: string) {
     return this.http
       .delete<Array<IMyLink>>(this.api + `/Remove?id=${id}`)

@@ -8,6 +8,5 @@ namespace Uintra20.Features.Navigation.Models
     {
         public string LinksGroupTitle { get; set; }
         public IEnumerable<UintraLinksPickerViewModel> Links { get; set; }
-        public int Sort { get; set; }
     }
 }

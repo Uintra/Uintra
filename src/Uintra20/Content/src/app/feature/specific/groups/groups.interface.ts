@@ -33,6 +33,7 @@ export interface IGroupDetailsHeaderData {
   }
 }
 export interface IGroupRoomData {
+  groupHeader: IGroupDetailsHeaderData;
   groupId: string;
   groupInfo: IGroupsListItem;
 }

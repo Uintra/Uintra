@@ -23,7 +23,6 @@ namespace Uintra20.Features.Groups.Services
         private readonly ICacheService _memoryCacheService;
         private readonly IPermissionsService _permissionsService;
         private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
-        private readonly ISqlRepository<GroupMember> _groupMemberRepository;
 
         protected const string GroupsCreatePage = "groupsCreatePage";
         protected virtual Enum PermissionResourceType => PermissionResourceTypeEnum.Groups;
@@ -32,14 +31,12 @@ namespace Uintra20.Features.Groups.Services
             ISqlRepository<Group> groupRepository,
             ICacheService memoryCacheService,
             IPermissionsService permissionsService,
-            IIntranetMemberService<IntranetMember> intranetMemberService,
-            ISqlRepository<GroupMember> groupMemberRepository)
+            IIntranetMemberService<IntranetMember> intranetMemberService)
         {
             _groupRepository = groupRepository;
             _memoryCacheService = memoryCacheService;
             _permissionsService = permissionsService;
             _intranetMemberService = intranetMemberService;
-            _groupMemberRepository = groupMemberRepository;
         }
 
         #region async
@@ -145,7 +142,6 @@ namespace Uintra20.Features.Groups.Services
         #endregion
 
         #region sunc
-
         public Guid Create(GroupModel model)
         {
             var date = DateTime.UtcNow;

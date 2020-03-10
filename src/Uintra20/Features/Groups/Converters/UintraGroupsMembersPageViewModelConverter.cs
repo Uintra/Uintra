@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Web;
+using UBaseline.Core.Node;
+using Uintra20.Features.Groups.Helpers;
 using Uintra20.Core.UbaselineModels.RestrictedNode;
 using Uintra20.Features.Groups.Models;
 using Uintra20.Features.Links;
@@ -9,9 +11,11 @@ namespace Uintra20.Features.Groups.Converters
 {
     public class UintraGroupsMembersPageViewModelConverter : UintraRestrictedNodeViewModelConverter<UintraGroupsMembersPageModel, UintraGroupsMembersPageViewModel>
     {
-        public UintraGroupsMembersPageViewModelConverter(IErrorLinksService errorLinksService)
-        : base (errorLinksService)
+        private readonly IGroupHelper _groupHelper;
+        public UintraGroupsMembersPageViewModelConverter(IGroupHelper groupHelper, IErrorLinksService errorLinksService)
+            : base(errorLinksService)
         {
+            _groupHelper = groupHelper;
         }
 
         public override ConverterResponseModel MapViewModel(UintraGroupsMembersPageModel node, UintraGroupsMembersPageViewModel viewModel)
@@ -21,7 +25,7 @@ namespace Uintra20.Features.Groups.Converters
             if (!Guid.TryParse(idStr, out var id))
                 return NotFoundResult();
 
-            viewModel.GroupId = id;
+            viewModel.GroupHeader = _groupHelper.GetHeader(id);
 
             return OkResult();
         }

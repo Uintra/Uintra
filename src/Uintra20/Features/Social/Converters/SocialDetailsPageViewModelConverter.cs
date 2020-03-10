@@ -2,12 +2,12 @@
 using System.Linq;
 using System.Web;
 using Compent.Extensions;
-using UBaseline.Core.Node;
 using Uintra20.Core.Activity.Models.Headers;
 using Uintra20.Core.Controls.LightboxGallery;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Services;
 using Uintra20.Core.UbaselineModels.RestrictedNode;
+using Uintra20.Features.Groups.Helpers;
 using Uintra20.Features.Links;
 using Uintra20.Features.Media;
 using Uintra20.Features.Media.Strategies.Preset;
@@ -28,6 +28,7 @@ namespace Uintra20.Features.Social.Converters
         private readonly IIntranetMemberService<IntranetMember> _memberService;
         private readonly ILightboxHelper _lightboxHelper;
         private readonly IPermissionsService _permissionsService;
+        private readonly IGroupHelper _groupHelper;
 
         public SocialDetailsPageViewModelConverter(
             IFeedLinkService feedLinkService,
@@ -36,8 +37,9 @@ namespace Uintra20.Features.Social.Converters
             ISocialService<Entities.Social> socialsService,
             ILightboxHelper lightboxHelper,
             IPermissionsService permissionsService,
+            IGroupHelper groupHelper,
             IErrorLinksService errorLinksService)
-        : base(errorLinksService)
+            : base(errorLinksService)
         {
             _feedLinkService = feedLinkService;
             _userTagService = userTagService;
@@ -45,6 +47,7 @@ namespace Uintra20.Features.Social.Converters
             _memberService = memberService;
             _lightboxHelper = lightboxHelper;
             _permissionsService = permissionsService;
+            _groupHelper = groupHelper;
         }
 
         public override ConverterResponseModel MapViewModel(SocialDetailsPageModel node, SocialDetailsPageViewModel viewModel)
@@ -76,8 +79,7 @@ namespace Uintra20.Features.Social.Converters
             var groupIdStr = HttpContext.Current.Request["groupId"];
             if (Guid.TryParse(groupIdStr, out var groupId) && social.GroupId == groupId)
             {
-                viewModel.RequiresGroupHeader = true;
-                viewModel.GroupId = groupId;
+                viewModel.GroupHeader = _groupHelper.GetHeader(groupId);
             }
 
             return OkResult();

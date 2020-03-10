@@ -6,7 +6,7 @@ using Uintra20.Core.UbaselineModels.RestrictedNode;
 
 namespace Uintra20.Features.Groups.Models
 {
-    public class UintraGroupsEditPageViewModel : UintraRestrictedNodeViewModel
+    public class UintraGroupsEditPageViewModel : UintraRestrictedNodeViewModel, IGroupHeader
     {
         public PropertyViewModel<INodeViewModel[]> Panels { get; set; }
         public PageSettingsCompositionViewModel PageSettings { get; set; }
@@ -14,5 +14,6 @@ namespace Uintra20.Features.Groups.Models
         public GroupInfoViewModel Info { get; set; }
         public string AllowedMediaExtensions { get; set; }
         public Guid? GroupId { get; set; }
+        public GroupHeaderViewModel GroupHeader { get; set; }
     }
 }

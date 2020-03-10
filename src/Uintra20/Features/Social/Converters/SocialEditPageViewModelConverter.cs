@@ -3,6 +3,7 @@ using System.Web;
 using UBaseline.Core.Localization;
 using Uintra20.Core.Controls.LightboxGallery;
 using Uintra20.Core.UbaselineModels.RestrictedNode;
+using Uintra20.Features.Groups.Helpers;
 using Uintra20.Features.Links;
 using Uintra20.Features.Social.Models;
 using Uintra20.Features.Media.Strategies.Preset;
@@ -20,6 +21,7 @@ namespace Uintra20.Features.Social.Converters
         private readonly IUserTagProvider _userTagProvider;
         private readonly ILightboxHelper _lightboxHelper;
         private readonly IFeedLinkService _feedLinkService;
+        private readonly IGroupHelper _groupHelper;
 
         public SocialEditPageViewModelConverter(
             ILocalizationModelService localizationModelService,
@@ -28,8 +30,9 @@ namespace Uintra20.Features.Social.Converters
             ILightboxHelper lightboxHelper,
             IUserTagProvider userTagProvider,
             IFeedLinkService feedLinkService,
+            IGroupHelper groupHelper,
             IErrorLinksService errorLinksService)
-        : base(errorLinksService)
+            : base(errorLinksService)
         {
             _localizationModelService = localizationModelService;
             _socialService = socialService;
@@ -37,6 +40,7 @@ namespace Uintra20.Features.Social.Converters
             _lightboxHelper = lightboxHelper;
             _userTagProvider = userTagProvider;
             _feedLinkService = feedLinkService;
+            _groupHelper = groupHelper;
         }
 
         public override ConverterResponseModel MapViewModel(SocialEditPageModel node, SocialEditPageViewModel viewModel)
@@ -73,8 +77,7 @@ namespace Uintra20.Features.Social.Converters
             var groupIdStr = HttpContext.Current.Request["groupId"];
             if (Guid.TryParse(groupIdStr, out var groupId) && social.GroupId == groupId)
             {
-                viewModel.RequiresGroupHeader = true;
-                viewModel.GroupId = groupId;
+                viewModel.GroupHeader = _groupHelper.GetHeader(groupId);
             }
 
             return OkResult();

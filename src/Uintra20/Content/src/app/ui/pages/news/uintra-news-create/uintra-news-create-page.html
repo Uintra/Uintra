@@ -7,7 +7,7 @@
     </div>
   </app-group-details-wrapper>
 
-  <div class="page-wrapper col-md-8" *ngIf="!parsedData?.data?.groupId">
+  <div class="page-wrapper col-md-8" *ngIf="!parsedData?.groupHeader">
     <app-news-create *ngIf='data.data' [data]='data.data'></app-news-create>
   </div>
 </ng-container>

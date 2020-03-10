@@ -2,6 +2,7 @@ import { ITagData } from "../../reusable/inputs/tag-multiselect/tag-multiselect.
 import { ActivityEnum } from "src/app/shared/enums/activity-type.enum";
 import { IULink } from 'src/app/shared/interfaces/general.interface';
 import { UmbracoFlatPropertyModel } from '@ubaseline/next';
+import { IGroupDetailsHeaderData } from '../groups/groups.interface';
 
 export interface ISocialCreateModel {
   description: string;
@@ -42,7 +43,7 @@ export interface ISocialEdit {
   availableTags: Array<ITagData>;
   lightboxPreviewModel: ILightBoxPreviewModel;
   id: string;
-  groupId?: string;
+  groupHeader?: IGroupDetailsHeaderData;
   links: IActivityLinks;
   name: string;
   tagIdsData: Array<string>;

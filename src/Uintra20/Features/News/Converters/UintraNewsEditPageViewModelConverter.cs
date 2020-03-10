@@ -8,6 +8,7 @@ using Uintra20.Core.Controls.LightboxGallery;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Services;
 using Uintra20.Core.UbaselineModels.RestrictedNode;
+using Uintra20.Features.Groups.Helpers;
 using Uintra20.Features.Links;
 using Uintra20.Features.Media;
 using Uintra20.Features.Media.Strategies.Preset;
@@ -30,6 +31,7 @@ namespace Uintra20.Features.News.Converters
         private readonly IUserTagService _userTagService;
         private readonly IUserTagProvider _userTagProvider;
         private readonly ILightboxHelper _lightboxHelper;
+        private readonly IGroupHelper _groupHelper;
 
         public UintraNewsEditPageViewModelConverter(
             IPermissionsService permissionsService,
@@ -39,8 +41,9 @@ namespace Uintra20.Features.News.Converters
             IUserTagService userTagService,
             IUserTagProvider userTagProvider,
             ILightboxHelper lightboxHelper,
+            IGroupHelper groupHelper,
             IErrorLinksService errorLinksService)
-        : base(errorLinksService)
+            : base(errorLinksService)
         {
             _permissionsService = permissionsService;
             _feedLinkService = feedLinkService;
@@ -49,6 +52,7 @@ namespace Uintra20.Features.News.Converters
             _userTagService = userTagService;
             _userTagProvider = userTagProvider;
             _lightboxHelper = lightboxHelper;
+            _groupHelper = groupHelper;
         }
 
         public override ConverterResponseModel MapViewModel(UintraNewsEditPageModel node, UintraNewsEditPageViewModel viewModel)
@@ -79,8 +83,7 @@ namespace Uintra20.Features.News.Converters
 
             if (Guid.TryParse(requestGroupId, out var groupId) && news.GroupId == groupId)
             {
-                viewModel.RequiresGroupHeader = true;
-                viewModel.GroupId = groupId;
+                viewModel.GroupHeader = _groupHelper.GetHeader(groupId);
             }
 
             return OkResult();

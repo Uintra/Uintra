@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { IGroupsData, IBreadcrumbsItem } from '../groups.interface';
 import { IUlinkWithTitle } from 'src/app/shared/interfaces/general.interface';
 import { GroupsService } from '../groups.service';
@@ -9,6 +9,7 @@ import { GroupsService } from '../groups.service';
   styleUrls: ['./groups-wrapper.component.less']
 })
 export class GroupsWrapperComponent implements OnInit {
+  @Input() data: IGroupsData;
   breadcrumbs: IBreadcrumbsItem[];
   tabs: IUlinkWithTitle[];
 
@@ -18,9 +19,7 @@ export class GroupsWrapperComponent implements OnInit {
     this.groupsService.getBreadcrumbs().subscribe((res: IBreadcrumbsItem[]) => {
       this.breadcrumbs = res;
     })
-    this.groupsService.getGroupsLinks().subscribe((res: IGroupsData) => {
-      this.tabs = [res.groupPageItem, ...res.items];
-    })
+    this.tabs = [this.data.groupPageItem, ...Object.values(this.data.items)];
   }
 
 }

@@ -25,10 +25,6 @@ export class SharedLinksService {
 
   constructor(private http: HttpClient, private cookieService: CookieService) {}
 
-  getSharedLinks(): Observable<Array<ISharedNavData>> {
-    return this.http.get<Array<ISharedNavData>>(this.api + `/SystemLinks`);
-  }
-
   setOpenState(openState: boolean = false): void {
     this.cookieService.set(this.openStateProperty, openState.toString());
   }
