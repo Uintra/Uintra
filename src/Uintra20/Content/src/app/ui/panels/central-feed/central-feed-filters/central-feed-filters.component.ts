@@ -16,12 +16,14 @@ export class CentralFeedFiltersComponent implements OnInit {
   selectedTabType: number;
   isOpen: boolean = false;
   filtersState: Array<any> = [];
+  filtersAllowed: boolean;
 
   constructor(private centralFeedFiltersService: CentralFeedFiltersService) {}
 
   ngOnInit() {
     this.setInitValues();
     this.emitFilterState();
+    this.resolveFilterPermissions();
   }
 
   handleOpen(value: boolean) {
@@ -136,5 +138,11 @@ export class CentralFeedFiltersComponent implements OnInit {
       }
       return filter;
     });
+  }
+
+  private resolveFilterPermissions(): void {
+    if (this.tabs.length > 1) {
+      this.filtersAllowed = true;
+    }
   }
 }
