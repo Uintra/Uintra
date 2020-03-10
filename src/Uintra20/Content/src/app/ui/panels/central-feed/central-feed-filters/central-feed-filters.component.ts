@@ -86,8 +86,11 @@ export class CentralFeedFiltersComponent implements OnInit {
     if (selectedTabType) {
       this.selectedTabType = selectedTabType;
       this.selectedTab = this.tabs.find(
-        tab => tab.get().type == selectedTabType
+        tab => tab.get().type === selectedTabType
       );
+      if (!this.selectedTab) {
+        this.selectedTab = this.tabs[0];
+      }
     } else {
       this.selectedTab = this.tabs.find(tab => tab.get().isActive);
       this.selectedTabType = this.selectedTab.get().type.get();
