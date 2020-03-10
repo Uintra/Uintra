@@ -1,4 +1,9 @@
-<app-spoiler-section [title]="'centralFeedList.OpenFilters.lbl' | translate" [(ngModel)]="isOpen" (ngModelChange)="handleOpen($event)" class="feed-filters">
+<app-spoiler-section
+  *ngIf="filtersAllowed" 
+  [title]="'centralFeedList.OpenFilters.lbl' | translate" 
+  [(ngModel)]="isOpen" 
+  (ngModelChange)="handleOpen($event)" 
+  class="feed-filters">
   <app-radio-link-group
     *ngIf="tabs"
     [links]="tabs"
