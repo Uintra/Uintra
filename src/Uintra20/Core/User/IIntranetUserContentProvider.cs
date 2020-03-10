@@ -1,10 +1,11 @@
-﻿using Umbraco.Core.Models.PublishedContent;
+﻿using Uintra20.Core.Member.Profile.Edit.Models;
+using Uintra20.Core.Member.Profile.Models;
 
 namespace Uintra20.Core.User
 {
     public interface IIntranetUserContentProvider
     {
-        IPublishedContent GetProfilePage();
-        IPublishedContent GetEditPage();
+        ProfilePageModel GetProfilePage();
+        ProfileEditPageModel GetEditPage();
     }
 }
