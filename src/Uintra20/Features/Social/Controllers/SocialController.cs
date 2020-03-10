@@ -5,20 +5,16 @@ using System;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Http;
 using UBaseline.Core.Controllers;
 using Uintra20.Attributes;
 using Uintra20.Core.Activity;
-using Uintra20.Core.Activity.Models.Headers;
-using Uintra20.Core.Controls.LightboxGallery;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Models;
 using Uintra20.Core.Member.Services;
 using Uintra20.Features.Groups.Services;
 using Uintra20.Features.Links;
 using Uintra20.Features.Media;
-using Uintra20.Features.Media.Strategies.Preset;
 using Uintra20.Features.Navigation.Services;
 using Uintra20.Features.Permissions;
 using Uintra20.Features.Permissions.Interfaces;
@@ -41,7 +37,6 @@ namespace Uintra20.Features.Social.Controllers
         private readonly IActivityTagsHelper _activityTagsHelper;
         private readonly IMentionService _mentionService;
         private readonly IActivityLinkService _activityLinkService;
-        private readonly ILightboxHelper _lightboxHelper;
         private readonly IFeedLinkService _feedLinkService;
         private readonly IPermissionsService _permissionsService;
 
@@ -54,7 +49,6 @@ namespace Uintra20.Features.Social.Controllers
             IActivityTagsHelper activityTagsHelper,
             IMentionService mentionService,
             IActivityLinkService activityLinkService,
-            ILightboxHelper lightboxHelper,
             IFeedLinkService feedLinkService,
             IPermissionsService permissionsService)
         {
@@ -66,7 +60,6 @@ namespace Uintra20.Features.Social.Controllers
             _activityTagsHelper = activityTagsHelper;
             _mentionService = mentionService;
             _activityLinkService = activityLinkService;
-            _lightboxHelper = lightboxHelper;
             _feedLinkService = feedLinkService;
             _permissionsService = permissionsService;
         }
@@ -90,10 +83,10 @@ namespace Uintra20.Features.Social.Controllers
             result.Id = createdBulletinId;
             result.IsSuccess = true;
 
-            var viewModel = await GetViewModelAsync(createdBulletinId);
+            var links = await _feedLinkService.GetLinksAsync(createdBulletinId);
 
             ReloadFeed();
-            return Ok(viewModel.Links.Details);
+            return Ok(links.Details);
         }
 
         [HttpPut]
@@ -111,9 +104,9 @@ namespace Uintra20.Features.Social.Controllers
 
             await OnBulletinEditedAsync(bulletin, editModel);
 
-            var model = await GetViewModelAsync(bulletin.Id);
+            var links = await _feedLinkService.GetLinksAsync(bulletin.Id);
             ReloadFeed();
-            return Ok(model.Links.Details);
+            return Ok(links.Details);
         }
 
         [HttpDelete]
@@ -152,28 +145,6 @@ namespace Uintra20.Features.Social.Controllers
             return bulletin;
         }
 
-        protected async Task<SocialExtendedViewModel> GetViewModelAsync(Guid id)
-        {
-            var social = _socialService.Get(id);
-
-            var viewModel = social.Map<SocialViewModel>();
-
-            viewModel.Media = MediaHelper.GetMediaUrls(social.MediaIds);
-
-            viewModel.LightboxPreviewModel = _lightboxHelper.GetGalleryPreviewModel(social.MediaIds, PresetStrategies.ForActivityDetails);
-            viewModel.CanEdit = _socialService.CanEdit(social);
-            viewModel.Links = await _feedLinkService.GetLinksAsync(id);
-            viewModel.IsReadOnly = false;
-            viewModel.HeaderInfo = social.Map<IntranetActivityDetailsHeaderViewModel>();
-            viewModel.HeaderInfo.Dates = social.PublishDate.ToDateTimeFormat().ToEnumerable();
-            viewModel.HeaderInfo.Owner = _memberService.Get(social).ToViewModel();
-            viewModel.HeaderInfo.Links = await _feedLinkService.GetLinksAsync(id);
-
-            var extendedModel = viewModel.Map<SocialExtendedViewModel>();
-
-            return extendedModel;
-        }
-
         private SocialBase MapToBulletin(SocialEditModel socialEditModel)
         {
             var social = _socialService.Get(socialEditModel.Id);
@@ -185,14 +156,6 @@ namespace Uintra20.Features.Social.Controllers
             return social;
         }
 
-        private void OnBulletinEdited(SocialBase social, SocialEditModel model)
-        {
-
-            _activityTagsHelper.ReplaceTags(social.Id, model.TagIdsData);
-
-            ResolveMentions(model.Description, social);
-        }
-
         private async Task OnBulletinEditedAsync(SocialBase social, SocialEditModel model)
         {
             await _activityTagsHelper.ReplaceTagsAsync(social.Id, model.TagIdsData);
@@ -200,34 +163,10 @@ namespace Uintra20.Features.Social.Controllers
             await ResolveMentionsAsync(model.Description, social);
         }
 
-        private void OnBulletinDeleted(Guid id)
-        {
-            _myLinksService.DeleteByActivityId(id);
-        }
-
         private async Task OnBulletinDeletedAsync(Guid id)
         {
             await _myLinksService.DeleteByActivityIdAsync(id);
 
-        }
-
-        private void OnBulletinCreated(SocialBase social, SocialCreateModel model)
-        {
-            var groupId = HttpContext.Current.Request.QueryString.GetGroupIdOrNone();
-
-            if (groupId.HasValue)
-                _groupActivityService.AddRelation(groupId.Value, social.Id);
-
-            var extendedBulletin = _socialService.Get(social.Id);
-            extendedBulletin.GroupId = groupId;
-
-
-            _activityTagsHelper.ReplaceTags(social.Id, model.TagIdsData);
-
-            if (model.Description.HasValue())
-            {
-                ResolveMentions(model.Description, social);
-            }
         }
 
         private async Task OnBulletinCreatedAsync(SocialBase social, SocialCreateModel model)
@@ -246,27 +185,6 @@ namespace Uintra20.Features.Social.Controllers
             }
         }
 
-        private void ResolveMentions(string text, SocialBase social)
-        {
-            var mentionIds = new Guid[] { };//_mentionService.GetMentions(text).ToList();//TODO: uncomment when mention service is ready
-
-            if (mentionIds.Any())
-            {
-                var links = _activityLinkService.GetLinks(social.Id);
-                const int maxTitleLength = 100;
-                _mentionService.ProcessMention(new MentionModel()
-                {
-                    MentionedSourceId = social.Id,
-                    CreatorId = _memberService.GetCurrentMemberId(),
-                    MentionedUserIds = mentionIds,
-                    Title = social.Description.StripHtml().TrimByWordEnd(maxTitleLength),
-                    Url = links.Details,
-                    ActivityType = IntranetActivityTypeEnum.Social
-                });
-
-            }
-        }
-
         private async Task ResolveMentionsAsync(string text, SocialBase social)
         {
             var mentionIds = new Guid[] { };//_mentionService.GetMentions(text).ToList();//TODO: uncomment when mention service is ready
@@ -275,7 +193,7 @@ namespace Uintra20.Features.Social.Controllers
             {
                 var links = await _activityLinkService.GetLinksAsync(social.Id);
                 const int maxTitleLength = 100;
-                _mentionService.ProcessMention(new MentionModel()
+                _mentionService.ProcessMention(new MentionModel
                 {
                     MentionedSourceId = social.Id,
                     CreatorId = await _memberService.GetCurrentMemberIdAsync(),

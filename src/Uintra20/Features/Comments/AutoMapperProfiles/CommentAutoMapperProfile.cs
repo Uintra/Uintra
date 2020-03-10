@@ -19,8 +19,6 @@ namespace Uintra20.Features.Comments.AutoMapperProfiles
                 .ForMember(dst => dst.CanDelete, o => o.Ignore())
                 .ForMember(dst => dst.ModifyDate, o => o.Ignore())
                 .ForMember(dst => dst.Creator, o => o.Ignore())
-                .ForMember(dst => dst.ElementOverviewId, o => o.Ignore())
-                .ForMember(dst => dst.CommentViewId, o => o.Ignore())
                 .ForMember(dst => dst.Replies, o => o.Ignore())
                 .ForMember(dst => dst.LikeModel, o => o.Ignore())
                 .ForMember(dst => dst.CreatedDate, o => o.MapFrom(src => src.CreatedDate.ToDateTimeFormat()))

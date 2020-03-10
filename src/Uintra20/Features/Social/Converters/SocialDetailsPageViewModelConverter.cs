@@ -85,7 +85,7 @@ namespace Uintra20.Features.Social.Converters
             return OkResult();
         }
 
-        protected SocialExtendedViewModel GetViewModel(Entities.Social social)
+        protected SocialViewModel GetViewModel(Entities.Social social)
         {
             var viewModel = social.Map<SocialViewModel>();
 
@@ -100,9 +100,7 @@ namespace Uintra20.Features.Social.Converters
             viewModel.HeaderInfo.Owner = _memberService.Get(social).ToViewModel();
             viewModel.HeaderInfo.Links = _feedLinkService.GetLinks(social.Id);
 
-            var extendedModel = viewModel.Map<SocialExtendedViewModel>();
-
-            return extendedModel;
+            return viewModel;
         }
     }
 }

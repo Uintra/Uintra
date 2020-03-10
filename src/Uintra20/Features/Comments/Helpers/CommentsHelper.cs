@@ -103,8 +103,6 @@ namespace Uintra20.Features.Comments.Helpers
             model.CanEdit = _commentsService.CanEdit(comment, currentMemberId);
             model.CanDelete = _commentsService.CanDelete(comment, currentMemberId);
             model.Creator = creator.ToViewModel();
-            model.ElementOverviewId = GetOverviewElementId(comment.ActivityId);
-            model.CommentViewId = _commentsService.GetCommentViewId(comment.Id);
             model.CreatorProfileUrl = creator == null ? null : _profileLinkProvider.GetProfileLink(creator);
             model.LinkPreview = comment.LinkPreview.Map<LinkPreviewViewModel>();
             model.LikedByCurrentUser = likes.Any(el => el.UserId == memberId);

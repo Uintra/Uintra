@@ -1332,7 +1332,6 @@
     <Compile Include="Features\Social\Models\SocialCreateModel.cs" />
     <Compile Include="Features\Social\Models\SocialCreationResultModel.cs" />
     <Compile Include="Features\Social\Models\SocialExtendedItemViewModel.cs" />
-    <Compile Include="Features\Social\Models\SocialExtendedViewModel.cs" />
     <Compile Include="Features\Social\Models\SocialItemViewModel.cs" />
     <Compile Include="Features\Social\Models\SocialViewModel.cs" />
     <Compile Include="Infrastructure\Caching\CacheHelper.cs" />

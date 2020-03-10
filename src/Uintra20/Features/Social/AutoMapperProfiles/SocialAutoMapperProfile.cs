@@ -135,13 +135,6 @@ namespace Uintra20.Features.Social.AutoMapperProfiles
             //        src.MediaIds = dst.Media.ToIntCollection();
             //    });
 
-
-
-            CreateMap<Entities.Social, SocialExtendedViewModel>()
-                .IncludeBase<SocialBase, SocialViewModel>()
-                .ForMember(dst => dst.LikesInfo, o => o.MapFrom(el => el))
-                .ForMember(dst => dst.CommentsInfo, o => o.MapFrom(el => el));
-
             CreateMap<Entities.Social, SocialExtendedItemViewModel>()
                 .IncludeBase<SocialBase, SocialItemViewModel>()
                 .ForMember(dst => dst.LikesInfo, o => o.MapFrom(el => el))

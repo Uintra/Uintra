@@ -14,7 +14,7 @@ namespace Uintra20.Features.Social.Models
     {
         public PropertyViewModel<INodeViewModel[]> Panels { get; set; }
         public PageSettingsCompositionViewModel PageSettings { get; set; }
-        public SocialExtendedViewModel Details { get; set; }
+        public SocialViewModel Details { get; set; }
         public IEnumerable<UserTag> Tags { get; set; } = Enumerable.Empty<UserTag>();
         public bool CanEdit { get; set; }
         public bool IsGroupMember { get; set; }

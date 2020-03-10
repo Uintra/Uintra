@@ -28,25 +28,14 @@ namespace Uintra20.Features.News.AutoMapperPrfiles
                 .ForMember(dst => dst.ActivityType, o => o.MapFrom(el => el.Type))
                 .ForMember(dst => dst.IsReadOnly, o => o.Ignore())
                 .ForMember(dst => dst.Media, o => o.MapFrom(el => el.MediaIds.JoinToString(",")))
-                .ForMember(dst => dst.LikesInfo, o => o.Ignore())
                 .ForMember(dst => dst.LightboxPreviewModel, o => o.Ignore())
-                .ForMember(dst => dst.CommentsInfo, o => o.Ignore())
                 .ForMember(dst => dst.Tags, o => o.Ignore())
                 .ForMember(dst => dst.AvailableTags, o => o.Ignore());
 
             CreateMap<Entities.News, NewsViewModel>()
                 .IncludeBase<NewsBase, NewsViewModel>()
-                .ForMember(dst => dst.LikesInfo, o => o.MapFrom(el => el))
-                .ForMember(dst => dst.LikesInfo, o => o.MapFrom(el => el))
-                .ForMember(dst => dst.CommentsInfo, o => o.MapFrom(el => el))
                 .ForMember(dst => dst.Tags, o => o.Ignore())
                 .ForMember(dst => dst.AvailableTags, o => o.Ignore());
-
-
-            //CreateMap<Entities.News, NewsExtendedItemViewModel>()
-            //    .IncludeBase<NewsBase, NewsItemViewModel>()
-            //    .ForMember(dst => dst.ActivityType, o => o.MapFrom(el => el.Type))
-            //    .ForMember(dst => dst.LikesInfo, o => o.MapFrom(el => el));
 
             CreateMap<Entities.News, IntranetActivityItemHeaderViewModel>()
                 .IncludeBase<NewsBase, IntranetActivityItemHeaderViewModel>();
@@ -87,16 +76,6 @@ namespace Uintra20.Features.News.AutoMapperPrfiles
                 .ForMember(dst => dst.MediaPreview, o => o.Ignore())
                 .ForMember(dst => dst.Dates, o => o.Ignore())
                 .ForMember(dst => dst.ActivityType, o => o.MapFrom(src => src.Type));
-
-
-            //CreateMap<NewsBase, NewsItemViewModel>()
-            //    .ForMember(dst => dst.Links, o => o.Ignore())
-            //    .ForMember(dst => dst.MediaIds, o => o.Ignore())
-            //    .ForMember(dst => dst.Expired, o => o.Ignore())
-            //    .ForMember(dst => dst.LightboxGalleryPreviewInfo, o => o.Ignore())
-            //    .ForMember(dst => dst.ActivityType, o => o.MapFrom(el => el.Type))
-            //    .ForMember(dst => dst.HeaderInfo, o => o.Ignore())
-            //    .ForMember(dst => dst.IsReadOnly, o => o.Ignore());
 
             CreateMap<NewsBase, NewsCreateModel>()
                 .ForMember(dst => dst.PinAllowed, o => o.Ignore())
