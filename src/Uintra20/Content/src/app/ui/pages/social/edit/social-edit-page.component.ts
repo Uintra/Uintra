@@ -9,6 +9,7 @@ import { HasDataChangedService } from "src/app/shared/services/general/has-data-
 import { CanDeactivateGuard } from "src/app/shared/services/general/can-deactivate.service";
 import { ActivityService } from "src/app/feature/specific/activity/activity.service";
 import { ISocialEdit } from 'src/app/feature/specific/activity/activity.interfaces';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'social-edit',
@@ -32,7 +33,8 @@ export class SocialEditPageComponent {
     private routerResolverService: RouterResolverService,
     private addButtonService: AddButtonService,
     private hasDataChangedService: HasDataChangedService,
-    private canDeactivateService: CanDeactivateGuard
+    private canDeactivateService: CanDeactivateGuard,
+    private translate: TranslateService
   ) {
     this.route.data.subscribe(data => {
       if (!data.requiresRedirect.get()) {
@@ -138,18 +140,20 @@ export class SocialEditPageComponent {
       );
   }
 
-  // TODO: Add usage of alertify or smth similiar
   public handleSocialDelete(): void {
-    this.inProgress = true;
-    this.socialService.deleteSocial(this.socialEdit.id)
-      .subscribe(
-        (next) => {
-          this.router.navigate([this.socialEdit.links.feed.originalUrl]);
-        },
-        (err) => {
-          this.inProgress = false;
-        },
-      );
+    if (confirm(this.translate.instant('common.AreYouSure'))) {
+      this.inProgress = true;
+
+      this.socialService.deleteSocial(this.socialEdit.id)
+        .subscribe(
+          (next) => {
+            this.router.navigate([this.socialEdit.links.feed.originalUrl]);
+          },
+          (err) => {
+            this.inProgress = false;
+          },
+        );
+    }
   }
   private initSocialEditForm(): void {
     this.socialEditForm = new FormGroup({

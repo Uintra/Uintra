@@ -1,8 +1,8 @@
 import { ITagData } from "../../reusable/inputs/tag-multiselect/tag-multiselect.interface";
 import { ActivityEnum } from "src/app/shared/enums/activity-type.enum";
-import { IULink } from 'src/app/shared/interfaces/general.interface';
-import { UmbracoFlatPropertyModel } from '@ubaseline/next';
-import { IGroupDetailsHeaderData } from '../groups/groups.interface';
+import { IULink } from "src/app/shared/interfaces/general.interface";
+import { UmbracoFlatPropertyModel } from "@ubaseline/next";
+import { IGroupDetailsHeaderData } from "../groups/groups.interface";
 
 export interface ISocialCreateModel {
   description: string;
@@ -21,7 +21,7 @@ export interface INewsCreateModel {
   unpublishDate?: string;
   media?: {
     medias?: any[];
-    otherFiles?: any[]
+    otherFiles?: any[];
   };
   mediaRootId?: number;
   endPinDate?: string;
@@ -56,7 +56,7 @@ export interface ISocialEdit {
   location?: {
     address?: string;
     shortAddress?: string;
-  }
+  };
 }
 
 export interface ILightBoxPreviewModel {
@@ -120,9 +120,6 @@ export interface ISocialAttachment {
 export interface IMedia extends ISocialAttachment {}
 export interface IDocument extends ISocialAttachment {}
 
-
-
-// TODO: maybe global interfaces
 interface IActivityLinks {
   details: IULink;
   edit: IULink;
