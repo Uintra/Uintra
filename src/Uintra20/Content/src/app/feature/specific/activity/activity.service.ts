@@ -37,7 +37,6 @@ export class ActivityService {
   }
 
   submitNewsContent(data: INewsCreateModel) {
-    //TODO Interface for type
     return this.http.post("/ubaseline/api/newsApi/create", data);
   }
 

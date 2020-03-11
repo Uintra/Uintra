@@ -72,12 +72,6 @@ namespace Uintra20.Features.Social.Converters
 
             var currentMember = _memberService.GetCurrentMember();
 
-            model.CanEditOwner = _permissionsService.Check(PermissionType, PermissionActionEnum.EditOwner);
-            model.PinAllowed = _permissionsService.Check(PermissionType, PermissionActionEnum.CanPin);
-
-            if (model.CanEditOwner)
-                model.Members = GetUsersWithAccess(new PermissionSettingIdentity(PermissionActionEnum.Create, PermissionType));
-
             model.Links = model.GroupId.HasValue ?
                 _feedLinkService.GetCreateLinks(ActivityType, model.GroupId.Value)
                 : _feedLinkService.GetCreateLinks(ActivityType);
@@ -89,7 +83,6 @@ namespace Uintra20.Features.Social.Converters
             model.Creator = currentMember.ToViewModel();
             model.GroupId = groupId;
 
-            model.Title = currentMember.DisplayedName;
             model.Date = DateTime.UtcNow.ToDateFormat();
             
             return model;

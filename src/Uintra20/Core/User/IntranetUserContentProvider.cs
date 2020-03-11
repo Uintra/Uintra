@@ -1,36 +1,31 @@
 ﻿using System.Linq;
-using Uintra20.Infrastructure.Providers;
-using Umbraco.Core.Models.PublishedContent;
+using UBaseline.Core.Node;
+using Uintra20.Core.Member.Profile.Edit.Models;
+using Uintra20.Core.Member.Profile.Models;
 
 namespace Uintra20.Core.User
 {
     public class IntranetUserContentProvider : IIntranetUserContentProvider
     {
-        private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
-        private readonly string _baseAlias;
+        private readonly INodeModelService _nodeModelService;
 
-        public IntranetUserContentProvider(IDocumentTypeAliasProvider documentTypeAliasProvider)
+        public IntranetUserContentProvider(INodeModelService nodeModelService)
         {
-            _documentTypeAliasProvider = documentTypeAliasProvider;
-            _baseAlias = _documentTypeAliasProvider.GetHomePage();
+            _nodeModelService = nodeModelService;
         }
 
-        public IPublishedContent GetProfilePage()
+        public ProfilePageModel GetProfilePage()
         {
-			var baseContent = Umbraco.Web.Composing.Current.UmbracoHelper.ContentAtRoot().First(x => x.ContentType.Alias == _baseAlias);
-			var profilePageAlias = _documentTypeAliasProvider.GetProfilePage();
-            var profilePageContent = baseContent.Children.FirstOrDefault(x => x.ContentType.Alias == profilePageAlias);
+            var profilePage = _nodeModelService.AsEnumerable().OfType<ProfilePageModel>().Single();
 
-            return profilePageContent;
+            return profilePage;
         }
 
-        public IPublishedContent GetEditPage()
+        public ProfileEditPageModel GetEditPage()
         {
-	        var baseContent = Umbraco.Web.Composing.Current.UmbracoHelper.ContentAtRoot().First(x => x.ContentType.Alias == _baseAlias);
-			var editPageAlias = _documentTypeAliasProvider.GetProfileEditPage();
-            var editPageContent = baseContent.Children.FirstOrDefault(x => x.ContentType.Alias == editPageAlias);
-            
-            return editPageContent;
+            var profileEditPage = _nodeModelService.AsEnumerable().OfType<ProfileEditPageModel>().Single();
+
+            return profileEditPage;
         }
     }
 }

@@ -14,9 +14,8 @@
     </div>
     <div class="pin-info__datepicker">
       <h5 class="pin-info__datepicker-title subtitle">
-        {{'pin.EndPinDate.lbl' | translate} }
+        {{'pin.EndPinDate.lbl' | translate }}
       </h5>
-      <!--TODO add css-->
       <div class="datepicker">
         <sq-datetimepicker [groupClass]="'udatepicker'" [inputClass]="'udatepicker-input'" [(ngModel)]="pinDate"
           [options]='options' [mode]="'input'" (dpChange)='onDateChange()'></sq-datetimepicker>

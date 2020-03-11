@@ -17,12 +17,19 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
     }
   ]
 })
-export class RadioLinkGroupComponent implements ControlValueAccessor {
+export class RadioLinkGroupComponent implements ControlValueAccessor, OnInit {
+
   // @Input() links: Array<IRadioLink> = [];
   @Input() links: Array<any> = [];
   selectedLink: number;
-
+  TOTAL_LINKS_COUNT = 4;
   constructor() { }
+
+  public ngOnInit(): void {
+      if (this.links.length < this.TOTAL_LINKS_COUNT) {
+          this.links = this.links.filter(l => l.data.title !== "All");
+      }
+  }
 
   onRadioChange() {
     this.propagateChange(this.selectedLink);

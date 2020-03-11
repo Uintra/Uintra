@@ -10,11 +10,10 @@
       <a
         *ngIf="panelData.createEventsLink"
         class="button-default"
-        [routerLink]="['/events-create']"
+        [routerLink]="panelData.createEventsLink.originalUrl | ulink"
         >
         {{'centralFeed.CreateLink_Events.lnk' | translate}}
       </a>
-          <!-- TODO Add correct param to routerLink when event create will be done -->
       <a
         *ngIf="panelData.createNewsLink"
         class="button-default"

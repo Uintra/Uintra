@@ -1,5 +1,5 @@
 import { Component, ViewEncapsulation, OnInit, NgZone } from "@angular/core";
-import { ICentralFeedPanel } from "./central-feed-panel.interface";
+import { ICentralFeedPanel, IPublicationsResponse, IFilterState } from "./central-feed-panel.interface";
 import { UmbracoFlatPropertyModel, IUmbracoProperty } from "@ubaseline/next";
 import { PublicationsService } from "./helpers/publications.service";
 import { SignalrService } from "src/app/shared/services/general/signalr.service";
@@ -51,8 +51,7 @@ import { TranslateService } from '@ngx-translate/core';
 export class CentralFeedPanel implements OnInit {
   data: ICentralFeedPanel;
   tabs: Array<any> = null;
-  // TODO: replace 'any' after server side will be done
-  selectTabFilters: Array<any>;
+  selectTabFilters: Array<IFilterState>;
   selectedTabType: number;
   feed: Array<any> = [];
   currentPage = 1;
@@ -121,10 +120,10 @@ export class CentralFeedPanel implements OnInit {
     };
 
     this.isFeedLoading = true;
-    // TODO: replace 'any' after server side will be done
+
     this.publicationsService
       .getPublications(data)
-      .then((response: any) => {
+      .then((response: IPublicationsResponse) => {
         this.isScrollDisabled = response.feed.length === 0;
         this.concatWithCurrentFeed(response.feed);
         this.isResponseFailed = false;

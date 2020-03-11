@@ -36,9 +36,7 @@ namespace Uintra20.Features.CentralFeed
         public void Map(CentralFeedPanelModel node, CentralFeedPanelViewModel viewModel)
         {
             var command = GetPermissionCommand();
-            viewModel.Type = _feedTypeProvider[node.TabType];
             viewModel.Tabs = _activityTabsBuilder.Build(command);
-            //viewModel.TabsWithCreateUrl = GetTabsWithCreateUrl(activityTabs).Where(tab => _permissionsService.Check(_permissionResourceTypeProvider[tab.Type.ToInt()], PermissionActionEnum.Create));
             viewModel.ItemsPerRequest = node.ItemsPerRequest.Value == 0 ? 10 : node.ItemsPerRequest.Value;
             viewModel.GroupId = HttpContext.Current.Request.GetRequestQueryValue("groupId").TryParseGuid();
         }

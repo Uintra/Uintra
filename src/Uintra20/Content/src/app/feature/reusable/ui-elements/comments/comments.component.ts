@@ -21,6 +21,7 @@ export class CommentsComponent {
   @Input() isGroupMember: boolean = true;
   description = '';
   inProgress: boolean;
+  isReplyInProgress: boolean;
 
   get isSubmitDisabled(): boolean {
     const isEmpty = this.stripHTML.isEmpty(this.description);
@@ -37,6 +38,7 @@ export class CommentsComponent {
   ) { }
 
   onCommentSubmit(replyData?) {
+    if (replyData) {this.isReplyInProgress = true}
     this.inProgress = true;
     const data = {
       entityId: this.commentDetails.entityId,
@@ -49,6 +51,7 @@ export class CommentsComponent {
       this.description = '';
     }).finally(() => {
       this.inProgress = false;
+      this.isReplyInProgress = false;
     });
   }
 

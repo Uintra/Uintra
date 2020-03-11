@@ -23,7 +23,7 @@ export class CommentsPanel implements OnInit {
 
   ngOnInit(): void {
     const parsedData = ParseHelper.parseUbaselineData(this.data);
-    this.activityType = parsedData.activityId;
+    this.activityType = parsedData.commentsType;
     this.commentDetails = {
       entityId: parsedData.entityId,
       entityType: parsedData.activityId

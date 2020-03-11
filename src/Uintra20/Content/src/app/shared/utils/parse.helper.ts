@@ -14,7 +14,6 @@ export default class ParseHelper {
             return '';
         }
 
-        // TODO: merge replaces into one regex
         const stripped = html
             .replace(/&nbsp;/g, ' ')
             .replace(/<[^>]*>?/gm, '');

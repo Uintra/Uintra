@@ -68,7 +68,7 @@ export class NewsFormComponent implements OnInit {
   }
 
   private setInitialData(): void {
-    this.owners = this.getOwners();
+    this.owners = this.newsFormService.getOwners(this.members, this.creator);
 
     this.defaultOwner = this.creator
       ? this.owners.find(x => x.id === this.creator.id)
@@ -149,8 +149,6 @@ export class NewsFormComponent implements OnInit {
     if (this.validate()) {
       this.newsDataBuilder();
       this.handleSubmit.emit(this.newsData);
-    } else {
-      // TODO: scroll to invalid input
     }
   }
 
@@ -174,8 +172,8 @@ export class NewsFormComponent implements OnInit {
   }
 
   private newsDataBuilder(): void {
-    this.newsData.newMedia = this.getMediaIdsForResponse();
-    this.newsData.tagIdsData = this.getTagsForResponse();
+    this.newsData.newMedia = this.newsFormService.getMediaIdsForResponse(this.files);
+    this.newsData.tagIdsData = this.newsFormService.getTagsForResponse(this.selectedTags);
   }
 
   changeOwner(owner: ISelectItem | string) {
@@ -201,30 +199,5 @@ export class NewsFormComponent implements OnInit {
       this.hasDataChangedService.onDataChanged();
     }
     this.newsData.description = e;
-  }
-
-  // TODO: move to service
-  private getTagsForResponse(): string[] {
-    return this.selectedTags ? this.selectedTags.map(tag => tag.id) : [];
-  }
-  private getMediaIdsForResponse(): string {
-    return this.files.map(file => file[1]).join(",");
-  }
-  private getOwners(): ISelectItem[] {
-    const owners = this.getMembers(this.members);
-    if (this.creator) {
-      owners.push({
-        id: this.creator.id,
-        text: this.creator.displayedName
-      });
-    }
-
-    return owners;
-  }
-  private getMembers(members = []): ISelectItem[] {
-    return members.map(member => ({
-      id: member.id,
-      text: member.displayedName
-    }));
   }
 }

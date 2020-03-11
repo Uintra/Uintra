@@ -15,6 +15,7 @@ export class CommentItemComponent implements OnInit {
   @Input() data: any;
   @Input() activityType: any;
   @Input() commentsActivity: any;
+  @Input() isReplyInProgress: boolean;
   @Output() deleteComment = new EventEmitter();
   @Output() editComment = new EventEmitter();
   @Output() replyComment = new EventEmitter();
@@ -27,13 +28,15 @@ export class CommentItemComponent implements OnInit {
   likeModel: ILikeData;
   commentCreator: ICreator;
   sanitizedContent: SafeHtml;
+  isEditSubmitLoading: boolean;
+  isReplyEditingInProgress: boolean;
 
   get isSubcommentSubmitDisabled() {
-    return this.stripHTML.isEmpty(this.subcommentDescription);
+    return this.stripHTML.isEmpty(this.subcommentDescription) || this.isReplyInProgress;
   }
 
   get isEditSubmitDisabled() {
-    return this.stripHTML.isEmpty(this.editedValue);
+    return this.stripHTML.isEmpty(this.editedValue) || this.isEditSubmitLoading;
   }
 
   constructor(
@@ -72,11 +75,16 @@ export class CommentItemComponent implements OnInit {
   }
 
   onSubmitEditedValue(subcomment?) {
+    if (subcomment) {this.isReplyEditingInProgress = true}
+    this.isEditSubmitLoading = true;
     this.commentsService.editComment(
       this.buildComment(subcomment)
       ).then((res: any) => {
         this.editComment.emit(res.comments);
         this.toggleEditingMode();
+      }).finally(() => {
+        this.isEditSubmitLoading = false;
+        this.isReplyEditingInProgress = false;
       });
   }
 

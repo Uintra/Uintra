@@ -70,11 +70,12 @@ export class SocialDetailsPanelComponent implements OnInit {
     this.documents = Object.values(
       parsedData.details.lightboxPreviewModel.otherFiles
     );
+
     this.likeData = {
       likedByCurrentUser: !!parsedData.likedByCurrentUser,
       id: parsedData.details.id,
       activityType: parsedData.details.activityType,
-      likes: Object.values(parsedData.likes)
+      likes: parsedData.likes ? Object.values(parsedData.likes) : []
     };
     this.detailsDescription = this.sanitizer.bypassSecurityTrustHtml(
       this.details.description
