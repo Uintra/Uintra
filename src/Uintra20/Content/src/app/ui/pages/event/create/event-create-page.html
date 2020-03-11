@@ -1,1 +1,13 @@
-<ubl-dynamic-component *ngFor="let panel of data.panels.get()" [data]="panel.get()"></ubl-dynamic-component>
+<ng-container *ngIf="parsedData">
+  <app-group-details-wrapper *ngIf="parsedData?.groupHeader" [data]="parsedData.groupHeader">
+    <div class="group-details-padding">
+      <div class="page-wrapper col-md-8">
+        <app-event-create></app-event-create>
+      </div>
+    </div>
+  </app-group-details-wrapper>
+
+  <div class="page-wrapper col-md-8" *ngIf="!parsedData?.groupHeader">
+    <app-event-create></app-event-create>
+  </div>
+</ng-container>

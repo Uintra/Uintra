@@ -116,6 +116,11 @@ export const pages = [
     cache: false
   },
   {
+    id: 'eventCreatePage',
+    path: '__dynamic__',
+    loadChildren: './ui/pages/event/create/event-create-page.module#EventCreatePageModule'
+  },
+  {
     id: 'pageNotFoundPage',
     path: '__dynamic__',
     loadChildren: './ui/pages/page-not-found/page-not-found-page.module#PageNotFoundPageModule'
@@ -124,10 +129,5 @@ export const pages = [
     id: 'forbiddenPage',
     path: '__dynamic__',
     loadChildren: './ui/pages/forbidden/forbidden-page.module#ForbiddenPageModule'
-  },
-  {
-    id: 'eventCreatePage',
-    path: '__dynamic__',
-    loadChildren: './ui/pages/event/create/event-create-page.module#EventCreatePageModule'
   },
 ];
