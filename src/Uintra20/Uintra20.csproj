@@ -930,6 +930,10 @@
     <Compile Include="Core\UbaselineModels\RestrictedNode\ConverterResponseModel.cs" />
     <Compile Include="Core\UbaselineModels\RestrictedNode\UintraRestrictedNodeViewModel.cs" />
     <Compile Include="Core\UbaselineModels\RestrictedNode\UintraRestrictedNodeViewModelConverter.cs" />
+    <Compile Include="Features\Events\Converters\EventCreatePageViewModelConverter.cs" />
+    <Compile Include="Features\Events\Models\EventCreateDataViewModel.cs" />
+    <Compile Include="Features\Events\Models\EventCreatePageModel.cs" />
+    <Compile Include="Features\Events\Models\EventCreatePageViewModel.cs" />
     <Compile Include="Features\Groups\Converters\UintraGroupsCreatePageViewModelConverter.cs" />
     <Compile Include="Features\Groups\Converters\UintraGroupsDocumentsPageViewModelConverter.cs" />
     <Compile Include="Features\Groups\Converters\UintraGroupsEditPageViewModelConverter.cs" />
