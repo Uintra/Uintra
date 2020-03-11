@@ -110,6 +110,9 @@
     <Reference Include="CSharpTest.Net.Collections, Version=14.906.1403.1082, Culture=neutral, PublicKeyToken=06aee00cce822474, processorArchitecture=MSIL">
       <HintPath>..\..\packages\CSharpTest.Net.Collections.14.906.1403.1082\lib\net40\CSharpTest.Net.Collections.dll</HintPath>
     </Reference>
+    <Reference Include="Elasticsearch.Net, Version=5.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Elasticsearch.Net.5.6.5\lib\net461\Elasticsearch.Net.dll</HintPath>
+    </Reference>
     <Reference Include="Elmah, Version=1.2.14706.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
     </Reference>
@@ -302,6 +305,9 @@
     </Reference>
     <Reference Include="MySql.Data, Version=6.9.12.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <HintPath>..\..\packages\MySql.Data.6.9.12\lib\net45\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Nest, Version=5.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NEST.5.6.5\lib\net461\Nest.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -1070,6 +1076,94 @@
     <Compile Include="Features\Permissions\Models\MemberGroupViewModel.cs" />
     <Compile Include="Features\Permissions\Models\PermissionUpdateViewModel.cs" />
     <Compile Include="Features\Permissions\Models\PermissionViewModel.cs" />
+    <Compile Include="Features\Search\ContentIndexer.cs" />
+    <Compile Include="Features\Search\DocumentIndexer.cs" />
+    <Compile Include="Features\Search\ElasticConfigurationSection.cs" />
+    <Compile Include="Features\Search\ElasticHelpers.cs" />
+    <Compile Include="Features\Search\ElasticIndex.cs" />
+    <Compile Include="Features\Search\ElasticSearchRepository.cs" />
+    <Compile Include="Features\Search\ElasticSearchRequestErrorException.cs" />
+    <Compile Include="Features\Search\ElasticTagIndex.cs" />
+    <Compile Include="Features\Search\ElasticUintraActivityIndex.cs" />
+    <Compile Include="Features\Search\Entities\BaseFacet.cs" />
+    <Compile Include="Features\Search\Entities\ISerachibleTaggedActivity.cs" />
+    <Compile Include="Features\Search\Entities\Mappings\SearchableActivityMap.cs" />
+    <Compile Include="Features\Search\Entities\Mappings\SearchableBaseMap.cs" />
+    <Compile Include="Features\Search\Entities\Mappings\SearchableContentMap.cs" />
+    <Compile Include="Features\Search\Entities\Mappings\SearchableDocumentMap.cs" />
+    <Compile Include="Features\Search\Entities\Mappings\SearchableTagMap.cs" />
+    <Compile Include="Features\Search\Entities\Mappings\SearchableUintraActivityMap.cs" />
+    <Compile Include="Features\Search\Entities\Mappings\SearchableUserMap.cs" />
+    <Compile Include="Features\Search\Entities\SearchableActivity.cs" />
+    <Compile Include="Features\Search\Entities\SearchableBase.cs" />
+    <Compile Include="Features\Search\Entities\SearchableContent.cs" />
+    <Compile Include="Features\Search\Entities\SearchableDocument.cs" />
+    <Compile Include="Features\Search\Entities\SearchableMember.cs" />
+    <Compile Include="Features\Search\Entities\SearchableTag.cs" />
+    <Compile Include="Features\Search\Entities\SearchableTypeEnum.cs" />
+    <Compile Include="Features\Search\Entities\SearchableUintraActivity.cs" />
+    <Compile Include="Features\Search\Entities\SearchableUintraContent.cs" />
+    <Compile Include="Features\Search\Entities\SearchableUserGroupInfo.cs" />
+    <Compile Include="Features\Search\Entities\SearchResult.cs" />
+    <Compile Include="Features\Search\Entities\UintraSearchableTypeEnum.cs" />
+    <Compile Include="Features\Search\IContentIndexer.cs" />
+    <Compile Include="Features\Search\IDocumentIndexer.cs" />
+    <Compile Include="Features\Search\IElasticConfigurationSection.cs" />
+    <Compile Include="Features\Search\IElasticEntityMapper.cs" />
+    <Compile Include="Features\Search\IElasticSearchRepository.cs" />
+    <Compile Include="Features\Search\IElasticTagIndex.cs" />
+    <Compile Include="Features\Search\IElasticUintraActivityIndex.cs" />
+    <Compile Include="Features\Search\IIndexer.cs" />
+    <Compile Include="Features\Search\Indexes\ActivityUserTagIndex.cs" />
+    <Compile Include="Features\Search\Indexes\ElasticActivityIndex.cs" />
+    <Compile Include="Features\Search\Indexes\ElasticContentIndex.cs" />
+    <Compile Include="Features\Search\Indexes\ElasticDocumentIndex.cs" />
+    <Compile Include="Features\Search\Indexes\ElasticMemberIndex.cs" />
+    <Compile Include="Features\Search\Indexes\ElasticUintraContentIndex.cs" />
+    <Compile Include="Features\Search\Indexes\IActivityUserTagIndex.cs" />
+    <Compile Include="Features\Search\Indexes\IElasticActivityIndex.cs" />
+    <Compile Include="Features\Search\Indexes\IElasticContentIndex.cs" />
+    <Compile Include="Features\Search\Indexes\IElasticDocumentIndex.cs" />
+    <Compile Include="Features\Search\Indexes\IElasticIndex.cs" />
+    <Compile Include="Features\Search\Indexes\IElasticMemberIndex.cs" />
+    <Compile Include="Features\Search\Indexes\IElasticUintraContentIndex.cs" />
+    <Compile Include="Features\Search\Indexes\UintraContentIndexer.cs" />
+    <Compile Include="Features\Search\Indexes\UintraElasticIndex.cs" />
+    <Compile Include="Features\Search\ISearchableMemberMapper.cs" />
+    <Compile Include="Features\Search\ISearchableTypeProvider.cs" />
+    <Compile Include="Features\Search\ISearchApplicationSettings.cs" />
+    <Compile Include="Features\Search\ISearchScoreProvider.cs" />
+    <Compile Include="Features\Search\ISearchUmbracoHelper.cs" />
+    <Compile Include="Features\Search\IUserTagsSearchIndexer.cs" />
+    <Compile Include="Features\Search\MembersIndexer.cs" />
+    <Compile Include="Features\Search\Member\IMemberSearchDescriptorBuilder.cs" />
+    <Compile Include="Features\Search\Member\MemberSearchDescriptorBuilder.cs" />
+    <Compile Include="Features\Search\Models\SearchAutocompleteResultViewModel.cs" />
+    <Compile Include="Features\Search\Models\SearchBoxAutocompleteItemViewModel.cs" />
+    <Compile Include="Features\Search\Models\SearchBoxViewModel.cs" />
+    <Compile Include="Features\Search\Models\SearchFilterItemViewModel.cs" />
+    <Compile Include="Features\Search\Models\SearchFilterModel.cs" />
+    <Compile Include="Features\Search\Models\SearchRequest.cs" />
+    <Compile Include="Features\Search\Models\SearchResultsOverviewViewModel.cs" />
+    <Compile Include="Features\Search\Models\SearchResultViewModel.cs" />
+    <Compile Include="Features\Search\Models\SearchScoreModel.cs" />
+    <Compile Include="Features\Search\Models\SearchViewModel.cs" />
+    <Compile Include="Features\Search\Paging\BaseSearchPagingHelper.cs" />
+    <Compile Include="Features\Search\Paging\ISearchPagingHelper.cs" />
+    <Compile Include="Features\Search\Queries\MemberSearchQuery.cs" />
+    <Compile Include="Features\Search\Queries\SearchTextQuery.cs" />
+    <Compile Include="Features\Search\SearchableMemberMapper.cs" />
+    <Compile Include="Features\Search\SearchableTypeProvider.cs" />
+    <Compile Include="Features\Search\SearchApplicationSettings.cs" />
+    <Compile Include="Features\Search\SearchConstants.cs" />
+    <Compile Include="Features\Search\SearchHelper.cs" />
+    <Compile Include="Features\Search\SearchInjectModule.cs" />
+    <Compile Include="Features\Search\SearchScoreProvider.cs" />
+    <Compile Include="Features\Search\SearchUmbracoHelper.cs" />
+    <Compile Include="Features\Search\Sorting\BaseSearchSortingHelper.cs" />
+    <Compile Include="Features\Search\Sorting\ISearchSortingHelper.cs" />
+    <Compile Include="Features\Search\UserTagsSearchIndexer.cs" />
+    <Compile Include="Features\Search\Web\SearchControllerBase.cs" />
     <Compile Include="Features\Social\Converters\SocialCreatePageViewModelConverter.cs" />
     <Compile Include="Features\Social\Converters\SocialDetailsPageViewModelConverter.cs" />
     <Compile Include="Features\Social\Models\SocialCreateDataViewModel.cs" />
@@ -1088,10 +1182,12 @@
     <Compile Include="Features\ContentPage\InjectModule\ContentPageInjectModule.cs" />
     <Compile Include="Features\ContentPage\Services\ContentPageNotificationService.cs" />
     <Compile Include="Features\Notification\ViewModel\NotificationListViewModel.cs" />
+    <Compile Include="Features\Tagging\UserTags\Models\UserTagBackofficeViewModel.cs" />
     <Compile Include="Infrastructure\Context\IIntranetRequestContext.cs" />
     <Compile Include="Infrastructure\Context\IntranetRequestContext.cs" />
     <Compile Include="Infrastructure\Extensions\ArrayExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\InconsistentDataException.cs" />
+    <Compile Include="Infrastructure\Extensions\SerializationExtentions.cs" />
     <Compile Include="Infrastructure\Helpers\EnumHelper.cs" />
     <Compile Include="Infrastructure\Helpers\TransferRequestHelper.cs" />
     <Compile Include="Infrastructure\Ioc\GroupInjectModule.cs" />

@@ -15,6 +15,7 @@ using Uintra20.Features.Comments.Services;
 using Uintra20.Features.Groups.Services;
 using Uintra20.Features.Likes.Services;
 using Uintra20.Features.LinkPreview;
+using Uintra20.Features.Links;
 using Uintra20.Features.Location.Services;
 using Uintra20.Features.Media;
 using Uintra20.Features.Notification;
@@ -22,7 +23,11 @@ using Uintra20.Features.Notification.Entities.Base;
 using Uintra20.Features.Notification.Services;
 using Uintra20.Features.Permissions;
 using Uintra20.Features.Permissions.Interfaces;
+using Uintra20.Features.Search;
+using Uintra20.Features.Search.Entities;
+using Uintra20.Features.Tagging.UserTags.Services;
 using Uintra20.Infrastructure.Caching;
+using Uintra20.Infrastructure.Extensions;
 using Uintra20.Infrastructure.TypeProviders;
 using static Uintra20.Features.Notification.Configuration.NotificationTypeEnum;
 
@@ -32,22 +37,24 @@ namespace Uintra20.Features.Social
         ISocialService<T>,
         IFeedItemService,
         INotifyableService,
-        //IIndexer,
+        IIndexer,
         IHandle<VideoConvertedCommand> 
         where T : Entities.Social
     {
         private readonly ICommentsService _commentsService;
         private readonly ILikesService _likesService;
         private readonly INotificationsService _notificationService;
-        //private readonly IElasticUintraActivityIndex _activityIndex;
-        //private readonly IDocumentIndexer _documentIndexer;
+        private readonly IElasticUintraActivityIndex _activityIndex;
+        private readonly IDocumentIndexer _documentIndexer;
         private readonly IMediaHelper _mediaHelper;
         private readonly IIntranetMediaService _intranetMediaService;
         private readonly IGroupActivityService _groupActivityService;
         private readonly IActivityLinkPreviewService _activityLinkPreviewService;
         private readonly IGroupService _groupService;
         private readonly INotifierDataBuilder _notifierDataBuilder;
-        
+        private readonly IUserTagService _userTagService;
+        private readonly IActivityLinkService _activityLinkService;
+
         public SocialService(
             IIntranetActivityRepository intranetActivityRepository,
             ICacheService cacheService,
@@ -57,15 +64,17 @@ namespace Uintra20.Features.Social
             IPermissionsService permissionsService,
             INotificationsService notificationService,
             IActivityTypeProvider activityTypeProvider,
-            //IElasticUintraActivityIndex activityIndex,
-            //IDocumentIndexer documentIndexer,
+            IElasticUintraActivityIndex activityIndex,
+            IDocumentIndexer documentIndexer,
             IMediaHelper mediaHelper,
             IIntranetMediaService intranetMediaService,
             IGroupActivityService groupActivityService,
             IActivityLocationService activityLocationService,
             IActivityLinkPreviewService activityLinkPreviewService,
             IGroupService groupService,
-            INotifierDataBuilder notifierDataBuilder
+            INotifierDataBuilder notifierDataBuilder,
+            IUserTagService userTagService,
+            IActivityLinkService activityLinkService
             )
             : base(intranetActivityRepository, cacheService, activityTypeProvider, intranetMediaService,
                 activityLocationService, activityLinkPreviewService, intranetMemberService, permissionsService)
@@ -73,14 +82,16 @@ namespace Uintra20.Features.Social
             _commentsService = commentsService;
             _likesService = likesService;
             _notificationService = notificationService;
-            //_activityIndex = activityIndex;
-            //_documentIndexer = documentIndexer;
+            _activityIndex = activityIndex;
+            _documentIndexer = documentIndexer;
             _mediaHelper = mediaHelper;
             _intranetMediaService = intranetMediaService;
             _groupActivityService = groupActivityService;
             _activityLinkPreviewService = activityLinkPreviewService;
             _groupService = groupService;
             _notifierDataBuilder = notifierDataBuilder;
+            _userTagService = userTagService;
+            _activityLinkService = activityLinkService;
         }
 
         public override Enum Type => IntranetActivityTypeEnum.Social;
@@ -139,15 +150,15 @@ namespace Uintra20.Features.Social
             var bulletin = base.UpdateActivityCache(id);
             if (IsCacheable(bulletin) && (bulletin.GroupId is null || _groupService.IsActivityFromActiveGroup(bulletin)))
             {
-                //_activityIndex.Index(Map(social));
-                //_documentIndexer.Index(social.MediaIds);
+                _activityIndex.Index(Map(bulletin));
+                _documentIndexer.Index(bulletin.MediaIds);
                 return bulletin;
             }
 
             if (cachedBulletin == null) return null;
 
-            //_activityIndex.Delete(id);
-            //_documentIndexer.DeleteFromIndex(cachedBulletin.MediaIds);
+            _activityIndex.Delete(id);
+            _documentIndexer.DeleteFromIndex(cachedBulletin.MediaIds);
             _mediaHelper.DeleteMedia(cachedBulletin.MediaIds);
             return null;
         }
@@ -190,13 +201,13 @@ namespace Uintra20.Features.Social
             await _notificationService.ProcessNotificationAsync(notifierData);
         }
 
-        //public void FillIndex()
-        //{
-        //    var activities = GetAll().Where(IsCacheable);
-        //    var searchableActivities = activities.Select(Map);
-        //    _activityIndex.DeleteByType(UintraSearchableTypeEnum.Bulletins);
-        //    _activityIndex.Index(searchableActivities);
-        //}
+        public void FillIndex()
+        {
+            var activities = GetAll().Where(IsCacheable);
+            var searchableActivities = activities.Select(Map);
+            _activityIndex.DeleteByType(UintraSearchableTypeEnum.Bulletins);
+            _activityIndex.Index(searchableActivities);
+        }
 
         private void FillLinkPreview(Entities.Social social)
         {
@@ -220,13 +231,13 @@ namespace Uintra20.Features.Social
         private static bool IsActualPublishDate(Entities.Social social) =>
             DateTime.Compare(social.PublishDate, DateTime.UtcNow) <= 0;
 
-        //private SearchableUintraActivity Map(Social social)
-        //{
-        //    var searchableActivity = social.Map<SearchableUintraActivity>();
-        //    searchableActivity.Url = _linkService.GetLinks(social.Id).Details;
-        //    searchableActivity.UserTagNames = _userTagService.Get(social.Id).Select(t => t.Text);
-        //    return searchableActivity;
-        //}
+        private SearchableUintraActivity Map(Entities.Social social)
+        {
+            var searchableActivity = social.Map<SearchableUintraActivity>();
+            searchableActivity.Url = _activityLinkService.GetLinks(social.Id).Details;
+            searchableActivity.UserTagNames = _userTagService.Get(social.Id).Select(t => t.Text);
+            return searchableActivity;
+        }
 
         public BroadcastResult Handle(VideoConvertedCommand command)
         {

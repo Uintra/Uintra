@@ -16,6 +16,7 @@ using Uintra20.Features.Comments.Services;
 using Uintra20.Features.Groups.Services;
 using Uintra20.Features.Likes.Services;
 using Uintra20.Features.LinkPreview;
+using Uintra20.Features.Links;
 using Uintra20.Features.Location.Services;
 using Uintra20.Features.Media;
 using Uintra20.Features.Notification;
@@ -23,7 +24,11 @@ using Uintra20.Features.Notification.Entities.Base;
 using Uintra20.Features.Notification.Services;
 using Uintra20.Features.Permissions;
 using Uintra20.Features.Permissions.Interfaces;
+using Uintra20.Features.Search;
+using Uintra20.Features.Search.Entities;
+using Uintra20.Features.Tagging.UserTags.Services;
 using Uintra20.Infrastructure.Caching;
+using Uintra20.Infrastructure.Extensions;
 using Uintra20.Infrastructure.TypeProviders;
 using static Uintra20.Features.Notification.Configuration.NotificationTypeEnum;
 
@@ -33,18 +38,20 @@ namespace Uintra20.Features.News
         INewsService<Entities.News>,
         IFeedItemService,
         INotifyableService,
-        //IIndexer,
+        IIndexer,
         IHandle<VideoConvertedCommand>
     {
         private readonly ICommentsService _commentsService;
         private readonly ILikesService _likesService;
         private readonly INotificationsService _notificationService;
         private readonly IMediaHelper _mediaHelper;
-        //private readonly IElasticUintraActivityIndex _activityIndex;
-        //private readonly IDocumentIndexer _documentIndexer;
+        private readonly IElasticUintraActivityIndex _activityIndex;
+        private readonly IDocumentIndexer _documentIndexer;
         private readonly IIntranetMediaService _intranetMediaService;
         private readonly IGroupActivityService _groupActivityService;
         private readonly INotifierDataBuilder _notifierDataBuilder;
+        private readonly IUserTagService _userTagService;
+        private readonly IActivityLinkService _activityLinkService;
         private readonly IActivityLocationService _activityLocationService;
         private readonly IGroupService _groupService;
 
@@ -56,15 +63,17 @@ namespace Uintra20.Features.News
             IPermissionsService permissionsService,
             INotificationsService notificationService,
             IMediaHelper mediaHelper,
-            //IElasticUintraActivityIndex activityIndex,
-            //IDocumentIndexer documentIndexer,
+            IElasticUintraActivityIndex activityIndex,
+            IDocumentIndexer documentIndexer,
             IActivityTypeProvider activityTypeProvider,
             IIntranetMediaService intranetMediaService,
             IGroupActivityService groupActivityService,
             IActivityLocationService activityLocationService,
             IActivityLinkPreviewService activityLinkPreviewService,
             IGroupService groupService,
-            INotifierDataBuilder notifierDataBuilder)
+            INotifierDataBuilder notifierDataBuilder,
+            IUserTagService userTagService,
+            IActivityLinkService activityLinkService)
             : base(intranetActivityRepository, cacheService, intranetMemberService,
                 activityTypeProvider, intranetMediaService, activityLocationService, activityLinkPreviewService,
                 permissionsService)
@@ -73,12 +82,14 @@ namespace Uintra20.Features.News
             _likesService = likesService;
             _notificationService = notificationService;
             _mediaHelper = mediaHelper;
-            //_activityIndex = activityIndex;
-            //_documentIndexer = documentIndexer;
+            _activityIndex = activityIndex;
+            _documentIndexer = documentIndexer;
             _intranetMediaService = intranetMediaService;
             _groupActivityService = groupActivityService;
             _groupService = groupService;
             _notifierDataBuilder = notifierDataBuilder;
+            _userTagService = userTagService;
+            _activityLinkService = activityLinkService;
             _activityLocationService = activityLocationService;
         }
 
@@ -146,11 +157,11 @@ namespace Uintra20.Features.News
             }
         }
 
-        //protected override void UpdateCache()
-        //{
-        //    base.UpdateCache();
-        //    FillIndex();
-        //}
+        protected override void UpdateCache()
+        {
+            base.UpdateCache();
+            FillIndex();
+        }
 
         public override bool IsActual(IIntranetActivity activity)
         {
@@ -176,15 +187,15 @@ namespace Uintra20.Features.News
             var news = base.UpdateActivityCache(id);
             if (IsInCache(news) && (news.GroupId is null || _groupService.IsActivityFromActiveGroup(news)))
             {
-                //_activityIndex.Index(Map(news));
-                //_documentIndexer.Index(news.MediaIds);
+                _activityIndex.Index(Map(news));
+                _documentIndexer.Index(news.MediaIds);
                 return news;
             }
 
             if (cachedNews == null) return null;
 
-            //_activityIndex.Delete(id);
-            //_documentIndexer.DeleteFromIndex(cachedNews.MediaIds);
+            _activityIndex.Delete(id);
+            _documentIndexer.DeleteFromIndex(cachedNews.MediaIds);
             _mediaHelper.DeleteMedia(cachedNews.MediaIds);
             return null;
         }
@@ -227,13 +238,13 @@ namespace Uintra20.Features.News
             await _notificationService.ProcessNotificationAsync(notifierData);
         }
 
-        //public void FillIndex()
-        //{
-        //    var activities = GetAll().Where(IsInCache);
-        //    var searchableActivities = activities.Select(Map);
-        //    //_activityIndex.DeleteByType(UintraSearchableTypeEnum.News);
-        //    //_activityIndex.Index(searchableActivities);
-        //}
+        public void FillIndex()
+        {
+            var activities = GetAll().Where(IsInCache);
+            var searchableActivities = activities.Select(Map);
+            _activityIndex.DeleteByType(UintraSearchableTypeEnum.News);
+            _activityIndex.Index(searchableActivities);
+        }
 
         private static bool IsInCache(Entities.News news)
         {
@@ -246,13 +257,13 @@ namespace Uintra20.Features.News
         private static bool IsActualPublishDate(INewsBase news) =>
             DateTime.Compare(news.PublishDate, DateTime.UtcNow) <= 0;
 
-        //private SearchableUintraActivity Map(Entities.News news)
-        //{
-        //    var searchableActivity = news.Map<SearchableUintraActivity>();
-        //    searchableActivity.Url = _linkService.GetLinks(news.Id).Details;
-        //    searchableActivity.UserTagNames = _userTagService.Get(news.Id).Select(t => t.Text);
-        //    return searchableActivity;
-        //}
+        private SearchableUintraActivity Map(Entities.News news)
+        {
+            var searchableActivity = news.Map<SearchableUintraActivity>();
+            searchableActivity.Url = _activityLinkService.GetLinks(news.Id).Details;
+            searchableActivity.UserTagNames = _userTagService.Get(news.Id).Select(t => t.Text);
+            return searchableActivity;
+        }
 
         public BroadcastResult Handle(VideoConvertedCommand command)
         {
