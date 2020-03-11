@@ -125,7 +125,9 @@ export const pages = [
     path: '__dynamic__',
     loadChildren: './ui/pages/forbidden/forbidden-page.module#ForbiddenPageModule'
   },
+  {
+    id: 'eventCreatePage',
+    path: '__dynamic__',
+    loadChildren: './ui/pages/event/create/event-create-page.module#EventCreatePageModule'
+  },
 ];
-
-
-
