@@ -11,6 +11,7 @@ using Uintra20.Features.Permissions.Models;
 using Uintra20.Features.Permissions.TypeProviders;
 using Uintra20.Infrastructure.ApplicationSettings;
 using Uintra20.Infrastructure.Extensions;
+using Umbraco.Core.Logging;
 using Umbraco.Core.Services;
 using Umbraco.Web.WebApi;
 
@@ -26,6 +27,7 @@ namespace Uintra20.Features.Permissions.Controllers
         private readonly IIntranetMemberGroupService _intranetMemberGroupService;
         private readonly IPermissionsService _permissionsService;
         private readonly IApplicationSettings _applicationSettings;
+        private readonly ILogger _logger;
 
         public PermissionsController(
             IMemberGroupService memberGroupService,
@@ -35,7 +37,8 @@ namespace Uintra20.Features.Permissions.Controllers
             IIntranetMemberGroupProvider intranetMemberGroupProvider,
             IPermissionsService permissionsService,
             IIntranetMemberGroupService intranetMemberGroupService, 
-            IApplicationSettings applicationSettings)
+            IApplicationSettings applicationSettings,
+            ILogger logger)
         {
             _memberGroupService = memberGroupService;
             _resourceTypeProvider = resourceTypeProvider;
@@ -45,6 +48,7 @@ namespace Uintra20.Features.Permissions.Controllers
             _permissionsService = permissionsService;
             _intranetMemberGroupService = intranetMemberGroupService;
             _applicationSettings = applicationSettings;
+            _logger = logger;
         }
         
         [HttpGet]
@@ -106,9 +110,12 @@ namespace Uintra20.Features.Permissions.Controllers
 
         private bool IsSuperUser()
         {
-            var superUsers = _applicationSettings.UintraSuperUsers;
+            var superUsers = _applicationSettings.UintraSuperUsers.ToArray();
+
+            _logger.Info<string>($"List of the super users: {string.Join(",", superUsers)} ");
 
             var member = _intranetMemberService.GetCurrentMember();
+            _logger.Info<string>($"Current  member is: {member.Email} ");
 
             var isSuperUser = superUsers.Contains(member.Email, StringComparison.InvariantCultureIgnoreCase);
 
