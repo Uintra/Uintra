@@ -13,6 +13,7 @@ export class SubcommentItemComponent implements OnInit {
   @Input() data: any;
   @Input() activityType: any;
   @Input() commentsActivity: any;
+  @Input() isReplyEditingInProgress: boolean;
   @Output() submitEditedValue = new EventEmitter();
   @Output() deleteComment = new EventEmitter();
 
@@ -22,7 +23,7 @@ export class SubcommentItemComponent implements OnInit {
   likeModel: ILikeData;
 
   get isEditSubmitDisabled() {
-    return this.stripHTML.isEmpty(this.editedValue);
+    return this.stripHTML.isEmpty(this.editedValue) || this.isReplyEditingInProgress;
   }
 
   constructor(private sanitizer: DomSanitizer, private stripHTML: RTEStripHTMLService) { }
