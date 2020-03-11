@@ -66,6 +66,14 @@ namespace Uintra20.Core.Authentication
 
         public bool IsAuthenticatedRequest(IOwinContext context)
         {
+            var member = _memberService.GetByEmail(OwinContext.Authentication.User.Identities.First().Name);
+
+            if (member.IsLockedOut)
+            {
+                Logout();
+                return false;
+            }
+
             if (context.Request.Path.Value.In(AnonymousRoutes()))
             {
                 return true;

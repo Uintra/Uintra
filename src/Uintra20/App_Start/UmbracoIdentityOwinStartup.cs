@@ -2,12 +2,14 @@ using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
 using Owin;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Uintra20;
 using Uintra20.Core.Authentication;
 using Uintra20.Core.Hubs;
 using Uintra20.Models.UmbracoIdentity;
+using Umbraco.Core.Services;
 using Umbraco.Web;
 using UmbracoIdentity;
 
@@ -54,13 +56,22 @@ namespace Uintra20
 
 		private Task AuthenticationHandler(IOwinContext context, Func<Task> continuation)
 		{
-			var authenticationService = DependencyResolver.Current.GetService<IAuthenticationService>();
-			if (authenticationService.IsAuthenticatedRequest(context))
-			{
-				return continuation();
-			}
+			var memberService = DependencyResolver.Current.GetService<IMemberService>();
+            var member = memberService.GetByEmail(context.Authentication.User.Identities.FirstOrDefault()?.Name);
 
-			context.Authentication.Challenge(DefaultAuthenticationTypes.ApplicationCookie);
+            if (member == null)
+            {
+                return continuation();
+            }
+
+            var authenticationService = DependencyResolver.Current.GetService<IAuthenticationService>();
+
+            if (authenticationService.IsAuthenticatedRequest(context))
+            {
+                return continuation();
+            }
+
+            context.Authentication.Challenge(DefaultAuthenticationTypes.ApplicationCookie);
 			return Task.FromResult(0);
 		}
 
