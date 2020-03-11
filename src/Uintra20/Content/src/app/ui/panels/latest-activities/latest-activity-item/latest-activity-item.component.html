@@ -1,7 +1,7 @@
 <div class="type-and-date">
 
   <p>{{activityType}}</p>
-  <p>{{activityDate | date: 'MMM d, y hh:mm'}}</p>
+  <p>{{activityDate}}</p>
 </div>
 <a [routerLink]="activityLinks?.details?.get().originalUrl | ulink"
  class="block-subtitle-clamp rte"
