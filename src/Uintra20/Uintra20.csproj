@@ -887,6 +887,8 @@
     <Content Include="App_Plugins\UserPicker\package.manifest" />
     <Content Include="css\rte.css" />
     <Content Include="Global.asax" />
+    <Content Include="images\videoLoader.jpg" />
+    <Content Include="images\videoLoaderFailure.jpg" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

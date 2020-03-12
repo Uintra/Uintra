@@ -87,12 +87,12 @@ namespace Uintra20.Features.Media
 
         public string CreateConvertingThumbnail()
         {
-            return @"/Content/images/videoLoader.jpg";
+            return @"/images/videoLoader.jpg";
         }
 
         public string CreateConvertingFailureThumbnail()
         {
-            return @"/Content/images/videoLoaderFailure.jpg";
+            return @"/images/videoLoaderFailure.jpg";
         }
 
     }
