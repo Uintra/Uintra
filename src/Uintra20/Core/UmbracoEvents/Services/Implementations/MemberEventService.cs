@@ -1,4 +1,5 @@
-﻿using Uintra20.Core.Member.Abstractions;
+﻿using System.Linq;
+using Uintra20.Core.Member.Abstractions;
 using Uintra20.Core.UmbracoEvents.Services.Contracts;
 using Uintra20.Features.Permissions.Interfaces;
 using Uintra20.Infrastructure.Extensions;
