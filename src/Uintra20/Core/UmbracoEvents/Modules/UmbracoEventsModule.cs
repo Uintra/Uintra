@@ -1,5 +1,5 @@
 ﻿using System.Web.Mvc;
-using Uintra20.Core.UmbracoEvents.Services;
+using Uintra20.Core.UmbracoEvents.Services.Contracts;
 using Umbraco.Core.Events;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;

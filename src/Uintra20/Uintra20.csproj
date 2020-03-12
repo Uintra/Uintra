@@ -913,18 +913,19 @@
     <Compile Include="Core\UbaselineModels\IGenericPropertiesComposition.cs" />
     <Compile Include="Core\UbaselineModels\ImageModel.cs" />
     <Compile Include="Core\UbaselineModels\EnumDropdownListPropertyEditorConverter.cs" />
-    <Compile Include="Core\UmbracoEvents\Services\IUmbracoContentSavingEventService.cs" />
-    <Compile Include="Core\UmbracoEvents\Services\IUmbracoContentTrashedEventService.cs" />
-    <Compile Include="Core\UmbracoEvents\Services\IUmbracoMediaSavedEventService.cs" />
-    <Compile Include="Core\UmbracoEvents\Services\IUmbracoMediaSavingEventService.cs" />
-    <Compile Include="Core\UmbracoEvents\Services\IUmbracoMediaTrashedEventService.cs" />
-    <Compile Include="Core\UmbracoEvents\Services\IUmbracoMemberAssignedRolesEventService.cs" />
-    <Compile Include="Core\UmbracoEvents\Services\IUmbracoMemberCreatedEventService.cs" />
-    <Compile Include="Core\UmbracoEvents\Services\IUmbracoMemberDeletingEventService.cs" />
-    <Compile Include="Core\UmbracoEvents\Services\IUmbracoMemberGroupDeletingEventService.cs" />
-    <Compile Include="Core\UmbracoEvents\Services\IUmbracoMemberGroupSavedEventService.cs" />
-    <Compile Include="Core\UmbracoEvents\Services\IUmbracoMemberRemovedRolesEventService.cs" />
+    <Compile Include="Core\UmbracoEvents\Services\Contracts\IUmbracoContentSavingEventService.cs" />
+    <Compile Include="Core\UmbracoEvents\Services\Contracts\IUmbracoContentTrashedEventService.cs" />
+    <Compile Include="Core\UmbracoEvents\Services\Contracts\IUmbracoMediaSavedEventService.cs" />
+    <Compile Include="Core\UmbracoEvents\Services\Contracts\IUmbracoMediaSavingEventService.cs" />
+    <Compile Include="Core\UmbracoEvents\Services\Contracts\IUmbracoMediaTrashedEventService.cs" />
+    <Compile Include="Core\UmbracoEvents\Services\Contracts\IUmbracoMemberAssignedRolesEventService.cs" />
+    <Compile Include="Core\UmbracoEvents\Services\Contracts\IUmbracoMemberCreatedEventService.cs" />
+    <Compile Include="Core\UmbracoEvents\Services\Contracts\IUmbracoMemberDeletingEventService.cs" />
+    <Compile Include="Core\UmbracoEvents\Services\Contracts\IUmbracoMemberGroupDeletingEventService.cs" />
+    <Compile Include="Core\UmbracoEvents\Services\Contracts\IUmbracoMemberGroupSavedEventService.cs" />
+    <Compile Include="Core\UmbracoEvents\Services\Contracts\IUmbracoMemberRemovedRolesEventService.cs" />
     <Compile Include="Core\UmbracoEvents\Modules\UmbracoEventsModule.cs" />
+    <Compile Include="Core\UmbracoEvents\Services\Implementations\MemberGroupEventService.cs" />
     <Compile Include="Features\CentralFeed\Commands\CentralFeedFilterCommand.cs" />
     <Compile Include="Features\CentralFeed\Models\CentralFeedFilterPermissionModel.cs" />
     <Compile Include="Core\UbaselineModels\RestrictedNode\ConverterResponseModel.cs" />
@@ -1212,7 +1213,7 @@
     <Compile Include="Core\Member\Abstractions\IHaveOwner.cs" />
     <Compile Include="Core\Member\Abstractions\IIntranetMember.cs" />
     <Compile Include="Core\Member\Controllers\MemberApiControllerBase.cs" />
-    <Compile Include="Core\Member\Events\MemberEventService.cs" />
+    <Compile Include="Core\UmbracoEvents\Services\Implementations\MemberEventService.cs" />
     <Compile Include="Core\TabModelBase.cs" />
     <Compile Include="Core\User\Models\IIntranetUser.cs" />
     <Compile Include="Core\User\IIntranetUserContentProvider.cs" />
@@ -1499,7 +1500,7 @@
     <Compile Include="Infrastructure\Ioc\NotificationInjectModule.cs" />
     <Compile Include="Infrastructure\Ioc\ActivityInjectModule.cs" />
     <Compile Include="Infrastructure\Ioc\UintraInjectModule.cs" />
-    <Compile Include="Infrastructure\Ioc\UmbracoEventsInjectModule.cs" />
+    <Compile Include="Core\UmbracoEvents\InjectModules\UmbracoEventsInjectModule.cs" />
     <Compile Include="Infrastructure\Providers\ContentPageContentProvider.cs" />
     <Compile Include="Infrastructure\Providers\IContentPageContentProvider.cs" />
     <Compile Include="Infrastructure\UintraInformation\IUintraInformationService.cs" />
@@ -1881,6 +1882,7 @@
   <ItemGroup>
     <Folder Include="Content\" />
     <Folder Include="Core\Feed\Web\" />
+    <Folder Include="Core\Member\Events\" />
     <Folder Include="Features\Navigation\ModelBuilders\" />
     <Folder Include="Features\Notification\Commands\" />
     <Folder Include="Infrastructure\Authentication\" />

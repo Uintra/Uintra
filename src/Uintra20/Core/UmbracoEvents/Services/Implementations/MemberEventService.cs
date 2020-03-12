@@ -1,13 +1,12 @@
-﻿using System.Linq;
-using Uintra20.Core.Member.Abstractions;
-using Uintra20.Core.UmbracoEvents.Services;
+﻿using Uintra20.Core.Member.Abstractions;
+using Uintra20.Core.UmbracoEvents.Services.Contracts;
 using Uintra20.Features.Permissions.Interfaces;
 using Uintra20.Infrastructure.Extensions;
 using Umbraco.Core.Events;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 
-namespace Uintra20.Core.Member.Events
+namespace Uintra20.Core.UmbracoEvents.Services.Implementations
 {
     public class MemberEventService : 
         IUmbracoMemberDeletingEventService, 
@@ -59,7 +58,7 @@ namespace Uintra20.Core.Member.Events
             IMemberService sender, 
             RolesEventArgs @event)
         {
-            @event.MemberIds.ForEach(memberId => _cacheableIntranetMemberService.UpdateMemberCache(memberId));
+            @event.MemberIds.ForEach(memberId => _cacheableIntranetMemberService.UpdateMemberCache((int) memberId));
         }
 
         public void ProcessMemberRemovedRoles(

@@ -1,8 +1,8 @@
 ﻿using Compent.Shared.DependencyInjection.Contract;
-using Uintra20.Core.Member.Events;
-using Uintra20.Core.UmbracoEvents.Services;
+using Uintra20.Core.UmbracoEvents.Services.Contracts;
+using Uintra20.Core.UmbracoEvents.Services.Implementations;
 
-namespace Uintra20.Infrastructure.Ioc
+namespace Uintra20.Core.UmbracoEvents.InjectModules
 {
     public class UmbracoEventsInjectModule : IInjectModule
     {
@@ -12,20 +12,22 @@ namespace Uintra20.Infrastructure.Ioc
             services.AddScoped<IUmbracoMemberAssignedRolesEventService, MemberEventService>();
             services.AddScoped<IUmbracoMemberRemovedRolesEventService, MemberEventService>();
             services.AddScoped<IUmbracoMemberDeletingEventService, MemberEventService>();
-            //services.AddScoped<IUmbracoContentPublishedEventService, SearchContentEventService>();
-            //services.AddScoped<IUmbracoContentUnPublishedEventService, SearchContentEventService>();
+            services.AddScoped<IUmbracoMemberGroupDeletingEventService, MemberGroupEventService>();
+            services.AddScoped<IUmbracoMemberGroupSavedEventService, MemberGroupEventService>();
+            
             //services.AddScoped<IUmbracoMediaTrashedEventService, SearchMediaEventService>();
             //services.AddScoped<IUmbracoMediaSavedEventService, SearchMediaEventService>();
             //services.AddScoped<IUmbracoMediaSavingEventService, SearchMediaEventService>();
+            //services.AddScoped<IUmbracoMediaSavedEventService, VideoConvertEventService>();
+
             //services.AddScoped<IUmbracoContentTrashedEventService, DeleteUserTagHandler>();
             //services.AddScoped<IUmbracoContentPublishedEventService, ContentPageRelationHandler>();
             //services.AddScoped<IUmbracoContentTrashedEventService, ContentPageRelationHandler>();
             //services.AddScoped<IUmbracoContentPublishedEventService, CreateUserTagHandler>();
             //services.AddScoped<IUmbracoContentUnPublishedEventService, CreateUserTagHandler>();
-            //services.AddScoped<IUmbracoMediaSavedEventService, VideoConvertEventService>();
-            //services.AddScoped<IUmbracoMemberGroupDeletingEventService, UmbracoMemberGroupEventService>();
-            //services.AddScoped<IUmbracoMemberGroupSavedEventService, UmbracoMemberGroupEventService>();
             //services.AddScoped<IUmbracoContentSavingEventService, UmbracoContentSavingEventService>();
+            //services.AddScoped<IUmbracoContentPublishedEventService, SearchContentEventService>();
+            //services.AddScoped<IUmbracoContentUnPublishedEventService, SearchContentEventService>();
 
             return services;
         }
