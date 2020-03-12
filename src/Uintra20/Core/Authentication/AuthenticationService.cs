@@ -87,7 +87,7 @@ namespace Uintra20.Core.Authentication
                 return true;
             }
 
-            var member = _intranetMemberService.GetByEmail(OwinContext.Authentication.User.Identities.FirstOrDefault()?.Name);
+            var member = _intranetMemberService.GetByName(OwinContext.Authentication.User.Identities.FirstOrDefault()?.Name);
 
             if (member == null || member.Inactive)
             {
