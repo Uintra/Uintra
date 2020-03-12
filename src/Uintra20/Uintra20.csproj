@@ -926,6 +926,7 @@
     <Compile Include="Core\UmbracoEvents\Services\Contracts\IUmbracoMemberRemovedRolesEventService.cs" />
     <Compile Include="Core\UmbracoEvents\Modules\UmbracoEventsModule.cs" />
     <Compile Include="Core\UmbracoEvents\Services\Implementations\MemberGroupEventService.cs" />
+    <Compile Include="Core\UmbracoEvents\Services\Implementations\VideoConvertEventService.cs" />
     <Compile Include="Features\CentralFeed\Commands\CentralFeedFilterCommand.cs" />
     <Compile Include="Features\CentralFeed\Models\CentralFeedFilterPermissionModel.cs" />
     <Compile Include="Core\UbaselineModels\RestrictedNode\ConverterResponseModel.cs" />
