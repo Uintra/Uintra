@@ -131,7 +131,7 @@ export class GroupsFormComponent {
   }
 
   validate(): boolean {
-    if (this.title && this.title.length < MAX_FILES_FOR_SINGLE && this.description && this.files.length <= MAX_FILES_FOR_SINGLE) {
+    if (this.title && this.description && this.files.length <= MAX_FILES_FOR_SINGLE) {
       return true;
     }
 
