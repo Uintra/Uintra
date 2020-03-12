@@ -14,11 +14,13 @@ namespace Uintra20.Core.UmbracoEvents.InjectModules
             services.AddScoped<IUmbracoMemberDeletingEventService, MemberEventService>();
             services.AddScoped<IUmbracoMemberGroupDeletingEventService, MemberGroupEventService>();
             services.AddScoped<IUmbracoMemberGroupSavedEventService, MemberGroupEventService>();
-            
+
+            services.AddScoped<IUmbracoMediaSavedEventService, VideoConvertEventService>();
+
             //services.AddScoped<IUmbracoMediaTrashedEventService, SearchMediaEventService>();
             //services.AddScoped<IUmbracoMediaSavedEventService, SearchMediaEventService>();
             //services.AddScoped<IUmbracoMediaSavingEventService, SearchMediaEventService>();
-            //services.AddScoped<IUmbracoMediaSavedEventService, VideoConvertEventService>();
+            
 
             //services.AddScoped<IUmbracoContentTrashedEventService, DeleteUserTagHandler>();
             //services.AddScoped<IUmbracoContentPublishedEventService, ContentPageRelationHandler>();
