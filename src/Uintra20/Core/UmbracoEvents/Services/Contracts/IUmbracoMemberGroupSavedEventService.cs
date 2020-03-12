@@ -6,6 +6,6 @@ namespace Uintra20.Core.UmbracoEvents.Services.Contracts
 {
     public interface IUmbracoMemberGroupSavedEventService
     {
-        void ProcessMemberGroupSaved(IMemberGroupService sender, SaveEventArgs<IMemberGroup> args);
+        void MemberGroupSavedHandler(IMemberGroupService sender, SaveEventArgs<IMemberGroup> args);
     }
 }

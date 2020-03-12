@@ -29,7 +29,7 @@ namespace Uintra20.Core.UmbracoEvents.Services.Implementations
             _intranetMemberGroupService = intranetMemberGroupService;
         }
 
-        public void ProcessMemberCreated(
+        public void MemberCreateOrUpdateHandler(
             IMemberService sender, 
             SaveEventArgs<IMember> @event)
         {
@@ -40,7 +40,7 @@ namespace Uintra20.Core.UmbracoEvents.Services.Implementations
             }
         }
 
-        public void ProcessMemberDeleting(
+        public void MemberDeleteHandler(
             IMemberService sender, 
             DeleteEventArgs<IMember> @event)
         {
@@ -54,14 +54,14 @@ namespace Uintra20.Core.UmbracoEvents.Services.Implementations
             if (@event.CanCancel) @event.Cancel = true;
         }
 
-        public void ProcessMemberAssignedRoles(
+        public void MemberAssignedRolesHandler(
             IMemberService sender, 
             RolesEventArgs @event)
         {
             @event.MemberIds.ForEach(memberId => _cacheableIntranetMemberService.UpdateMemberCache((int) memberId));
         }
 
-        public void ProcessMemberRemovedRoles(
+        public void MemberRemovedRolesHandler(
             IMemberService sender, 
             RolesEventArgs @event)
         {

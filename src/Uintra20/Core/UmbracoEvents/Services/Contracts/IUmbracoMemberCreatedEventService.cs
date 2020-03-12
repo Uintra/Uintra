@@ -6,6 +6,6 @@ namespace Uintra20.Core.UmbracoEvents.Services.Contracts
 {
     public interface IUmbracoMemberCreatedEventService
     {
-        void ProcessMemberCreated(IMemberService sender, SaveEventArgs<IMember> args);
+        void MemberCreateOrUpdateHandler(IMemberService sender, SaveEventArgs<IMember> args);
     }
 }

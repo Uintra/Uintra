@@ -6,6 +6,6 @@ namespace Uintra20.Core.UmbracoEvents.Services.Contracts
 {
     public interface IUmbracoMemberDeletingEventService
     {
-        void ProcessMemberDeleting(IMemberService sender, DeleteEventArgs<IMember> args);
+        void MemberDeleteHandler(IMemberService sender, DeleteEventArgs<IMember> args);
     }
 }

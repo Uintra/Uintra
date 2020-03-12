@@ -5,6 +5,6 @@ namespace Uintra20.Core.UmbracoEvents.Services.Contracts
 {
     public interface IUmbracoMemberRemovedRolesEventService
     {
-        void ProcessMemberRemovedRoles(IMemberService sender, RolesEventArgs e);
+        void MemberRemovedRolesHandler(IMemberService sender, RolesEventArgs e);
     }
 }

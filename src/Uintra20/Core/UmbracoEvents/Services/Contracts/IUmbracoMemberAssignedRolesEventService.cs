@@ -5,6 +5,6 @@ namespace Uintra20.Core.UmbracoEvents.Services.Contracts
 {
     public interface IUmbracoMemberAssignedRolesEventService
     {
-        void ProcessMemberAssignedRoles(IMemberService sender, RolesEventArgs e);
+        void MemberAssignedRolesHandler(IMemberService sender, RolesEventArgs e);
     }
 }

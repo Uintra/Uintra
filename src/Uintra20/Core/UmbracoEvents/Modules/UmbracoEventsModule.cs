@@ -36,7 +36,7 @@ namespace Uintra20.Core.UmbracoEvents.Modules
 
             foreach (var service in services)
             {
-                service.ProcessMemberRemovedRoles(sender, e);
+                service.MemberRemovedRolesHandler(sender, e);
             }
         }
 
@@ -49,7 +49,7 @@ namespace Uintra20.Core.UmbracoEvents.Modules
 
             foreach (var service in services)
             {
-                service.ProcessMemberAssignedRoles(sender, e);
+                service.MemberAssignedRolesHandler(sender, e);
             }
         }
 
@@ -62,7 +62,7 @@ namespace Uintra20.Core.UmbracoEvents.Modules
 
             foreach (var service in services)
             {
-                service.ProcessMemberGroupSaved(sender, e);
+                service.MemberGroupSavedHandler(sender, e);
             }
         }
 
@@ -75,7 +75,7 @@ namespace Uintra20.Core.UmbracoEvents.Modules
 
             foreach (var service in services)
             {
-                service.ProcessMemberCreated(sender, e);
+                service.MemberCreateOrUpdateHandler(sender, e);
             }
         }
 
@@ -101,7 +101,7 @@ namespace Uintra20.Core.UmbracoEvents.Modules
 
             foreach (var service in services)
             {
-                service.ProcessMemberGroupDeleting(sender, e);
+                service.MemberGroupDeleteHandler(sender, e);
             }
         }
 
@@ -153,7 +153,7 @@ namespace Uintra20.Core.UmbracoEvents.Modules
 
             foreach (var service in services)
             {
-                service.ProcessMemberDeleting(sender, e);
+                service.MemberDeleteHandler(sender, e);
             }
         }
 
