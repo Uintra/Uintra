@@ -1163,7 +1163,8 @@
     <Compile Include="Features\Search\Sorting\BaseSearchSortingHelper.cs" />
     <Compile Include="Features\Search\Sorting\ISearchSortingHelper.cs" />
     <Compile Include="Features\Search\UserTagsSearchIndexer.cs" />
-    <Compile Include="Features\Search\Web\SearchControllerBase.cs" />
+    <Compile Include="Features\Search\Models\RebuildIndexStatusModel.cs" />
+    <Compile Include="Features\Search\Web\SearchController.cs" />
     <Compile Include="Features\Social\Converters\SocialCreatePageViewModelConverter.cs" />
     <Compile Include="Features\Social\Converters\SocialDetailsPageViewModelConverter.cs" />
     <Compile Include="Features\Social\Models\SocialCreateDataViewModel.cs" />

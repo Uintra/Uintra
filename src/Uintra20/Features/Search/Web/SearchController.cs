@@ -1,19 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Web.Mvc;
+using UBaseline.Core.Controllers;
 using Uintra20.Core.Localization;
 using Uintra20.Features.Search.Entities;
 using Uintra20.Features.Search.Indexes;
 using Uintra20.Features.Search.Models;
 using Uintra20.Features.Search.Queries;
 using Uintra20.Infrastructure.Extensions;
-using Umbraco.Web.Mvc;
 
 namespace Uintra20.Features.Search.Web
 {
-    public abstract class SearchControllerBase : SurfaceController
+    public class SearchController : UBaselineApiController
     {
         protected virtual int AutocompleteSuggestionCount { get; } = 10;
         protected virtual int ResultsPerPage { get; } = 20;
@@ -25,7 +24,7 @@ namespace Uintra20.Features.Search.Web
         private readonly ISearchUmbracoHelper _searchUmbracoHelper;
         private readonly ISearchableTypeProvider _searchableTypeProvider;
 
-        protected SearchControllerBase(
+        protected SearchController(
             IElasticIndex elasticIndex,
             IEnumerable<IIndexer> searchableServices,
             IIntranetLocalizationService localizationService,
@@ -61,10 +60,9 @@ namespace Uintra20.Features.Search.Web
             });
 
             var resultModel = GetSearchResultsOverviewModel(searchResult);
-			var decodedQuery = Encoding.UTF8.GetString(model.Query.Select(c => (byte)c).ToArray());
-			resultModel.Query = decodedQuery;
+            resultModel.Query = model.Query;
 
-			return resultModel;
+            return resultModel;
         }
 
         public SearchBoxViewModel SearchBox()
@@ -77,13 +75,13 @@ namespace Uintra20.Features.Search.Web
             return result;
         }
 
-        public virtual JsonResult Autocomplete(SearchRequest searchRequest)
+        public IEnumerable<SearchAutocompleteResultViewModel> Autocomplete(SearchRequest searchRequest)
         {
             var searchResult = _elasticIndex.Search(new SearchTextQuery
             {
                 Text = searchRequest.Query,
                 Take = AutocompleteSuggestionCount,
-                SearchableTypeIds = GetAutoCompleteSearchableTypes().Select(EnumExtensions.ToInt)
+                SearchableTypeIds = GetUintraSearchableTypes().Select(u=>u.ToInt())
             });
 
             var result = GetAutocompleteResultModels(searchResult.Documents).ToList();
@@ -93,7 +91,7 @@ namespace Uintra20.Features.Search.Web
                 result.Add(seeAll);
             }
 
-            return Json(new { Documents = result }, JsonRequestBehavior.AllowGet);
+            return result;
         }
 
         protected virtual IEnumerable<Enum> GetSearchableTypes()
@@ -101,8 +99,6 @@ namespace Uintra20.Features.Search.Web
             return _searchableTypeProvider.All;
         }
 
-        protected virtual List<Enum> GetAutoCompleteSearchableTypes() => 
-            new List<Enum>(_searchableTypeProvider.All);
 
         protected virtual SearchViewModel GetSearchViewModel()
         {
@@ -162,18 +158,23 @@ namespace Uintra20.Features.Search.Web
 
         protected virtual IEnumerable<SearchAutocompleteResultViewModel> GetAutocompleteResultModels(IEnumerable<SearchableBase> searchResults)
         {
-            var result = searchResults.Select(d =>
+            var result = searchResults.Select(searchResult =>
             {
-                var model = d.Map<SearchAutocompleteResultViewModel>();
+                var model = searchResult.Map<SearchAutocompleteResultViewModel>();
 
                 var searchAutocompleteItem = new SearchBoxAutocompleteItemViewModel
                 {
                     Title = model.Title,
-                    Type = _localizationService.Translate($"{SearchTranslationPrefix}{_searchableTypeProvider[d.Type].ToString()}")
+                    Type = _localizationService.Translate($"{SearchTranslationPrefix}{_searchableTypeProvider[searchResult.Type].ToString()}")
                 };
 
-                model.Item =  searchAutocompleteItem;
+                if (searchResult is SearchableMember user)
+                {
+                    searchAutocompleteItem.Email = user.Email;
+                    searchAutocompleteItem.Photo = user.Photo;
+                }
 
+                model.Item = searchAutocompleteItem;
                 return model;
             });
 
@@ -205,19 +206,39 @@ namespace Uintra20.Features.Search.Web
         }
 
         [HttpPost]
-        public virtual ActionResult RebuildIndex()
+        public RebuildIndexStatusModel RebuildIndex()
         {
-            var response = new
+
+            var success = _elasticIndex.RecreateIndex(out var error);
+
+            if (success)
             {
-                success = _elasticIndex.RecreateIndex(out var error),
-                error
-            };
-            if (response.success)
                 foreach (var service in _searchableServices)
                 {
                     service.FillIndex();
                 }
-            return Json(response);
+            }
+
+            var status = new RebuildIndexStatusModel()
+            {
+                Success = success,
+                Message = error
+            };
+
+
+            return status;
         }
+
+        private static List<UintraSearchableTypeEnum> GetUintraSearchableTypes() => new
+            List<UintraSearchableTypeEnum>()
+            {
+                UintraSearchableTypeEnum.News,
+                UintraSearchableTypeEnum.Events,
+                UintraSearchableTypeEnum.Bulletins,
+                UintraSearchableTypeEnum.Content,
+                UintraSearchableTypeEnum.Document,
+                UintraSearchableTypeEnum.Member,
+                UintraSearchableTypeEnum.Tag
+            };
     }
 }

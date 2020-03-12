@@ -25,9 +25,9 @@ namespace Uintra20.Features.Search
             services.AddScopedToCollection<IIndexer, UintraContentIndexer>();
             services.AddScopedToCollection<IDocumentIndexer, DocumentIndexer>();
 
-            services.AddScoped(typeof(ISearchableMemberMapper<>), typeof(SearchableMemberMapper<SearchableMember>));
+            services.AddScoped(typeof(ISearchableMemberMapper<SearchableMember>), typeof(SearchableMemberMapper<SearchableMember>));
             services.AddScoped<IElasticSearchRepository, ElasticSearchRepository>();
-            services.AddScoped(typeof(IElasticSearchRepository<>), typeof(IElasticSearchRepository<>));
+            services.AddScoped(typeof(IElasticSearchRepository<>), typeof(ElasticSearchRepository<>));
 
             services.AddSingleton<IElasticConfigurationSection, ElasticConfigurationSection>();
 
@@ -47,7 +47,7 @@ namespace Uintra20.Features.Search
             services.AddScoped<IElasticUintraContentIndex, ElasticUintraContentIndex>();
             services.AddScoped<IUserTagsSearchIndexer, UserTagsSearchIndexer>();
 
-            services.AddScoped(typeof(IElasticMemberIndex<>),typeof(ElasticMemberIndex<SearchableMember>));
+            services.AddScoped(typeof(IElasticMemberIndex<SearchableMember>),typeof(ElasticMemberIndex<SearchableMember>));
 
             services.AddScoped<IElasticEntityMapper, ElasticActivityIndex>();
             services.AddScoped<IElasticEntityMapper, ElasticContentIndex>();
