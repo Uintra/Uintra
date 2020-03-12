@@ -24,7 +24,7 @@ namespace Uintra20.Features.Search.Web
         private readonly ISearchUmbracoHelper _searchUmbracoHelper;
         private readonly ISearchableTypeProvider _searchableTypeProvider;
 
-        protected SearchController(
+        public SearchController(
             IElasticIndex elasticIndex,
             IEnumerable<IIndexer> searchableServices,
             IIntranetLocalizationService localizationService,
@@ -234,7 +234,7 @@ namespace Uintra20.Features.Search.Web
             {
                 UintraSearchableTypeEnum.News,
                 UintraSearchableTypeEnum.Events,
-                UintraSearchableTypeEnum.Bulletins,
+                UintraSearchableTypeEnum.Socials,
                 UintraSearchableTypeEnum.Content,
                 UintraSearchableTypeEnum.Document,
                 UintraSearchableTypeEnum.Member,

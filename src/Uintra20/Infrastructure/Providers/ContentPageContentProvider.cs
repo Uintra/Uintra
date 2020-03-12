@@ -20,7 +20,7 @@ namespace Uintra20.Infrastructure.Providers
 
         public IEnumerable<IPublishedContent> GetAllContentPages()
         {
-            var contentPages = GetDescendants(_baseXPath.Append(_documentTypeAliasProvider.GetContentPage())).ToList();
+            var contentPages = GetDescendants(_baseXPath.Append(_documentTypeAliasProvider.GetArticlePage())).ToList();
             return contentPages;
         }
 

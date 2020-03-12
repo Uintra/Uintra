@@ -1,4 +1,5 @@
 ﻿using Compent.CommandBus;
+using Uintra20.Core.Commands;
 using Uintra20.Features.Comments.CommandBus;
 using Uintra20.Features.Comments.CommandBus.Commands;
 using Uintra20.Features.Groups.CommandBus;
@@ -6,6 +7,8 @@ using Uintra20.Features.Groups.CommandBus.Commands;
 using Uintra20.Features.Likes.CommandBus;
 using Uintra20.Features.Likes.CommandBus.Commands;
 using Uintra20.Features.Media;
+using Uintra20.Features.Search.CommandBus;
+using Uintra20.Features.Search.Entities;
 using Uintra20.Features.Social;
 using Uintra20.Features.Social.Entities;
 
@@ -20,10 +23,10 @@ namespace Uintra20
             ConfigureGroupBindings(builder);
             ConfigureMediaBindings(builder);
 
-            //builder.HandleCommand<MemberChanged>()
-            //    .WithHandle<MemberHandle>();
-            //builder.HandleCommand<MembersChanged>()
-            //    .WithHandle<MemberHandle>();
+            builder.HandleCommand<MemberChanged>()
+                .WithHandle<MemberHandle<SearchableMember>>();
+            builder.HandleCommand<MembersChanged>()
+                .WithHandle<MemberHandle<SearchableMember>>();
 
             //builder.HandleCommand<MentionCommand>()
             //    .WithHandle<MentionHandle>();

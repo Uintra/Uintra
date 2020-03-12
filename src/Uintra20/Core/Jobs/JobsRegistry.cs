@@ -19,7 +19,7 @@ namespace Uintra20.Core.Jobs
 		public JobsRegistry()
 		{
 			_jobSettingsConfiguration = DependencyResolver.Current.GetService<IJobSettingsConfiguration>();
-			SetupJobs();
+			//SetupJobs();
 		}
 
 		public void SetupJobs()

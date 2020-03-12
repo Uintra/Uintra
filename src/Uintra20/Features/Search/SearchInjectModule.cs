@@ -18,12 +18,11 @@ namespace Uintra20.Features.Search
         {
 
             services.AddScopedToCollection<IIndexer, NewsService>();
+            services.AddScopedToCollection<IIndexer, ContentIndexer>();
             //services.AddScopedToCollection<IIndexer, EventsService>();
             services.AddScopedToCollection<IIndexer, SocialService<Social.Entities.Social>>();
             services.AddScopedToCollection<IIndexer, DocumentIndexer>();
-            services.AddScopedToCollection<IIndexer, UintraContentIndexer>();
             services.AddScopedToCollection<IIndexer, MembersIndexer<SearchableMember>>();
-            services.AddScopedToCollection<IIndexer, UintraContentIndexer>();
             services.AddScopedToCollection<IDocumentIndexer, DocumentIndexer>();
 
             services.AddScoped(typeof(ISearchableMemberMapper<SearchableMember>), typeof(SearchableMemberMapper<SearchableMember>));
@@ -49,7 +48,6 @@ namespace Uintra20.Features.Search
             services.AddScoped<IElasticTagIndex, ElasticTagIndex>();
 
             services.AddScoped<IActivityUserTagIndex, ActivityUserTagIndex>();
-            services.AddScoped<IElasticUintraContentIndex, ElasticUintraContentIndex>();
             services.AddScoped<IUserTagsSearchIndexer, UserTagsSearchIndexer>();
 
             services.AddScoped(typeof(IElasticMemberIndex<SearchableMember>),typeof(ElasticMemberIndex<SearchableMember>));
@@ -60,11 +58,12 @@ namespace Uintra20.Features.Search
             services.AddScoped<IElasticEntityMapper, ElasticTagIndex>();
             services.AddScoped<IElasticEntityMapper, ElasticMemberIndex<SearchableMember>>();
 
-            services.AddScoped<IElasticIndex, IElasticIndex>();
+            services.AddScoped<IElasticIndex, ElasticIndex>();
             services.AddScoped<IMemberSearchDescriptorBuilder, MemberSearchDescriptorBuilder>();
             services.AddScoped(typeof(ISearchSortingHelper<>),typeof(BaseSearchSortingHelper<>));
             services.AddScoped(typeof(ISearchPagingHelper<>), typeof(BaseSearchPagingHelper<>));
             services.AddScoped<ISearchScoreProvider, SearchScoreProvider>();
+            services.AddScoped<ISearchableTypeProvider, SearchableTypeProvider>();
             services.AddScoped<ISearchUmbracoHelper, SearchUmbracoHelper>();
 
             return services;

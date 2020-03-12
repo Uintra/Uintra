@@ -36,7 +36,7 @@ namespace Uintra20.Features.Search.Indexes
 		protected override QueryContainer[] GetQueryContainers(string query)
 		{
 			var containers = base.GetQueryContainers(query).ToList();
-			containers.Add(GetTagNames<SearchableUintraContent>(query));
+			//containers.Add(GetTagNames<SearchableUintraContent>(query));
 			containers.Add(GetTagNames<SearchableUintraActivity>(query));
 			containers.Add(GetTagNames<SearchableMember>(query));
 			containers.Add(GetTagsDescriptor(query));
@@ -53,12 +53,12 @@ namespace Uintra20.Features.Search.Indexes
 				{
 					case (int)UintraSearchableTypeEnum.Events:
 					case (int)UintraSearchableTypeEnum.News:
-					case (int)UintraSearchableTypeEnum.Bulletins:
+					case (int)UintraSearchableTypeEnum.Socials:
 						documents.Add(document.ToString().Deserialize<SearchableUintraActivity>());
 						break;
-					case (int)UintraSearchableTypeEnum.Content:
-						documents.Add(document.ToString().Deserialize<SearchableUintraContent>());
-						break;
+					//case (int)UintraSearchableTypeEnum.Content:
+					//	documents.Add(document.ToString().Deserialize<SearchableUintraContent>());
+					//	break;
 					case (int)UintraSearchableTypeEnum.Document:
 						documents.Add(document.ToString().Deserialize<SearchableDocument>());
 						break;

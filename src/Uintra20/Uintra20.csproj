@@ -1076,6 +1076,7 @@
     <Compile Include="Features\Permissions\Models\MemberGroupViewModel.cs" />
     <Compile Include="Features\Permissions\Models\PermissionUpdateViewModel.cs" />
     <Compile Include="Features\Permissions\Models\PermissionViewModel.cs" />
+    <Compile Include="Features\Search\CommandBus\MemberHandle.cs" />
     <Compile Include="Features\Search\ContentIndexer.cs" />
     <Compile Include="Features\Search\DocumentIndexer.cs" />
     <Compile Include="Features\Search\ElasticConfigurationSection.cs" />
@@ -1102,7 +1103,6 @@
     <Compile Include="Features\Search\Entities\SearchableTag.cs" />
     <Compile Include="Features\Search\Entities\SearchableTypeEnum.cs" />
     <Compile Include="Features\Search\Entities\SearchableUintraActivity.cs" />
-    <Compile Include="Features\Search\Entities\SearchableUintraContent.cs" />
     <Compile Include="Features\Search\Entities\SearchableUserGroupInfo.cs" />
     <Compile Include="Features\Search\Entities\SearchResult.cs" />
     <Compile Include="Features\Search\Entities\UintraSearchableTypeEnum.cs" />
@@ -1119,15 +1119,12 @@
     <Compile Include="Features\Search\Indexes\ElasticContentIndex.cs" />
     <Compile Include="Features\Search\Indexes\ElasticDocumentIndex.cs" />
     <Compile Include="Features\Search\Indexes\ElasticMemberIndex.cs" />
-    <Compile Include="Features\Search\Indexes\ElasticUintraContentIndex.cs" />
     <Compile Include="Features\Search\Indexes\IActivityUserTagIndex.cs" />
     <Compile Include="Features\Search\Indexes\IElasticActivityIndex.cs" />
     <Compile Include="Features\Search\Indexes\IElasticContentIndex.cs" />
     <Compile Include="Features\Search\Indexes\IElasticDocumentIndex.cs" />
     <Compile Include="Features\Search\Indexes\IElasticIndex.cs" />
     <Compile Include="Features\Search\Indexes\IElasticMemberIndex.cs" />
-    <Compile Include="Features\Search\Indexes\IElasticUintraContentIndex.cs" />
-    <Compile Include="Features\Search\Indexes\UintraContentIndexer.cs" />
     <Compile Include="Features\Search\Indexes\UintraElasticIndex.cs" />
     <Compile Include="Features\Search\ISearchableMemberMapper.cs" />
     <Compile Include="Features\Search\ISearchableTypeProvider.cs" />

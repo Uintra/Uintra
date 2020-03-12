@@ -1,6 +1,6 @@
 ﻿using System.Linq;
+using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Services;
-using Uintra20.Features.Groups;
 using Uintra20.Features.Search.Entities;
 using Uintra20.Features.Search.Indexes;
 
@@ -8,12 +8,12 @@ namespace Uintra20.Features.Search
 {
 	public class MembersIndexer<T> : IIndexer where T : SearchableMember
 	{
-		private readonly IIntranetMemberService<IGroupMember> _intranetMemberService;
+		private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
 		private readonly IElasticMemberIndex<T> _elasticMemberIndex;
 		private readonly ISearchableMemberMapper<T> _searchableMemberMapper;
 
 		public MembersIndexer(
-			IIntranetMemberService<IGroupMember> intranetMemberService,
+			IIntranetMemberService<IntranetMember> intranetMemberService,
 			IElasticMemberIndex<T> elasticMemberIndex,
 			ISearchableMemberMapper<T> searchableMemberMapper
 		)

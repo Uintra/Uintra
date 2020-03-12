@@ -63,7 +63,7 @@ namespace Uintra20.Features.Search
 
         private bool IsAllowedForIndexing(IPublishedContent media)
         {
-            return media.GetProperty(UmbracoAliases.Media.UseInSearchPropertyAlias).Value<bool>();
+            return media.HasProperty(UmbracoAliases.Media.UseInSearchPropertyAlias) && media.GetProperty(UmbracoAliases.Media.UseInSearchPropertyAlias).Value<bool>();
         }
 
         private bool IsAllowedForIndexing(IMedia media)

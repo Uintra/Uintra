@@ -229,7 +229,7 @@ namespace Uintra20.Features.Search
 				{
 					case (int)SearchableTypeEnum.Events:
 					case (int)SearchableTypeEnum.News:
-					case (int)SearchableTypeEnum.Bulletins:
+					case (int)SearchableTypeEnum.Socials:
 						documents.Add(SerializationExtensions.Deserialize<SearchableActivity>(document.ToString()));
 						break;
 					case (int)SearchableTypeEnum.Content:

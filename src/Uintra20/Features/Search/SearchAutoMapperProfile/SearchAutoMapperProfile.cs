@@ -78,11 +78,11 @@ namespace Uintra20.Features.Search.SearchAutoMapperProfile
                 .ForMember(dst => dst.Email, o => o.Ignore())
                 .ForMember(dst => dst.Photo, o => o.Ignore());
 
-            CreateMap<SearchableUintraContent, UintraSearchResultViewModel>()
-                .IncludeBase<SearchableContent, SearchResultViewModel>()
-                .ForMember(dst => dst.IsPinned, o => o.Ignore())
-                .ForMember(dst => dst.Email, o => o.Ignore())
-                .ForMember(dst => dst.Photo, o => o.Ignore());
+            //CreateMap<SearchableUintraContent, UintraSearchResultViewModel>()
+            //    .IncludeBase<SearchableContent, SearchResultViewModel>()
+            //    .ForMember(dst => dst.IsPinned, o => o.Ignore())
+            //    .ForMember(dst => dst.Email, o => o.Ignore())
+            //    .ForMember(dst => dst.Photo, o => o.Ignore());
 
             CreateMap<SearchableMember, SearchAutocompleteResultViewModel>()
                 .IncludeBase<SearchableBase, SearchAutocompleteResultViewModel>()

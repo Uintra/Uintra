@@ -36,7 +36,7 @@ namespace Uintra20.Features.Search
         public void FillIndex()
         {
             var homePage = _umbracoHelper.ContentAtRoot().First(pc => pc.ContentType.Alias.Equals(_documentTypeAliasProvider.GetHomePage()));
-            var contentPages = homePage.Descendants(_documentTypeAliasProvider.GetContentPage());
+            var contentPages = homePage.DescendantsOfType(_documentTypeAliasProvider.GetArticlePage());
 
             var searchableContents = contentPages
                 .Where(pc => _searchUmbracoHelper.IsSearchable(pc))

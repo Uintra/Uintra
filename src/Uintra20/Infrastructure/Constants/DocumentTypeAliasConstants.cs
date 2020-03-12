@@ -31,7 +31,7 @@
         public const string MailTemplate = "MailTemplate";
         public const string ErrorPage = "errorPage";
         public const string NavigationComposition = "navigationComposition";
-        public const string ContentPage = "contentPage";
+        public const string ArticlePage = "articlePage";
         public const string Heading = "heading";
         public const string SystemLink = "systemLink";
 

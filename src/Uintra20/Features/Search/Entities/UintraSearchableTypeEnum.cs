@@ -4,7 +4,7 @@
     {
         News = SearchableTypeEnum.News,
         Events = SearchableTypeEnum.Events,
-        Bulletins = SearchableTypeEnum.Bulletins,
+        Socials = SearchableTypeEnum.Socials,
         Content = SearchableTypeEnum.Content,
         Document = SearchableTypeEnum.Document,
         Tag,

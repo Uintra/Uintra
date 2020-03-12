@@ -6,7 +6,7 @@ namespace Uintra20.Features.Search.Entities
     {
         News = IntranetActivityTypeEnum.News,
         Events = IntranetActivityTypeEnum.Events,
-        Bulletins = IntranetActivityTypeEnum.Social,
+        Socials = IntranetActivityTypeEnum.Social,
         Content,
         Document
     }

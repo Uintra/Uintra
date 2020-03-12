@@ -25,8 +25,8 @@ namespace Uintra20.Features.Search
 
         public bool IsSearchable(IPublishedContent content)
         {
-            var isContentPage = content.ContentType.Alias.Equals(_documentTypeAliasProvider.GetContentPage());
-            return isContentPage && content.GetProperty("useInSearch").Value<bool>(); 
+            var isContentPage = content.ContentType.Alias.Equals(_documentTypeAliasProvider.GetArticlePage());
+            return isContentPage && content.GetProperty("includeInSearch").Value<bool>(); 
         }
 
         public string GetSearchLink(string searchQuery)

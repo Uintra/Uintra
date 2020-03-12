@@ -205,7 +205,7 @@ namespace Uintra20.Features.Social
         {
             var activities = GetAll().Where(IsCacheable);
             var searchableActivities = activities.Select(Map);
-            _activityIndex.DeleteByType(UintraSearchableTypeEnum.Bulletins);
+            _activityIndex.DeleteByType(UintraSearchableTypeEnum.Socials);
             _activityIndex.Index(searchableActivities);
         }
 
