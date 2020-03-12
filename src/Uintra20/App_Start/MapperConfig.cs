@@ -16,6 +16,7 @@ using Uintra20.Features.Navigation.AutoMapperProfiles;
 using Uintra20.Features.News.AutoMapperPrfiles;
 using Uintra20.Features.Notification.AutoMapperProfiles;
 using Uintra20.Features.Permissions.AutoMapperProfiles;
+using Uintra20.Features.Search.SearchAutoMapperProfile;
 using Uintra20.Features.Social.AutoMapperProfiles;
 using Uintra20.Features.Subscribe.AutoMapperProfiles;
 using Uintra20.Features.Tagging.AutoMapperProfiles;
@@ -82,8 +83,11 @@ namespace Uintra20
             cfg.AddProfile<NewsAutoMapperProfile>();
             cfg.AddProfile<ProfileEditProfile>();
             cfg.AddProfile<JobAutoMapperProfile>();
+            cfg.AddProfile<SearchAutoMapperProfile>();
+            cfg.AddProfile<SearchableActivityAutoMapperProfile>();
+            cfg.AddProfile<SearchResultAutoMapperProfile>();
             //cfg.AddProfile<MailProfile>();
-            
+
             Mapper.Initialize(cfg);
             Mapper.AssertConfigurationIsValid();
         }

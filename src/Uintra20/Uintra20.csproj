@@ -1148,6 +1148,7 @@
     <Compile Include="Features\Search\Models\SearchResultViewModel.cs" />
     <Compile Include="Features\Search\Models\SearchScoreModel.cs" />
     <Compile Include="Features\Search\Models\SearchViewModel.cs" />
+    <Compile Include="Features\Search\Models\UintraSearchResultViewModel.cs" />
     <Compile Include="Features\Search\Paging\BaseSearchPagingHelper.cs" />
     <Compile Include="Features\Search\Paging\ISearchPagingHelper.cs" />
     <Compile Include="Features\Search\Queries\MemberSearchQuery.cs" />
@@ -1155,6 +1156,9 @@
     <Compile Include="Features\Search\SearchableMemberMapper.cs" />
     <Compile Include="Features\Search\SearchableTypeProvider.cs" />
     <Compile Include="Features\Search\SearchApplicationSettings.cs" />
+    <Compile Include="Features\Search\SearchAutoMapperProfile\SearchableActivityAutoMapperProfile.cs" />
+    <Compile Include="Features\Search\SearchAutoMapperProfile\SearchAutoMapperProfile.cs" />
+    <Compile Include="Features\Search\SearchAutoMapperProfile\SearchResultAutoMapperProfile.cs" />
     <Compile Include="Features\Search\SearchConstants.cs" />
     <Compile Include="Features\Search\SearchHelper.cs" />
     <Compile Include="Features\Search\SearchInjectModule.cs" />

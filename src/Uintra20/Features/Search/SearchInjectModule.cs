@@ -1,4 +1,5 @@
-﻿using Compent.Shared.DependencyInjection.Contract;
+﻿using System.Configuration;
+using Compent.Shared.DependencyInjection.Contract;
 using Nest;
 using Uintra20.Features.News;
 using Uintra20.Features.Search.Entities;
@@ -29,13 +30,17 @@ namespace Uintra20.Features.Search
             services.AddScoped<IElasticSearchRepository, ElasticSearchRepository>();
             services.AddScoped(typeof(IElasticSearchRepository<>), typeof(ElasticSearchRepository<>));
 
-            services.AddSingleton<IElasticConfigurationSection, ElasticConfigurationSection>();
+            services.AddSingleton<IElasticConfigurationSection>(a => ConfigurationManager.GetSection("elasticConfiguration") as ElasticConfigurationSection);
+            
+            services.AddSingleton<ISearchApplicationSettings, SearchApplicationSettings>();
 
             services.AddSingleton(typeof(PropertiesDescriptor<SearchableActivity>), typeof(SearchableActivityMap));
+            services.AddSingleton(typeof(PropertiesDescriptor<SearchableUintraActivity>), typeof(SearchableUintraActivityMap));
             services.AddSingleton(typeof(PropertiesDescriptor<SearchableContent>), typeof(SearchableContentMap));
             services.AddSingleton(typeof(PropertiesDescriptor<SearchableDocument>), typeof(SearchableDocumentMap));
             services.AddSingleton(typeof(PropertiesDescriptor<SearchableTag>), typeof(SearchableTagMap));
             services.AddSingleton(typeof(PropertiesDescriptor<SearchableMember>), typeof(SearchableUserMap));
+            
 
             services.AddScoped<IElasticActivityIndex, ElasticActivityIndex>();
             services.AddScoped<IElasticUintraActivityIndex, ElasticUintraActivityIndex>();
