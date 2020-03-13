@@ -76,7 +76,7 @@ namespace Uintra20.Features.Media
 
         private ImageFormat GetImageFormat(string imageExtension)
         {
-            imageExtension = imageExtension.Replace(".", "");
+            imageExtension = imageExtension.Replace(".", string.Empty);
 
             switch (imageExtension.ToLower())
             {

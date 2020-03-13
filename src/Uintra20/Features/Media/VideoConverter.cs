@@ -94,7 +94,7 @@ namespace Uintra20.Features.Media
 
         public bool IsVideo(string filename)
         {
-            var ext = Path.GetExtension(filename)?.Replace(".", ""); ;
+            var ext = Path.GetExtension(filename)?.Replace(".", string.Empty); ;
             return _applicationSettings.VideoFileTypes.Contains(ext);
         }
     }
