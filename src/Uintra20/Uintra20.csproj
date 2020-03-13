@@ -931,11 +931,15 @@
     <Compile Include="Core\UbaselineModels\RestrictedNode\UintraRestrictedNodeViewModel.cs" />
     <Compile Include="Core\UbaselineModels\RestrictedNode\UintraRestrictedNodeViewModelConverter.cs" />
     <Compile Include="Features\Events\Controllers\EventsController.cs" />
+    <Compile Include="Features\Events\Converters\ComingEventsPanelViewModelConverter.cs" />
     <Compile Include="Features\Events\Converters\EventCreatePageViewModelConverter.cs" />
     <Compile Include="Features\Events\Converters\EventDetailsPageViewModelConverter.cs" />
     <Compile Include="Features\Events\Converters\EventEditPageViewModelConverter.cs" />
     <Compile Include="Features\Events\EventsService.cs" />
     <Compile Include="Features\Events\IEventsService.cs" />
+    <Compile Include="Features\Events\Models\ComingEventsPanelModel.cs" />
+    <Compile Include="Features\Events\Models\ComingEventsPanelViewModel.cs" />
+    <Compile Include="Features\Events\Models\ComingEventViewModel.cs" />
     <Compile Include="Features\Events\Models\EventCreateDataViewModel.cs" />
     <Compile Include="Features\Events\Models\EventCreateModel.cs" />
     <Compile Include="Features\Events\Models\EventCreatePageModel.cs" />
