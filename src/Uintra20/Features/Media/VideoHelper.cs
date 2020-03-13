@@ -6,6 +6,7 @@ using Compent.Extensions;
 using Compent.MediaToolkit;
 using Compent.MediaToolkit.Model;
 using Compent.MediaToolkit.Options;
+using Uintra20.Features.Media.Extensions;
 using Uintra20.Infrastructure.ApplicationSettings;
 using Uintra20.Infrastructure.Constants;
 using Umbraco.Core.Models;
@@ -24,9 +25,11 @@ namespace Uintra20.Features.Media
             _applicationSettings = applicationSettings;
         }
 
-        public bool IsVideo(string fileExtension)
+        public bool IsVideo(string extension)
         {
-            return _applicationSettings.VideoFileTypes.Contains(fileExtension.TrimStart('.'));
+            var cleanExtension = extension.ClearExtension();
+
+            return _applicationSettings.VideoFileTypes.Contains(cleanExtension);
         }
 
         public string CreateThumbnail(IMedia media)
@@ -85,15 +88,10 @@ namespace Uintra20.Features.Media
             return $"/{urlSegments.JoinWith("/")}";
         }
 
-        public string CreateConvertingThumbnail()
-        {
-            return @"/images/videoLoader.jpg";
-        }
+        public string CreateConvertingThumbnail() => 
+            @"/images/videoLoader.jpg";
 
-        public string CreateConvertingFailureThumbnail()
-        {
-            return @"/images/videoLoaderFailure.jpg";
-        }
-
+        public string CreateConvertingFailureThumbnail() => 
+            @"/images/videoLoaderFailure.jpg";
     }
 }

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using UBaseline.Core.Extensions;
 using UBaseline.Core.Media;
@@ -21,13 +22,13 @@ using Umbraco.Core.Composing;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using static Uintra20.Infrastructure.Constants.UmbracoAliases.Media;
-using File = System.IO.File;
 using FolderModel = Uintra20.Core.UbaselineModels.FolderModel;
-using Task = System.Threading.Tasks.Task;
 
 namespace Uintra20.Features.Media
 {
-    public class MediaHelper : IMediaHelper, IHandle<VideoConvertedCommand>
+    public class MediaHelper :
+        IMediaHelper,
+        IHandle<VideoConvertedCommand>
     {
         private readonly ICacheService _cacheService;
         private readonly IMediaModelService _mediaModelService;
@@ -59,7 +60,11 @@ namespace Uintra20.Features.Media
             _videoConverter = videoConverter;
             _videoConverterLogService = videoConverterLogService;
         }
-        public IEnumerable<int> CreateMedia(IContentWithMediaCreateEditModel model, MediaFolderTypeEnum mediaFolderType, Guid? userId = null, int? mediaRootId = null)
+        public IEnumerable<int> CreateMedia(
+            IContentWithMediaCreateEditModel model,
+            MediaFolderTypeEnum mediaFolderType,
+            Guid? userId = null,
+            int? mediaRootId = null)
         {
             if (model.NewMedia.IsNullOrEmpty()) return Enumerable.Empty<int>();
 
@@ -78,11 +83,11 @@ namespace Uintra20.Features.Media
                 rootMediaId = settings.MediaRootId ?? -1;
             }
 
-            var createdMediaIds= cachedTempMedia.Select(file =>
-                {
-                    var media = CreateMedia(file, rootMediaId, userId);
-                    return media.Id;
-                })
+            var createdMediaIds = cachedTempMedia.Select(file =>
+                 {
+                     var media = CreateMedia(file, rootMediaId, userId);
+                     return media.Id;
+                 })
                 .ToList();
 
             return createdMediaIds;
@@ -103,7 +108,7 @@ namespace Uintra20.Features.Media
 
                 Task.Run(() =>
                 {
-                    _videoConverter.Convert(new MediaConvertModel()
+                    _videoConverter.Convert(new MediaConvertModel
                     {
                         File = file,
                         MediaId = media.Id
@@ -225,6 +230,7 @@ namespace Uintra20.Features.Media
         //{
         //    return media.HasProperty(IsDeletedPropertyTypeAlias) && media.Value<bool>(IsDeletedPropertyTypeAlias);
         //}
+
         public static IEnumerable<string> GetMediaUrls(IEnumerable<int> ids)
         {
             if (!ids.Any()) return Enumerable.Empty<string>();
@@ -233,6 +239,7 @@ namespace Uintra20.Features.Media
 
             return ids.Select(id => mediaProvider.GetById(id)?.Url).Where(url => url.HasValue());
         }
+
         private void SaveVideoAdditionProperties(IMedia media)
         {
             var thumbnailUrl = _videoHelper.CreateThumbnail(media);
@@ -245,9 +252,15 @@ namespace Uintra20.Features.Media
 
         private string GetMediaTypeAlias(TempFile file)
         {
-            if (_videoHelper.IsVideo(Path.GetExtension(file.FileName)?.ToLower())) return VideoTypeAlias;
+            var extension = Path.GetExtension(file.FileName);
 
-            return _imageHelper.IsFileImage(file.FileBytes) ? ImageTypeAlias : FileTypeAlias;
+            var isVideo = _videoHelper.IsVideo(extension);
+
+            if (isVideo) return VideoTypeAlias;
+
+            return _imageHelper.IsFileImage(file.FileBytes)
+                ? ImageTypeAlias
+                : FileTypeAlias;
         }
 
         private string GetAllowedMediaExtensions(FolderModel mediaFolderContent)
@@ -277,7 +290,7 @@ namespace Uintra20.Features.Media
 
             return mediaFolder;
         }
-         
+
         private FolderModel CreateMediaFolder(Enum mediaFolderType)
         {
             var mediaFolderTypeEnum = (MediaFolderTypeEnum)mediaFolderType;
@@ -313,7 +326,7 @@ namespace Uintra20.Features.Media
                 }
             }
 
-            File.Delete(command.ConvertedFilePath);
+            System.IO.File.Delete(command.ConvertedFilePath);
 
             SaveVideoAdditionProperties(media);
 

@@ -9,6 +9,5 @@ namespace Uintra20.Features.Media
         VideoSizeMetadataModel GetSizeMetadata(IMedia media);
         string CreateConvertingThumbnail();
         string CreateConvertingFailureThumbnail();
-
     }
 }

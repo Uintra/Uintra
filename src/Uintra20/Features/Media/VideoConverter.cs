@@ -58,11 +58,11 @@ namespace Uintra20.Features.Media
             }
             catch (Exception ex)
             {
-                command = new VideoConvertedCommand()
+                command = new VideoConvertedCommand
                 {
                     MediaId = model.MediaId,
                     Success = false,
-                    Message = new VideoConvertedCommandMessageModel()
+                    Message = new VideoConvertedCommandMessageModel
                     {
                         ExceptionMessage = ex.Message,
                         StackTrace = ex.StackTrace,
