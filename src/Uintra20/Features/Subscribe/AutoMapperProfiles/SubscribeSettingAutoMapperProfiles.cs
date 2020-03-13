@@ -6,8 +6,8 @@ namespace Uintra20.Features.Subscribe.AutoMapperProfiles
     {
         public SubscribeSettingAutoMapperProfiles()
         {
-            //Mapper.CreateMap<ISubscribeSettings, ActivitySubscribeSettingDto>()
-            //    .ForMember(dst => dst.ActivityId, o => o.MapFrom(s => s.Id));
+            CreateMap<ISubscribeSettings, ActivitySubscribeSettingDto>()
+                .ForMember(dst => dst.ActivityId, o => o.MapFrom(s => s.Id));
         }
     }
 }

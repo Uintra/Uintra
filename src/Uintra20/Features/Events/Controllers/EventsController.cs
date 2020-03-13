@@ -125,7 +125,7 @@ namespace Uintra20.Features.Events.Controllers
 
         private Event MapToEvent(EventCreateModel createModel)
         {
-            var @event = (Event)createModel.Map<EventBase>();
+            var @event = createModel.Map<Event>();
 
             @event.MediaIds = @event.MediaIds.Concat(_mediaHelper.CreateMedia(createModel, MediaFolderTypeEnum.NewsContent));
             @event.StartDate = createModel.StartDate.ToUniversalTime();
@@ -140,9 +140,6 @@ namespace Uintra20.Features.Events.Controllers
                 @event.IsPinned = false;
 
             }
-            
-            @event.CanSubscribe = createModel.CanSubscribe;
-            @event.SubscribeNotes = createModel.SubscribeNotes;
 
             return @event;
         }
