@@ -20,7 +20,6 @@ namespace Uintra20.Core.UmbracoEvents.Services.Implementations
         private readonly IMediaService _mediaService;
         private readonly IMediaTypeService _mediaTypeService;
 
-
         public VideoConvertEventService(
             IVideoConverter videoConverter,
             IVideoHelper videoHelper,
@@ -58,7 +57,11 @@ namespace Uintra20.Core.UmbracoEvents.Services.Implementations
                     //media.ChangeContentType(videoContentType, false);// TODO Resolve changeContentType umbraco v8
 
                     // Due to ChangeContentType is internal
-                    var method = typeof(Media).GetMethod("ChangeContentType", BindingFlags.NonPublic | BindingFlags.Instance);
+                    var method = typeof(Media).GetMethod("ChangeContentType", new []
+                    {
+                        typeof(IMediaType),
+                        typeof(bool)
+                    });
 
                     method?.Invoke(this, new object[]
                     {

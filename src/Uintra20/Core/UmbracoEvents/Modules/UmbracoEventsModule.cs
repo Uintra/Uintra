@@ -18,13 +18,14 @@ namespace Uintra20.Core.UmbracoEvents.Modules
             MemberGroupService.Deleting += MemberGroupDeletingHandler;
             MemberGroupService.Saved += MemberGroupSavedHandler;
 
+            MediaService.Saved += ProcessMediaSaved;
+            MediaService.Trashed += ProcessMediaTrashed;
+            MediaService.Saving += ProcessMediaSaving;
+
             //ContentService.Published += ProcessContentPublished;
-            //ContentService.UnPublished += ProcessContentUnPublished;
-            //ContentService.Trashed += ProcessContentTrashed;
-            //ContentService.Saving += ProcessPanelSaving;
-            //MediaService.Saved += ProcessMediaSaved;
-            //MediaService.Trashed += ProcessMediaTrashed;
-            //MediaService.Saving += ProcessMediaSaving;
+            //ContentService.Unpublished += ProcessContentUnPublished;
+            ContentService.Trashed += ProcessContentTrashed;
+            ContentService.Saving += ProcessPanelSaving;
         }
 
         private static void MemberRemovedRolesHandler(
