@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Uintra20.Features.Subscribe.Models;
 
 namespace Uintra20.Features.Subscribe.AutoMapperProfiles
 {

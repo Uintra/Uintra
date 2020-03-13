@@ -1105,6 +1105,8 @@
     <Compile Include="Features\ContentPage\Services\ContentPageNotificationService.cs" />
     <Compile Include="Features\Notification\ViewModel\NotificationListViewModel.cs" />
     <Compile Include="Features\Subscribe\ActivitySubscribeSettingService.cs" />
+    <Compile Include="Features\Subscribe\Controllers\SubscribeController.cs" />
+    <Compile Include="Features\Subscribe\Models\SubscribeNotificationDisableUpdateModel.cs" />
     <Compile Include="Infrastructure\Context\IIntranetRequestContext.cs" />
     <Compile Include="Infrastructure\Context\IntranetRequestContext.cs" />
     <Compile Include="Infrastructure\Extensions\ArrayExtensions.cs" />
@@ -1317,7 +1319,7 @@
     <Compile Include="Features\News\NewsBase.cs" />
     <Compile Include="Features\News\NewsService.cs" />
     <Compile Include="Features\News\NewsServiceBase.cs" />
-    <Compile Include="Features\Subscribe\ActivitySubscribeSettingDto.cs" />
+    <Compile Include="Features\Subscribe\Models\ActivitySubscribeSettingDto.cs" />
     <Compile Include="Features\Subscribe\IActivitySubscribeSettingService.cs" />
     <Compile Include="Features\Subscribe\ISubscribableService.cs" />
     <Compile Include="Features\Subscribe\ISubscribeService.cs" />

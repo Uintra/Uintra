@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Uintra20.Features.Subscribe
+namespace Uintra20.Features.Subscribe.Models
 {
     public class ActivitySubscribeSettingDto
     {
