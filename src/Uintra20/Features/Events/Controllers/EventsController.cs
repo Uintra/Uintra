@@ -173,7 +173,7 @@ namespace Uintra20.Features.Events.Controllers
             return @event;
         }
 
-        private void ResolveMentions(string text, EventBase @event)
+        private void ResolveMentions(string text, Event @event)
         {
             var mentionIds = _mentionService.GetMentions(text).ToList();
 

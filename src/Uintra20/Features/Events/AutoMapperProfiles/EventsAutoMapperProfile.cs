@@ -50,24 +50,24 @@ namespace Uintra20.Features.Events.AutoMapperProfiles
             CreateMap<Event, IntranetActivityDetailsHeaderViewModel>()
                 .IncludeBase<EventBase, IntranetActivityDetailsHeaderViewModel>();
 
-            CreateMap<EventEditModel, Event>()
-                .IncludeBase<EventEditModel, EventBase>()
-                .ForMember(dst => dst.GroupId, o => o.Ignore())
-                .ForMember(dst => dst.Id, o => o.Ignore())
-                .ForMember(dst => dst.IsHidden, o => o.Ignore())
-                .ForMember(dst => dst.CreatorId, o => o.Ignore())
-                .ForMember(dst => dst.UmbracoCreatorId, o => o.Ignore())
-                .ForMember(dst => dst.CreatedDate, o => o.Ignore())
-                .ForMember(dst => dst.ModifyDate, o => o.Ignore())
-                .ForMember(dst => dst.Type, o => o.Ignore())
-                .ForMember(dst => dst.CanSubscribe, o => o.Ignore())
-                .ForMember(dst => dst.SubscribeNotes, o => o.Ignore())
-                .ForMember(dst => dst.MediaIds, o => o.Ignore())
-                .ForMember(dst => dst.Type, o => o.Ignore())
-                .ForMember(dst => dst.Likes, o => o.Ignore())
-                .ForMember(dst => dst.Comments, o => o.Ignore())
-                .ForMember(dst => dst.Subscribers, o => o.Ignore())
-                .ForMember(dst => dst.IsReadOnly, o => o.Ignore());
+            //CreateMap<EventEditModel, Event>()
+            //    .IncludeBase<EventEditModel, EventBase>()
+            //    .ForMember(dst => dst.GroupId, o => o.Ignore())
+            //    .ForMember(dst => dst.Id, o => o.Ignore())
+            //    .ForMember(dst => dst.IsHidden, o => o.Ignore())
+            //    .ForMember(dst => dst.CreatorId, o => o.Ignore())
+            //    .ForMember(dst => dst.UmbracoCreatorId, o => o.Ignore())
+            //    .ForMember(dst => dst.CreatedDate, o => o.Ignore())
+            //    .ForMember(dst => dst.ModifyDate, o => o.Ignore())
+            //    .ForMember(dst => dst.Type, o => o.Ignore())
+            //    .ForMember(dst => dst.CanSubscribe, o => o.Ignore())
+            //    .ForMember(dst => dst.SubscribeNotes, o => o.Ignore())
+            //    .ForMember(dst => dst.MediaIds, o => o.Ignore())
+            //    .ForMember(dst => dst.Type, o => o.Ignore())
+            //    .ForMember(dst => dst.Likes, o => o.Ignore())
+            //    .ForMember(dst => dst.Comments, o => o.Ignore())
+            //    .ForMember(dst => dst.Subscribers, o => o.Ignore())
+            //    .ForMember(dst => dst.IsReadOnly, o => o.Ignore());
 
             //CreateMap<EventCreateModel, Event>()
             //    .IncludeBase<EventCreateModel, EventBase>()
@@ -139,14 +139,14 @@ namespace Uintra20.Features.Events.AutoMapperProfiles
             //    .ForMember(dst => dst.GroupId, o => o.Ignore())
             //    .ForMember(dst => dst.Media, o => o.MapFrom(el => el.MediaIds.JoinToString(",")));
 
-            CreateMap<EventBase, EventEditModel>()
-                .ForMember(dst => dst.PinAllowed, o => o.Ignore())
-                .ForMember(dst => dst.NewMedia, o => o.Ignore())
-                .ForMember(dst => dst.CanSubscribe, o => o.Ignore())
-                .ForMember(dst => dst.SubscribeNotes, o => o.Ignore())
-                .ForMember(dst => dst.TagIdsData, o => o.Ignore())
-                .ForMember(dst => dst.NotifyAllSubscribers, o => o.Ignore())
-                .ForMember(dst => dst.Media, o => o.MapFrom(el => el.MediaIds.JoinToString(",")));
+            //CreateMap<EventBase, EventEditModel>()
+            //    .ForMember(dst => dst.PinAllowed, o => o.Ignore())
+            //    .ForMember(dst => dst.NewMedia, o => o.Ignore())
+            //    .ForMember(dst => dst.CanSubscribe, o => o.Ignore())
+            //    .ForMember(dst => dst.SubscribeNotes, o => o.Ignore())
+            //    .ForMember(dst => dst.TagIdsData, o => o.Ignore())
+            //    .ForMember(dst => dst.NotifyAllSubscribers, o => o.Ignore())
+            //    .ForMember(dst => dst.Media, o => o.MapFrom(el => el.MediaIds.JoinToString(",")));
 
             CreateMap<EventCreateModel, Event>()
                 .ForMember(dst => dst.Id, o => o.Ignore())
@@ -166,7 +166,7 @@ namespace Uintra20.Features.Events.AutoMapperProfiles
                 .ForMember(dst => dst.Subscribers, o => o.Ignore())
                 .ForMember(dst => dst.IsReadOnly, o => o.Ignore());
 
-            CreateMap<EventEditModel, EventBase>()
+            CreateMap<EventEditModel, Event>()
                 .ForMember(dst => dst.Id, o => o.Ignore())
                 .ForMember(dst => dst.IsHidden, o => o.Ignore())
                 .ForMember(dst => dst.CreatorId, o => o.Ignore())
@@ -176,6 +176,13 @@ namespace Uintra20.Features.Events.AutoMapperProfiles
                 .ForMember(dst => dst.Type, o => o.Ignore())
                 .ForMember(dst => dst.MediaIds, o => o.Ignore())
                 .ForMember(dst => dst.IsPinActual, o => o.Ignore())
+                .ForMember(dst => dst.GroupId, o => o.Ignore())
+                .ForMember(dst => dst.CanSubscribe, o => o.Ignore())
+                .ForMember(dst => dst.SubscribeNotes, o => o.Ignore())
+                .ForMember(dst => dst.Likes, o => o.Ignore())
+                .ForMember(dst => dst.Comments, o => o.Ignore())
+                .ForMember(dst => dst.Subscribers, o => o.Ignore())
+                .ForMember(dst => dst.IsReadOnly, o => o.Ignore())
                 .AfterMap((src, dst) =>
                 {
                     dst.MediaIds = src.Media.ToIntCollection();

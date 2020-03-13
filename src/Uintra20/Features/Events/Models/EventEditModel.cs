@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 using Uintra20.Attributes;
@@ -24,6 +25,6 @@ namespace Uintra20.Features.Events.Models
         public bool PinAllowed { get; set; }
         public bool CanSubscribe { get; set; }
         public string SubscribeNotes { get; set; }
-        public string TagIdsData { get; set; }
+        public IEnumerable<Guid> TagIdsData { get; set; }
     }
 }
