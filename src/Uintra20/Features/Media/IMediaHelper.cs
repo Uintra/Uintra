@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using UBaseline.Shared.Media;
 using Uintra20.Core.Controls.FileUpload;
+using Umbraco.Core.Models;
 
 namespace Uintra20.Features.Media
 {
@@ -13,7 +13,8 @@ namespace Uintra20.Features.Media
         void DeleteMedia(IEnumerable<int> mediaIds);
         void RestoreMedia(int mediaId);
         void RestoreMedia(IEnumerable<int> mediaIds);
-        IMediaModel CreateMedia(TempFile file, int rootMediaId, Guid? userId = null);
+        //IMediaModel CreateMedia(TempFile file, int rootMediaId, Guid? userId = null);
+        IMedia CreateMedia(TempFile file, int rootMediaId, Guid? userId = null);
         //bool IsMediaDeleted(IPublishedContent media);
         MediaSettings GetMediaFolderSettings(Enum mediaFolderType, bool createFolderIfNotExists = false);
     }

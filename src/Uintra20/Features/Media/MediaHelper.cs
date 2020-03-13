@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using UBaseline.Core.Extensions;
 using UBaseline.Core.Media;
-using UBaseline.Shared.Media;
 using Uintra20.Core.Controls.FileUpload;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Services;
@@ -93,7 +92,7 @@ namespace Uintra20.Features.Media
             return createdMediaIds;
         }
 
-        public IMediaModel CreateMedia(TempFile file, int rootMediaId, Guid? userId = null)
+        public IMedia CreateMedia(TempFile file, int rootMediaId, Guid? userId = null)
         {
             userId = userId ?? _intranetMemberService.GetCurrentMemberId();
 
@@ -115,7 +114,7 @@ namespace Uintra20.Features.Media
                     });
                 });
 
-                return _mediaModelService.Get(media.Id);
+                return media;
             }
 
             var stream = new MemoryStream(file.FileBytes);
@@ -135,8 +134,51 @@ namespace Uintra20.Features.Media
                 SaveVideoAdditionProperties(media);
             }
             _mediaService.Save(media);
-            return _mediaModelService.Get(media.Id);
+            return media;
         }
+        /// <summary>
+        /// TODO There is an ubaseline implementation of creation of media
+        /// (key difference see at cs. line 185, 165) 
+        /// </summary>
+        /// <param name="mediaId"></param>
+        //public IMediaModel CreateMedia(TempFile file, int rootMediaId, Guid? userId = null)
+        //{
+        //    userId = userId ?? _intranetMemberService.GetCurrentMemberId();
+        //    var mediaTypeAlias = GetMediaTypeAlias(file);
+        //    var media = _mediaService.CreateMedia(file.FileName, rootMediaId, mediaTypeAlias);
+        //    if (_videoConverter.NeedConvert(mediaTypeAlias, file.FileName))
+        //    {
+        //        media.SetValue(IntranetConstants.IntranetCreatorId, userId.ToString());
+        //        media.SetValue(UmbracoAliases.Video.ThumbnailUrlPropertyAlias, _videoHelper.CreateConvertingThumbnail());
+        //        media.SetValue(UmbracoAliases.Video.ConvertInProcessPropertyAlias, true);
+        //        _mediaService.Save(media);
+        //        Task.Run(() =>
+        //        {
+        //            _videoConverter.Convert(new MediaConvertModel
+        //            {
+        //                File = file,
+        //                MediaId = media.Id
+        //            });
+        //        });
+        //        return _mediaModelService.Get(media.Id);
+        //    }
+        //    var stream = new MemoryStream(file.FileBytes);
+        //    if (_imageHelper.IsFileImage(file.FileBytes))
+        //    {
+        //        var fileStream = new MemoryStream(file.FileBytes, 0, file.FileBytes.Length, true, true);
+        //        stream = _imageHelper.NormalizeOrientation(fileStream, Path.GetExtension(file.FileName));
+        //        fileStream.Close();
+        //    }
+        //    media.SetValue(IntranetConstants.IntranetCreatorId, userId.ToString());
+        //    media.SetValue(Current.Services.ContentTypeBaseServices, "umbracoFile", Path.GetFileName(file.FileName), stream);
+        //    stream.Close();
+        //    if (mediaTypeAlias == VideoTypeAlias)
+        //    {
+        //        SaveVideoAdditionProperties(media);
+        //    }
+        //    _mediaService.Save(media);
+        //    return _mediaModelService.Get(media.Id);
+        //}
         public void DeleteMedia(int mediaId)
         {
             var media = _mediaService.GetById(mediaId);
@@ -200,7 +242,9 @@ namespace Uintra20.Features.Media
         public MediaSettings GetMediaFolderSettings(int mediaFolderType, bool createFolderIfNotExists = false)
         {
             var folderType = _mediaFolderTypeProvider.All.Get(mediaFolderType);
+
             var result = GetMediaFolderSettings(folderType, createFolderIfNotExists);
+
             return result;
         }
 
