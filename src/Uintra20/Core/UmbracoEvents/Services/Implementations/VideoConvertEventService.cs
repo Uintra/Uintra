@@ -47,28 +47,31 @@ namespace Uintra20.Core.UmbracoEvents.Services.Implementations
                 {
                     continue;
                 }
-                
+
                 var umbracoFile = media.GetValue<string>(UmbracoAliases.Media.UmbracoFilePropertyAlias);
 
                 if (_videoConverter.IsVideo(umbracoFile))
                 {
                     var videoContentType = _mediaTypeService.Get(UmbracoAliases.Media.VideoTypeAlias); // BECOME
-                    
+
                     //media.ChangeContentType(videoContentType, false);// TODO Resolve changeContentType umbraco v8
 
                     // Due to ChangeContentType is internal
-                    var method = typeof(Media).GetMethod("ChangeContentType", new []
-                    {
-                        typeof(IMediaType),
-                        typeof(bool)
-                    });
+                    var method = typeof(Media)
+                        .GetMethod(
+                            name: "ChangeContentType",
+                            bindingAttr: BindingFlags.NonPublic | BindingFlags.Instance,
+                            binder: null,
+                            types: new Type[] { typeof(IMediaType), typeof(bool) },
+                            modifiers: null
+                        );
 
-                    method?.Invoke(this, new object[]
+                    method?.Invoke(media, new object[]
                     {
                         videoContentType,
                         false
                     });
-                    
+
                     _mediaService.Save(media);
 
                     var video = _mediaService.GetById(media.Id);

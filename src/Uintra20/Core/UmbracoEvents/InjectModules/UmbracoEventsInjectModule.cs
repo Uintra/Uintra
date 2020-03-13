@@ -16,9 +16,9 @@ namespace Uintra20.Core.UmbracoEvents.InjectModules
             services.AddScoped<IUmbracoMemberGroupSavedEventService, MemberGroupEventService>();
 
             services.AddScoped<IUmbracoMediaSavedEventService, VideoConvertEventService>();
-            services.AddScoped<IUmbracoMediaTrashedEventService, SearchMediaEventService>();
-            services.AddScoped<IUmbracoMediaSavedEventService, SearchMediaEventService>();
-            services.AddScoped<IUmbracoMediaSavingEventService, SearchMediaEventService>();
+            //services.AddScoped<IUmbracoMediaTrashedEventService, SearchMediaEventService>();
+            //services.AddScoped<IUmbracoMediaSavedEventService, SearchMediaEventService>();
+            //services.AddScoped<IUmbracoMediaSavingEventService, SearchMediaEventService>();
 
 
             //services.AddScoped<IUmbracoContentTrashedEventService, DeleteUserTagHandler>();
