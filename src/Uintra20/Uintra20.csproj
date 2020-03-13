@@ -1002,6 +1002,7 @@
     <Compile Include="Features\Links\IErrorLinksService.cs" />
     <Compile Include="Features\Media\Extensions\MediaExtensions.cs" />
     <Compile Include="Features\Media\Strategies\Preset\MemberProfilePresetStrategy.cs" />
+    <Compile Include="Features\Media\VideoConvertedCommandMessageModel.cs" />
     <Compile Include="Features\Navigation\ApplicationSettings\INavigationApplicationSettings.cs" />
     <Compile Include="Features\Navigation\ApplicationSettings\NavigationApplicationSettings.cs" />
     <Compile Include="Features\Navigation\IMyLinksHelper.cs" />
