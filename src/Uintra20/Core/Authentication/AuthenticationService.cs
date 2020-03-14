@@ -9,6 +9,8 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Security;
+using Uintra20.Core.Member.Entities;
+using Uintra20.Core.Member.Services;
 using Uintra20.Models.UmbracoIdentity;
 using Umbraco.Core;
 using Umbraco.Core.Configuration;
@@ -23,19 +25,21 @@ namespace Uintra20.Core.Authentication
         private readonly IRuntimeState _runtime;
         private readonly IGlobalSettings _globalSettings;
         private readonly IMemberService _memberService;
+        private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
 
         protected IOwinContext OwinContext => HttpContext.Current.GetOwinContext();
 
         public AuthenticationService(
             IRuntimeState runtime,
             IGlobalSettings globalSettings,
-            IMemberService memberService
-        )
+            IMemberService memberService, 
+            IIntranetMemberService<IntranetMember> intranetMemberService)
         {
             _userManager = Umbraco.Core.Composing.Current.Factory.GetInstance<UmbracoMembersUserManager<UmbracoApplicationMember>>();
             _runtime = runtime ?? throw new ArgumentNullException(nameof(runtime));
             _globalSettings = globalSettings ?? throw new ArgumentNullException(nameof(globalSettings));
             _memberService = memberService;
+            _intranetMemberService = intranetMemberService;
         }
 
         public bool Validate(string login, string password)
@@ -47,32 +51,25 @@ namespace Uintra20.Core.Authentication
         {
             var member = await _userManager.FindAsync(login, password);
             var identity = await member.GenerateUserIdentityAsync(_userManager);
-            var id= _memberService.GetById(member.Id).Key;
+            var id = _memberService.GetById(member.Id).Key;
 
-            identity.AddClaim(new Claim("UserId",id.ToString()));
+            identity.AddClaim(new Claim("UserId", id.ToString()));
 
             OwinContext.Authentication.SignOut(DefaultAuthenticationTypes.ExternalCookie);
-            OwinContext.Authentication.SignIn(new AuthenticationProperties() {IsPersistent = true}, identity);
+            OwinContext.Authentication.SignIn(new AuthenticationProperties() { IsPersistent = true }, identity);
         }
 
         public bool Logout()
         {
-	        OwinContext.Authentication.SignOut(
-		        DefaultAuthenticationTypes.ApplicationCookie,
-		        DefaultAuthenticationTypes.ExternalCookie);
+            OwinContext.Authentication.SignOut(
+                DefaultAuthenticationTypes.ApplicationCookie,
+                DefaultAuthenticationTypes.ExternalCookie);
 
-	        return true;
+            return true;
         }
 
         public bool IsAuthenticatedRequest(IOwinContext context)
         {
-            var member = _memberService.GetByEmail(OwinContext.Authentication.User.Identities.First().Name);
-
-            if (member.IsLockedOut)
-            {
-                Logout();
-                return false;
-            }
 
             if (context.Request.Path.Value.In(AnonymousRoutes()))
             {
@@ -89,6 +86,15 @@ namespace Uintra20.Core.Authentication
             {
                 return true;
             }
+
+            var member = _intranetMemberService.GetByName(OwinContext.Authentication.User.Identities.FirstOrDefault()?.Name);
+
+            if (member == null || member.Inactive)
+            {
+                Logout();
+                return false;
+            }
+
 
             return context.Authentication.User?.Identity?.IsAuthenticated == true;
         }
@@ -118,7 +124,7 @@ namespace Uintra20.Core.Authentication
                 "/login",
                 "/login/",
                 "/api/auth/login",
-				"/ubaseline/api/node/getByUrl",
+                "/ubaseline/api/node/getByUrl",
                 "/ubaseline/api/localization/getAll"
             };
         }

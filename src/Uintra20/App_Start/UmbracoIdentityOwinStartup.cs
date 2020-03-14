@@ -56,13 +56,6 @@ namespace Uintra20
 
 		private Task AuthenticationHandler(IOwinContext context, Func<Task> continuation)
 		{
-			var memberService = DependencyResolver.Current.GetService<IMemberService>();
-            var member = memberService.GetByEmail(context.Authentication.User.Identities.FirstOrDefault()?.Name);
-
-            if (member == null)
-            {
-                return continuation();
-            }
 
             var authenticationService = DependencyResolver.Current.GetService<IAuthenticationService>();
 
