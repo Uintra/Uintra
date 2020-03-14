@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Uintra20.Features.Subscribe.Models;
 using Uintra20.Features.Subscribe.Sql;
 
 namespace Uintra20.Features.Subscribe

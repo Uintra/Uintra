@@ -931,11 +931,15 @@
     <Compile Include="Core\UbaselineModels\RestrictedNode\UintraRestrictedNodeViewModel.cs" />
     <Compile Include="Core\UbaselineModels\RestrictedNode\UintraRestrictedNodeViewModelConverter.cs" />
     <Compile Include="Features\Events\Controllers\EventsController.cs" />
+    <Compile Include="Features\Events\Converters\ComingEventsPanelViewModelConverter.cs" />
     <Compile Include="Features\Events\Converters\EventCreatePageViewModelConverter.cs" />
     <Compile Include="Features\Events\Converters\EventDetailsPageViewModelConverter.cs" />
     <Compile Include="Features\Events\Converters\EventEditPageViewModelConverter.cs" />
     <Compile Include="Features\Events\EventsService.cs" />
     <Compile Include="Features\Events\IEventsService.cs" />
+    <Compile Include="Features\Events\Models\ComingEventsPanelModel.cs" />
+    <Compile Include="Features\Events\Models\ComingEventsPanelViewModel.cs" />
+    <Compile Include="Features\Events\Models\ComingEventViewModel.cs" />
     <Compile Include="Features\Events\Models\EventCreateDataViewModel.cs" />
     <Compile Include="Features\Events\Models\EventCreateModel.cs" />
     <Compile Include="Features\Events\Models\EventCreatePageModel.cs" />
@@ -1105,6 +1109,8 @@
     <Compile Include="Features\ContentPage\Services\ContentPageNotificationService.cs" />
     <Compile Include="Features\Notification\ViewModel\NotificationListViewModel.cs" />
     <Compile Include="Features\Subscribe\ActivitySubscribeSettingService.cs" />
+    <Compile Include="Features\Subscribe\Controllers\SubscribeController.cs" />
+    <Compile Include="Features\Subscribe\Models\SubscribeNotificationDisableUpdateModel.cs" />
     <Compile Include="Infrastructure\Context\IIntranetRequestContext.cs" />
     <Compile Include="Infrastructure\Context\IntranetRequestContext.cs" />
     <Compile Include="Infrastructure\Extensions\ArrayExtensions.cs" />
@@ -1317,7 +1323,7 @@
     <Compile Include="Features\News\NewsBase.cs" />
     <Compile Include="Features\News\NewsService.cs" />
     <Compile Include="Features\News\NewsServiceBase.cs" />
-    <Compile Include="Features\Subscribe\ActivitySubscribeSettingDto.cs" />
+    <Compile Include="Features\Subscribe\Models\ActivitySubscribeSettingDto.cs" />
     <Compile Include="Features\Subscribe\IActivitySubscribeSettingService.cs" />
     <Compile Include="Features\Subscribe\ISubscribableService.cs" />
     <Compile Include="Features\Subscribe\ISubscribeService.cs" />

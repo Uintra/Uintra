@@ -26,6 +26,7 @@ using Uintra20.Features.Permissions;
 using Uintra20.Features.Permissions.Interfaces;
 using Uintra20.Features.Reminder.Services;
 using Uintra20.Features.Subscribe;
+using Uintra20.Features.Subscribe.Models;
 using Uintra20.Infrastructure.Caching;
 using Uintra20.Infrastructure.Extensions;
 using Uintra20.Infrastructure.TypeProviders;
