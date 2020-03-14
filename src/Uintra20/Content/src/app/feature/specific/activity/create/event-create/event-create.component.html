@@ -1,4 +1,4 @@
-<section class="events-create" *ngIf="newsData">
+<section class="events-create" *ngIf="eventsData">
   <h2 class="events-create__title form-row">
     {{translate.instant(edit ? 'eventsEditPage.Title.lbl' : 'eventsCreatePage.Title.lbl')}}
   </h2>
@@ -20,6 +20,7 @@
       class="events-title__input"
       [ngClass]="{'invalid': isShowValidation && !eventsData.title.trim()}"
       [maxLength]="400"
+      placeholder="{{'events.Title.placeholder' | translate}}"
     ></text-input>
   </div>
   <div class="description form-row">
@@ -37,19 +38,46 @@
       [placeholder]="''"
     ></app-rich-text-editor>
   </div>
-  <!-- <div class="tags form-row">
+  <div class="tags form-row">
     <h3 class="tags__title subtitle">{{'userTagsPicker.AddTags.lbl' | translate}}</h3>
     <app-tag-multiselect
       class="tags__multiselect"
-      [availableTags]="tags"
+      [availableTags]="eventsData.tags"
       [(ngModel)]="selectedTags"
     ></app-tag-multiselect>
-  </div> -->
-  <!-- <div class="form-row">
-    <app-datepicker-from-to
-      [initialValues]="initialDates"
-      (handleChange)="setDatePickerValue($event)"
-    ></app-datepicker-from-to>
+  </div>
+  <app-datepicker-from-to
+    [initialValues]="initialDates"
+    [fromLabel]="'eventsCreate.StartDate.lbl' | translate"
+    [toLabel]="'eventsCreate.EndDate.lbl' | translate"
+    (handleChange)="setDatePickerValue($event)"
+  ></app-datepicker-from-to>
+  <h3 class="publish-date__title subtitle">
+    {{translate.instant(edit ? 'eventsCreate.PublishDate.lbl' : 'eventsCreate.PublishDate.lbl')}}
+  </h3>
+  <div class="datepicker">
+    <sq-datetimepicker
+      [groupClass]="'udatepicker'"
+      [inputClass]="'udatepicker-input'"
+      [ngModel]="eventsData.dates.publishDate"
+      (ngModelChange)="onPublishDateChange($event)"
+      [mode]="'input'"
+      [options]="publishDatepickerOptions"
+      (dpChange)='onDateChange()'
+    ></sq-datetimepicker>
+  </div>
+  <div class="location-title form-row">
+    <h3 class="location-title__title subtitle">
+      {{translate.instant(edit ? 'eventsEdit.LocationTitle.lbl' : 'eventsCreate.LocationTitle.lbl')}}
+    </h3>
+    <text-input
+      [ngModel]="''"
+      (ngModelChange)="onLocationTitleChange($event)"
+      type="text"
+      aria-label="Location title"
+      class="location-title__input"
+      placeholder="{{'eventsCreate.LocationTitlePlaceholder.lbl' | translate}}"
+    ></text-input>
   </div>
   <div class="location form-row">
     <h3 class="location__title subtitle">{{'activity.Location.lbl' | translate}}</h3>
@@ -60,35 +88,38 @@
   </div>
 
   <app-pin-activity
-    *ngIf="pinAllowed"
-    [publishDate]="newsData.publishDate"
-    [unpublishDate]="newsData.unpublishDate"
-    [isPinCheked]="newsData.isPinned"
+    *ngIf="data.pinAllowed"
+    [publishDate]="eventsData.dates.startDate"
+    [unpublishDate]="eventsData.dates.endDate"
+    [isPinCheked]="eventsData.isPinned"
     [isAccepted]="isAccepted"
-    [endPinDate]="newsData.endPinDate"
+    [endPinDate]="eventsData.endPinDate"
     (handleChange)="setPinValue($event)"
   ></app-pin-activity>
 
-  <div class="form-row" *ngIf="newsData.media">
-    <label>
-      {{translate.instant(edit ? 'eventsEdit.UploadFiles.lbl' : 'eventsCreate.UploadFiles.lbl')}}
-    </label>
-    <app-dropzone-existing-images
-      [medias]="newsData.media.medias"
-      [otherFiles]="newsData.media.otherFiles"
-      (removeImage)="handleImageRemove($event)"
-      (removeFile)="handleFileRemove($event)">
-    </app-dropzone-existing-images>
-  </div>
+  <!-- <div class="form-row">
+    <app-event-subscription></app-event-subscription>
+  </div> -->
+
   <div class="form-row">
+    <h3 class="dropzone__title subtitle">
+      {{translate.instant(edit ? 'eventsEdit.UploadFiles.lbl' : 'eventsCreate.UploadFiles.lbl')}}
+    </h3>
+    <div class="form-row" *ngIf="eventsData.media">
+      <app-dropzone-existing-images
+        [medias]="eventsData.media.medias"
+        [otherFiles]="eventsData.media.otherFiles"
+        (removeImage)="handleImageRemove($event)"
+        (removeFile)="handleFileRemove($event)">
+      </app-dropzone-existing-images>
+    </div>
     <app-dropzone-wrapper #dropdownRef [filesLength]="files.length"
         (success)="onUploadSuccess($event)"
         (removedFile)="onFileRemoved($event)">
     </app-dropzone-wrapper>
   </div>
 
-
-  <div class="form-row" *ngIf="isShowValidation">
+  <!-- <div class="form-row" *ngIf="isShowValidation">
     <div *ngIf="!newsData.title.trim()"
         class="alert alert-danger">
         {{translate.instant(edit ? 'eventsEdit.TitleRequired.lbl' : 'createEvents.TitleRequired.lbl')}}
@@ -100,12 +131,11 @@
     </div>
   </div> -->
 
-
   <div class="buttons">
     <button class="buttons__submit" [disabled]="isSubmitLoading" (click)="onSubmit()">
       {{translate.instant(edit ? 'eventsEdit.Edit.btn' : 'eventsCreate.Create.btn')}}
     </button>
-    <button class="buttons__hide" (click)="onHide()">{{'eventsEdit.Hide.btn' | translate}}</button>
+    <button *ngIf="edit" class="buttons__hide" (click)="onHide()">{{'eventsEdit.Hide.btn' | translate}}</button>
     <button class="buttons__cancel" (click)="onCancel()">{{'common.Cancel.lnk' | translate}}</button>
   </div>
 </section>

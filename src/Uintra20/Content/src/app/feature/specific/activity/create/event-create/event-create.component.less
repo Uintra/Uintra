@@ -3,4 +3,148 @@
 :host {
   display: block;
   .white-block;
+  font: @body-font;
+  font-size: 13px;
 }
+
+.events-create {
+  background-color: @main-color;
+  padding: 20px 20px 33px;
+
+  & ::ng-deep {
+    .ql-editor {
+      border: 1px solid @border-color;
+      border-top: none;
+      height: 149px !important;
+      padding: 6px 10px !important;
+      margin: 0 !important;
+    }
+
+    .ql-toolbar button {
+      margin: 0;
+    }
+
+    .icon-smily {
+      font-size: 18px;
+    }
+
+    .udatepicker-input {
+      .input;
+    }
+  }
+}
+
+.form-row {
+  margin-bottom: 25px;
+}
+
+.subtitle {
+  .subtitle();
+}
+
+.required {
+  &::after {
+    content: "*";
+    color: red;
+    margin-left: 2px;
+  }
+}
+
+.events-title__input,
+.description__rte {
+  &.invalid {
+    border: 2px solid red;
+  }
+}
+
+.alert {
+  color: red;
+  margin-bottom: 8px;
+}
+
+.events-title__input,
+.location__input,
+.location-title__input {
+  border: 1px solid @border-color;
+}
+
+.datepickers {
+  display: flex;
+
+  &-publish,
+  &-unpublish {
+    flex: 50%;
+  }
+}
+
+.pin-info {
+  padding-right: 40px;
+  padding-left: 40px;
+
+  &__box {
+    padding: 10px 0;
+  }
+
+  &__text {
+    padding-bottom: 10px;
+  }
+}
+
+.buttons {
+  margin-top: 50px;
+  &__submit {
+    .button;
+    margin-right: 10px;
+  }
+
+  &__cancel {
+    .button-white;
+  }
+}
+
+// Styles for Images component
+.images {
+  margin: 0 0 0 -2px;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+
+  &__item {
+    position: relative;
+    padding: 0 0 2px 2px;
+    flex-grow: 1;
+    max-width: 25%;
+    flex-shrink: 1;
+
+    &-name {
+      display: block;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    .icon-close {
+      position: absolute;
+      top: 1px;
+      right: 1px;
+      width: 25px;
+      height: 25px;
+      padding: 7px;
+      text-align: center;
+      border-radius: 50%;
+      background: #fff;
+      box-shadow: 0 0 5px rgba(0, 0, 0, .5);
+      cursor: pointer;
+      color: #555;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    img {
+      width: 100%;
+    }
+  }
+}
+

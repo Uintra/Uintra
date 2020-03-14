@@ -40,6 +40,10 @@ export class ActivityService {
     return this.http.post("/ubaseline/api/newsApi/create", data);
   }
 
+  createEvent(data) {
+    return this.http.post("/ubaseline/api/events/create", data);
+  }
+
   refreshFeed() {
     this.feedRefreshTrigger.next();
   }

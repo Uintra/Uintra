@@ -1,0 +1,10 @@
+<div class="event-form-subscripiton">
+  <h3 class="event-form-subscripiton__title"></h3>
+  <checkbox-input [(ngModel)]="isChecked" (ngModelChange)='onCheckboxChange()'>
+    {{'subscribeSettings.CanSubscribe.lbl' | translate}}
+  </checkbox-input>
+  <textarea
+    (ngModelChange)="onChangeInput($event)"
+    [(ngModel)]="inputValue">
+  </textarea>
+</div>

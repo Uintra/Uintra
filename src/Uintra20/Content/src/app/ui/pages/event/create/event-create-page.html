@@ -2,12 +2,12 @@
   <app-group-details-wrapper *ngIf="parsedData?.groupHeader" [data]="parsedData.groupHeader">
     <div class="group-details-padding">
       <div class="page-wrapper col-md-8">
-        <app-event-create></app-event-create>
+        <app-event-create [data]="parsedData.data" (submit)="onSubmit($event)"></app-event-create>
       </div>
     </div>
   </app-group-details-wrapper>
 
   <div class="page-wrapper col-md-8" *ngIf="!parsedData?.groupHeader">
-    <app-event-create></app-event-create>
+    <app-event-create [data]="parsedData.data" (submit)="onSubmit($event)"></app-event-create>
   </div>
 </ng-container>

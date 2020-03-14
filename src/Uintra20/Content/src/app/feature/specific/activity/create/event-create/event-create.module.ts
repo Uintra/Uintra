@@ -13,6 +13,8 @@ import { LocationPickerModule } from 'src/app/feature/reusable/ui-elements/locat
 import { PinActivityModule } from '../../pin-activity/pin-activity.module';
 import { DropzoneExistingImagesModule } from 'src/app/feature/reusable/ui-elements/dropzone-existing-images/dropzone-existing-images.module';
 import { TranslateModule } from '@ngx-translate/core';
+import { FormsModule } from '@angular/forms';
+import { EventSubscriptionModule } from '../../event-subscription/event-subscription.module';
 
 
 
@@ -20,6 +22,7 @@ import { TranslateModule } from '@ngx-translate/core';
   declarations: [EventCreateComponent],
   imports: [
     CommonModule,
+    FormsModule,
     TagMultiselectModule,
     DropzoneWrapperModule,
     TextInputModule,
@@ -37,6 +40,7 @@ import { TranslateModule } from '@ngx-translate/core';
     PinActivityModule,
     DropzoneExistingImagesModule,
     TranslateModule,
+    EventSubscriptionModule,
   ],
   exports: [EventCreateComponent]
 })

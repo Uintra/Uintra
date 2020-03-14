@@ -16,6 +16,7 @@ export class EventFormService {
       ownerId: data.creator.id,
       title: data.title || "",
       description: data.description || "",
+      tags: data.tags,
       dates: {
         publishDate: data.publishDate || undefined,
         startDate: data.startDate || undefined,
