@@ -2,11 +2,16 @@ import { Component, ViewEncapsulation, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { SafeHtml, DomSanitizer } from "@angular/platform-browser";
 import ParseHelper from "src/app/shared/utils/parse.helper";
-import { AddButtonService } from 'src/app/ui/main-layout/left-navigation/components/my-links/add-button.service';
-import { ISocialDetails, IUserTag, IMedia, IDocument } from 'src/app/feature/specific/activity/activity.interfaces';
-import { ICommentData } from 'src/app/feature/reusable/ui-elements/comments/comments.component';
-import { ImageGalleryService } from 'src/app/feature/reusable/ui-elements/image-gallery/image-gallery.service';
-import { ILikeData } from 'src/app/feature/reusable/ui-elements/like-button/like-button.interface';
+import { AddButtonService } from "src/app/ui/main-layout/left-navigation/components/my-links/add-button.service";
+import {
+  ISocialDetails,
+  IUserTag,
+  IMedia,
+  IDocument
+} from "src/app/feature/specific/activity/activity.interfaces";
+import { ICommentData } from "src/app/feature/reusable/ui-elements/comments/comments.component";
+import { ImageGalleryService } from "src/app/feature/reusable/ui-elements/image-gallery/image-gallery.service";
+import { ILikeData } from "src/app/feature/reusable/ui-elements/like-button/like-button.interface";
 
 @Component({
   selector: "event-details-page",
@@ -31,7 +36,7 @@ export class EventDetailsPage implements OnInit {
     private imageGalleryService: ImageGalleryService,
     private sanitizer: DomSanitizer,
     private addButtonService: AddButtonService,
-    private router: Router,
+    private router: Router
   ) {
     this.activatedRoute.data.subscribe(data => {
       if (!data.requiresRedirect.get()) {
@@ -41,6 +46,13 @@ export class EventDetailsPage implements OnInit {
         this.router.navigate([data.errorLink.get().originalUrl.get()]);
       }
     });
+  }
+
+  get locationUrl() {
+    return (
+      "http://maps.google.co.uk/maps?q=" +
+      this.parsedData.details.location.shortAddress
+    );
   }
 
   public ngOnInit(): void {
@@ -56,17 +68,12 @@ export class EventDetailsPage implements OnInit {
     );
 
     this.tags = Object.values(this.parsedData.tags);
-    this.medias = Object.values(this.parsedData.details.lightboxPreviewModel.medias);
+    this.medias = Object.values(
+      this.parsedData.details.lightboxPreviewModel.medias
+    );
     this.documents = Object.values(
       this.parsedData.details.lightboxPreviewModel.otherFiles
     );
-
-    // this.likeData = {
-    //   likedByCurrentUser: !!this.parsedData.likedByCurrentUser,
-    //   id: this.parsedData.details.id,
-    //   activityType: this.parsedData.details.activityType,
-    //   likes: Object.values(this.parsedData.likes)
-    // };
 
     this.detailsDescription = this.sanitizer.bypassSecurityTrustHtml(
       this.details.description

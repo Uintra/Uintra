@@ -42,29 +42,33 @@
             <div class="feed-item__title" [innerHtml]="detailsTitle"></div>
 
             <div class="event-details">
-              <time
-                class="date date--event-details"
-                datetime="1/9/2019 3:11:00 PM"
-                ><span class="date__day">09</span> Jan</time
-              >
+              <div class="date date--event-details">
+                <span class="date__day">
+                  {{ parsedData.details.eventDate }}
+                </span>
+                {{ parsedData.details.eventMonth }}
+              </div>
               <div class="event-details__text">
                 <div class="event-details__date">
                   <div class="event-details__day">
-                    {{ parsedData.details.startDate }}
-                  </div>
-                  <div class="event-details__day">
-                    {{ parsedData.details.endDate }}
+                    {{ parsedData.details.fullEventTime }}
                   </div>
                 </div>
 
                 <div *ngIf="parsedData.details.location" class="location">
-                  <!-- TODO: add location -->
-                  <!-- <strong class="location__title"></strong>
-                  <a href="http://maps.google.co.uk/maps?q=" target="blank"></a> -->
+                  <strong class="location__title">
+                    {{'eventsCreate.LocationTitle.lbl' | translate}}
+                  </strong>
+                  <a
+                    href="{{locationUrl}}"
+                    target="_blank"
+                  >
+                    {{parsedData.details.location.address}}
+                  </a>
                 </div>
-
               </div>
               <div class="event-details__subscribe">
+                <!-- TODO: add subscribe function here -->
                 Subscribe
               </div>
             </div>
