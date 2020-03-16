@@ -82,9 +82,10 @@ export class CentralFeedPublicationComponent implements OnInit {
   }
 
   getPublicationDate() {
-    return this.publication.dates.length
-      ? this.publication.dates[0]
-      : "";
+    if (!this.publication.dates) {
+      return "";
+    }
+    return this.publication.dates.join(" - ");
   }
 
   checkForRightRoute(e) {

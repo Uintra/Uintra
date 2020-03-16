@@ -54,6 +54,13 @@
       ></div>
     </a>
 
+    <div *ngIf="publication.currentMemberSubscribed" class="publication__subscribed">
+        <div class="publication__subscribed-label">
+          <i class="publication__subscribed-icon icon-checkmark-icon"></i>
+          Subscribed
+        </div>
+    </div>
+
     <div class="gallery" [ngClass]="'items-' + countToDisplay">
       <div
         *ngFor="let image of medias | slice: 0:countToDisplay; index as i"
