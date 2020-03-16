@@ -5,6 +5,7 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 using Uintra20.Infrastructure.Extensions;
 using Uintra20.Persistence.Context;
 
@@ -13,6 +14,7 @@ namespace Uintra20.Persistence.Sql
     public class SqlRepository<TKey, T> : ISqlRepository<TKey, T> where T : SqlEntity<TKey>
     {
         private readonly IntranetDbContext _dbContext;
+        private IntranetDbContext DbContextAsync => DependencyResolver.Current.GetService<IntranetDbContext>();
         private readonly DbSet<T> _dbSet;
         private bool _disposed;
 
@@ -24,10 +26,19 @@ namespace Uintra20.Persistence.Sql
 
         #region async
 
-        public async Task<T> GetAsync(TKey id) => await _dbSet.FindAsync(id);
+        public async Task<T> GetAsync(TKey id)
+        {
+            var context = DbContextAsync;
+            var set = context.Set<T>();
+
+            return await set.FindAsync(id);
+        }
 
         public async Task<IList<T>> GetManyAsync(IEnumerable<TKey> ids)
         {
+            var context = DbContextAsync;
+            var set = context.Set<T>();
+
             var idList = ids as IList<TKey> ?? ids.ToList();
 
             if (idList.IsEmpty())
@@ -35,7 +46,7 @@ namespace Uintra20.Persistence.Sql
                 return new List<T>();
             }
 
-            var result = _dbContext.Set<T>().Join(
+            var result = set.Join(
                 idList,
                 ent => ent.Id,
                 id => id,
@@ -44,71 +55,123 @@ namespace Uintra20.Persistence.Sql
             return await result.ToListAsync();
         }
 
-        public async Task<IList<T>> GetAllAsync() => await _dbSet.ToListAsync();
+        public async Task<IList<T>> GetAllAsync()
+        {
+            var context = DbContextAsync;
+            var set = context.Set<T>();
 
-        public async Task<T> FindAsync(Expression<Func<T, bool>> predicate) => await _dbSet.FirstOrDefaultAsync(predicate);
+            return await set.ToListAsync();
+        }
 
-        public async Task<IList<T>> FindAllAsync(Expression<Func<T, bool>> predicate, int skip = 0, int take = Int32.MaxValue) =>
-            await _dbSet.Where(predicate).OrderBy(ent => ent.Id).Skip(skip).Take(take).ToListAsync();
+        public async Task<T> FindAsync(Expression<Func<T, bool>> predicate)
+        {
+            var context = DbContextAsync;
+            var set = context.Set<T>();
 
-        public async Task<long> CountAsync(Expression<Func<T, bool>> predicate) => await _dbSet.Where(predicate).CountAsync();
+            return await set.FirstOrDefaultAsync(predicate);
+        }
 
-        public async Task<bool> ExistsAsync(Expression<Func<T, bool>> predicate) => await _dbSet.AnyAsync(predicate);
+        public async Task<IList<T>> FindAllAsync(Expression<Func<T, bool>> predicate, int skip = 0, int take = Int32.MaxValue)
+        {
+            var context = DbContextAsync;
+            var set = context.Set<T>();
+
+            return await set.Where(predicate).OrderBy(ent => ent.Id).Skip(skip).Take(take)
+                .ToListAsync();
+        }
+
+        public async Task<long> CountAsync(Expression<Func<T, bool>> predicate)
+        {
+            var context = DbContextAsync;
+            var set = context.Set<T>();
+
+            return await set.Where(predicate).CountAsync();
+        }
+
+        public async Task<bool> ExistsAsync(Expression<Func<T, bool>> predicate)
+        {
+            var context = DbContextAsync;
+            var set = context.Set<T>();
+
+            return await set.AnyAsync(predicate);
+        }
 
         public async Task DeleteAsync(TKey id)
         {
-            var deletingEntity = await _dbSet.FindAsync(id);
+            var context = DbContextAsync;
+            var set = context.Set<T>();
+
+            var deletingEntity = await set.FindAsync(id);
             if (deletingEntity == null)
             {
                 throw new ArgumentNullException($"{typeof(T)} entity with id = {id} doesn't exist.");
             }
 
-            _dbSet.Remove(deletingEntity);
+            set.Remove(deletingEntity);
 
             await SaveAsync();
         }
 
         public async Task DeleteAsync(IEnumerable<T> entities)
         {
-            _dbSet.RemoveRange(entities);
+            var context = DbContextAsync;
+            var set = context.Set<T>();
+
+            set.RemoveRange(entities);
             await SaveAsync();
         }
 
         public async Task DeleteAsync(T entity)
         {
-            _dbSet.Remove(entity);
+            var context = DbContextAsync;
+            var set = context.Set<T>();
+
+            set.Remove(entity);
             await SaveAsync();
         }
 
         public async Task DeleteAsync(Expression<Func<T, bool>> predicate)
         {
-            var deletingEntities = _dbSet.Where(predicate);
+            var context = DbContextAsync;
+            var set = context.Set<T>();
+
+            var deletingEntities = set.Where(predicate);
             await DeleteAsync(deletingEntities);
         }
 
         public async Task AddAsync(T entity)
         {
-            _dbSet.Add(entity);
+            var context = DbContextAsync;
+            var set = context.Set<T>();
+
+            set.Add(entity);
             await SaveAsync();
         }
 
         public async Task AddAsync(IEnumerable<T> entities)
         {
-            _dbSet.AddRange(entities);
+            var context = DbContextAsync;
+            var set = context.Set<T>();
+
+            set.AddRange(entities);
             await SaveAsync();
         }
 
         public async Task UpdateAsync(T entity)
         {
-            _dbContext.Entry(entity).State = EntityState.Modified;
+            var context = DbContextAsync;
+
+            context.Entry(entity).State = EntityState.Modified;
             await SaveAsync();
         }
 
         public async Task UpdateAsync(IEnumerable<T> entities)
         {
+            var context = DbContextAsync;
+
             foreach (var ent in entities)
             {
-                _dbContext.Entry(ent).State = EntityState.Modified;
+                context.Entry(ent).State = EntityState.Modified;
             }
 
             await SaveAsync();
@@ -116,36 +179,47 @@ namespace Uintra20.Persistence.Sql
 
         public async Task UpdatePropertyAsync<TProperty>(T entity, Expression<Func<T, TProperty>> property)
         {
-            _dbSet.Attach(entity);
-            _dbContext.Entry(entity).Property(property).IsModified = true;
+            var context = DbContextAsync;
+            var set = context.Set<T>();
+
+            set.Attach(entity);
+            context.Entry(entity).Property(property).IsModified = true;
             await SaveAsync();
         }
 
         public async Task UpdatePropertyAsync<TProperty>(IEnumerable<T> entities, Expression<Func<T, TProperty>> property)
         {
+            var context = DbContextAsync;
+            var set = context.Set<T>();
+
             foreach (var entity in entities)
             {
-                _dbSet.Attach(entity);
-                _dbContext.Entry(entity).Property(property).IsModified = true;
+                set.Attach(entity);
+                context.Entry(entity).Property(property).IsModified = true;
             }
             await SaveAsync();
         }
 
         public async Task<IList<T>> AsNoTrackingAsync()
         {
-            return await _dbSet.AsNoTracking().ToListAsync();
+            var context = DbContextAsync;
+            var set = context.Set<T>();
+
+            return await set.AsNoTracking().ToListAsync();
         }
 
         public virtual async Task SaveAsync()
         {
+            var context = DbContextAsync;
+
             try
             {
-                await _dbContext.SaveChangesAsync();
+                await context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
                 // for cases when we trying to update entities which does not present in database.
-                var entries = _dbContext.ChangeTracker.Entries()
+                var entries = context.ChangeTracker.Entries()
                     .Where(i => i.State == EntityState.Modified);
                 foreach (var entry in entries)
                 {
@@ -153,7 +227,7 @@ namespace Uintra20.Persistence.Sql
                     if (dbValues == null)
                         entry.State = EntityState.Added;
                 }
-                await _dbContext.SaveChangesAsync();
+                await context.SaveChangesAsync();
             }
         }
 
