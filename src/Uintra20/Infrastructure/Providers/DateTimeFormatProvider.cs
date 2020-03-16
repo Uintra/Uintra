@@ -4,6 +4,7 @@
     {
         public string TimeFormat { get; set; } = "HH:mm";
         public string EventDetailsDateFormat { get; set; } = "MMM d, yyyy";
+        public string EventDetailsDateTimeFormat { get; set; } = "MMM d, yyyy h.mm";
         public string EventDetailsTimeFormat { get; set; } = "h.mm tt";
         public string EventDetailsTimeWithoutMinutesFormat { get; set; } = "h tt";
         public string DateFormat { get; set; } = "MMM dd, yyyy";

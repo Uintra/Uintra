@@ -12,7 +12,12 @@ namespace Uintra20.Features.Events.Models
         public Guid? CreatorId { get; set; }
         public string Description { get; set; }
         public DateTime StartDate { get; set; }
+        public string StartDateString { get; set; }
         public DateTime EndDate { get; set; }
+        public string EndDateString { get; set; }
+        public string FullEventTime { get; set; }
+        public int EventDate { get; set; }
+        public string EventMonth { get; set; }
         public IEnumerable<string> Media { get; set; }
         public bool CanSubscribe { get; set; }
         public string SubscribeNotes { get; set; }
