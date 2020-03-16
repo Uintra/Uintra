@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using AutoMapper;
 using Compent.Extensions;
+using Uintra20.Core.Activity.Models;
 using Uintra20.Core.Activity.Models.Headers;
 using Uintra20.Features.CentralFeed.Models;
 using Uintra20.Features.Events.Entities;
@@ -90,6 +92,35 @@ namespace Uintra20.Features.Events.AutoMapperProfiles
 
             CreateMap<Event, GroupActivityTransferModel>()
                 .IncludeBase<Event, GroupActivityTransferCreateModel>();
+
+            CreateMap<Event, IntranetActivityPreviewModelBase>()
+                .ForMember(dst => dst.CanEdit, o => o.Ignore())
+                .ForMember(dst => dst.Links, o => o.Ignore())
+                .ForMember(dst => dst.Owner, o => o.Ignore())
+                .ForMember(dst => dst.MediaPreview, o => o.Ignore())
+                .ForMember(dst => dst.LikedByCurrentUser, o => o.Ignore())
+                .ForMember(dst => dst.IsPinActual, o => o.Ignore())
+                .ForMember(dst => dst.GroupInfo, o => o.Ignore())
+                .ForMember(dst => dst.IsGroupMember, o => o.Ignore())
+                .ForMember(dst => dst.CurrentMemberSubscribed, o => o.Ignore())
+                .ForMember(dst => dst.ActivityType, o => o.MapFrom(src => src.Type))
+                .ForMember(dst => dst.Dates, o => o.Ignore())
+                .AfterMap((src, dst) =>
+                {
+                    var startDate = src.StartDate.ToDateTimeFormat();
+                    string endDate;
+
+                    if (src.StartDate.Date == src.EndDate.Date)
+                    {
+                        endDate = src.EndDate.ToTimeFormat();
+                    }
+                    else
+                    {
+                        endDate = src.EndDate.ToDateTimeFormat();
+                    }
+
+                    dst.Dates = new[] { startDate, endDate };
+                });
 
             //Mapper.CreateMap<EventCreateModel, EventExtendedCreateModel>()
             //    .ForMember(dst => dst.CanSubscribe, o => o.Ignore())
