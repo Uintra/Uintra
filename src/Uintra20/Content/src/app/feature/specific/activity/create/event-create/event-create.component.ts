@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ISelectItem } from 'src/app/feature/reusable/inputs/select/select.component';
 import { ITagData } from 'src/app/feature/reusable/inputs/tag-multiselect/tag-multiselect.interface';
 import { IEventsInitialDates, IEventCreateModel, IPublishDatepickerOptions } from './event-create.interface';
@@ -10,7 +10,6 @@ import { RTEStripHTMLService } from '../../rich-text-editor/helpers/rte-strip-ht
 import { IDatepickerData } from '../../datepicker-from-to/datepiker-from-to.interface';
 import { ILocationResult } from 'src/app/feature/reusable/ui-elements/location-picker/location-picker.interface';
 import { IPinedData } from '../../pin-activity/pin-activity.component';
-import { EventEmitter } from 'protractor';
 
 @Component({
   selector: 'app-event-create',
