@@ -5,7 +5,8 @@
         <app-event-create
           [data]="parsedData.data"
           (submit)="onSubmit($event)"
-          (cancel)="onCancel()">
+          (cancel)="onCancel()"
+          (hide)="onHide()">
         </app-event-create>
       </div>
     </div>
@@ -15,7 +16,8 @@
     <app-event-create
       [data]="parsedData.data"
       (submit)="onSubmit($event)"
-      (cancel)="onCancel()">
+      (cancel)="onCancel()"
+      (hide)="onHide()">
     </app-event-create>
   </div>
 </ng-container>

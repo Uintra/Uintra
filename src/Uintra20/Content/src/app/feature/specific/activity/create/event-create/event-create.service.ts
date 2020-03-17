@@ -16,18 +16,22 @@ export class EventFormService {
       ownerId: data.creator.id,
       title: data.title || "",
       description: data.description || "",
-      tags: data.tags,
-      dates: {
-        publishDate: data.publishDate || undefined,
-        startDate: data.startDate || undefined,
-        endDate: data.endDate || undefined
-      },
+      tagIdsData: data.tags || [],
+      publishDate: data.publishDate || undefined,
+      startDate: data.startDate || undefined,
+      endDate: data.endDate || undefined,
+      locationTitle: data.locationTitle || "",
       location: {
         address: (data.location && data.location.address) || null,
         shortAddress:(data.location && data.location.shortAddress) || null
       },
+      canSubscribe: data.canSubscribe || false,
+      subscribeNotes: data.subscribeNotes || "",
+      pinAllowed: data.pinAllowed,
       isPinned: data.isPinned || false,
-      media: data.media || null
+      newMedia: "",
+      media: data.media || null,
+      groupId: data.groupId || null
     };
   }
   getTagsForResponse(selectedTags: ITagData[] = []): string[] {

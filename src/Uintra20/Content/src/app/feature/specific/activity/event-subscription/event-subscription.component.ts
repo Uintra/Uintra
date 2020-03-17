@@ -12,9 +12,9 @@ import { NG_VALUE_ACCESSOR, NG_VALIDATORS } from '@angular/forms';
 })
 export class EventSubscriptionComponent implements OnInit {
   @Input() isChecked: boolean;
+  @Input() inputValue: string;
   @Output() checkboxChange = new EventEmitter<boolean>();
-
-  inputValue: string;
+  @Output() inputChange = new EventEmitter<boolean>();
 
   constructor() { }
 
@@ -26,15 +26,6 @@ export class EventSubscriptionComponent implements OnInit {
   }
 
   onChangeInput(val) {
-    debugger
-    this.propagateChange(val);
+    this.inputChange.emit(val);
   }
-
-  onTouched(): any { }
-  onChange(e): any {}
-  propagateChange: any = () => { };
-  writeValue(value) {
-    this.onChange(this.inputValue);}
-  registerOnChange(fn) { this.propagateChange = fn; }
-  registerOnTouched(fn) { this.onTouched = fn; }
 }

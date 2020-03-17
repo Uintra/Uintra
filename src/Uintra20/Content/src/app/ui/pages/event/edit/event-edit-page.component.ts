@@ -1,17 +1,16 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import ParseHelper from 'src/app/shared/utils/parse.helper';
-import { HttpClient } from '@angular/common/http';
 import { ActivityService } from 'src/app/feature/specific/activity/activity.service';
+import ParseHelper from 'src/app/shared/utils/parse.helper';
 import { IULink } from 'src/app/shared/interfaces/general.interface';
 
 @Component({
-  selector: 'event-create-page',
-  templateUrl: './event-create-page.html',
-  styleUrls: ['./event-create-page.less'],
+  selector: 'event-edit-page',
+  templateUrl: './event-edit-page.html',
+  styleUrls: ['./event-edit-page.less'],
   encapsulation: ViewEncapsulation.None
 })
-export class EventCreatePage {
+export class EventEditPage {
   data: any;
   parsedData: any;
 
@@ -40,5 +39,9 @@ export class EventCreatePage {
 
   onCancel() {
     this.router.navigate([this.parsedData.data.links.feed.originalUrl]);
+  }
+
+  onHide() {
+
   }
 }

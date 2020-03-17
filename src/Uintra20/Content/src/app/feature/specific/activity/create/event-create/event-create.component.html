@@ -42,7 +42,7 @@
     <h3 class="tags__title subtitle">{{'userTagsPicker.AddTags.lbl' | translate}}</h3>
     <app-tag-multiselect
       class="tags__multiselect"
-      [availableTags]="eventsData.tags"
+      [availableTags]="data.tags"
       [(ngModel)]="selectedTags"
     ></app-tag-multiselect>
   </div>
@@ -59,11 +59,10 @@
     <sq-datetimepicker
       [groupClass]="'udatepicker'"
       [inputClass]="'udatepicker-input'"
-      [ngModel]="eventsData.dates.publishDate"
+      [ngModel]="eventsData.publishDate"
       (ngModelChange)="onPublishDateChange($event)"
       [mode]="'input'"
       [options]="publishDatepickerOptions"
-      (dpChange)='onDateChange()'
     ></sq-datetimepicker>
   </div>
   <div class="location-title form-row">
@@ -71,10 +70,11 @@
       {{translate.instant(edit ? 'eventsEdit.LocationTitle.lbl' : 'eventsCreate.LocationTitle.lbl')}}
     </h3>
     <text-input
-      [ngModel]="''"
+      [ngModel]="eventsData.locationTitle"
       (ngModelChange)="onLocationTitleChange($event)"
       type="text"
       aria-label="Location title"
+      id="location-title"
       class="location-title__input"
       placeholder="{{'eventsCreate.LocationTitlePlaceholder.lbl' | translate}}"
     ></text-input>
@@ -88,18 +88,23 @@
   </div>
 
   <app-pin-activity
-    *ngIf="data.pinAllowed"
-    [publishDate]="eventsData.dates.startDate"
-    [unpublishDate]="eventsData.dates.endDate"
+    *ngIf="eventsData.pinAllowed"
+    noMaxDate
+    [publishDate]="eventsData.publishDate"
     [isPinCheked]="eventsData.isPinned"
     [isAccepted]="isAccepted"
     [endPinDate]="eventsData.endPinDate"
     (handleChange)="setPinValue($event)"
   ></app-pin-activity>
 
-  <!-- <div class="form-row">
-    <app-event-subscription></app-event-subscription>
-  </div> -->
+  <div class="form-row">
+    <app-event-subscription
+      [isChecked]="eventsData.canSubscribe"
+      [inputValue]="eventsData.subscribeNotes"
+      (checkboxChange)="onSubscriptionCheckboxChange($event)"
+      (inputChange)="onSubscriptionNoteChange($event)">
+    </app-event-subscription>
+  </div>
 
   <div class="form-row">
     <h3 class="dropzone__title subtitle">
@@ -119,17 +124,32 @@
     </app-dropzone-wrapper>
   </div>
 
-  <!-- <div class="form-row" *ngIf="isShowValidation">
-    <div *ngIf="!newsData.title.trim()"
+  <div class="form-row" *ngIf="isShowValidation">
+    <div *ngIf="!eventsData.title.trim()"
         class="alert alert-danger">
         {{translate.instant(edit ? 'eventsEdit.TitleRequired.lbl' : 'createEvents.TitleRequired.lbl')}}
     </div>
 
-    <div *ngIf="!getStripDescription()"
+    <div *ngIf="isDescriptionEmpty()"
         class="alert alert-danger">
         {{translate.instant(edit ? 'eventsEdit.DescriptionRequired.lbl' : 'createEvents.DescriptionRequired.lbl')}}
     </div>
-  </div> -->
+
+    <div *ngIf="!eventsData.publishDate"
+        class="alert alert-danger">
+        {{translate.instant('eventsCreate.PublishDateRequired.lbl')}}
+    </div>
+
+    <div *ngIf="!eventsData.endDate"
+        class="alert alert-danger">
+        {{translate.instant('eventsEdit.EndDateRequired.lbl')}}
+    </div>
+
+    <div *ngIf="!eventsData.startDate"
+        class="alert alert-danger">
+        {{translate.instant('eventsEdit.StartDateRequired.lbl')}}
+    </div>
+  </div>
 
   <div class="buttons">
     <button class="buttons__submit" [disabled]="isSubmitLoading" (click)="onSubmit()">
