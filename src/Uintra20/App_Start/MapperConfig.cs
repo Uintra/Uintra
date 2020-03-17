@@ -16,7 +16,7 @@ using Uintra20.Features.Navigation.AutoMapperProfiles;
 using Uintra20.Features.News.AutoMapperPrfiles;
 using Uintra20.Features.Notification.AutoMapperProfiles;
 using Uintra20.Features.Permissions.AutoMapperProfiles;
-using Uintra20.Features.Search.SearchAutoMapperProfile;
+using Uintra20.Features.Search.AutoMapperProfile;
 using Uintra20.Features.Social.AutoMapperProfiles;
 using Uintra20.Features.Subscribe.AutoMapperProfiles;
 using Uintra20.Features.Tagging.AutoMapperProfiles;

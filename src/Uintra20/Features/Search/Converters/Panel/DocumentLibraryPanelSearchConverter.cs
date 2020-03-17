@@ -1,5 +1,6 @@
 ﻿using UBaseline.Shared.DocumentLibraryPanel;
-using Uintra20.Features.Search.Converters.Panel.SearchDocumentPanelConverter;
+using Uintra20.Core.Search.Converters.SearchDocumentPanelConverter;
+using Uintra20.Core.Search.Entities;
 using Umbraco.Core;
 
 namespace Uintra20.Features.Search.Converters.Panel

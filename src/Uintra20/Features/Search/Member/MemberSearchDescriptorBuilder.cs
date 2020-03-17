@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using Nest;
-using Uintra20.Features.Search.Entities;
+using Uintra20.Core.Search.Entities;
+using Uintra20.Core.Search.Helpers;
+using Uintra20.Core.Search.Providers;
 using Uintra20.Features.Search.Models;
 
 namespace Uintra20.Features.Search.Member

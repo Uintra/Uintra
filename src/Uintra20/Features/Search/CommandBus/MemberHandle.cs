@@ -2,9 +2,10 @@
 using System.Linq;
 using Compent.CommandBus;
 using Uintra20.Core.Commands;
+using Uintra20.Core.Search.Entities;
+using Uintra20.Core.Search.Entities.Mappers;
+using Uintra20.Core.Search.Indexes;
 using Uintra20.Features.Groups;
-using Uintra20.Features.Search.Entities;
-using Uintra20.Features.Search.Indexes;
 
 namespace Uintra20.Features.Search.CommandBus
 {

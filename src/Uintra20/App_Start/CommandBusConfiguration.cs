@@ -1,5 +1,6 @@
 ﻿using Compent.CommandBus;
 using Uintra20.Core.Commands;
+using Uintra20.Core.Search.Entities;
 using Uintra20.Features.Comments.CommandBus;
 using Uintra20.Features.Comments.CommandBus.Commands;
 using Uintra20.Features.Groups.CommandBus;
@@ -8,7 +9,6 @@ using Uintra20.Features.Likes.CommandBus;
 using Uintra20.Features.Likes.CommandBus.Commands;
 using Uintra20.Features.Media;
 using Uintra20.Features.Search.CommandBus;
-using Uintra20.Features.Search.Entities;
 using Uintra20.Features.Social;
 using Uintra20.Features.Social.Entities;
 
