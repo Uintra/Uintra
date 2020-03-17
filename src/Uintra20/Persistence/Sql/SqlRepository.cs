@@ -109,7 +109,7 @@ namespace Uintra20.Persistence.Sql
 
             set.Remove(deletingEntity);
 
-            await SaveAsync();
+            await SaveAsync(context);
         }
 
         public async Task DeleteAsync(IEnumerable<T> entities)
@@ -118,7 +118,7 @@ namespace Uintra20.Persistence.Sql
             var set = context.Set<T>();
 
             set.RemoveRange(entities);
-            await SaveAsync();
+            await SaveAsync(context);
         }
 
         public async Task DeleteAsync(T entity)
@@ -127,7 +127,7 @@ namespace Uintra20.Persistence.Sql
             var set = context.Set<T>();
 
             set.Remove(entity);
-            await SaveAsync();
+            await SaveAsync(context);
         }
 
         public async Task DeleteAsync(Expression<Func<T, bool>> predicate)
@@ -145,7 +145,7 @@ namespace Uintra20.Persistence.Sql
             var set = context.Set<T>();
 
             set.Add(entity);
-            await SaveAsync();
+            await SaveAsync(context);
         }
 
         public async Task AddAsync(IEnumerable<T> entities)
@@ -154,7 +154,7 @@ namespace Uintra20.Persistence.Sql
             var set = context.Set<T>();
 
             set.AddRange(entities);
-            await SaveAsync();
+            await SaveAsync(context);
         }
 
         public async Task UpdateAsync(T entity)
@@ -162,7 +162,7 @@ namespace Uintra20.Persistence.Sql
             var context = DbContextAsync;
 
             context.Entry(entity).State = EntityState.Modified;
-            await SaveAsync();
+            await SaveAsync(context);
         }
 
         public async Task UpdateAsync(IEnumerable<T> entities)
@@ -174,7 +174,7 @@ namespace Uintra20.Persistence.Sql
                 context.Entry(ent).State = EntityState.Modified;
             }
 
-            await SaveAsync();
+            await SaveAsync(context);
         }
 
         public async Task UpdatePropertyAsync<TProperty>(T entity, Expression<Func<T, TProperty>> property)
@@ -184,7 +184,7 @@ namespace Uintra20.Persistence.Sql
 
             set.Attach(entity);
             context.Entry(entity).Property(property).IsModified = true;
-            await SaveAsync();
+            await SaveAsync(context);
         }
 
         public async Task UpdatePropertyAsync<TProperty>(IEnumerable<T> entities, Expression<Func<T, TProperty>> property)
@@ -197,7 +197,7 @@ namespace Uintra20.Persistence.Sql
                 set.Attach(entity);
                 context.Entry(entity).Property(property).IsModified = true;
             }
-            await SaveAsync();
+            await SaveAsync(context);
         }
 
         public async Task<IList<T>> AsNoTrackingAsync()
@@ -208,9 +208,9 @@ namespace Uintra20.Persistence.Sql
             return await set.AsNoTracking().ToListAsync();
         }
 
-        public virtual async Task SaveAsync()
+        public virtual async Task SaveAsync(IntranetDbContext context = null)
         {
-            var context = DbContextAsync;
+            context = context ?? DbContextAsync;
 
             try
             {
