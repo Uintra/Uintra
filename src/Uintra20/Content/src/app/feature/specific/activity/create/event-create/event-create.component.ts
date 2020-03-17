@@ -55,6 +55,10 @@ export class EventCreateComponent implements OnInit {
       showClose: true,
       minDate: this.eventsData.publishDate ? this.eventsData.publishDate : moment().format(),
     };
+
+    if (this.eventsData.isPinned) {
+      this.isAccepted = true;
+    }
   }
 
   private setInitialData(): void {
@@ -63,6 +67,8 @@ export class EventCreateComponent implements OnInit {
     this.defaultOwner = this.data.creator
       ? this.data.members.find(x => x.id === this.data.creator.id)
       : null;
+
+    this.selectedTags = this.data.selectedTags || [];
 
     this.initialDates = {
       publishDate: this.data.publishDate || undefined,

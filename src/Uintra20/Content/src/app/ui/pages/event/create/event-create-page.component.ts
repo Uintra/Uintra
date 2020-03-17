@@ -25,7 +25,7 @@ export class EventCreatePage {
         this.data = data;
         this.parsedData = ParseHelper.parseUbaselineData(this.data);
         this.parsedData.data.members = Object.values(this.parsedData.data.members);
-        this.parsedData.data.tags = Object.values(this.parsedData.data.tags);
+        this.parsedData.data.availableTags = Object.values(this.parsedData.data.tags);
       } else {
         this.router.navigate([data.errorLink.get().originalUrl.get()]);
       }

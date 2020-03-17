@@ -4,7 +4,7 @@
       <div class="page-wrapper col-md-8">
         <app-event-create
           edit
-          [data]="parsedData.data"
+          [data]="parsedData.details"
           (submit)="onSubmit($event)"
           (cancel)="onCancel()"
           (hide)="onHide()">
@@ -16,7 +16,7 @@
   <div class="page-wrapper col-md-8" *ngIf="!parsedData?.groupHeader">
     <app-event-create
       edit
-      [data]="parsedData.data"
+      [data]="parsedData.details"
       (submit)="onSubmit($event)"
       (cancel)="onCancel()"
       (hide)="onHide()">
