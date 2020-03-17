@@ -42,7 +42,7 @@
     <h3 class="tags__title subtitle">{{'userTagsPicker.AddTags.lbl' | translate}}</h3>
     <app-tag-multiselect
       class="tags__multiselect"
-      [availableTags]="data.tags"
+      [availableTags]="eventsData.tagIdsData"
       [(ngModel)]="selectedTags"
     ></app-tag-multiselect>
   </div>
@@ -110,7 +110,7 @@
     <h3 class="dropzone__title subtitle">
       {{translate.instant(edit ? 'eventsEdit.UploadFiles.lbl' : 'eventsCreate.UploadFiles.lbl')}}
     </h3>
-    <div class="form-row" *ngIf="eventsData.media">
+    <div class="form-row" *ngIf="eventsData.media?.medias?.length || eventsData.media?.otherFiles?.length">
       <app-dropzone-existing-images
         [medias]="eventsData.media.medias"
         [otherFiles]="eventsData.media.otherFiles"

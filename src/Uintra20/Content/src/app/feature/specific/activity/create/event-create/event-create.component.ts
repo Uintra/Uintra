@@ -55,6 +55,10 @@ export class EventCreateComponent implements OnInit {
       showClose: true,
       minDate: this.eventsData.publishDate ? this.eventsData.publishDate : moment().format(),
     };
+
+    if (this.eventsData.isPinned) {
+      this.isAccepted = true;
+    }
   }
 
   private setInitialData(): void {
@@ -63,6 +67,8 @@ export class EventCreateComponent implements OnInit {
     this.defaultOwner = this.data.creator
       ? this.data.members.find(x => x.id === this.data.creator.id)
       : null;
+
+    this.selectedTags = this.data.selectedTags || [];
 
     this.initialDates = {
       publishDate: this.data.publishDate || undefined,
@@ -167,7 +173,7 @@ export class EventCreateComponent implements OnInit {
     this.isShowValidation = true;
 
     if (this.validate()) {
-      this.newsDataBuilder();
+      this.eventDataBuilder();
       this.submit.emit(this.eventsData);
     }
   }
@@ -180,7 +186,7 @@ export class EventCreateComponent implements OnInit {
     this.hide.emit();
   }
 
-  private newsDataBuilder(): void {
+  private eventDataBuilder(): void {
     this.eventsData.newMedia = this.eventFormService.getMediaIdsForResponse(this.files);
     this.eventsData.tagIdsData = this.eventFormService.getTagsForResponse(this.selectedTags);
   }

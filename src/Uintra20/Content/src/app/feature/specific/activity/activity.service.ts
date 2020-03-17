@@ -44,6 +44,14 @@ export class ActivityService {
     return this.http.post("/ubaseline/api/events/create", data);
   }
 
+  updateEvent(data) {
+    return this.http.put("/ubaseline/api/events/edit", data);
+  }
+
+  hideEvent(id, isNotificationNeeded) {
+    return this.http.post(`/ubaseline/api/events/hide?id=${id}&isNotificationNeeded=${isNotificationNeeded}`, {})
+  }
+
   refreshFeed() {
     this.feedRefreshTrigger.next();
   }

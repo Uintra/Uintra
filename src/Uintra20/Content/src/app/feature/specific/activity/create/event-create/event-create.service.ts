@@ -16,7 +16,7 @@ export class EventFormService {
       ownerId: data.creator.id,
       title: data.title || "",
       description: data.description || "",
-      tagIdsData: data.tags || [],
+      tagIdsData: data.availableTags,
       publishDate: data.publishDate || undefined,
       startDate: data.startDate || undefined,
       endDate: data.endDate || undefined,
@@ -30,7 +30,7 @@ export class EventFormService {
       pinAllowed: data.pinAllowed,
       isPinned: data.isPinned || false,
       newMedia: "",
-      media: data.media || null,
+      media: data.lightboxPreviewModel || null,
       groupId: data.groupId || null
     };
   }
