@@ -76,7 +76,7 @@ namespace Uintra20.Core.Search.IoC
             services.AddScoped<ISearchUmbracoHelper, SearchUmbracoHelper>();
             
             services.AddScoped<ISearchContentPanelConverterProvider, SearchContentPanelConverterProvider>();
-            RegisterHelper.ConnectImplementationsToTypesClosing(services, typeof(ISearchDocumentPanelConverter<,>), assembly.ToEnumerable(), false);
+            RegisterHelper.ConnectImplementationsToTypesClosing(services, typeof(ISearchDocumentPanelConverter<>), assembly.ToEnumerable(), false);
             
             
 

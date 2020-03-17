@@ -4,9 +4,9 @@
 
  namespace Uintra20.Features.Search.Converters.Panel
 {
-    public class VideoPanelSearchConverter : SearchDocumentPanelConverter<VideoPanelViewModel, SearchablePanel>
+    public class VideoPanelSearchConverter : SearchDocumentPanelConverter<VideoPanelViewModel>
     {
-        public override SearchablePanel OnConvert(VideoPanelViewModel panel)
+        protected override SearchablePanel OnConvert(VideoPanelViewModel panel)
         {
             return new SearchablePanel
             {

@@ -4,9 +4,9 @@
 
  namespace Uintra20.Features.Search.Converters.Panel
 {
-    public class SvgPanelSearchConverter : SearchDocumentPanelConverter<SvgPanelViewModel, SearchablePanel>
+    public class SvgPanelSearchConverter : SearchDocumentPanelConverter<SvgPanelViewModel>
     {
-        public override SearchablePanel OnConvert(SvgPanelViewModel panel)
+        protected override SearchablePanel OnConvert(SvgPanelViewModel panel)
         {
             return new SearchablePanel
             {

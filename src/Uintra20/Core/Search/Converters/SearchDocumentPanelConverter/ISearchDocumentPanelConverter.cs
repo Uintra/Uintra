@@ -4,16 +4,15 @@ using Uintra20.Core.Search.Entities;
 
 namespace Uintra20.Core.Search.Converters.SearchDocumentPanelConverter
 {
-    public interface ISearchDocumentPanelConverter<out TSearchDocumentPanel> where TSearchDocumentPanel : SearchablePanel
+    public interface ISearchDocumentPanelConverter
     {
         Type Type { get; }
 
-        TSearchDocumentPanel Convert(INodeViewModel panel);
+        SearchablePanel Convert(INodeViewModel panel);
     }
 
-    public interface ISearchDocumentPanelConverter<in TPanel, out TSearchDocumentPanel> : ISearchDocumentPanelConverter<TSearchDocumentPanel>
+    public interface ISearchDocumentPanelConverter<in TPanel> : ISearchDocumentPanelConverter
         where TPanel : INodeViewModel
-        where TSearchDocumentPanel : SearchablePanel
     {
     }
 }

@@ -1168,11 +1168,11 @@
     <Compile Include="Features\Search\Models\SearchFilterModel.cs" />
     <Compile Include="Features\Search\Models\SearchPanelResultViewModel.cs" />
     <Compile Include="Features\Search\Models\SearchRequest.cs" />
-    <Compile Include="Features\Search\Models\SearchResultsOverviewViewModel.cs" />
     <Compile Include="Features\Search\Models\SearchResultViewModel.cs" />
     <Compile Include="Features\Search\Models\SearchScoreModel.cs" />
-    <Compile Include="Features\Search\Models\SearchViewModel.cs" />
+    <Compile Include="Features\Search\Models\SearchPageViewModel.cs" />
     <Compile Include="Features\Search\Models\UintraSearchResultViewModel.cs" />
+    <Compile Include="Features\Search\Page\SearchPageConverter.cs" />
     <Compile Include="Features\Search\Queries\MemberSearchQuery.cs" />
     <Compile Include="Features\Search\Queries\SearchTextQuery.cs" />
     <Compile Include="Features\Search\AutoMapperProfile\SearchableActivityAutoMapperProfile.cs" />

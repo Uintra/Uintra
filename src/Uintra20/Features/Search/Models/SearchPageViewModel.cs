@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using UBaseline.Shared.Node;
 
 namespace Uintra20.Features.Search.Models
 {
-    public class SearchResultsOverviewViewModel
+    public class SearchPageViewModel:NodeViewModel
     {
         public IEnumerable<SearchResultViewModel> Results { get; set; } = Enumerable.Empty<SearchResultViewModel>();
 

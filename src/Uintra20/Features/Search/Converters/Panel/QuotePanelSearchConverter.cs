@@ -4,9 +4,9 @@
 
  namespace Uintra20.Features.Search.Converters.Panel
 {
-    public class QuotePanelSearchConverter : SearchDocumentPanelConverter<QuotePanelViewModel, SearchablePanel>
+    public class QuotePanelSearchConverter : SearchDocumentPanelConverter<QuotePanelViewModel>
     {
-        public override SearchablePanel OnConvert(QuotePanelViewModel panel)
+        protected override SearchablePanel OnConvert(QuotePanelViewModel panel)
         {
             return new SearchablePanel
             {

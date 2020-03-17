@@ -5,9 +5,9 @@ using Umbraco.Core;
 
 namespace Uintra20.Features.Search.Converters.Panel
 {
-    public class FAQPanelSearchConverter : SearchDocumentPanelConverter<FAQPanelViewModel, SearchablePanel>
+    public class FAQPanelSearchConverter : SearchDocumentPanelConverter<FAQPanelViewModel>
     {
-        public override SearchablePanel OnConvert(FAQPanelViewModel panel)
+        protected override SearchablePanel OnConvert(FAQPanelViewModel panel)
         {
             return new SearchablePanel
             {

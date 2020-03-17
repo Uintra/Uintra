@@ -15,11 +15,13 @@ using Uintra20.Infrastructure.Extensions;
 
 namespace Uintra20.Features.Search.Web
 {
+    //todo refactor duplicated code in SearchPageConverter
+    //todo after refactor remove unused models and methods
     public class SearchController : UBaselineApiController
     {
+        private string SearchTranslationPrefix { get; } = "Search.";
         private int AutocompleteSuggestionCount { get; } = 10;
         private  int ResultsPerPage { get; } = 20;
-        private string SearchTranslationPrefix { get; } = "Search.";
 
         private readonly IElasticIndex _elasticIndex;
         private readonly IEnumerable<IIndexer> _searchableServices;
@@ -41,15 +43,8 @@ namespace Uintra20.Features.Search.Web
             _searchableTypeProvider = searchableTypeProvider;
         }
 
-        public SearchViewModel Index(SearchRequest searchRequest)
-        {
-            var result = GetSearchViewModel();
-            result.Query = searchRequest.Query;
-            return result;
-        }
-
         [HttpPost]
-        public SearchResultsOverviewViewModel Search(SearchFilterModel model)
+        public  SearchPageViewModel Search (SearchFilterModel model)
         {
             var searchableTypeIds = model.Types.Count > 0 ? model.Types : GetSearchableTypes().Select(t => t.ToInt());
 
@@ -62,22 +57,12 @@ namespace Uintra20.Features.Search.Web
                 ApplyHighlights = true
             });
 
-            var resultModel = GetSearchResultsOverviewModel(searchResult);
+            var resultModel = GetSearchPage(searchResult);
             resultModel.Query = model.Query;
 
             return resultModel;
         }
 
-        public SearchBoxViewModel SearchBox()
-        {
-            var result = new SearchBoxViewModel
-            {
-                SearchResultsUrl = _searchUmbracoHelper.GetSearchPage()?.Url
-            };
-
-            return result;
-        }
-        
         [HttpPost]
         public IEnumerable<SearchAutocompleteResultViewModel> Autocomplete(SearchRequest searchRequest)
         {
@@ -102,30 +87,14 @@ namespace Uintra20.Features.Search.Web
         {
             return _searchableTypeProvider.All;
         }
-
-
-        protected virtual SearchViewModel GetSearchViewModel()
-        {
-            var filterItems = GetFilterItemTypes().Select(el => new SearchFilterItemViewModel
-            {
-                Id = el.ToInt(),
-                Name = _localizationService.Translate($"{SearchTranslationPrefix}{el.ToString()}")
-            });
-
-            var result = new SearchViewModel
-            {
-                FilterItems = filterItems
-            };
-
-            return result;
-        }
+        
 
         protected virtual IEnumerable<Enum> GetFilterItemTypes()
         {
             return _searchableTypeProvider.All;
         }
-
-        protected virtual SearchResultsOverviewViewModel GetSearchResultsOverviewModel(SearchResult<SearchableBase> searchResult)
+        
+        protected virtual SearchPageViewModel GetSearchPage(SearchResult<SearchableBase> searchResult)
         {
             var searchResultViewModels = searchResult.Documents.Select(d =>
             {
@@ -148,7 +117,7 @@ namespace Uintra20.Features.Search.Web
                     };
                 });
 
-            var result = new SearchResultsOverviewViewModel
+            var result = new SearchPageViewModel()
             {
                 Results = searchResultViewModels,
                 ResultsCount = (int)searchResult.TotalHits,

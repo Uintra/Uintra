@@ -11,12 +11,12 @@ namespace Uintra20.Core.Search.Providers
 {
     public class SearchContentPanelConverterProvider: ISearchContentPanelConverterProvider
     {
-        private readonly IEnumerable<ISearchDocumentPanelConverter<SearchablePanel>> _converters;
+        private readonly IEnumerable<ISearchDocumentPanelConverter> _converters;
         
         private readonly IPanelContainerBuilder _panelContainerBuilder;
         
         public SearchContentPanelConverterProvider(
-            IEnumerable<ISearchDocumentPanelConverter<SearchablePanel>> converters,
+            IEnumerable<ISearchDocumentPanelConverter> converters,
             IPanelContainerBuilder panelContainerBuilder
         )
         {

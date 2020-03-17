@@ -5,9 +5,9 @@ using Umbraco.Core;
 
 namespace Uintra20.Features.Search.Converters.Panel
 {
-    public class MailchimpPanelSearchConverter : SearchDocumentPanelConverter<MailchimpPanelViewModel, SearchablePanel>
+    public class MailchimpPanelSearchConverter : SearchDocumentPanelConverter<MailchimpPanelViewModel>
     {
-        public override SearchablePanel OnConvert(MailchimpPanelViewModel panel)
+        protected override SearchablePanel OnConvert(MailchimpPanelViewModel panel)
         {
             return new SearchablePanel
             {
