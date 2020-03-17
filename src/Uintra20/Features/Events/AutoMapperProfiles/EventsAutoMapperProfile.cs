@@ -249,7 +249,7 @@ namespace Uintra20.Features.Events.AutoMapperProfiles
                     {
                         endDate = src.EndDate.ToEventDetailsDateTimeFormat();
                     }
-                    
+
                     dst.StartDateString = startDate;
                     dst.EndDateString = src.EndDate.ToEventDetailsDateTimeFormat();
                     dst.EventDate = src.StartDate.WithUserOffset().Day;
