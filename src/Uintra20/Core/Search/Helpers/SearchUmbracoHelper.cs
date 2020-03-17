@@ -1,4 +1,7 @@
-﻿using Uintra20.Infrastructure.Extensions;
+﻿using UBaseline.Core.Node;
+using UBaseline.Core.RequestContext;
+using UBaseline.Shared.SearchPage;
+using Uintra20.Infrastructure.Extensions;
 using Uintra20.Infrastructure.Providers;
 using Umbraco.Core.Models.PublishedContent;
 using Umbraco.Web;
@@ -7,20 +10,23 @@ namespace Uintra20.Core.Search.Helpers
 {
     public class SearchUmbracoHelper : ISearchUmbracoHelper
     {
-        private readonly UmbracoHelper _umbracoHelper;
         private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
+        private readonly INodeModelService _nodeModelService;
+        private readonly IUBaselineRequestContext _requestContext;
 
-        public SearchUmbracoHelper(UmbracoHelper umbracoHelper, IDocumentTypeAliasProvider documentTypeAliasProvider)
+        public SearchUmbracoHelper(
+            IDocumentTypeAliasProvider documentTypeAliasProvider, 
+            INodeModelService nodeModelService,
+            IUBaselineRequestContext requestContext)
         {
-            _umbracoHelper = umbracoHelper;
             _documentTypeAliasProvider = documentTypeAliasProvider;
+            _nodeModelService = nodeModelService;
+            _requestContext = requestContext;
         }
 
-        public IPublishedContent GetSearchPage()
+        public SearchPageModel GetSearchPage()
         {
-            //todo-search rework to ubaseline approach
-            //return _umbracoHelper.ContentAtXPath(XPathHelper.GetXpath(_documentTypeAliasProvider.GetHomePage(), _documentTypeAliasProvider.GetSearchResultPage()));
-            return null;
+            return _nodeModelService.GetByAlias<SearchPageModel>("searchPage", _requestContext.HomeNode.RootId);
         }
 
         public bool IsSearchable(IPublishedContent content)

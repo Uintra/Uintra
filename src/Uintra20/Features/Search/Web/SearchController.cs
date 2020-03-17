@@ -164,7 +164,7 @@ namespace Uintra20.Features.Search.Web
             var seeAll = new SearchAutocompleteResultViewModel
             {
                 Title = _localizationService.Translate("SearchBox.SeeAll.lnk"),
-                Url = _searchUmbracoHelper.GetSearchPage()?.Url.AddQueryParameter(query)
+                Url = _searchUmbracoHelper.GetSearchPage()?.Url.AddQueryParameter(query).ToLinkModel()
             };
 
             var searchAutocompleteItem = GetSeeAllSearchAutocompleteItemModel(seeAll.Title);

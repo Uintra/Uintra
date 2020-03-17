@@ -1,10 +1,11 @@
-﻿using Umbraco.Core.Models.PublishedContent;
+﻿using UBaseline.Shared.SearchPage;
+using Umbraco.Core.Models.PublishedContent;
 
 namespace Uintra20.Core.Search.Helpers
 {
     public interface ISearchUmbracoHelper
     {
-        IPublishedContent GetSearchPage();
+        SearchPageModel GetSearchPage();
 
         bool IsSearchable(IPublishedContent content);
 
