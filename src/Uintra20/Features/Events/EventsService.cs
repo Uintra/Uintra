@@ -140,7 +140,7 @@ namespace Uintra20.Features.Events
             return IsActual(@event) && @event.CanSubscribe;
         }
 
-        public MediaSettings GetMediaSettings() => _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.EventsContent);
+        public MediaSettings GetMediaSettings() => _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.EventsContent, true);
 
         public FeedSettings GetFeedSettings() =>
             new FeedSettings
