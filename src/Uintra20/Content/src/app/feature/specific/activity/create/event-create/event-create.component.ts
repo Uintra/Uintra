@@ -173,7 +173,7 @@ export class EventCreateComponent implements OnInit {
     this.isShowValidation = true;
 
     if (this.validate()) {
-      this.newsDataBuilder();
+      this.eventDataBuilder();
       this.submit.emit(this.eventsData);
     }
   }
@@ -186,7 +186,7 @@ export class EventCreateComponent implements OnInit {
     this.hide.emit();
   }
 
-  private newsDataBuilder(): void {
+  private eventDataBuilder(): void {
     this.eventsData.newMedia = this.eventFormService.getMediaIdsForResponse(this.files);
     this.eventsData.tagIdsData = this.eventFormService.getTagsForResponse(this.selectedTags);
   }
