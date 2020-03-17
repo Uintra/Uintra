@@ -3,6 +3,7 @@
     <div class="group-details-padding">
       <div class="page-wrapper col-md-8">
         <app-event-create
+          edit
           [data]="parsedData.data"
           (submit)="onSubmit($event)"
           (cancel)="onCancel()"
@@ -14,6 +15,7 @@
 
   <div class="page-wrapper col-md-8" *ngIf="!parsedData?.groupHeader">
     <app-event-create
+      edit
       [data]="parsedData.data"
       (submit)="onSubmit($event)"
       (cancel)="onCancel()"
