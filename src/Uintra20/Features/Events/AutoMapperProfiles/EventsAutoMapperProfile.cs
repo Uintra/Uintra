@@ -222,8 +222,6 @@ namespace Uintra20.Features.Events.AutoMapperProfiles
             CreateMap<Event, EventViewModel>()
                 .ForMember(dst => dst.Links, o => o.Ignore())
                 .ForMember(dst => dst.CanEdit, o => o.Ignore())
-                .ForMember(dst => dst.CanSubscribe, o => o.Ignore())
-                .ForMember(dst => dst.SubscribeNotes, o => o.Ignore())
                 .ForMember(dst => dst.HeaderInfo, o => o.Ignore())
                 .ForMember(dst => dst.Tags, o => o.Ignore())
                 .ForMember(dst => dst.AvailableTags, o => o.Ignore())
