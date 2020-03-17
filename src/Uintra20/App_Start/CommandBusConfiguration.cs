@@ -6,6 +6,7 @@ using Uintra20.Features.Groups.CommandBus.Commands;
 using Uintra20.Features.Likes.CommandBus;
 using Uintra20.Features.Likes.CommandBus.Commands;
 using Uintra20.Features.Media;
+using Uintra20.Features.News;
 using Uintra20.Features.Social;
 using Uintra20.Features.Social.Entities;
 
@@ -36,7 +37,7 @@ namespace Uintra20
             builder.HandleCommand<AddLikeCommand>()
                 .WithHandle<LikeHandle>()
                 .WithHandle<LikeNotificationHandle>();
-            
+
             builder.HandleCommand<RemoveLikeCommand>()
                 .WithHandle<LikeHandle>();
         }
@@ -71,9 +72,8 @@ namespace Uintra20
             builder.HandleCommand<VideoConvertedCommand>()
                 .WithHandle<MediaHelper>()
                 //.WithHandle<EventsService>()
-                //.WithHandle<NewsService>()
+                .WithHandle<NewsService>()
                 .WithHandle<SocialService<Social>>();
         }
-
     }
 }

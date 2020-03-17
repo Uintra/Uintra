@@ -21,7 +21,9 @@ namespace Uintra20.Features.Media
         private readonly Engine _engine;
         private readonly string _ffmpegPath = HostingEnvironment.MapPath(IntranetConstants.FfmpegRelativePath);
 
-        public VideoConverter(ICommandPublisher commandPublisher, IApplicationSettings applicationSettings)
+        public VideoConverter(
+            ICommandPublisher commandPublisher, 
+            IApplicationSettings applicationSettings)
         {
             _commandPublisher = commandPublisher;
             _applicationSettings = applicationSettings;
