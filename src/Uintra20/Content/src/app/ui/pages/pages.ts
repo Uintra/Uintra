@@ -126,6 +126,11 @@ export const pages = [
     loadChildren: './ui/pages/event/edit/event-edit-page.module#EventEditPageModule'
   },
   {
+    id: 'eventDetailsPage',
+    path: '__dynamic__',
+    loadChildren: './ui/pages/event/details/event-details-page.module#EventDetailsPageModule'
+  },
+  {
     id: 'pageNotFoundPage',
     path: '__dynamic__',
     loadChildren: './ui/pages/page-not-found/page-not-found-page.module#PageNotFoundPageModule'

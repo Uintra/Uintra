@@ -21,4 +21,11 @@ export class DetailasHeaderComponent implements OnInit {
     }
   }
 
+  getDates() {
+    if (!this.details.headerInfo.dates) {
+      return "";
+    }
+    return Object.values(this.details.headerInfo.dates).join(" - ");
+  }
+
 }

@@ -219,7 +219,7 @@ namespace Uintra20.Features.Events.AutoMapperProfiles
                     dst.MediaIds = src.Media.ToIntCollection();
                 });
 
-            CreateMap<EventBase, EventViewModel>()
+            CreateMap<Event, EventViewModel>()
                 .ForMember(dst => dst.Links, o => o.Ignore())
                 .ForMember(dst => dst.CanEdit, o => o.Ignore())
                 .ForMember(dst => dst.CanSubscribe, o => o.Ignore())
@@ -230,7 +230,33 @@ namespace Uintra20.Features.Events.AutoMapperProfiles
                 .ForMember(dst => dst.LightboxPreviewModel, o => o.Ignore())
                 .ForMember(dst => dst.ActivityType, o => o.MapFrom(el => el.Type))
                 .ForMember(dst => dst.IsReadOnly, o => o.Ignore())
-                .ForMember(dst => dst.Media, o => o.MapFrom(el => el.MediaIds.JoinToString(",")));
+                .ForMember(dst => dst.StartDateString, o => o.Ignore())
+                .ForMember(dst => dst.EndDateString, o => o.Ignore())
+                .ForMember(dst => dst.FullEventTime, o => o.Ignore())
+                .ForMember(dst => dst.EventDate, o => o.Ignore())
+                .ForMember(dst => dst.EventMonth, o => o.Ignore())
+                .ForMember(dst => dst.Media, o => o.MapFrom(el => el.MediaIds.JoinToString(",")))
+                .AfterMap((src, dst) =>
+                {
+                    var startDate = src.StartDate.ToEventDetailsDateTimeFormat();
+                    string endDate;
+
+                    if (src.StartDate.Date == src.EndDate.Date)
+                    {
+                        endDate = src.EndDate.ToEventDetailsTimeFormat();
+                    }
+                    else
+                    {
+                        endDate = src.EndDate.ToEventDetailsDateTimeFormat();
+                    }
+                    
+                    dst.StartDateString = startDate;
+                    dst.EndDateString = src.EndDate.ToEventDetailsDateTimeFormat();
+                    dst.EventDate = src.StartDate.WithUserOffset().Day;
+                    dst.EventMonth = src.StartDate.WithUserOffset().ToString("MMM");
+
+                    dst.FullEventTime = $"{startDate} - {endDate}";
+                }); ;
 
             //Mapper.CreateMap<EventBase, EventBackofficeViewModel>()
             //    .ForMember(dst => dst.StartDate, o => o.MapFrom(s => s.StartDate.ToIsoUtcString()))
