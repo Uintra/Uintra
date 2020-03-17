@@ -4,7 +4,6 @@ namespace Uintra20.Features.Search.Entities
 {
     public class SearchableContent : SearchableBase
     {
-        public IEnumerable<string> PanelContent { get; set; }
-        public IEnumerable<string> PanelTitle { get; set; }
+        public IEnumerable<SearchablePanel> Panels { get; set; }
     }
 }

@@ -14,9 +14,9 @@ namespace Uintra20.Features.Search.Web
 {
     public class SearchController : UBaselineApiController
     {
-        protected virtual int AutocompleteSuggestionCount { get; } = 10;
-        protected virtual int ResultsPerPage { get; } = 20;
-        protected virtual string SearchTranslationPrefix { get; } = "Search.";
+        private int AutocompleteSuggestionCount { get; } = 10;
+        private  int ResultsPerPage { get; } = 20;
+        private string SearchTranslationPrefix { get; } = "Search.";
 
         private readonly IElasticIndex _elasticIndex;
         private readonly IEnumerable<IIndexer> _searchableServices;
@@ -74,7 +74,8 @@ namespace Uintra20.Features.Search.Web
 
             return result;
         }
-
+        
+        [HttpPost]
         public IEnumerable<SearchAutocompleteResultViewModel> Autocomplete(SearchRequest searchRequest)
         {
             var searchResult = _elasticIndex.Search(new SearchTextQuery

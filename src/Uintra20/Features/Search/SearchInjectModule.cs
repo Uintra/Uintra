@@ -1,13 +1,16 @@
 ﻿using System.Configuration;
 using Compent.Shared.DependencyInjection.Contract;
+using Compent.Shared.Extensions.Bcl;
 using Nest;
 using Uintra20.Features.News;
+using Uintra20.Features.Search.Converters.Panel.SearchDocumentPanelConverter;
 using Uintra20.Features.Search.Entities;
 using Uintra20.Features.Search.Entities.Mappings;
 using Uintra20.Features.Search.Indexes;
 using Uintra20.Features.Search.Member;
 using Uintra20.Features.Search.Paging;
 using Uintra20.Features.Search.Sorting;
+using Uintra20.Features.Search.Web;
 using Uintra20.Features.Social;
 
 namespace Uintra20.Features.Search
@@ -16,7 +19,7 @@ namespace Uintra20.Features.Search
     {
         public IDependencyCollection Register(IDependencyCollection services)
         {
-
+            var assembly = typeof(SearchInjectModule).Assembly;
             services.AddScopedToCollection<IIndexer, NewsService>();
             services.AddScopedToCollection<IIndexer, ContentIndexer>();
             //services.AddScopedToCollection<IIndexer, EventsService>();
@@ -58,13 +61,18 @@ namespace Uintra20.Features.Search
             services.AddScoped<IElasticEntityMapper, ElasticTagIndex>();
             services.AddScoped<IElasticEntityMapper, ElasticMemberIndex<SearchableMember>>();
 
-            services.AddScoped<IElasticIndex, ElasticIndex>();
+            services.AddScoped<IElasticIndex, UintraElasticIndex>();
             services.AddScoped<IMemberSearchDescriptorBuilder, MemberSearchDescriptorBuilder>();
             services.AddScoped(typeof(ISearchSortingHelper<>),typeof(BaseSearchSortingHelper<>));
             services.AddScoped(typeof(ISearchPagingHelper<>), typeof(BaseSearchPagingHelper<>));
             services.AddScoped<ISearchScoreProvider, SearchScoreProvider>();
-            services.AddScoped<ISearchableTypeProvider, SearchableTypeProvider>();
+            services.AddSingleton<ISearchableTypeProvider>(d => new SearchableTypeProvider(typeof(UintraSearchableTypeEnum)));
             services.AddScoped<ISearchUmbracoHelper, SearchUmbracoHelper>();
+            
+            services.AddScoped<ISearchContentPanelConverterProvider, SearchContentPanelConverterProvider>();
+            RegisterHelper.ConnectImplementationsToTypesClosing(services, typeof(ISearchDocumentPanelConverter<,>), assembly.ToEnumerable(), false);
+            
+            
 
             return services;
         }

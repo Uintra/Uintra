@@ -39,7 +39,7 @@ namespace Uintra20.Features.Search.SearchAutoMapperProfile
                 .ForMember(dst => dst.IsPinned, o => o.MapFrom(s => s.IsPinned))
                 .ForMember(dst => dst.Photo, o => o.Ignore())
                 .ForMember(dst => dst.Email, o => o.Ignore())
-                .ForMember(dst => dst.PanelContent, src => src.Ignore());
+                .ForMember(dst => dst.Panels, src => src.Ignore());
 
             CreateMap<SearchableMember, SearchResultViewModel>()
                 .ForMember(dst => dst.Id, o => o.MapFrom(s => s.Id))
@@ -47,7 +47,7 @@ namespace Uintra20.Features.Search.SearchAutoMapperProfile
                 .ForMember(dst => dst.Url, o => o.MapFrom(s => s.Url))
                 .ForMember(dst => dst.Type, o => o.MapFrom(s => s.Type))
                 .ForMember(dst => dst.Description, o => o.Ignore())
-                .ForMember(dst => dst.PanelContent, o => o.Ignore())
+                .ForMember(dst => dst.Panels, o => o.Ignore())
                 .ForMember(dst => dst.StartDate, o => o.Ignore())
                 .ForMember(dst => dst.EndDate, o => o.Ignore())
                 .ForMember(dst => dst.PublishedDate, o => o.Ignore())
@@ -94,7 +94,7 @@ namespace Uintra20.Features.Search.SearchAutoMapperProfile
                 .ForMember(dst => dst.Type, src => src.MapFrom(s => s.Type))
                 .ForMember(dst => dst.Url, src => src.Ignore())
                 .ForMember(dst => dst.Description, src => src.Ignore())
-                .ForMember(dst => dst.PanelContent, src => src.Ignore())
+                .ForMember(dst => dst.Panels, src => src.Ignore())
                 .ForMember(dst => dst.StartDate, src => src.Ignore())
                 .ForMember(dst => dst.EndDate, src => src.Ignore())
                 .ForMember(dst => dst.PublishedDate, src => src.Ignore())

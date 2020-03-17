@@ -19,7 +19,7 @@ namespace Uintra20.Features.Search.SearchAutoMapperProfile
                 .ForMember(d => d.Url, o => o.MapFrom(s => s.Url))
                 .ForMember(d => d.Type, o => o.Ignore())
                 .ForMember(d => d.Description, o => o.Ignore())
-                .ForMember(d => d.PanelContent, o => o.Ignore())
+                .ForMember(d => d.Panels, o => o.Ignore())
                 .ForMember(d => d.StartDate, o => o.Ignore())
                 .ForMember(d => d.EndDate, o => o.Ignore())
                 .ForMember(d => d.IsPinned, o => o.Ignore())
@@ -37,8 +37,12 @@ namespace Uintra20.Features.Search.SearchAutoMapperProfile
 
             CreateMap<SearchableContent, SearchResultViewModel>()
                 .IncludeBase<SearchableBase, SearchResultViewModel>()
-                .ForMember(d => d.PanelContent, o => o.MapFrom(s => s.PanelContent));
+                .ForMember(d => d.Panels, o => o.MapFrom(s => s.Panels));
 
+            CreateMap<SearchablePanel, SearchPanelResultViewModel>()
+                .ForMember(d => d.Content, o => o.MapFrom((s => s.Content)))
+                .ForMember(d => d.Title, o => o.MapFrom((s => s.Title)));
+            
             CreateMap<SearchableDocument, SearchResultViewModel>()
                 .IncludeBase<SearchableBase, SearchResultViewModel>()
                 .ForMember(d => d.Description, o => o.MapFrom(s => s.Attachment.Content));

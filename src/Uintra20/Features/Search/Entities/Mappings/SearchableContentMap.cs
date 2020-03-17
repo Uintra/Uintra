@@ -4,8 +4,13 @@
     {
         public SearchableContentMap()
         {
-            Text(t => t.Name(n => n.PanelContent).Analyzer(ElasticHelpers.ReplaceNgram));
-            Text(t => t.Name(n => n.PanelTitle).Analyzer(ElasticHelpers.ReplaceNgram));
+            Nested<SearchablePanel>(nst =>
+                nst.Name(n => n.Panels)
+                    .Properties(p => p.Text(t => t.Name(n => n.Content).Analyzer(ElasticHelpers.ReplaceNgram))));
+
+            Nested<SearchablePanel>(nst =>
+                nst.Name(n => n.Panels)
+                    .Properties(p => p.Text(t => t.Name(n => n.Title).Analyzer(ElasticHelpers.ReplaceNgram))));
         }
     }
 }

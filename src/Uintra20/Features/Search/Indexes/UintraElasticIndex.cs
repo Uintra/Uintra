@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Compent.LinkPreview.HttpClient.Extensions;
 using Nest;
 using Uintra20.Features.Search.Entities;
 using Uintra20.Features.Search.Member;
 using Uintra20.Features.Search.Paging;
 using Uintra20.Features.Search.Queries;
 using Uintra20.Features.Search.Sorting;
-using Uintra20.Infrastructure.Extensions;
 
 namespace Uintra20.Features.Search.Indexes
 {
@@ -36,7 +36,6 @@ namespace Uintra20.Features.Search.Indexes
 		protected override QueryContainer[] GetQueryContainers(string query)
 		{
 			var containers = base.GetQueryContainers(query).ToList();
-			//containers.Add(GetTagNames<SearchableUintraContent>(query));
 			containers.Add(GetTagNames<SearchableUintraActivity>(query));
 			containers.Add(GetTagNames<SearchableMember>(query));
 			containers.Add(GetTagsDescriptor(query));
@@ -54,19 +53,19 @@ namespace Uintra20.Features.Search.Indexes
 					case (int)UintraSearchableTypeEnum.Events:
 					case (int)UintraSearchableTypeEnum.News:
 					case (int)UintraSearchableTypeEnum.Socials:
-						documents.Add(document.ToString().Deserialize<SearchableUintraActivity>());
+						documents.Add(SerializationExtensions.Deserialize<SearchableActivity>(document.ToString()));
 						break;
-					//case (int)UintraSearchableTypeEnum.Content:
-					//	documents.Add(document.ToString().Deserialize<SearchableUintraContent>());
-					//	break;
+					case (int)UintraSearchableTypeEnum.Content:
+						documents.Add(SerializationExtensions.Deserialize<SearchableContent>(document.ToString()));
+						break;
 					case (int)UintraSearchableTypeEnum.Document:
-						documents.Add(document.ToString().Deserialize<SearchableDocument>());
+						documents.Add(SerializationExtensions.Deserialize<SearchableDocument>(document.ToString()));
 						break;
 					case (int)UintraSearchableTypeEnum.Tag:
-						documents.Add(document.ToString().Deserialize<SearchableTag>());
+						documents.Add(SerializationExtensions.Deserialize<SearchableTag>(document.ToString()));
 						break;
 					case (int)UintraSearchableTypeEnum.Member:
-						documents.Add(document.ToString().Deserialize<SearchableMember>());
+						documents.Add( SerializationExtensions.Deserialize<SearchableMember>(document.ToString()));
 						break;
 					default:
 						throw new ArgumentOutOfRangeException(

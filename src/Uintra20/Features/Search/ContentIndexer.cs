@@ -1,7 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Compent.Shared.Extensions.Bcl;
+using UBaseline.Core.Node;
+using UBaseline.Shared.Node;
+using UBaseline.Shared.PanelContainer;
 using Uintra20.Features.Search.Entities;
 using Uintra20.Features.Search.Indexes;
+using Uintra20.Features.Search.Web;
 using Uintra20.Infrastructure.Constants;
 using Uintra20.Infrastructure.Extensions;
 using Uintra20.Infrastructure.Grid;
@@ -17,20 +22,23 @@ namespace Uintra20.Features.Search
         private readonly ISearchUmbracoHelper _searchUmbracoHelper;
         private readonly IElasticContentIndex _contentIndex;
         private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
-        private readonly IGridHelper _gridHelper;
+        private readonly INodeModelService _nodeModelService;
+        private readonly ISearchContentPanelConverterProvider _searchContentPanelConverterProvider;
 
         public ContentIndexer(
             UmbracoHelper umbracoHelper,
             ISearchUmbracoHelper searchUmbracoHelper,
             IElasticContentIndex contentIndex,
-            IDocumentTypeAliasProvider documentTypeAliasProvider,
-            IGridHelper gridHelper)
+            IDocumentTypeAliasProvider documentTypeAliasProvider, 
+            INodeModelService nodeModelService,
+            ISearchContentPanelConverterProvider searchContentPanelConverterProvider)
         {
             _umbracoHelper = umbracoHelper;
             _searchUmbracoHelper = searchUmbracoHelper;
             _contentIndex = contentIndex;
             _documentTypeAliasProvider = documentTypeAliasProvider;
-            _gridHelper = gridHelper;
+            _nodeModelService = nodeModelService;
+            _searchContentPanelConverterProvider = searchContentPanelConverterProvider;
         }
 
         public void FillIndex()
@@ -69,52 +77,18 @@ namespace Uintra20.Features.Search
 
         private SearchableContent GetContent(IPublishedContent publishedContent)
         {
-            var (content, titles) = ParseContentPanels(publishedContent);
+            var node = _nodeModelService.Get<NodeModel>(publishedContent.Id) as IPanelsComposition;
+            var panels = _searchContentPanelConverterProvider.Convert(node);
 
 
-            return new SearchableContent
-            {
-                Id = publishedContent.Id,
-                Type = SearchableTypeEnum.Content.ToInt(),
-                Url = publishedContent.Url.ToLinkModel(),
-                Title = publishedContent.Name,
-                PanelContent = content,
-                PanelTitle = titles
-            };
+             return new SearchableContent
+             {
+                 Id = publishedContent.Id,
+                 Type = SearchableTypeEnum.Content.ToInt(),
+                 Url = publishedContent.Url.ToLinkModel(),
+                 Title = publishedContent.Name,
+                 Panels = panels
+             };
         }
-
-        private (List<string> content, List<string> titles) ParseContentPanels(IPublishedContent publishedContent)
-        {
-            var titles = new List<string>();
-            var content = new List<string>();
-            var values = _gridHelper.GetValues(publishedContent, GridEditorConstants.ContentPanelAlias, GridEditorConstants.GlobalPanelPickerAlias);
-
-            foreach (var control in values)
-            {
-                if (control.value != null)
-                {
-                    dynamic panel = control.alias == GridEditorConstants.GlobalPanelPickerAlias
-                        ? GetContentPanelFromGlobal(control.value)
-                        : control.value;
-                    if (panel == null) continue;
-
-                    string title = panel.title;
-                    if (!string.IsNullOrEmpty(title))
-                        titles.Add(title.StripHtml());
-
-                    string desc = panel.description;
-                    if (!string.IsNullOrEmpty(desc))
-                        content.Add(desc.StripHtml());
-                }
-            }
-
-            return (titles, content);
-        }
-
-
-        private dynamic GetContentPanelFromGlobal(dynamic value) =>
-            _umbracoHelper.Content((int)value.id)?
-            .GetProperty(GridEditorConstants.PanelConfigPropertyAlias)?.Value<dynamic>()?
-            .value;
     }
 }

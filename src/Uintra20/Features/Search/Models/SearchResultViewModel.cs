@@ -12,7 +12,7 @@ namespace Uintra20.Features.Search.Models
 
         public string Description { get; set; }
 
-        public IEnumerable<string> PanelContent { get; set; } = Enumerable.Empty<string>();
+        public IEnumerable<SearchPanelResultViewModel> Panels { get; set; } = Enumerable.Empty<SearchPanelResultViewModel>();
 
         public string Url { get; set; }
 
