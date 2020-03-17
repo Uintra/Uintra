@@ -1796,7 +1796,7 @@ if (typeof HTMLElement !== "undefined") {
 
 /* istanbul ignore next */
 function flatpickr(selector, config) {
-	return _flatpickr(window.document.querySelectorAll(selector), config);
+	return _flatpickr([selector], config);
 }
 
 /* istanbul ignore next */
