@@ -1,12 +1,12 @@
-﻿using Compent.CommandBus;
-using Compent.Extensions;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using Compent.CommandBus;
+using Compent.Extensions;
 using UBaseline.Core.Extensions;
 using UBaseline.Core.Media;
 using Uintra20.Core.Controls.FileUpload;
@@ -23,7 +23,7 @@ using Umbraco.Core.Services;
 using static Uintra20.Infrastructure.Constants.UmbracoAliases.Media;
 using FolderModel = Uintra20.Core.UbaselineModels.FolderModel;
 
-namespace Uintra20.Features.Media
+namespace Uintra20.Features.Media.Helpers
 {
     public class MediaHelper :
         IMediaHelper,

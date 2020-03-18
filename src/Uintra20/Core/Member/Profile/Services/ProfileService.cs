@@ -5,6 +5,7 @@ using Uintra20.Core.Member.Models.Dto;
 using Uintra20.Core.Member.Profile.Edit.Models;
 using Uintra20.Core.Member.Services;
 using Uintra20.Features.Media;
+using Uintra20.Features.Media.Helpers;
 using Uintra20.Features.Notification.Services;
 using Uintra20.Features.Tagging.UserTags.Services;
 using Uintra20.Infrastructure.Extensions;

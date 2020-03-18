@@ -9,6 +9,7 @@ using Uintra20.Core.Controls.LightboxGallery;
 using Uintra20.Core.Localization;
 using Uintra20.Features.Information;
 using Uintra20.Features.Media;
+using Uintra20.Features.Media.Helpers;
 using Uintra20.Features.Permissions;
 using Uintra20.Features.Permissions.Implementation;
 using Uintra20.Features.Permissions.Interfaces;

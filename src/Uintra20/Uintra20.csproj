@@ -1485,14 +1485,14 @@
     <Compile Include="Features\Media\IImageHelper.cs" />
     <Compile Include="Features\Media\IIntranetMediaService.cs" />
     <Compile Include="Features\Media\ImageHelper.cs" />
-    <Compile Include="Features\Media\IMediaHelper.cs" />
+    <Compile Include="Features\Media\Helpers\IMediaHelper.cs" />
     <Compile Include="Features\Media\IntranetMediaService.cs" />
     <Compile Include="Features\Media\IVideoConverter.cs" />
     <Compile Include="Features\Media\IVideoConverterLogService.cs" />
     <Compile Include="Features\Media\IVideoHelper.cs" />
     <Compile Include="Features\Media\MediaConvertModel.cs" />
     <Compile Include="Features\Media\MediaFolderTypeEnum.cs" />
-    <Compile Include="Features\Media\MediaHelper.cs" />
+    <Compile Include="Features\Media\Helpers\MediaHelper.cs" />
     <Compile Include="Features\Media\MediaSettings.cs" />
     <Compile Include="Core\Controls\FileUpload\TempFile.cs" />
     <Compile Include="Features\Media\Sql\IntranetMediaEntity.cs" />

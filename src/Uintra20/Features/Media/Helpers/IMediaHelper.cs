@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Uintra20.Core.Controls.FileUpload;
 using Umbraco.Core.Models;
 
-namespace Uintra20.Features.Media
+namespace Uintra20.Features.Media.Helpers
 {
     public interface IMediaHelper
     {

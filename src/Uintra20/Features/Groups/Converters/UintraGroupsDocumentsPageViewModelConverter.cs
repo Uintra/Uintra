@@ -9,6 +9,7 @@ using Uintra20.Features.Groups.Models;
 using Uintra20.Features.Groups.Services;
 using Uintra20.Features.Links;
 using Uintra20.Features.Media;
+using Uintra20.Features.Media.Helpers;
 using Uintra20.Infrastructure.Extensions;
 
 namespace Uintra20.Features.Groups.Converters
