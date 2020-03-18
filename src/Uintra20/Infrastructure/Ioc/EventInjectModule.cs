@@ -4,6 +4,7 @@ using Uintra20.Core.Feed.Services;
 using Uintra20.Features.Events;
 using Uintra20.Features.Events.Entities;
 using Uintra20.Features.Notification.Services;
+using Uintra20.Features.Subscribe;
 
 namespace Uintra20.Infrastructure.Ioc
 {
@@ -16,6 +17,7 @@ namespace Uintra20.Infrastructure.Ioc
             services.AddScopedToCollection<INotifyableService, EventsService>();
             services.AddScoped<ICacheableIntranetActivityService<Event>, EventsService>();
             services.AddScoped<IIntranetActivityService, EventsService>();
+            services.AddScoped<ISubscribableService, EventsService>();
 
             return services;
         }

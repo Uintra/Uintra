@@ -18,7 +18,7 @@ namespace Uintra20.Features.Subscribe.Controllers
         private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
 
-        protected SubscribeController(
+        public SubscribeController(
             ISubscribeService subscribeService,
             IIntranetMemberService<IntranetMember> intranetMemberService,
             IActivitiesServiceFactory activitiesServiceFactory)
