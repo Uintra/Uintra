@@ -2,9 +2,9 @@
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Linq;
+using Uintra20.Features.Media.Image.Helpers.Contracts;
 
-namespace Uintra20.Features.Media
+namespace Uintra20.Features.Media.Image.Helpers.Implementations
 {
     public class ImageHelper : IImageHelper
     {

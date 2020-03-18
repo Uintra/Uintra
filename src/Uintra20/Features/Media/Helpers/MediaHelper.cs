@@ -12,6 +12,7 @@ using UBaseline.Core.Media;
 using Uintra20.Core.Controls.FileUpload;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Services;
+using Uintra20.Features.Media.Image.Helpers.Contracts;
 using Uintra20.Features.Media.Video.Commands;
 using Uintra20.Features.Media.Video.Converters.Contracts;
 using Uintra20.Features.Media.Video.Helpers.Contracts;

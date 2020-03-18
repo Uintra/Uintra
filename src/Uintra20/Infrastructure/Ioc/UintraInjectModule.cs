@@ -10,6 +10,8 @@ using Uintra20.Core.Localization;
 using Uintra20.Features.Information;
 using Uintra20.Features.Media;
 using Uintra20.Features.Media.Helpers;
+using Uintra20.Features.Media.Image.Helpers.Contracts;
+using Uintra20.Features.Media.Image.Helpers.Implementations;
 using Uintra20.Features.Media.Video.Converters.Contracts;
 using Uintra20.Features.Media.Video.Converters.Implementations;
 using Uintra20.Features.Media.Video.Helpers.Contracts;

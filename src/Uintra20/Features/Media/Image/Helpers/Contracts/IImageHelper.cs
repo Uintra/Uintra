@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace Uintra20.Features.Media
+namespace Uintra20.Features.Media.Image.Helpers.Contracts
 {
     public interface IImageHelper
     {
