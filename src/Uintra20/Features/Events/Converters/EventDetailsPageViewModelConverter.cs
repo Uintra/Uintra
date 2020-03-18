@@ -100,6 +100,12 @@ namespace Uintra20.Features.Events.Converters
             details.HeaderInfo.Owner = _memberService.Get(@event).ToViewModel();
             details.HeaderInfo.Links = _feedLinkService.GetLinks(@event.Id);
 
+            var currentUserId = _memberService.GetCurrentMemberId();
+            var subscribe = @event.Subscribers.FirstOrDefault(x => x.UserId == currentUserId);
+
+            details.IsSubscribed = subscribe != null;
+            details.IsNotificationsDisabled = subscribe?.IsNotificationDisabled ?? false;
+
             return details;
         }
     }
