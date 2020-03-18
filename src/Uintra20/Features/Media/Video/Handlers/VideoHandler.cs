@@ -5,70 +5,90 @@ using Uintra20.Features.Media.Video.Commands;
 using Uintra20.Features.Media.Video.Helpers.Contracts;
 using Uintra20.Features.Media.Video.Services.Contracts;
 using Uintra20.Infrastructure.Constants;
+using Umbraco.Core;
+using Umbraco.Core.Composing;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
+using LightInject;
+using static Uintra20.Infrastructure.Constants.UmbracoAliases.Video;
 
 namespace Uintra20.Features.Media.Video.Handlers
 {
     public class VideoHandler : IHandle<VideoConvertedCommand>
     {
-        private readonly IMediaService _mediaService;
         private readonly IVideoHelper _videoHelper;
         private readonly IVideoConverterLogService _videoConverterLogService;
+        private readonly IMediaService _mediaService;
 
         public VideoHandler(
-            IMediaService mediaService,
             IVideoHelper videoHelper,
-            IVideoConverterLogService videoConverterLogService)
+            IVideoConverterLogService videoConverterLogService,
+            IMediaService mediaService)
         {
-            _mediaService = mediaService;
             _videoHelper = videoHelper;
             _videoConverterLogService = videoConverterLogService;
+            _mediaService = mediaService;
         }
 
         public BroadcastResult Handle(VideoConvertedCommand command)
         {
-            var media = _mediaService.GetById(command.MediaId);
-            media.SetValue(UmbracoAliases.Video.ConvertInProcessPropertyAlias, false);
-
-            if (!command.Success)
+            return Current.Factory.EnsureScope(s =>
             {
-                _videoConverterLogService.Log(false, command.Message.ToJson(), command.MediaId);
+                
+                var contentTypeBaseServiceProvider = s.GetInstance<IContentTypeBaseServiceProvider>();
 
-                media.SetValue(UmbracoAliases.Video.ThumbnailUrlPropertyAlias, _videoHelper.CreateConvertingFailureThumbnail());
-                _mediaService.Save(media);
+                var media = _mediaService.GetById(command.MediaId);
 
-                return BroadcastResult.Failure;
-            }
+                media.SetValue(ConvertInProcessPropertyAlias, false);
 
-            using (var fs = new FileStream(command.ConvertedFilePath, FileMode.Open, FileAccess.Read))
+                return command.Success
+                    ? OnCreateSuccess(command, media, contentTypeBaseServiceProvider)
+                    : OnCreateFail(command, media);
+            });
+        }
+
+        private BroadcastResult OnCreateSuccess(
+            VideoConvertedCommand command,
+            IMedia media,
+            IContentTypeBaseServiceProvider contentTypeBaseServiceProvider
+            )
+        {
+            using (var fileStream = new FileStream(command.ConvertedFilePath, FileMode.Open, FileAccess.Read))
+            using (var memoryStream = new MemoryStream())
             {
-                using (var ms = new MemoryStream())
-                {
-                    fs.CopyTo(ms);
-                    media.SetValue(Path.GetFileName(command.ConvertedFilePath), ms);
-                }
+                fileStream.CopyTo(memoryStream);
+                media.SetValue(contentTypeBaseServiceProvider, UmbracoAliases.Media.UmbracoFilePropertyAlias, media.Name, memoryStream);
             }
 
             System.IO.File.Delete(command.ConvertedFilePath);
-
             SaveVideoAdditionProperties(media);
-
             _mediaService.Save(media);
-
             _videoConverterLogService.Log(true, "Converted successfully", command.MediaId);
 
             return BroadcastResult.Success;
         }
 
+        private BroadcastResult OnCreateFail(
+            VideoConvertedCommand command,
+            IMedia media
+            )
+        {
+            _videoConverterLogService.Log(false, command.Message.ToJson(), command.MediaId);
+            media.SetValue(ThumbnailUrlPropertyAlias, _videoHelper.CreateConvertingFailureThumbnail());
+            _mediaService.Save(media);
+
+            return BroadcastResult.Failure;
+        }
+
         private void SaveVideoAdditionProperties(IMedia media)
         {
             var thumbnailUrl = _videoHelper.CreateThumbnail(media);
-            media.SetValue(UmbracoAliases.Video.ThumbnailUrlPropertyAlias, thumbnailUrl);
+            media.SetValue(ThumbnailUrlPropertyAlias, thumbnailUrl);
 
-            var videoSizeMetadata = _videoHelper.GetSizeMetadata(media);
-            media.SetValue(UmbracoAliases.Video.VideoHeightPropertyAlias, videoSizeMetadata.Height);
-            media.SetValue(UmbracoAliases.Video.VideoWidthPropertyAlias, videoSizeMetadata.Width);
+            var metadata = _videoHelper.GetSizeMetadata(media);
+
+            media.SetValue(VideoHeightPropertyAlias, metadata.Height);
+            media.SetValue(VideoWidthPropertyAlias, metadata.Width);
         }
     }
 }
