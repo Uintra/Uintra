@@ -26,5 +26,7 @@ namespace Uintra20.Features.Events.Models
         public LightboxPreviewModel LightboxPreviewModel { get; set; }
         public IEnumerable<UserTag> Tags { get; set; } = Enumerable.Empty<UserTag>();
         public IEnumerable<UserTag> AvailableTags { get; set; } = Enumerable.Empty<UserTag>();
+        public bool IsSubscribed { get; set; }
+        public bool IsNotificationsDisabled { get; set; }
     }
 }

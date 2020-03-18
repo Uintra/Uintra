@@ -113,6 +113,12 @@ namespace Uintra20.Features.Events.Converters
             details.AvailableTags = _userTagProvider.GetAll();
             details.LightboxPreviewModel = _lightboxHelper.GetGalleryPreviewModel(@event.MediaIds, PresetStrategies.ForActivityDetails);
 
+            var currentUserId = _memberService.GetCurrentMemberId();
+            var subscribe = @event.Subscribers.FirstOrDefault(x => x.UserId == currentUserId);
+
+            details.IsSubscribed = subscribe != null;
+            details.IsNotificationsDisabled = subscribe?.IsNotificationDisabled ?? false;
+
             return details;
         }
     }
