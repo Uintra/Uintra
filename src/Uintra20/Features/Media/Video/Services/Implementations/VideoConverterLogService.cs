@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
 using UBaseline.Core.Extensions;
+using Uintra20.Features.Media.Video.Entities;
+using Uintra20.Features.Media.Video.Services.Contracts;
 using Uintra20.Persistence.Sql;
 
-namespace Uintra20.Features.Media
+namespace Uintra20.Features.Media.Video.Services.Implementations
 {
     public class VideoConverterLogService : IVideoConverterLogService
     {

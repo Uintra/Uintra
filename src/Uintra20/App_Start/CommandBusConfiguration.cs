@@ -7,6 +7,7 @@ using Uintra20.Features.Likes.CommandBus;
 using Uintra20.Features.Likes.CommandBus.Commands;
 using Uintra20.Features.Media;
 using Uintra20.Features.Media.Helpers;
+using Uintra20.Features.Media.Video.Commands;
 using Uintra20.Features.News;
 using Uintra20.Features.Social;
 using Uintra20.Features.Social.Entities;

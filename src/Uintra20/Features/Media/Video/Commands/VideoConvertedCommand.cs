@@ -1,6 +1,7 @@
 ﻿using Compent.CommandBus;
+using Uintra20.Features.Media.Video.Models;
 
-namespace Uintra20.Features.Media
+namespace Uintra20.Features.Media.Video.Commands
 {
     public class VideoConvertedCommand : ICommand
     {

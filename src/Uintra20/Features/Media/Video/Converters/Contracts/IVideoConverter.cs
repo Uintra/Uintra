@@ -1,6 +1,6 @@
 ﻿using Umbraco.Core.Models;
 
-namespace Uintra20.Features.Media
+namespace Uintra20.Features.Media.Video.Converters.Contracts
 {
     public interface IVideoConverter
     {

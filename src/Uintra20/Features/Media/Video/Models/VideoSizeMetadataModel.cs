@@ -1,4 +1,4 @@
-﻿namespace Uintra20.Features.Media
+﻿namespace Uintra20.Features.Media.Video.Models
 {
     public class VideoSizeMetadataModel
     {

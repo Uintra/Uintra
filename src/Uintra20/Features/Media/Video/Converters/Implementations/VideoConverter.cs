@@ -6,12 +6,15 @@ using Compent.CommandBus;
 using Compent.MediaToolkit;
 using Compent.MediaToolkit.Model;
 using Compent.MediaToolkit.Options;
+using Uintra20.Features.Media.Video.Commands;
+using Uintra20.Features.Media.Video.Converters.Contracts;
+using Uintra20.Features.Media.Video.Models;
 using Uintra20.Infrastructure.ApplicationSettings;
 using Uintra20.Infrastructure.Constants;
 using Umbraco.Core.Models;
 using File = System.IO.File;
 
-namespace Uintra20.Features.Media
+namespace Uintra20.Features.Media.Video.Converters.Implementations
 {
     public class VideoConverter : IVideoConverter
     {

@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Uintra20.Features.Media
+namespace Uintra20.Features.Media.Video.Services.Contracts
 {
     public interface IVideoConverterLogService
     {

@@ -7,11 +7,13 @@ using Compent.MediaToolkit;
 using Compent.MediaToolkit.Model;
 using Compent.MediaToolkit.Options;
 using Uintra20.Features.Media.Extensions;
+using Uintra20.Features.Media.Video.Helpers.Contracts;
+using Uintra20.Features.Media.Video.Models;
 using Uintra20.Infrastructure.ApplicationSettings;
 using Uintra20.Infrastructure.Constants;
 using Umbraco.Core.Models;
 
-namespace Uintra20.Features.Media
+namespace Uintra20.Features.Media.Video.Helpers.Implementations
 {
     public class VideoHelper : IVideoHelper
     {

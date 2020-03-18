@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Uintra20.Persistence;
 using Uintra20.Persistence.Sql;
 
-namespace Uintra20.Features.Media
+namespace Uintra20.Features.Media.Video.Entities
 {
     [UintraTable("VideoConvertationLog")]
     public class VideoConvertationLog : SqlEntity<Guid>

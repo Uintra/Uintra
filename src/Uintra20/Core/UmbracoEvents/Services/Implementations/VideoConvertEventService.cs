@@ -5,6 +5,8 @@ using System.Reflection;
 using Uintra20.Core.Controls.FileUpload;
 using Uintra20.Core.UmbracoEvents.Services.Contracts;
 using Uintra20.Features.Media;
+using Uintra20.Features.Media.Video.Converters.Contracts;
+using Uintra20.Features.Media.Video.Helpers.Contracts;
 using Uintra20.Infrastructure.Constants;
 using Umbraco.Core.Events;
 using Umbraco.Core.Models;

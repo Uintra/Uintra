@@ -1,6 +1,7 @@
-﻿using Umbraco.Core.Models;
+﻿using Uintra20.Features.Media.Video.Models;
+using Umbraco.Core.Models;
 
-namespace Uintra20.Features.Media
+namespace Uintra20.Features.Media.Video.Helpers.Contracts
 {
     public interface IVideoHelper
     {
