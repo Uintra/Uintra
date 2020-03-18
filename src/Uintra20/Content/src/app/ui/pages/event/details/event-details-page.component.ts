@@ -12,6 +12,7 @@ import {
 import { ICommentData } from "src/app/feature/reusable/ui-elements/comments/comments.component";
 import { ImageGalleryService } from "src/app/feature/reusable/ui-elements/image-gallery/image-gallery.service";
 import { ILikeData } from "src/app/feature/reusable/ui-elements/like-button/like-button.interface";
+import { EventSubscriptionService } from "../../../../feature/specific/activity/event-subscription/event-subscription.service";
 
 @Component({
   selector: "event-details-page",
@@ -31,12 +32,16 @@ export class EventDetailsPage implements OnInit {
   commentDetails: ICommentData;
   detailsDescription: SafeHtml;
   detailsTitle: SafeHtml;
+  fullEventTime: Array<string>;
+  subscribers: any[] = [];
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private imageGalleryService: ImageGalleryService,
     private sanitizer: DomSanitizer,
     private addButtonService: AddButtonService,
-    private router: Router
+    private router: Router,
+    private eventSubscription: EventSubscriptionService,
   ) {
     this.activatedRoute.data.subscribe(data => {
       if (!data.requiresRedirect.get()) {
@@ -57,7 +62,10 @@ export class EventDetailsPage implements OnInit {
 
   public ngOnInit(): void {
     this.parsedData = ParseHelper.parseUbaselineData(this.data);
-    console.log(this.parsedData);
+    this.eventSubscription.getListOfUsers(this.parsedData.details.id).subscribe((res: any[]) => {
+      this.subscribers = res;
+    })
+
     this.details = this.parsedData.details;
     this.commentDetails = {
       entityId: this.parsedData.details.id,
@@ -73,6 +81,9 @@ export class EventDetailsPage implements OnInit {
     );
     this.documents = Object.values(
       this.parsedData.details.lightboxPreviewModel.otherFiles
+    );
+    this.fullEventTime = Object.values(
+      this.parsedData.details.fullEventTime
     );
 
     this.detailsDescription = this.sanitizer.bypassSecurityTrustHtml(
@@ -93,11 +104,18 @@ export class EventDetailsPage implements OnInit {
     this.imageGalleryService.open(items, i);
   }
 
-  toggleNotification(val) {
-
+  toggleNotification(val: boolean) {
+    this.eventSubscription.toggleNotification(this.parsedData.details.id, val).subscribe(res => {
+      console.log(res);
+    })
   }
 
   toggleSubscription() {
-
+    (this.parsedData.details.isSubscribed
+      ? this.eventSubscription.unsubscribe(this.parsedData.details.id)
+      : this.eventSubscription.subscribe(this.parsedData.details.id))
+    .subscribe(res => {
+      console.log(res);
+    });
   }
 }

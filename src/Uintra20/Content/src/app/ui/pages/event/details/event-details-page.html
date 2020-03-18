@@ -50,8 +50,8 @@
               </div>
               <div class="event-details__text">
                 <div class="event-details__date">
-                  <div class="event-details__day">
-                    {{ parsedData.details.fullEventTime }}
+                  <div *ngFor="let day of fullEventTime; index as i" class="event-details__day">
+                    {{ day }}
                   </div>
                 </div>
 
@@ -70,8 +70,8 @@
               <div class="event-details__subscribe">
                 <app-event-subscription
                   details
-                  [isChecked]=""
-                  [isSubscribed]=""
+                  [isChecked]="parsedData.details.isNotificationsDisabled"
+                  [isSubscribed]="parsedData.details.isSubscribed"
                   [subscribeNotes]="parsedData.details.subscribeNotes"
                   (checkboxChange)="toggleNotification($event)"
                   (subscribeToggle)="toggleSubscription()"
