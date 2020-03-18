@@ -1,9 +1,8 @@
-﻿using System;
+﻿using Compent.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Compent.CommandBus;
-using Compent.Extensions;
 using Uintra20.Core.Activity;
 using Uintra20.Core.Feed.Models;
 using Uintra20.Core.Feed.Services;
@@ -16,12 +15,10 @@ using Uintra20.Features.Groups.Services;
 using Uintra20.Features.Likes.Services;
 using Uintra20.Features.LinkPreview;
 using Uintra20.Features.Location.Services;
-using Uintra20.Features.Media;
 using Uintra20.Features.Media.Enums;
 using Uintra20.Features.Media.Helpers;
 using Uintra20.Features.Media.Intranet.Services.Contracts;
 using Uintra20.Features.Media.Models;
-using Uintra20.Features.Media.Video.Commands;
 using Uintra20.Features.Notification;
 using Uintra20.Features.Notification.Entities.Base;
 using Uintra20.Features.Notification.Services;
@@ -36,9 +33,8 @@ namespace Uintra20.Features.Social
     public class SocialService<T> : SocialServiceBase<T>,
         ISocialService<T>,
         IFeedItemService,
-        INotifyableService,
+        INotifyableService
         //IIndexer,
-        IHandle<VideoConvertedCommand> 
         where T : Entities.Social
     {
         private readonly ICommentsService _commentsService;
@@ -232,18 +228,5 @@ namespace Uintra20.Features.Social
         //    searchableActivity.UserTagNames = _userTagService.Get(social.Id).Select(t => t.Text);
         //    return searchableActivity;
         //}
-
-        public BroadcastResult Handle(VideoConvertedCommand command)
-        {
-            var entityId = _intranetMediaService.GetEntityIdByMediaId(command.MediaId);
-            var entity = Get(entityId);
-            if (entity == null)
-            {
-                return BroadcastResult.Success;
-            }
-
-            entity.ModifyDate = DateTime.UtcNow;
-            return BroadcastResult.Success;
-        }
     }
 }

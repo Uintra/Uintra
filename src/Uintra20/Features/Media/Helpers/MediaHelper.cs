@@ -1,13 +1,11 @@
-﻿using System;
+﻿using Compent.Extensions;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using Compent.CommandBus;
-using Compent.Extensions;
-using UBaseline.Core.Extensions;
 using UBaseline.Core.Media;
 using Uintra20.Core.Controls.FileUpload;
 using Uintra20.Core.Member.Entities;
@@ -17,10 +15,8 @@ using Uintra20.Features.Media.Contracts;
 using Uintra20.Features.Media.Enums;
 using Uintra20.Features.Media.Images.Helpers.Contracts;
 using Uintra20.Features.Media.Models;
-using Uintra20.Features.Media.Video.Commands;
 using Uintra20.Features.Media.Video.Converters.Contracts;
 using Uintra20.Features.Media.Video.Helpers.Contracts;
-using Uintra20.Features.Media.Video.Services.Contracts;
 using Uintra20.Infrastructure.Caching;
 using Uintra20.Infrastructure.Constants;
 using Uintra20.Infrastructure.Extensions;
@@ -34,9 +30,8 @@ using FolderModel = Uintra20.Core.UbaselineModels.FolderModel;
 
 namespace Uintra20.Features.Media.Helpers
 {
-    public class MediaHelper :
-        IMediaHelper,
-        IHandle<VideoConvertedCommand>
+    public class MediaHelper : IMediaHelper
+
     {
         private readonly ICacheService _cacheService;
         private readonly IMediaModelService _mediaModelService;
@@ -46,7 +41,6 @@ namespace Uintra20.Features.Media.Helpers
         private readonly IImageHelper _imageHelper;
         private readonly IVideoHelper _videoHelper;
         private readonly IVideoConverter _videoConverter;
-        private readonly IVideoConverterLogService _videoConverterLogService;
 
         public MediaHelper(ICacheService cacheService,
             IIntranetMemberService<IntranetMember> intranetMemberService,
@@ -55,8 +49,7 @@ namespace Uintra20.Features.Media.Helpers
             IMediaFolderTypeProvider mediaFolderTypeProvider,
             IImageHelper imageHelper,
             IVideoHelper videoHelper,
-            IVideoConverter videoConverter,
-            IVideoConverterLogService videoConverterLogService)
+            IVideoConverter videoConverter)
         {
             _cacheService = cacheService;
             _intranetMemberService = intranetMemberService;
@@ -66,7 +59,6 @@ namespace Uintra20.Features.Media.Helpers
             _imageHelper = imageHelper;
             _videoHelper = videoHelper;
             _videoConverter = videoConverter;
-            _videoConverterLogService = videoConverterLogService;
         }
         public IEnumerable<int> CreateMedia(
             IContentWithMediaCreateEditModel model,
@@ -353,41 +345,6 @@ namespace Uintra20.Features.Media.Helpers
             _mediaService.Save(mediaFolder);
 
             return _mediaModelService.Get<FolderModel>(mediaFolder.Id);
-        }
-
-        public BroadcastResult Handle(VideoConvertedCommand command)
-        {
-            var media = _mediaService.GetById(command.MediaId);
-            media.SetValue(UmbracoAliases.Video.ConvertInProcessPropertyAlias, false);
-
-            if (!command.Success)
-            {
-                _videoConverterLogService.Log(false, command.Message.ToJson(), command.MediaId);
-
-                media.SetValue(UmbracoAliases.Video.ThumbnailUrlPropertyAlias, _videoHelper.CreateConvertingFailureThumbnail());
-                _mediaService.Save(media);
-
-                return BroadcastResult.Failure;
-            }
-
-            using (var fs = new FileStream(command.ConvertedFilePath, FileMode.Open, FileAccess.Read))
-            {
-                using (var ms = new MemoryStream())
-                {
-                    fs.CopyTo(ms);
-                    media.SetValue(Path.GetFileName(command.ConvertedFilePath), ms);
-                }
-            }
-
-            System.IO.File.Delete(command.ConvertedFilePath);
-
-            SaveVideoAdditionProperties(media);
-
-            _mediaService.Save(media);
-
-            _videoConverterLogService.Log(true, "Converted succesfully", command.MediaId);
-
-            return BroadcastResult.Success;
         }
     }
 }

@@ -1,9 +1,8 @@
-﻿using System;
+﻿using Compent.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Compent.CommandBus;
-using Compent.Extensions;
 using Uintra20.Core.Activity;
 using Uintra20.Core.Activity.Entities;
 using Uintra20.Core.Feed.Models;
@@ -17,12 +16,10 @@ using Uintra20.Features.Groups.Services;
 using Uintra20.Features.Likes.Services;
 using Uintra20.Features.LinkPreview;
 using Uintra20.Features.Location.Services;
-using Uintra20.Features.Media;
 using Uintra20.Features.Media.Enums;
 using Uintra20.Features.Media.Helpers;
 using Uintra20.Features.Media.Intranet.Services.Contracts;
 using Uintra20.Features.Media.Models;
-using Uintra20.Features.Media.Video.Commands;
 using Uintra20.Features.Notification;
 using Uintra20.Features.Notification.Entities.Base;
 using Uintra20.Features.Notification.Services;
@@ -37,9 +34,8 @@ namespace Uintra20.Features.News
     public class NewsService : NewsServiceBase<Entities.News>,
         INewsService<Entities.News>,
         IFeedItemService,
-        INotifyableService,
-        //IIndexer,
-        IHandle<VideoConvertedCommand>
+        INotifyableService
+        //IIndexer
     {
         private readonly ICommentsService _commentsService;
         private readonly ILikesService _likesService;
@@ -258,18 +254,5 @@ namespace Uintra20.Features.News
         //    searchableActivity.UserTagNames = _userTagService.Get(news.Id).Select(t => t.Text);
         //    return searchableActivity;
         //}
-
-        public BroadcastResult Handle(VideoConvertedCommand command)
-        {
-            var entityId = _intranetMediaService.GetEntityIdByMediaId(command.MediaId);
-            var entity = Get(entityId);
-            if (entity == null)
-            {
-                return BroadcastResult.Success;
-            }
-
-            entity.ModifyDate = DateTime.UtcNow;
-            return BroadcastResult.Success;
-        }
     }
 }

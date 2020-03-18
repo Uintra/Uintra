@@ -1004,6 +1004,7 @@
     <Compile Include="Features\Links\IErrorLinksService.cs" />
     <Compile Include="Features\Media\Extensions\MediaExtensions.cs" />
     <Compile Include="Features\Media\Strategies\Preset\MemberProfilePresetStrategy.cs" />
+    <Compile Include="Features\Media\Video\Handlers\VideoHandler.cs" />
     <Compile Include="Features\Media\Video\Models\VideoConvertedCommandMessageModel.cs" />
     <Compile Include="Features\Navigation\ApplicationSettings\INavigationApplicationSettings.cs" />
     <Compile Include="Features\Navigation\ApplicationSettings\NavigationApplicationSettings.cs" />
@@ -1057,6 +1058,7 @@
     <Compile Include="Features\News\Converters\UintraNewsEditPageViewModelConverter.cs" />
     <Compile Include="Features\Groups\Models\UintraMyGroupsPageModel.cs" />
     <Compile Include="Features\Groups\Models\UintraMyGroupsPageViewModel.cs" />
+    <Compile Include="Features\News\Handlers\NewsHandler.cs" />
     <Compile Include="Features\News\Models\NewsCreateDataViewModel.cs" />
     <Compile Include="Features\News\Models\UintraNewsCreatePageModel.cs" />
     <Compile Include="Features\News\Models\UintraNewsCreatePageViewModel.cs" />
@@ -1080,6 +1082,7 @@
     <Compile Include="Features\Permissions\Models\PermissionViewModel.cs" />
     <Compile Include="Features\Social\Converters\SocialCreatePageViewModelConverter.cs" />
     <Compile Include="Features\Social\Converters\SocialDetailsPageViewModelConverter.cs" />
+    <Compile Include="Features\Social\Handlers\SocialHandler.cs" />
     <Compile Include="Features\Social\Models\SocialCreateDataViewModel.cs" />
     <Compile Include="Features\Social\Models\SocialCreatePageModel.cs" />
     <Compile Include="Features\Social\Models\SocialCreatePageViewModel.cs" />
