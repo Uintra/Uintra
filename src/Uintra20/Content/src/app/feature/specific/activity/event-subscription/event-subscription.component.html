@@ -18,7 +18,7 @@
   <button class="event-subscription__btn" (click)="onSubscribeToggle()">
     {{(isSubscribed ? 'subscribeView.Unsubscribe.lnk' : 'subscribeView.Subscribe.lnk') | translate}}
   </button>
-  <checkbox-input [(ngModel)]="isChecked" (ngModelChange)='onCheckboxChange()'>
+  <checkbox-input *ngIf="isSubscribed" [(ngModel)]="isChecked" (ngModelChange)='onCheckboxChange()'>
     {{(isChecked ? 'subscribeView.NotificationIsDisabled.lbl' : 'subscribeView.NotificationIsEnabled.lbl') | translate}}
   </checkbox-input>
 </div>

@@ -33,7 +33,7 @@ export class EventDetailsPage implements OnInit {
   detailsDescription: SafeHtml;
   detailsTitle: SafeHtml;
   fullEventTime: Array<string>;
-  subscribers: any[] = [];
+  subscribers: string[] = [];
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -62,7 +62,7 @@ export class EventDetailsPage implements OnInit {
 
   public ngOnInit(): void {
     this.parsedData = ParseHelper.parseUbaselineData(this.data);
-    this.eventSubscription.getListOfUsers(this.parsedData.details.id).subscribe((res: any[]) => {
+    this.eventSubscription.getListOfUsers(this.parsedData.details.id).subscribe((res: string[]) => {
       this.subscribers = res;
     })
 
@@ -106,7 +106,7 @@ export class EventDetailsPage implements OnInit {
 
   toggleNotification(val: boolean) {
     this.eventSubscription.toggleNotification(this.parsedData.details.id, val).subscribe(res => {
-      console.log(res);
+      this.parsedData.details.isNotificationsDisabled = val;
     })
   }
 
@@ -114,8 +114,9 @@ export class EventDetailsPage implements OnInit {
     (this.parsedData.details.isSubscribed
       ? this.eventSubscription.unsubscribe(this.parsedData.details.id)
       : this.eventSubscription.subscribe(this.parsedData.details.id))
-    .subscribe(res => {
-      console.log(res);
+    .subscribe((res: string[]) => {
+      this.subscribers = res;
+      this.parsedData.details.isSubscribed = !this.parsedData.details.isSubscribed
     });
   }
 }

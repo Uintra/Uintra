@@ -124,7 +124,7 @@
             <div *ngIf="subscribers?.length" class="subscribed-users">
               <h3 class="subscribed-users__title">{{'subscribersOverView.Title.lbl' | translate}}</h3>
               <ul class="subscribed-users-list">
-                <li *ngFor="let user of subscribers" class="subscribed-users-list__item"></li>
+                <li *ngFor="let user of subscribers" class="subscribed-users-list__item">{{user}}</li>
               </ul>
             </div>
 
