@@ -16,7 +16,7 @@ namespace Uintra20.Features.Events.Models
         public DateTime EndDate { get; set; }
         public string EndDateString { get; set; }
         public DateTime PublishDate { get; set; }
-        public string FullEventTime { get; set; }
+        public IEnumerable<string> FullEventTime { get; set; }
         public int EventDate { get; set; }
         public string EventMonth { get; set; }
         public IEnumerable<string> Media { get; set; }

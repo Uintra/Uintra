@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web.Http;
 using UBaseline.Core.Controllers;
 using Uintra20.Core.Activity;
+using Uintra20.Core.Activity.Entities;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Services;
-using Uintra20.Features.Subscribe.Models;
 using Uintra20.Infrastructure.Extensions;
 
 namespace Uintra20.Features.Subscribe.Controllers
@@ -44,8 +45,7 @@ namespace Uintra20.Features.Subscribe.Controllers
         {
             var userId = _intranetMemberService.GetCurrentMemberId();
             var service = _activitiesServiceFactory.GetService<ISubscribableService>(activityId);
-            var subscribable = service.Subscribe(userId, activityId);
-            var subscribe = subscribable.Subscribers.Single(s => s.UserId == userId);
+            service.Subscribe(userId, activityId);
 
             return List(activityId);
         }
@@ -61,10 +61,23 @@ namespace Uintra20.Features.Subscribe.Controllers
         }
 
         [HttpPost]
-        public virtual void ChangeNotificationDisabled(SubscribeNotificationDisableUpdateModel model)
+        public virtual IHttpActionResult ChangeNotificationDisabled(Guid activityId, bool value)
         {
-            var service = _activitiesServiceFactory.GetService<ISubscribableService>(model.ActivityId);
-            service.UpdateNotification(model.Id, model.NewValue);
+            var service = _activitiesServiceFactory.GetService<IIntranetActivityService<IIntranetActivity>>(activityId);
+            var subscribeService = (ISubscribableService) service;
+            var currentUserId = _intranetMemberService.GetCurrentMemberId();
+
+            var activity = (ISubscribable)service.Get(activityId);
+            var subscribe = activity.Subscribers.FirstOrDefault(x => x.UserId == currentUserId);
+
+            if (subscribe == null)
+            {
+                return StatusCode(HttpStatusCode.Forbidden);
+            }
+
+            subscribeService.UpdateNotification(subscribe.Id, value);
+
+            return Ok();
         }
     }
 }

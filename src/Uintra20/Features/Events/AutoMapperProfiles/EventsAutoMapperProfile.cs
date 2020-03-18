@@ -237,23 +237,24 @@ namespace Uintra20.Features.Events.AutoMapperProfiles
                 .AfterMap((src, dst) =>
                 {
                     var startDate = src.StartDate.ToEventDetailsDateTimeFormat();
-                    string endDate;
 
                     if (src.StartDate.Date == src.EndDate.Date)
                     {
-                        endDate = src.EndDate.ToEventDetailsTimeFormat();
+                        var endDate = src.EndDate.ToEventDetailsTimeFormat();
+
+                        dst.FullEventTime = new[] {$"{startDate} - {endDate}"};
                     }
                     else
                     {
-                        endDate = src.EndDate.ToEventDetailsDateTimeFormat();
+                        var endDate = src.EndDate.ToEventDetailsDateTimeFormat();
+
+                        dst.FullEventTime = new[] { startDate, endDate };
                     }
 
                     dst.StartDateString = startDate;
                     dst.EndDateString = src.EndDate.ToEventDetailsDateTimeFormat();
                     dst.EventDate = src.StartDate.WithUserOffset().Day;
                     dst.EventMonth = src.StartDate.WithUserOffset().ToString("MMM");
-
-                    dst.FullEventTime = $"{startDate} - {endDate}";
                 }); ;
 
             //Mapper.CreateMap<EventBase, EventBackofficeViewModel>()
