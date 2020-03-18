@@ -893,7 +893,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\UintraApplicationComponent.cs" />
-    <Compile Include="App_Start\CommandBusConfiguration.cs" />
+    <Compile Include="Infrastructure\CommandBus\Configurations\CommandBusConfiguration.cs" />
     <Compile Include="Attributes\EmptyHtmlAttribute.cs" />
     <Compile Include="Controllers\EnumController.cs" />
     <Compile Include="Controllers\QaController.cs" />
@@ -1440,13 +1440,13 @@
     <Compile Include="Infrastructure\Helpers\INotifierDataHelper.cs" />
     <Compile Include="Infrastructure\Helpers\NotifierDataHelper.cs" />
     <Compile Include="Infrastructure\Ioc\CentralFeedInjectModule.cs" />
-    <Compile Include="Infrastructure\Ioc\CommandBusInjectModule.cs" />
+    <Compile Include="Infrastructure\CommandBus\InjectModules\CommandBusInjectModule.cs" />
     <Compile Include="Infrastructure\Ioc\MembersInjectModule.cs" />
     <Compile Include="Infrastructure\Ioc\LikesInjectModule.cs" />
     <Compile Include="Infrastructure\Ioc\LinksInjectModule.cs" />
     <Compile Include="Infrastructure\Ioc\CommentsInjectModule.cs" />
     <Compile Include="Infrastructure\Ioc\EntityFrameworkInjectModule.cs" />
-    <Compile Include="Infrastructure\Ioc\CommandBusDependencyResolver.cs" />
+    <Compile Include="Infrastructure\CommandBus\Resolvers\CommandBusDependencyResolver.cs" />
     <Compile Include="Features\Likes\CommandBus\Commands\AddLikeCommand.cs" />
     <Compile Include="Features\Likes\CommandBus\Commands\LikeCommand.cs" />
     <Compile Include="Features\Likes\CommandBus\Commands\RemoveLikeCommand.cs" />

@@ -10,7 +10,7 @@ using Uintra20.Features.Media.Video.Handlers;
 using Uintra20.Features.News.Handlers;
 using Uintra20.Features.Social.Handlers;
 
-namespace Uintra20
+namespace Uintra20.Infrastructure.CommandBus.Configurations
 {
     public class CommandBusConfiguration : CommandBindingProviderBase
     {

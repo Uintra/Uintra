@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
 
-namespace Uintra20.Infrastructure.Ioc
+namespace Uintra20.Infrastructure.CommandBus.Resolvers
 {
     public class CommandBusDependencyResolver : Compent.CommandBus.IDependencyResolver
     {
