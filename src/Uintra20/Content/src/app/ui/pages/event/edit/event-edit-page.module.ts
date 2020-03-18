@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 import { UbaselineCoreModule } from '@ubaseline/next';
 import { EventEditPage } from './event-edit-page.component';
 import { GroupDetailsWrapperModule } from 'src/app/feature/specific/groups/group-details-wrapper/group-details-wrapper.module';
-import { EventCreateModule } from 'src/app/feature/specific/activity/create/event-create/event-create.module';
+import { EventFormModule } from '../../../../feature/specific/activity/event-form/event-form.module';
 
 @NgModule({
   declarations: [EventEditPage],
@@ -14,7 +14,7 @@ import { EventCreateModule } from 'src/app/feature/specific/activity/create/even
     RouterModule.forChild([{path: "", component: EventEditPage}]),
     UbaselineCoreModule,
     GroupDetailsWrapperModule,
-    EventCreateModule,
+    EventFormModule,
   ],
   entryComponents: [EventEditPage]
 })

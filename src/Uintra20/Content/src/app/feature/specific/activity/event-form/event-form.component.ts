@@ -1,23 +1,23 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ISelectItem } from 'src/app/feature/reusable/inputs/select/select.component';
 import { ITagData } from 'src/app/feature/reusable/inputs/tag-multiselect/tag-multiselect.interface';
-import { IEventsInitialDates, IEventCreateModel, IPublishDatepickerOptions } from './event-create.interface';
-import { PinActivityService } from '../../pin-activity/pin-activity.service';
+import { PinActivityService } from '../pin-activity/pin-activity.service';
 import { HasDataChangedService } from 'src/app/shared/services/general/has-data-changed.service';
 import { TranslateService } from '@ngx-translate/core';
-import { EventFormService } from './event-create.service';
-import { RTEStripHTMLService } from '../../rich-text-editor/helpers/rte-strip-html.service';
-import { IDatepickerData } from '../../datepicker-from-to/datepiker-from-to.interface';
+import { EventFormService } from './event-form.service';
+import { RTEStripHTMLService } from '../rich-text-editor/helpers/rte-strip-html.service';
+import { IDatepickerData } from '../datepicker-from-to/datepiker-from-to.interface';
 import { ILocationResult } from 'src/app/feature/reusable/ui-elements/location-picker/location-picker.interface';
-import { IPinedData } from '../../pin-activity/pin-activity.component';
+import { IPinedData } from '../pin-activity/pin-activity.component';
 import * as moment from "moment";
+import { IEventCreateModel, IEventsInitialDates, IPublishDatepickerOptions } from './event-form.interface';
 
 @Component({
-  selector: 'app-event-create',
-  templateUrl: './event-create.component.html',
-  styleUrls: ['./event-create.component.less']
+  selector: 'app-event-form',
+  templateUrl: './event-form.component.html',
+  styleUrls: ['./event-form.component.less']
 })
-export class EventCreateComponent implements OnInit {
+export class EventFormComponent implements OnInit {
   @Input() data: any;
   @Input('edit') edit: any;
   @Output() submit = new EventEmitter();

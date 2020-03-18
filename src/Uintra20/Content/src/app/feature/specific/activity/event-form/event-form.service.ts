@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ITagData } from 'src/app/feature/reusable/inputs/tag-multiselect/tag-multiselect.interface';
 import { ISelectItem } from 'src/app/feature/reusable/inputs/select/select.component';
-import { IOwner } from '../../activity.interfaces';
-import { IEventCreateModel } from './event-create.interface';
+import { IOwner } from '../activity.interfaces';
+import { IEventCreateModel } from './event-form.interface';
 
 @Injectable({
   providedIn: 'root'
