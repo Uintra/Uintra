@@ -1895,7 +1895,6 @@
     <Folder Include="Core\Member\Events\" />
     <Folder Include="Features\Navigation\ModelBuilders\" />
     <Folder Include="Features\Notification\Commands\" />
-    <Folder Include="Infrastructure\Authentication\" />
     <Folder Include="Media\" />
   </ItemGroup>
   <ItemGroup>
