@@ -100,7 +100,7 @@
   <div class="form-row">
     <app-event-subscription
       [isChecked]="eventsData.canSubscribe"
-      [inputValue]="eventsData.subscribeNotes"
+      [subscribeNotes]="eventsData.subscribeNotes"
       (checkboxChange)="onSubscriptionCheckboxChange($event)"
       (inputChange)="onSubscriptionNoteChange($event)">
     </app-event-subscription>

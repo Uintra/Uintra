@@ -12,6 +12,7 @@ import { GroupDetailsWrapperModule } from 'src/app/feature/specific/groups/group
 import { AttachmentsModule } from 'src/app/feature/specific/activity/details/attachments/attachments.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { EventDetailsPage } from './event-details-page.component';
+import { EventSubscriptionModule } from "../../../../feature/specific/activity/event-subscription/event-subscription.module";
 
 @NgModule({
   declarations: [EventDetailsPage],
@@ -27,6 +28,7 @@ import { EventDetailsPage } from './event-details-page.component';
     GroupDetailsWrapperModule,
     AttachmentsModule,
     TranslateModule,
+    EventSubscriptionModule,
   ],
   providers: [],
   entryComponents: [EventDetailsPage]

@@ -92,4 +92,12 @@ export class EventDetailsPage implements OnInit {
 
     this.imageGalleryService.open(items, i);
   }
+
+  toggleNotification(val) {
+
+  }
+
+  toggleSubscription() {
+
+  }
 }
