@@ -6,6 +6,7 @@ using Uintra20.Core.Member.Services;
 using Uintra20.Features.LinkPreview;
 using Uintra20.Features.Location.Services;
 using Uintra20.Features.Media;
+using Uintra20.Features.Media.Intranet.Services.Contracts;
 using Uintra20.Features.Permissions.Interfaces;
 using Uintra20.Infrastructure.Caching;
 using Uintra20.Infrastructure.Extensions;

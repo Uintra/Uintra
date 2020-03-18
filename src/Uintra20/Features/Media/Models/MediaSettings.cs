@@ -1,4 +1,4 @@
-﻿namespace Uintra20.Features.Media
+﻿namespace Uintra20.Features.Media.Models
 {
     public class MediaSettings
     {

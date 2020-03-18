@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Uintra20.Features.Media.Intranet.Services.Contracts;
 using Uintra20.Features.Media.Sql;
 using Uintra20.Persistence.Sql;
 
-namespace Uintra20.Features.Media
+namespace Uintra20.Features.Media.Intranet.Services.Implementations
 {
     public class IntranetMediaService : IIntranetMediaService
     {
@@ -33,7 +34,7 @@ namespace Uintra20.Features.Media
         {
             var entity = _sqlRepository.Find(e => e.EntityId == entityId);
             return !string.IsNullOrEmpty(entity?.MediaIds)
-                ? entity.MediaIds.Split(',').Select(id => Convert.ToInt32(id))
+                ? entity.MediaIds.Split(',').Select(id => Convert.ToInt32((string) id))
                 : Enumerable.Empty<int>();
         }
 

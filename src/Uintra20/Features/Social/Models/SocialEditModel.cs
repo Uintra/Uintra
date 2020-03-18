@@ -4,6 +4,7 @@ using Uintra20.Attributes;
 using Uintra20.Core.Activity.Models;
 using Uintra20.Features.LinkPreview.Models;
 using Uintra20.Features.Media;
+using Uintra20.Features.Media.Contracts;
 
 namespace Uintra20.Features.Social.Models
 {

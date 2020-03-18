@@ -7,6 +7,7 @@ using Uintra20.Core.UbaselineModels.RestrictedNode;
 using Uintra20.Core.User;
 using Uintra20.Features.Links;
 using Uintra20.Features.Media;
+using Uintra20.Features.Media.Enums;
 using Uintra20.Features.Media.Helpers;
 using Uintra20.Features.Media.Image.Helpers.Contracts;
 using Uintra20.Features.Media.Strategies.Preset;

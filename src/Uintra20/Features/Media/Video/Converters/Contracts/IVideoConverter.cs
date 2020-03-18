@@ -1,4 +1,5 @@
-﻿using Umbraco.Core.Models;
+﻿using Uintra20.Features.Media.Models;
+using Umbraco.Core.Models;
 
 namespace Uintra20.Features.Media.Video.Converters.Contracts
 {

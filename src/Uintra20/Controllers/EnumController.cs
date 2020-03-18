@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using Uintra20.Features.Media;
+using Uintra20.Features.Media.Enums;
 using Uintra20.Infrastructure.Extensions;
 
 namespace Uintra20.Controllers

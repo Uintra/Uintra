@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Uintra20.Features.Media
+namespace Uintra20.Features.Media.Intranet.Services.Contracts
 {
     public interface IIntranetMediaService
     {

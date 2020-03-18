@@ -6,6 +6,7 @@ using Compent.CommandBus;
 using Compent.MediaToolkit;
 using Compent.MediaToolkit.Model;
 using Compent.MediaToolkit.Options;
+using Uintra20.Features.Media.Models;
 using Uintra20.Features.Media.Video.Commands;
 using Uintra20.Features.Media.Video.Converters.Contracts;
 using Uintra20.Features.Media.Video.Models;

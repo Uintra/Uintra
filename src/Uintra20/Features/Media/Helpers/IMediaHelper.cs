@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using Uintra20.Core.Controls.FileUpload;
+using Uintra20.Features.Media.Contracts;
+using Uintra20.Features.Media.Enums;
+using Uintra20.Features.Media.Models;
 using Umbraco.Core.Models;
 
 namespace Uintra20.Features.Media.Helpers

@@ -9,6 +9,7 @@ using Uintra20.Core.Member.Services;
 using Uintra20.Features.Groups.Models;
 using Uintra20.Features.Groups.Sql;
 using Uintra20.Features.Media;
+using Uintra20.Features.Media.Enums;
 using Uintra20.Features.Media.Helpers;
 using Uintra20.Infrastructure.Extensions;
 using Uintra20.Persistence.Sql;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Uintra20.Features.Media;
+using Uintra20.Features.Media.Contracts;
 using Umbraco.Core.Models;
 
 namespace Uintra20.Features.Groups.Services
