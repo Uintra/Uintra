@@ -47,14 +47,14 @@ export class EventEditPage {
   }
 
   onCancel() {
-    this.router.navigate([this.parsedData.data.links.feed.originalUrl]);
+    this.router.navigate([this.parsedData.links.details.originalUrl]);
   }
 
   onHide() {
     if (confirm(this.translate.instant('common.AreYouSure'))) {
       const isNotificationNeeded = confirm(this.translate.instant('common.NotifyAllSubscribers'));
       this.activityService.hideEvent(this.parsedData.details.id, isNotificationNeeded).subscribe(res => {
-        console.log(res);
+        this.router.navigate([res.originalUrl]);
       })
     }
   }
