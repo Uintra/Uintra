@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
-using Uintra20.Features.Media.Image.Helpers.Contracts;
+using Uintra20.Features.Media.Images.Helpers.Contracts;
 
-namespace Uintra20.Features.Media.Image.Helpers.Implementations
+namespace Uintra20.Features.Media.Images.Helpers.Implementations
 {
     public class ImageHelper : IImageHelper
     {
@@ -39,7 +40,7 @@ namespace Uintra20.Features.Media.Image.Helpers.Implementations
         private void FixOrientation(Image img, bool removeExifOrientationTag = true)
         {
             var orientationTagId = 0x0112;
-            if (img.PropertyIdList.Contains(orientationTagId))
+            if (((IList) img.PropertyIdList).Contains(orientationTagId))
             {
                 var propertyItem = img.GetPropertyItem(orientationTagId);
                 var flipType = GetRotateFlipTypeByExifOrientationData(propertyItem.Value[0]);

@@ -15,7 +15,7 @@ using Uintra20.Core.Member.Services;
 using Uintra20.Features.Media.Constants;
 using Uintra20.Features.Media.Contracts;
 using Uintra20.Features.Media.Enums;
-using Uintra20.Features.Media.Image.Helpers.Contracts;
+using Uintra20.Features.Media.Images.Helpers.Contracts;
 using Uintra20.Features.Media.Models;
 using Uintra20.Features.Media.Video.Commands;
 using Uintra20.Features.Media.Video.Converters.Contracts;

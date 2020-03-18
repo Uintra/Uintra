@@ -1482,9 +1482,9 @@
     <Compile Include="Features\Location\Sql\ActivityLocationEntity.cs" />
     <Compile Include="Features\Media\Constants\FolderConstants.cs" />
     <Compile Include="Features\Media\Contracts\IContentWithMediaCreateEditModel.cs" />
-    <Compile Include="Features\Media\Image\Helpers\Contracts\IImageHelper.cs" />
+    <Compile Include="Features\Media\Images\Helpers\Contracts\IImageHelper.cs" />
     <Compile Include="Features\Media\Intranet\Services\Contracts\IIntranetMediaService.cs" />
-    <Compile Include="Features\Media\Image\Helpers\Implementations\ImageHelper.cs" />
+    <Compile Include="Features\Media\Images\Helpers\Implementations\ImageHelper.cs" />
     <Compile Include="Features\Media\Helpers\IMediaHelper.cs" />
     <Compile Include="Features\Media\Intranet\Services\Implementations\IntranetMediaService.cs" />
     <Compile Include="Features\Media\Video\Converters\Contracts\IVideoConverter.cs" />

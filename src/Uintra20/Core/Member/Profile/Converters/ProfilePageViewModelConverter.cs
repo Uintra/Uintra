@@ -9,7 +9,7 @@ using Uintra20.Features.Links;
 using Uintra20.Features.Media;
 using Uintra20.Features.Media.Enums;
 using Uintra20.Features.Media.Helpers;
-using Uintra20.Features.Media.Image.Helpers.Contracts;
+using Uintra20.Features.Media.Images.Helpers.Contracts;
 using Uintra20.Features.Media.Strategies.Preset;
 using Uintra20.Features.Tagging.UserTags.Services;
 using Uintra20.Infrastructure.Extensions;
