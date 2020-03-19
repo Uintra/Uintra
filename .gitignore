@@ -73,4 +73,13 @@ src/Compent.uIntra/Web.config
 **/Content/workspace/
 **/UBaseline/*
 **/wwwroot/**
-**/media/*
+src/Uintra20/uSync/v8/Media/
+src/Compent.uIntra/umbraco/Views/dashboard/media/
+src/Compent.uIntra/umbraco/Views/media/
+src/Uintra20/umbraco/Views/media/
+src/Uintra20/umbraco/lib/tinymce/plugins/media/
+src/Uintra20/Media/
+src/Compent.uIntra/umbraco/lib/tinymce/plugins/media/
+src/Compent.uIntra/umbraco/Views/components/media/
+src/Uintra20/umbraco/Views/components/media/
+src/Uintra20/umbraco/Views/dashboard/media/

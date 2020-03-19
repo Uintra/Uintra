@@ -5,6 +5,8 @@ using Uintra20.Features.Groups.Models;
 using Uintra20.Features.Groups.Services;
 using Uintra20.Features.Links;
 using Uintra20.Features.Media;
+using Uintra20.Features.Media.Enums;
+using Uintra20.Features.Media.Helpers;
 
 namespace Uintra20.Features.Groups.Converters
 {

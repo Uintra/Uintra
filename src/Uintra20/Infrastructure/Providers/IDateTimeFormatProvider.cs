@@ -4,6 +4,7 @@
     {
         string TimeFormat { get; set; }
         string EventDetailsDateFormat { get; set; }
+        string EventDetailsDateTimeFormat { get; set; }
         string EventDetailsTimeFormat { get; set; }
         string EventDetailsTimeWithoutMinutesFormat { get; set; }
         string DateFormat { get; set; }

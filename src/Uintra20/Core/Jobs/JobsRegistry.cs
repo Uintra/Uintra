@@ -12,14 +12,14 @@ using Umbraco.Core.Composing;
 
 namespace Uintra20.Core.Jobs
 {
-	public class JobsRegistry : Registry
+    public class JobsRegistry : Registry
 	{
 		private readonly IJobSettingsConfiguration _jobSettingsConfiguration;
 
 		public JobsRegistry()
 		{
 			_jobSettingsConfiguration = DependencyResolver.Current.GetService<IJobSettingsConfiguration>();
-			SetupJobs();
+            SetupJobs();
 		}
 
 		public void SetupJobs()

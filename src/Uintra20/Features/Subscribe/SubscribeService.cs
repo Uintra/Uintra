@@ -88,10 +88,5 @@ namespace Uintra20.Features.Subscribe
         {
             entity.Subscribers = Get(entity.Id);
         }
-
-		Sql.Subscribe ISubscribeService.UpdateNotification(Guid subscribeId, bool newValue)
-		{
-			throw new NotImplementedException();
-		}
 	}
 }

@@ -41,6 +41,6 @@
 
     controller.$inject = ["$scope", "utmConfigurationService"];
 
-    angular.module("umbraco").controller("utmConfigurationController", controller);
+    angular.module("umbraco").controller("utmConfigurationPanelController", controller);
 
 })(angular);

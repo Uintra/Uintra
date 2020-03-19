@@ -9,14 +9,21 @@ export interface DeactivationGuarded {
 
 @Injectable()
 export class CanDeactivateGuard implements CanDeactivate<DeactivationGuarded> {
-  constructor(private hasDataChangedService: HasDataChangedService) {}
+  constructor(private hasDataChangedService: HasDataChangedService) { }
 
-  canDeactivate(component: DeactivationGuarded):  Observable<boolean> | Promise<boolean> | boolean {
-    return component.canDeactivate ? component.canDeactivate() : true;
+  canDeactivate(component: DeactivationGuarded): Observable<boolean> | Promise<boolean> | boolean {
+
+    if (component) {
+      return component.canDeactivate
+        ? component.canDeactivate()
+        : true;
+    }
+
+    return true;
   }
 
   canDeacrivateConfirm() {
-    if(confirm('Are you sure? Changes you made may not be saved.')) {
+    if (confirm('Are you sure? Changes you made may not be saved.')) {
       this.hasDataChangedService.reset();
       return true;
     }

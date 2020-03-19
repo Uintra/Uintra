@@ -52,5 +52,13 @@
   },
   "SocialSettings": {
     "DefaultImagePath": "/wwwroot/assets/img/social-logo.png"
+  },
+  "SimpleLoginPageSettings": {
+    "Url": "/simple-login/",
+    "SuccessRedirectUrl": "/",
+    "ViewPath": "~/Views/SimpleLoginPage.cshtml",
+    "Login": "demo",
+    "Password": "demo",
+    "IsEnabled": false
   }
 }

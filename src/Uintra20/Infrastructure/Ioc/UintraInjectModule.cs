@@ -1,14 +1,25 @@
-﻿using System.Configuration;
-using Compent.Shared.DependencyInjection.Contract;
+﻿using Compent.Shared.DependencyInjection.Contract;
 using Localization.Core;
 using Localization.Core.Configuration;
 using Localization.Storage.UDictionary;
+using System.Configuration;
 using UBaseline.Core.RequestContext;
 using Uintra20.Core.Authentication;
 using Uintra20.Core.Controls.LightboxGallery;
 using Uintra20.Core.Localization;
 using Uintra20.Features.Information;
-using Uintra20.Features.Media;
+using Uintra20.Features.Media.Enums;
+using Uintra20.Features.Media.Helpers;
+using Uintra20.Features.Media.Images.Helpers.Contracts;
+using Uintra20.Features.Media.Images.Helpers.Implementations;
+using Uintra20.Features.Media.Intranet.Services.Contracts;
+using Uintra20.Features.Media.Intranet.Services.Implementations;
+using Uintra20.Features.Media.Video.Converters.Contracts;
+using Uintra20.Features.Media.Video.Converters.Implementations;
+using Uintra20.Features.Media.Video.Helpers.Contracts;
+using Uintra20.Features.Media.Video.Helpers.Implementations;
+using Uintra20.Features.Media.Video.Services.Contracts;
+using Uintra20.Features.Media.Video.Services.Implementations;
 using Uintra20.Features.Permissions;
 using Uintra20.Features.Permissions.Implementation;
 using Uintra20.Features.Permissions.Interfaces;
@@ -33,6 +44,12 @@ namespace Uintra20.Infrastructure.Ioc
 
 			//services
 			services.AddSingleton<IInformationService,InformationService>();
+            services.AddSingleton<IDocumentTypeAliasProvider, DocumentTypeProvider>();
+            services.AddSingleton<IIntranetMemberGroupService, IntranetMemberGroupService>();
+            services.AddSingleton<IPermissionSettingsSchemaProvider, PermissionSettingsSchemaProvider>();
+            services.AddSingleton<IContentPageContentProvider, ContentPageContentProvider>();
+            services.AddSingleton(i =>
+                (ILocalizationConfigurationSection) ConfigurationManager.GetSection("localizationConfiguration"));
 
             services.AddScoped<ICacheService, MemoryCacheService>();
             services.AddScoped<IEmbeddedResourceService, EmbeddedResourceService>();
@@ -40,21 +57,15 @@ namespace Uintra20.Infrastructure.Ioc
             services.AddScoped<IMediaHelper, MediaHelper>();
             services.AddScoped<IMediaFolderTypeProvider>(provider => new MediaFolderTypeProvider(typeof(MediaFolderTypeEnum)));
             services.AddScoped<IImageHelper, ImageHelper>();
-            services.AddScoped<IVideoHelper, VideoHelper>();
             services.AddScoped<IVideoConverter, VideoConverter>();
-            services.AddScoped<IVideoConverterLogService, VideoConverterLogService>();
             services.AddScoped<IIntranetMediaService, IntranetMediaService>();
-            services.AddSingleton<IDocumentTypeAliasProvider, DocumentTypeProvider>();
             services.AddScoped<IIntranetMemberGroupProvider, IntranetMemberGroupProvider>();
-            services.AddSingleton<IIntranetMemberGroupService, IntranetMemberGroupService>();
-            services.AddSingleton<IPermissionSettingsSchemaProvider, PermissionSettingsSchemaProvider>();
             services.AddScoped<IPermissionsService, PermissionsService>();
             services.AddScoped<IPermissionActionTypeProvider>(provider => new PermissionActionTypeProvider(typeof(PermissionActionEnum)));
             services.AddScoped<IPermissionResourceTypeProvider>(provider => new PermissionActivityTypeProvider(typeof(PermissionResourceTypeEnum)));
             services.AddScoped<IDateTimeFormatProvider, DateTimeFormatProvider>();
             services.AddScoped<IClientTimezoneProvider, ClientTimezoneProvider>();
             services.AddScoped<ICookieProvider, CookieProvider>();
-            
             services.AddScoped<ISubscribeService, SubscribeService>();
             services.AddScoped<IAuthenticationService, AuthenticationService>();
             services.AddScoped<IIntranetLocalizationService, LocalizationService>();
@@ -64,15 +75,11 @@ namespace Uintra20.Infrastructure.Ioc
             services.AddScoped<ILocalizationCacheService,LocalizationCacheService>();
             services.AddScoped<ILocalizationSettingsService, LocalizationSettingsService>();
             services.AddScoped<ILocalizationResourceCacheService, LocalizationResourceCacheService>();
-
-			services.AddSingleton(i =>
-	            (ILocalizationConfigurationSection) ConfigurationManager.GetSection("localizationConfiguration"));
-
 			services.AddScoped<ILightboxHelper, LightboxHelper>();
-
-            services.AddSingleton<IContentPageContentProvider, ContentPageContentProvider>();
-            
             services.AddScoped<IUBaselineRequestContext, IntranetRequestContext>();
+
+            services.AddTransient<IVideoHelper, VideoHelper>();
+            services.AddTransient<IVideoConverterLogService, VideoConverterLogService>();
 
             return services;
 		}

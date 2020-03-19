@@ -68,10 +68,10 @@ namespace Uintra20.Features.News.AutoMapperPrfiles
                 .ForMember(dst => dst.Owner, o => o.Ignore())
                 .ForMember(dst => dst.MediaPreview, o => o.Ignore())
                 .ForMember(dst => dst.LikedByCurrentUser, o => o.Ignore())
-                .ForMember(dst => dst.Dates, o => o.Ignore())
                 .ForMember(dst => dst.IsPinActual, o => o.Ignore())
                 .ForMember(dst => dst.GroupInfo, o => o.Ignore())
                 .ForMember(dst => dst.IsGroupMember, o => o.Ignore())
+                .ForMember(dst => dst.CurrentMemberSubscribed, o => o.Ignore())
                 .ForMember(dst => dst.ActivityType, o => o.MapFrom(src => src.Type))
                 .ForMember(dst => dst.Dates, o => o.MapFrom(src => src.PublishDate.ToDateFormat().ToEnumerable()));
 

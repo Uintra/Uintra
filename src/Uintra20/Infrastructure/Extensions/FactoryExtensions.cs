@@ -47,7 +47,7 @@ namespace Uintra20.Infrastructure.Extensions
 
         public static async Task EnsureScopeAsync(this IFactory factory, Func<IServiceContainer, Task> func)
         {
-            HttpContext.Current = HttpContext.Current ?? new HttpContext(new HttpRequest("", "http://localhost/", ""), new HttpResponse(null));
+            HttpContext.Current = HttpContext.Current ?? new HttpContext(new HttpRequest(string.Empty, "http://localhost/", string.Empty), new HttpResponse(null));
 
             var serviceContainer = factory.Concrete as IServiceContainer;
             var scopeManager = serviceContainer.ScopeManagerProvider.GetScopeManager(serviceContainer);

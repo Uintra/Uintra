@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Web.Mvc;
 using Uintra20.Core.Activity;
 using Uintra20.Core.Activity.Entities;
 using Uintra20.Core.Activity.Models;
@@ -14,6 +15,7 @@ using Uintra20.Features.Likes.Services;
 using Uintra20.Features.Links;
 using Uintra20.Features.News.Entities;
 using Uintra20.Features.Social.Entities;
+using Uintra20.Features.Subscribe;
 using Uintra20.Infrastructure.Extensions;
 using Umbraco.Core.Logging;
 
@@ -64,7 +66,7 @@ namespace Uintra20.Core.Feed.Services
                 case Social social:
                     return ApplySocialSpecific(social, baseModel);
                 case Event @event:
-                    return null;
+                    return ApplySocialSpecific(@event, baseModel);
             }
 
             return baseModel;
@@ -109,6 +111,19 @@ namespace Uintra20.Core.Feed.Services
             previewModel.IsGroupMember = !social.GroupId.HasValue || currentMember.GroupIds.Contains(social.GroupId.Value);
             previewModel.IsPinActual = social.IsPinActual;
             previewModel.CanEdit = _intranetActivityServices.First(s => Equals(s.Type, IntranetActivityTypeEnum.Social)).CanEdit(social);
+
+            return previewModel;
+        }
+
+        private IntranetActivityPreviewModelBase ApplySocialSpecific(Event @event, IntranetActivityPreviewModelBase previewModel)
+        {
+            var currentMember = _intranetMemberService.GetCurrentMember();
+            previewModel.Owner = _intranetMemberService.Get(@event).ToViewModel();
+            previewModel.LikedByCurrentUser = @event.Likes.Any(x => x.UserId == currentMember.Id);
+            previewModel.IsGroupMember = !@event.GroupId.HasValue || currentMember.GroupIds.Contains(@event.GroupId.Value);
+            previewModel.IsPinActual = @event.IsPinActual;
+            previewModel.CanEdit = _intranetActivityServices.First(s => Equals(s.Type, IntranetActivityTypeEnum.Events)).CanEdit(@event);
+            previewModel.CurrentMemberSubscribed = @event.Subscribers.Any(x => x.UserId == currentMember.Id);
 
             return previewModel;
         }

@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using UBaseline.Shared.Media;
 using Uintra20.Core.Controls.FileUpload;
 using Uintra20.Features.Media;
+using Uintra20.Features.Media.Contracts;
+using Uintra20.Features.Media.Enums;
+using Uintra20.Features.Media.Helpers;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 
@@ -39,8 +41,7 @@ namespace Uintra20.Features.Groups.Services
             groupFolder.Name = newTitle;
             _mediaService.Save(groupFolder);
         }
-
-        public IMediaModel CreateGroupMedia(string name, byte[] file, Guid groupId)
+        public IMedia CreateGroupMedia(string name, byte[] file, Guid groupId)
         {
             var groupFolder = GetOrCreateGroupMediaFolder(groupId);
 
@@ -53,7 +54,7 @@ namespace Uintra20.Features.Groups.Services
             return media;
         }
 
-        public async Task<IMediaModel> CreateGroupMediaAsync(string name, byte[] file, Guid groupId)
+        public async Task<IMedia> CreateGroupMediaAsync(string name, byte[] file, Guid groupId)
         {
             var groupFolder = await GetOrCreateGroupMediaFolderAsync(groupId);
 
@@ -65,6 +66,32 @@ namespace Uintra20.Features.Groups.Services
             var media = _mediaHelper.CreateMedia(fileModel, groupFolder.Id);
             return media;
         }
+
+        //public IMediaModel CreateGroupMedia(string name, byte[] file, Guid groupId)
+        //{
+        //    var groupFolder = GetOrCreateGroupMediaFolder(groupId);
+
+        //    var fileModel = new TempFile
+        //    {
+        //        FileBytes = file,
+        //        FileName = name
+        //    };
+        //    var media = _mediaHelper.CreateMedia(fileModel, groupFolder.Id);
+        //    return media;
+        //}
+
+        //public async Task<IMediaModel> CreateGroupMediaAsync(string name, byte[] file, Guid groupId)
+        //{
+        //    var groupFolder = await GetOrCreateGroupMediaFolderAsync(groupId);
+
+        //    var fileModel = new TempFile
+        //    {
+        //        FileBytes = file,
+        //        FileName = name
+        //    };
+        //    var media = _mediaHelper.CreateMedia(fileModel, groupFolder.Id);
+        //    return media;
+        //}
 
         public IEnumerable<int> CreateGroupMedia(IContentWithMediaCreateEditModel model, Guid groupId, Guid creatorId)
         {

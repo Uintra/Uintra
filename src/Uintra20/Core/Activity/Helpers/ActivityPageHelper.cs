@@ -2,6 +2,7 @@
 using System.Linq;
 using UBaseline.Core.Node;
 using UBaseline.Core.RequestContext;
+using Uintra20.Features.Events.Models;
 using Uintra20.Features.Links.Models;
 using Uintra20.Features.News.Models;
 using Uintra20.Features.Social.Models;
@@ -47,9 +48,13 @@ namespace Uintra20.Core.Activity.Helpers
                 }
                 case IntranetActivityTypeEnum.Events:
                 {
-                    detailsPageUrl = null;
+                    var detailsPage = _nodeModelService.AsEnumerable()
+                        .OfType<EventDetailsPageModel>()
+                        .Single();
+
+                    detailsPageUrl = detailsPage.Url.ToLinkModel();
                     break;
-                }
+                    }
                 case IntranetActivityTypeEnum.Social:
                 {
                     var detailsPage = _nodeModelService.AsEnumerable()
@@ -85,9 +90,13 @@ namespace Uintra20.Core.Activity.Helpers
                     return createPage.Url.ToLinkModel();
                 }
                 case IntranetActivityTypeEnum.Events:
-                    {
-                        return null;
-                    }
+                {
+                    var createPage = _nodeModelService.AsEnumerable()
+                        .OfType<EventCreatePageModel>()
+                        .Single();
+
+                    return createPage.Url.ToLinkModel();
+                }
                 default:
                     return null;
             }
@@ -111,7 +120,11 @@ namespace Uintra20.Core.Activity.Helpers
                 }
                 case IntranetActivityTypeEnum.Events:
                 {
-                    editPageUrl = null;
+                    var editPage = _nodeModelService.AsEnumerable()
+                        .OfType<EventEditPageModel>()
+                        .Single();
+
+                    editPageUrl = editPage.Url.ToLinkModel();
                     break;
                 }
                 case IntranetActivityTypeEnum.Social:

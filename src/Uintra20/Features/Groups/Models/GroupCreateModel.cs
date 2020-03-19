@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 using Uintra20.Features.Media;
+using Uintra20.Features.Media.Contracts;
 
 namespace Uintra20.Features.Groups.Models
 {

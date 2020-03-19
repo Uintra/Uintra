@@ -5,7 +5,8 @@
         var vm = this;
 
         var utmConfigurationModel = {
-            utmSource: '',
+            isEnabled: false,
+            utmSource: $scope.model.config.utmSource,
             parameters: []
         };
 
@@ -42,6 +43,6 @@
 
     controller.$inject = ["$scope", "utmConfigurationService"];
 
-    angular.module("umbraco").controller("utmConfigurationController", controller);
+    angular.module("umbraco").controller("utmConfigurationPageController", controller);
 
 })(angular);

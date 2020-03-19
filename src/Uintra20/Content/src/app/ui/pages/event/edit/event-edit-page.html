@@ -1,0 +1,25 @@
+<ng-container *ngIf="parsedData">
+  <app-group-details-wrapper *ngIf="parsedData?.groupHeader" [data]="parsedData.groupHeader">
+    <div class="group-details-padding">
+      <div class="page-wrapper col-md-8">
+        <app-event-form
+          edit
+          [data]="parsedData.details"
+          (submit)="onSubmit($event)"
+          (cancel)="onCancel()"
+          (hide)="onHide()">
+        </app-event-form>
+      </div>
+    </div>
+  </app-group-details-wrapper>
+
+  <div class="page-wrapper col-md-8" *ngIf="!parsedData?.groupHeader">
+    <app-event-form
+      edit
+      [data]="parsedData.details"
+      (submit)="onSubmit($event)"
+      (cancel)="onCancel()"
+      (hide)="onHide()">
+    </app-event-form>
+  </div>
+</ng-container>
