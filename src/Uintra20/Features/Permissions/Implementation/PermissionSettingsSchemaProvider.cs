@@ -22,28 +22,30 @@ namespace Uintra20.Features.Permissions.Implementation
         {
             Of(PermissionResourceTypeEnum.Social,
                 Tree(View,
-                    Tree(Create),
-                    Tree(Edit,
-                        Tree(Delete)),
+                    Tree(Create,
+                        Tree(Edit,
+                            Tree(Delete))),
                     Tree(EditOther,
                         Tree(DeleteOther))
-                    )),
+                )),
             Of(PermissionResourceTypeEnum.Events,
                 Tree(View,
-                    Tree(Create, Tree(CanPin)),
-                    Tree(Edit,
-                        Tree(Hide)),
+                    Tree(Create,
+                        Tree(Edit,
+                            Tree(Hide))),
                     Tree(EditOther,
                         Tree(HideOther),
-                        Tree(EditOwner))
-                    )),
+                        Tree(EditOwner)),
+                    Tree(CanPin)
+                )),
             Of(PermissionResourceTypeEnum.News,
                 Tree(View,
-                    Tree(Create, Tree(CanPin)),
-                    Tree(Edit),
+                    Tree(Create, 
+                        Tree(Edit)),
                     Tree(EditOther,
-                        Tree(EditOwner))
-                    )),
+                        Tree(EditOwner)),
+                    Tree(CanPin)
+                )),
             Of(PermissionResourceTypeEnum.Groups,
                 Tree(Create),
                 Tree(EditOther,
@@ -55,7 +57,8 @@ namespace Uintra20.Features.Permissions.Implementation
 
         public virtual PermissionSettingSchema[] Settings { get; }
 
-        public virtual ILookup<PermissionSettingIdentity, PermissionSettingIdentity> SettingsByParentSettingIdentityLookup { get; }
+        public virtual ILookup<PermissionSettingIdentity, PermissionSettingIdentity>
+            SettingsByParentSettingIdentityLookup { get; }
 
         public PermissionSettingsSchemaProvider()
         {
@@ -70,7 +73,7 @@ namespace Uintra20.Features.Permissions.Implementation
         }
 
         public virtual PermissionSettingValues GetDefault(PermissionSettingIdentity settingIdentity) =>
-            SettingsOverrides.ItemOrDefault(settingIdentity) 
+            SettingsOverrides.ItemOrDefault(settingIdentity)
             ?? new PermissionSettingValues(GlobalIsAllowedDefault, GlobalIsEnabledDefault);
     }
 }
