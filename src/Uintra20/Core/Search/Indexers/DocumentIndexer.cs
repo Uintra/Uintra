@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Compent.Extensions;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web.Hosting;
-using Compent.Extensions;
 using Uintra20.Core.Search.Entities;
+using Uintra20.Core.Search.Indexers.Diagnostics;
+using Uintra20.Core.Search.Indexers.Diagnostics.Models;
 using Uintra20.Core.Search.Indexes;
 using Uintra20.Features.Media;
 using Uintra20.Features.Search.Configuration;
@@ -27,13 +29,15 @@ namespace Uintra20.Core.Search.Indexers
         private readonly IMediaHelper _mediaHelper;
         private readonly IExceptionLogger _exceptionLogger;
         private readonly IMediaService _mediaService;
+        private readonly IIndexerDiagnosticService _indexerDiagnosticService;
 
         public DocumentIndexer(IElasticDocumentIndex documentIndex,
             UmbracoHelper umbracoHelper,
             ISearchApplicationSettings settings,
             IMediaHelper mediaHelper,
             IExceptionLogger exceptionLogger,
-            IMediaService mediaService)
+            IMediaService mediaService, 
+            IIndexerDiagnosticService indexerDiagnosticService)
         {
             _documentIndex = documentIndex;
             _umbracoHelper = umbracoHelper;
@@ -41,12 +45,23 @@ namespace Uintra20.Core.Search.Indexers
             _mediaHelper = mediaHelper;
             _exceptionLogger = exceptionLogger;
             _mediaService = mediaService;
+            _indexerDiagnosticService = indexerDiagnosticService;
         }
 
-        public void FillIndex()
+        public IndexedModelResult FillIndex()
         {
-            var documentsToIndex = GetDocumentsForIndexing();
-            Index(documentsToIndex);
+            try
+            {
+                var documentsToIndex = GetDocumentsForIndexing().ToList();
+                Index(documentsToIndex);
+
+                return _indexerDiagnosticService.GetSuccessResult(typeof(DocumentIndexer).Name, documentsToIndex);
+
+            }
+            catch (Exception e)
+            {
+                return _indexerDiagnosticService.GetFailedResult(e.Message + e.StackTrace, typeof(DocumentIndexer).Name);
+            }
         }
 
         private IEnumerable<int> GetDocumentsForIndexing()

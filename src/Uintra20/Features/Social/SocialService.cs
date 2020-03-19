@@ -12,6 +12,8 @@ using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Services;
 using Uintra20.Core.Search.Entities;
 using Uintra20.Core.Search.Indexers;
+using Uintra20.Core.Search.Indexers.Diagnostics;
+using Uintra20.Core.Search.Indexers.Diagnostics.Models;
 using Uintra20.Core.Search.Indexes;
 using Uintra20.Features.CentralFeed.Enums;
 using Uintra20.Features.Comments.Services;
@@ -26,6 +28,7 @@ using Uintra20.Features.Notification.Entities.Base;
 using Uintra20.Features.Notification.Services;
 using Uintra20.Features.Permissions;
 using Uintra20.Features.Permissions.Interfaces;
+using Uintra20.Features.Search.Web;
 using Uintra20.Features.Tagging.UserTags.Services;
 using Uintra20.Infrastructure.Caching;
 using Uintra20.Infrastructure.Extensions;
@@ -55,6 +58,7 @@ namespace Uintra20.Features.Social
         private readonly INotifierDataBuilder _notifierDataBuilder;
         private readonly IUserTagService _userTagService;
         private readonly IActivityLinkService _activityLinkService;
+        private readonly IIndexerDiagnosticService _indexerDiagnosticService;
 
         public SocialService(
             IIntranetActivityRepository intranetActivityRepository,
@@ -75,8 +79,7 @@ namespace Uintra20.Features.Social
             IGroupService groupService,
             INotifierDataBuilder notifierDataBuilder,
             IUserTagService userTagService,
-            IActivityLinkService activityLinkService
-            )
+            IActivityLinkService activityLinkService, IIndexerDiagnosticService indexerDiagnosticService)
             : base(intranetActivityRepository, cacheService, activityTypeProvider, intranetMediaService,
                 activityLocationService, activityLinkPreviewService, intranetMemberService, permissionsService)
         {
@@ -93,6 +96,7 @@ namespace Uintra20.Features.Social
             _notifierDataBuilder = notifierDataBuilder;
             _userTagService = userTagService;
             _activityLinkService = activityLinkService;
+            _indexerDiagnosticService = indexerDiagnosticService;
         }
 
         public override Enum Type => IntranetActivityTypeEnum.Social;
@@ -202,12 +206,21 @@ namespace Uintra20.Features.Social
             await _notificationService.ProcessNotificationAsync(notifierData);
         }
 
-        public void FillIndex()
+        public IndexedModelResult FillIndex()
         {
-            var activities = GetAll().Where(IsCacheable);
-            var searchableActivities = activities.Select(Map);
-            _activityIndex.DeleteByType(UintraSearchableTypeEnum.Socials);
-            _activityIndex.Index(searchableActivities);
+            try
+            {
+                var activities = GetAll().Where(IsCacheable);
+                var searchableActivities = activities.Select(Map).ToList();
+                _activityIndex.DeleteByType(UintraSearchableTypeEnum.Socials);
+                _activityIndex.Index(searchableActivities);
+
+                return _indexerDiagnosticService.GetSuccessResult(typeof(SocialService<T>).Name, searchableActivities);
+            }
+            catch (Exception e)
+            {
+                return _indexerDiagnosticService.GetFailedResult(e.Message + e.StackTrace, typeof(SocialService<T>).Name);
+            }
         }
 
         private void FillLinkPreview(Entities.Social social)

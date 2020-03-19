@@ -8,6 +8,7 @@ using Uintra20.Core.Search.Entities.Mappers;
 using Uintra20.Core.Search.Entities.Mappings;
 using Uintra20.Core.Search.Helpers;
 using Uintra20.Core.Search.Indexers;
+using Uintra20.Core.Search.Indexers.Diagnostics;
 using Uintra20.Core.Search.Indexes;
 using Uintra20.Core.Search.Paging;
 using Uintra20.Core.Search.Providers;
@@ -74,6 +75,7 @@ namespace Uintra20.Core.Search.IoC
             services.AddScoped<ISearchScoreProvider, SearchScoreProvider>();
             services.AddSingleton<ISearchableTypeProvider>(d => new SearchableTypeProvider(typeof(UintraSearchableTypeEnum)));
             services.AddScoped<ISearchUmbracoHelper, SearchUmbracoHelper>();
+            services.AddScoped<IIndexerDiagnosticService, IndexerDiagnosticService>();
             
             services.AddScoped<ISearchContentPanelConverterProvider, SearchContentPanelConverterProvider>();
             RegisterHelper.ConnectImplementationsToTypesClosing(services, typeof(ISearchDocumentPanelConverter<>), assembly.ToEnumerable(), false);

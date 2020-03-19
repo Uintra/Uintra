@@ -943,6 +943,9 @@
     <Compile Include="Core\Search\Helpers\ISearchUmbracoHelper.cs" />
     <Compile Include="Core\Search\Helpers\SearchUmbracoHelper.cs" />
     <Compile Include="Core\Search\Indexers\ContentIndexer.cs" />
+    <Compile Include="Core\Search\Indexers\Diagnostics\IIndexerDiagnosticService.cs" />
+    <Compile Include="Core\Search\Indexers\Diagnostics\IndexerDiagnosticService.cs" />
+    <Compile Include="Core\Search\Indexers\Diagnostics\Models\IndexedModelResult.cs" />
     <Compile Include="Core\Search\Indexers\DocumentIndexer.cs" />
     <Compile Include="Core\Search\Indexers\IContentIndexer.cs" />
     <Compile Include="Core\Search\Indexers\IDocumentIndexer.cs" />
@@ -1998,6 +2001,7 @@
   <ItemGroup>
     <Folder Include="Content\" />
     <Folder Include="Core\Feed\Web\" />
+    <Folder Include="Core\Search\Indexers\Diagnostics\Services\" />
     <Folder Include="Features\Navigation\ModelBuilders\" />
     <Folder Include="Features\Notification\Commands\" />
     <Folder Include="Infrastructure\Authentication\" />

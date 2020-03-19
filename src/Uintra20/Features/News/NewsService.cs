@@ -13,6 +13,8 @@ using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Services;
 using Uintra20.Core.Search.Entities;
 using Uintra20.Core.Search.Indexers;
+using Uintra20.Core.Search.Indexers.Diagnostics;
+using Uintra20.Core.Search.Indexers.Diagnostics.Models;
 using Uintra20.Core.Search.Indexes;
 using Uintra20.Features.CentralFeed.Enums;
 using Uintra20.Features.Comments.Services;
@@ -28,6 +30,7 @@ using Uintra20.Features.Notification.Services;
 using Uintra20.Features.Permissions;
 using Uintra20.Features.Permissions.Interfaces;
 using Uintra20.Features.Search;
+using Uintra20.Features.Search.Web;
 using Uintra20.Features.Tagging.UserTags.Services;
 using Uintra20.Infrastructure.Caching;
 using Uintra20.Infrastructure.Extensions;
@@ -56,6 +59,7 @@ namespace Uintra20.Features.News
         private readonly IActivityLinkService _activityLinkService;
         private readonly IActivityLocationService _activityLocationService;
         private readonly IGroupService _groupService;
+        private readonly IIndexerDiagnosticService _indexerDiagnosticService;
 
         public NewsService(IIntranetActivityRepository intranetActivityRepository,
             ICacheService cacheService,
@@ -75,7 +79,7 @@ namespace Uintra20.Features.News
             IGroupService groupService,
             INotifierDataBuilder notifierDataBuilder,
             IUserTagService userTagService,
-            IActivityLinkService activityLinkService)
+            IActivityLinkService activityLinkService, IIndexerDiagnosticService indexerDiagnosticService)
             : base(intranetActivityRepository, cacheService, intranetMemberService,
                 activityTypeProvider, intranetMediaService, activityLocationService, activityLinkPreviewService,
                 permissionsService)
@@ -92,6 +96,7 @@ namespace Uintra20.Features.News
             _notifierDataBuilder = notifierDataBuilder;
             _userTagService = userTagService;
             _activityLinkService = activityLinkService;
+            _indexerDiagnosticService = indexerDiagnosticService;
             _activityLocationService = activityLocationService;
         }
 
@@ -240,12 +245,21 @@ namespace Uintra20.Features.News
             await _notificationService.ProcessNotificationAsync(notifierData);
         }
 
-        public void FillIndex()
+        public IndexedModelResult FillIndex()
         {
-            var activities = GetAll().Where(IsInCache);
-            var searchableActivities = activities.Select(Map);
-            _activityIndex.DeleteByType(UintraSearchableTypeEnum.News);
-            _activityIndex.Index(searchableActivities);
+            try
+            {
+                var activities = GetAll().Where(IsInCache);
+                var searchableActivities = activities.Select(Map).ToList();
+                _activityIndex.DeleteByType(UintraSearchableTypeEnum.News);
+                _activityIndex.Index(searchableActivities);
+
+                return _indexerDiagnosticService.GetSuccessResult(typeof(NewsService).Name, searchableActivities);
+            }
+            catch (Exception e)
+            {
+                return _indexerDiagnosticService.GetFailedResult(e.Message + e.StackTrace, typeof(NewsService).Name);
+            }
         }
 
         private static bool IsInCache(Entities.News news)
