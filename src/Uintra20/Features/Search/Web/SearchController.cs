@@ -181,7 +181,6 @@ namespace Uintra20.Features.Search.Web
         [HttpPost]
         public RebuildIndexStatusModel RebuildIndex()
         {
-
             var success = _elasticIndex.RecreateIndex(out var error);
 
             if (success)

@@ -896,6 +896,8 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Plugins\Utils\Search\search-service.js" />
+    <Compile Include="App_Plugins\Utils\Search\SearchDashboard.cs" />
     <Compile Include="App_Start\UintraApplicationComponent.cs" />
     <Compile Include="App_Start\CommandBusConfiguration.cs" />
     <Compile Include="Attributes\EmptyHtmlAttribute.cs" />
@@ -1908,6 +1910,7 @@
     <Content Include="App_Plugins\AnchorField\package.manifest" />
     <Content Include="App_Plugins\UintraGroupMember\package.manifest" />
     <Content Include="Features\Reminder\Configuration\reminderConfiguration.json" />
+    <Content Include="App_Plugins\Utils\Search\package.manifest" />
     <None Include="config\umbracoSettings.config" />
     <None Include="packages.config" />
     <Content Include="Views\Web.config" />
@@ -1995,7 +1998,6 @@
   <ItemGroup>
     <Folder Include="Content\" />
     <Folder Include="Core\Feed\Web\" />
-    <Folder Include="Core\Search" />
     <Folder Include="Features\Navigation\ModelBuilders\" />
     <Folder Include="Features\Notification\Commands\" />
     <Folder Include="Infrastructure\Authentication\" />
@@ -2003,6 +2005,12 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Utils\Search\search.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Utils\Search\search-controller.js" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
