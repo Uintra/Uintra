@@ -18,7 +18,7 @@ namespace Uintra20.Core.HomePage
         private readonly INodeModelService _nodeModelService;
 
         public HomePageViewModelConverter(
-            IPermissionsService permissionsService, 
+            IPermissionsService permissionsService,
             IFeedLinkService feedLinkService,
             INodeModelService nodeModelService)
         {
@@ -35,19 +35,20 @@ namespace Uintra20.Core.HomePage
             {
                 groupId = parsedGroupId;
             }
-
-            //TODO: Uncomment when events create will be done
-            //viewModel.CreateEventsLink = _permissionsService.Check(PermissionResourceTypeEnum.Events, PermissionActionEnum.Create) ? 
-            //    _feedLinkService.GetCreateLinks(IntranetActivityTypeEnum.Events).Create
-            //    : null;
-            viewModel.CreateNewsLink = _permissionsService.Check(PermissionResourceTypeEnum.News, PermissionActionEnum.Create) ?
-                _feedLinkService.GetCreateLinks(IntranetActivityTypeEnum.News).Create
-                : null;
+            
+            viewModel.CreateEventsLink =
+                _permissionsService.Check(PermissionResourceTypeEnum.Events, PermissionActionEnum.Create)
+                    ? _feedLinkService.GetCreateLinks(IntranetActivityTypeEnum.Events).Create
+                    : null;
+            viewModel.CreateNewsLink =
+                _permissionsService.Check(PermissionResourceTypeEnum.News, PermissionActionEnum.Create)
+                    ? _feedLinkService.GetCreateLinks(IntranetActivityTypeEnum.News).Create
+                    : null;
 
             if (groupId.HasValue)
             {
                 viewModel.CreateNewsLink = viewModel.CreateNewsLink?.AddGroupId(groupId.Value);
-                //viewModel.CreateEventsLink = viewModel.CreateEventsLink?.AddGroupId(groupId);
+                viewModel.CreateEventsLink = viewModel.CreateEventsLink?.AddGroupId(groupId.Value);
             }
 
             var socialCreateModel = _nodeModelService.AsEnumerable().OfType<SocialCreatePageModel>().First();
