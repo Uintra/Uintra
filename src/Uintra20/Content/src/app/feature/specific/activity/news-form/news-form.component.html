@@ -48,6 +48,8 @@
   <div class="form-row">
     <app-datepicker-from-to
       [initialValues]="initialDates"
+      [fromLabel]="'newsCreate.PublishDate.lbl' | translate"
+      [toLabel]="'newsCreate.UnpublishDate.lbl' | translate"
       (handleChange)="setDatePickerValue($event)"
     ></app-datepicker-from-to>
   </div>

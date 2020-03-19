@@ -1,0 +1,24 @@
+<div *ngIf="!details" class="event-form-subscripiton">
+  <h3 class="event-form-subscripiton__title subtitle">{{'subscribeSettings.Title.lbl' | translate}}</h3>
+  <checkbox-input [(ngModel)]="isChecked" (ngModelChange)='onCheckboxChange()'>
+    {{'subscribeSettings.CanSubscribe.lbl' | translate}}
+  </checkbox-input>
+  <div *ngIf="isChecked" class="event-form-subscripiton__notes">
+    {{'subscribeSettings.SubscribeNotes.lbl' | translate}}
+    <textarea
+      (ngModelChange)="onChangeInput($event)"
+      [ngModel]="subscribeNotes"
+      class="event-form-subscripiton__textarea">
+    </textarea>
+  </div>
+</div>
+
+<div *ngIf="details" class="event-subscription">
+  <p *ngIf="subscribeNotes" class="event-subscription__notes">{{subscribeNotes}}</p>
+  <button class="event-subscription__btn" (click)="onSubscribeToggle()">
+    {{(isSubscribed ? 'subscribeView.Unsubscribe.lnk' : 'subscribeView.Subscribe.lnk') | translate}}
+  </button>
+  <checkbox-input *ngIf="isSubscribed" [(ngModel)]="isChecked" (ngModelChange)='onCheckboxChange()'>
+    {{(isChecked ? 'subscribeView.NotificationIsDisabled.lbl' : 'subscribeView.NotificationIsEnabled.lbl') | translate}}
+  </checkbox-input>
+</div>

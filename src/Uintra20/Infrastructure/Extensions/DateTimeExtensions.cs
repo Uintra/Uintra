@@ -33,6 +33,13 @@ namespace Uintra20.Infrastructure.Extensions
             date = date.WithUserOffset();
             return date.ToString(dateTimeFormatProvider.EventDetailsDateFormat);
         }
+        
+        public static string ToEventDetailsDateTimeFormat(this DateTime date)
+        {
+            var dateTimeFormatProvider = HttpContext.Current.GetService<IDateTimeFormatProvider>();
+            date = date.WithUserOffset();
+            return date.ToString(dateTimeFormatProvider.EventDetailsDateTimeFormat);
+        }
 
         public static string ToEventDetailsTimeFormat(this DateTime date)
         {

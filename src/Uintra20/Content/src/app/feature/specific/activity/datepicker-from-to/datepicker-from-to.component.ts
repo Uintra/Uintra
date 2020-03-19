@@ -18,6 +18,8 @@ import { IDatepickerData } from "./datepiker-from-to.interface";
 })
 export class DatepickerFromToComponent implements OnInit {
   @Input() initialValues: { from: string; to: string } = null;
+  @Input() fromLabel: string;
+  @Input() toLabel: string;
   @Output() handleChange = new EventEmitter();
 
   fromDate = null;

@@ -18,6 +18,7 @@ export class PinActivityComponent implements OnInit {
   @Input() isPinCheked: boolean;
   @Input() isAccepted: boolean;
   @Input() endPinDate: string;
+  @Input() noMaxDate: any;
   @Output() handleChange = new EventEmitter<IPinedData>();
 
   @Input() publishDate: string = null;
@@ -36,12 +37,13 @@ export class PinActivityComponent implements OnInit {
       this.options = {
         ...this.options,
         minDate: dates.from ? moment(dates.from).subtract(5, "minutes") : false,
-        maxDate: dates.to ? moment(dates.to).add(5, "minutes") : false
+        maxDate: dates.to && !this.noMaxDate ? moment(dates.to).add(5, "minutes") : false
       };
     });
   }
 
   ngOnInit() {
+    this.noMaxDate = this.noMaxDate !== undefined;
     this.pinedDateValue = {
       isPinCheked: this.isPinCheked,
       isAccepted: this.isAccepted,

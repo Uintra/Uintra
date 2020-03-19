@@ -133,6 +133,33 @@
             margin-right: 0;
         }
     }
+
+    &__subscribed {
+      display: flex;
+      justify-content: flex-end;
+      padding: 0 0 11px;
+
+      &-label {
+        .button-white;
+        font-size: 11px;
+        font-weight: 400;
+        min-height: auto;
+
+        &:hover {
+          cursor: default;
+          border-color: @alt-btn-border;
+          color: @body-text-color;
+        }
+      }
+
+      &-icon {
+        font-size: 1.6em;
+        line-height: 0;
+        position: relative;
+        top: 2px;
+        left: -2px;
+      }
+    }
 }
 
 .gallery {
