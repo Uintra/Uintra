@@ -1201,6 +1201,11 @@
     <Compile Include="Features\ContentPage\Services\ContentPageNotificationService.cs" />
     <Compile Include="Features\Notification\ViewModel\NotificationListViewModel.cs" />
     <Compile Include="Features\Tagging\UserTags\Models\UserTagBackofficeViewModel.cs" />
+    <Compile Include="Features\UserList\Models\MemberModel.cs" />
+    <Compile Include="Features\UserList\Models\MembersRowsViewModel.cs" />
+    <Compile Include="Features\UserList\Models\UserListPageModel.cs" />
+    <Compile Include="Features\UserList\Models\UserListPageViewModel.cs" />
+    <Compile Include="Features\UserList\Models\UserListViewModel.cs" />
     <Compile Include="Infrastructure\Context\IIntranetRequestContext.cs" />
     <Compile Include="Infrastructure\Context\IntranetRequestContext.cs" />
     <Compile Include="Infrastructure\Extensions\ArrayExtensions.cs" />
@@ -1995,9 +2000,10 @@
   <ItemGroup>
     <Folder Include="Content\" />
     <Folder Include="Core\Feed\Web\" />
-    <Folder Include="Core\Search" />
     <Folder Include="Features\Navigation\ModelBuilders\" />
     <Folder Include="Features\Notification\Commands\" />
+    <Folder Include="Features\UserList\Controllers\" />
+    <Folder Include="Features\UserList\Converters\" />
     <Folder Include="Infrastructure\Authentication\" />
     <Folder Include="Media\" />
   </ItemGroup>
