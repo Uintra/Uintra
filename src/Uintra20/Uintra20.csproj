@@ -899,6 +899,7 @@
     <Compile Include="App_Start\UintraApplicationComponent.cs" />
     <Compile Include="App_Start\CommandBusConfiguration.cs" />
     <Compile Include="Attributes\EmptyHtmlAttribute.cs" />
+    <Compile Include="Attributes\UIColumnAttribute.cs" />
     <Compile Include="Controllers\EnumController.cs" />
     <Compile Include="Controllers\QaController.cs" />
     <Compile Include="Core\AdminSection\Controllers\AdminController.cs" />
@@ -1201,8 +1202,14 @@
     <Compile Include="Features\ContentPage\Services\ContentPageNotificationService.cs" />
     <Compile Include="Features\Notification\ViewModel\NotificationListViewModel.cs" />
     <Compile Include="Features\Tagging\UserTags\Models\UserTagBackofficeViewModel.cs" />
+    <Compile Include="Features\UserList\Controllers\UserListController.cs" />
+    <Compile Include="Features\UserList\Converters\UserListPageViewModelConverter.cs" />
+    <Compile Include="Features\UserList\Helpers\UsersPresentationHelper.cs" />
+    <Compile Include="Features\UserList\Models\ActiveMemberSearchQuery.cs" />
+    <Compile Include="Features\UserList\Models\ColumnType.cs" />
     <Compile Include="Features\UserList\Models\MemberModel.cs" />
     <Compile Include="Features\UserList\Models\MembersRowsViewModel.cs" />
+    <Compile Include="Features\UserList\Models\ProfileColumnModel.cs" />
     <Compile Include="Features\UserList\Models\UserListPageModel.cs" />
     <Compile Include="Features\UserList\Models\UserListPageViewModel.cs" />
     <Compile Include="Features\UserList\Models\UserListViewModel.cs" />
@@ -2002,8 +2009,6 @@
     <Folder Include="Core\Feed\Web\" />
     <Folder Include="Features\Navigation\ModelBuilders\" />
     <Folder Include="Features\Notification\Commands\" />
-    <Folder Include="Features\UserList\Controllers\" />
-    <Folder Include="Features\UserList\Converters\" />
     <Folder Include="Infrastructure\Authentication\" />
     <Folder Include="Media\" />
   </ItemGroup>

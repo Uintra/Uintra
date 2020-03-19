@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using Uintra20.Attributes;
 using Uintra20.Core.Member.Models;
+using Uintra20.Features.Links.Models;
 
 namespace Uintra20.Features.UserList.Models
 {
@@ -19,7 +17,7 @@ namespace Uintra20.Features.UserList.Models
         public string Phone { get; set; }
         public string Department { get; set; }
         public MemberViewModel Member { get; set; }
-        public string ProfileUrl { get; set; }
+        public UintraLinkModel ProfileUrl { get; set; }
         public bool IsGroupAdmin { get; set; }
         public bool IsCreator { get; set; }
     }

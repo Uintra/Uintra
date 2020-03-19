@@ -8,5 +8,6 @@ namespace Uintra20.Features.UserList.Models
     {
         public PropertyViewModel<INodeViewModel[]> Panels { get; set; }
         public PageSettingsCompositionViewModel PageSettings { get; set; }
+        public UserListViewModel Details { get; set; }
     }
 }
