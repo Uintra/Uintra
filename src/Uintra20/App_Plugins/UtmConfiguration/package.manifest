@@ -16,6 +16,16 @@
       "editor": {
         "view": "~/App_Plugins/UtmConfiguration/page/utm-configuration-page.html",
         "valueType": "JSON"
+      },
+      "prevalues": {
+        "fields": [
+          {
+            "label": "Default source",
+            "description": "Default value for the utm_source parameter",
+            "key": "utmSource",
+            "view": "textstring"
+          }
+        ]
       }
     }
   ],
@@ -23,5 +33,8 @@
     "~/App_Plugins/UtmConfiguration/utm-configuration.service.js",
     "~/App_Plugins/UtmConfiguration/panel/utm-configuration-panel.controller.js",
     "~/App_Plugins/UtmConfiguration/page/utm-configuration-page.controller.js"
+  ],
+  "css": [
+    "~/App_Plugins/UtmConfiguration/page/utm-configuration-page.css"
   ]
 }

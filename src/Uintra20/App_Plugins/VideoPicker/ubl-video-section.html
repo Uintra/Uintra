@@ -1,30 +1,40 @@
 <div class="ubl-video-section__toolbar">
     <label class="ubl-video-section__toolbar-label">
-        Video type: 
+        Video title:
+    </label>
+
+    <div>
+        <input type="text" ng-model="model.title" />
+    </div>
+</div>
+
+<div class="ubl-video-section__toolbar">
+    <label class="ubl-video-section__toolbar-label">
+        Video type:
         <strong ng-if="vm.videoRequired || model.type === 2" class="umb-control-required">*</strong>
     </label>
 
     <div>
         <select class="ubl-video-section__toolbar-select" ng-if="vm.videoTypes" ng-model="model.type"
-            ng-options="vType.value as vm.getVideoTypeName(vType.text) for vType in vm.videoTypes | orderBy:'sortOrder'"
-            ng-required="vm.videoRequired" ng-change="vm.changeVideoType()">
+                ng-options="vType.value as vm.getVideoTypeName(vType.text) for vType in vm.videoTypes | orderBy:'sortOrder'"
+                ng-required="vm.videoRequired" ng-change="vm.changeVideoType()">
             <option value="">Select video type</option>
         </select>
         <div ng-if="model.type === 2" class="ubl-video-configurator__code-tip">{{ vm.getTipByType(model.type) }}</div>
     </div>
-    
+
     <umb-button ng-if="model.type === 2" action="vm.addVideo()" type="button" button-style="action" label="Add"></umb-button>
-    
+
     <input class="for-validation-only" ng-required="vm.videoRequired || model.type === 2" ng-if="model.type === 2" ng-model="model.video.id" type="text">
     <small class="ubl-video-configurator__select-video-tip" ng-if="model.type === 2">Please select a video...</small>
-    
+
     <label class="ubl-video-section__toolbar-label" ng-if="!vm.videoTypes">Loading...</label>
 </div>
 
 <div ng-if="vm.hasVideoType()">
     <div>
         <ubl-video-configurator></ubl-video-configurator>
-    </div>   
+    </div>
 
     <div ng-show="vm.settings.useThumbnail">
         <ubl-video-thumbnail></ubl-video-thumbnail>
