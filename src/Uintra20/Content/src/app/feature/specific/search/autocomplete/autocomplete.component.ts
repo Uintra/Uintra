@@ -101,12 +101,13 @@ export class AutocompleteComponent implements OnInit {
     if (this.autocompleteList.length > 0) {
       const currentSuggestionIndex = this.autocompleteList.findIndex(suggestion => suggestion.isActive == true);
 
-      if (currentSuggestionIndex) {
+      if (currentSuggestionIndex !== -1) {
         this.router.navigate([this.autocompleteList[currentSuggestionIndex].url.originalUrl]);
-        this.loseFocus();
       } else {
-        console.log('go to search page with current query');
+        this.router.navigate([`/search?query=${encodeURIComponent(this.inputValue)}`]);
       }
+      this.loseFocus();
+      this.clearInput();
     }
   }
 
@@ -126,5 +127,11 @@ export class AutocompleteComponent implements OnInit {
 
   getFocused() {
     this.isFocused = true;
+  }
+
+  clearInput() {
+    this.inputValue = "";
+    this.inputValueToRestore = "";
+    this.autocompleteList = [];
   }
 }
