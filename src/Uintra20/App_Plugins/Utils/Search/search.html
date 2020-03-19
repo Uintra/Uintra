@@ -12,7 +12,9 @@
          ng-class="class"
          class="alert alert-dismissible"
          role="alert">
-        {{data}}
+        <ul ng-repeat="d in data">
+            <li>{{d}}</li>
+        </ul>
         <button type="button"
                 class="close"
                 ng-click="hideAlert()">

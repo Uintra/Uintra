@@ -15,11 +15,11 @@
                         .then(
                             function (resolve) {
                                 $scope.class = 'alert-success';
-                                $scope.data = resolve.data.index;
+                                $scope.data = Object.values(resolve.data.index);
                             },
                             function (reject) {
                                 $scope.class = 'alert-dander';
-                                $scope.data = reject.data;
+                                $scope.data = Object.values(reject.data);
                             })
                         .finally(
                             function () {
