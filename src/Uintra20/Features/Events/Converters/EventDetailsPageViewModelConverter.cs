@@ -11,7 +11,7 @@ using Uintra20.Features.Events.Entities;
 using Uintra20.Features.Events.Models;
 using Uintra20.Features.Groups.Helpers;
 using Uintra20.Features.Links;
-using Uintra20.Features.Media;
+using Uintra20.Features.Media.Helpers;
 using Uintra20.Features.Media.Strategies.Preset;
 using Uintra20.Features.Permissions;
 using Uintra20.Features.Permissions.Interfaces;

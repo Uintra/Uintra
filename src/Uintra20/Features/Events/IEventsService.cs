@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Uintra20.Core.Activity;
 using Uintra20.Core.Activity.Entities;
 using Uintra20.Features.Media;
+using Uintra20.Features.Media.Models;
 
 namespace Uintra20.Features.Events
 {
