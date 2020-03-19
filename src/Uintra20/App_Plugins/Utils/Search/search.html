@@ -2,7 +2,8 @@
     <h5 class="bold">To rebuild search index, please press the button</h5>
     <button
         type="button"
-        class="btn btn-default"
-        ng-click="rebuild()">Rebuild Index
+        class="btn btn-danger"
+        ng-click="rebuild()"
+        ng-disabled="inProgress">Rebuild Index
     </button>
 </div>
