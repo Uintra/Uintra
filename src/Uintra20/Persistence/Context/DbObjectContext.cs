@@ -13,6 +13,7 @@ using Uintra20.Features.LinkPreview.Sql;
 using Uintra20.Features.Location.Sql;
 using Uintra20.Features.Media;
 using Uintra20.Features.Media.Sql;
+using Uintra20.Features.Media.Video.Entities;
 using Uintra20.Features.Navigation.Sql;
 using Uintra20.Features.Notification.Sql;
 using Uintra20.Features.Permissions.Sql;

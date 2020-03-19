@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using Uintra20.Features.Media;
+using Uintra20.Features.Media.Contracts;
 
 namespace Uintra20.Features.Groups.Models
 {

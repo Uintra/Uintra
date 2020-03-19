@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Uintra20.Features.Media;
+using Uintra20.Features.Media.Contracts;
 
 namespace Uintra20.Core.Member.Profile
 {
