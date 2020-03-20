@@ -1,6 +1,5 @@
 ﻿using Compent.CommandBus;
 using Compent.Shared.DependencyInjection.Contract;
-using Uintra20.Infrastructure.CommandBus.Configurations;
 using Uintra20.Infrastructure.CommandBus.Resolvers;
 
 namespace Uintra20.Infrastructure.CommandBus.InjectModules

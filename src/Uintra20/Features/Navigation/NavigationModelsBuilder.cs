@@ -13,6 +13,7 @@ using Uintra20.Core.HomePage;
 using Uintra20.Features.Navigation.Models;
 using Uintra20.Infrastructure;
 using Uintra20.Infrastructure.Extensions;
+using Uintra20.Infrastructure.UintraInformation;
 
 namespace Uintra20.Features.Navigation
 {

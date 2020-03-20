@@ -1,16 +1,22 @@
 ﻿using Compent.CommandBus;
+using Uintra20.Core.Commands;
+using Uintra20.Core.Search.Entities;
 using Uintra20.Features.Comments.CommandBus;
 using Uintra20.Features.Comments.CommandBus.Commands;
+using Uintra20.Features.Events;
 using Uintra20.Features.Groups.CommandBus;
 using Uintra20.Features.Groups.CommandBus.Commands;
 using Uintra20.Features.Likes.CommandBus;
 using Uintra20.Features.Likes.CommandBus.Commands;
+using Uintra20.Features.Media;
+using Uintra20.Features.Media.Helpers;
 using Uintra20.Features.Media.Video.Commands;
-using Uintra20.Features.Media.Video.Handlers;
-using Uintra20.Features.News.Handlers;
-using Uintra20.Features.Social.Handlers;
+using Uintra20.Features.News;
+using Uintra20.Features.Search.CommandBus;
+using Uintra20.Features.Social;
+using Uintra20.Features.Social.Entities;
 
-namespace Uintra20.Infrastructure.CommandBus.Configurations
+namespace Uintra20
 {
     public class CommandBusConfiguration : CommandBindingProviderBase
     {
@@ -21,10 +27,10 @@ namespace Uintra20.Infrastructure.CommandBus.Configurations
             ConfigureGroupBindings(builder);
             ConfigureMediaBindings(builder);
 
-            //builder.HandleCommand<MemberChanged>()
-            //    .WithHandle<MemberHandle>();
-            //builder.HandleCommand<MembersChanged>()
-            //    .WithHandle<MemberHandle>();
+            builder.HandleCommand<MemberChanged>()
+                .WithHandle<MemberHandle<SearchableMember>>();
+            builder.HandleCommand<MembersChanged>()
+                .WithHandle<MemberHandle<SearchableMember>>();
 
             //builder.HandleCommand<MentionCommand>()
             //    .WithHandle<MentionHandle>();
@@ -37,7 +43,7 @@ namespace Uintra20.Infrastructure.CommandBus.Configurations
             builder.HandleCommand<AddLikeCommand>()
                 .WithHandle<LikeHandle>()
                 .WithHandle<LikeNotificationHandle>();
-
+            
             builder.HandleCommand<RemoveLikeCommand>()
                 .WithHandle<LikeHandle>();
         }
@@ -70,10 +76,11 @@ namespace Uintra20.Infrastructure.CommandBus.Configurations
         private static void ConfigureMediaBindings(BindingBuilder builder)
         {
             builder.HandleCommand<VideoConvertedCommand>()
-                .WithHandle<VideoHandler>()
-                //.WithHandle<EventsService>()//TODO extract handler from event service
-                .WithHandle<NewsHandler>()
-                .WithHandle<SocialHandler>();
+                .WithHandle<MediaHelper>()
+                .WithHandle<EventsService>()
+                .WithHandle<NewsService>()
+                .WithHandle<SocialService<Social>>();
         }
+
     }
 }

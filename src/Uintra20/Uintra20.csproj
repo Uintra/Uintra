@@ -110,6 +110,9 @@
     <Reference Include="CSharpTest.Net.Collections, Version=14.906.1403.1082, Culture=neutral, PublicKeyToken=06aee00cce822474, processorArchitecture=MSIL">
       <HintPath>..\..\packages\CSharpTest.Net.Collections.14.906.1403.1082\lib\net40\CSharpTest.Net.Collections.dll</HintPath>
     </Reference>
+    <Reference Include="Elasticsearch.Net, Version=5.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Elasticsearch.Net.5.6.5\lib\net461\Elasticsearch.Net.dll</HintPath>
+    </Reference>
     <Reference Include="Elmah, Version=1.2.14706.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
     </Reference>
@@ -302,6 +305,9 @@
     </Reference>
     <Reference Include="MySql.Data, Version=6.9.12.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <HintPath>..\..\packages\MySql.Data.6.9.12\lib\net45\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Nest, Version=5.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NEST.5.6.5\lib\net461\Nest.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -982,6 +988,8 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Plugins\Utils\Search\search-service.js" />
+    <Compile Include="App_Plugins\Utils\Search\SearchDashboard.cs" />
     <Compile Include="App_Start\UintraApplicationComponent.cs" />
     <Compile Include="Infrastructure\CommandBus\Configurations\CommandBusConfiguration.cs" />
     <Compile Include="Attributes\EmptyHtmlAttribute.cs" />
@@ -997,6 +1005,76 @@
     <Compile Include="Core\Member\Models\MemberGroupCreateModel.cs" />
     <Compile Include="Core\Activity\FeedActivityHelper.cs" />
     <Compile Include="Core\Activity\IFeedActivityHelper.cs" />
+    <Compile Include="Core\Search\Converters\SearchDocumentPanelConverter\ISearchDocumentPanelConverter.cs" />
+    <Compile Include="Core\Search\Converters\SearchDocumentPanelConverter\SearchDocumentPanelConverter.cs" />
+    <Compile Include="Core\Search\Entities\BaseFacet.cs" />
+    <Compile Include="Core\Search\Entities\ISearchableTaggedActivity.cs" />
+    <Compile Include="Core\Search\Entities\Mappers\ISearchableMemberMapper.cs" />
+    <Compile Include="Core\Search\Entities\Mappers\SearchableMemberMapper.cs" />
+    <Compile Include="Core\Search\Entities\Mappings\SearchableActivityMap.cs" />
+    <Compile Include="Core\Search\Entities\Mappings\SearchableBaseMap.cs" />
+    <Compile Include="Core\Search\Entities\Mappings\SearchableContentMap.cs" />
+    <Compile Include="Core\Search\Entities\Mappings\SearchableDocumentMap.cs" />
+    <Compile Include="Core\Search\Entities\Mappings\SearchableTagMap.cs" />
+    <Compile Include="Core\Search\Entities\Mappings\SearchableUintraActivityMap.cs" />
+    <Compile Include="Core\Search\Entities\Mappings\SearchableUserMap.cs" />
+    <Compile Include="Core\Search\Entities\SearchableActivity.cs" />
+    <Compile Include="Core\Search\Entities\SearchableBase.cs" />
+    <Compile Include="Core\Search\Entities\SearchableContent.cs" />
+    <Compile Include="Core\Search\Entities\SearchableDocument.cs" />
+    <Compile Include="Core\Search\Entities\SearchableMember.cs" />
+    <Compile Include="Core\Search\Entities\SearchablePanel.cs" />
+    <Compile Include="Core\Search\Entities\SearchableTag.cs" />
+    <Compile Include="Core\Search\Entities\SearchableTypeEnum.cs" />
+    <Compile Include="Core\Search\Entities\SearchableUintraActivity.cs" />
+    <Compile Include="Core\Search\Entities\SearchableUserGroupInfo.cs" />
+    <Compile Include="Core\Search\Entities\SearchResult.cs" />
+    <Compile Include="Core\Search\Entities\UintraSearchableTypeEnum.cs" />
+    <Compile Include="Core\Search\Exceptions\ElasticSearchRequestErrorException.cs" />
+    <Compile Include="Core\Search\Helpers\ElasticHelpers.cs" />
+    <Compile Include="Core\Search\Helpers\ISearchUmbracoHelper.cs" />
+    <Compile Include="Core\Search\Helpers\SearchUmbracoHelper.cs" />
+    <Compile Include="Core\Search\Indexers\ContentIndexer.cs" />
+    <Compile Include="Core\Search\Indexers\Diagnostics\IIndexerDiagnosticService.cs" />
+    <Compile Include="Core\Search\Indexers\Diagnostics\IndexerDiagnosticService.cs" />
+    <Compile Include="Core\Search\Indexers\Diagnostics\Models\IndexedModelResult.cs" />
+    <Compile Include="Core\Search\Indexers\DocumentIndexer.cs" />
+    <Compile Include="Core\Search\Indexers\IContentIndexer.cs" />
+    <Compile Include="Core\Search\Indexers\IDocumentIndexer.cs" />
+    <Compile Include="Core\Search\Indexers\IIndexer.cs" />
+    <Compile Include="Core\Search\Indexers\IUserTagsSearchIndexer.cs" />
+    <Compile Include="Core\Search\Indexers\MembersIndexer.cs" />
+    <Compile Include="Core\Search\Indexers\UserTagsSearchIndexer.cs" />
+    <Compile Include="Core\Search\Indexes\ActivityUserTagIndex.cs" />
+    <Compile Include="Core\Search\Indexes\ElasticActivityIndex.cs" />
+    <Compile Include="Core\Search\Indexes\ElasticContentIndex.cs" />
+    <Compile Include="Core\Search\Indexes\ElasticDocumentIndex.cs" />
+    <Compile Include="Core\Search\Indexes\ElasticIndex.cs" />
+    <Compile Include="Core\Search\Indexes\ElasticMemberIndex.cs" />
+    <Compile Include="Core\Search\Indexes\ElasticTagIndex.cs" />
+    <Compile Include="Core\Search\Indexes\ElasticUintraActivityIndex.cs" />
+    <Compile Include="Core\Search\Indexes\IActivityUserTagIndex.cs" />
+    <Compile Include="Core\Search\Indexes\IElasticActivityIndex.cs" />
+    <Compile Include="Core\Search\Indexes\IElasticContentIndex.cs" />
+    <Compile Include="Core\Search\Indexes\IElasticDocumentIndex.cs" />
+    <Compile Include="Core\Search\Indexes\IElasticEntityMapper.cs" />
+    <Compile Include="Core\Search\Indexes\IElasticIndex.cs" />
+    <Compile Include="Core\Search\Indexes\IElasticMemberIndex.cs" />
+    <Compile Include="Core\Search\Indexes\IElasticTagIndex.cs" />
+    <Compile Include="Core\Search\Indexes\IElasticUintraActivityIndex.cs" />
+    <Compile Include="Core\Search\Indexes\UintraElasticIndex.cs" />
+    <Compile Include="Core\Search\IoC\SearchInjectModule.cs" />
+    <Compile Include="Core\Search\Paging\BaseSearchPagingHelper.cs" />
+    <Compile Include="Core\Search\Paging\ISearchPagingHelper.cs" />
+    <Compile Include="Core\Search\Providers\ISearchableTypeProvider.cs" />
+    <Compile Include="Core\Search\Providers\ISearchScoreProvider.cs" />
+    <Compile Include="Core\Search\Providers\SearchableTypeProvider.cs" />
+    <Compile Include="Core\Search\Providers\SearchContentPanelConverterProvider.cs" />
+    <Compile Include="Core\Search\Providers\SearchScoreProvider.cs" />
+    <Compile Include="Core\Search\Repository\ElasticSearchRepository.cs" />
+    <Compile Include="Core\Search\Repository\IElasticSearchRepository.cs" />
+    <Compile Include="Core\Search\Sorting\BaseSearchSortingHelper.cs" />
+    <Compile Include="Core\Search\Sorting\ISearchSortingHelper.cs" />
     <Compile Include="Core\UbaselineModels\FileModel.cs" />
     <Compile Include="Core\UbaselineModels\FolderModel.cs" />
     <Compile Include="Core\UbaselineModels\ForbiddenPageModel.cs" />
@@ -1190,6 +1268,45 @@
     <Compile Include="Features\Permissions\Models\MemberGroupViewModel.cs" />
     <Compile Include="Features\Permissions\Models\PermissionUpdateViewModel.cs" />
     <Compile Include="Features\Permissions\Models\PermissionViewModel.cs" />
+    <Compile Include="Features\Search\CommandBus\MemberHandle.cs" />
+    <Compile Include="Features\Search\Configuration\ElasticConfigurationSection.cs" />
+    <Compile Include="Features\Search\Configuration\IElasticConfigurationSection.cs" />
+    <Compile Include="Features\Search\Configuration\ISearchApplicationSettings.cs" />
+    <Compile Include="Features\Search\Configuration\SearchApplicationSettings.cs" />
+    <Compile Include="Features\Search\Converters\Panel\ArticleContinuedPanelSearchConverter.cs" />
+    <Compile Include="Features\Search\Converters\Panel\ArticleStartPanelSearchConverter.cs" />
+    <Compile Include="Features\Search\Converters\Panel\DocumentLibraryPanelSearchConverter.cs" />
+    <Compile Include="Features\Search\Converters\Panel\FAQPanelSearchConverter.cs" />
+    <Compile Include="Features\Search\Converters\Panel\HeroPanelSearchConverter.cs" />
+    <Compile Include="Features\Search\Converters\Panel\MailchimpPanelSearchConverter.cs" />
+    <Compile Include="Features\Search\Converters\Panel\NewsPanelSearchConverter.cs" />
+    <Compile Include="Features\Search\Converters\Panel\QuotePanelSearchConverter.cs" />
+    <Compile Include="Features\Search\Converters\Panel\SvgPanelSearchConverter.cs" />
+    <Compile Include="Features\Search\Converters\Panel\VideoPanelSearchConverter.cs" />
+    <Compile Include="Features\Search\Extensions\SearchExtensions.cs" />
+    <Compile Include="Features\Search\Member\IMemberSearchDescriptorBuilder.cs" />
+    <Compile Include="Features\Search\Member\MemberSearchDescriptorBuilder.cs" />
+    <Compile Include="Features\Search\Models\SearchAutocompleteResultViewModel.cs" />
+    <Compile Include="Features\Search\Models\SearchBoxAutocompleteItemViewModel.cs" />
+    <Compile Include="Features\Search\Models\SearchBoxViewModel.cs" />
+    <Compile Include="Features\Search\Models\SearchFilterItemViewModel.cs" />
+    <Compile Include="Features\Search\Models\SearchFilterModel.cs" />
+    <Compile Include="Features\Search\Models\SearchPanelResultViewModel.cs" />
+    <Compile Include="Features\Search\Models\SearchRequest.cs" />
+    <Compile Include="Features\Search\Models\SearchResultViewModel.cs" />
+    <Compile Include="Features\Search\Models\SearchScoreModel.cs" />
+    <Compile Include="Features\Search\Models\SearchPageViewModel.cs" />
+    <Compile Include="Features\Search\Models\UintraSearchResultViewModel.cs" />
+    <Compile Include="Features\Search\Page\SearchPageConverter.cs" />
+    <Compile Include="Features\Search\Queries\MemberSearchQuery.cs" />
+    <Compile Include="Features\Search\Queries\SearchTextQuery.cs" />
+    <Compile Include="Features\Search\AutoMapperProfile\SearchableActivityAutoMapperProfile.cs" />
+    <Compile Include="Features\Search\AutoMapperProfile\SearchAutoMapperProfile.cs" />
+    <Compile Include="Features\Search\AutoMapperProfile\SearchResultAutoMapperProfile.cs" />
+    <Compile Include="Features\Search\SearchConstants.cs" />
+    <Compile Include="Features\Search\Models\RebuildIndexStatusModel.cs" />
+    <Compile Include="Features\Search\Web\ISearchContentPanelConverterProvider.cs" />
+    <Compile Include="Features\Search\Web\SearchController.cs" />
     <Compile Include="Features\Social\Converters\SocialCreatePageViewModelConverter.cs" />
     <Compile Include="Features\Social\Converters\SocialDetailsPageViewModelConverter.cs" />
     <Compile Include="Features\Social\Handlers\SocialHandler.cs" />
@@ -1210,12 +1327,14 @@
     <Compile Include="Features\ContentPage\Services\ContentPageNotificationService.cs" />
     <Compile Include="Features\Notification\ViewModel\NotificationListViewModel.cs" />
     <Compile Include="Features\Subscribe\ActivitySubscribeSettingService.cs" />
+    <Compile Include="Features\Tagging\UserTags\Models\UserTagBackofficeViewModel.cs" />
     <Compile Include="Features\Subscribe\Controllers\SubscribeController.cs" />
     <Compile Include="Features\Subscribe\Models\SubscribeNotificationDisableUpdateModel.cs" />
     <Compile Include="Infrastructure\Context\IIntranetRequestContext.cs" />
     <Compile Include="Infrastructure\Context\IntranetRequestContext.cs" />
     <Compile Include="Infrastructure\Extensions\ArrayExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\InconsistentDataException.cs" />
+    <Compile Include="Infrastructure\Extensions\SerializationExtentions.cs" />
     <Compile Include="Infrastructure\Helpers\EnumHelper.cs" />
     <Compile Include="Infrastructure\Helpers\TransferRequestHelper.cs" />
     <Compile Include="Infrastructure\Ioc\EventInjectModule.cs" />
@@ -1896,6 +2015,7 @@
     <Content Include="App_Plugins\EnumLists\package.manifest" />
     <Content Include="App_Plugins\UintraGroupMember\package.manifest" />
     <Content Include="Features\Reminder\Configuration\reminderConfiguration.json" />
+    <Content Include="App_Plugins\Utils\Search\package.manifest" />
     <None Include="config\umbracoSettings.config" />
     <None Include="packages.config" />
     <Content Include="Views\Web.config" />
@@ -1933,12 +2053,19 @@
     <Folder Include="Content\" />
     <Folder Include="Core\Feed\Web\" />
     <Folder Include="Core\Member\Events\" />
+    <Folder Include="Core\Search\Indexers\Diagnostics\Services\" />
     <Folder Include="Features\Navigation\ModelBuilders\" />
     <Folder Include="Features\Notification\Commands\" />
     <Folder Include="Media\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Utils\Search\search.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\Utils\Search\search-controller.js" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -1948,9 +2075,9 @@
     <OutputPath>bin\</OutputPath>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
-  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
-  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <!-- <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" /> -->
+  <!-- <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" /> -->
+  <!-- <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" /> -->
   <ProjectExtensions>
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
@@ -1984,11 +2111,11 @@
       </FilesForPackagingFromProject>
     </ItemGroup>
   </Target>
-  <UsingTask TaskName="TransformXml" AssemblyFile="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v10.0\Web\Microsoft.Web.Publishing.Tasks.dll" />
-  <Target Name="BeforeBuild">
-    <Message Text="Executing TransformXml for Web.$(Configuration).config" Importance="normal" />
-    <TransformXml Source="Web.Base.config" Transform="Web.$(Configuration).config" Destination="Web.config" ContinueOnError="False" StackTrace="True" />
-  </Target>
+  <!-- <UsingTask TaskName="TransformXml" AssemblyFile="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v10.0\Web\Microsoft.Web.Publishing.Tasks.dll" /> -->
+  <!-- <Target Name="BeforeBuild"> -->
+    <!-- <Message Text="Executing TransformXml for Web.$(Configuration).config" Importance="normal" /> -->
+    <!-- <TransformXml Source="Web.Base.config" Transform="Web.$(Configuration).config" Destination="Web.config" ContinueOnError="False" StackTrace="True" /> -->
+  <!-- </Target> -->
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
