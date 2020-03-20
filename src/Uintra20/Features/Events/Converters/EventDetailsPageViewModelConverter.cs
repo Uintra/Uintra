@@ -2,6 +2,8 @@
 using System.Linq;
 using System.Web;
 using Compent.Extensions;
+using UBaseline.Core.Extensions;
+using UBaseline.Core.RequestContext;
 using Uintra20.Core.Activity.Models.Headers;
 using Uintra20.Core.Controls.LightboxGallery;
 using Uintra20.Core.Member.Entities;
@@ -29,6 +31,7 @@ namespace Uintra20.Features.Events.Converters
         private readonly ILightboxHelper _lightBoxHelper;
         private readonly IPermissionsService _permissionsService;
         private readonly IGroupHelper _groupHelper;
+        private readonly IUBaselineRequestContext _baselineRequestContext;
 
         public EventDetailsPageViewModelConverter(
             IUserTagService userTagService,
@@ -38,7 +41,8 @@ namespace Uintra20.Features.Events.Converters
             ILightboxHelper lightBoxHelper,
             IPermissionsService permissionsService,
             IGroupHelper groupHelper,
-            IErrorLinksService errorLinksService)
+            IErrorLinksService errorLinksService,
+            IUBaselineRequestContext baselineRequestContext)
             : base(errorLinksService)
         {
             _userTagService = userTagService;
@@ -48,11 +52,12 @@ namespace Uintra20.Features.Events.Converters
             _lightBoxHelper = lightBoxHelper;
             _permissionsService = permissionsService;
             _groupHelper = groupHelper;
+            _baselineRequestContext = baselineRequestContext;
         }
 
         public override ConverterResponseModel MapViewModel(EventDetailsPageModel node, EventDetailsPageViewModel viewModel)
         {
-            var idStr = HttpContext.Current.Request.GetRequestQueryValue("id");
+            var idStr = HttpUtility.ParseQueryString(_baselineRequestContext.NodeRequestParams.NodeUrl.Query).TryGetQueryValue<string>("id");
 
             if (!Guid.TryParse(idStr, out var id))
                 return NotFoundResult();
@@ -62,10 +67,12 @@ namespace Uintra20.Features.Events.Converters
             if (@event == null)
             {
                 return NotFoundResult();
+                
             }
 
             if (!_permissionsService.Check(PermissionResourceTypeEnum.Events, PermissionActionEnum.View))
             {
+            
                 return ForbiddenResult();
             }
 
@@ -76,7 +83,7 @@ namespace Uintra20.Features.Events.Converters
             viewModel.CanEdit = _eventsService.CanEdit(id);
             viewModel.IsGroupMember = !@event.GroupId.HasValue || member.GroupIds.Contains(@event.GroupId.Value);
 
-            var groupIdStr = HttpContext.Current.Request["groupId"];
+            var groupIdStr = HttpUtility.ParseQueryString(_baselineRequestContext.NodeRequestParams.NodeUrl.Query).TryGetQueryValue<string>("groupId");
             if (Guid.TryParse(groupIdStr, out var groupId) && @event.GroupId == groupId)
             {
                 viewModel.GroupHeader = _groupHelper.GetHeader(groupId);
