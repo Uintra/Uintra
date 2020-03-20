@@ -40,8 +40,6 @@ namespace Uintra20.Core.Search.IoC
             services.AddScoped<IElasticSearchRepository, ElasticSearchRepository>();
             services.AddScoped(typeof(IElasticSearchRepository<>), typeof(ElasticSearchRepository<>));
 
-            services.AddSingleton<IElasticConfigurationSection>(a => ConfigurationManager.GetSection("elasticConfiguration") as ElasticConfigurationSection);
-            
             services.AddSingleton<ISearchApplicationSettings, SearchApplicationSettings>();
 
             services.AddSingleton(typeof(PropertiesDescriptor<SearchableActivity>), typeof(SearchableActivityMap));
@@ -50,7 +48,6 @@ namespace Uintra20.Core.Search.IoC
             services.AddSingleton(typeof(PropertiesDescriptor<SearchableDocument>), typeof(SearchableDocumentMap));
             services.AddSingleton(typeof(PropertiesDescriptor<SearchableTag>), typeof(SearchableTagMap));
             services.AddSingleton(typeof(PropertiesDescriptor<SearchableMember>), typeof(SearchableUserMap));
-            
 
             services.AddScoped<IElasticActivityIndex, ElasticActivityIndex>();
             services.AddScoped<IElasticUintraActivityIndex, ElasticUintraActivityIndex>();

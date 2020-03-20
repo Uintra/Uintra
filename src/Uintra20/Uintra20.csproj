@@ -993,6 +993,7 @@
     <Compile Include="App_Start\UintraApplicationComponent.cs" />
     <Compile Include="Infrastructure\CommandBus\Configurations\CommandBusConfiguration.cs" />
     <Compile Include="Attributes\EmptyHtmlAttribute.cs" />
+    <Compile Include="Attributes\UIColumnAttribute.cs" />
     <Compile Include="Controllers\EnumController.cs" />
     <Compile Include="Controllers\QaController.cs" />
     <Compile Include="Core\AdminSection\Controllers\AdminController.cs" />
@@ -1139,6 +1140,8 @@
     <Compile Include="Features\Groups\Models\GroupDocumentViewModel.cs" />
     <Compile Include="Features\Groups\Models\GroupNavigationCompositionModel.cs" />
     <Compile Include="Features\Groups\Models\GroupNavigationCompositionViewModel.cs" />
+    <Compile Include="Features\Groups\Models\GroupToggleAdminRightsModel.cs" />
+    <Compile Include="Features\Groups\Models\MemberGroupInviteModel.cs" />
     <Compile Include="Features\Groups\Models\UintraGroupsDocumentsPageModel.cs" />
     <Compile Include="Features\Groups\Models\UintraGroupsDocumentsPageViewModel.cs" />
     <Compile Include="Features\Groups\Models\UintraGroupsEditPageModel.cs" />
@@ -1269,8 +1272,7 @@
     <Compile Include="Features\Permissions\Models\PermissionUpdateViewModel.cs" />
     <Compile Include="Features\Permissions\Models\PermissionViewModel.cs" />
     <Compile Include="Features\Search\CommandBus\MemberHandle.cs" />
-    <Compile Include="Features\Search\Configuration\ElasticConfigurationSection.cs" />
-    <Compile Include="Features\Search\Configuration\IElasticConfigurationSection.cs" />
+    <Compile Include="Features\Search\Configuration\IElasticSettings.cs" />
     <Compile Include="Features\Search\Configuration\ISearchApplicationSettings.cs" />
     <Compile Include="Features\Search\Configuration\SearchApplicationSettings.cs" />
     <Compile Include="Features\Search\Converters\Panel\ArticleContinuedPanelSearchConverter.cs" />
@@ -1330,6 +1332,18 @@
     <Compile Include="Features\Tagging\UserTags\Models\UserTagBackofficeViewModel.cs" />
     <Compile Include="Features\Subscribe\Controllers\SubscribeController.cs" />
     <Compile Include="Features\Subscribe\Models\SubscribeNotificationDisableUpdateModel.cs" />
+    <Compile Include="Features\UserList\Controllers\UserListController.cs" />
+    <Compile Include="Features\UserList\Converters\UserListPageViewModelConverter.cs" />
+    <Compile Include="Features\UserList\Helpers\UsersPresentationHelper.cs" />
+    <Compile Include="Features\UserList\Models\ActiveMemberSearchQuery.cs" />
+    <Compile Include="Features\UserList\Models\ColumnType.cs" />
+    <Compile Include="Features\UserList\Models\MemberModel.cs" />
+    <Compile Include="Features\UserList\Models\MembersListSearchModel.cs" />
+    <Compile Include="Features\UserList\Models\MembersRowsViewModel.cs" />
+    <Compile Include="Features\UserList\Models\ProfileColumnModel.cs" />
+    <Compile Include="Features\UserList\Models\UserListPageModel.cs" />
+    <Compile Include="Features\UserList\Models\UserListPageViewModel.cs" />
+    <Compile Include="Features\UserList\Models\UserListViewModel.cs" />
     <Compile Include="Infrastructure\Context\IIntranetRequestContext.cs" />
     <Compile Include="Infrastructure\Context\IntranetRequestContext.cs" />
     <Compile Include="Infrastructure\Extensions\ArrayExtensions.cs" />
