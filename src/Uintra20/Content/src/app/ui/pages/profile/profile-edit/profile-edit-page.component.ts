@@ -18,9 +18,6 @@ import { TranslateService } from '@ngx-translate/core';
   encapsulation: ViewEncapsulation.None
 })
 export class ProfileEditPage implements OnInit {
-  @HostListener('window:beforeunload') checkIfDataChanged() {
-    return !this.hasDataChangedService.hasDataChanged || !this.checkIfdataChanged();
-  }
   files = [];
   private data: any;
   public profileEdit: IProfileEditPage;
@@ -40,6 +37,10 @@ export class ProfileEditPage implements OnInit {
       this.data = data;
       this.addButtonService.setPageId(data.id);
     });
+  }
+
+  @HostListener('window:beforeunload') checkIfDataChanged() {
+    return !this.hasDataChangedService.hasDataChanged || !this.checkIfdataChanged();
   }
 
   public ngOnInit(): void {
@@ -106,9 +107,9 @@ export class ProfileEditPage implements OnInit {
         this.resetDataChecker();
         this.router.navigate([next.originalUrl]);
       },
-      (err) => {
-        this.inProgress = false;
-      });
+        (err) => {
+          this.inProgress = false;
+        });
   }
 
   public handleUpdateNotificationSettings(event): void {
@@ -139,13 +140,13 @@ export class ProfileEditPage implements OnInit {
   public processAvatarDelete(): void {
     if (confirm(this.translate.instant('profile.DeletePhotoConfirm.lbl'))) {
       this.profileService.deletePhoto(this.profileEdit.member.photoId)
-      .subscribe(
-        () => {
-          this.files = [];
-          this.profileEdit.member.photo = null;
-          this.hasDataChangedService.onDataChanged();
-        }
-      );
+        .subscribe(
+          () => {
+            this.files = [];
+            this.profileEdit.member.photo = null;
+            this.hasDataChangedService.onDataChanged();
+          }
+        );
     }
   }
 
