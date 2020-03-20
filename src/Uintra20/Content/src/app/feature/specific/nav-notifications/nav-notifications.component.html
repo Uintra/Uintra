@@ -1,30 +1,28 @@
-<div class="nav-notification" (clickOutside)="hide()">
-  <button (click)="onToggle()" class="nav-notification__button">
+<div class="nav-notification"
+     (clickOutside)="hide()">
+  <button (click)="onToggle()"
+          class="nav-notification__button">
     <span class="icon-bell-icon"></span>
     <app-notification-count [count]="notificationCount"></app-notification-count>
   </button>
-
-  <div [hidden]="!isShow" class="nav-notification__popup">
-    <div class="nav-notification__spinner-wrapper" *ngIf="isLoading">
+  <div [hidden]="!isShow"
+       class="nav-notification__popup">
+    <div class="nav-notification__spinner-wrapper"
+         *ngIf="isLoading">
       <div class="nav-notification__spinner"></div>
     </div>
-
-    <div
-      class="nav-notification__spinner-wrapper"
-      *ngIf="!isLoading && notifications && notifications.length === 0">
-        No new notifications
+    <div class="nav-notification__spinner-wrapper"
+         *ngIf="!isLoading && notifications && notifications.length === 0">
+      No new notifications
     </div>
-
     <ng-container *ngIf="notifications">
-      <app-notifications-item
-      (handleClick)="handleClick()"
-        [notification]="notification"
-        *ngFor="let notification of notifications"
-      ></app-notifications-item>
+      <app-notifications-item (handleClick)="handleClick()"
+                              [notification]="notification"
+                              *ngFor="let notification of notifications"></app-notifications-item>
     </ng-container>
-
-    <app-notifications-item [link]="notificationPageUrl" (click)="hide()">
-      See all notifications
+    <app-notifications-item [link]="notificationPageUrl"
+                            (click)="hide()">
+      {{'showAllNotifications.lbl' | translate}}
     </app-notifications-item>
   </div>
 </div>
