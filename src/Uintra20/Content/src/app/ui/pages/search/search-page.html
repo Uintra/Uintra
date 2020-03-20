@@ -24,19 +24,27 @@
         <div class="search-filters">
           <h3 class="search-filters__title subtitle">{{'searchResult.Filter.Title' | translate}}</h3>
           <app-tag-multiselect
-            [availableTags]="availableTags"
-            [ngModel]="filters"
+            [availableTags]="availableFilters"
+            [ngModel]="selectedFilters"
             (ngModelChange)="onTagsChange($event)">
           </app-tag-multiselect>
         </div>
-        <checkbox-input [(isChecked)]="isOnlyPinned">
+        <checkbox-input [(isChecked)]="isOnlyPinned" (ngModelChange)="onCbxChange()">
           {{'search.Filter.OnlyPinned.chkbx' | translate}}
         </checkbox-input>
         <h2 class="search-results__title">
           {{'searchResult.YouSearchedFor.lbl' | translate}} {{'searchResult.Count.lbl' | translate}}
         </h2>
         <div *ngIf="resultsList.length" class="search-results">
-
+          <a *ngFor="let result of resultsList" class="search-results__item">
+            <h3 *ngIf="result.title" class="search-results__item-title">{{result.title}}</h3>
+            <div
+              *ngIf="result.description"
+              class="search-results__item-description"
+              [innerHTML]="result.description">
+            </div>
+            <p *ngIf="result.type" class="search-results__item-type">{{result.type}} {{result.publishDate}}</p>
+          </a>
         </div>
       </div>
     </div>

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { ISearchRequestData } from './search.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -12,5 +13,9 @@ export class SearchService {
 
   autocomplete(query: string) {
     return this.http.post("/ubaseline/api/search/autocomplete", {query: query})
+  }
+
+  search(data: ISearchRequestData) {
+    return this.http.post("/ubaseline/api/search/search", data)
   }
 }
