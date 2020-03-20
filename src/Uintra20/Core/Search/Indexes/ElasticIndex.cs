@@ -170,7 +170,7 @@ namespace Uintra20.Core.Search.Indexes
             var globalAggregations = new AggregationsHelper(aggregations.Global(facetName).Aggregations);
             var globalFilter = globalAggregations.Filter(SearchConstants.SearchFacetNames.GlobalFilter);
             var items = globalFilter.Terms(facetName).Buckets.Select(bucket => new BaseFacet
-                {Name = bucket.Key, Count = bucket.DocCount ?? default});
+                {Name = bucket.Key, Count = bucket.DocCount ?? default(long)});
             return items;
         }
 
