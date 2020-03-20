@@ -1078,6 +1078,8 @@
     <Compile Include="Features\Links\ErrorLinksService.cs" />
     <Compile Include="Features\Links\IErrorLinksService.cs" />
     <Compile Include="Features\Media\Strategies\Preset\MemberProfilePresetStrategy.cs" />
+    <Compile Include="Features\Mention\MentionController.cs" />
+    <Compile Include="Features\Mention\Models\MentionUserModel.cs" />
     <Compile Include="Features\Navigation\ApplicationSettings\INavigationApplicationSettings.cs" />
     <Compile Include="Features\Navigation\ApplicationSettings\NavigationApplicationSettings.cs" />
     <Compile Include="Features\Navigation\IMyLinksHelper.cs" />
