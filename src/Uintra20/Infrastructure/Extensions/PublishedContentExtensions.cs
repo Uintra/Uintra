@@ -124,7 +124,7 @@ namespace Uintra20.Infrastructure.Extensions
         public static bool IsContentPage(this IPublishedContent publishedContent)
         {
             var docTypeAliasProvider = HttpContext.Current.GetService<IDocumentTypeAliasProvider>();
-            return publishedContent.ContentType.Alias.Equals(docTypeAliasProvider.GetContentPage());
+            return publishedContent.ContentType.Alias.Equals(docTypeAliasProvider.GetArticlePage());
         }
     }
 }

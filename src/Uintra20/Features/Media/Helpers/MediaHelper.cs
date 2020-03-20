@@ -24,7 +24,9 @@ using Uintra20.Infrastructure.TypeProviders;
 using Umbraco.Core;
 using Umbraco.Core.Composing;
 using Umbraco.Core.Models;
+using Umbraco.Core.Models.PublishedContent;
 using Umbraco.Core.Services;
+using Umbraco.Web;
 using static Uintra20.Infrastructure.Constants.UmbracoAliases.Media;
 using FolderModel = Uintra20.Core.UbaselineModels.FolderModel;
 
@@ -271,10 +273,10 @@ namespace Uintra20.Features.Media.Helpers
             };
         }
 
-        //public bool IsMediaDeleted(IPublishedContent media)
-        //{
-        //    return media.HasProperty(IsDeletedPropertyTypeAlias) && media.Value<bool>(IsDeletedPropertyTypeAlias);
-        //}
+        public bool IsMediaDeleted(IPublishedContent media)
+        {
+            return media.HasProperty(IsDeletedPropertyTypeAlias) && media.Value<bool>(IsDeletedPropertyTypeAlias);
+        }
 
         public static IEnumerable<string> GetMediaUrls(IEnumerable<int> ids)
         {

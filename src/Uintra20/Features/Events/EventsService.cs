@@ -11,12 +11,18 @@ using Uintra20.Core.Feed.Services;
 using Uintra20.Core.Feed.Settings;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Services;
+using Uintra20.Core.Search.Entities;
+using Uintra20.Core.Search.Indexers;
+using Uintra20.Core.Search.Indexers.Diagnostics;
+using Uintra20.Core.Search.Indexers.Diagnostics.Models;
+using Uintra20.Core.Search.Indexes;
 using Uintra20.Features.CentralFeed.Enums;
 using Uintra20.Features.Comments.Services;
 using Uintra20.Features.Events.Entities;
 using Uintra20.Features.Groups.Services;
 using Uintra20.Features.Likes.Services;
 using Uintra20.Features.LinkPreview;
+using Uintra20.Features.Links;
 using Uintra20.Features.Location.Services;
 using Uintra20.Features.Media.Enums;
 using Uintra20.Features.Media.Helpers;
@@ -31,6 +37,7 @@ using Uintra20.Features.Permissions.Interfaces;
 using Uintra20.Features.Reminder.Services;
 using Uintra20.Features.Subscribe;
 using Uintra20.Features.Subscribe.Models;
+using Uintra20.Features.Tagging.UserTags.Services;
 using Uintra20.Infrastructure.Caching;
 using Uintra20.Infrastructure.Extensions;
 using Uintra20.Infrastructure.TypeProviders;
@@ -44,7 +51,7 @@ namespace Uintra20.Features.Events
         ISubscribableService,
         INotifyableService,
         IReminderableService<Event>,
-        //IIndexer,
+        IIndexer,
         IHandle<VideoConvertedCommand>
     {
         private readonly ICommentsService _commentsService;
@@ -52,13 +59,16 @@ namespace Uintra20.Features.Events
         private readonly ISubscribeService _subscribeService;
         private readonly INotificationsService _notificationService;
         private readonly IMediaHelper _mediaHelper;
-        //private readonly IElasticUintraActivityIndex _activityIndex;
-        //private readonly IDocumentIndexer _documentIndexer;
+        private readonly IElasticUintraActivityIndex _activityIndex;
+        private readonly IDocumentIndexer _documentIndexer;
         private readonly IIntranetMediaService _intranetMediaService;
         private readonly IGroupActivityService _groupActivityService;
         private readonly IActivitySubscribeSettingService _activitySubscribeSettingService;
         private readonly IGroupService _groupService;
         private readonly INotifierDataBuilder _notifierDataBuilder;
+        private readonly IActivityLinkService _activityLinkService;
+        private readonly IIndexerDiagnosticService _indexerDiagnosticService;
+        private readonly IUserTagService _userTagService;
 
         public EventsService(
             IIntranetActivityRepository intranetActivityRepository,
@@ -70,8 +80,8 @@ namespace Uintra20.Features.Events
             IPermissionsService permissionsService,
             INotificationsService notificationService,
             IMediaHelper mediaHelper,
-            //IElasticUintraActivityIndex activityIndex,
-            //IDocumentIndexer documentIndexer,
+            IElasticUintraActivityIndex activityIndex,
+            IDocumentIndexer documentIndexer,
             IActivityTypeProvider activityTypeProvider,
             IIntranetMediaService intranetMediaService,
             IGroupActivityService groupActivityService,
@@ -79,7 +89,10 @@ namespace Uintra20.Features.Events
             IActivitySubscribeSettingService activitySubscribeSettingService,
             IActivityLinkPreviewService activityLinkPreviewService,
             IGroupService groupService,
-            INotifierDataBuilder notifierDataBuilder)
+            INotifierDataBuilder notifierDataBuilder,
+            IActivityLinkService activityLinkService,
+            IIndexerDiagnosticService indexerDiagnosticService,
+            IUserTagService userTagService)
             : base(
                 intranetActivityRepository,
                 cacheService,
@@ -95,13 +108,16 @@ namespace Uintra20.Features.Events
             _subscribeService = subscribeService;
             _notificationService = notificationService;
             _mediaHelper = mediaHelper;
-            //_activityIndex = activityIndex;
-            //_documentIndexer = documentIndexer;
+            _activityIndex = activityIndex;
+            _documentIndexer = documentIndexer;
             _intranetMediaService = intranetMediaService;
             _groupActivityService = groupActivityService;
             _activitySubscribeSettingService = activitySubscribeSettingService;
             _groupService = groupService;
             _notifierDataBuilder = notifierDataBuilder;
+            _activityLinkService = activityLinkService;
+            _indexerDiagnosticService = indexerDiagnosticService;
+            _userTagService = userTagService;
         }
 
         public override Enum Type => IntranetActivityTypeEnum.Events;
@@ -144,18 +160,19 @@ namespace Uintra20.Features.Events
             return IsActual(@event) && @event.CanSubscribe;
         }
 
-        public MediaSettings GetMediaSettings() => _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.EventsContent, true);
+        public MediaSettings GetMediaSettings() =>
+            _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.EventsContent, true);
 
         public FeedSettings GetFeedSettings() =>
             new FeedSettings
             {
-                
                 Type = CentralFeedTypeEnum.Events,
                 HasSubscribersFilter = true,
                 HasPinnedFilter = true
             };
 
         public IEnumerable<IFeedItem> GetItems() => GetOrderedActualItems();
+
         public async Task<IEnumerable<IFeedItem>> GetItemsAsync()
         {
             return await GetOrderedActualItemsAsync();
@@ -214,11 +231,11 @@ namespace Uintra20.Features.Events
             }
         }
 
-        //protected override void UpdateCache()
-        //{
-        //    base.UpdateCache();
-        //    FillIndex();
-        //}
+        protected override void UpdateCache()
+        {
+            base.UpdateCache();
+            FillIndex();
+        }
 
         public override Event UpdateActivityCache(Guid id)
         {
@@ -226,8 +243,8 @@ namespace Uintra20.Features.Events
             var @event = base.UpdateActivityCache(id);
             if (IsCacheable(@event) && (@event.GroupId is null || _groupService.IsActivityFromActiveGroup(@event)))
             {
-                //_activityIndex.Index(Map(@event));
-                //_documentIndexer.Index(@event.MediaIds);
+                _activityIndex.Index(Map(@event));
+                _documentIndexer.Index(@event.MediaIds);
                 return @event;
             }
 
@@ -241,7 +258,7 @@ namespace Uintra20.Features.Events
 
         public override bool IsActual(IIntranetActivity activity)
         {
-            return base.IsActual(activity) && IsActualPublishDate((Event)activity);
+            return base.IsActual(activity) && IsActualPublishDate((Event) activity);
         }
 
         public void UnSubscribe(Guid userId, Guid activityId)
@@ -285,7 +302,8 @@ namespace Uintra20.Features.Events
             {
                 var comment = await _commentsService.GetAsync(entityId);
                 var parentActivity = await GetAsync(comment.ActivityId);
-                notifierData = await _notifierDataBuilder.GetNotifierDataAsync(comment, parentActivity, notificationType);
+                notifierData =
+                    await _notifierDataBuilder.GetNotifierDataAsync(comment, parentActivity, notificationType);
             }
             else
             {
@@ -308,13 +326,22 @@ namespace Uintra20.Features.Events
             return !@event.IsHidden ? @event : null;
         }
 
-        //public void FillIndex()
-        //{
-        //    var activities = GetAll().Where(IsCacheable);
-        //    var searchableActivities = activities.Select(Map);
-        //    _activityIndex.DeleteByType(UintraSearchableTypeEnum.Events);
-        //    _activityIndex.Index(searchableActivities);
-        //}
+        public IndexedModelResult FillIndex()
+        {
+            try
+            {
+                var activities = GetAll().Where(IsCacheable);
+                var searchableActivities = activities.Select(Map);
+                _activityIndex.DeleteByType(UintraSearchableTypeEnum.Events);
+                _activityIndex.Index(searchableActivities);
+
+                return _indexerDiagnosticService.GetSuccessResult(typeof(EventsService).Name, searchableActivities);
+            }
+            catch (Exception e)
+            {
+                return _indexerDiagnosticService.GetFailedResult(e.Message + e.StackTrace, typeof(EventsService).Name);
+            }
+        }
 
         private bool IsCacheable(Event @event) => !IsEventHidden(@event) && IsActualPublishDate(@event);
 
@@ -322,17 +349,17 @@ namespace Uintra20.Features.Events
 
         private bool IsEventHidden(Event @event) => @event == null || @event.IsHidden;
 
-        //private SearchableUintraActivity Map(Event @event)
-        //{
-        //    var searchableActivity = @event.Map<SearchableUintraActivity>();
-        //    searchableActivity.Url = _linkService.GetLinks(@event.Id).Details;
-        //    searchableActivity.UserTagNames = _userTagService.Get(@event.Id).Select(t => t.Text);
-        //    return searchableActivity;
-        //}
+        private SearchableUintraActivity Map(Event @event)
+        {
+            var searchableActivity = @event.Map<SearchableUintraActivity>();
+            searchableActivity.Url = _activityLinkService.GetLinks(@event.Id).Details;
+            searchableActivity.UserTagNames = _userTagService.Get(@event.Id).Select(t => t.Text);
+            return searchableActivity;
+        }
 
         private ActivitySubscribeSettingDto Map(IIntranetActivity activity)
         {
-            var @event = (Event)activity;
+            var @event = (Event) activity;
             return @event.Map<ActivitySubscribeSettingDto>();
         }
 

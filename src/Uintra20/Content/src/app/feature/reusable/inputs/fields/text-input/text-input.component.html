@@ -17,20 +17,20 @@
   class="input"
   autocomplete="off">
 
-<input
-  *ngIf="!maxLength"
-  type="{{type}}"
-  name="{{name}}"
-  id="{{id}}"
+  <input
+    *ngIf="!maxLength"
+    type="{{type}}"
+    name="{{name}}"
+    id="{{id}}"
 
-  attr.aria-label="{{ariaLabel}}"
-  attr.role="{{role}}"
-  placeholder={{placeholder}}
-  (keyup)="onTouched()"
-  [(ngModel)]="value"
-  [required]="required"
+    attr.aria-label="{{ariaLabel}}"
+    attr.role="{{role}}"
+    placeholder={{placeholder}}
+    (keyup)="onTouched()"
+    [(ngModel)]="value"
+    [required]="required"
 
-  class="input"
-  autocomplete="off">
+    class="input"
+    autocomplete="off">
 
 <ng-content select="[after]"></ng-content>

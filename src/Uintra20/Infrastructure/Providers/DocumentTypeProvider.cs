@@ -21,7 +21,7 @@ namespace Uintra20.Infrastructure.Providers
         }
         public virtual string GetNavigationComposition() => DocumentTypeAliasConstants.NavigationComposition;
 
-        public virtual string GetContentPage() => DocumentTypeAliasConstants.ContentPage;
+        public virtual string GetArticlePage() => DocumentTypeAliasConstants.ArticlePage;
 
         public virtual string GetHeading() => DocumentTypeAliasConstants.Heading;
 
