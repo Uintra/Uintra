@@ -1152,8 +1152,7 @@
     <Compile Include="Features\Permissions\Models\PermissionUpdateViewModel.cs" />
     <Compile Include="Features\Permissions\Models\PermissionViewModel.cs" />
     <Compile Include="Features\Search\CommandBus\MemberHandle.cs" />
-    <Compile Include="Features\Search\Configuration\ElasticConfigurationSection.cs" />
-    <Compile Include="Features\Search\Configuration\IElasticConfigurationSection.cs" />
+    <Compile Include="Features\Search\Configuration\IElasticSettings.cs" />
     <Compile Include="Features\Search\Configuration\ISearchApplicationSettings.cs" />
     <Compile Include="Features\Search\Configuration\SearchApplicationSettings.cs" />
     <Compile Include="Features\Search\Converters\Panel\ArticleContinuedPanelSearchConverter.cs" />
@@ -2039,9 +2038,9 @@
     <OutputPath>bin\</OutputPath>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
-  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
-  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <!-- <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" /> -->
+  <!-- <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" /> -->
+  <!-- <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" /> -->
   <ProjectExtensions>
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
@@ -2075,11 +2074,11 @@
       </FilesForPackagingFromProject>
     </ItemGroup>
   </Target>
-  <UsingTask TaskName="TransformXml" AssemblyFile="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v10.0\Web\Microsoft.Web.Publishing.Tasks.dll" />
-  <Target Name="BeforeBuild">
-    <Message Text="Executing TransformXml for Web.$(Configuration).config" Importance="normal" />
-    <TransformXml Source="Web.Base.config" Transform="Web.$(Configuration).config" Destination="Web.config" ContinueOnError="False" StackTrace="True" />
-  </Target>
+  <!-- <UsingTask TaskName="TransformXml" AssemblyFile="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v10.0\Web\Microsoft.Web.Publishing.Tasks.dll" /> -->
+  <!-- <Target Name="BeforeBuild"> -->
+    <!-- <Message Text="Executing TransformXml for Web.$(Configuration).config" Importance="normal" /> -->
+    <!-- <TransformXml Source="Web.Base.config" Transform="Web.$(Configuration).config" Destination="Web.config" ContinueOnError="False" StackTrace="True" /> -->
+  <!-- </Target> -->
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
