@@ -27,8 +27,8 @@ namespace Uintra20.Infrastructure.Extensions
         //public static string SubstringAfter(this string src, string substring) =>
         //    src.Substring(src.IndexOf(substring) + substring.Length);
 
-        //public static string AddQueryParameter(this string src, string query) =>
-        //    src.AddParameter("query", query);
+        public static string AddQueryParameter(this string src, string query) =>
+            src.AddParameter("query", query);
 
         public static IEnumerable<int> ToIntCollection(this string src) =>
             src.IsNullOrEmpty()

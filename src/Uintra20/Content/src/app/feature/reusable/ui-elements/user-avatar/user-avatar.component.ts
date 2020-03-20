@@ -11,6 +11,7 @@ export class UserAvatarComponent implements OnInit {
   @Input() public photo: string;
   @Input() public name: string;
   @Input('big') public big: boolean;
+  @Input('small') public small: boolean;
   @Input() public routerLink: string;
   @Input() public queryParams: object;
 
@@ -35,5 +36,6 @@ export class UserAvatarComponent implements OnInit {
 
   private convertToBoolean(): void {
     this.big = this.big !== undefined;
+    this.small = this.small !== undefined;
   }
 }

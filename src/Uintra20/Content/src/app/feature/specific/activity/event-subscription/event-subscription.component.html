@@ -16,6 +16,7 @@
 <div *ngIf="details" class="event-subscription">
   <p *ngIf="subscribeNotes" class="event-subscription__notes">{{subscribeNotes}}</p>
   <button class="event-subscription__btn" (click)="onSubscribeToggle()">
+    <span class="event-subscription__btn-icon" [ngClass]="{'icon-checkmark-icon': !isSubscribed, 'icon-close': isSubscribed}"></span>
     {{(isSubscribed ? 'subscribeView.Unsubscribe.lnk' : 'subscribeView.Subscribe.lnk') | translate}}
   </button>
   <checkbox-input *ngIf="isSubscribed" [(ngModel)]="isChecked" (ngModelChange)='onCheckboxChange()'>

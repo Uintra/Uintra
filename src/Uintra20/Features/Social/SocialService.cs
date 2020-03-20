@@ -3,28 +3,40 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Compent.CommandBus;
+using Compent.Extensions;
 using Uintra20.Core.Activity;
 using Uintra20.Core.Feed.Models;
 using Uintra20.Core.Feed.Services;
 using Uintra20.Core.Feed.Settings;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Services;
+using Uintra20.Core.Search.Entities;
+using Uintra20.Core.Search.Indexers;
+using Uintra20.Core.Search.Indexers.Diagnostics;
+using Uintra20.Core.Search.Indexers.Diagnostics.Models;
+using Uintra20.Core.Search.Indexes;
 using Uintra20.Features.CentralFeed.Enums;
 using Uintra20.Features.Comments.Services;
 using Uintra20.Features.Groups.Services;
 using Uintra20.Features.Likes.Services;
 using Uintra20.Features.LinkPreview;
+using Uintra20.Features.Links;
 using Uintra20.Features.Location.Services;
 using Uintra20.Features.Media.Enums;
 using Uintra20.Features.Media.Helpers;
 using Uintra20.Features.Media.Intranet.Services.Contracts;
 using Uintra20.Features.Media.Models;
+using Uintra20.Features.Media.Video.Commands;
 using Uintra20.Features.Notification;
 using Uintra20.Features.Notification.Entities.Base;
 using Uintra20.Features.Notification.Services;
 using Uintra20.Features.Permissions;
 using Uintra20.Features.Permissions.Interfaces;
+using Uintra20.Features.Search.Web;
+using Uintra20.Features.Tagging.UserTags.Services;
 using Uintra20.Infrastructure.Caching;
+using Uintra20.Infrastructure.Extensions;
 using Uintra20.Infrastructure.TypeProviders;
 using static Uintra20.Features.Notification.Configuration.NotificationTypeEnum;
 
@@ -33,22 +45,26 @@ namespace Uintra20.Features.Social
     public class SocialService<T> : SocialServiceBase<T>,
         ISocialService<T>,
         IFeedItemService,
-        INotifyableService
-        //IIndexer,
+        INotifyableService,
+        IIndexer,
+        IHandle<VideoConvertedCommand> 
         where T : Entities.Social
     {
         private readonly ICommentsService _commentsService;
         private readonly ILikesService _likesService;
         private readonly INotificationsService _notificationService;
-        //private readonly IElasticUintraActivityIndex _activityIndex;
-        //private readonly IDocumentIndexer _documentIndexer;
+        private readonly IElasticUintraActivityIndex _activityIndex;
+        private readonly IDocumentIndexer _documentIndexer;
         private readonly IMediaHelper _mediaHelper;
         private readonly IIntranetMediaService _intranetMediaService;
         private readonly IGroupActivityService _groupActivityService;
         private readonly IActivityLinkPreviewService _activityLinkPreviewService;
         private readonly IGroupService _groupService;
         private readonly INotifierDataBuilder _notifierDataBuilder;
-        
+        private readonly IUserTagService _userTagService;
+        private readonly IActivityLinkService _activityLinkService;
+        private readonly IIndexerDiagnosticService _indexerDiagnosticService;
+
         public SocialService(
             IIntranetActivityRepository intranetActivityRepository,
             ICacheService cacheService,
@@ -58,30 +74,34 @@ namespace Uintra20.Features.Social
             IPermissionsService permissionsService,
             INotificationsService notificationService,
             IActivityTypeProvider activityTypeProvider,
-            //IElasticUintraActivityIndex activityIndex,
-            //IDocumentIndexer documentIndexer,
+            IElasticUintraActivityIndex activityIndex,
+            IDocumentIndexer documentIndexer,
             IMediaHelper mediaHelper,
             IIntranetMediaService intranetMediaService,
             IGroupActivityService groupActivityService,
             IActivityLocationService activityLocationService,
             IActivityLinkPreviewService activityLinkPreviewService,
             IGroupService groupService,
-            INotifierDataBuilder notifierDataBuilder
-            )
+            INotifierDataBuilder notifierDataBuilder,
+            IUserTagService userTagService,
+            IActivityLinkService activityLinkService, IIndexerDiagnosticService indexerDiagnosticService)
             : base(intranetActivityRepository, cacheService, activityTypeProvider, intranetMediaService,
                 activityLocationService, activityLinkPreviewService, intranetMemberService, permissionsService)
         {
             _commentsService = commentsService;
             _likesService = likesService;
             _notificationService = notificationService;
-            //_activityIndex = activityIndex;
-            //_documentIndexer = documentIndexer;
+            _activityIndex = activityIndex;
+            _documentIndexer = documentIndexer;
             _mediaHelper = mediaHelper;
             _intranetMediaService = intranetMediaService;
             _groupActivityService = groupActivityService;
             _activityLinkPreviewService = activityLinkPreviewService;
             _groupService = groupService;
             _notifierDataBuilder = notifierDataBuilder;
+            _userTagService = userTagService;
+            _activityLinkService = activityLinkService;
+            _indexerDiagnosticService = indexerDiagnosticService;
         }
 
         public override Enum Type => IntranetActivityTypeEnum.Social;
@@ -140,15 +160,15 @@ namespace Uintra20.Features.Social
             var bulletin = base.UpdateActivityCache(id);
             if (IsCacheable(bulletin) && (bulletin.GroupId is null || _groupService.IsActivityFromActiveGroup(bulletin)))
             {
-                //_activityIndex.Index(Map(social));
-                //_documentIndexer.Index(social.MediaIds);
+                _activityIndex.Index(Map(bulletin));
+                _documentIndexer.Index(bulletin.MediaIds);
                 return bulletin;
             }
 
             if (cachedBulletin == null) return null;
 
-            //_activityIndex.Delete(id);
-            //_documentIndexer.DeleteFromIndex(cachedBulletin.MediaIds);
+            _activityIndex.Delete(id);
+            _documentIndexer.DeleteFromIndex(cachedBulletin.MediaIds);
             _mediaHelper.DeleteMedia(cachedBulletin.MediaIds);
             return null;
         }
@@ -191,13 +211,22 @@ namespace Uintra20.Features.Social
             await _notificationService.ProcessNotificationAsync(notifierData);
         }
 
-        //public void FillIndex()
-        //{
-        //    var activities = GetAll().Where(IsCacheable);
-        //    var searchableActivities = activities.Select(Map);
-        //    _activityIndex.DeleteByType(UintraSearchableTypeEnum.Bulletins);
-        //    _activityIndex.Index(searchableActivities);
-        //}
+        public IndexedModelResult FillIndex()
+        {
+            try
+            {
+                var activities = GetAll().Where(IsCacheable);
+                var searchableActivities = activities.Select(Map).ToList();
+                _activityIndex.DeleteByType(UintraSearchableTypeEnum.Socials);
+                _activityIndex.Index(searchableActivities);
+
+                return _indexerDiagnosticService.GetSuccessResult(typeof(SocialService<T>).Name, searchableActivities);
+            }
+            catch (Exception e)
+            {
+                return _indexerDiagnosticService.GetFailedResult(e.Message + e.StackTrace, typeof(SocialService<T>).Name);
+            }
+        }
 
         private void FillLinkPreview(Entities.Social social)
         {
@@ -221,12 +250,25 @@ namespace Uintra20.Features.Social
         private static bool IsActualPublishDate(Entities.Social social) =>
             DateTime.Compare(social.PublishDate, DateTime.UtcNow) <= 0;
 
-        //private SearchableUintraActivity Map(Social social)
-        //{
-        //    var searchableActivity = social.Map<SearchableUintraActivity>();
-        //    searchableActivity.Url = _linkService.GetLinks(social.Id).Details;
-        //    searchableActivity.UserTagNames = _userTagService.Get(social.Id).Select(t => t.Text);
-        //    return searchableActivity;
-        //}
+        private SearchableUintraActivity Map(Entities.Social social)
+        {
+            var searchableActivity = social.Map<SearchableUintraActivity>();
+            searchableActivity.Url = _activityLinkService.GetLinks(social.Id).Details;
+            searchableActivity.UserTagNames = _userTagService.Get(social.Id).Select(t => t.Text);
+            return searchableActivity;
+        }
+
+        public BroadcastResult Handle(VideoConvertedCommand command)
+        {
+            var entityId = _intranetMediaService.GetEntityIdByMediaId(command.MediaId);
+            var entity = Get(entityId);
+            if (entity == null)
+            {
+                return BroadcastResult.Success;
+            }
+
+            entity.ModifyDate = DateTime.UtcNow;
+            return BroadcastResult.Success;
+        }
     }
 }

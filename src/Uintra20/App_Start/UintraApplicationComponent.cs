@@ -11,8 +11,8 @@ namespace Uintra20
 	{
 		public void Initialize()
 		{
-			JobManager.JobFactory = DependencyResolver.Current.GetService<IJobFactory>();
-			JobManager.Initialize(new JobsRegistry());
+			//JobManager.JobFactory = DependencyResolver.Current.GetService<IJobFactory>();
+			//JobManager.Initialize(new JobsRegistry());
         }
 		public void Terminate()
 		{

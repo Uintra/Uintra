@@ -7,18 +7,17 @@ import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./latest-activity-item.component.less']
 })
 export class LatestActivityComponent implements OnInit {
-  @Input() activityType: string;
-  @Input() activityDate: Date;
-  @Input() activityId: string;
-  @Input() activityDescription: string;
- // @Input() activityLinks: { details: { baseUrl: string; params: Array<{name: string, value: string}>}};
-  @Input() activityLinks: any;
+  @Input() public activityType: string;
+  @Input() public activityDate: Date;
+  @Input() public activityId: string;
+  @Input() public activityDescription: string;
+  @Input() public activityLinks: any;
 
   sanitizedActivityDescription: SafeHtml;
 
   constructor(private sanitizer: DomSanitizer) { }
 
-  ngOnInit() {
+  public ngOnInit(): void {
     this.sanitizedActivityDescription = this.sanitizer.bypassSecurityTrustHtml(this.activityDescription);
   }
 }

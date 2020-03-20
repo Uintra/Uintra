@@ -5,7 +5,7 @@ namespace Uintra20.Infrastructure.Providers
     public interface IDocumentTypeAliasProvider
     {
         string GetNavigationComposition();
-        string GetContentPage();
+        string GetArticlePage();
         string GetHeading();
         string GetSearchResultPage();
         string GetProfilePage();

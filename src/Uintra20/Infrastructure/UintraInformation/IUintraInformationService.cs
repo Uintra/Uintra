@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Uintra20.Infrastructure
+namespace Uintra20.Infrastructure.UintraInformation
 {
     public interface IUintraInformationService
     {
