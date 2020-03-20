@@ -2,7 +2,11 @@
 using System.Linq;
 using Uintra20.Core.Search.Entities;
 using Uintra20.Core.Search.Helpers;
+using Uintra20.Core.Search.Indexers.Diagnostics;
+using Uintra20.Core.Search.Indexers.Diagnostics.Models;
 using Uintra20.Core.Search.Indexes;
+using Uintra20.Features.Search.Web;
+using Uintra20.Features.Social;
 using Uintra20.Features.Tagging.UserTags.Models;
 using Uintra20.Features.Tagging.UserTags.Services;
 using Uintra20.Infrastructure.Extensions;
@@ -14,19 +18,34 @@ namespace Uintra20.Core.Search.Indexers
         private readonly ISearchUmbracoHelper _searchUmbracoHelper;
         private readonly UserTagProvider _userTagProvider;
         private readonly IElasticTagIndex _elasticTagIndex;
+        private readonly IIndexerDiagnosticService _indexerDiagnosticService; 
 
-        public UserTagsSearchIndexer(ISearchUmbracoHelper searchUmbracoHelper, UserTagProvider userTagProvider, IElasticTagIndex elasticTagIndex)
+        public UserTagsSearchIndexer(
+            ISearchUmbracoHelper searchUmbracoHelper, 
+            UserTagProvider userTagProvider, 
+            IElasticTagIndex elasticTagIndex, 
+            IIndexerDiagnosticService indexerDiagnosticService)
         {
             _searchUmbracoHelper = searchUmbracoHelper;
             _userTagProvider = userTagProvider;
             _elasticTagIndex = elasticTagIndex;
+            _indexerDiagnosticService = indexerDiagnosticService;
         }
 
-        public void FillIndex()
+        public IndexedModelResult FillIndex()
         {
-            var tags = _userTagProvider.GetAll();
-            var searchableTags = tags.Select(Map);
-            _elasticTagIndex.Index(searchableTags);
+            try
+            {
+                var tags = _userTagProvider.GetAll();
+                var searchableTags = tags.Select(Map).ToList();
+                _elasticTagIndex.Index(searchableTags);
+
+                return _indexerDiagnosticService.GetSuccessResult(typeof(UserTagsSearchIndexer).Name, searchableTags);
+            }
+            catch (Exception e)
+            {
+                return _indexerDiagnosticService.GetFailedResult(e.Message + e.StackTrace, typeof(UserTagsSearchIndexer).Name);
+            }
         }
 
         private SearchableTag Map(UserTag tag)

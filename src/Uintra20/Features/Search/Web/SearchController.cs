@@ -7,6 +7,7 @@ using Uintra20.Core.Localization;
 using Uintra20.Core.Search.Entities;
 using Uintra20.Core.Search.Helpers;
 using Uintra20.Core.Search.Indexers;
+using Uintra20.Core.Search.Indexers.Diagnostics.Models;
 using Uintra20.Core.Search.Indexes;
 using Uintra20.Core.Search.Providers;
 using Uintra20.Features.Search.Models;
@@ -181,23 +182,20 @@ namespace Uintra20.Features.Search.Web
         [HttpPost]
         public RebuildIndexStatusModel RebuildIndex()
         {
-
             var success = _elasticIndex.RecreateIndex(out var error);
+            var res = new List<IndexedModelResult>();
 
             if (success)
             {
-                foreach (var service in _searchableServices)
-                {
-                    service.FillIndex();
-                }
+                res.AddRange(_searchableServices.Select(s => s.FillIndex()));
             }
 
-            var status = new RebuildIndexStatusModel()
+            var status = new RebuildIndexStatusModel
             {
                 Success = success,
-                Message = error
+                Message = error,
+                Index = res
             };
-
 
             return status;
         }
