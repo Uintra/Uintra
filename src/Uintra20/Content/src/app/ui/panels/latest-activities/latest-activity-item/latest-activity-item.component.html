@@ -1,8 +1,9 @@
-<div class="type-and-date">
-
-  <p>{{activityType}}</p>
-  <p>{{activityDate}}</p>
-</div>
-<a [routerLink]="activityLinks?.details?.get().originalUrl | ulink"
- class="block-subtitle-clamp rte"
- [innerHtml]="activityDescription"></a>
+<a [routerLink]="activityLinks?.details?.get().originalUrl | ulink" 
+   class="activity-item-container">
+  <div class="type-and-date">
+    <p>{{activityType}}</p>
+    <p>{{activityDate}}</p>
+  </div>
+  <p class="block-subtitle-clamp rte"
+     [innerHtml]="activityDescription"></p>
+</a>

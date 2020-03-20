@@ -59,7 +59,7 @@
     <sq-datetimepicker
       [groupClass]="'udatepicker'"
       [inputClass]="'udatepicker-input'"
-      [ngModel]="eventsData.publishDate"
+      [ngModel]="initialDates.publishDate"
       (ngModelChange)="onPublishDateChange($event)"
       [mode]="'input'"
       [options]="publishDatepickerOptions"
@@ -90,7 +90,7 @@
   <app-pin-activity
     *ngIf="eventsData.pinAllowed"
     noMaxDate
-    [publishDate]="eventsData.publishDate"
+    [publishDate]="initialDates.publishDate"
     [isPinCheked]="eventsData.isPinned"
     [isAccepted]="isAccepted"
     [endPinDate]="eventsData.endPinDate"
@@ -135,17 +135,17 @@
         {{translate.instant(edit ? 'eventsEdit.DescriptionRequired.lbl' : 'createEvents.DescriptionRequired.lbl')}}
     </div>
 
-    <div *ngIf="!eventsData.publishDate"
+    <div *ngIf="!initialDates.publishDate"
         class="alert alert-danger">
         {{translate.instant('eventsCreate.PublishDateRequired.lbl')}}
     </div>
 
-    <div *ngIf="!eventsData.endDate"
+    <div *ngIf="!initialDates.to"
         class="alert alert-danger">
         {{translate.instant('eventsEdit.EndDateRequired.lbl')}}
     </div>
 
-    <div *ngIf="!eventsData.startDate"
+    <div *ngIf="!initialDates.from"
         class="alert alert-danger">
         {{translate.instant('eventsEdit.StartDateRequired.lbl')}}
     </div>
