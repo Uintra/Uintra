@@ -31,7 +31,7 @@ namespace Uintra20.Features.Search.Page
             IElasticIndex elasticIndex,
             IUBaselineRequestContext requestContext)
         {
-            _intranetLocalizationService E= intranetLocalizationService;
+            _intranetLocalizationService = intranetLocalizationService;
             _searchableTypeProvider = searchableTypeProvider;
             _elasticIndex = elasticIndex;
             _requestContext = requestContext;
