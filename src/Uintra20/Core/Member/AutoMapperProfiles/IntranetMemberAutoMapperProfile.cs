@@ -4,6 +4,7 @@ using Uintra20.Core.Member.Abstractions;
 using Uintra20.Core.Member.Models;
 using Uintra20.Core.Member.Models.Dto;
 using Uintra20.Core.Member.Profile.Models;
+using Uintra20.Features.UserList.Models;
 
 namespace Uintra20.Core.Member.AutoMapperProfiles
 {
@@ -26,14 +27,12 @@ namespace Uintra20.Core.Member.AutoMapperProfiles
                 .ForMember(dst => dst.ProfileLink, o => o.Ignore())
                 .ForMember(dst => dst.PhotoId, o => o.MapFrom(user => user.PhotoId));
 
-            //Mapper.CreateMap<IIntranetMember, MemberModel>()
-            //    .ForMember(dst => dst.Member, o => o.MapFrom(user => user))
-            //    .ForMember(dst => dst.ProfileUrl, o => o.Ignore())
-            //    .ForMember(dst => dst.IsGroupAdmin, o => o.Ignore())
-            //    .ForMember(dst => dst.IsCreator, o => o.Ignore());
-
+            CreateMap<IIntranetMember, MemberModel>()
+                .ForMember(dst => dst.Member, o => o.MapFrom(user => user))
+                .ForMember(dst => dst.ProfileUrl, o => o.Ignore())
+                .ForMember(dst => dst.IsGroupAdmin, o => o.Ignore())
+                .ForMember(dst => dst.IsCreator, o => o.Ignore());
             
-
             CreateMap<Google.Apis.Admin.Directory.directory_v1.Data.User, CreateMemberDto>()
                 .ForMember(dst => dst.FirstName, o => o.Ignore())
                 .ForMember(dst => dst.LastName, o => o.Ignore())

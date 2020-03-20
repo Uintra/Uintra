@@ -11,7 +11,7 @@ namespace Uintra20.Core.Search.Repository
 {
     public class ElasticSearchRepository : IElasticSearchRepository
     {
-        protected readonly IElasticConfigurationSection Configuration;
+        protected readonly IElasticSettings Configuration;
         protected readonly IElasticClient Client;
         protected readonly string IndexName;
         protected const string AttachmentsPipelineName = "attachments";
@@ -19,14 +19,14 @@ namespace Uintra20.Core.Search.Repository
         private readonly IExceptionLogger _exceptionLogger;
 
         public ElasticSearchRepository(
-            IElasticConfigurationSection configuration,
+            IElasticSettings configuration,
             IExceptionLogger exceptionLogger)
         {
             Configuration = configuration;
             _exceptionLogger = exceptionLogger;
-            IndexName = configuration.IndexPrefix;
+            IndexName = configuration.IndexName;
 
-            var connectionSettings = new ConnectionSettings(new Uri(configuration.Url)).DefaultIndex(IndexName);
+            var connectionSettings = new ConnectionSettings(new Uri(configuration.SearchUrl)).DefaultIndex(IndexName);
             if (HasCredentials())
             {
                 ApplyAuthentication(connectionSettings);
@@ -101,12 +101,12 @@ namespace Uintra20.Core.Search.Repository
 
         protected void ApplyAuthentication(ConnectionSettings settings)
         {
-            settings.BasicAuthentication(Configuration.UserName, Configuration.Password);
+            settings.BasicAuthentication(Configuration.SearchUserName, Configuration.SearchPassword);
         }
 
         protected bool HasCredentials()
         {
-            return !string.IsNullOrEmpty(Configuration.UserName) && !string.IsNullOrEmpty(Configuration.Password);
+            return !string.IsNullOrEmpty(Configuration.SearchUserName) && !string.IsNullOrEmpty(Configuration.SearchPassword);
         }
 
         private bool EnsureAttachmentsPipelineExists(out string error)
@@ -140,7 +140,7 @@ namespace Uintra20.Core.Search.Repository
         private static readonly Type SearchableDocumentType = typeof(SearchableDocument);
 
         public ElasticSearchRepository(
-            IElasticConfigurationSection configuration,
+            IElasticSettings configuration,
             PropertiesDescriptor<T> properties,
             IExceptionLogger exceptionLogger)
             : base(configuration, exceptionLogger)
