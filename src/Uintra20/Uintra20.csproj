@@ -1019,6 +1019,8 @@
     <Compile Include="Features\Groups\Models\GroupDocumentViewModel.cs" />
     <Compile Include="Features\Groups\Models\GroupNavigationCompositionModel.cs" />
     <Compile Include="Features\Groups\Models\GroupNavigationCompositionViewModel.cs" />
+    <Compile Include="Features\Groups\Models\GroupToggleAdminRightsModel.cs" />
+    <Compile Include="Features\Groups\Models\MemberGroupInviteModel.cs" />
     <Compile Include="Features\Groups\Models\UintraGroupsDocumentsPageModel.cs" />
     <Compile Include="Features\Groups\Models\UintraGroupsDocumentsPageViewModel.cs" />
     <Compile Include="Features\Groups\Models\UintraGroupsEditPageModel.cs" />
@@ -1208,6 +1210,7 @@
     <Compile Include="Features\UserList\Models\ActiveMemberSearchQuery.cs" />
     <Compile Include="Features\UserList\Models\ColumnType.cs" />
     <Compile Include="Features\UserList\Models\MemberModel.cs" />
+    <Compile Include="Features\UserList\Models\MembersListSearchModel.cs" />
     <Compile Include="Features\UserList\Models\MembersRowsViewModel.cs" />
     <Compile Include="Features\UserList\Models\ProfileColumnModel.cs" />
     <Compile Include="Features\UserList\Models\UserListPageModel.cs" />

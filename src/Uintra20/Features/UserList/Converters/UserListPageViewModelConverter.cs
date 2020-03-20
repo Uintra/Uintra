@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Compent.Extensions;
-using Localization.Core;
 using UBaseline.Core.Node;
 using Uintra20.Core.Member.Abstractions;
 using Uintra20.Core.Member.Models;
@@ -12,12 +11,10 @@ using Uintra20.Core.Search.Entities;
 using Uintra20.Core.Search.Indexes;
 using Uintra20.Features.Groups.Services;
 using Uintra20.Features.Links;
-using Uintra20.Features.Notification.Services;
 using Uintra20.Features.Search.Queries;
 using Uintra20.Features.UserList.Helpers;
 using Uintra20.Features.UserList.Models;
 using Uintra20.Infrastructure.Extensions;
-using Uintra20.Infrastructure.Helpers;
 
 namespace Uintra20.Features.UserList.Converters
 {
@@ -26,32 +23,23 @@ namespace Uintra20.Features.UserList.Converters
         private const int AmountPerRequest = 10;
 
         private readonly IElasticMemberIndex<SearchableMember> _elasticIndex;
-        private readonly ILocalizationCoreService _localizationCoreService;
         private readonly IProfileLinkProvider _profileLinkProvider;
         private readonly IGroupService _groupService;
         private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
         private readonly IGroupMemberService _groupMemberService;
-        private readonly INotificationsService _notificationsService;
-        private readonly INotifierDataHelper _notifierDataHelper;
 
         public UserListPageViewModelConverter(
             IIntranetMemberService<IIntranetMember> intranetMemberService,
             IElasticMemberIndex<SearchableMember> elasticIndex,
-            ILocalizationCoreService localizationCoreService,
             IProfileLinkProvider profileLinkProvider,
             IGroupService groupService,
-            IGroupMemberService groupMemberService,
-            INotificationsService notificationsService,
-            INotifierDataHelper notifierDataHelper)
+            IGroupMemberService groupMemberService)
         {
             _elasticIndex = elasticIndex;
-            _localizationCoreService = localizationCoreService;
             _profileLinkProvider = profileLinkProvider;
             _groupService = groupService;
             _intranetMemberService = intranetMemberService;
             _groupMemberService = groupMemberService;
-            _notificationsService = notificationsService;
-            _notifierDataHelper = notifierDataHelper;
         }
 
         public void Map(UserListPageModel node, UserListPageViewModel viewModel)
@@ -62,39 +50,28 @@ namespace Uintra20.Features.UserList.Converters
             if (Guid.TryParse(groupIdStr, out var parsedGroupId))
                 groupId = parsedGroupId;
 
-            viewModel.Details = Render(groupId);
+            viewModel.Details = GetUsers(groupId);
         }
 
-        public virtual UserListViewModel Render(Guid? groupId)
+        public virtual MembersRowsViewModel GetUsers(Guid? groupId)
         {
-            var selectedColumns = UsersPresentationHelper.GetProfileColumns().ToArray();
-
-            var orderByColumn = selectedColumns.FirstOrDefault(i => i.SupportSorting);
-
-            var query = new ActiveMemberSearchQuery
+            var listSearch = new ActiveMemberSearchQuery
             {
-                Text = string.Empty,
-                Skip = 0,
-                Take = AmountPerRequest,
-                OrderingString = orderByColumn?.PropertyName,
                 GroupId = groupId,
-                MembersOfGroup = groupId.HasValue
+                OrderingString = string.Empty,
+                Text = string.Empty,
+                Page = 1
             };
 
-            var (activeUsers, isLastRequest) = GetActiveUsers(query, groupId);
+            var (activeUsers, isLastRequest) = GetActiveUsers(listSearch, groupId);
 
-            var viewModel = new UserListViewModel
-            {
-                AmountPerRequest = AmountPerRequest,
-                Title = null,
-                MembersRows = GetUsersRowsViewModel(groupId),
-                OrderByColumn = orderByColumn
-            };
-            viewModel.MembersRows.SelectedColumns = UsersPresentationHelper.ExtendIfGroupMembersPage(groupId, selectedColumns);
-            viewModel.MembersRows.Members = activeUsers;
-            viewModel.IsLastRequest = isLastRequest;
+            var model = GetUsersRowsViewModel(groupId);
 
-            return viewModel;
+            model.SelectedColumns = UsersPresentationHelper.ExtendIfGroupMembersPage(listSearch.GroupId, UsersPresentationHelper.GetProfileColumns());
+            model.Members = activeUsers;
+            model.IsLastRequest = isLastRequest;
+
+            return model;
         }
 
         private (IEnumerable<MemberModel> result, bool isLastRequest) GetActiveUsers(ActiveMemberSearchQuery query, Guid? groupId)
@@ -104,7 +81,9 @@ namespace Uintra20.Features.UserList.Converters
             var result = _intranetMemberService.GetMany(searchResult)
                 .Select(x => MapToViewModel(x, groupId));
 
-            var isLastRequest = query.Skip + query.Take >= totalHits;
+            var skip = (query.Page - 1) * AmountPerRequest;
+
+            var isLastRequest = skip + AmountPerRequest >= totalHits;
 
             return (result, isLastRequest);
         }
@@ -112,11 +91,13 @@ namespace Uintra20.Features.UserList.Converters
         private (IEnumerable<Guid> searchResult, long totalHits) GetActiveUserIds(
             ActiveMemberSearchQuery query)
         {
+            var skip = (query.Page - 1) * AmountPerRequest;
+
             var searchQuery = new MemberSearchQuery
             {
                 Text = query.Text,
-                Skip = query.Skip,
-                Take = query.Take,
+                Skip = skip,
+                Take = AmountPerRequest,
                 OrderingString = query.OrderingString,
                 SearchableTypeIds = ((int)UintraSearchableTypeEnum.Member).ToEnumerable(),
                 GroupId = query.GroupId,
@@ -134,7 +115,7 @@ namespace Uintra20.Features.UserList.Converters
             var model = new MembersRowsViewModel
             {
                 SelectedColumns = UsersPresentationHelper.GetProfileColumns(),
-                CurrentMember = _intranetMemberService.GetCurrentMember().Map<MemberViewModel>(),
+                CurrentMember = _intranetMemberService.GetCurrentMember().ToViewModel(),
             };
             
             model.IsCurrentMemberGroupAdmin = groupId.HasValue && _groupMemberService
