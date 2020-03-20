@@ -16,7 +16,7 @@
               #query
 
               [value]="inputValue"
-              (keyup)="onQueryChange(query.value, $event.keyCode)"/>
+              (keyup)="onQueryChange(query.value)"/>
 
             <span class="icon icon-search-icon"></span>
           </div>
@@ -29,9 +29,7 @@
             (ngModelChange)="onTagsChange($event)">
           </app-tag-multiselect>
         </div>
-        <checkbox-input
-          [isChecked]="isOnlyPinned"
-          (change)="handlePinnedCbx($event)">
+        <checkbox-input [(isChecked)]="isOnlyPinned">
           {{'search.Filter.OnlyPinned.chkbx' | translate}}
         </checkbox-input>
         <h2 class="search-results__title">

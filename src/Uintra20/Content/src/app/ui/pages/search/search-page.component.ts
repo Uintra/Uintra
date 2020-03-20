@@ -1,6 +1,8 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import ParseHelper from 'src/app/shared/utils/parse.helper';
+import { Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
   selector: 'search-page',
@@ -16,6 +18,7 @@ export class SearchPage {
   availableTags: any[] = [];
   resultsList: any[] = [];
   isOnlyPinned: boolean = false;
+  _query = new Subject<string>();
 
   constructor(
     private route: ActivatedRoute
@@ -24,6 +27,22 @@ export class SearchPage {
       this.data = data;
       this.parsedData = ParseHelper.parseUbaselineData(this.data);
     });
+    // this._query.pipe(
+    //   debounceTime(200),
+    //   distinctUntilChanged(),
+    // ).subscribe((value: string) => {
+    //   if (value && value.length > 2) {
+    //     this.searchService.autocomplete(value).subscribe((res: any[]) => {
+    //       this.autocompleteList = res.map(suggestion => ({
+    //         ...suggestion,
+    //         isActive: false
+    //       }));
+    //       this.hasResults = res.length > 0;
+    //     })
+    //   } else {
+    //     this.autocompleteList = [];
+    //   }
+    // })
   }
 
   ngOnInit() {
@@ -31,7 +50,12 @@ export class SearchPage {
     this.resultsList = this.parsedData.results || [];
   }
 
-  handlePinnedCbx(val) {
-    debugger
+  onQueryChange(val: string) {
+    this.inputValue = val;
+    this._query.next(val);
+  }
+
+  onTagsChange(val) {
+
   }
 }
