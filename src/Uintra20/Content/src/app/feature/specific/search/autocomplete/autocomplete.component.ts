@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { SearchService } from '../search.service';
-import { Router } from '@angular/router';
+import { Router, NavigationStart } from '@angular/router';
 
 @Component({
   selector: 'app-autocomplete',
@@ -41,7 +41,12 @@ export class AutocompleteComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.router.events.subscribe(e => {
+      if (e instanceof NavigationStart) {
+        this.closeAutocomplete();
+        this.clearInput();
+      }
+    })
   }
 
   onQueryChange(val: string, keyCode: number) {
@@ -106,8 +111,6 @@ export class AutocompleteComponent implements OnInit {
       } else {
         this.router.navigate([`/search?query=${encodeURIComponent(this.inputValue)}`]);
       }
-      this.loseFocus();
-      this.clearInput();
     }
   }
 
@@ -121,11 +124,11 @@ export class AutocompleteComponent implements OnInit {
     }
   }
 
-  loseFocus() {
+  closeAutocomplete() {
     this.isFocused = false;
   }
 
-  getFocused() {
+  openAutocomplete() {
     this.isFocused = true;
   }
 

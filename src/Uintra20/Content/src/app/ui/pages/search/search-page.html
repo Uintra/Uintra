@@ -1,0 +1,46 @@
+<div class="page-wrapper" *ngIf="parsedData">
+  <div class="row-flex">
+    <div class="col-md-8">
+      <div class="search-page">
+        <h2 class="search-page__title">{{'searchResult.Title' | translate}}</h2>
+        <div class="search-holder">
+          <h3 class="search__title subtitle">{{'searchResult.Search.lbl' | translate}}</h3>
+          <div class="search">
+            <input
+              type="search"
+              ariaLabel="search"
+              id="search"
+              name="search"
+              class="search__input"
+              autocomplete="off"
+              #query
+
+              [value]="inputValue"
+              (keyup)="onQueryChange(query.value)"/>
+
+            <span class="icon icon-search-icon"></span>
+          </div>
+        </div>
+        <div class="search-filters">
+          <h3 class="search-filters__title subtitle">{{'searchResult.Filter.Title' | translate}}</h3>
+          <app-tag-multiselect
+            [availableTags]="availableTags"
+            [ngModel]="filters"
+            (ngModelChange)="onTagsChange($event)">
+          </app-tag-multiselect>
+        </div>
+        <checkbox-input [(isChecked)]="isOnlyPinned">
+          {{'search.Filter.OnlyPinned.chkbx' | translate}}
+        </checkbox-input>
+        <h2 class="search-results__title">
+          {{'searchResult.YouSearchedFor.lbl' | translate}} {{'searchResult.Count.lbl' | translate}}
+        </h2>
+        <div *ngIf="resultsList.length" class="search-results">
+
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4"></div>
+  </div>
+</div>
