@@ -3,6 +3,7 @@ import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { SearchService } from '../search.service';
 import { Router, NavigationStart } from '@angular/router';
+import { IAutocompleteItem, IMapedAutocompleteItem } from '../search.interface';
 
 @Component({
   selector: 'app-autocomplete',
@@ -13,7 +14,7 @@ export class AutocompleteComponent implements OnInit {
 
   _query = new Subject<string>();
   inputValue: string = '';
-  autocompleteList: any[] = [];
+  autocompleteList: IMapedAutocompleteItem[] = [];
   hasResults: boolean = true;
   isFocused: boolean;
   inputValueToRestore: string;
@@ -27,7 +28,7 @@ export class AutocompleteComponent implements OnInit {
       distinctUntilChanged(),
     ).subscribe((value: string) => {
       if (value && value.length > 2) {
-        this.searchService.autocomplete(value).subscribe((res: any[]) => {
+        this.searchService.autocomplete(value).subscribe((res: IAutocompleteItem[]) => {
           this.autocompleteList = res.map(suggestion => ({
             ...suggestion,
             isActive: false
@@ -62,8 +63,8 @@ export class AutocompleteComponent implements OnInit {
         break;
       default:
         this.inputValue = val;
-        this._query.next(val);
         this.inputValueToRestore = val;
+        this._query.next(val);
         break;
     }
   }
@@ -103,8 +104,10 @@ export class AutocompleteComponent implements OnInit {
   }
 
   goToSearchPage() {
-    if (this.autocompleteList.length > 0) {
-      const currentSuggestionIndex = this.autocompleteList.findIndex(suggestion => suggestion.isActive == true);
+    if (this.inputValue.length > 1) {
+      const currentSuggestionIndex = this.autocompleteList.length
+        ? this.autocompleteList.findIndex(suggestion => suggestion.isActive == true)
+        : -1;
 
       if (currentSuggestionIndex !== -1) {
         this.router.navigate([this.autocompleteList[currentSuggestionIndex].url.originalUrl]);

@@ -1,3 +1,5 @@
+import { IULink } from 'src/app/shared/interfaces/general.interface';
+
 export interface ISearchRequestData {
   query: string;
   page: number;
@@ -32,4 +34,25 @@ export interface ISearchData {
   resultsCount: number;
   blockScrolling: boolean;
   allTypesPlaceholder: string;
+}
+export interface IAutocompleteItem {
+  title: string;
+  url: IULink;
+  item: {
+    title: string;
+    type: string;
+    photo: string;
+    email: string;
+  }
+}
+export interface IMapedAutocompleteItem {
+  title: string;
+  url: IULink;
+  isActive: boolean;
+  item: {
+    title: string;
+    type: string;
+    photo: string;
+    email: string;
+  }
 }
