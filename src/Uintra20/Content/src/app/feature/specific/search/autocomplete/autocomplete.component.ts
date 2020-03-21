@@ -118,7 +118,7 @@ export class AutocompleteComponent implements OnInit {
     if (this.autocompleteList.length > 0) {
       const currentSuggestionIndex = this.autocompleteList.findIndex(suggestion => suggestion.isActive == true);
 
-      if (currentSuggestionIndex) {
+      if (currentSuggestionIndex !== -1) {
         this.autocompleteList[currentSuggestionIndex].isActive = false;
       }
     }

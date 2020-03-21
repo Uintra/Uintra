@@ -53,6 +53,7 @@ search-page {
   }
 
   .search-results {
+    word-break: break-word;
     margin-top: 27px;
 
     &__title {
@@ -65,17 +66,41 @@ search-page {
 
     &__item {
       display: block;
-      margin-bottom: 14px;
-      padding: 15px 0;
       font-size: 16px;
       line-height: 22px;
+      color: @body-text-color;
+      text-decoration: none;
+      margin-bottom: 14px;
+      padding: 15px 0;
 
       &-title {
-        font-size: 16px;
         font-weight: bold;
         line-height: 20px;
         margin-bottom: 9px;
         color: @text-color;
+      }
+
+      &-description {
+        margin-bottom: 15px;
+      }
+
+      &-type {
+        font-size: 13px;
+        font-weight: bold;
+        line-height: 14px;
+        text-transform: uppercase;
+        color: @body-text-color--light;
+      }
+    }
+
+    &__loader {
+      .spinner;
+      color: #444;
+
+      &-wrapper {
+        display: flex;
+        justify-content: center;
+        margin: 30px auto 0;
       }
     }
   }
