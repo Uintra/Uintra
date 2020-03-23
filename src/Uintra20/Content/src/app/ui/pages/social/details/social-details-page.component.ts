@@ -14,6 +14,7 @@ import { ILikeData } from "src/app/feature/reusable/ui-elements/like-button/like
 import { ICommentData } from "src/app/feature/reusable/ui-elements/comments/comments.component";
 import { ImageGalleryService } from "src/app/feature/reusable/ui-elements/image-gallery/image-gallery.service";
 import { IGroupDetailsHeaderData } from 'src/app/feature/specific/groups/groups.interface';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: "social-details",
@@ -41,6 +42,7 @@ export class SocialDetailsPanelComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private addButtonService: AddButtonService,
     private router: Router,
+    private translateService: TranslateService
   ) {
     this.activatedRoute.data.subscribe(data => {
       if (!data.requiresRedirect.get()) {
@@ -62,9 +64,7 @@ export class SocialDetailsPanelComponent implements OnInit {
     this.canView = !parsedData.requiresRedirect;
     this.isGroupMember = parsedData.isGroupMember;
     this.groupHeader = parsedData.groupHeader;
-    this.activityName = ParseHelper.parseActivityType(
-      this.details.activityType
-    );
+    this.activityName = this.translateService.instant('socialDetailsTitle.lbl');
     this.tags = Object.values(parsedData.tags);
     this.medias = Object.values(parsedData.details.lightboxPreviewModel.medias);
     this.documents = Object.values(
