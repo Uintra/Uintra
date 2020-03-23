@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { LikeButtonService, IAddLikeRequest } from "./like-button.service";
 import { ILikeData, IUserLikeData } from "./like-button.interface";
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: "app-like-button",
@@ -12,18 +13,22 @@ export class LikeButtonComponent implements OnInit {
   @Input() isDisabled: boolean = false;
   newLikesCount: number = null;
   listOfUsersWhoLiked: Array<IUserLikeData> = [];
+  likeLinkPlaceholder: string;
 
   get likesCount() {
-    return this.newLikesCount || "Like";
+    return this.newLikesCount || this.likeLinkPlaceholder;
   }
 
-  constructor(private likeButtonService: LikeButtonService) {}
+  constructor(
+    private likeButtonService: LikeButtonService,
+    private translateService: TranslateService) { }
 
-  ngOnInit() {
+  public ngOnInit(): void {
     if (this.likeData && this.likeData.likes) {
       this.newLikesCount = this.likeData.likes.length;
       this.listOfUsersWhoLiked = this.likeData.likes;
     }
+    this.likeLinkPlaceholder = this.translateService.instant('activity.Like.lnk');
   }
 
   onClickLike() {
