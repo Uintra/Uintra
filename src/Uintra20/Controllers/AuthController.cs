@@ -6,6 +6,7 @@ using System.Web.Http;
 using System.Web.Security;
 using Uintra20.Core.Authentication;
 using Uintra20.Core.Authentication.Models;
+using Uintra20.Core.Localization;
 using Uintra20.Core.Member.Abstractions;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Helpers;
@@ -36,6 +37,7 @@ namespace Uintra20.Controllers
         private readonly INotificationsService _notificationsService;
         private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
         private readonly UmbracoContext _umbracoContext;
+        private readonly IIntranetLocalizationService _intranetLocalizationService;
 
         public AuthController(
             UmbracoMembersUserManager<UmbracoApplicationMember> userManager,
@@ -46,7 +48,8 @@ namespace Uintra20.Controllers
             IMemberService memberService,
             INotificationsService notificationsService,
             IIntranetMemberService<IntranetMember> intranetMemberService,
-            UmbracoContext umbracoContext)
+            UmbracoContext umbracoContext, 
+            IIntranetLocalizationService intranetLocalizationService)
         {
             _userManager = userManager;
             _authenticationService = authenticationService;
@@ -57,6 +60,7 @@ namespace Uintra20.Controllers
             _notificationsService = notificationsService;
             _intranetMemberService = intranetMemberService;
             _umbracoContext = umbracoContext;
+            _intranetLocalizationService = intranetLocalizationService;
         }
 
         [HttpPost]
@@ -71,7 +75,7 @@ namespace Uintra20.Controllers
             var login = user != null ? user.UserName : loginModel.Login;
 
             if (!Membership.ValidateUser(login, loginModel.Password))
-                return BadRequest("Credentials not valid");
+                return BadRequest(_intranetLocalizationService.Translate("credentialsNotValid.lbl"));
 
             await _authenticationService.LoginAsync(login, loginModel.Password);
             _clientTimezoneProvider.SetClientTimezone(loginModel.ClientTimezoneId);

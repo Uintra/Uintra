@@ -5,6 +5,7 @@
        autocapitalize="off"
        spellcheck="off"
        #search
+       [placeholder]="'locationInputPlaceholder' | translate"
        [(ngModel)]="address" />
 <agm-map [latitude]="defaultCoordinates.latitude"
          [longitude]="defaultCoordinates.longitude"

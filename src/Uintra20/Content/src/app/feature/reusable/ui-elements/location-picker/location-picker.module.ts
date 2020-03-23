@@ -4,6 +4,7 @@ import { LocationPickerComponent } from './location-picker.component';
 import { AgmCoreModule } from '@agm/core';
 import { FormsModule } from '@angular/forms';
 import { GOOGLE_MAPS_CONFIG } from 'src/app/shared/constants/maps/google-maps.const';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { GOOGLE_MAPS_CONFIG } from 'src/app/shared/constants/maps/google-maps.co
       apiKey: GOOGLE_MAPS_CONFIG.API_KEY,
       libraries: ['geometry', 'places']
     }),
+    TranslateModule
   ],
   exports: [
     LocationPickerComponent

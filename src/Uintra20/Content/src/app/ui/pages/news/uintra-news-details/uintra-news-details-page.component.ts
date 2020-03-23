@@ -7,6 +7,7 @@ import { ISocialDetails, IUserTag, IMedia, IDocument } from 'src/app/feature/spe
 import { ICommentData } from 'src/app/feature/reusable/ui-elements/comments/comments.component';
 import { ImageGalleryService } from 'src/app/feature/reusable/ui-elements/image-gallery/image-gallery.service';
 import { ILikeData } from 'src/app/feature/reusable/ui-elements/like-button/like-button.interface';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: "uintra-news-details-page",
@@ -32,6 +33,7 @@ export class UintraNewsDetailsPage implements OnInit {
     private sanitizer: DomSanitizer,
     private addButtonService: AddButtonService,
     private router: Router,
+    private translateService: TranslateService
   ) {
     this.activatedRoute.data.subscribe(data => {
       if (!data.requiresRedirect.get()) {
@@ -51,10 +53,7 @@ export class UintraNewsDetailsPage implements OnInit {
       entityId: this.parsedData.details.id,
       entityType: this.parsedData.details.activityType
     };
-    this.activityName = ParseHelper.parseActivityType(
-      this.details.activityType
-    );
-
+    this.activityName = this.translateService.instant('newsDetails.Title');
     this.tags = Object.values(this.parsedData.tags);
     this.medias = Object.values(this.parsedData.details.lightboxPreviewModel.medias);
     this.documents = Object.values(

@@ -1,17 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using Compent.Extensions;
+using System.Collections.Generic;
 using System.Linq;
-using Uintra20.Core.Member.Entities;
-using Uintra20.Core.Member.Services;
-using Compent.Extensions;
 using UBaseline.Core.Navigation;
 using UBaseline.Core.Node;
-using Uintra20.Core.User;
 using UBaseline.Core.RequestContext;
 using UBaseline.Shared.Navigation;
 using UBaseline.Shared.Node;
 using Uintra20.Core.HomePage;
+using Uintra20.Core.Localization;
+using Uintra20.Core.Member.Entities;
+using Uintra20.Core.Member.Services;
+using Uintra20.Core.User;
 using Uintra20.Features.Navigation.Models;
-using Uintra20.Infrastructure;
 using Uintra20.Infrastructure.Extensions;
 using Uintra20.Infrastructure.UintraInformation;
 
@@ -26,7 +26,7 @@ namespace Uintra20.Features.Navigation
         private readonly INavigationBuilder _navigationBuilder;
         private readonly IIntranetUserContentProvider _intranetUserContentProvider;
         private readonly IUBaselineRequestContext _uBaselineRequestContext;
-
+        private readonly IIntranetLocalizationService _intranetLocalizationService;
         public NavigationModelsBuilder(
             IUintraInformationService uintraInformationService,
             INodeModelService nodeModelService,
@@ -34,7 +34,8 @@ namespace Uintra20.Features.Navigation
             IIntranetMemberService<IntranetMember> intranetMemberService,
             INavigationBuilder navigationBuilder,
             IIntranetUserContentProvider intranetUserContentProvider,
-            IUBaselineRequestContext uBaselineRequestContext)
+            IUBaselineRequestContext uBaselineRequestContext, 
+            IIntranetLocalizationService intranetLocalizationService)
         {
             _uintraInformationService = uintraInformationService;
             _nodeModelService = nodeModelService;
@@ -42,6 +43,7 @@ namespace Uintra20.Features.Navigation
             _navigationBuilder = navigationBuilder;
             _intranetUserContentProvider = intranetUserContentProvider;
             _uBaselineRequestContext = uBaselineRequestContext;
+            _intranetLocalizationService = intranetLocalizationService;
             _intranetMemberService = intranetMemberService;
         }
 
@@ -79,7 +81,7 @@ namespace Uintra20.Features.Navigation
                 {
                     new TopNavigationItem
                     {
-                        Name = "Logout",
+                        Name = _intranetLocalizationService.Translate("TopNavigation.Logout.lbl"),
                         Type = TopNavigationItemTypes.Logout,
                         Url = "/api/auth/logout".ToLinkModel()
                     }
@@ -96,35 +98,35 @@ namespace Uintra20.Features.Navigation
 
             if (currentMember.RelatedUser != null)
             {
-                menuItems.Add(new TopNavigationItem()
+                menuItems.Add(new TopNavigationItem
                 {
-                    Name = "Login To Umbraco",
+                    Name = _intranetLocalizationService.Translate("TopNavigation.LoginToUmbraco.lbl"),
                     Type = TopNavigationItemTypes.LoginToUmbraco,
                     Url = "/api/auth/login/umbraco".ToLinkModel()
                 });
             }
-            menuItems.Add(new TopNavigationItem()
+            menuItems.Add(new TopNavigationItem
             {
-                Name = "Edit Profile",
+                Name = _intranetLocalizationService.Translate("TopNavigation.EditProfile.lbl"),
                 Type = TopNavigationItemTypes.EditProfile,
                 Url = _intranetUserContentProvider.GetEditPage().Url.ToLinkModel(),
             });
 
-            menuItems.Add(new TopNavigationItem()
+            menuItems.Add(new TopNavigationItem
             {
-                Name = $"Uintra Help v{_uintraInformationService.Version}",
+                Name = $"{_intranetLocalizationService.Translate("TopNavigation.UintraDocumentationLink.lnk")} v{_uintraInformationService.Version}",
                 Type = TopNavigationItemTypes.UintraHelp,
                 Url = _uintraInformationService.DocumentationLink.ToString().ToLinkModel()
             });
 
-            menuItems.Add(new TopNavigationItem()
+            menuItems.Add(new TopNavigationItem
             {
-                Name = "Logout",
+                Name = _intranetLocalizationService.Translate("TopNavigation.Logout.lbl"),
                 Type = TopNavigationItemTypes.Logout,
                 Url = "/api/auth/logout".ToLinkModel()
             });
 
-            var model = new TopNavigationModel()
+            var model = new TopNavigationModel
             {
                 CurrentMember = _intranetMemberService.GetCurrentMember(),
                 Items = menuItems

@@ -17,28 +17,14 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class CentralFeedPublicationComponent implements OnInit {
   @Input() publication;
-  @HostListener("window:resize", ["$event"])
-  getScreenSize(event?) {
-    this.deviceWidth = window.innerWidth;
-    this.countToDisplay =
-      this.medias.length > 2
-        ? this.getItemsCountToDisplay()
-        : this.medias.length;
-    this.additionalImages = this.medias.length - this.countToDisplay;
-  }
   deviceWidth: number;
   documentsCount: any;
   additionalImages: number;
   countToDisplay: number;
-
   medias: Array<IMedia> = new Array<IMedia>();
   documents: Array<IDocument> = new Array<IDocument>();
-
-  get commentsCount() {
-    return this.publication.commentsCount || "Comment";
-  }
-
   likeData: ILikeData;
+  commentLinkPlaceholder: string;
 
   constructor(
     private imageGalleryService: ImageGalleryService,
@@ -46,7 +32,7 @@ export class CentralFeedPublicationComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private mq: MqService,
     private translate: TranslateService,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.deviceWidth = window.innerWidth;
@@ -69,6 +55,21 @@ export class CentralFeedPublicationComponent implements OnInit {
       activityType: this.publication.activityType,
       likes: this.publication.likes
     };
+    this.commentLinkPlaceholder = this.translate.instant('activity.Comment.lnk');
+  }
+
+  get commentsCount() {
+    return this.publication.commentsCount || this.commentLinkPlaceholder;
+  }
+
+  @HostListener("window:resize", ["$event"])
+  getScreenSize(event?) {
+    this.deviceWidth = window.innerWidth;
+    this.countToDisplay =
+      this.medias.length > 2
+        ? this.getItemsCountToDisplay()
+        : this.medias.length;
+    this.additionalImages = this.medias.length - this.countToDisplay;
   }
 
   public openGallery(i) {
