@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Web;
+using Compent.Extensions;
 using UBaseline.Core.Localization;
+using UBaseline.Core.RequestContext;
 using Uintra20.Core.Controls.LightboxGallery;
 using Uintra20.Core.UbaselineModels.RestrictedNode;
 using Uintra20.Features.Groups.Helpers;
@@ -22,6 +24,7 @@ namespace Uintra20.Features.Social.Converters
         private readonly ILightboxHelper _lightboxHelper;
         private readonly IFeedLinkService _feedLinkService;
         private readonly IGroupHelper _groupHelper;
+        private readonly IUBaselineRequestContext _context;
 
         public SocialEditPageViewModelConverter(
             ILocalizationModelService localizationModelService,
@@ -31,7 +34,8 @@ namespace Uintra20.Features.Social.Converters
             IUserTagProvider userTagProvider,
             IFeedLinkService feedLinkService,
             IGroupHelper groupHelper,
-            IErrorLinksService errorLinksService)
+            IErrorLinksService errorLinksService,
+            IUBaselineRequestContext context)
             : base(errorLinksService)
         {
             _localizationModelService = localizationModelService;
@@ -41,32 +45,33 @@ namespace Uintra20.Features.Social.Converters
             _userTagProvider = userTagProvider;
             _feedLinkService = feedLinkService;
             _groupHelper = groupHelper;
+            _context = context;
         }
 
         public override ConverterResponseModel MapViewModel(SocialEditPageModel node, SocialEditPageViewModel viewModel)
         {
-            var id = HttpContext.Current.Request.GetRequestQueryValue("id");
+            var id = _context.ParseQueryString("id").TryParseGuid();
 
-            if (!Guid.TryParse(id, out var parsedId)) return NotFoundResult();
+            if (!id.HasValue) return NotFoundResult();
 
-            var social = _socialService.Get(parsedId);
+            var social = _socialService.Get(id.Value);
 
             if (social == null)
             {
                 return NotFoundResult();
             }
 
-            if (!_socialService.CanEdit(parsedId))
+            if (!_socialService.CanEdit(id.Value))
             {
                 return ForbiddenResult();
             }
 
-            viewModel.CanDelete = _socialService.CanDelete(parsedId);
+            viewModel.CanDelete = _socialService.CanDelete(id.Value);
             viewModel.OwnerId = social.OwnerId;
-            viewModel.Id = social.Id; //TODO Use link service to navigate from social edit page
+            viewModel.Id = social.Id;
             viewModel.Description = social.Description;
             viewModel.Name = _localizationModelService["Social.Edit"];
-            viewModel.Tags = _userTagService.Get(parsedId);
+            viewModel.Tags = _userTagService.Get(id.Value);
             viewModel.LightboxPreviewModel = _lightboxHelper.GetGalleryPreviewModel(social.MediaIds, PresetStrategies.ForActivityDetails);
             viewModel.AvailableTags = _userTagProvider.GetAll();
             viewModel.Links = _feedLinkService.GetLinks(social.Id);
@@ -74,10 +79,11 @@ namespace Uintra20.Features.Social.Converters
             var mediaSettings = _socialService.GetMediaSettings();
             viewModel.AllowedMediaExtensions = mediaSettings.AllowedMediaExtensions;
 
-            var groupIdStr = HttpContext.Current.Request["groupId"];
-            if (Guid.TryParse(groupIdStr, out var groupId) && social.GroupId == groupId)
+            var groupId = HttpContext.Current.Request["groupId"].TryParseGuid();
+
+            if (groupId.HasValue && social.GroupId == groupId.Value)
             {
-                viewModel.GroupHeader = _groupHelper.GetHeader(groupId);
+                viewModel.GroupHeader = _groupHelper.GetHeader(groupId.Value);
             }
 
             return OkResult();
