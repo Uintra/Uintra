@@ -56,11 +56,10 @@ namespace Uintra20.Features.Groups.Converters
             viewModel.GroupId = id;
             viewModel.GroupInfo = _groupHelper.GetGroupViewModel(id);
             viewModel.GroupHeader = _groupHelper.GetHeader(id);
-
-            //TODO: Uncomment when events create will be done
-            //viewModel.CreateEventsLink = _permissionsService.Check(PermissionResourceTypeEnum.Events, PermissionActionEnum.Create) ? 
-            //    _feedLinkService.GetCreateLinks(IntranetActivityTypeEnum.Events).Create?.AddGroupId(id)
-            //    : null;
+            
+            viewModel.CreateEventsLink = _permissionsService.Check(PermissionResourceTypeEnum.Events, PermissionActionEnum.Create) ? 
+                _feedLinkService.GetCreateLinks(IntranetActivityTypeEnum.Events).Create?.AddGroupId(id)
+                : null;
             viewModel.CreateNewsLink = _permissionsService.Check(PermissionResourceTypeEnum.News, PermissionActionEnum.Create) ?
                 _feedLinkService.GetCreateLinks(IntranetActivityTypeEnum.News).Create.AddGroupId(id)
                 : null;
