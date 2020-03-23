@@ -16,6 +16,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 })
 export class TagMultiselectComponent implements ControlValueAccessor {
   @Input() availableTags: Array<ITagData>;
+  @Input() placeholder: string;
 
   selectedList: Array<ITagData> = [];
   isDwopdownShowed = false;

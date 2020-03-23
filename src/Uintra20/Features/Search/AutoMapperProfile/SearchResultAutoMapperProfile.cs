@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Uintra20.Core.Search.Entities;
 using Uintra20.Features.Search.Models;
+using Uintra20.Infrastructure.Extensions;
 
 namespace Uintra20.Features.Search.AutoMapperProfile
 {
@@ -29,9 +30,9 @@ namespace Uintra20.Features.Search.AutoMapperProfile
             CreateMap<SearchableActivity, SearchResultViewModel>()
                 .IncludeBase<SearchableBase, SearchResultViewModel>()
                 .ForMember(d => d.Description, o => o.MapFrom(s => s.Description))
-                .ForMember(d => d.StartDate, o => o.MapFrom(s => s.StartDate))
-                .ForMember(d => d.EndDate, o => o.MapFrom(s => s.EndDate))
-                .ForMember(d => d.PublishedDate, o => o.MapFrom(s => s.PublishedDate))
+                .ForMember(d => d.StartDate, o => o.MapFrom(s => s.StartDate.ToDateTimeFormat()))
+                .ForMember(d => d.EndDate, o => o.MapFrom(s => s.EndDate.ToDateTimeFormat()))
+                .ForMember(d => d.PublishedDate, o => o.MapFrom(s => s.PublishedDate.ToDateTimeFormat()))
                 .ForMember(d => d.IsPinned, o => o.MapFrom(s => s.IsPinned))
                 .ForMember(d => d.IsPinActual, o => o.MapFrom(s => s.IsPinActual));
 

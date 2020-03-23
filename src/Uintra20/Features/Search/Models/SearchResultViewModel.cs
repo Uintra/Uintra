@@ -18,11 +18,11 @@ namespace Uintra20.Features.Search.Models
 
         public string Type { get; set; }
 
-        public DateTime? PublishedDate { get; set; }
+        public string PublishedDate { get; set; }
 
-        public DateTime? StartDate { get; set; }
+        public string StartDate { get; set; }
 
-        public DateTime? EndDate { get; set; }
+        public string EndDate { get; set; }
 
         public bool IsPinned { get; set; }
 
