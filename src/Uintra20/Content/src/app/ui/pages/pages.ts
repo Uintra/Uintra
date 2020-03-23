@@ -134,6 +134,12 @@ export const pages = [
     cache: false
   },
   {
+    id: 'searchPage',
+    path: '__dynamic__',
+    loadChildren: './ui/pages/search/search-page.module#SearchPageModule',
+    cache: false
+  },
+  {
     id: 'pageNotFoundPage',
     path: '__dynamic__',
     loadChildren: './ui/pages/page-not-found/page-not-found-page.module#PageNotFoundPageModule',
