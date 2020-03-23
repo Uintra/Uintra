@@ -848,6 +848,8 @@
     <Content Include="App_Plugins\UintraGroupMember\backoffice\uintraMemberGroups\edit.controller.js" />
     <Content Include="App_Plugins\UintraGroupMember\backoffice\uintraMemberGroups\edit.html" />
     <Content Include="App_Plugins\UintraGroupMember\backoffice\uintraMemberGroups\memberGroupsService.js" />
+    <Content Include="App_Plugins\UintraGroupMember\member-changes-watcher.controller.js" />
+    <Content Include="App_Plugins\UintraGroupMember\member-changes-watcher.html" />
     <Content Include="App_Plugins\UintraGroupMember\member.service.js" />
     <Content Include="App_Plugins\UmbracoStructureManagement\backoffice\UmbracoStructureManagement\dashboard.html" />
     <Content Include="App_Plugins\UmbracoStructureManagement\backoffice\UmbracoStructureManagement\umbracoStructureManagementDashboardController.js" />
@@ -1098,7 +1100,6 @@
     <Compile Include="Core\UmbracoEvents\Modules\UmbracoEventsModule.cs" />
     <Compile Include="Core\UmbracoEvents\Services\Implementations\MemberGroupEventService.cs" />
     <Compile Include="Core\UmbracoEvents\Services\Implementations\SearchMediaEventService.cs" />
-    <Compile Include="Core\UmbracoEvents\Services\Implementations\UmbracoMemberGroupEventService.cs" />
     <Compile Include="Core\UmbracoEvents\Services\Implementations\VideoConvertEventService.cs" />
     <Compile Include="Features\CentralFeed\Commands\CentralFeedFilterCommand.cs" />
     <Compile Include="Features\CentralFeed\Models\CentralFeedFilterPermissionModel.cs" />
@@ -1374,7 +1375,6 @@
     <Compile Include="Core\Activity\Models\IntranetActivityDetailsViewModel.cs" />
     <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Features\Likes\Controllers\LikesController.cs" />
-    <Compile Include="Controllers\MemberApiController.cs" />
     <Compile Include="Core\Activity\ActivitiesServiceFactory.cs" />
     <Compile Include="Core\Activity\AutoMapperProfiles\ActivityAutoMapperProfile.cs" />
     <Compile Include="Core\Activity\Entities\IIntranetActivity.cs" />
@@ -1471,7 +1471,7 @@
     <Compile Include="Core\Member\Abstractions\IHaveCreator.cs" />
     <Compile Include="Core\Member\Abstractions\IHaveOwner.cs" />
     <Compile Include="Core\Member\Abstractions\IIntranetMember.cs" />
-    <Compile Include="Core\Member\Controllers\MemberApiControllerBase.cs" />
+    <Compile Include="Core\Member\Controllers\MemberApiController.cs" />
     <Compile Include="Core\UmbracoEvents\Services\Implementations\MemberEventService.cs" />
     <Compile Include="Core\TabModelBase.cs" />
     <Compile Include="Core\User\Models\IIntranetUser.cs" />

@@ -1,5 +1,14 @@
-﻿{
+﻿{"propertyEditors": [
+        {
+        "alias": "MemberChangesWatcher",
+        "name": "Member Changes Watcher",
+        "editor": {
+        "view": "~/App_Plugins/UintraGroupMember/member-changes-watcher.html"
+        }
+            }
+        ],
   "javascript": [
+    "~/App_Plugins/UintraGroupMember/member-changes-watcher.controller.js",
     "~/App_Plugins/UintraGroupMember/member.service.js",
     "~/App_Plugins/UintraGroupMember/backoffice/uintraMemberGroups/edit.controller.js",
     "~/App_Plugins/UintraGroupMember/backoffice/uintraMemberGroups/delete.controller.js",

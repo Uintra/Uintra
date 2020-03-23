@@ -9,8 +9,8 @@ using Umbraco.Core.Services;
 
 namespace Uintra20.Core.UmbracoEvents.Services.Implementations
 {
-    public class MemberEventService : 
-        IUmbracoMemberDeletingEventService, 
+    public class MemberEventService :
+        IUmbracoMemberDeletingEventService,
         IUmbracoMemberCreatedEventService,
         IUmbracoMemberAssignedRolesEventService,
         IUmbracoMemberRemovedRolesEventService
@@ -23,26 +23,36 @@ namespace Uintra20.Core.UmbracoEvents.Services.Implementations
             ICacheableIntranetMemberService cacheableIntranetMemberService,
             IMemberService memberService,
             IIntranetMemberGroupService intranetMemberGroupService
-            )
+        )
         {
             _cacheableIntranetMemberService = cacheableIntranetMemberService;
             _memberService = memberService;
             _intranetMemberGroupService = intranetMemberGroupService;
         }
 
-        public void MemberCreateOrUpdateHandler(
-            IMemberService sender, 
+        public void MemberUpdateHandler(
+            IMemberService sender,
             SaveEventArgs<IMember> @event)
         {
             foreach (var member in @event.SavedEntities)
             {
-                _intranetMemberGroupService.AssignDefaultMemberGroup(member.Id);
-                _cacheableIntranetMemberService.UpdateMemberCache(member.Id);
+                // _cacheableIntranetMemberService.UpdateMemberCache(member.Id);
+            }
+        }
+
+        public void MemberCreateHandler(
+            IMemberService sender,
+            SaveEventArgs<IMember> @event)
+        {
+            foreach (var member in @event.SavedEntities)
+            {
+                // _intranetMemberGroupService.AssignDefaultMemberGroup(member.Id);
+                // _cacheableIntranetMemberService.UpdateMemberCache(member.Id);
             }
         }
 
         public void MemberDeleteHandler(
-            IMemberService sender, 
+            IMemberService sender,
             DeleteEventArgs<IMember> @event)
         {
             foreach (var member in @event.DeletedEntities)
@@ -56,23 +66,22 @@ namespace Uintra20.Core.UmbracoEvents.Services.Implementations
         }
 
         public void MemberAssignedRolesHandler(
-            IMemberService sender, 
-            RolesEventArgs @event)
-        {
-            @event.MemberIds.ForEach(memberId => _cacheableIntranetMemberService.UpdateMemberCache((int) memberId));
-        }
-
-        public void MemberRemovedRolesHandler(
-            IMemberService sender, 
+            IMemberService sender,
             RolesEventArgs @event)
         {
             @event.MemberIds.ForEach(memberId =>
             {
-                var groups = _memberService.GetAllRoles(memberId);
+                _cacheableIntranetMemberService.UpdateMemberCache((int) memberId);
+            });
+        }
 
-                if (!groups.Any()) _intranetMemberGroupService.AssignDefaultMemberGroup(memberId);
-
-                _cacheableIntranetMemberService.UpdateMemberCache(memberId);
+        public void MemberRemovedRolesHandler(
+            IMemberService sender,
+            RolesEventArgs @event)
+        {
+            @event.MemberIds.ForEach(memberId =>
+            {
+                _cacheableIntranetMemberService.UpdateMemberCache((int) memberId);
             });
         }
     }
