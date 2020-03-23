@@ -1,9 +1,8 @@
-﻿using Compent.Shared.Extensions.Bcl;
+﻿using Compent.Extensions;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using UBaseline.Core.Node;
-using Uintra20.Core.Feed;
+using UBaseline.Core.RequestContext;
 using Uintra20.Core.Feed.Models;
 using Uintra20.Features.CentralFeed.Builders;
 using Uintra20.Features.CentralFeed.Commands;
@@ -20,17 +19,17 @@ namespace Uintra20.Features.CentralFeed
         INodeViewModelConverter<CentralFeedPanelModel, CentralFeedPanelViewModel>
     {
         private readonly IPermissionsService _permissionsService;
-        private readonly IFeedTypeProvider _feedTypeProvider;
         private readonly IActivityTabsBuilder _activityTabsBuilder;
+        private readonly IUBaselineRequestContext _context;
 
         public CentralFeedPanelViewModelConverter(
             IPermissionsService permissionsService,
-            IFeedTypeProvider feedTypeProvider,
-            IActivityTabsBuilder activityTabsBuilder)
+            IActivityTabsBuilder activityTabsBuilder,
+            IUBaselineRequestContext context)
         {
             _permissionsService = permissionsService;
-            _feedTypeProvider = feedTypeProvider;
             _activityTabsBuilder = activityTabsBuilder;
+            _context = context;
         }
 
         public void Map(CentralFeedPanelModel node, CentralFeedPanelViewModel viewModel)
@@ -38,7 +37,7 @@ namespace Uintra20.Features.CentralFeed
             var command = GetPermissionCommand();
             viewModel.Tabs = _activityTabsBuilder.Build(command);
             viewModel.ItemsPerRequest = node.ItemsPerRequest.Value == 0 ? 10 : node.ItemsPerRequest.Value;
-            viewModel.GroupId = HttpContext.Current.Request.GetRequestQueryValue("groupId").TryParseGuid();
+            viewModel.GroupId = _context.ParseQueryString("groupId").TryParseGuid();
         }
 
         private IEnumerable<ActivityFeedTabViewModel> GetTabsWithCreateUrl(IEnumerable<ActivityFeedTabViewModel> tabs) =>
@@ -53,7 +52,7 @@ namespace Uintra20.Features.CentralFeed
             foreach (var activity in activities)
             {
                 var canView = _permissionsService.Check(activity, PermissionActionEnum.View);
-                
+
                 list.Add(new CentralFeedFilterPermissionModel(canView, activity));
             }
 

@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Compent.Extensions;
 using System.Linq;
-using System.Web;
 using UBaseline.Core.Node;
+using UBaseline.Core.RequestContext;
 using Uintra20.Core.Activity;
 using Uintra20.Features.Links;
 using Uintra20.Features.Permissions;
@@ -16,26 +16,24 @@ namespace Uintra20.Core.HomePage
         private readonly IPermissionsService _permissionsService;
         private readonly IFeedLinkService _feedLinkService;
         private readonly INodeModelService _nodeModelService;
+        private readonly IUBaselineRequestContext _context;
 
         public HomePageViewModelConverter(
             IPermissionsService permissionsService,
             IFeedLinkService feedLinkService,
-            INodeModelService nodeModelService)
+            INodeModelService nodeModelService,
+            IUBaselineRequestContext context)
         {
             _permissionsService = permissionsService;
             _feedLinkService = feedLinkService;
             _nodeModelService = nodeModelService;
+            _context = context;
         }
 
         public void Map(HomePageModel node, HomePageViewModel viewModel)
         {
-            var groupIdStr = HttpContext.Current.Request.GetRequestQueryValue("groupId");
-            Guid? groupId = null;
-            if (Guid.TryParse(groupIdStr, out var parsedGroupId))
-            {
-                groupId = parsedGroupId;
-            }
-            
+            var groupId = _context.ParseQueryString("groupId").TryParseGuid();
+
             viewModel.CreateEventsLink =
                 _permissionsService.Check(PermissionResourceTypeEnum.Events, PermissionActionEnum.Create)
                     ? _feedLinkService.GetCreateLinks(IntranetActivityTypeEnum.Events).Create

@@ -3,6 +3,8 @@ using System;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
+using UBaseline.Core.Extensions;
+using UBaseline.Core.RequestContext;
 using Uintra20.Core.Member.Abstractions;
 using Uintra20.Infrastructure.Constants;
 
@@ -60,12 +62,12 @@ namespace Uintra20.Infrastructure.Extensions
         }
 
         public static string GetRequestQueryValue(
-            this HttpRequest request, 
+            this HttpRequest request,
             string key)
         {
             if (request == null)
                 return null;
-            
+
 
             var url = request["url"];
 
@@ -74,5 +76,10 @@ namespace Uintra20.Infrastructure.Extensions
 
             return HttpUtility.ParseQueryString(requestedUrl.Query).Get(key);
         }
+
+        public static string ParseQueryString(
+            this IUBaselineRequestContext context,
+            string key) => 
+            HttpUtility.ParseQueryString(context.NodeRequestParams.NodeUrl.Query).TryGetQueryValue<string>(key);
     }
 }
