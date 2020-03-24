@@ -2,6 +2,7 @@
 using System;
 using System.Linq;
 using System.Web;
+using UBaseline.Core.RequestContext;
 using Uintra20.Core.Activity.Models.Headers;
 using Uintra20.Core.Controls.LightboxGallery;
 using Uintra20.Core.Member.Entities;
@@ -9,7 +10,6 @@ using Uintra20.Core.Member.Services;
 using Uintra20.Core.UbaselineModels.RestrictedNode;
 using Uintra20.Features.Groups.Helpers;
 using Uintra20.Features.Links;
-using Uintra20.Features.Media;
 using Uintra20.Features.Media.Helpers;
 using Uintra20.Features.Media.Strategies.Preset;
 using Uintra20.Features.News.Models;
@@ -20,7 +20,8 @@ using Uintra20.Infrastructure.Extensions;
 
 namespace Uintra20.Features.News.Converters
 {
-    public class UintraNewsDetailsPageViewModelConverter : UintraRestrictedNodeViewModelConverter<UintraNewsDetailsPageModel, UintraNewsDetailsPageViewModel>
+    public class UintraNewsDetailsPageViewModelConverter :
+        UintraRestrictedNodeViewModelConverter<UintraNewsDetailsPageModel, UintraNewsDetailsPageViewModel>
     {
         private readonly IUserTagService _userTagService;
         private readonly IFeedLinkService _feedLinkService;
@@ -29,6 +30,7 @@ namespace Uintra20.Features.News.Converters
         private readonly ILightboxHelper _lightBoxHelper;
         private readonly IPermissionsService _permissionsService;
         private readonly IGroupHelper _groupHelper;
+        private readonly IUBaselineRequestContext _context;
 
         public UintraNewsDetailsPageViewModelConverter(
             IUserTagService userTagService,
@@ -38,7 +40,8 @@ namespace Uintra20.Features.News.Converters
             ILightboxHelper lightBoxHelper,
             IPermissionsService permissionsService,
             IGroupHelper groupHelper,
-            IErrorLinksService errorLinksService)
+            IErrorLinksService errorLinksService, 
+            IUBaselineRequestContext context)
             : base(errorLinksService)
         {
             _userTagService = userTagService;
@@ -48,21 +51,18 @@ namespace Uintra20.Features.News.Converters
             _lightBoxHelper = lightBoxHelper;
             _permissionsService = permissionsService;
             _groupHelper = groupHelper;
+            _context = context;
         }
 
         public override ConverterResponseModel MapViewModel(UintraNewsDetailsPageModel node, UintraNewsDetailsPageViewModel viewModel)
         {
-            var idStr = HttpContext.Current.Request.GetRequestQueryValue("id");
+            var id = _context.ParseQueryString("id").TryParseGuid();
 
-            if (!Guid.TryParse(idStr, out var id))
-                return NotFoundResult();
-            
-            var news = _newsService.Get(id);
+            if (!id.HasValue) return NotFoundResult();
 
-            if (news == null)
-            {
-                return NotFoundResult();
-            }
+            var news = _newsService.Get(id.Value);
+
+            if (news == null) return NotFoundResult();
 
             if (!_permissionsService.Check(PermissionResourceTypeEnum.News, PermissionActionEnum.View))
             {
@@ -72,8 +72,8 @@ namespace Uintra20.Features.News.Converters
             var member = _memberService.GetCurrentMember();
 
             viewModel.Details = GetDetails(news);
-            viewModel.Tags = _userTagService.Get(id);
-            viewModel.CanEdit = _newsService.CanEdit(id);
+            viewModel.Tags = _userTagService.Get(id.Value);
+            viewModel.CanEdit = _newsService.CanEdit(id.Value);
             viewModel.IsGroupMember = !news.GroupId.HasValue || member.GroupIds.Contains(news.GroupId.Value);
 
             var groupIdStr = HttpContext.Current.Request["groupId"];

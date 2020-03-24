@@ -36,22 +36,22 @@ namespace Uintra20.Features.Groups.Converters
 
         public override ConverterResponseModel MapViewModel(UintraGroupsEditPageModel node, UintraGroupsEditPageViewModel viewModel)
         {
-            var x = _context.ParseQueryString("groupId").TryParseGuid();
+            var groupId = _context.ParseQueryString("groupId").TryParseGuid();
 
-            if (!x.HasValue) return NotFoundResult();
+            if (!groupId.HasValue) return NotFoundResult();
 
-            var group = _groupService.Get(x.Value);
+            var group = _groupService.Get(groupId.Value);
 
             if (group == null) return NotFoundResult();
 
-            if (!_groupService.CanEdit(x.Value)) return ForbiddenResult();
+            if (!_groupService.CanEdit(groupId.Value)) return ForbiddenResult();
 
             var settings = _mediaHelper.GetMediaFolderSettings(MediaFolderTypeEnum.GroupsContent);
 
             viewModel.AllowedMediaExtensions = settings?.AllowedMediaExtensions;
-            viewModel.Info = _groupHelper.GetInfoViewModel(x.Value);
-            viewModel.GroupHeader = _groupHelper.GetHeader(x.Value);
-            viewModel.GroupId = x.Value;
+            viewModel.Info = _groupHelper.GetInfoViewModel(groupId.Value);
+            viewModel.GroupHeader = _groupHelper.GetHeader(groupId.Value);
+            viewModel.GroupId = groupId.Value;
 
             return OkResult();
         }
