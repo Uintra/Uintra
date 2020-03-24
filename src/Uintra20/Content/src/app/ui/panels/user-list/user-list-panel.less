@@ -3,7 +3,7 @@
 user-list-panel {
   .user-list-panel {
     .white-block;
-    padding: 20px;
+    padding: 20px 20px 0;
 
     &__title {
       font-size: 25px;
@@ -26,6 +26,7 @@ user-list-panel {
     display: flex;
     width: 100%;
     position: relative;
+    padding-bottom: 20px;
 
     &__input {
       width: 100%;
@@ -54,5 +55,63 @@ user-list-panel {
         color: @black !important;
       }
     }
+  }
+
+  .user-list {
+    margin-right: -20px;
+    margin-left: -20px;
+
+    &__item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      min-height: 50px;
+      padding: 10px 0 10px;
+      border-bottom: 1px solid @border-color;
+      cursor: pointer;
+
+      &:first-child {
+        border-top: 1px solid @border-color;
+      }
+
+      &-member {
+        display: flex;
+        align-items: center;
+        padding: 0 10px;
+
+        &-avatar {
+          margin-right: 10px;
+        }
+      }
+
+      &-info {
+        line-height: 21px;
+      }
+    }
+
+    &__load-more {
+      .button-white;
+      margin-left: 10px;
+    }
+  }
+
+  .cells--1 {
+    flex: 0 0 100%;
+  }
+
+  .cells--2 {
+    flex: 0 0 50%;
+  }
+
+  .cells--3 {
+    flex: 0 0 33.3%;
+  }
+
+  .cells--4 {
+    flex: 0 0 25%;
+  }
+
+  .cells--5 {
+    flex: 0 0 20%;
   }
 }

@@ -18,4 +18,26 @@
 
     <span class="icon icon-search-icon"></span>
   </div>
+  <div class="user-list">
+    <a *ngFor="let member of members" class="user-list__item">
+      <div class="user-list__item-member cells--{{selectedColumns.length}}">
+        <app-user-avatar
+          class="user-list__item-member-avatar"
+          [photo]="member.photo"
+          [name]="member.displayedName">
+        </app-user-avatar>
+        <span *ngIf="member.displayedName">{{member.displayedName}}</span>
+      </div>
+      <div class="user-list__item-info cells--{{selectedColumns.length}}">
+        <p *ngIf="member.email">{{member.email}}</p>
+        <p *ngIf="member.phone">{{member.phone}}</p>
+        <p *ngIf="member.department">{{member.department}}</p>
+      </div>
+    </a>
+    <div *ngIf="canLoadMore" class="user-list__item">
+      <button class="user-list__load-more" (click)="loadMore()" [disabled]="isLoadMoreDisabled">
+        {{'userList.Table.LoadMoreButton.Text' | translate}}
+      </button>
+    </div>
+  </div>
 </div>
