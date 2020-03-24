@@ -4,7 +4,6 @@ import { SafeHtml, DomSanitizer } from "@angular/platform-browser";
 import ParseHelper from "src/app/shared/utils/parse.helper";
 import { AddButtonService } from "src/app/ui/main-layout/left-navigation/components/my-links/add-button.service";
 import {
-  ISocialDetails,
   IUserTag,
   IMedia,
   IDocument
@@ -13,6 +12,7 @@ import { ICommentData } from "src/app/feature/reusable/ui-elements/comments/comm
 import { ImageGalleryService } from "src/app/feature/reusable/ui-elements/image-gallery/image-gallery.service";
 import { ILikeData } from "src/app/feature/reusable/ui-elements/like-button/like-button.interface";
 import { EventSubscriptionService } from "../../../../feature/specific/activity/event-subscription/event-subscription.service";
+import {IEventDetails} from "../../../../feature/specific/activity/event-form/event-form.interface";
 
 @Component({
   selector: "event-details-page",
@@ -23,7 +23,7 @@ import { EventSubscriptionService } from "../../../../feature/specific/activity/
 export class EventDetailsPage implements OnInit {
   parsedData: any;
   data: any;
-  details: ISocialDetails;
+  details: IEventDetails;
   tags: Array<IUserTag>;
   activityName: string;
   likeData: ILikeData;

@@ -1,10 +1,13 @@
-import { ITagData } from 'src/app/feature/reusable/inputs/tag-multiselect/tag-multiselect.interface';
+import {ITagData} from 'src/app/feature/reusable/inputs/tag-multiselect/tag-multiselect.interface';
+import {ActivityEnum} from "../../../../shared/enums/activity-type.enum";
+import {IHeaderInfo, ILocation, IActivityLinks} from "../activity.interfaces";
 
 export interface IEventsInitialDates {
   publishDate: string;
   from: string;
   to: string;
 }
+
 export interface IEventCreateModel {
   ownerId: string;
   title: string;
@@ -30,6 +33,22 @@ export interface IEventCreateModel {
   };
   groupId?: string;
 }
+
+export interface IEventDetails {
+  activityType: ActivityEnum;
+  activityName: string;
+  canEdit: boolean;
+  description: string;
+  headerInfo: IHeaderInfo;
+  id: string;
+  isPinned: boolean;
+  isReadOnly: boolean;
+  publishDate: Date;
+  links: IActivityLinks;
+  location: ILocation;
+  locationTitle: string;
+}
+
 export interface IPublishDatepickerOptions {
   showClose: boolean;
   minDate?: string | boolean;

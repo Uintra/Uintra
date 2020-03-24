@@ -120,7 +120,7 @@ export interface ISocialAttachment {
 export interface IMedia extends ISocialAttachment {}
 export interface IDocument extends ISocialAttachment {}
 
-interface IActivityLinks {
+export interface IActivityLinks {
   details: IULink;
   edit: IULink;
   feed: IULink;

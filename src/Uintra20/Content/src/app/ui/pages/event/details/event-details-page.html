@@ -57,7 +57,7 @@
 
                 <div *ngIf="parsedData.details.location" class="location">
                   <strong class="location__title">
-                    {{'eventsCreate.LocationTitle.lbl' | translate}}
+                    {{parsedData.details.locationTitle}}
                   </strong>
                   <a
                     href="{{locationUrl}}"
