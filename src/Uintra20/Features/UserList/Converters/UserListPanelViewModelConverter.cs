@@ -5,6 +5,7 @@ using System.Web;
 using Compent.Extensions;
 using UBaseline.Core.Node;
 using Uintra20.Core.Member.Abstractions;
+using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Models;
 using Uintra20.Core.Member.Services;
 using Uintra20.Core.Search.Entities;
@@ -18,18 +19,18 @@ using Uintra20.Infrastructure.Extensions;
 
 namespace Uintra20.Features.UserList.Converters
 {
-    public class UserListPageViewModelConverter : INodeViewModelConverter<UserListPageModel, UserListPageViewModel>
+    public class UserListPanelViewModelConverter : INodeViewModelConverter<UserListPanelModel, UserListPanelViewModel>
     {
         private const int AmountPerRequest = 10;
 
         private readonly IElasticMemberIndex<SearchableMember> _elasticIndex;
         private readonly IProfileLinkProvider _profileLinkProvider;
         private readonly IGroupService _groupService;
-        private readonly IIntranetMemberService<IIntranetMember> _intranetMemberService;
+        private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
         private readonly IGroupMemberService _groupMemberService;
 
-        public UserListPageViewModelConverter(
-            IIntranetMemberService<IIntranetMember> intranetMemberService,
+        public UserListPanelViewModelConverter(
+            IIntranetMemberService<IntranetMember> intranetMemberService,
             IElasticMemberIndex<SearchableMember> elasticIndex,
             IProfileLinkProvider profileLinkProvider,
             IGroupService groupService,
@@ -42,7 +43,7 @@ namespace Uintra20.Features.UserList.Converters
             _groupMemberService = groupMemberService;
         }
 
-        public void Map(UserListPageModel node, UserListPageViewModel viewModel)
+        public void Map(UserListPanelModel node, UserListPanelViewModel viewModel)
         {
             Guid? groupId = null;
 
