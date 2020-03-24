@@ -13,12 +13,13 @@ import { AttachmentsModule } from 'src/app/feature/specific/activity/details/att
 import { TranslateModule } from '@ngx-translate/core';
 import { EventDetailsPage } from './event-details-page.component';
 import { EventSubscriptionModule } from "../../../../feature/specific/activity/event-subscription/event-subscription.module";
+import { CanDeactivateGuard } from 'src/app/shared/services/general/can-deactivate.service';
 
 @NgModule({
   declarations: [EventDetailsPage],
   imports: [
     CommonModule,
-    RouterModule.forChild([{ path: "", component: EventDetailsPage }]),
+    RouterModule.forChild([{ path: "", component: EventDetailsPage, canDeactivate: [CanDeactivateGuard]}]),
     UbaselineCoreModule,
     LikeButtonModule,
     UserAvatarModule,

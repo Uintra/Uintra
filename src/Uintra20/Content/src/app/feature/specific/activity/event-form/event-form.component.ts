@@ -106,7 +106,9 @@ export class EventFormComponent implements OnInit {
 
   // Data set functions
   setDatePickerValue(value: IDatepickerData = {}) {
-    if (this.eventsData.startDate) {
+    const test = moment(this.initialDates.from).format();
+    if ((moment(this.initialDates.from).format() != value.from && moment(this.initialDates.from).subtract(5, "seconds").format() != value.from)
+      || (moment(this.initialDates.to).format() != value.to && (moment(this.initialDates.to).add(5, "seconds").format() != value.to))) {
       this.hasDataChangedService.onDataChanged();
     }
     this.eventsData.startDate = value.from;
@@ -129,7 +131,9 @@ export class EventFormComponent implements OnInit {
   onPublishDateChange(val) {
     this.eventsData.publishDate = val ? val.format() : null;
     this.pinActivityService.setPublishDates({from: this.eventsData.publishDate});
-    this.hasDataChangedService.onDataChanged();
+    if (val && val._i && val._i !== this.initialDates.publishDate) {
+      this.hasDataChangedService.onDataChanged();
+    }
   }
 
   onLocationTitleChange(val) {
