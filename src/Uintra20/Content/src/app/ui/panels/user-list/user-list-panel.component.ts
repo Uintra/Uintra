@@ -22,6 +22,7 @@ export class UserListPanel {
   isName: boolean;
   isInfo: boolean;
   isLoadMoreDisabled: boolean;
+  isNoMembers: boolean;
 
   _query = new Subject<string>();
 
@@ -54,6 +55,7 @@ export class UserListPanel {
 
   getMembers() {
     this.isLoadMoreDisabled = true;
+    this.isNoMembers = false;
 
     this.searchService.userListSearch(this.requestDataBuilder()).pipe(
       finalize(() => {
@@ -64,6 +66,7 @@ export class UserListPanel {
       this.selectedColumns = res.selectedColumns;
       this.getColumns();
       this.canLoadMore = !res.isLastRequest;
+      this.isNoMembers = this.members.length == 0;
     })
   }
 
@@ -73,8 +76,8 @@ export class UserListPanel {
   }
 
   getColumns() {
-    this.isName = this.selectedColumns.indexOf(column => column.name == 'Name') !== -1;
-    this.isInfo = this.selectedColumns.indexOf(column => column.name == 'Info') !== -1;
+    this.isName = this.selectedColumns.findIndex(column => column.alias == 'Name') !== -1;
+    this.isInfo = this.selectedColumns.findIndex(column => column.alias == 'Info') !== -1;
   }
 
   requestDataBuilder() {
