@@ -1,36 +1,38 @@
 ﻿using System;
 using System.Web;
-using UBaseline.Core.Node;
-using Uintra20.Features.Groups.Helpers;
-using Uintra20.Core.Member.Entities;
-using Uintra20.Core.Member.Services;
+using Compent.Extensions;
+using UBaseline.Core.RequestContext;
 using Uintra20.Core.UbaselineModels.RestrictedNode;
+using Uintra20.Features.Groups.Helpers;
 using Uintra20.Features.Groups.Models;
 using Uintra20.Features.Groups.Services;
 using Uintra20.Features.Links;
-using Uintra20.Features.Media;
 using Uintra20.Features.Media.Enums;
 using Uintra20.Features.Media.Helpers;
 using Uintra20.Infrastructure.Extensions;
 
 namespace Uintra20.Features.Groups.Converters
 {
-    public class UintraGroupsDocumentsPageViewModelConverter : UintraRestrictedNodeViewModelConverter<UintraGroupsDocumentsPageModel, UintraGroupsDocumentsPageViewModel>
+    public class UintraGroupsDocumentsPageViewModelConverter :
+        UintraRestrictedNodeViewModelConverter<UintraGroupsDocumentsPageModel, UintraGroupsDocumentsPageViewModel>
     {
         private readonly IMediaHelper _mediaHelper;
         private readonly IGroupDocumentsService _groupDocumentsService;
         private readonly IGroupHelper _groupHelper;
+        private readonly IUBaselineRequestContext _context;
 
         public UintraGroupsDocumentsPageViewModelConverter(
             IMediaHelper mediaHelper,
             IGroupDocumentsService groupDocumentsService,
             IGroupHelper groupHelper,
-            IErrorLinksService errorLinksService)
+            IErrorLinksService errorLinksService, 
+            IUBaselineRequestContext context)
             : base(errorLinksService)
         {
             _mediaHelper = mediaHelper;
             _groupDocumentsService = groupDocumentsService;
             _groupHelper = groupHelper;
+            _context = context;
         }
 
         public override ConverterResponseModel MapViewModel(UintraGroupsDocumentsPageModel node, UintraGroupsDocumentsPageViewModel viewModel)
@@ -39,14 +41,13 @@ namespace Uintra20.Features.Groups.Converters
 
             viewModel.AllowedMediaExtensions = settings?.AllowedMediaExtensions;
 
-            var idStr = HttpContext.Current.Request.GetRequestQueryValue("groupId");
+            var id = _context.ParseQueryString("groupId").TryParseGuid();
 
-            if (!Guid.TryParse(idStr, out var id))
-                return NotFoundResult();
-            
-            viewModel.CanUpload = _groupDocumentsService.CanUpload(id);
-            viewModel.GroupHeader = _groupHelper.GetHeader(id);
-            viewModel.GroupId = id;
+            if (!id.HasValue) return NotFoundResult();
+
+            viewModel.CanUpload = _groupDocumentsService.CanUpload(id.Value);
+            viewModel.GroupHeader = _groupHelper.GetHeader(id.Value);
+            viewModel.GroupId = id.Value;
 
             return OkResult();
         }

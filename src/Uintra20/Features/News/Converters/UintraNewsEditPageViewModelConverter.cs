@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using UBaseline.Core.RequestContext;
 using Uintra20.Core.Activity.Models.Headers;
 using Uintra20.Core.Controls.LightboxGallery;
 using Uintra20.Core.Member.Entities;
@@ -33,6 +34,7 @@ namespace Uintra20.Features.News.Converters
         private readonly IUserTagProvider _userTagProvider;
         private readonly ILightboxHelper _lightboxHelper;
         private readonly IGroupHelper _groupHelper;
+        private readonly IUBaselineRequestContext _context;
 
         public UintraNewsEditPageViewModelConverter(
             IPermissionsService permissionsService,
@@ -43,7 +45,8 @@ namespace Uintra20.Features.News.Converters
             IUserTagProvider userTagProvider,
             ILightboxHelper lightboxHelper,
             IGroupHelper groupHelper,
-            IErrorLinksService errorLinksService)
+            IErrorLinksService errorLinksService, 
+            IUBaselineRequestContext context)
             : base(errorLinksService)
         {
             _permissionsService = permissionsService;
@@ -54,22 +57,20 @@ namespace Uintra20.Features.News.Converters
             _userTagProvider = userTagProvider;
             _lightboxHelper = lightboxHelper;
             _groupHelper = groupHelper;
+            _context = context;
         }
 
         public override ConverterResponseModel MapViewModel(UintraNewsEditPageModel node, UintraNewsEditPageViewModel viewModel)
         {
-            var requestId = HttpContext.Current.Request.GetRequestQueryValue("id");
+            var id = _context.ParseQueryString("id").TryParseGuid();
 
-            if (!Guid.TryParse(requestId, out var parsedId)) return NotFoundResult();
+            if (!id.HasValue) return NotFoundResult();
 
-            var news = _newsService.Get(parsedId);
+            var news = _newsService.Get(id.Value);
 
-            if (news == null)
-            {
-                return NotFoundResult();
-            }
+            if (news == null) return NotFoundResult();
 
-            if (!_newsService.CanEdit(parsedId)) return ForbiddenResult();
+            if (!_newsService.CanEdit(id.Value)) return ForbiddenResult();
 
             viewModel.Details = GetDetails(news);
             viewModel.Links = _feedLinkService.GetLinks(news.Id);

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Compent.Extensions;
+using UBaseline.Core.RequestContext;
 using Uintra20.Core.Activity;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Services;
@@ -29,6 +31,7 @@ namespace Uintra20.Features.Events.Converters
         private readonly IFeedLinkService _feedLinkService;
         private readonly IGroupMemberService _groupMemberService;
         private readonly IGroupHelper _groupHelper;
+        private readonly IUBaselineRequestContext _context;
 
         public EventCreatePageViewModelConverter(
             IIntranetMemberService<IntranetMember> memberService,
@@ -37,7 +40,8 @@ namespace Uintra20.Features.Events.Converters
             IFeedLinkService feedLinkService,
             IGroupMemberService groupMemberService,
             IGroupHelper groupHelper,
-            IErrorLinksService errorLinksService) 
+            IErrorLinksService errorLinksService, 
+            IUBaselineRequestContext context) 
             : base(errorLinksService)
         {
             _memberService = memberService;
@@ -46,11 +50,12 @@ namespace Uintra20.Features.Events.Converters
             _feedLinkService = feedLinkService;
             _groupMemberService = groupMemberService;
             _groupHelper = groupHelper;
+            _context = context;
         }
 
         public override ConverterResponseModel MapViewModel(EventCreatePageModel node, EventCreatePageViewModel viewModel)
         {
-            var groupId = GetGroupId();
+            var groupId = _context.ParseQueryString("groupId").TryParseGuid();
 
             if (!HasPermission(groupId))
             {
@@ -95,14 +100,7 @@ namespace Uintra20.Features.Events.Converters
 
             return model;
         }
-
-        private static Guid? GetGroupId()
-        {
-            var groupIdStr = HttpContext.Current.Request.GetRequestQueryValue("groupId");
-
-            return Guid.TryParse(groupIdStr, out var parsedGroupId) ? (Guid?)parsedGroupId : null;
-        }
-
+        
         private bool HasPermission(Guid? groupId)
         {
             var hasPermission = _permissionsService.Check(PermissionType, PermissionActionEnum.Create);
