@@ -47,6 +47,17 @@ namespace Uintra20.Infrastructure.Extensions
             date = date.WithUserOffset();
             return date.ToString(dateTimeFormatProvider.DateTimeFormat);
         }
+        
+        public static string ToDateTimeFormat(this DateTime? date)
+        {
+            if (!date.HasValue)
+            {
+                return string.Empty;
+            }
+            var dateTimeFormatProvider = HttpContext.Current.GetService<IDateTimeFormatProvider>();
+            date = date.Value.WithUserOffset();
+            return date.Value.ToString(dateTimeFormatProvider.DateTimeFormat);
+        }
 
         public static string ToDateTimeValuePickerFormat(this DateTime date)
         {
