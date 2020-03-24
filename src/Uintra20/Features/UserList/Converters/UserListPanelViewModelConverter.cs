@@ -51,6 +51,8 @@ namespace Uintra20.Features.UserList.Converters
             if (Guid.TryParse(groupIdStr, out var parsedGroupId))
                 groupId = parsedGroupId;
 
+            viewModel.GroupId = parsedGroupId;
+
             viewModel.Details = GetUsers(groupId);
         }
 
