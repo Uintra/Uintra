@@ -1,6 +1,5 @@
-﻿using System;
+﻿using Compent.Extensions;
 using System.Linq;
-using System.Web;
 using UBaseline.Core.RequestContext;
 using Uintra20.Core.Activity;
 using Uintra20.Core.Activity.Helpers;
@@ -15,21 +14,23 @@ using Uintra20.Infrastructure.Extensions;
 
 namespace Uintra20.Features.Likes.Converters
 {
-    public class LikesPanelViewModelConverter : UintraRestrictedNodeViewModelConverter<LikesPanelModel, LikesPanelViewModel>
+    public class LikesPanelViewModelConverter : 
+        UintraRestrictedNodeViewModelConverter<LikesPanelModel, LikesPanelViewModel>
     {
         private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
         private readonly IUBaselineRequestContext _requestContext;
         private readonly ILikesService _likesService;
         private readonly IActivityTypeHelper _activityTypeHelper;
         private readonly IGroupActivityService _groupActivityService;
-        
+        private readonly IUBaselineRequestContext _context;
         public LikesPanelViewModelConverter(
             IUBaselineRequestContext requestContext,
             IIntranetMemberService<IntranetMember> intranetMemberService, 
             ILikesService likesService,
             IActivityTypeHelper activityTypeHelper,
             IGroupActivityService groupActivityService,
-            IErrorLinksService errorLinksService)
+            IErrorLinksService errorLinksService, 
+            IUBaselineRequestContext context)
         : base(errorLinksService)
         {
             _requestContext = requestContext;
@@ -37,24 +38,24 @@ namespace Uintra20.Features.Likes.Converters
             _intranetMemberService = intranetMemberService;
             _activityTypeHelper = activityTypeHelper;
             _groupActivityService = groupActivityService;
+            _context = context;
         }
 
         public override ConverterResponseModel MapViewModel(LikesPanelModel node, LikesPanelViewModel viewModel)
         {
-            var activityIdStr = HttpContext.Current.Request.GetRequestQueryValue("id");
+            var activityId = _context.ParseQueryString("id").TryParseGuid();
 
-            Enum activityType = Guid.TryParse(activityIdStr, out Guid activityId)
-                ? _activityTypeHelper.GetActivityType(activityId)
+            var activityType = activityId.HasValue
+                ? _activityTypeHelper.GetActivityType(activityId.Value)
                 : IntranetActivityTypeEnum.ContentPage;
 
-            Guid? id = activityType.Equals(IntranetActivityTypeEnum.ContentPage)
+            var id = activityType.Equals(IntranetActivityTypeEnum.ContentPage)
                 ? _requestContext.Node?.Key
                 : activityId;
 
-            if (!id.HasValue)
-                return NotFoundResult();
+            if (!id.HasValue) return NotFoundResult();
 
-            var groupId = _groupActivityService.GetGroupId(activityId);
+            var groupId = _groupActivityService.GetGroupId(activityId.Value);
             var currentMember = _intranetMemberService.GetCurrentMember();
 
             viewModel.IsGroupMember = !groupId.HasValue || currentMember.GroupIds.Contains(groupId.Value);

@@ -69,8 +69,8 @@ namespace Uintra20.Features.Location.Services
         public async Task<ActivityLocation> GetAsync(Guid activityId)
         {
             return (await _locationRepository
-                .AsQueryable()
-                .SingleOrDefaultAsync(l => l.ActivityId == activityId))
+                    .AsQueryable()
+                    .SingleOrDefaultAsync(l => l.ActivityId == activityId))
                 ?.Map<ActivityLocation>();
         }
 
@@ -98,7 +98,7 @@ namespace Uintra20.Features.Location.Services
             {
                 if (location?.Address == null || location.ShortAddress == null)
                 {
-                    await _locationRepository.DeleteAsync(oldLocation);
+                    await _locationRepository.DeleteAsync(oldLocation.Id);
                 }
                 else
                 {

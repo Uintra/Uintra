@@ -1,17 +1,24 @@
-﻿using System;
-using System.Web;
+﻿using Compent.Extensions;
 using UBaseline.Core.Node;
+using UBaseline.Core.RequestContext;
 using Uintra20.Infrastructure.Extensions;
 
 namespace Uintra20.Core.Article
 {
     public class ArticlePageViewModelConverter : INodeViewModelConverter<ArticlePageModel, ArticlePageViewModel>
     {
+        private readonly IUBaselineRequestContext _context;
+
+        public ArticlePageViewModelConverter(IUBaselineRequestContext context)
+        {
+            _context = context;
+        }
+
         public void Map(ArticlePageModel node, ArticlePageViewModel viewModel)
         {
-            var groupIdStr = HttpContext.Current.Request.GetRequestQueryValue("groupId");
-            if (!Guid.TryParse(groupIdStr, out Guid groupId))
-                return;
+            var groupId = _context.ParseQueryString("groupId").TryParseGuid();
+
+            if (!groupId.HasValue) return;
 
             viewModel.GroupId = groupId;
         }

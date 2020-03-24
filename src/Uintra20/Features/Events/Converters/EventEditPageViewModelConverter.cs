@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Compent.Extensions;
+using UBaseline.Core.RequestContext;
 using Uintra20.Core.Activity.Models.Headers;
 using Uintra20.Core.Controls.LightboxGallery;
 using Uintra20.Core.Member.Entities;
@@ -32,6 +33,7 @@ namespace Uintra20.Features.Events.Converters
         private readonly IUserTagProvider _userTagProvider;
         private readonly ILightboxHelper _lightboxHelper;
         private readonly IGroupHelper _groupHelper;
+        private readonly IUBaselineRequestContext _context;
 
         public EventEditPageViewModelConverter(
             IPermissionsService permissionsService,
@@ -42,7 +44,8 @@ namespace Uintra20.Features.Events.Converters
             IUserTagProvider userTagProvider,
             ILightboxHelper lightboxHelper,
             IGroupHelper groupHelper,
-            IErrorLinksService errorLinksService)
+            IErrorLinksService errorLinksService,
+            IUBaselineRequestContext context)
             : base(errorLinksService)
         {
             _permissionsService = permissionsService;
@@ -53,22 +56,20 @@ namespace Uintra20.Features.Events.Converters
             _userTagProvider = userTagProvider;
             _lightboxHelper = lightboxHelper;
             _groupHelper = groupHelper;
+            _context = context;
         }
 
         public override ConverterResponseModel MapViewModel(EventEditPageModel node, EventEditPageViewModel viewModel)
         {
-            var requestId = HttpContext.Current.Request.GetRequestQueryValue("id");
+            var id = _context.ParseQueryString("id").TryParseGuid();
 
-            if (!Guid.TryParse(requestId, out var parsedId)) return NotFoundResult();
+            if (!id.HasValue) return NotFoundResult();
 
-            var @event = _eventService.Get(parsedId);
+            var @event = _eventService.Get(id.Value);
 
-            if (@event == null)
-            {
-                return NotFoundResult();
-            }
+            if (@event == null) return NotFoundResult();
 
-            if (!_eventService.CanEdit(parsedId)) return ForbiddenResult();
+            if (!_eventService.CanEdit(id.Value)) return ForbiddenResult();
 
             viewModel.Details = GetDetails(@event);
             viewModel.Links = _feedLinkService.GetLinks(@event.Id);

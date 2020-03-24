@@ -31,7 +31,7 @@ export class EventEditPage {
         this.parsedData.details.lightboxPreviewModel.medias = Object.values(this.parsedData.details.lightboxPreviewModel.medias || []);
         this.parsedData.details.lightboxPreviewModel.otherFiles = Object.values(this.parsedData.details.lightboxPreviewModel.otherFiles || []);
         this.parsedData.details.title = this.parsedData.details.headerInfo.title;
-        this.parsedData.details.creator = {id: this.parsedData.details.creatorId};
+        this.parsedData.details.creator = {id: this.parsedData.details.headerInfo.owner.id};
         this.parsedData.details.pinAllowed = this.parsedData.pinAllowed;
       } else {
         this.router.navigate([data.errorLink.get().originalUrl.get()]);
