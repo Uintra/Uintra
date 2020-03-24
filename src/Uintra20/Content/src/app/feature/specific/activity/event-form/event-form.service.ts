@@ -29,6 +29,7 @@ export class EventFormService {
       subscribeNotes: data.subscribeNotes || "",
       pinAllowed: data.pinAllowed,
       isPinned: data.isPinned || false,
+      endPinDate: data.endPinDate || null,
       newMedia: "",
       media: data.lightboxPreviewModel || null,
       groupId: data.groupId || null
