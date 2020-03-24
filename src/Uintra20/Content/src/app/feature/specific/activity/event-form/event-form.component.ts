@@ -62,7 +62,7 @@ export class EventFormComponent implements OnInit {
   }
 
   private setInitialData(): void {
-    this.owners = this.eventFormService.getOwners(this.data.members, this.data.creator);
+    this.owners = this.eventFormService.getMembers(this.data.members);
 
     this.defaultOwner = this.data.creator
       ? this.data.members.find(x => x.id === this.data.creator.id)
