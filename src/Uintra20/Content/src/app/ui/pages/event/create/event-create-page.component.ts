@@ -14,7 +14,7 @@ import { IULink } from 'src/app/shared/interfaces/general.interface';
 export class EventCreatePage {
   data: any;
   parsedData: any;
-
+  inProgress: boolean;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -33,9 +33,10 @@ export class EventCreatePage {
   }
 
   onSubmit(data) {
+    this.inProgress = true;
     this.activityService.createEvent(data).subscribe((res: IULink) => {
       this.router.navigate([res.originalUrl]);
-    })
+    }, () => this.inProgress = false);
   }
 
   onCancel() {
