@@ -112,9 +112,9 @@ namespace Uintra20.Features.Events.Converters
             details.Tags = _userTagService.Get(@event.Id);
             details.AvailableTags = _userTagProvider.GetAll();
             details.LightboxPreviewModel = _lightboxHelper.GetGalleryPreviewModel(@event.MediaIds, PresetStrategies.ForActivityDetails);
-
-            var currentUserId = _memberService.GetCurrentMemberId();
-            var subscribe = @event.Subscribers.FirstOrDefault(x => x.UserId == currentUserId);
+            details.CanSubscribe = _eventService.CanSubscribe(@event.Id);
+            
+            var subscribe = @event.Subscribers.FirstOrDefault(x => x.UserId == _memberService.GetCurrentMemberId());
 
             details.IsSubscribed = subscribe != null;
             details.IsNotificationsDisabled = subscribe?.IsNotificationDisabled ?? false;

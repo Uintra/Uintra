@@ -67,7 +67,7 @@
                   </a>
                 </div>
               </div>
-              <div class="event-details__subscribe">
+              <div  *ngIf="parsedData.details.canSubscribe" class="event-details__subscribe">
                 <app-event-subscription
                   details
                   [isChecked]="parsedData.details.isNotificationsDisabled"

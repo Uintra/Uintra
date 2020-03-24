@@ -106,9 +106,9 @@ namespace Uintra20.Features.Events.Converters
             details.HeaderInfo.Dates = @event.PublishDate.ToDateTimeFormat().ToEnumerable();
             details.HeaderInfo.Owner = _memberService.Get(@event).ToViewModel();
             details.HeaderInfo.Links = _feedLinkService.GetLinks(@event.Id);
-
-            var currentUserId = _memberService.GetCurrentMemberId();
-            var subscribe = @event.Subscribers.FirstOrDefault(x => x.UserId == currentUserId);
+            details.CanSubscribe = _eventsService.CanSubscribe(@event.Id);
+            
+            var subscribe = @event.Subscribers.FirstOrDefault(x => x.UserId == _memberService.GetCurrentMemberId());
 
             details.IsSubscribed = subscribe != null;
             details.IsNotificationsDisabled = subscribe?.IsNotificationDisabled ?? false;
