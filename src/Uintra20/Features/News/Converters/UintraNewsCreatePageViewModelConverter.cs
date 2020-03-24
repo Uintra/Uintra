@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using UBaseline.Core.RequestContext;
 using Uintra20.Core.Activity;
 using Uintra20.Core.Member.Entities;
@@ -95,13 +94,6 @@ namespace Uintra20.Features.News.Converters
             model.PublishDate = DateTime.UtcNow;
 
             return model;
-        }
-
-        private static Guid? GetGroupId()
-        {
-            var groupIdStr = HttpContext.Current.Request.GetRequestQueryValue("groupId");
-
-            return Guid.TryParse(groupIdStr, out var parsedGroupId) ? (Guid?)parsedGroupId : null;
         }
 
         private bool HasPermission(Guid? groupId)

@@ -1,10 +1,7 @@
-﻿using System;
+﻿using Compent.Extensions;
 using System.Linq;
-using System.Web;
-using UBaseline.Core.Node;
 using UBaseline.Core.RequestContext;
 using Uintra20.Core;
-using Uintra20.Core.Activity;
 using Uintra20.Core.Activity.Helpers;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Services;
@@ -18,7 +15,8 @@ using Uintra20.Infrastructure.Extensions;
 
 namespace Uintra20.Features.Comments.Converters
 {
-    public class CommentsPanelViewModelConverter : UintraRestrictedNodeViewModelConverter<CommentsPanelModel, CommentsPanelViewModel>
+    public class CommentsPanelViewModelConverter : 
+        UintraRestrictedNodeViewModelConverter<CommentsPanelModel, CommentsPanelViewModel>
     {
         private readonly IUBaselineRequestContext _requestContext;
         private readonly ICommentsService _commentsService;
@@ -26,6 +24,7 @@ namespace Uintra20.Features.Comments.Converters
         private readonly IActivityTypeHelper _activityTypeHelper;
         private readonly IGroupActivityService _groupActivityService;
         private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
+        private readonly IUBaselineRequestContext _context;
 
         public CommentsPanelViewModelConverter(
             IUBaselineRequestContext requestContext,
@@ -34,7 +33,8 @@ namespace Uintra20.Features.Comments.Converters
             IActivityTypeHelper activityTypeHelper,
             IGroupActivityService groupActivityService,
             IIntranetMemberService<IntranetMember> intranetMemberService,
-            IErrorLinksService errorLinksService)
+            IErrorLinksService errorLinksService,
+            IUBaselineRequestContext context)
         : base(errorLinksService)
         {
             _requestContext = requestContext;
@@ -43,24 +43,24 @@ namespace Uintra20.Features.Comments.Converters
             _activityTypeHelper = activityTypeHelper;
             _groupActivityService = groupActivityService;
             _intranetMemberService = intranetMemberService;
+            _context = context;
         }
 
         public override ConverterResponseModel MapViewModel(CommentsPanelModel node, CommentsPanelViewModel viewModel)
         {
-            var activityIdStr = HttpContext.Current.Request.GetRequestQueryValue("id");
+            var activityId = _context.ParseQueryString("id").TryParseGuid();
 
-            Enum activityType = Guid.TryParse(activityIdStr, out Guid activityId)
-                                ? _activityTypeHelper.GetActivityType(activityId)
-                                : IntranetActivityTypeEnum.ContentPage;
+            var activityType = activityId.HasValue
+                ? _activityTypeHelper.GetActivityType(activityId.Value)
+                : IntranetEntityTypeEnum.ContentPage;
 
-            Guid? id = activityType.Equals(IntranetActivityTypeEnum.ContentPage)
-                        ? _requestContext.Node?.Key
-                        : activityId;
+            var id = activityType.Equals(IntranetEntityTypeEnum.ContentPage)
+                ? _requestContext.Node.Key
+                : activityId;
 
-            if (!id.HasValue)
-                return NotFoundResult();
+            if (!id.HasValue) return NotFoundResult();
 
-            var groupId = _groupActivityService.GetGroupId(activityId);
+            var groupId = _groupActivityService.GetGroupId(activityId.Value);
             var currentMember = _intranetMemberService.GetCurrentMember();
 
             viewModel.IsGroupMember = !groupId.HasValue || currentMember.GroupIds.Contains(groupId.Value);
