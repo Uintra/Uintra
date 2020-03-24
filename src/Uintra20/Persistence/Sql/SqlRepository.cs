@@ -28,188 +28,211 @@ namespace Uintra20.Persistence.Sql
 
         public async Task<T> GetAsync(TKey id)
         {
-            var context = DbContextAsync;
-            var set = context.Set<T>();
-
-            return await set.FindAsync(id);
+            using (var context = DbContextAsync)
+            {
+                var set = context.Set<T>();
+                return await set.FindAsync(id);
+            }
         }
 
         public async Task<IList<T>> GetManyAsync(IEnumerable<TKey> ids)
         {
-            var context = DbContextAsync;
-            var set = context.Set<T>();
-
-            var idList = ids as IList<TKey> ?? ids.ToList();
-
-            if (idList.IsEmpty())
+            using (var context = DbContextAsync)
             {
-                return new List<T>();
+                var set = context.Set<T>();
+                var idList = ids as IList<TKey> ?? ids.ToList();
+
+                if (idList.IsEmpty())
+                {
+                    return new List<T>();
+                }
+
+                var result = set.Join(
+                    idList,
+                    ent => ent.Id,
+                    id => id,
+                    (ent, id) => ent);
+
+                return await result.ToListAsync();
             }
-
-            var result = set.Join(
-                idList,
-                ent => ent.Id,
-                id => id,
-                (ent, id) => ent);
-
-            return await result.ToListAsync();
         }
 
         public async Task<IList<T>> GetAllAsync()
         {
-            var context = DbContextAsync;
-            var set = context.Set<T>();
-
-            return await set.ToListAsync();
+            using (var context = DbContextAsync)
+            {
+                var set = context.Set<T>();
+                return await set.ToListAsync();
+            }
         }
 
         public async Task<T> FindAsync(Expression<Func<T, bool>> predicate)
         {
-            var context = DbContextAsync;
-            var set = context.Set<T>();
-
-            return await set.FirstOrDefaultAsync(predicate);
+            using (var context = DbContextAsync)
+            {
+                var set = context.Set<T>();
+                return await set.FirstOrDefaultAsync(predicate);
+            }
         }
 
         public async Task<IList<T>> FindAllAsync(Expression<Func<T, bool>> predicate, int skip = 0, int take = Int32.MaxValue)
         {
-            var context = DbContextAsync;
-            var set = context.Set<T>();
-
-            return await set.Where(predicate).OrderBy(ent => ent.Id).Skip(skip).Take(take)
-                .ToListAsync();
+            using (var context = DbContextAsync)
+            {
+                var set = context.Set<T>();
+                return await set.Where(predicate).OrderBy(ent => ent.Id).Skip(skip).Take(take)
+                                .ToListAsync();
+            }
         }
 
         public async Task<long> CountAsync(Expression<Func<T, bool>> predicate)
         {
-            var context = DbContextAsync;
-            var set = context.Set<T>();
-
-            return await set.Where(predicate).CountAsync();
+            using (var context = DbContextAsync)
+            {
+                var set = context.Set<T>();
+                return await set.Where(predicate).CountAsync();
+            }
         }
 
         public async Task<bool> ExistsAsync(Expression<Func<T, bool>> predicate)
         {
-            var context = DbContextAsync;
-            var set = context.Set<T>();
-
-            return await set.AnyAsync(predicate);
+            using (var context = DbContextAsync)
+            {
+                var set = context.Set<T>();
+                return await set.AnyAsync(predicate);
+            }
         }
 
         public async Task DeleteAsync(TKey id)
         {
-            var context = DbContextAsync;
-            var set = context.Set<T>();
-
-            var deletingEntity = await set.FindAsync(id);
-            if (deletingEntity == null)
+            using (var context = DbContextAsync)
             {
-                throw new ArgumentNullException($"{typeof(T)} entity with id = {id} doesn't exist.");
+                var set = context.Set<T>();
+                var deletingEntity = await set.FindAsync(id);
+                if (deletingEntity == null)
+                {
+                    throw new ArgumentNullException($"{typeof(T)} entity with id = {id} doesn't exist.");
+                }
+
+                set.Remove(deletingEntity);
+
+                await SaveAsync(context);
             }
-
-            set.Remove(deletingEntity);
-
-            await SaveAsync(context);
         }
 
-        public async Task DeleteAsync(IEnumerable<T> entities)
+        public async Task DeleteAsync(IEnumerable<T> entities, IntranetDbContext context = null)
         {
-            var context = DbContextAsync;
-            var set = context.Set<T>();
+            bool isExternalContext = context != null;
+            context = context ?? DbContextAsync;
 
+            var set = context.Set<T>();
             set.RemoveRange(entities);
             await SaveAsync(context);
+
+            if (!isExternalContext)
+                context.Dispose();
         }
 
         public async Task DeleteAsync(T entity)
         {
-            var context = DbContextAsync;
-            var set = context.Set<T>();
-
-            set.Remove(entity);
-            await SaveAsync(context);
+            using (var context = DbContextAsync)
+            {
+                var set = context.Set<T>();
+                set.Remove(entity);
+                await SaveAsync(context);
+            }
         }
 
         public async Task DeleteAsync(Expression<Func<T, bool>> predicate)
         {
-            var context = DbContextAsync;
-            var set = context.Set<T>();
-
-            var deletingEntities = set.Where(predicate);
-            await DeleteAsync(deletingEntities);
+            IQueryable<T> deletingEntities;
+            using (var context = DbContextAsync)
+            {
+                var set = context.Set<T>();
+                deletingEntities = set.Where(predicate);
+                await DeleteAsync(deletingEntities, context);
+            }
         }
 
         public async Task AddAsync(T entity)
         {
-            var context = DbContextAsync;
-            var set = context.Set<T>();
-
-            set.Add(entity);
-            await SaveAsync(context);
+            using (var context = DbContextAsync)
+            {
+                var set = context.Set<T>();
+                set.Add(entity);
+                await SaveAsync(context);
+            }
         }
 
         public async Task AddAsync(IEnumerable<T> entities)
         {
-            var context = DbContextAsync;
-            var set = context.Set<T>();
-
-            set.AddRange(entities);
-            await SaveAsync(context);
+            using (var context = DbContextAsync)
+            {
+                var set = context.Set<T>();
+                set.AddRange(entities);
+                await SaveAsync(context);
+            }
         }
 
         public async Task UpdateAsync(T entity)
         {
-            var context = DbContextAsync;
-
-            context.Entry(entity).State = EntityState.Modified;
-            await SaveAsync(context);
+            using (var context = DbContextAsync)
+            {
+                context.Entry(entity).State = EntityState.Modified;
+                await SaveAsync(context);
+            }
         }
 
         public async Task UpdateAsync(IEnumerable<T> entities)
         {
-            var context = DbContextAsync;
-
-            foreach (var ent in entities)
+            using (var context = DbContextAsync)
             {
-                context.Entry(ent).State = EntityState.Modified;
-            }
+                foreach (var ent in entities)
+                {
+                    context.Entry(ent).State = EntityState.Modified;
+                }
 
-            await SaveAsync(context);
+                await SaveAsync(context);
+            }
         }
 
         public async Task UpdatePropertyAsync<TProperty>(T entity, Expression<Func<T, TProperty>> property)
         {
-            var context = DbContextAsync;
-            var set = context.Set<T>();
-
-            set.Attach(entity);
-            context.Entry(entity).Property(property).IsModified = true;
-            await SaveAsync(context);
+            using (var context = DbContextAsync)
+            {
+                var set = context.Set<T>();
+                set.Attach(entity);
+                context.Entry(entity).Property(property).IsModified = true;
+                await SaveAsync(context);
+            }
         }
 
         public async Task UpdatePropertyAsync<TProperty>(IEnumerable<T> entities, Expression<Func<T, TProperty>> property)
         {
-            var context = DbContextAsync;
-            var set = context.Set<T>();
-
-            foreach (var entity in entities)
+            using (var context = DbContextAsync)
             {
-                set.Attach(entity);
-                context.Entry(entity).Property(property).IsModified = true;
+                var set = context.Set<T>();
+                foreach (var entity in entities)
+                {
+                    set.Attach(entity);
+                    context.Entry(entity).Property(property).IsModified = true;
+                }
+                await SaveAsync(context);
             }
-            await SaveAsync(context);
         }
 
         public async Task<IList<T>> AsNoTrackingAsync()
         {
-            var context = DbContextAsync;
-            var set = context.Set<T>();
-
-            return await set.AsNoTracking().ToListAsync();
+            using (var context = DbContextAsync)
+            {
+                var set = context.Set<T>();
+                return await set.AsNoTracking().ToListAsync();
+            }
         }
 
         public virtual async Task SaveAsync(IntranetDbContext context = null)
         {
+            bool isExternalContext = context != null;
             context = context ?? DbContextAsync;
 
             try
@@ -227,7 +250,13 @@ namespace Uintra20.Persistence.Sql
                     if (dbValues == null)
                         entry.State = EntityState.Added;
                 }
+
                 await context.SaveChangesAsync();
+            }
+            finally
+            {
+                if(!isExternalContext)
+                    context.Dispose();
             }
         }
 
@@ -242,7 +271,7 @@ namespace Uintra20.Persistence.Sql
         public T Get(TKey id) => _dbSet.Find(id);
 
         public T Find(Expression<Func<T, bool>> predicate) => _dbSet.FirstOrDefault(predicate);
-        
+
         public IList<T> FindAll(Expression<Func<T, bool>> predicate, int skip = 0, int take = int.MaxValue) =>
             _dbSet.Where(predicate).OrderBy(ent => ent.Id).Skip(skip).Take(take).ToList();
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Uintra20.Persistence.Context;
 
 namespace Uintra20.Persistence.Sql
 {
@@ -63,7 +64,7 @@ namespace Uintra20.Persistence.Sql
 
         Task DeleteAsync(TKey id);
 
-        Task DeleteAsync(IEnumerable<T> entities);
+        Task DeleteAsync(IEnumerable<T> entities, IntranetDbContext context = null);
 
         Task DeleteAsync(T entity);
 
