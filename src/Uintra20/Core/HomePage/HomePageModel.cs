@@ -13,5 +13,6 @@ namespace Uintra20.Core.HomePage
         public PropertyModel<PanelContainerModel> Panels {get;set;}
         public NavigationCompositionModel Navigation { get; set; }
         public PropertyModel<bool> ShowInSubMenu { get; set; }
+        public PropertyModel<int> UserListPage { get; set; }
     }
 }
