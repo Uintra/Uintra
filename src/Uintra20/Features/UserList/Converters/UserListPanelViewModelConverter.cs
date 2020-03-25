@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Compent.Extensions;
+using UBaseline.Core.Extensions;
 using UBaseline.Core.Node;
+using UBaseline.Core.RequestContext;
 using Uintra20.Core.Member.Abstractions;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Models;
@@ -28,56 +30,56 @@ namespace Uintra20.Features.UserList.Converters
         private readonly IGroupService _groupService;
         private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
         private readonly IGroupMemberService _groupMemberService;
+        private readonly IUBaselineRequestContext _baselineRequestContext;
 
         public UserListPanelViewModelConverter(
             IIntranetMemberService<IntranetMember> intranetMemberService,
             IElasticMemberIndex<SearchableMember> elasticIndex,
             IProfileLinkProvider profileLinkProvider,
             IGroupService groupService,
-            IGroupMemberService groupMemberService)
+            IGroupMemberService groupMemberService,
+            IUBaselineRequestContext baselineRequestContext)
         {
             _elasticIndex = elasticIndex;
             _profileLinkProvider = profileLinkProvider;
             _groupService = groupService;
             _intranetMemberService = intranetMemberService;
             _groupMemberService = groupMemberService;
+            _baselineRequestContext = baselineRequestContext;
         }
 
         public void Map(UserListPanelModel node, UserListPanelViewModel viewModel)
         {
-            Guid? groupId = null;
-
-            var groupIdStr = HttpContext.Current.Request["groupId"];
-            if (Guid.TryParse(groupIdStr, out var parsedGroupId))
-                groupId = parsedGroupId;
-
-            viewModel.GroupId = parsedGroupId;
-
+            var groupId = HttpUtility.ParseQueryString(_baselineRequestContext.NodeRequestParams.NodeUrl.Query).TryGetQueryValue<Guid?>("groupId");
             viewModel.Details = GetUsers(groupId);
         }
 
-        public virtual MembersRowsViewModel GetUsers(Guid? groupId)
+        private  MembersRowsViewModel GetUsers(Guid? groupId)
         {
             var listSearch = new ActiveMemberSearchQuery
             {
                 GroupId = groupId,
                 OrderingString = string.Empty,
                 Text = string.Empty,
-                Page = 1
+                Page = 1,
+                MembersOfGroup = groupId.HasValue
             };
 
             var (activeUsers, isLastRequest) = GetActiveUsers(listSearch, groupId);
 
             var model = GetUsersRowsViewModel(groupId);
 
-            model.SelectedColumns = UsersPresentationHelper.ExtendIfGroupMembersPage(listSearch.GroupId, UsersPresentationHelper.GetProfileColumns());
+            model.SelectedColumns =
+                UsersPresentationHelper.ExtendIfGroupMembersPage(listSearch.GroupId,
+                    UsersPresentationHelper.GetProfileColumns());
             model.Members = activeUsers;
             model.IsLastRequest = isLastRequest;
 
             return model;
         }
 
-        private (IEnumerable<MemberModel> result, bool isLastRequest) GetActiveUsers(ActiveMemberSearchQuery query, Guid? groupId)
+        private (IEnumerable<MemberModel> result, bool isLastRequest) GetActiveUsers(ActiveMemberSearchQuery query,
+            Guid? groupId)
         {
             var (searchResult, totalHits) = GetActiveUserIds(query);
 
@@ -102,7 +104,7 @@ namespace Uintra20.Features.UserList.Converters
                 Skip = skip,
                 Take = AmountPerRequest,
                 OrderingString = query.OrderingString,
-                SearchableTypeIds = ((int)UintraSearchableTypeEnum.Member).ToEnumerable(),
+                SearchableTypeIds = ((int) UintraSearchableTypeEnum.Member).ToEnumerable(),
                 GroupId = query.GroupId,
                 MembersOfGroup = query.MembersOfGroup
             };
@@ -120,9 +122,9 @@ namespace Uintra20.Features.UserList.Converters
                 SelectedColumns = UsersPresentationHelper.GetProfileColumns(),
                 CurrentMember = _intranetMemberService.GetCurrentMember().ToViewModel(),
             };
-            
+
             model.IsCurrentMemberGroupAdmin = groupId.HasValue && _groupMemberService
-                .IsMemberAdminOfGroup(model.CurrentMember.Id, groupId.Value);
+                                                  .IsMemberAdminOfGroup(model.CurrentMember.Id, groupId.Value);
 
             model.GroupId = groupId;
 
@@ -135,7 +137,7 @@ namespace Uintra20.Features.UserList.Converters
             model.ProfileUrl = _profileLinkProvider.GetProfileLink(user.Id);
 
             var isAdmin = groupId.HasValue && _groupMemberService
-                .IsMemberAdminOfGroup(user.Id, groupId.Value);
+                              .IsMemberAdminOfGroup(user.Id, groupId.Value);
 
             model.IsGroupAdmin = isAdmin;
             model.IsCreator = groupId.HasValue && _groupService.IsMemberCreator(user.Id, groupId.Value);
