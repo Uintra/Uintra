@@ -83,7 +83,7 @@ namespace Uintra20.Features.Events.Converters
             viewModel.CanEdit = _eventsService.CanEdit(id);
             viewModel.IsGroupMember = !@event.GroupId.HasValue || member.GroupIds.Contains(@event.GroupId.Value);
 
-            var groupIdStr = HttpUtility.ParseQueryString(_baselineRequestContext.NodeRequestParams.NodeUrl.Query).TryGetQueryValue<string>("groupId");
+            var groupIdStr = HttpContext.Current.Request["groupId"];
             if (Guid.TryParse(groupIdStr, out var groupId) && @event.GroupId == groupId)
             {
                 viewModel.GroupHeader = _groupHelper.GetHeader(groupId);
