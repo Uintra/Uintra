@@ -250,8 +250,8 @@ namespace Uintra20.Features.Events
 
             if (cachedEvent == null) return null;
 
-            //_activityIndex.Delete(id);
-            //_documentIndexer.DeleteFromIndex(cachedEvent.MediaIds);
+            _activityIndex.Delete(id);
+            _documentIndexer.DeleteFromIndex(cachedEvent.MediaIds);
             _mediaHelper.DeleteMedia(cachedEvent.MediaIds);
             return null;
         }

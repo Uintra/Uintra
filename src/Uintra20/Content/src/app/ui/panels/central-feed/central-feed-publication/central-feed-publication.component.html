@@ -61,7 +61,7 @@
         </div>
     </div>
 
-    <div class="gallery" [ngClass]="'items-' + countToDisplay">
+    <div *ngIf="medias.length" class="gallery" [ngClass]="'items-' + countToDisplay">
       <div
         *ngFor="let image of medias | slice: 0:countToDisplay; index as i"
         class="gallery__image"

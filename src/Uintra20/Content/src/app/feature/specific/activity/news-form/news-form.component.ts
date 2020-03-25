@@ -68,7 +68,7 @@ export class NewsFormComponent implements OnInit {
   }
 
   private setInitialData(): void {
-    this.owners = this.newsFormService.getOwners(this.members, this.creator);
+    this.owners = this.newsFormService.getMembers(this.members);
 
     this.defaultOwner = this.creator
       ? this.owners.find(x => x.id === this.creator.id)

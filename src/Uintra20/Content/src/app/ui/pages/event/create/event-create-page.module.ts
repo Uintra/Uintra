@@ -6,12 +6,13 @@ import { UbaselineCoreModule } from '@ubaseline/next';
 import { EventCreatePage } from './event-create-page.component';
 import { GroupDetailsWrapperModule } from 'src/app/feature/specific/groups/group-details-wrapper/group-details-wrapper.module';
 import { EventFormModule } from '../../../../feature/specific/activity/event-form/event-form.module';
+import { CanDeactivateGuard } from 'src/app/shared/services/general/can-deactivate.service';
 
 @NgModule({
   declarations: [EventCreatePage],
   imports: [
     CommonModule,
-    RouterModule.forChild([{path: "", component: EventCreatePage}]),
+    RouterModule.forChild([{path: "", component: EventCreatePage, canDeactivate: [CanDeactivateGuard]}]),
     UbaselineCoreModule,
     GroupDetailsWrapperModule,
     EventFormModule,
