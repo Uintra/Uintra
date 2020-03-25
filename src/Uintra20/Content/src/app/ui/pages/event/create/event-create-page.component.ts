@@ -40,6 +40,7 @@ export class EventCreatePage {
   onSubmit(data) {
     this.inProgress = true;
     this.activityService.createEvent(data).subscribe((res: IULink) => {
+      this.hasDataChangedService.reset();
       this.router.navigate([res.originalUrl]);
     }, () => this.inProgress = false);
   }
