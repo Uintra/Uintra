@@ -12,6 +12,7 @@ export class LatestActivityComponent implements OnInit {
   @Input() public activityId: string;
   @Input() public activityDescription: string;
   @Input() public activityLinks: any;
+  @Input() public activityTitle: string;
 
   sanitizedActivityDescription: SafeHtml;
 
