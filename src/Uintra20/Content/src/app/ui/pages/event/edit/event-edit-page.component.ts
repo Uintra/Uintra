@@ -31,7 +31,7 @@ export class EventEditPage {
         this.parsedData.details.lightboxPreviewModel.medias = Object.values(this.parsedData.details.lightboxPreviewModel.medias || []);
         this.parsedData.details.lightboxPreviewModel.otherFiles = Object.values(this.parsedData.details.lightboxPreviewModel.otherFiles || []);
         this.parsedData.details.title = this.parsedData.details.headerInfo.title;
-        this.parsedData.details.creator = {id: this.parsedData.details.creatorId};
+        this.parsedData.details.creator = {id: this.parsedData.details.headerInfo.owner.id};
         this.parsedData.details.pinAllowed = this.parsedData.pinAllowed;
       } else {
         this.router.navigate([data.errorLink.get().originalUrl.get()]);
@@ -54,7 +54,7 @@ export class EventEditPage {
     if (confirm(this.translate.instant('common.AreYouSure'))) {
       const isNotificationNeeded = confirm(this.translate.instant('common.NotifyAllSubscribers'));
       this.activityService.hideEvent(this.parsedData.details.id, isNotificationNeeded).subscribe((res: IULink) => {
-        this.router.navigate([res.originalUrl]);
+        this.router.navigate([this.parsedData.links.feed.originalUrl]);
       })
     }
   }

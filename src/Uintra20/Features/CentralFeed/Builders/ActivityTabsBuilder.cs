@@ -11,12 +11,16 @@ namespace Uintra20.Features.CentralFeed.Builders
     public class ActivityTabsBuilder : IActivityTabsBuilder
     {
         private readonly IIntranetLocalizationService _localizationService;
+        private readonly IIntranetLocalizationService _intranetLocalizationService;
         private readonly HashSet<ActivityFeedTabViewModel> _tabs = new HashSet<ActivityFeedTabViewModel>();
         private FeedFilterStateModel _feedFilterStateModel = new FeedFilterStateModel();
 
-        public ActivityTabsBuilder(IIntranetLocalizationService localizationService)
+        public ActivityTabsBuilder(
+            IIntranetLocalizationService localizationService, 
+            IIntranetLocalizationService intranetLocalizationService)
         {
             _localizationService = localizationService;
+            _intranetLocalizationService = intranetLocalizationService;
         }
 
         public IEnumerable<ActivityFeedTabViewModel> Build(CentralFeedFilterCommand command)
@@ -53,7 +57,7 @@ namespace Uintra20.Features.CentralFeed.Builders
             {
                 IsActive = true,
                 Type = CentralFeedTypeEnum.Social,
-                Title = CentralFeedTypeEnum.Social.ToString()
+                Title = _intranetLocalizationService.Translate("CentralFeed.Filter.Socials.lnk")
             });
 
             return this;
@@ -65,7 +69,7 @@ namespace Uintra20.Features.CentralFeed.Builders
             {
                 IsActive = false,
                 Type = CentralFeedTypeEnum.News,
-                Title = CentralFeedTypeEnum.News.ToString(),
+                Title = _intranetLocalizationService.Translate("CentralFeed.Filter.News.lnk"),
                 Filters = new[]
                 {
                     new ActivityFeedTabFiltersViewModel(nameof(_feedFilterStateModel.ShowPinned), _localizationService.Translate("CentralFeedList.ShowPinned.chkbx"), false)
@@ -81,7 +85,7 @@ namespace Uintra20.Features.CentralFeed.Builders
             {
                 IsActive = false,
                 Type = CentralFeedTypeEnum.Events,
-                Title = CentralFeedTypeEnum.Events.ToString(),
+                Title = _intranetLocalizationService.Translate("CentralFeed.Filter.Events.lnk"),
                 Filters = new[]
                 {
                     new ActivityFeedTabFiltersViewModel(nameof(_feedFilterStateModel.ShowPinned), _localizationService.Translate("CentralFeedList.ShowPinned.chkbx"), false),

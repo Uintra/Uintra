@@ -152,7 +152,7 @@
   </div>
 
   <div class="buttons">
-    <button class="buttons__submit" [disabled]="isSubmitLoading" (click)="onSubmit()">
+    <button class="buttons__submit" [disabled]="inProgress" (click)="onSubmit()">
       {{translate.instant(edit ? 'eventsEdit.Edit.btn' : 'eventsCreate.Create.btn')}}
     </button>
     <button *ngIf="edit" class="buttons__hide" (click)="onHide()">{{'eventsEdit.Hide.btn' | translate}}</button>

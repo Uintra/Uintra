@@ -25,7 +25,6 @@ namespace Uintra20.Core.Search.Indexers
     public class DocumentIndexer : IIndexer, IDocumentIndexer
     {
         private readonly IElasticDocumentIndex _documentIndex;
-        private readonly UmbracoHelper _umbracoHelper;
         private readonly ISearchApplicationSettings _settings;
         private readonly IMediaHelper _mediaHelper;
         private readonly IExceptionLogger _exceptionLogger;
@@ -33,7 +32,6 @@ namespace Uintra20.Core.Search.Indexers
         private readonly IIndexerDiagnosticService _indexerDiagnosticService;
 
         public DocumentIndexer(IElasticDocumentIndex documentIndex,
-            UmbracoHelper umbracoHelper,
             ISearchApplicationSettings settings,
             IMediaHelper mediaHelper,
             IExceptionLogger exceptionLogger,
@@ -41,7 +39,6 @@ namespace Uintra20.Core.Search.Indexers
             IIndexerDiagnosticService indexerDiagnosticService)
         {
             _documentIndex = documentIndex;
-            _umbracoHelper = umbracoHelper;
             _settings = settings;
             _mediaHelper = mediaHelper;
             _exceptionLogger = exceptionLogger;
@@ -67,7 +64,7 @@ namespace Uintra20.Core.Search.Indexers
 
         private IEnumerable<int> GetDocumentsForIndexing()
         {
-            var medias = _umbracoHelper
+            var medias = Umbraco.Web.Composing.Current.UmbracoHelper 
                 .MediaAtRoot()
                 .SelectMany(m => m.DescendantsOrSelf());
 
@@ -135,7 +132,7 @@ namespace Uintra20.Core.Search.Indexers
 
         private IEnumerable<SearchableDocument> GetSearchableDocument(int id)
         {
-            var content = _umbracoHelper.Media(id);
+            var content =  Umbraco.Web.Composing.Current.UmbracoHelper.Media(id);
             if (content == null)
             {
                 return Enumerable.Empty<SearchableDocument>();

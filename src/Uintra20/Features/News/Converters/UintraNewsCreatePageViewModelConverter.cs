@@ -1,12 +1,13 @@
-﻿using System;
+﻿using Compent.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using UBaseline.Core.RequestContext;
 using Uintra20.Core.Activity;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Services;
-using Uintra20.Features.Groups.Helpers;
 using Uintra20.Core.UbaselineModels.RestrictedNode;
+using Uintra20.Features.Groups.Helpers;
 using Uintra20.Features.Groups.Services;
 using Uintra20.Features.Links;
 using Uintra20.Features.News.Models;
@@ -18,7 +19,8 @@ using Uintra20.Infrastructure.Extensions;
 
 namespace Uintra20.Features.News.Converters
 {
-    public class UintraNewsCreatePageViewModelConverter : UintraRestrictedNodeViewModelConverter<UintraNewsCreatePageModel, UintraNewsCreatePageViewModel>
+    public class UintraNewsCreatePageViewModelConverter :
+        UintraRestrictedNodeViewModelConverter<UintraNewsCreatePageModel, UintraNewsCreatePageViewModel>
     {
         private const PermissionResourceTypeEnum PermissionType = PermissionResourceTypeEnum.News;
         private const IntranetActivityTypeEnum ActivityType = IntranetActivityTypeEnum.News;
@@ -30,6 +32,7 @@ namespace Uintra20.Features.News.Converters
         private readonly IFeedLinkService _feedLinkService;
         private readonly IGroupMemberService _groupMemberService;
         private readonly IGroupHelper _groupHelper;
+        private readonly IUBaselineRequestContext _context;
 
         public UintraNewsCreatePageViewModelConverter(
             INewsService<Entities.News> newsService,
@@ -39,7 +42,8 @@ namespace Uintra20.Features.News.Converters
             IFeedLinkService feedLinkService,
             IGroupMemberService groupMemberService,
             IGroupHelper groupHelper,
-            IErrorLinksService errorLinksService)
+            IErrorLinksService errorLinksService,
+            IUBaselineRequestContext context)
             : base(errorLinksService)
         {
             _memberService = memberService;
@@ -49,16 +53,14 @@ namespace Uintra20.Features.News.Converters
             _feedLinkService = feedLinkService;
             _groupMemberService = groupMemberService;
             _groupHelper = groupHelper;
+            _context = context;
         }
 
         public override ConverterResponseModel MapViewModel(UintraNewsCreatePageModel node, UintraNewsCreatePageViewModel viewModel)
         {
-            var groupId = GetGroupId();
+            var groupId = _context.ParseQueryString("groupId").TryParseGuid();
 
-            if (!HasPermission(groupId))
-            {
-                return ForbiddenResult();
-            }
+            if (!HasPermission(groupId)) return ForbiddenResult();
 
             viewModel.Data = GetData(groupId);
             viewModel.GroupHeader = groupId.HasValue ? _groupHelper.GetHeader(groupId.Value) : null;
@@ -81,7 +83,7 @@ namespace Uintra20.Features.News.Converters
             model.Links = model.GroupId.HasValue ?
                 _feedLinkService.GetCreateLinks(ActivityType, model.GroupId.Value)
                 : _feedLinkService.GetCreateLinks(ActivityType);
-            
+
             var mediaSettings = _newsService.GetMediaSettings();
 
             model.AllowedMediaExtensions = mediaSettings.AllowedMediaExtensions;
@@ -92,13 +94,6 @@ namespace Uintra20.Features.News.Converters
             model.PublishDate = DateTime.UtcNow;
 
             return model;
-        }
-
-        private static Guid? GetGroupId()
-        {
-            var groupIdStr = HttpContext.Current.Request.GetRequestQueryValue("groupId");
-
-            return Guid.TryParse(groupIdStr, out var parsedGroupId) ? (Guid?)parsedGroupId : null;
         }
 
         private bool HasPermission(Guid? groupId)

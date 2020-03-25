@@ -235,6 +235,8 @@ namespace Uintra20.Features.Events.AutoMapperProfiles
                 .ForMember(dst => dst.EventMonth, o => o.Ignore())
                 .ForMember(dst => dst.IsSubscribed, o => o.Ignore())
                 .ForMember(dst => dst.IsNotificationsDisabled, o => o.Ignore())
+                .ForMember(dst => dst.IsPinned, o => o.MapFrom(s => s.IsPinned))
+                .ForMember(dst => dst.EndPinDate, o => o.MapFrom(s => s.EndPinDate))
                 .ForMember(dst => dst.Media, o => o.MapFrom(el => el.MediaIds.JoinToString(",")))
                 .AfterMap((src, dst) =>
                 {

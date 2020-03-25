@@ -16,15 +16,14 @@
       <h1 class="social-edit__title">{{socialEdit.name}}</h1>
       <div class="form">
         <div class="form__row">
-          <label for="desciption">{{'bulletinsEdit.Description.lbl' | translate}}</label>
-          <app-rich-text-editor
-            [isEditing]="true"
-            [isUnderline]="true"
-            [ngModel]="socialEdit.description"
-            (ngModelChange)="onDescriptionChange($event)"
-            formControlName="description"
-            [isDropzone]="false"
-            [placeholder]="'bulletinsCreate.FormPlaceholder.lbl' | translate">
+          <label for="desciption">{{'socialsEdit.Description.lbl' | translate}}</label>
+          <app-rich-text-editor [isEditing]="true"
+                                [isUnderline]="true"
+                                [ngModel]="socialEdit.description"
+                                (ngModelChange)="onDescriptionChange($event)"
+                                formControlName="description"
+                                [isDropzone]="false"
+                                [placeholder]="'socialsCreate.FormPlaceholder.lbl' | translate">
           </app-rich-text-editor>
         </div>
         <div class="form__row">
@@ -37,12 +36,11 @@
           </app-tag-multiselect>
         </div>
         <div class="form__row">
-          <label>{{'bulletinsEdit.UploadFiles.lbl' | translate}}</label>
-          <app-dropzone-existing-images
-            [medias]="socialEdit.lightboxPreviewModel.medias"
-            [otherFiles]="socialEdit.lightboxPreviewModel.otherFiles"
-            (removeImage)="handleImageRemove($event)"
-            (removeFile)="handleFileRemove($event)">
+          <label>{{'socialsEdit.UploadFiles.lbl' | translate}}</label>
+          <app-dropzone-existing-images [medias]="socialEdit.lightboxPreviewModel.medias"
+                                        [otherFiles]="socialEdit.lightboxPreviewModel.otherFiles"
+                                        (removeImage)="handleImageRemove($event)"
+                                        (removeFile)="handleFileRemove($event)">
           </app-dropzone-existing-images>
         </div>
         <div class="form__row">
@@ -54,17 +52,16 @@
         </div>
         <div class="form__row-btns">
           <button class="button"
-            [disabled]="inProgress || socialEditForm.invalid"
-            (click)="handleSocialUpdate()">{{'bulletinsEdit.Edit.btn' | translate}}</button>
+                  [disabled]="inProgress || socialEditForm.invalid"
+                  (click)="handleSocialUpdate()">{{'socialsEdit.Edit.btn' | translate}}</button>
 
-          <button
-            *ngIf="socialEdit?.canDelete"
-            class="button button-default"
-            [disabled]="inProgress"
-            (click)="handleSocialDelete()">{{'bulletinsEdit.Delete.btn' | translate}}</button>
+          <button *ngIf="socialEdit?.canDelete"
+                  class="button button-default"
+                  [disabled]="inProgress"
+                  (click)="handleSocialDelete()">{{'socialsEdit.Delete.btn' | translate}}</button>
 
           <a class="button button-default"
-            [routerLink]="socialEdit?.links?.details?.originalUrl">{{'common.Cancel.lnk'  | translate}}</a>
+             [routerLink]="socialEdit?.links?.details?.originalUrl">{{'common.Cancel.lnk'  | translate}}</a>
         </div>
       </div>
     </section>

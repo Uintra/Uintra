@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web;
 using Compent.Extensions;
+using UBaseline.Core.RequestContext;
 using Uintra20.Core.Activity.Models.Headers;
 using Uintra20.Core.Controls.LightboxGallery;
 using Uintra20.Core.Member.Entities;
@@ -30,7 +31,7 @@ namespace Uintra20.Features.Social.Converters
         private readonly ILightboxHelper _lightboxHelper;
         private readonly IPermissionsService _permissionsService;
         private readonly IGroupHelper _groupHelper;
-
+        private readonly IUBaselineRequestContext _context;
         public SocialDetailsPageViewModelConverter(
             IFeedLinkService feedLinkService,
             IIntranetMemberService<IntranetMember> memberService,
@@ -39,7 +40,8 @@ namespace Uintra20.Features.Social.Converters
             ILightboxHelper lightboxHelper,
             IPermissionsService permissionsService,
             IGroupHelper groupHelper,
-            IErrorLinksService errorLinksService)
+            IErrorLinksService errorLinksService, 
+            IUBaselineRequestContext context)
             : base(errorLinksService)
         {
             _feedLinkService = feedLinkService;
@@ -49,21 +51,18 @@ namespace Uintra20.Features.Social.Converters
             _lightboxHelper = lightboxHelper;
             _permissionsService = permissionsService;
             _groupHelper = groupHelper;
+            _context = context;
         }
 
         public override ConverterResponseModel MapViewModel(SocialDetailsPageModel node, SocialDetailsPageViewModel viewModel)
         {
-            var id = HttpContext.Current.Request.GetRequestQueryValue("id");
+            var id = _context.ParseQueryString("id").TryParseGuid();
 
-            if (!Guid.TryParse(id, out var parseId)) 
-                return NotFoundResult();
+            if (!id.HasValue) return NotFoundResult();
 
-            var social = _socialService.Get(parseId);
+            var social = _socialService.Get(id.Value);
 
-            if (social == null)
-            {
-                return NotFoundResult();
-            }
+            if (social == null) return NotFoundResult();
 
             if (!_permissionsService.Check(PermissionResourceTypeEnum.Social, PermissionActionEnum.View))
             {
@@ -73,8 +72,8 @@ namespace Uintra20.Features.Social.Converters
             var member = _memberService.GetCurrentMember();
             
             viewModel.Details = GetViewModel(social);
-            viewModel.Tags = _userTagService.Get(parseId);
-            viewModel.CanEdit = _socialService.CanEdit(parseId);
+            viewModel.Tags = _userTagService.Get(id.Value);
+            viewModel.CanEdit = _socialService.CanEdit(id.Value);
             viewModel.IsGroupMember = !social.GroupId.HasValue || member.GroupIds.Contains(social.GroupId.Value);
 
             var groupIdStr = HttpContext.Current.Request["groupId"];

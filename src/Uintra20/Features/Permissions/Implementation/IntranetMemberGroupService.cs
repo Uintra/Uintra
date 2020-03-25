@@ -55,7 +55,7 @@ namespace Uintra20.Features.Permissions.Implementation
             if (string.IsNullOrWhiteSpace(name)) return int.MinValue;
             var group = _memberGroupService.GetByName(name);
             if (group != null) return group.Id;
-            _memberGroupService.Save(new MemberGroup { Name = name });
+            _memberGroupService.Save(new MemberGroup {Name = name});
             group = _memberGroupService.GetByName(name);
 
             CurrentCache = CurrentCache.Append(group.Map<IntranetMemberGroup>());
@@ -85,10 +85,16 @@ namespace Uintra20.Features.Permissions.Implementation
             CurrentCache = CurrentCache.Where(x => x.Id != id);
         }
 
+        public void RemoveFromAll(int memberId)
+        {
+            var memberRolesNames = GetForMember(memberId).Select(r => r.Name);
+            _memberService.DissociateRoles(new[] {memberId}, memberRolesNames.ToArray());
+        }
+
         public void AssignDefaultMemberGroup(int memberId)
         {
-            var uiUserGroup = GetAll().First(i => i.Name.Equals("UiUser"));
-            
+            var uiUserGroup = GetAll().FirstOrDefault(i => i.Name.Equals("UiUser"));
+
             if (uiUserGroup != null)
             {
                 _memberService.AssignRole(memberId, uiUserGroup.Name);
@@ -99,6 +105,5 @@ namespace Uintra20.Features.Permissions.Implementation
         {
             _cacheService.Remove(IntranetMemberGroupCacheKey);
         }
-
     }
 }

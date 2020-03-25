@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Compent.Extensions;
 using System.Linq;
-using System.Web;
 using UBaseline.Core.Node;
+using UBaseline.Core.RequestContext;
 using Uintra20.Core.Activity;
 using Uintra20.Core.UbaselineModels.RestrictedNode;
 using Uintra20.Features.Groups.Helpers;
@@ -15,13 +15,15 @@ using Uintra20.Infrastructure.Extensions;
 
 namespace Uintra20.Features.Groups.Converters
 {
-    public class UintraGroupsRoomPageViewModelConverter : UintraRestrictedNodeViewModelConverter<UintraGroupsRoomPageModel, UintraGroupsRoomPageViewModel>
+    public class UintraGroupsRoomPageViewModelConverter :
+        UintraRestrictedNodeViewModelConverter<UintraGroupsRoomPageModel, UintraGroupsRoomPageViewModel>
     {
         private readonly IPermissionsService _permissionsService;
         private readonly IFeedLinkService _feedLinkService;
         private readonly INodeModelService _nodeModelService;
         private readonly IGroupHelper _groupHelper;
         private readonly IGroupService _groupService;
+        private readonly IUBaselineRequestContext _context;
 
         public UintraGroupsRoomPageViewModelConverter(
             IPermissionsService permissionsService,
@@ -29,7 +31,8 @@ namespace Uintra20.Features.Groups.Converters
             INodeModelService nodeModelService,
             IGroupHelper groupHelper,
             IGroupService groupService,
-            IErrorLinksService errorLinksService)
+            IErrorLinksService errorLinksService,
+            IUBaselineRequestContext context)
             : base(errorLinksService)
         {
             _permissionsService = permissionsService;
@@ -37,31 +40,28 @@ namespace Uintra20.Features.Groups.Converters
             _nodeModelService = nodeModelService;
             _groupHelper = groupHelper;
             _groupService = groupService;
+            _context = context;
         }
 
         public override ConverterResponseModel MapViewModel(UintraGroupsRoomPageModel node, UintraGroupsRoomPageViewModel viewModel)
         {
-            var idStr = HttpContext.Current.Request.GetRequestQueryValue("groupId");
+            var groupId = _context.ParseQueryString("groupId").TryParseGuid();
 
-            if (!Guid.TryParse(idStr, out var id))
-                return NotFoundResult();
+            if (!groupId.HasValue) return NotFoundResult();
 
-            var group = _groupService.Get(id);
+            var group = _groupService.Get(groupId.Value);
 
-            if(group == null)
-            {
-                return NotFoundResult();
-            }
+            if (group == null) return NotFoundResult();
 
-            viewModel.GroupId = id;
-            viewModel.GroupInfo = _groupHelper.GetGroupViewModel(id);
-            viewModel.GroupHeader = _groupHelper.GetHeader(id);
-            
-            viewModel.CreateEventsLink = _permissionsService.Check(PermissionResourceTypeEnum.Events, PermissionActionEnum.Create) ? 
-                _feedLinkService.GetCreateLinks(IntranetActivityTypeEnum.Events).Create?.AddGroupId(id)
+            viewModel.GroupId = groupId.Value;
+            viewModel.GroupInfo = _groupHelper.GetGroupViewModel(groupId.Value);
+            viewModel.GroupHeader = _groupHelper.GetHeader(groupId.Value);
+
+            viewModel.CreateEventsLink = _permissionsService.Check(PermissionResourceTypeEnum.Events, PermissionActionEnum.Create) ?
+                _feedLinkService.GetCreateLinks(IntranetActivityTypeEnum.Events).Create?.AddGroupId(groupId.Value)
                 : null;
             viewModel.CreateNewsLink = _permissionsService.Check(PermissionResourceTypeEnum.News, PermissionActionEnum.Create) ?
-                _feedLinkService.GetCreateLinks(IntranetActivityTypeEnum.News).Create.AddGroupId(id)
+                _feedLinkService.GetCreateLinks(IntranetActivityTypeEnum.News).Create.AddGroupId(groupId.Value)
                 : null;
 
             var socialCreateModel = _nodeModelService.AsEnumerable().OfType<SocialCreatePageModel>().First();

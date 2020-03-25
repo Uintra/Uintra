@@ -1,12 +1,11 @@
-﻿using System;
-using System.Web;
+﻿using Compent.Extensions;
+using UBaseline.Core.RequestContext;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Profile.Models;
 using Uintra20.Core.Member.Services;
 using Uintra20.Core.UbaselineModels.RestrictedNode;
 using Uintra20.Core.User;
 using Uintra20.Features.Links;
-using Uintra20.Features.Media;
 using Uintra20.Features.Media.Enums;
 using Uintra20.Features.Media.Helpers;
 using Uintra20.Features.Media.Images.Helpers.Contracts;
@@ -23,14 +22,16 @@ namespace Uintra20.Core.Member.Profile.Converters
         private readonly IIntranetUserContentProvider _intranetUserContentProvider;
         private readonly IImageHelper _imageHelper;
         private readonly IMediaHelper _mediaHelper;
+        private readonly IUBaselineRequestContext _uBaselineRequestContext;
 
         public ProfilePageViewModelConverter(
-            IIntranetMemberService<IntranetMember> memberService, 
+            IIntranetMemberService<IntranetMember> memberService,
             IUserTagService userTagService,
             IIntranetUserContentProvider intranetUserContentProvider,
             IImageHelper imageHelper,
             IMediaHelper mediaHelper,
-            IErrorLinksService errorLinksService)
+            IErrorLinksService errorLinksService,
+            IUBaselineRequestContext uBaselineRequestContext)
         : base(errorLinksService)
         {
             _memberService = memberService;
@@ -38,23 +39,18 @@ namespace Uintra20.Core.Member.Profile.Converters
             _intranetUserContentProvider = intranetUserContentProvider;
             _imageHelper = imageHelper;
             _mediaHelper = mediaHelper;
+            _uBaselineRequestContext = uBaselineRequestContext;
         }
 
         public override ConverterResponseModel MapViewModel(ProfilePageModel node, ProfilePageViewModel viewModel)
         {
-            var id = HttpContext.Current.Request.GetRequestQueryValue("id");
+            var id = _uBaselineRequestContext.ParseQueryString("id").TryParseGuid();
 
-            if (!Guid.TryParse(id, out var parseId))
-            {
-                return NotFoundResult();
-            }
+            if (!id.HasValue) return NotFoundResult();
 
-            var member = _memberService.Get(parseId);
+            var member = _memberService.Get(id.Value);
 
-            if (member == null)
-            {
-                return NotFoundResult();
-            }
+            if (member == null) return NotFoundResult();
 
             var currentMemberId = _memberService.GetCurrentMemberId();
 

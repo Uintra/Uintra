@@ -4,7 +4,6 @@ import { SafeHtml, DomSanitizer } from "@angular/platform-browser";
 import ParseHelper from "src/app/shared/utils/parse.helper";
 import { AddButtonService } from "src/app/ui/main-layout/left-navigation/components/my-links/add-button.service";
 import {
-  ISocialDetails,
   IUserTag,
   IMedia,
   IDocument
@@ -13,6 +12,10 @@ import { ICommentData } from "src/app/feature/reusable/ui-elements/comments/comm
 import { ImageGalleryService } from "src/app/feature/reusable/ui-elements/image-gallery/image-gallery.service";
 import { ILikeData } from "src/app/feature/reusable/ui-elements/like-button/like-button.interface";
 import { EventSubscriptionService } from "../../../../feature/specific/activity/event-subscription/event-subscription.service";
+import {IEventDetails} from "../../../../feature/specific/activity/event-form/event-form.interface";
+import { HasDataChangedService } from 'src/app/shared/services/general/has-data-changed.service';
+import { Observable } from 'rxjs';
+import { CanDeactivateGuard } from 'src/app/shared/services/general/can-deactivate.service';
 
 @Component({
   selector: "event-details-page",
@@ -23,7 +26,7 @@ import { EventSubscriptionService } from "../../../../feature/specific/activity/
 export class EventDetailsPage implements OnInit {
   parsedData: any;
   data: any;
-  details: ISocialDetails;
+  details: IEventDetails;
   tags: Array<IUserTag>;
   activityName: string;
   likeData: ILikeData;
@@ -42,6 +45,8 @@ export class EventDetailsPage implements OnInit {
     private addButtonService: AddButtonService,
     private router: Router,
     private eventSubscription: EventSubscriptionService,
+    private hasDataChangedService: HasDataChangedService,
+    private canDeactivateService: CanDeactivateGuard,
   ) {
     this.activatedRoute.data.subscribe(data => {
       if (!data.requiresRedirect.get()) {
@@ -118,5 +123,13 @@ export class EventDetailsPage implements OnInit {
       this.subscribers = res;
       this.parsedData.details.isSubscribed = !this.parsedData.details.isSubscribed
     });
+  }
+
+  canDeactivate(): Observable<boolean> | boolean {
+    if (this.hasDataChangedService.hasDataChanged) {
+      return this.canDeactivateService.canDeacrivateConfirm();
+    }
+
+    return true;
   }
 }

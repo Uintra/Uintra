@@ -1,31 +1,35 @@
-﻿using System;
-using System.Web;
-using UBaseline.Core.Node;
-using Uintra20.Features.Groups.Helpers;
+﻿using Compent.Extensions;
+using UBaseline.Core.RequestContext;
 using Uintra20.Core.UbaselineModels.RestrictedNode;
+using Uintra20.Features.Groups.Helpers;
 using Uintra20.Features.Groups.Models;
 using Uintra20.Features.Links;
 using Uintra20.Infrastructure.Extensions;
 
 namespace Uintra20.Features.Groups.Converters
 {
-    public class UintraGroupsMembersPageViewModelConverter : UintraRestrictedNodeViewModelConverter<UintraGroupsMembersPageModel, UintraGroupsMembersPageViewModel>
+    public class UintraGroupsMembersPageViewModelConverter :
+        UintraRestrictedNodeViewModelConverter<UintraGroupsMembersPageModel, UintraGroupsMembersPageViewModel>
     {
         private readonly IGroupHelper _groupHelper;
-        public UintraGroupsMembersPageViewModelConverter(IGroupHelper groupHelper, IErrorLinksService errorLinksService)
+        private readonly IUBaselineRequestContext _context;
+        public UintraGroupsMembersPageViewModelConverter(
+            IGroupHelper groupHelper,
+            IErrorLinksService errorLinksService,
+            IUBaselineRequestContext context)
             : base(errorLinksService)
         {
             _groupHelper = groupHelper;
+            _context = context;
         }
 
         public override ConverterResponseModel MapViewModel(UintraGroupsMembersPageModel node, UintraGroupsMembersPageViewModel viewModel)
         {
-            var idStr = HttpContext.Current.Request.GetRequestQueryValue("groupId");
+            var groupId = _context.ParseQueryString("groupId").TryParseGuid();
 
-            if (!Guid.TryParse(idStr, out var id))
-                return NotFoundResult();
+            if (!groupId.HasValue) return NotFoundResult();
 
-            viewModel.GroupHeader = _groupHelper.GetHeader(id);
+            viewModel.GroupHeader = _groupHelper.GetHeader(groupId.Value);
 
             return OkResult();
         }

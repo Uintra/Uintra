@@ -29,6 +29,7 @@ export class EventFormService {
       subscribeNotes: data.subscribeNotes || "",
       pinAllowed: data.pinAllowed,
       isPinned: data.isPinned || false,
+      endPinDate: data.endPinDate || null,
       newMedia: "",
       media: data.lightboxPreviewModel || null,
       groupId: data.groupId || null
@@ -40,17 +41,7 @@ export class EventFormService {
   getMediaIdsForResponse(files: Array<any>): string {
     return files.map(file => file[1]).join(",");
   }
-  getOwners(members: Array<any>, creator: IOwner) {
-    const owners = this.getMembers(members);
-    if (creator) {
-      owners.push({
-        id: creator.id,
-        text: creator.displayedName
-      });
-    }
-    return owners;
-  }
-  private getMembers(members = []): ISelectItem[] {
+  getMembers(members = []): ISelectItem[] {
     return members.map(member => ({
       id: member.id,
       text: member.displayedName

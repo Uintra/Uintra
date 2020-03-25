@@ -2,6 +2,7 @@
 using Uintra20.Core.UmbracoEvents.Services.Contracts;
 using Umbraco.Core.Events;
 using Umbraco.Core.Models;
+using Umbraco.Core.Models.Entities;
 using Umbraco.Core.Services;
 using Umbraco.Core.Services.Implement;
 
@@ -14,7 +15,8 @@ namespace Uintra20.Core.UmbracoEvents.Modules
             MemberService.AssignedRoles += AssignedRolesHandler;
             MemberService.RemovedRoles += MemberRemovedRolesHandler;
             MemberService.Deleting += MemberDeletingHandler;
-            MemberService.Saved += MemberCreateOrUpdateHandler;
+            MemberService.Saved += MemberUpdateHandler;
+            MemberService.Saving += MemberCreateHandler;
             MemberGroupService.Deleting += MemberGroupDeletingHandler;
             MemberGroupService.Saved += MemberGroupSavedHandler;
 
@@ -26,6 +28,33 @@ namespace Uintra20.Core.UmbracoEvents.Modules
             //ContentService.Unpublished += ProcessContentUnPublished;
             ContentService.Trashed += ProcessContentTrashed;
             ContentService.Saving += ProcessPanelSaving;
+        }
+
+        private static void MemberCreateHandler(IMemberService sender, SaveEventArgs<IMember> e)
+        {
+            foreach (var entity in e.SavedEntities)
+            {
+                var dirty = (IRememberBeingDirty)entity;
+                var isNew = dirty.WasPropertyDirty("Id");
+                if (isNew)
+                {
+                    var services = DependencyResolver.Current.GetServices<IUmbracoMemberCreatedEventService>();
+                    foreach (var service in services)
+                    {
+                        service.MemberCreateHandler(sender, e);
+                    }       
+                }
+            }
+        }
+
+        private static void MemberUpdateHandler(IMemberService sender, SaveEventArgs<IMember> e)
+        {
+            var services = DependencyResolver.Current.GetServices<IUmbracoMemberCreatedEventService>();
+
+            foreach (var service in services)
+            {
+                service.MemberUpdateHandler(sender, e);
+            }
         }
 
         private static void MemberRemovedRolesHandler(
@@ -64,19 +93,6 @@ namespace Uintra20.Core.UmbracoEvents.Modules
             foreach (var service in services)
             {
                 service.MemberGroupSavedHandler(sender, e);
-            }
-        }
-
-        private static void MemberCreateOrUpdateHandler(
-            IMemberService sender,
-            SaveEventArgs<IMember> e)
-        {
-            var services =
-                DependencyResolver.Current.GetServices<IUmbracoMemberCreatedEventService>();
-
-            foreach (var service in services)
-            {
-                service.MemberCreateOrUpdateHandler(sender, e);
             }
         }
 

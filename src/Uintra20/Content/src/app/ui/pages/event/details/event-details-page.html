@@ -36,7 +36,6 @@
               class="feed-item__header"
               [details]="details"
               [activityName]="activityName"
-              [location]="details.location"
             ></app-detailas-header>
 
             <div class="feed-item__title" [innerHtml]="detailsTitle"></div>
@@ -57,7 +56,7 @@
 
                 <div *ngIf="parsedData.details.location" class="location">
                   <strong class="location__title">
-                    {{'eventsCreate.LocationTitle.lbl' | translate}}
+                    {{parsedData.details.locationTitle}}
                   </strong>
                   <a
                     href="{{locationUrl}}"
@@ -67,7 +66,7 @@
                   </a>
                 </div>
               </div>
-              <div class="event-details__subscribe">
+              <div  *ngIf="parsedData.details.canSubscribe" class="event-details__subscribe">
                 <app-event-subscription
                   details
                   [isChecked]="parsedData.details.isNotificationsDisabled"

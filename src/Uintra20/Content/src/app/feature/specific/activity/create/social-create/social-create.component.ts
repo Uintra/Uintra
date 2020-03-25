@@ -59,7 +59,7 @@ export class SocialCreateComponent implements OnInit {
     private hasDataChangedService: HasDataChangedService,
     private mq: MqService,
     private translate: TranslateService,
-  ) {}
+  ) { }
 
   public ngOnInit(): void {
     this.panelData = ParseHelper.parseUbaselineData(this.data);
@@ -177,6 +177,8 @@ export class SocialCreateComponent implements OnInit {
   }
 
   getPlaceholder() {
-    return this.mq.isTablet(this.deviceWidth) ? 'bulletinsCreate.FormPlaceholder.lbl' : 'bulletinsCreate.MobileBtn.lbl';
+    return this.mq.isTablet(this.deviceWidth)
+      ? 'bulletinsCreate.FormPlaceholder.lbl'
+      : 'bulletinsCreate.MobileBtn.lbl';
   }
 }
