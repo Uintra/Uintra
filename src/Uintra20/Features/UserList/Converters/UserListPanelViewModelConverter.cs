@@ -50,8 +50,7 @@ namespace Uintra20.Features.UserList.Converters
 
         public void Map(UserListPanelModel node, UserListPanelViewModel viewModel)
         {
-            var groupIdString = HttpUtility.ParseQueryString(_baselineRequestContext.NodeRequestParams.NodeUrl.Query).TryGetQueryValue<string>("groupId");
-            if (Guid.TryParse(groupIdString, out var groupId)) viewModel.GroupId = groupId;
+            var groupId = HttpUtility.ParseQueryString(_baselineRequestContext.NodeRequestParams.NodeUrl.Query).TryGetQueryValue<Guid?>("groupId");
             viewModel.Details = GetUsers(groupId);
         }
 
