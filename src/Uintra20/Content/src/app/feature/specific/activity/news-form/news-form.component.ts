@@ -17,6 +17,7 @@ import { NewsFormService } from "./news-form.service";
 import { PinActivityService } from '../pin-activity/pin-activity.service';
 import { HasDataChangedService } from 'src/app/shared/services/general/has-data-changed.service';
 import { TranslateService } from '@ngx-translate/core';
+import * as moment from "moment";
 
 @Component({
   selector: "app-news-form",
@@ -121,7 +122,9 @@ export class NewsFormComponent implements OnInit {
 
   // Data set functions
   setDatePickerValue(value: IDatepickerData = {}) {
-    if (this.newsData.publishDate) {
+    const test = moment(this.initialDates.from).format();
+    if ((moment(this.initialDates.from).format() != value.from && moment(this.initialDates.from).subtract(5, "seconds").format() != value.from)
+      || (moment(this.initialDates.to).format() != value.to && (moment(this.initialDates.to).add(5, "seconds").format() != value.to))) {
       this.hasDataChangedService.onDataChanged();
     }
     this.pinActivityService.setPublishDates(value);
