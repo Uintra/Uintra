@@ -23,5 +23,11 @@ export const panels = [
     path: "__dynamic__",
     loadChildren:
       "./ui/panels/comments/comments-panel.module#CommentsPanelModule"
-  }
+  },
+  {
+    id: 'userListPanel',
+    path: '__dynamic__',
+    loadChildren: './ui/panels/user-list/user-list-panel.module#UserListPanelModule'
+  },
 ];
+

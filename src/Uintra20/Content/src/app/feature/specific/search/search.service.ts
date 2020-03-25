@@ -19,4 +19,8 @@ export class SearchService {
   search(data: ISearchRequestData): Observable<ISearchData> {
     return this.http.post<ISearchData>("/ubaseline/api/search/search", data)
   }
+
+  userListSearch(data) {
+    return this.http.post<any>("/ubaseline/api/UserList/GetUsers", data)
+  }
 }

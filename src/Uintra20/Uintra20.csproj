@@ -1336,7 +1336,7 @@
     <Compile Include="Features\Subscribe\Controllers\SubscribeController.cs" />
     <Compile Include="Features\Subscribe\Models\SubscribeNotificationDisableUpdateModel.cs" />
     <Compile Include="Features\UserList\Controllers\UserListController.cs" />
-    <Compile Include="Features\UserList\Converters\UserListPageViewModelConverter.cs" />
+    <Compile Include="Features\UserList\Converters\UserListPanelViewModelConverter.cs" />
     <Compile Include="Features\UserList\Helpers\UsersPresentationHelper.cs" />
     <Compile Include="Features\UserList\Models\ActiveMemberSearchQuery.cs" />
     <Compile Include="Features\UserList\Models\ColumnType.cs" />
@@ -1344,8 +1344,8 @@
     <Compile Include="Features\UserList\Models\MembersListSearchModel.cs" />
     <Compile Include="Features\UserList\Models\MembersRowsViewModel.cs" />
     <Compile Include="Features\UserList\Models\ProfileColumnModel.cs" />
-    <Compile Include="Features\UserList\Models\UserListPageModel.cs" />
-    <Compile Include="Features\UserList\Models\UserListPageViewModel.cs" />
+    <Compile Include="Features\UserList\Models\UserListPanelModel.cs" />
+    <Compile Include="Features\UserList\Models\UserListPanelViewModel.cs" />
     <Compile Include="Features\UserList\Models\UserListViewModel.cs" />
     <Compile Include="Infrastructure\Context\IIntranetRequestContext.cs" />
     <Compile Include="Infrastructure\Context\IntranetRequestContext.cs" />
