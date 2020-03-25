@@ -151,7 +151,6 @@ export class NewsFormComponent implements OnInit {
 
     if (this.validate()) {
       this.newsDataBuilder();
-      debugger
       this.handleSubmit.emit(this.newsData);
     }
   }

@@ -113,7 +113,7 @@ namespace Uintra20.Features.Events.Converters
             var subscribe = @event.Subscribers.FirstOrDefault(x => x.UserId == _memberService.GetCurrentMemberId());
 
             details.IsSubscribed = subscribe != null;
-            details.IsNotificationsDisabled = subscribe?.IsNotificationDisabled ?? false;
+            details.IsNotificationsDisabled = subscribe?.IsNotificationDisabled ?? true;
 
             return details;
         }
