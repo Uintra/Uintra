@@ -22,7 +22,8 @@ using Uintra20.Infrastructure.Extensions;
 
 namespace Uintra20.Features.Events.Converters
 {
-    public class EventDetailsPageViewModelConverter : UintraRestrictedNodeViewModelConverter<EventDetailsPageModel, EventDetailsPageViewModel>
+    public class EventDetailsPageViewModelConverter : UintraRestrictedNodeViewModelConverter<EventDetailsPageModel,
+        EventDetailsPageViewModel>
     {
         private readonly IUserTagService _userTagService;
         private readonly IFeedLinkService _feedLinkService;
@@ -55,24 +56,24 @@ namespace Uintra20.Features.Events.Converters
             _baselineRequestContext = baselineRequestContext;
         }
 
-        public override ConverterResponseModel MapViewModel(EventDetailsPageModel node, EventDetailsPageViewModel viewModel)
+        public override ConverterResponseModel MapViewModel(EventDetailsPageModel node,
+            EventDetailsPageViewModel viewModel)
         {
-            var idStr = HttpUtility.ParseQueryString(_baselineRequestContext.NodeRequestParams.NodeUrl.Query).TryGetQueryValue<string>("id");
+            var idStr = HttpUtility.ParseQueryString(_baselineRequestContext.NodeRequestParams.NodeUrl.Query)
+                .TryGetQueryValue<string>("id");
 
             if (!Guid.TryParse(idStr, out var id))
                 return NotFoundResult();
 
             var @event = _eventsService.Get(id);
 
-            if (@event == null)
+            if (@event == null || @event.IsHidden)
             {
                 return NotFoundResult();
-                
             }
 
             if (!_permissionsService.Check(PermissionResourceTypeEnum.Events, PermissionActionEnum.View))
             {
-            
                 return ForbiddenResult();
             }
 
@@ -98,7 +99,8 @@ namespace Uintra20.Features.Events.Converters
 
             details.Media = MediaHelper.GetMediaUrls(@event.MediaIds);
 
-            details.LightboxPreviewModel = _lightBoxHelper.GetGalleryPreviewModel(@event.MediaIds, PresetStrategies.ForActivityDetails);
+            details.LightboxPreviewModel =
+                _lightBoxHelper.GetGalleryPreviewModel(@event.MediaIds, PresetStrategies.ForActivityDetails);
             details.CanEdit = _eventsService.CanEdit(@event);
             details.Links = _feedLinkService.GetLinks(@event.Id);
             details.IsReadOnly = false;
@@ -107,7 +109,7 @@ namespace Uintra20.Features.Events.Converters
             details.HeaderInfo.Owner = _memberService.Get(@event).ToViewModel();
             details.HeaderInfo.Links = _feedLinkService.GetLinks(@event.Id);
             details.CanSubscribe = _eventsService.CanSubscribe(@event.Id);
-            
+
             var subscribe = @event.Subscribers.FirstOrDefault(x => x.UserId == _memberService.GetCurrentMemberId());
 
             details.IsSubscribed = subscribe != null;

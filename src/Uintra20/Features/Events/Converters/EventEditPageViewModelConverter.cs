@@ -67,7 +67,10 @@ namespace Uintra20.Features.Events.Converters
 
             var @event = _eventService.Get(id.Value);
 
-            if (@event == null) return NotFoundResult();
+            if (@event == null || @event.IsHidden)
+            {
+                return NotFoundResult();
+            }
 
             if (!_eventService.CanEdit(id.Value)) return ForbiddenResult();
 
