@@ -39,8 +39,7 @@ export class ImageGalleryService {
     let gallery = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, items, options);
     gallery.init();
     gallery.listen('close', () => {
-      const test = document.querySelectorAll('.pswp__video');
-      document.querySelectorAll('.pswp__video').forEach(element => {
+      document.querySelectorAll('.pswp__video').forEach((element: HTMLVideoElement) => {
         element.pause();
       });
     })
