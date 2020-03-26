@@ -50,6 +50,7 @@
     [initialValues]="initialDates"
     [fromLabel]="'eventsCreate.StartDate.lbl' | translate"
     [toLabel]="'eventsCreate.EndDate.lbl' | translate"
+    [isEvent]="true"
     (handleChange)="setDatePickerValue($event)"
   ></app-datepicker-from-to>
   <h3 class="publish-date__title subtitle">

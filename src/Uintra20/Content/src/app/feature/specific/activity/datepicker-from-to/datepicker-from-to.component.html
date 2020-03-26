@@ -9,7 +9,8 @@
         [inputClass]="'udatepicker-input'"
         [options]="optFrom"
         [mode]="'input'"
-        [(ngModel)]="fromDate"
+        [ngModel]="fromDate"
+        (ngModelChange)="fromModelChanged($event)"
         (dpChange)="fromDateChange()"
       ></sq-datetimepicker>
     </div>
@@ -22,7 +23,8 @@
         [inputClass]="'udatepicker-input'"
         [options]="optTo"
         [mode]="'input'"
-        [(ngModel)]="toDate"
+        [ngModel]="toDate"
+        (ngModelChange)="toModelChanged($event)"
         (dpChange)="toDateChange()"
 
       ></sq-datetimepicker>

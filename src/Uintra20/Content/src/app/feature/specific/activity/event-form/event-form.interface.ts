@@ -51,6 +51,6 @@ export interface IEventDetails {
 
 export interface IPublishDatepickerOptions {
   showClose: boolean;
-  minDate?: string | boolean;
-  maxDate?: string | boolean;
+  minDate?: any;
+  maxDate?: any;
 }
