@@ -19,7 +19,7 @@
     <span class="icon icon-search-icon"></span>
   </div>
   <div class="user-list">
-    <a *ngFor="let member of members" class="user-list__item">
+    <a *ngFor="let member of members" [routerLink]="member.profileUrl.originalUrl | ulink" class="user-list__item">
       <div *ngIf="isName" class="user-list__item-member cells--{{selectedColumns.length}}">
         <app-user-avatar
           class="user-list__item-member-avatar"

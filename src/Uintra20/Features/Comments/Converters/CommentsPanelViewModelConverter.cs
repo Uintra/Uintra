@@ -55,12 +55,13 @@ namespace Uintra20.Features.Comments.Converters
                 : IntranetEntityTypeEnum.ContentPage;
 
             var id = activityType.Equals(IntranetEntityTypeEnum.ContentPage)
-                ? _requestContext.Node.Key
+                ? _requestContext.Node?.Key
                 : activityId;
 
             if (!id.HasValue) return NotFoundResult();
 
-            var groupId = _groupActivityService.GetGroupId(activityId.Value);
+            var groupId = _groupActivityService.GetGroupId(id.Value);
+            
             var currentMember = _intranetMemberService.GetCurrentMember();
 
             viewModel.IsGroupMember = !groupId.HasValue || currentMember.GroupIds.Contains(groupId.Value);

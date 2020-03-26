@@ -55,7 +55,8 @@ namespace Uintra20.Features.Likes.Converters
 
             if (!id.HasValue) return NotFoundResult();
 
-            var groupId = _groupActivityService.GetGroupId(activityId.Value);
+            var groupId = _groupActivityService.GetGroupId(id.Value);
+            
             var currentMember = _intranetMemberService.GetCurrentMember();
 
             viewModel.IsGroupMember = !groupId.HasValue || currentMember.GroupIds.Contains(groupId.Value);

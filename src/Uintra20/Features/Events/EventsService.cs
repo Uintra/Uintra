@@ -51,8 +51,7 @@ namespace Uintra20.Features.Events
         ISubscribableService,
         INotifyableService,
         IReminderableService<Event>,
-        IIndexer,
-        IHandle<VideoConvertedCommand>
+        IIndexer
     {
         private readonly ICommentsService _commentsService;
         private readonly ILikesService _likesService;
@@ -256,6 +255,25 @@ namespace Uintra20.Features.Events
             return null;
         }
 
+        public override async Task<Event> UpdateActivityCacheAsync(Guid id)
+        {
+            var cachedEvent = await GetAsync(id);
+            var @event = await base.UpdateActivityCacheAsync(id);
+            if (IsCacheable(@event) && (@event.GroupId is null || _groupService.IsActivityFromActiveGroup(@event)))
+            {
+                _activityIndex.Index(Map(@event));
+                _documentIndexer.Index(@event.MediaIds);
+                return @event;
+            }
+
+            if (cachedEvent == null) return null;
+
+            _activityIndex.Delete(id);
+            _documentIndexer.DeleteFromIndex(cachedEvent.MediaIds);
+            _mediaHelper.DeleteMedia(cachedEvent.MediaIds);
+            return null;
+        }
+
         public override bool IsActual(IIntranetActivity activity)
         {
             return base.IsActual(activity) && IsActualPublishDate((Event) activity);
@@ -361,19 +379,6 @@ namespace Uintra20.Features.Events
         {
             var @event = (Event) activity;
             return @event.Map<ActivitySubscribeSettingDto>();
-        }
-
-        public BroadcastResult Handle(VideoConvertedCommand command)
-        {
-            var entityId = _intranetMediaService.GetEntityIdByMediaId(command.MediaId);
-            var entity = Get(entityId);
-            if (entity == null)
-            {
-                return BroadcastResult.Success;
-            }
-
-            entity.ModifyDate = DateTime.UtcNow;
-            return BroadcastResult.Success;
         }
     }
 }

@@ -5,6 +5,8 @@ import { RouterResolverService } from "src/app/shared/services/general/router-re
 import { HasDataChangedService } from "src/app/shared/services/general/has-data-changed.service";
 import { ActivityService } from "src/app/feature/specific/activity/activity.service";
 import { INewsCreateModel, IActivityCreatePanel } from "src/app/feature/specific/activity/activity.interfaces";
+import { Observable } from 'rxjs';
+import { CanDeactivateGuard } from 'src/app/shared/services/general/can-deactivate.service';
 
 @Component({
   selector: "app-news-create",
@@ -25,8 +27,9 @@ export class NewsCreateComponent implements OnInit {
     private activityService: ActivityService,
     private router: Router,
     private routerResolverService: RouterResolverService,
-    private hasDataChangedService: HasDataChangedService
-  ) {}
+    private hasDataChangedService: HasDataChangedService,
+    private canDeactivateService: CanDeactivateGuard,
+  ) { }
 
   ngOnInit() {
     this.panelData = ParseHelper.parseUbaselineData(this.data);
@@ -62,7 +65,15 @@ export class NewsCreateComponent implements OnInit {
   }
 
   onCancel() {
-    this.hasDataChangedService.reset();
+    
     this.router.navigate([this.panelData.links.feed.originalUrl]);
+  }
+
+  canDeactivate(): Observable<boolean> | boolean {
+    if (this.hasDataChangedService.hasDataChanged) {
+      return this.canDeactivateService.canDeacrivateConfirm();
+    }
+
+    return true;
   }
 }

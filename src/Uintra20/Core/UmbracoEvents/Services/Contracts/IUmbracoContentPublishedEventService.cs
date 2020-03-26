@@ -4,8 +4,8 @@ using Umbraco.Core.Services;
 
 namespace Uintra20.Core.UmbracoEvents.Services.Contracts
 {
-    public interface IUmbracoContentSavingEventService
+    public interface IUmbracoContentPublishedEventService
     {
-        void ProcessContentSaving(IContentService sender, SaveEventArgs<IContent> args);
+        void ProcessContentPublished(IContentService sender, PublishEventArgs<IContent> args);
     }
 }

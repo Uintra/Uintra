@@ -13,6 +13,7 @@ namespace Uintra20.Core.HomePage
         public bool AddToSitemap { get; set; }
         public string Url { get; set; }
         public NodeType NodeType { get; set; }
+        public UintraLinkModel UserListPage { get; set; }
         public PropertyViewModel<INodeViewModel[]> Panels { get; set; }
         public UintraLinkModel CreateNewsLink { get; set; }
         public UintraLinkModel CreateEventsLink { get; set; }

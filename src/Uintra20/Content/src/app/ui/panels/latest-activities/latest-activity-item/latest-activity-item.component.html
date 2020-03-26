@@ -1,9 +1,14 @@
-<a [routerLink]="activityLinks?.details?.get().originalUrl | ulink" 
+<a [routerLink]="activityLinks?.details?.get().originalUrl | ulink"
    class="activity-item-container">
   <div class="type-and-date">
     <p>{{activityType}}</p>
     <p>{{activityDate}}</p>
   </div>
-  <p class="block-subtitle-clamp rte"
-     [innerHtml]="activityDescription"></p>
+  <p *ngIf="activityType.includes('Social');else otherActivity" 
+     class="block-subtitle-clamp rte"
+     [innerHtml]="activityDescription">
+  </p>
+     <ng-template #otherActivity>
+        <p class="block-subtitle-clamp rte">{{activityTitle}}</p>
+     </ng-template>
 </a>

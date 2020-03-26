@@ -67,6 +67,7 @@ export class EventEditPage {
 
     copyObject.media = otherFilesIds.concat(mediaIds).join(',');
     copyObject["id"] = this.parsedData.details.id;
+    copyObject["notifyAllSubscribers"] = confirm(this.translate.instant('common.NotifyAllSubscribers'));
 
     return copyObject;
   }

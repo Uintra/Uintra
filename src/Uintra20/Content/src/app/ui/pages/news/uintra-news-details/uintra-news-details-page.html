@@ -54,6 +54,7 @@
                   <img class="feed-item-images__image"
                        [src]="image.previewUrl"
                        (click)="openGallery(i)" />
+                  <span *ngIf="image.extension == 'mp4'" class="icon-video-play"></span>
                 </li>
               </ul>
               <ng-container *ngIf="documents.length !== 0">

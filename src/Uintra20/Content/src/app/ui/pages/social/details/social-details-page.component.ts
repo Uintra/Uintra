@@ -83,11 +83,25 @@ export class SocialDetailsPanelComponent implements OnInit {
   }
 
   public openGallery(i) {
-    const items = this.medias.map(el => ({
-      src: el.url,
-      w: el.width,
-      h: el.height
-    }));
+    const items = this.medias.map(el => {
+      if (el.extension == 'mp4') {
+        return {
+          html: `<div class="gallery__video">
+                  <div class="pswp__video-box">
+                    <video class="pswp__video" src="${el.url}" controls=""></video>
+                  <\div>
+                <\div>`,
+          w: el.width,
+          h: el.height
+        }
+      } else {
+        return {
+          src: el.url,
+          w: el.width,
+          h: el.height
+        }
+      }
+    });
 
     this.imageGalleryService.open(items, i);
   }

@@ -11,6 +11,7 @@ using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using LightInject;
 using static Uintra20.Infrastructure.Constants.UmbracoAliases.Video;
+using File = System.IO.File;
 
 namespace Uintra20.Features.Media.Video.Handlers
 {
@@ -18,16 +19,13 @@ namespace Uintra20.Features.Media.Video.Handlers
     {
         private readonly IVideoHelper _videoHelper;
         private readonly IVideoConverterLogService _videoConverterLogService;
-        private readonly IMediaService _mediaService;
 
         public VideoHandler(
             IVideoHelper videoHelper,
-            IVideoConverterLogService videoConverterLogService,
-            IMediaService mediaService)
+            IVideoConverterLogService videoConverterLogService)
         {
             _videoHelper = videoHelper;
             _videoConverterLogService = videoConverterLogService;
-            _mediaService = mediaService;
         }
 
         public BroadcastResult Handle(VideoConvertedCommand command)
@@ -37,32 +35,39 @@ namespace Uintra20.Features.Media.Video.Handlers
                 
                 var contentTypeBaseServiceProvider = s.GetInstance<IContentTypeBaseServiceProvider>();
 
-                var media = _mediaService.GetById(command.MediaId);
+                var mediaService = s.GetInstance<IMediaService>();
+
+                var media = mediaService.GetById(command.MediaId);
 
                 media.SetValue(ConvertInProcessPropertyAlias, false);
 
                 return command.Success
-                    ? OnCreateSuccess(command, media, contentTypeBaseServiceProvider)
-                    : OnCreateFail(command, media);
+                    ? OnCreateSuccess(command, media, contentTypeBaseServiceProvider, mediaService)
+                    : OnCreateFail(command, media, mediaService);
             });
         }
 
         private BroadcastResult OnCreateSuccess(
             VideoConvertedCommand command,
             IMedia media,
-            IContentTypeBaseServiceProvider contentTypeBaseServiceProvider
+            IContentTypeBaseServiceProvider contentTypeBaseServiceProvider,
+            IMediaService mediaService
             )
         {
+            var name = $"{Path.GetFileNameWithoutExtension(media.Name)}.mp4";
+
             using (var fileStream = new FileStream(command.ConvertedFilePath, FileMode.Open, FileAccess.Read))
             using (var memoryStream = new MemoryStream())
             {
                 fileStream.CopyTo(memoryStream);
-                media.SetValue(contentTypeBaseServiceProvider, UmbracoAliases.Media.UmbracoFilePropertyAlias, media.Name, memoryStream);
+                
+                media.SetValue(contentTypeBaseServiceProvider, UmbracoAliases.Media.UmbracoFilePropertyAlias, name, memoryStream);
             }
 
-            System.IO.File.Delete(command.ConvertedFilePath);
+            File.Delete(command.ConvertedFilePath);
             SaveVideoAdditionProperties(media);
-            _mediaService.Save(media);
+            media.Name = name;
+            mediaService.Save(media);
             _videoConverterLogService.Log(true, "Converted successfully", command.MediaId);
 
             return BroadcastResult.Success;
@@ -70,12 +75,13 @@ namespace Uintra20.Features.Media.Video.Handlers
 
         private BroadcastResult OnCreateFail(
             VideoConvertedCommand command,
-            IMedia media
+            IMedia media,
+            IMediaService mediaService
             )
         {
             _videoConverterLogService.Log(false, command.Message.ToJson(), command.MediaId);
             media.SetValue(ThumbnailUrlPropertyAlias, _videoHelper.CreateConvertingFailureThumbnail());
-            _mediaService.Save(media);
+            mediaService.Save(media);
 
             return BroadcastResult.Failure;
         }
