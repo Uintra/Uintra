@@ -2046,6 +2046,7 @@
     <Content Include="Views\Partials\Grid\Editors\Base.cshtml" />
     <Content Include="Views\Partials\Grid\Bootstrap3.cshtml" />
     <Content Include="Views\Partials\Grid\Bootstrap3-Fluid.cshtml" />
+    <Content Include="Uintra20.nuspec" />
     <None Include="Web.Base.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
