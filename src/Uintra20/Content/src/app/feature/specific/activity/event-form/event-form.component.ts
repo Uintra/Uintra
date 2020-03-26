@@ -44,7 +44,7 @@ export class EventFormComponent implements OnInit {
     private hasDataChangedService: HasDataChangedService,
     private stripHTML: RTEStripHTMLService,
     public translate: TranslateService,
-    ) { }
+  ) { }
 
   ngOnInit() {
     this.edit = this.edit !== undefined;
@@ -130,7 +130,7 @@ export class EventFormComponent implements OnInit {
 
   onPublishDateChange(val) {
     this.eventsData.publishDate = val ? val.format() : null;
-    this.pinActivityService.setPublishDates({from: this.eventsData.publishDate});
+    this.pinActivityService.setPublishDates({ from: this.eventsData.publishDate });
     if (val && val._i && val._i !== this.initialDates.publishDate) {
       this.hasDataChangedService.onDataChanged();
     }
@@ -201,7 +201,7 @@ export class EventFormComponent implements OnInit {
 
     return (
       title
-      && !this.isDescriptionEmpty()
+      && !this.validateDescription()
       && pinValid
       && this.eventsData.publishDate
       && this.eventsData.startDate
@@ -209,7 +209,30 @@ export class EventFormComponent implements OnInit {
     );
   }
 
-  isDescriptionEmpty() {
+  validateDescription(): boolean {
     return this.stripHTML.isEmpty(this.eventsData.description);
+  }
+
+  public validateAccept(): boolean {
+    if (!this.eventsData.isPinned) {
+      return false;
+    }
+
+    if (!this.isAccepted) {
+      return true;
+    }
+
+    return false;
+  }
+
+  public validateEmptyField(src: any): boolean {
+    if (!src) {
+      return true;
+    }
+    if (src.trim() === '') {
+      return true;
+    }
+
+    return false;
   }
 }
