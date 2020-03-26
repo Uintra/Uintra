@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Compent.Shared.Extensions.Bcl;
 using UBaseline.Core.Extensions;
 using UBaseline.Core.Node;
 using UBaseline.Core.RequestContext;
@@ -97,19 +98,7 @@ namespace Uintra20.Features.Search.Page
 
         protected virtual IEnumerable<Enum> GetSearchableTypes()
         {
-            return _searchableTypeProvider.All;
+            return _searchableTypeProvider.All.Except(((Enum)UintraSearchableTypeEnum.Tag).ToEnumerable());
         }
-
-        private static List<Enum> GetFilterItemTypes() => new
-            List<Enum>()
-            {
-                UintraSearchableTypeEnum.News,
-                UintraSearchableTypeEnum.Events,
-                UintraSearchableTypeEnum.Socials,
-                UintraSearchableTypeEnum.Content,
-                UintraSearchableTypeEnum.Document,
-                UintraSearchableTypeEnum.Member,
-                UintraSearchableTypeEnum.Tag,
-            };
     }
 }

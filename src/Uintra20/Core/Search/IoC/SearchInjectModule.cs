@@ -34,7 +34,10 @@ namespace Uintra20.Core.Search.IoC
             services.AddScopedToCollection<IIndexer, SocialService<Features.Social.Entities.Social>>();
             services.AddScopedToCollection<IIndexer, DocumentIndexer>();
             services.AddScopedToCollection<IIndexer, MembersIndexer<SearchableMember>>();
+            services.AddScopedToCollection<IIndexer, UserTagsSearchIndexer>();
             services.AddScopedToCollection<IDocumentIndexer, DocumentIndexer>();
+            services.AddScoped<IContentIndexer, ContentIndexer>();
+            
 
             services.AddScoped(typeof(ISearchableMemberMapper<SearchableMember>), typeof(SearchableMemberMapper<SearchableMember>));
             services.AddScoped<IElasticSearchRepository, ElasticSearchRepository>();

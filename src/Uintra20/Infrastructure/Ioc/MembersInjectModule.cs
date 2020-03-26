@@ -4,6 +4,7 @@ using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Helpers;
 using Uintra20.Core.Member.Profile.Services;
 using Uintra20.Core.Member.Services;
+using Uintra20.Core.Search.Indexers;
 using Uintra20.Core.User;
 using Uintra20.Core.User.Models;
 using Uintra20.Features.Tagging.UserTags.Services;

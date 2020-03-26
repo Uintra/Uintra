@@ -993,6 +993,10 @@
     <Content Include="App_Plugins\Utils\Search\search-service.js" />
     <Compile Include="App_Plugins\Utils\Search\SearchDashboard.cs" />
     <Compile Include="App_Start\UintraApplicationComponent.cs" />
+    <Compile Include="Core\Article\Events\ArticlePageEventService.cs" />
+    <Compile Include="Core\UmbracoEvents\Services\Contracts\IUmbracoContentPublishedEventService.cs" />
+    <Compile Include="Core\UmbracoEvents\Services\Contracts\IUmbracoContentUnPublishedEventService.cs" />
+    <Compile Include="Features\Tagging\UserTags\Events\UserTagsEventService.cs" />
     <Compile Include="Infrastructure\CommandBus\Configurations\CommandBusConfiguration.cs" />
     <Compile Include="Attributes\EmptyHtmlAttribute.cs" />
     <Compile Include="Attributes\UIColumnAttribute.cs" />
@@ -1086,7 +1090,6 @@
     <Compile Include="Core\UbaselineModels\IGenericPropertiesComposition.cs" />
     <Compile Include="Core\UbaselineModels\ImageModel.cs" />
     <Compile Include="Core\UbaselineModels\EnumDropdownListPropertyEditorConverter.cs" />
-    <Compile Include="Core\UmbracoEvents\Services\Contracts\IUmbracoContentSavingEventService.cs" />
     <Compile Include="Core\UmbracoEvents\Services\Contracts\IUmbracoContentTrashedEventService.cs" />
     <Compile Include="Core\UmbracoEvents\Services\Contracts\IUmbracoMediaSavedEventService.cs" />
     <Compile Include="Core\UmbracoEvents\Services\Contracts\IUmbracoMediaSavingEventService.cs" />

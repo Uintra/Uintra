@@ -16,13 +16,13 @@ namespace Uintra20.Core.Search.Indexers
     public class UserTagsSearchIndexer : IUserTagsSearchIndexer, IIndexer
     {
         private readonly ISearchUmbracoHelper _searchUmbracoHelper;
-        private readonly UserTagProvider _userTagProvider;
+        private readonly IUserTagProvider _userTagProvider;
         private readonly IElasticTagIndex _elasticTagIndex;
         private readonly IIndexerDiagnosticService _indexerDiagnosticService; 
 
         public UserTagsSearchIndexer(
             ISearchUmbracoHelper searchUmbracoHelper, 
-            UserTagProvider userTagProvider, 
+            IUserTagProvider userTagProvider, 
             IElasticTagIndex elasticTagIndex, 
             IIndexerDiagnosticService indexerDiagnosticService)
         {
