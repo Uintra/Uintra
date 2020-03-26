@@ -12,9 +12,10 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 import { QUILL_CONFIG_TOKEN, QuillConfig } from "ngx-quill";
 import Quill from "quill";
 import Counter from "./quill-modules/counter";
-import { EmojiService } from './rich-text-editor-emoji/helpers/emoji.service';
+import { EmojiService } from "./rich-text-editor-emoji/helpers/emoji.service";
+import "quill-mention";
+import { MentionsService } from "./quill-modules/mentions.service";
 Quill.register("modules/counter", Counter);
-
 
 @Component({
   selector: "app-rich-text-editor",
@@ -52,11 +53,34 @@ export class RichTextEditorComponent implements ControlValueAccessor {
     this.propagateChange(val);
   }
 
-  constructor(@Inject(QUILL_CONFIG_TOKEN) config: QuillConfig, private emojiService: EmojiService) { }
+  constructor(
+    @Inject(QUILL_CONFIG_TOKEN) config: QuillConfig,
+    private emojiService: EmojiService,
+    private mentionsService: MentionsService
+  ) {
+    config.modules = {
+      ...config.modules,
+      mention: this.mentionsService.getMentionsModule()
+    };
+  }
+
+  suggestPeople(searchTerm) {
+    const allPeople = [
+      {
+        id: 1,
+        value: "Fredrik Sundqvist"
+      },
+      {
+        id: 2,
+        value: "Patrik Sjölin"
+      }
+    ];
+    return allPeople.filter(person => person.value.includes(searchTerm));
+  }
 
   initEditor(editor) {
     this.editor = editor;
-    this.emojiService.addOnTextChangeCallback(editor)
+    this.emojiService.addOnTextChangeCallback(editor);
     this.emojiService.addStylesToImages(editor);
 
     if (!this.isEventsOrNews) {
@@ -68,10 +92,9 @@ export class RichTextEditorComponent implements ControlValueAccessor {
     this.addAttachment.emit();
   }
 
-  onTouched(): any { }
-  onChange(): any { }
-  propagateChange(val) {
-  };
+  onTouched(): any {}
+  onChange(): any {}
+  propagateChange(val) {}
   writeValue(value) {
     this.value = value;
   }
@@ -83,7 +106,7 @@ export class RichTextEditorComponent implements ControlValueAccessor {
   }
 
   getToolbarClass() {
-    return { 'top-mode': this.isEditing };
+    return { "top-mode": this.isEditing };
   }
 
   closeEmojiPalette() {
