@@ -112,6 +112,8 @@ export class SearchPage {
       this.isScrollDisabled = res.results.length == res.resultsCount;
       this.resultsList = res.results;
       this.query = res.query;
+      this.availableFilters = Object.values(res.filterItems).map((item: any) => ({id: item.id, text: item.name}));
+      this.parsedData.allTypesPlaceholder = res.allTypesPlaceholder;
       this.resultsCount = res.resultsCount;
     });
   }
