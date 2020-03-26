@@ -11,6 +11,7 @@ using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using LightInject;
 using static Uintra20.Infrastructure.Constants.UmbracoAliases.Video;
+using File = System.IO.File;
 
 namespace Uintra20.Features.Media.Video.Handlers
 {
@@ -53,15 +54,19 @@ namespace Uintra20.Features.Media.Video.Handlers
             IMediaService mediaService
             )
         {
+            var name = $"{Path.GetFileNameWithoutExtension(media.Name)}.mp4";
+
             using (var fileStream = new FileStream(command.ConvertedFilePath, FileMode.Open, FileAccess.Read))
             using (var memoryStream = new MemoryStream())
             {
                 fileStream.CopyTo(memoryStream);
-                media.SetValue(contentTypeBaseServiceProvider, UmbracoAliases.Media.UmbracoFilePropertyAlias, media.Name, memoryStream);
+                
+                media.SetValue(contentTypeBaseServiceProvider, UmbracoAliases.Media.UmbracoFilePropertyAlias, name, memoryStream);
             }
 
-            System.IO.File.Delete(command.ConvertedFilePath);
+            File.Delete(command.ConvertedFilePath);
             SaveVideoAdditionProperties(media);
+            media.Name = name;
             mediaService.Save(media);
             _videoConverterLogService.Log(true, "Converted successfully", command.MediaId);
 
