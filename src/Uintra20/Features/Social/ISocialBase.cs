@@ -8,7 +8,7 @@ namespace Uintra20.Features.Social
     {
         int? UmbracoCreatorId { get; set; }
         Guid CreatorId { get; set; }
-        IEnumerable<int> MediaIds { get; set; }
+        new IEnumerable<int> MediaIds { get; set; }
         DateTime PublishDate { get; set; }
     }
 }

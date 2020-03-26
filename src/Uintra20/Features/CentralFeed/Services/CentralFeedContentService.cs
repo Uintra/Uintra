@@ -67,7 +67,7 @@ namespace Uintra20.Features.CentralFeed.Services
             }
         }
 
-        public Enum GetCreateActivityType(IPublishedContent content)
+        public override Enum GetCreateActivityType(IPublishedContent content)
         {
             throw new NotImplementedException();
         }
