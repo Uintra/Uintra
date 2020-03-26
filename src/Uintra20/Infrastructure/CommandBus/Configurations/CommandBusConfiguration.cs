@@ -4,6 +4,7 @@ using Uintra20.Core.Search.Entities;
 using Uintra20.Features.Comments.CommandBus;
 using Uintra20.Features.Comments.CommandBus.Commands;
 using Uintra20.Features.Events;
+using Uintra20.Features.Events.Handlers;
 using Uintra20.Features.Groups.CommandBus;
 using Uintra20.Features.Groups.CommandBus.Commands;
 using Uintra20.Features.Likes.CommandBus;
@@ -11,10 +12,13 @@ using Uintra20.Features.Likes.CommandBus.Commands;
 using Uintra20.Features.Media;
 using Uintra20.Features.Media.Helpers;
 using Uintra20.Features.Media.Video.Commands;
+using Uintra20.Features.Media.Video.Handlers;
 using Uintra20.Features.News;
+using Uintra20.Features.News.Handlers;
 using Uintra20.Features.Search.CommandBus;
 using Uintra20.Features.Social;
 using Uintra20.Features.Social.Entities;
+using Uintra20.Features.Social.Handlers;
 
 namespace Uintra20
 {
@@ -76,10 +80,10 @@ namespace Uintra20
         private static void ConfigureMediaBindings(BindingBuilder builder)
         {
             builder.HandleCommand<VideoConvertedCommand>()
-                .WithHandle<MediaHelper>()
-                .WithHandle<EventsService>()
-                .WithHandle<NewsService>()
-                .WithHandle<SocialService<Social>>();
+                .WithHandle<VideoHandler>()
+                .WithHandle<EventHandler>()
+                .WithHandle<NewsHandler>()
+                .WithHandle<SocialHandler>();
         }
 
     }
