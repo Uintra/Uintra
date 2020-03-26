@@ -993,6 +993,7 @@
     <Content Include="App_Plugins\Utils\Search\search-service.js" />
     <Compile Include="App_Plugins\Utils\Search\SearchDashboard.cs" />
     <Compile Include="App_Start\UintraApplicationComponent.cs" />
+    <Compile Include="Features\Events\Handlers\EventHandler.cs" />
     <Compile Include="Infrastructure\CommandBus\Configurations\CommandBusConfiguration.cs" />
     <Compile Include="Attributes\EmptyHtmlAttribute.cs" />
     <Compile Include="Attributes\UIColumnAttribute.cs" />

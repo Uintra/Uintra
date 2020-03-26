@@ -1,5 +1,7 @@
 import { Component, OnInit, HostListener } from '@angular/core';
+import { HttpClient } from "@angular/common/http";
 import { MqService } from 'src/app/shared/services/general/mq.service';
+import { IULink } from "src/app/shared/interfaces/general.interface";
 
 @Component({
   selector: 'app-header',
@@ -15,8 +17,9 @@ export class HeaderComponent implements OnInit {
 
   deviceWidth: number;
   isDesktop: boolean;
+  userListPage: IULink;
 
-  constructor(private mq: MqService) { }
+  constructor(private http: HttpClient, private mq: MqService) { }
 
   get isDesktopGeter() {
     return this.isDesktop;
@@ -25,6 +28,11 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
     this.deviceWidth = window.innerWidth;
     this.isDesktop = this.mq.isLaptop(this.deviceWidth);
+
+    this.http.get<IULink>('/ubaseline/api/IntranetNavigation/UserList')
+    .subscribe(res => {
+      this.userListPage = res;
+    });
   }
 
   openLeftNav() {

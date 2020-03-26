@@ -5,8 +5,10 @@ using System.Web.Http;
 using UBaseline.Core.Controllers;
 using UBaseline.Core.Navigation;
 using UBaseline.Core.Node;
+using UBaseline.Core.RequestContext;
 using Uintra20.Core.HomePage;
 using Uintra20.Features.Groups.Helpers;
+using Uintra20.Features.Links.Models;
 using Uintra20.Features.Navigation.Models;
 using Uintra20.Features.Navigation.Models.MyLinks;
 using Uintra20.Infrastructure.Extensions;
@@ -19,17 +21,20 @@ namespace Uintra20.Features.Navigation.Web
         private readonly INodeModelService _nodeModelService;
         private readonly IMyLinksHelper _myLinksHelper;
         private readonly IGroupHelper _groupHelper;
+        private readonly IUBaselineRequestContext _ubaselineRequestContext;
 
         public IntranetNavigationController(
             INavigationModelsBuilder navigationModelsBuilder,
             INodeModelService nodeModelService,
             IMyLinksHelper myLinksHelper,
-            IGroupHelper groupHelper)
+            IGroupHelper groupHelper,
+            IUBaselineRequestContext ubaselineRequestContext)
         {
             _navigationModelsBuilder = navigationModelsBuilder;
             _nodeModelService = nodeModelService;
             _myLinksHelper = myLinksHelper;
             _groupHelper = groupHelper;
+            _ubaselineRequestContext = ubaselineRequestContext;
         }
 
         [HttpGet]
@@ -48,6 +53,15 @@ namespace Uintra20.Features.Navigation.Web
             var viewModel = model.Map<TopNavigationViewModel>();
             viewModel.CurrentMember = model.CurrentMember.ToViewModel();
             return viewModel;
+        }
+
+        [HttpGet]
+        public virtual UintraLinkModel UserList()
+        {
+            var homeModel = (HomePageModel) _ubaselineRequestContext.HomeNode;
+            var userListPage = _nodeModelService.Get(homeModel.UserListPage.Value);
+
+            return userListPage.Url.ToLinkModel();
         }
 
         [HttpGet]
