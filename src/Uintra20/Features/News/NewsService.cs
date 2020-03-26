@@ -210,6 +210,25 @@ namespace Uintra20.Features.News
             _mediaHelper.DeleteMedia(cachedNews.MediaIds);
             return null;
         }
+        
+        public override async Task<Entities.News> UpdateActivityCacheAsync(Guid id)
+        {
+            var cachedNews = await GetAsync(id);
+            var news = await base.UpdateActivityCacheAsync(id);
+            if (IsInCache(news) && (news.GroupId is null || _groupService.IsActivityFromActiveGroup(news)))
+            {
+                _activityIndex.Index(Map(news));
+                _documentIndexer.Index(news.MediaIds);
+                return news;
+            }
+
+            if (cachedNews == null) return null;
+
+            _activityIndex.Delete(id);
+            _documentIndexer.DeleteFromIndex(cachedNews.MediaIds);
+            _mediaHelper.DeleteMedia(cachedNews.MediaIds);
+            return null;
+        }
 
         public void Notify(Guid entityId, Enum notificationType)
         {

@@ -112,5 +112,15 @@ namespace Uintra20.Features.Tagging.UserTags.Services
             var uniqueTagIds = tagIdsList.Distinct().AsList();
             _relationRepository.Delete(rel => uniqueTagIds.Contains(rel.UserTagId));
         }
+
+        public IEnumerable<UserTagRelation> GetRelations(Guid tagId)
+        {
+            return _relationRepository.FindAll(r => r.UserTagId == tagId);
+        }
+
+        public IEnumerable<UserTagRelation> GetManyRelations(IEnumerable<Guid> tagIds)
+        {
+            return _relationRepository.GetAll().Join(tagIds, r => r.UserTagId, id => id, (r, id) => r);
+        }
     }
 }

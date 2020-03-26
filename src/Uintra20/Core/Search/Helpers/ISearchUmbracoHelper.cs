@@ -1,4 +1,5 @@
 ﻿using UBaseline.Shared.SearchPage;
+using Uintra20.Core.Search.Entities;
 using Umbraco.Core.Models.PublishedContent;
 
 namespace Uintra20.Core.Search.Helpers
@@ -10,5 +11,6 @@ namespace Uintra20.Core.Search.Helpers
         bool IsSearchable(IPublishedContent content);
 
         string GetSearchLink(string searchQuery);
+        SearchableContent GetContent(IPublishedContent publishedContent);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Uintra20.Features.Tagging.UserTags.Sql;
 
 namespace Uintra20.Features.Tagging.UserTags.Services
 {
@@ -21,5 +22,7 @@ namespace Uintra20.Features.Tagging.UserTags.Services
         void Remove(Guid entityId, Guid tagId);
         void Remove(Guid entityId, IEnumerable<Guid> tagIds);
         void RemoveForTags(IEnumerable<Guid> tagIds);
+        IEnumerable<UserTagRelation> GetRelations(Guid tagId);
+        IEnumerable<UserTagRelation> GetManyRelations(IEnumerable<Guid> tagIds);
     }
 }
