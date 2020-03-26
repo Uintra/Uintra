@@ -51,8 +51,7 @@ namespace Uintra20.Features.Events
         ISubscribableService,
         INotifyableService,
         IReminderableService<Event>,
-        IIndexer,
-        IHandle<VideoConvertedCommand>
+        IIndexer
     {
         private readonly ICommentsService _commentsService;
         private readonly ILikesService _likesService;
@@ -380,19 +379,6 @@ namespace Uintra20.Features.Events
         {
             var @event = (Event) activity;
             return @event.Map<ActivitySubscribeSettingDto>();
-        }
-
-        public BroadcastResult Handle(VideoConvertedCommand command)
-        {
-            var entityId = _intranetMediaService.GetEntityIdByMediaId(command.MediaId);
-            var entity = Get(entityId);
-            if (entity == null)
-            {
-                return BroadcastResult.Success;
-            }
-
-            entity.ModifyDate = DateTime.UtcNow;
-            return BroadcastResult.Success;
         }
     }
 }

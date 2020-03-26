@@ -20,6 +20,7 @@ export class DatepickerFromToComponent implements OnInit {
   @Input() initialValues: { from: string; to: string } = null;
   @Input() fromLabel: string;
   @Input() toLabel: string;
+  @Input() isEvent: boolean;
   @Output() handleChange = new EventEmitter();
 
   fromDate = null;
@@ -85,8 +86,22 @@ export class DatepickerFromToComponent implements OnInit {
     this.handleChange.emit(this.buildDateObject());
   }
 
+  fromModelChanged(value) {
+    if (value) {
+      this.fromDate = value;
+      if (this.toDate < value && this.isEvent) {
+        this.toDate = value.add(8, "hours");
+      }
+    }
+  }
+  toModelChanged(value) {
+    if (value) {
+      this.toDate = value;
+    }
+  }
+
   toDateChange() {
-    this.optFrom = this.toDate
+    this.optFrom = this.toDate && !this.isEvent
       ? {
           ...this.optFrom,
           maxDate: this.toDate.add(5, "seconds")
