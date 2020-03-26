@@ -67,7 +67,9 @@
         class="gallery__image"
         (click)="openGallery(i)"
         [ngStyle]="{ backgroundImage: 'url(' + image.previewUrl + ')' }"
-      ></div>
+      >
+        <span *ngIf="image.extension == 'mp4'" class="icon-video-play" [ngClass]="'icon-video-play--' + countToDisplay"></span>
+      </div>
       <div class="gallery__counter" *ngIf="additionalImages">
         + {{ additionalImages }}
       </div>

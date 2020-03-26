@@ -187,6 +187,31 @@
     background-size: cover;
     background-position: center center;
     margin: 0 1px;
+    position: relative;
+
+    & .icon-video-play {
+      &::before {
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        top: 50%;
+        z-index: 2;
+        background-size: contain;
+        color: @main-color;
+      }
+
+      &--1 {
+        font-size: 125px;
+      }
+
+      &--2 {
+        font-size: 65px;
+      }
+
+      &--3 {
+        font-size: 30px;
+      }
+    }
   }
 
   &__counter {
