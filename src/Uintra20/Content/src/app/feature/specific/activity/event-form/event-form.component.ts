@@ -53,7 +53,7 @@ export class EventFormComponent implements OnInit {
 
     this.publishDatepickerOptions = {
       showClose: true,
-      minDate: this.eventsData.publishDate ? this.eventsData.publishDate : moment().format(),
+      minDate: this.eventsData.publishDate ? this.eventsData.publishDate : moment(),
     };
 
     if (this.eventsData.isPinned) {
@@ -113,6 +113,12 @@ export class EventFormComponent implements OnInit {
     }
     this.eventsData.startDate = value.from;
     this.eventsData.endDate = value.to;
+
+    this.publishDatepickerOptions = {
+      showClose: true,
+      maxDate: moment(value.from),
+    };
+
   }
   setPinValue(value: IPinedData) {
     if (this.data.endPinDate !== this.eventsData.endPinDate) {

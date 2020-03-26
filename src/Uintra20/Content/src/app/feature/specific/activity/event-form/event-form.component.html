@@ -44,10 +44,13 @@
                          [availableTags]="eventsData.tagIdsData"
                          [(ngModel)]="selectedTags"></app-tag-multiselect>
   </div>
-  <app-datepicker-from-to [initialValues]="initialDates"
-                          [fromLabel]="'eventsCreate.StartDate.lbl' | translate"
-                          [toLabel]="'eventsCreate.EndDate.lbl' | translate"
-                          (handleChange)="setDatePickerValue($event)"></app-datepicker-from-to>
+  <app-datepicker-from-to
+    [initialValues]="initialDates"
+    [fromLabel]="'eventsCreate.StartDate.lbl' | translate"
+    [toLabel]="'eventsCreate.EndDate.lbl' | translate"
+    [isEvent]="true"
+    (handleChange)="setDatePickerValue($event)"
+  ></app-datepicker-from-to>
   <h3 class="publish-date__title subtitle">
     {{translate.instant(edit ? 'eventsCreate.PublishDate.lbl' : 'eventsCreate.PublishDate.lbl')}}
   </h3>
