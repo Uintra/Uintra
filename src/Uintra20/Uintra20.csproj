@@ -987,7 +987,6 @@
     <Content Include="Views\UBaseline\PropertyEditors\UmbracoUploadField.cshtml" />
     <Content Include="Views\UBaseline\PropertyEditors\UrlPickerMulti.cshtml" />
     <Content Include="Views\UBaseline\PropertyEditors\UrlPickerSingle.cshtml" />
-    <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Utils\Search\search-service.js" />
@@ -2048,15 +2047,6 @@
     <Content Include="Views\Partials\Grid\Bootstrap3-Fluid.cshtml" />
     <Content Include="Uintra20.nuspec" />
     <None Include="Web.Base.config" />
-    <None Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.QA.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.2.6.1\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
