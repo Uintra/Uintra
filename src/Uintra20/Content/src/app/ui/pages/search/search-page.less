@@ -1,5 +1,7 @@
 @import "base.less";
 
+@label-bg: @red;
+
 search-page {
   .search-page {
     .white-block;
@@ -65,7 +67,9 @@ search-page {
     }
 
     &__item {
-      display: block;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       font-size: 16px;
       line-height: 22px;
       color: @body-text-color;
@@ -90,6 +94,23 @@ search-page {
         line-height: 14px;
         text-transform: uppercase;
         color: @body-text-color--light;
+      }
+
+      &-pinned-label {
+        background: @label-bg;
+        color: @text-reverse-color;
+        text-transform: uppercase;
+        height: 25px;
+        border-radius: 15px;
+        font-size: 11px;
+        line-height: 15px;
+        max-width: 150px;
+        padding: 6px 14px 4px;
+        margin-left: 10px;
+
+        &--no-actual {
+          opacity: 0.5;
+        }
       }
     }
 

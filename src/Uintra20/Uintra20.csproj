@@ -2038,7 +2038,7 @@
     <Content Include="App_Plugins\UserPicker\package.manifest" />
     <Content Include="App_Plugins\EnumLists\package.manifest" />
     <Content Include="App_Plugins\UintraGroupMember\package.manifest" />
-    <Content Include="Features\Reminder\Configuration\reminderConfiguration.json" />
+    <EmbeddedResource Include="Features\Reminder\Configuration\reminderConfiguration.json" />
     <Content Include="App_Plugins\Utils\Search\package.manifest" />
     <None Include="config\umbracoSettings.config" />
     <None Include="packages.config" />

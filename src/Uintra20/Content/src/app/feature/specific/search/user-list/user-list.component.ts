@@ -103,7 +103,7 @@ export class UserListComponent implements OnInit {
     const requestData = {userId: userId, groupId: this.data.details.groupId};
 
     this.searchService.deleteMember(requestData).subscribe(res => {
-      console.log(res);
+      this.data.details.members = this.data.details.members.filter(member => member.member.id !== userId);
     })
   }
 }
