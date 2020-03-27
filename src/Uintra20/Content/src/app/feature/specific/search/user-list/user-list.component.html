@@ -44,10 +44,11 @@
       *ngIf="isGroupColumn"
       class="user-list__item-group cells--{{data.details.selectedColumns.length}}"
     >
-      <div *ngIf="!member.isCreator" class="user-list__item-group-fake-select">
+      <div *ngIf="!member.isCreator && data.details.isCurrentMemberGroupAdmin" class="user-list__item-group-fake-select">
         <select
           [ngModel]="member.isGroupAdmin ? '1' : '0'"
           class="user-list__item-group-select"
+          [disabled]="true"
           #select
           (ngModelChange)="changeMemberStatus(member.member.id, select)"
         >
@@ -70,10 +71,13 @@
         </svg>
         {{'userList.Table.GroupAdmin.lbl' | translate}}
       </p>
+      <p *ngIf="!data.details.isCurrentMemberGroupAdmin && !member.isCreator" class="user-list__item-group-member">
+        {{(member.isGroupAdmin ? 'userList.Table.GroupAdmin.lbl' : 'userList.Table.GroupMember.lbl') | translate}}
+      </p>
     </div>
     <div *ngIf="isDeleteColumn" class="user-list__item-delete cells--{{data.details.selectedColumns.length}}">
       <button
-        *ngIf="!member.isCreator"
+        *ngIf="!member.isCreator && data.details.isCurrentMemberGroupAdmin"
         class="user-list__item-delete-btn"
         (click)="deleteMember(member.member.id)">
         X

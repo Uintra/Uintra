@@ -29,6 +29,6 @@ export class SearchService {
   }
 
   deleteMember(data : IDeleteMemberRequest) {
-    return this.http.post("/ubaseline/api/userList/ExcludeUserFromGroup", data);
+    return this.http.delete(`/ubaseline/api/userList/ExcludeUserFromGroup?groupId=${data.groupId}&userId=${data.userId}`);
   }
 }
