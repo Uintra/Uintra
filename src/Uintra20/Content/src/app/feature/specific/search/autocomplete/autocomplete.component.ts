@@ -25,7 +25,6 @@ export class AutocompleteComponent implements OnInit {
   ) {
     this._query.pipe(
       debounceTime(200),
-      distinctUntilChanged(),
     ).subscribe((value: string) => {
       if (value && value.length > 1) {
         this.searchService.autocomplete(value).subscribe((res: IAutocompleteItem[]) => {
