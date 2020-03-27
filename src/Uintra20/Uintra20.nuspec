@@ -89,4 +89,8 @@
       <dependency id="WebActivatorEx" version="2.2.0" />
     </dependencies>
   </metadata>
+  <files>
+    <file src="Content\**" target="content/Content" />
+    <file src="uSync\**" target="content/uSync" />
+  </files>
 </package>
