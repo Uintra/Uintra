@@ -32,7 +32,8 @@ namespace Uintra20.Core.Member.Services
 
             var matches = Regex.Matches(text, MentionDetectionRegex)
                 .Cast<Match>()
-                .Select(m => m.Value.Replace(profilePrefix, string.Empty));
+                .Select(x => x.Value);
+                //.Select(m => m.Value.Replace(profilePrefix, string.Empty));
 
             return matches
                 .Select(m =>
