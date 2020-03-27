@@ -3,6 +3,7 @@ import { ActivityEnum } from "src/app/shared/enums/activity-type.enum";
 import { IULink } from "src/app/shared/interfaces/general.interface";
 import { UmbracoFlatPropertyModel } from "@ubaseline/next";
 import { IGroupDetailsHeaderData } from "../groups/groups.interface";
+import { UlinkModule } from 'src/app/shared/pipes/link/ulink.module';
 
 export interface ISocialCreateModel {
   description: string;
@@ -98,6 +99,7 @@ export interface IOwner {
   loginName: string;
   photo: string;
   photoId: number;
+  profileLink?: IULink;
 }
 
 export interface IUserTag {

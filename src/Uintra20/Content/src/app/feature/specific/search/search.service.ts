@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ISearchRequestData, IAutocompleteItem, ISearchData } from './search.interface';
+import { ISearchRequestData, IAutocompleteItem, ISearchData, IDeleteMemberRequest, IMemberStatusRequest, IUserListRequest, IUserListData } from './search.interface';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -20,7 +20,15 @@ export class SearchService {
     return this.http.post<ISearchData>("/ubaseline/api/search/search", data)
   }
 
-  userListSearch(data) {
-    return this.http.post<any>("/ubaseline/api/UserList/GetUsers", data)
+  userListSearch(data: IUserListRequest): Observable<IUserListData> {
+    return this.http.post<IUserListData>("/ubaseline/api/UserList/GetUsers", data)
+  }
+
+  changeMemberStatus(data: IMemberStatusRequest) {
+    return this.http.put("/ubaseline/api/userlist/assign", data);
+  }
+
+  deleteMember(data : IDeleteMemberRequest) {
+    return this.http.post("/ubaseline/api/userList/ExcludeUserFromGroup", data);
   }
 }
