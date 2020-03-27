@@ -48,7 +48,7 @@
             *ngFor="let result of resultsList"
             class="search-results__item"
             [routerLink]="result.url | ulink">
-            <div>
+            <div class="search-results__item-info">
               <h3 *ngIf="result.title" class="search-results__item-title" [innerHTML]="result.title"></h3>
               <div
                 *ngIf="result.description"

@@ -77,15 +77,28 @@ search-page {
       margin-bottom: 14px;
       padding: 15px 0;
 
+      &-info {
+        width: 100%;
+        overflow: hidden;
+      }
+
       &-title {
         font-weight: bold;
         line-height: 20px;
         margin-bottom: 9px;
         color: @text-color;
+        width: 100%;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
       }
 
       &-description {
         margin-bottom: 15px;
+        width: 100%;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
       }
 
       &-type {
