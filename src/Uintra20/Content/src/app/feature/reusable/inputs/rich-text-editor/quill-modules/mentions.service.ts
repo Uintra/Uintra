@@ -24,7 +24,6 @@ export class MentionsService {
               if (response) {
                 for (const user of response) {
                   const data = user;
-                  //data.id = null;
                   data.link = data.url.originalUrl;
                   matches.push(data);
                 }
