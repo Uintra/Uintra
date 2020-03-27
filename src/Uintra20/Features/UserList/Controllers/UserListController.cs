@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web.Http;
 using Compent.Extensions;
 using UBaseline.Core.Controllers;
@@ -68,31 +69,32 @@ namespace Uintra20.Features.UserList.Controllers
             return model;
         }
 
-        public bool ExcludeUserFromGroup(Guid groupId, Guid userId)
+        [HttpDelete]
+        public IHttpActionResult ExcludeUserFromGroup(Guid groupId, Guid userId)
         {
             var currentMember = _intranetMemberService.GetCurrentMember();
 
             if (currentMember == null)
             {
-                return false;
+                return NotFound();
             }
 
             var isAdmin = _groupMemberService.IsMemberAdminOfGroup(currentMember.Id, groupId);
 
             if (!isAdmin)
             {
-                return false;
+                return StatusCode(HttpStatusCode.Forbidden);
             }
 
             var group = _groupService.Get(groupId);
 
             if (userId == group.CreatorId)
             {
-                return false;
+                return StatusCode(HttpStatusCode.Forbidden);
             }
 
             _groupMemberService.Remove(groupId, userId);
-            return true;
+            return Ok();
         }
 
 
