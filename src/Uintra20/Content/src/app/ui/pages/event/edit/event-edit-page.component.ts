@@ -4,6 +4,9 @@ import { ActivityService } from 'src/app/feature/specific/activity/activity.serv
 import ParseHelper from 'src/app/shared/utils/parse.helper';
 import { IULink } from 'src/app/shared/interfaces/general.interface';
 import { TranslateService } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+import { HasDataChangedService } from 'src/app/shared/services/general/has-data-changed.service';
+import { CanDeactivateGuard } from 'src/app/shared/services/general/can-deactivate.service';
 
 @Component({
   selector: 'event-edit-page',
@@ -20,6 +23,8 @@ export class EventEditPage {
     private router: Router,
     private activityService: ActivityService,
     private translate: TranslateService,
+    private hasDataChangedService: HasDataChangedService,
+    private canDeactivateService: CanDeactivateGuard,
   ) {
     this.route.data.subscribe(data => {
       if (!data.requiresRedirect.get()) {
@@ -70,5 +75,13 @@ export class EventEditPage {
     copyObject["notifyAllSubscribers"] = confirm(this.translate.instant('common.NotifyAllSubscribers'));
 
     return copyObject;
+  }
+
+  canDeactivate(): Observable<boolean> | boolean {
+    if (this.hasDataChangedService.hasDataChanged) {
+      return this.canDeactivateService.canDeacrivateConfirm();
+    }
+
+    return true;
   }
 }
