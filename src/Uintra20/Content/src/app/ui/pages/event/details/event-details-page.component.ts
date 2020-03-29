@@ -61,7 +61,7 @@ export class EventDetailsPage implements OnInit {
   get locationUrl() {
     return (
       "http://maps.google.co.uk/maps?q=" +
-      this.parsedData.details.location.shortAddress
+      this.parsedData.details.location.address
     );
   }
 
