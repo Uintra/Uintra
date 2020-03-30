@@ -116,7 +116,7 @@ export class EventFormComponent implements OnInit {
 
     this.publishDatepickerOptions = {
       showClose: true,
-      maxDate: moment(value.from),
+      minDate: moment(value.from),
     };
 
   }
