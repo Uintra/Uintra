@@ -26,7 +26,7 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="Content\**" target="content/Content" />
+    <file src="Content\**" target="content/Content" exclude="**/node_modules/**" />
     <file src="uSync\**" target="content/uSync" />
   </files>
 </package>
