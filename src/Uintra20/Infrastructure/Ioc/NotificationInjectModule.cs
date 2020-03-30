@@ -73,6 +73,7 @@ namespace Uintra20.Infrastructure.Ioc
             services.AddScoped<UintraHub>();
 
             services.AddScoped<IUserIdProvider, SignalRUserIdProvider>();
+            services.AddScoped<IUserMentionNotificationService, UserMentionNotificationService>();
 
             return services;
         }

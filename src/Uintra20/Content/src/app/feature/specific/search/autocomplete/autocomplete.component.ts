@@ -25,9 +25,8 @@ export class AutocompleteComponent implements OnInit {
   ) {
     this._query.pipe(
       debounceTime(200),
-      distinctUntilChanged(),
     ).subscribe((value: string) => {
-      if (value && value.length > 2) {
+      if (value && value.length > 1) {
         this.searchService.autocomplete(value).subscribe((res: IAutocompleteItem[]) => {
           this.autocompleteList = res.map(suggestion => ({
             ...suggestion,
@@ -64,7 +63,10 @@ export class AutocompleteComponent implements OnInit {
       default:
         this.inputValue = val;
         this.inputValueToRestore = val;
-        this._query.next(val);
+        if (val.trim()) {
+          const trimedVal = val.replace(/\s+/g, ' ')
+          this._query.next(trimedVal);
+        }
         break;
     }
   }

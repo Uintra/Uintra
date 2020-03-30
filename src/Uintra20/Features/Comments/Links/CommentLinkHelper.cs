@@ -20,12 +20,12 @@ namespace Uintra20.Features.Comments.Links
         }
 
         public UintraLinkModel GetDetailsUrlWithComment(Guid activityId, Guid commentId) =>
-            $"{_linkService.GetLinks(activityId).Details}#{_commentsService.GetCommentViewId(commentId)}".ToLinkModel();
+            $"{_linkService.GetLinks(activityId).Details}&commentId={_commentsService.GetCommentViewId(commentId)}".ToLinkModel();
 
         public UintraLinkModel GetDetailsUrlWithComment(INodeModel content, Guid commentId) =>
-            $"{content.Url}#{_commentsService.GetCommentViewId(commentId)}".ToLinkModel();
+            $"{content.Url}{(content.Url.Contains("?") ? "&" : "?")}commentId={_commentsService.GetCommentViewId(commentId)}".ToLinkModel();
 
         public async Task<UintraLinkModel> GetDetailsUrlWithCommentAsync(Guid activityId, Guid commentId) =>
-            $"{(await _linkService.GetLinksAsync(activityId)).Details}#{_commentsService.GetCommentViewId(commentId)}".ToLinkModel();
+            $"{(await _linkService.GetLinksAsync(activityId)).Details}&commentId={_commentsService.GetCommentViewId(commentId)}".ToLinkModel();
     }
 }

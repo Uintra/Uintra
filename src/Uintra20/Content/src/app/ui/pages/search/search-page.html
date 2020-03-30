@@ -48,17 +48,28 @@
             *ngFor="let result of resultsList"
             class="search-results__item"
             [routerLink]="result.url | ulink">
-            <h3 *ngIf="result.title" class="search-results__item-title" [innerHTML]="result.title"></h3>
-            <div
-              *ngIf="result.description"
-              class="search-results__item-description"
-              [innerHTML]="result.description">
+            <div class="search-results__item-info">
+              <h3 *ngIf="result.title" class="search-results__item-title" [innerHTML]="result.title"></h3>
+              <div
+                *ngIf="result.description"
+                class="search-results__item-description"
+                [innerHTML]="result.description">
+              </div>
+              <p
+                *ngIf="result.type"
+                class="search-results__item-type">
+                {{getType(result)}}
+              </p>
             </div>
-            <p
-              *ngIf="result.type"
-              class="search-results__item-type">
-              {{getType(result)}}
-            </p>
+            <div
+              *ngIf="result.isPinned"
+              class="search-results__item-pinned-label"
+              [ngClass]="{
+                'search-results__item-pinned-label--no-actual': !result.isPinActual
+              }"
+            >
+              {{'activity.Pinned.lbl' | translate}}
+            </div>
           </a>
         </div>
         <div *ngIf="isResultsLoading" class="search-results__loader-wrapper">

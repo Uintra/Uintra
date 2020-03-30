@@ -1,5 +1,7 @@
 ﻿using Compent.CommandBus;
 using Uintra20.Core.Commands;
+using Uintra20.Core.Member.CommandBus;
+using Uintra20.Core.Member.Commands;
 using Uintra20.Core.Search.Entities;
 using Uintra20.Features.Comments.CommandBus;
 using Uintra20.Features.Comments.CommandBus.Commands;
@@ -36,8 +38,8 @@ namespace Uintra20
             builder.HandleCommand<MembersChanged>()
                 .WithHandle<MemberHandle<SearchableMember>>();
 
-            //builder.HandleCommand<MentionCommand>()
-            //    .WithHandle<MentionHandle>();
+            builder.HandleCommand<MentionCommand>()
+                .WithHandle<MentionHandle>();
 
             return builder.Build();
         }

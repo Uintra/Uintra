@@ -6,6 +6,7 @@ import { debounceTime, distinctUntilChanged, finalize } from 'rxjs/operators';
 import { SearchService } from 'src/app/feature/specific/search/search.service';
 import { ISearchRequestData, IMapedFilterData, ISearchResult, ISearchData } from 'src/app/feature/specific/search/search.interface';
 import { TranslateService } from '@ngx-translate/core';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'search-page',
@@ -32,6 +33,7 @@ export class SearchPage {
     private route: ActivatedRoute,
     private searchService: SearchService,
     private translate: TranslateService,
+    private sanitizer: DomSanitizer,
   ) {
     this.route.data.subscribe(data => {
       this.data = data;
@@ -46,9 +48,18 @@ export class SearchPage {
   }
 
   ngOnInit() {
-    this.availableFilters = Object.values(this.parsedData.filterItems).map((item: any) => ({id: item.id, text: item.name}));
+    this.availableFilters = Object.values(this.parsedData.filterItems).map((item: any) => ({
+      id: item.id,
+      text: this.translate.instant(item.name)
+    }));
     this.resultsList = this.parsedData.results || [];
-    this.inputValue = this.parsedData.query;
+
+    const paramsSubscription =  this.route.queryParams.subscribe(params => {
+      let query = params && params.query ? params.query : "";
+      this.inputValue = query;
+    });
+
+    paramsSubscription.unsubscribe();
   }
 
   onQueryChange(val: string): void {
@@ -77,7 +88,7 @@ export class SearchPage {
   getResultsTitle(): string {
     const firstPart = this.translate.instant('searchResult.YouSearchedFor.lbl').replace('{0}', this.query)
     const secondPart = this.translate.instant('searchResult.Count.lbl').replace('{0}', this.resultsCount)
-    return firstPart + " " + secondPart;
+    return this.resultsCount !== undefined ? firstPart + " " + secondPart : "";
   }
 
   getType(item): string {
@@ -110,7 +121,11 @@ export class SearchPage {
       })
     ).subscribe((res: any) => {
       this.isScrollDisabled = res.results.length == res.resultsCount;
-      this.resultsList = res.results;
+      this.resultsList = res.results.map(result => ({
+        ...result,
+        title: this.sanitizer.bypassSecurityTrustHtml(result.title),
+        description: this.sanitizer.bypassSecurityTrustHtml(result.description),
+      }));
       this.query = res.query;
       this.availableFilters = Object.values(res.filterItems).map((item: any) => ({id: item.id, text: item.name}));
       this.parsedData.allTypesPlaceholder = res.allTypesPlaceholder;

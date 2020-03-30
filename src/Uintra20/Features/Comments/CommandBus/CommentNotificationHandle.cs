@@ -20,11 +20,11 @@ namespace Uintra20.Features.Comments.CommandBus
         {
             var commentsTargetEntityId = command.TargetId;
 
-            var isHasFlag = command.TargetType.Is(IntranetEntityTypeEnum.ContentPage, IntranetEntityTypeEnum.News,
-                                                            IntranetEntityTypeEnum.Social, IntranetEntityTypeEnum.Events);
+            //var isHasFlag = command.TargetType.Is(IntranetEntityTypeEnum.ContentPage, IntranetEntityTypeEnum.News,
+            //                                                IntranetEntityTypeEnum.Social, IntranetEntityTypeEnum.Events);
 
-            if (!isHasFlag) 
-                return BroadcastResult.Success;
+            //if (!isHasFlag) 
+            //    return BroadcastResult.Success;
 
             var notifiableService = _activitiesServiceFactory.GetNotifyableService(commentsTargetEntityId);
 

@@ -46,7 +46,7 @@ namespace Uintra20.Features.Search.AutoMapperProfile
                 .ForMember(dst => dst.Title, o => o.MapFrom(s => s.FullName))
                 .ForMember(dst => dst.Url, o => o.MapFrom(s => s.Url))
                 .ForMember(dst => dst.Type, o => o.MapFrom(s => s.Type))
-                .ForMember(dst => dst.Description, o => o.Ignore())
+                .ForMember(dst => dst.Description, o => o.MapFrom(s => s.Email))
                 .ForMember(dst => dst.Panels, o => o.Ignore())
                 .ForMember(dst => dst.StartDate, o => o.Ignore())
                 .ForMember(dst => dst.EndDate, o => o.Ignore())

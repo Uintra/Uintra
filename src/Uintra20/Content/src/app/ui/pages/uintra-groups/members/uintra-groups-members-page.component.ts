@@ -11,6 +11,7 @@ import { AddButtonService } from 'src/app/ui/main-layout/left-navigation/compone
 })
 export class UintraGroupsMembersPage {
   data: any;
+  parsedData: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -19,7 +20,8 @@ export class UintraGroupsMembersPage {
   ) {
     this.route.data.subscribe(data => {
       if (!data.requiresRedirect.get()) {
-        this.data = ParseHelper.parseUbaselineData(data);
+        this.data = data;
+        this.parsedData = ParseHelper.parseUbaselineData(data);
         this.addButtonService.setPageId(data.id);
       } else {
         this.router.navigate([data.errorLink.get().originalUrl.get()]);
