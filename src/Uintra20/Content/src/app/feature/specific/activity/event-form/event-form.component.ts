@@ -57,7 +57,6 @@ export class EventFormComponent implements OnInit, AfterViewInit {
     this.publishDatepickerOptions = {
       showClose: true,
       minDate: this.eventsData.publishDate ? this.eventsData.publishDate : moment(),
-      showClear: true,
       ignoreReadonly: true
     };
 
@@ -131,7 +130,6 @@ export class EventFormComponent implements OnInit, AfterViewInit {
 
     this.publishDatepickerOptions = {
       showClose: true,
-      showClear: true,
       minDate: moment(value.from),
       ignoreReadonly: true
     };

@@ -33,7 +33,7 @@ export class DatepickerFromToComponent implements OnInit {
     ignoreReadonly: true
   };
   optTo: IDatePickerOptions = {
-    showClear: true,
+    showClear: false,
     useCurrent: false,
     showClose: true,
     ignoreReadonly: true
