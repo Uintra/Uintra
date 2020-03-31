@@ -47,6 +47,7 @@ export class EventEditPage {
   onSubmit(data) {
     const mapedData = this.requesModelBuilder(data);
     this.activityService.updateEvent(mapedData).subscribe((res: IULink) => {
+      this.hasDataChangedService.reset();
       this.router.navigate([res.originalUrl]);
     })
   }
@@ -57,7 +58,7 @@ export class EventEditPage {
 
   onHide() {
     if (confirm(this.translate.instant('common.AreYouSure'))) {
-      const isNotificationNeeded = confirm(this.translate.instant('common.NotifyAllSubscribers'));
+      const isNotificationNeeded = !this.parsedData.details.hasSubscribers || confirm(this.translate.instant('common.NotifyAllSubscribers'));
       this.activityService.hideEvent(this.parsedData.details.id, isNotificationNeeded).subscribe((res: IULink) => {
         this.router.navigate([this.parsedData.links.feed.originalUrl]);
       })
@@ -72,7 +73,9 @@ export class EventEditPage {
 
     copyObject.media = otherFilesIds.concat(mediaIds).join(',');
     copyObject["id"] = this.parsedData.details.id;
-    copyObject["notifyAllSubscribers"] = confirm(this.translate.instant('common.NotifyAllSubscribers'));
+    copyObject["notifyAllSubscribers"] = this.parsedData.details.hasSubscribers
+      ? confirm(this.translate.instant('common.NotifyAllSubscribers'))
+      : false;
 
     return copyObject;
   }
