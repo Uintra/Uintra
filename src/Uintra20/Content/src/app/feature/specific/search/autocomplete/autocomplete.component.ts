@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { debounceTime } from 'rxjs/operators';
 import { SearchService } from '../search.service';
 import { Router, NavigationStart } from '@angular/router';
 import { IAutocompleteItem, IMapedAutocompleteItem } from '../search.interface';
@@ -24,7 +24,7 @@ export class AutocompleteComponent implements OnInit {
     private router: Router,
   ) {
     this._query.pipe(
-      debounceTime(200),
+      debounceTime(300),
     ).subscribe((value: string) => {
       if (value && value.length > 1) {
         this.searchService.autocomplete(value).subscribe((res: IAutocompleteItem[]) => {
@@ -63,7 +63,7 @@ export class AutocompleteComponent implements OnInit {
       default:
         this.inputValue = val;
         this.inputValueToRestore = val;
-        if (val.trim()) {
+        if (val.trim().length > 1) {
           const trimedVal = val.replace(/\s+/g, ' ')
           this._query.next(trimedVal);
         }
