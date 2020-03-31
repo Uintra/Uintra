@@ -149,12 +149,19 @@ export class EventFormComponent implements OnInit, AfterViewInit {
     this.hasDataChangedService.onDataChanged();
   }
 
-  onPublishDateChange(val) {
-    this.eventsData.publishDate = val ? val.format() : null;
-    this.pinActivityService.setPublishDates({ from: this.eventsData.publishDate });
-    if (val && val._i && val._i !== this.initialDates.publishDate) {
-      this.hasDataChangedService.onDataChanged();
+  onPublishDateChange(event) {
+
+    if (event) {
+
+      this.eventsData.publishDate = event;
+      this.pinActivityService.setPublishDates({ from: this.eventsData.publishDate });
+
+      if (event && event._i && event._i !== this.initialDates.publishDate) {
+
+        this.hasDataChangedService.onDataChanged();
+      }
     }
+
   }
 
   onLocationTitleChange(val) {
@@ -248,9 +255,6 @@ export class EventFormComponent implements OnInit, AfterViewInit {
 
   public validateEmptyField(src: any): boolean {
     if (!src) {
-      return true;
-    }
-    if (src.trim() === '') {
       return true;
     }
 
