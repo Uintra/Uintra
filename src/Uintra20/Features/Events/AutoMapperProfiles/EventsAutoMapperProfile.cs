@@ -233,6 +233,7 @@ namespace Uintra20.Features.Events.AutoMapperProfiles
                 .ForMember(dst => dst.EventDate, o => o.Ignore())
                 .ForMember(dst => dst.EventMonth, o => o.Ignore())
                 .ForMember(dst => dst.IsSubscribed, o => o.Ignore())
+                .ForMember(dst => dst.HasSubscribers, o => o.MapFrom(src => src.Subscribers.Any()))
                 .ForMember(dst => dst.IsNotificationsDisabled, o => o.Ignore())
                 .ForMember(dst => dst.IsPinned, o => o.MapFrom(s => s.IsPinned))
                 .ForMember(dst => dst.EndPinDate, o => o.MapFrom(s => s.EndPinDate))
