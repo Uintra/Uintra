@@ -52,6 +52,7 @@ export class PinActivityComponent implements OnInit {
 
     this.options = {
       showClose: true,
+      ignoreReadonly: false
     };
 
     this.pinDate = this.endPinDate ? moment(this.endPinDate) : moment();

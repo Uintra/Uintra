@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, HostListener } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, HostListener, OnChanges, DoCheck, AfterViewInit } from '@angular/core';
 import { ISelectItem } from 'src/app/feature/reusable/inputs/select/select.component';
 import { ITagData } from 'src/app/feature/reusable/inputs/tag-multiselect/tag-multiselect.interface';
 import { PinActivityService } from '../pin-activity/pin-activity.service';
@@ -17,7 +17,7 @@ import { IEventCreateModel, IEventsInitialDates, IPublishDatepickerOptions } fro
   templateUrl: './event-form.component.html',
   styleUrls: ['./event-form.component.less']
 })
-export class EventFormComponent implements OnInit {
+export class EventFormComponent implements OnInit, AfterViewInit {
   @Input() data: any;
   @Input('edit') edit: any;
   @Input() inProgress: boolean;
@@ -57,11 +57,21 @@ export class EventFormComponent implements OnInit {
     this.publishDatepickerOptions = {
       showClose: true,
       minDate: this.eventsData.publishDate ? this.eventsData.publishDate : moment(),
+      showClear: true,
+      ignoreReadonly: true
     };
 
     if (this.eventsData.isPinned) {
       this.isAccepted = true;
     }
+  }
+
+  public ngAfterViewInit(): void {
+    // Due to absent disabling the input inside datepicker 
+    const elements = document.querySelectorAll(".udatepicker-input");
+    elements.forEach(e => {
+      e.setAttribute('readonly', 'readonly');
+    });
   }
 
   private setInitialData(): void {
@@ -114,12 +124,16 @@ export class EventFormComponent implements OnInit {
       || (moment(this.initialDates.to).format() != value.to && (moment(this.initialDates.to).add(5, "seconds").format() != value.to))) {
       this.hasDataChangedService.onDataChanged();
     }
+
+
     this.eventsData.startDate = value.from;
     this.eventsData.endDate = value.to;
 
     this.publishDatepickerOptions = {
       showClose: true,
+      showClear: true,
       minDate: moment(value.from),
+      ignoreReadonly: true
     };
 
   }
