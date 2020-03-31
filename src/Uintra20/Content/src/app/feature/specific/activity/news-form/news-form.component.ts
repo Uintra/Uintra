@@ -123,8 +123,9 @@ export class NewsFormComponent implements OnInit {
   // Data set functions
   setDatePickerValue(value: IDatepickerData = {}) {
     const test = moment(this.initialDates.from).format();
-    if ((moment(this.initialDates.from).format() != value.from && moment(this.initialDates.from).subtract(5, "seconds").format() != value.from)
-      || (moment(this.initialDates.to).format() != value.to && (moment(this.initialDates.to).add(5, "seconds").format() != value.to))) {
+    if ((!this.initialDates.to && value.to)
+      || (moment(this.initialDates.from).format() != value.from && moment(this.initialDates.from).subtract(5, "seconds").format() != value.from)
+      || (this.initialDates.to && moment(this.initialDates.to).format() != value.to && moment(this.initialDates.to).add(5, "seconds").format() != value.to)) {
       this.hasDataChangedService.onDataChanged();
     }
     this.pinActivityService.setPublishDates(value);
