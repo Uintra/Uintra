@@ -11,6 +11,7 @@ import { ILocationResult } from 'src/app/feature/reusable/ui-elements/location-p
 import { IPinedData } from '../pin-activity/pin-activity.component';
 import * as moment from "moment";
 import { IEventCreateModel, IEventsInitialDates, IPublishDatepickerOptions } from './event-form.interface';
+import { ContentService } from 'src/app/shared/services/general/content.service';
 
 @Component({
   selector: 'app-event-form',
@@ -46,7 +47,8 @@ export class EventFormComponent implements OnInit, AfterViewInit {
     private pinActivityService: PinActivityService,
     private hasDataChangedService: HasDataChangedService,
     private stripHTML: RTEStripHTMLService,
-    public translate: TranslateService,
+    private translate: TranslateService,
+    private contentService: ContentService
   ) { }
 
   ngOnInit() {
@@ -66,11 +68,9 @@ export class EventFormComponent implements OnInit, AfterViewInit {
   }
 
   public ngAfterViewInit(): void {
-    // Due to absent disabling the input inside datepicker 
-    const elements = document.querySelectorAll(".udatepicker-input");
-    elements.forEach(e => {
-      e.setAttribute('readonly', 'readonly');
-    });
+    // Due to absent disabling the input inside datepicker
+    this.contentService.makeReadonly('.udatepicker-input');
+    
   }
 
   private setInitialData(): void {
