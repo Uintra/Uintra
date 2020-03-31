@@ -70,8 +70,13 @@ namespace Uintra20.Features.Events.Controllers
 
             _reminderService.CreateIfNotExists(activityId, ReminderTypeEnum.OneDayBefore);
 
+            @event = _eventsService.Get(activityId);
+
             if (createModel.GroupId.HasValue)
+            {
                 _groupActivityService.AddRelation(createModel.GroupId.Value, activityId);
+                @event.GroupId = createModel.GroupId;
+            }
 
             _activityTagsHelper.ReplaceTags(activityId, createModel.TagIdsData);
 
