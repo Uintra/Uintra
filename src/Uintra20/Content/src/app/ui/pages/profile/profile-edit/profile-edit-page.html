@@ -19,13 +19,16 @@
       <div class="user-block__col _avatar">
 
         <div *ngIf="profileEdit.member.photo">
-          <span class="icon-close avatar-remove"
-                (click)="processAvatarDelete()"></span>
+          <button class="icon-close avatar-remove"
+                  [disabled]="isAvatarDeleteDisabled"
+                  (click)="processAvatarDelete()"></button>
           <img [src]="profileEdit.member.photo"
                class="avatar">
         </div>
         <div *ngIf="isUploaded || !profileEdit.member.photo">
           <app-dropzone-wrapper #dropdownRef
+                                [maxFiles]="1"
+                                [disabled]="this.profileEdit.member.photo || files.length > 0"
                                 [filesLength]="files.length"
                                 [withImage]="false"
                                 (success)="processAvatarUpload($event)">

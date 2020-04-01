@@ -10,6 +10,7 @@ import { CanDeactivateGuard } from 'src/app/shared/services/general/can-deactiva
 import { IProfileEditPage } from 'src/app/shared/interfaces/pages/profile/profile-edit-page.interface';
 import { AddButtonService } from 'src/app/ui/main-layout/left-navigation/components/my-links/add-button.service';
 import { TranslateService } from '@ngx-translate/core';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'profile-edit-page',
@@ -24,6 +25,7 @@ export class ProfileEditPage implements OnInit {
   public profileEditForm: FormGroup;
   public inProgress = false;
   public isUploaded = false;
+  public isAvatarDeleteDisabled = false;
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -139,14 +141,16 @@ export class ProfileEditPage implements OnInit {
 
   public processAvatarDelete(): void {
     if (confirm(this.translate.instant('profile.DeletePhotoConfirm.lbl'))) {
-      this.profileService.deletePhoto(this.profileEdit.member.photoId)
-        .subscribe(
-          () => {
-            this.files = [];
-            this.profileEdit.member.photo = null;
-            this.hasDataChangedService.onDataChanged();
-          }
-        );
+      this.isAvatarDeleteDisabled = true;
+      this.profileService.deletePhoto(this.profileEdit.member.photoId).pipe(
+        finalize(() => {this.isAvatarDeleteDisabled = false;})
+      ).subscribe(
+        () => {
+          this.files = [];
+          this.profileEdit.member.photo = null;
+          this.hasDataChangedService.onDataChanged();
+        }
+      );
     }
   }
 
