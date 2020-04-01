@@ -271,7 +271,7 @@ namespace Uintra20.Features.Social.Controllers
 
         private async Task ResolveMentionsAsync(string text, SocialBase social)
         {
-            var mentionIds = new Guid[] { };//_mentionService.GetMentions(text).ToList();//TODO: uncomment when mention service is ready
+            var mentionIds = _mentionService.GetMentions(text).ToList();
 
             if (mentionIds.Any())
             {

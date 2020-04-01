@@ -15,7 +15,6 @@ using Uintra20.Core.Member.Models;
 using Uintra20.Core.Member.Services;
 using Uintra20.Features.Groups.Services;
 using Uintra20.Features.Links;
-using Uintra20.Features.Media;
 using Uintra20.Features.Media.Enums;
 using Uintra20.Features.Media.Helpers;
 using Uintra20.Features.News.Models;
@@ -46,7 +45,6 @@ namespace Uintra20.Features.News.Controllers
             IIntranetMemberService<IntranetMember> intranetMemberService,
             INewsService<Entities.News> newsService,
             IMediaHelper mediaHelper,
-            //IDocumentIndexer documentIndexer,
             IGroupActivityService groupActivityService,
             IActivityTagsHelper activityTagsHelper,
             IActivityLinkService activityLinkService,
