@@ -84,3 +84,4 @@ src/Compent.uIntra/umbraco/Views/components/media/
 src/Uintra20/umbraco/Views/components/media/
 src/Uintra20/umbraco/Views/dashboard/media/
 *.log
+.vscode
