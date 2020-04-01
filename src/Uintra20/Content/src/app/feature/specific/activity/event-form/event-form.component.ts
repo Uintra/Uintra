@@ -105,14 +105,14 @@ export class EventFormComponent implements OnInit, AfterViewInit {
   }
 
   onTitleChange(e) {
-    if (this.eventsData.title != e) {
+    if (this.eventsData.title !== e) {
       this.hasDataChangedService.onDataChanged();
     }
     this.eventsData.title = e;
   }
 
   onDescriptionChange(e) {
-    if (this.eventsData.description != e) {
+    if (this.eventsData.description !== e) {
       this.hasDataChangedService.onDataChanged();
     }
     this.eventsData.description = e;
@@ -121,8 +121,8 @@ export class EventFormComponent implements OnInit, AfterViewInit {
   // Data set functions
   setDatePickerValue(value: IDatepickerData = {}) {
     const test = moment(this.initialDates.from).format();
-    if ((moment(this.initialDates.from).format() != value.from && moment(this.initialDates.from).subtract(5, "seconds").format() != value.from)
-      || (moment(this.initialDates.to).format() != value.to && (moment(this.initialDates.to).add(5, "seconds").format() != value.to))) {
+    if ((moment(this.initialDates.from).format() !== value.from && moment(this.initialDates.from).subtract(5, "seconds").format() !== value.from)
+      || (moment(this.initialDates.to).format() !== value.to && (moment(this.initialDates.to).add(5, "seconds").format() !== value.to))) {
       this.hasDataChangedService.onDataChanged();
     }
 
