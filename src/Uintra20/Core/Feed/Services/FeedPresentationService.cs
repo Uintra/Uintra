@@ -98,37 +98,47 @@ namespace Uintra20.Core.Feed.Services
         private IntranetActivityPreviewModelBase ApplyNewsSpecific(News news, IntranetActivityPreviewModelBase previewModel)
         {
             var currentMember = _intranetMemberService.GetCurrentMember();
+            previewModel.Description = news.Description;
+            previewModel.Title = news.Title;
             previewModel.Owner = _intranetMemberService.Get(news).ToViewModel();
             previewModel.LikedByCurrentUser = news.Likes.Any(x => x.UserId == currentMember.Id);
             previewModel.IsGroupMember = !news.GroupId.HasValue || currentMember.GroupIds.Contains(news.GroupId.Value);
             previewModel.IsPinActual = news.IsPinActual;
             previewModel.CanEdit = _intranetActivityServices.First(s => Equals(s.Type, IntranetActivityTypeEnum.News)).CanEdit(news);
             previewModel.Dates = news.PublishDate.ToDateFormat().ToEnumerable();
+            previewModel.Location = news.Location;
+            
             return previewModel;
         }
 
         private IntranetActivityPreviewModelBase ApplySocialSpecific(Social social, IntranetActivityPreviewModelBase previewModel)
         {
             var currentMember = _intranetMemberService.GetCurrentMember();
+            previewModel.Description = social.Description;
+            previewModel.Title = social.Title;
             previewModel.Owner = _intranetMemberService.Get(social).ToViewModel();
             previewModel.LikedByCurrentUser = social.Likes.Any(x => x.UserId == currentMember.Id);
             previewModel.IsGroupMember = !social.GroupId.HasValue || currentMember.GroupIds.Contains(social.GroupId.Value);
             previewModel.IsPinActual = social.IsPinActual;
             previewModel.CanEdit = _intranetActivityServices.First(s => Equals(s.Type, IntranetActivityTypeEnum.Social)).CanEdit(social);
             previewModel.Dates = social.PublishDate.ToDateFormat().ToEnumerable();
-
+            previewModel.Location = social.Location;
+            
             return previewModel;
         }
 
         private IntranetActivityPreviewModelBase ApplyEventSpecific(Event @event, IntranetActivityPreviewModelBase previewModel)
         {
             var currentMember = _intranetMemberService.GetCurrentMember();
+            previewModel.Description = @event.Description;
+            previewModel.Title = @event.Title;
             previewModel.Owner = _intranetMemberService.Get(@event).ToViewModel();
             previewModel.LikedByCurrentUser = @event.Likes.Any(x => x.UserId == currentMember.Id);
             previewModel.IsGroupMember = !@event.GroupId.HasValue || currentMember.GroupIds.Contains(@event.GroupId.Value);
             previewModel.IsPinActual = @event.IsPinActual;
             previewModel.CanEdit = _intranetActivityServices.First(s => Equals(s.Type, IntranetActivityTypeEnum.Events)).CanEdit(@event);
             previewModel.CurrentMemberSubscribed = @event.Subscribers.Any(x => x.UserId == currentMember.Id);
+            previewModel.Location = @event.Location;
             
             var startDate = @event.StartDate.ToDateTimeFormat();
             string endDate;
