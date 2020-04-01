@@ -53,4 +53,5 @@ export interface IPublishDatepickerOptions {
   showClose: boolean;
   minDate?: any;
   maxDate?: any;
+  ignoreReadonly?: boolean;
 }

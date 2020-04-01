@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, HostListener } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, HostListener, OnChanges, DoCheck, AfterViewInit } from '@angular/core';
 import { ISelectItem } from 'src/app/feature/reusable/inputs/select/select.component';
 import { ITagData } from 'src/app/feature/reusable/inputs/tag-multiselect/tag-multiselect.interface';
 import { PinActivityService } from '../pin-activity/pin-activity.service';
@@ -11,13 +11,14 @@ import { ILocationResult } from 'src/app/feature/reusable/ui-elements/location-p
 import { IPinedData } from '../pin-activity/pin-activity.component';
 import * as moment from "moment";
 import { IEventCreateModel, IEventsInitialDates, IPublishDatepickerOptions } from './event-form.interface';
+import { ContentService } from 'src/app/shared/services/general/content.service';
 
 @Component({
   selector: 'app-event-form',
   templateUrl: './event-form.component.html',
   styleUrls: ['./event-form.component.less']
 })
-export class EventFormComponent implements OnInit {
+export class EventFormComponent implements OnInit, AfterViewInit {
   @Input() data: any;
   @Input('edit') edit: any;
   @Input() inProgress: boolean;
@@ -46,7 +47,8 @@ export class EventFormComponent implements OnInit {
     private pinActivityService: PinActivityService,
     private hasDataChangedService: HasDataChangedService,
     private stripHTML: RTEStripHTMLService,
-    public translate: TranslateService,
+    private translate: TranslateService,
+    private contentService: ContentService
   ) { }
 
   ngOnInit() {
@@ -57,11 +59,18 @@ export class EventFormComponent implements OnInit {
     this.publishDatepickerOptions = {
       showClose: true,
       minDate: this.eventsData.publishDate ? this.eventsData.publishDate : moment(),
+      ignoreReadonly: true
     };
 
     if (this.eventsData.isPinned) {
       this.isAccepted = true;
     }
+  }
+
+  public ngAfterViewInit(): void {
+    // Due to absent disabling the input inside datepicker
+    this.contentService.makeReadonly('.udatepicker-input');
+    
   }
 
   private setInitialData(): void {
@@ -114,12 +123,15 @@ export class EventFormComponent implements OnInit {
       || (moment(this.initialDates.to).format() != value.to && (moment(this.initialDates.to).add(5, "seconds").format() != value.to))) {
       this.hasDataChangedService.onDataChanged();
     }
+
+
     this.eventsData.startDate = value.from;
     this.eventsData.endDate = value.to;
 
     this.publishDatepickerOptions = {
       showClose: true,
       minDate: moment(value.from),
+      ignoreReadonly: true
     };
 
   }
@@ -137,12 +149,19 @@ export class EventFormComponent implements OnInit {
     this.hasDataChangedService.onDataChanged();
   }
 
-  onPublishDateChange(val) {
-    this.eventsData.publishDate = val ? val.format() : null;
-    this.pinActivityService.setPublishDates({ from: this.eventsData.publishDate });
-    if (val && val._i && val._i !== this.initialDates.publishDate) {
-      this.hasDataChangedService.onDataChanged();
+  onPublishDateChange(event) {
+
+    if (event) {
+
+      this.eventsData.publishDate = event;
+      this.pinActivityService.setPublishDates({ from: this.eventsData.publishDate });
+
+      if (event && event._i && event._i !== this.initialDates.publishDate) {
+
+        this.hasDataChangedService.onDataChanged();
+      }
     }
+
   }
 
   onLocationTitleChange(val) {
@@ -236,9 +255,6 @@ export class EventFormComponent implements OnInit {
 
   public validateEmptyField(src: any): boolean {
     if (!src) {
-      return true;
-    }
-    if (src.trim() === '') {
       return true;
     }
 
