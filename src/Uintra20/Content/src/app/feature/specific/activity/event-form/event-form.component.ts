@@ -116,7 +116,6 @@ export class EventFormComponent implements OnInit, AfterViewInit {
   }
 
   public setDatePickerValue(value: IDatepickerData = {}): void {
-    const test = moment(this.initialDates.from).format();
     if ((moment(this.initialDates.from).format() !== value.from && moment(this.initialDates.from).subtract(5, "seconds").format() !== value.from)
       || (moment(this.initialDates.to).format() !== value.to && (moment(this.initialDates.to).add(5, "seconds").format() !== value.to))) {
       this.hasDataChangedService.onDataChanged();
