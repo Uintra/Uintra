@@ -46,9 +46,11 @@ export class UintraGroupsRoomPage {
 
   ngOnInit() {
     this.socialCreateData = this.data.socialCreateModel.get().data.get();
-    this.socialCreateData.canCreate = !this.data.socialCreateModel.get().requiresRedirect.get();
-    this.socialCreateData.createNewsLink = this.data.createNewsLink.get();
-    this.socialCreateData.createEventsLink = this.data.createEventsLink.get();
+    if (this.socialCreateData) {
+      this.socialCreateData.canCreate = !this.data.socialCreateModel.get().requiresRedirect.get();
+      this.socialCreateData.createNewsLink = this.data.createNewsLink.get();
+      this.socialCreateData.createEventsLink = this.data.createEventsLink.get();
+    }
   }
 
   toggleSubscribe() {

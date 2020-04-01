@@ -59,44 +59,48 @@ export class EventDetailsPage implements OnInit {
   }
 
   get locationUrl() {
-    return (
-      "http://maps.google.co.uk/maps?q=" +
-      this.parsedData.details.location.address
-    );
+    if (this.data) {
+      return (
+        "http://maps.google.co.uk/maps?q=" +
+        this.parsedData.details.location.address
+      );
+    }
   }
 
   public ngOnInit(): void {
-    this.parsedData = ParseHelper.parseUbaselineData(this.data);
-    this.eventSubscription.getListOfUsers(this.parsedData.details.id).subscribe((res: string[]) => {
-      this.subscribers = res;
-    })
+    if (this.data) {
+      this.parsedData = ParseHelper.parseUbaselineData(this.data);
+      this.eventSubscription.getListOfUsers(this.parsedData.details.id).subscribe((res: string[]) => {
+        this.subscribers = res;
+      })
 
-    this.details = this.parsedData.details;
-    this.commentDetails = {
-      entityId: this.parsedData.details.id,
-      entityType: this.parsedData.details.activityType
-    };
-    this.activityName = ParseHelper.parseActivityType(
-      this.details.activityType
-    );
+      this.details = this.parsedData.details;
+      this.commentDetails = {
+        entityId: this.parsedData.details.id,
+        entityType: this.parsedData.details.activityType
+      };
+      this.activityName = ParseHelper.parseActivityType(
+        this.details.activityType
+      );
 
-    this.tags = Object.values(this.parsedData.tags);
-    this.medias = Object.values(
-      this.parsedData.details.lightboxPreviewModel.medias
-    );
-    this.documents = Object.values(
-      this.parsedData.details.lightboxPreviewModel.otherFiles
-    );
-    this.fullEventTime = Object.values(
-      this.parsedData.details.fullEventTime
-    );
+      this.tags = Object.values(this.parsedData.tags);
+      this.medias = Object.values(
+        this.parsedData.details.lightboxPreviewModel.medias
+      );
+      this.documents = Object.values(
+        this.parsedData.details.lightboxPreviewModel.otherFiles
+      );
+      this.fullEventTime = Object.values(
+        this.parsedData.details.fullEventTime
+      );
 
-    this.detailsDescription = this.sanitizer.bypassSecurityTrustHtml(
-      this.details.description
-    );
-    this.detailsTitle = this.sanitizer.bypassSecurityTrustHtml(
-      this.details.headerInfo.title
-    );
+      this.detailsDescription = this.sanitizer.bypassSecurityTrustHtml(
+        this.details.description
+      );
+      this.detailsTitle = this.sanitizer.bypassSecurityTrustHtml(
+        this.details.headerInfo.title
+      );
+    }
   }
 
   public openGallery(i) {
