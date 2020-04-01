@@ -68,7 +68,7 @@ namespace Uintra20.Features.News.Converters
 
             var news = _newsService.Get(id.Value);
 
-            if (news == null) return NotFoundResult();
+            if (news == null || news.IsHidden) return NotFoundResult();
 
             if (!_newsService.CanEdit(id.Value)) return ForbiddenResult();
 

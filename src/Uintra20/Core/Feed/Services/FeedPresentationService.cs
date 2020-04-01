@@ -66,7 +66,7 @@ namespace Uintra20.Core.Feed.Services
                 case Social social:
                     return ApplySocialSpecific(social, baseModel);
                 case Event @event:
-                    return ApplySocialSpecific(@event, baseModel);
+                    return ApplyEventSpecific(@event, baseModel);
             }
 
             return baseModel;
@@ -115,7 +115,7 @@ namespace Uintra20.Core.Feed.Services
             return previewModel;
         }
 
-        private IntranetActivityPreviewModelBase ApplySocialSpecific(Event @event, IntranetActivityPreviewModelBase previewModel)
+        private IntranetActivityPreviewModelBase ApplyEventSpecific(Event @event, IntranetActivityPreviewModelBase previewModel)
         {
             var currentMember = _intranetMemberService.GetCurrentMember();
             previewModel.Owner = _intranetMemberService.Get(@event).ToViewModel();
