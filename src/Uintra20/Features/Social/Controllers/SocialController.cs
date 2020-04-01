@@ -282,7 +282,7 @@ namespace Uintra20.Features.Social.Controllers
                     MentionedSourceId = social.Id,
                     CreatorId = await _memberService.GetCurrentMemberIdAsync(),
                     MentionedUserIds = mentionIds,
-                    Title = social.Description.StripHtml().TrimByWordEnd(maxTitleLength),
+                    Title = social.Description.StripMentionHtml().TrimByWordEnd(maxTitleLength),
                     Url = links.Details,
                     ActivityType = IntranetActivityTypeEnum.Social
                 });

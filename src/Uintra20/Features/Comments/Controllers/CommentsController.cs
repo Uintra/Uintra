@@ -224,7 +224,7 @@ namespace Uintra20.Features.Comments.Controllers
                     MentionedSourceId = comment.Id,
                     CreatorId = await _intranetMemberService.GetCurrentMemberIdAsync(),
                     MentionedUserIds = mentionIds,
-                    Title = comment.Text.StripHtml().TrimByWordEnd(50),
+                    Title = comment.Text.StripMentionHtml().TrimByWordEnd(50),
                     Url = url,
                     ActivityType = CommunicationTypeEnum.CommunicationSettings
                 });

@@ -71,9 +71,8 @@ namespace Uintra20.Features.Comments.Converters
             var comments = _commentsService.GetMany(id.Value);
 
             viewModel.Comments = _commentsHelper.GetCommentViews(comments);
-            viewModel.ActivityType = activityType;
             viewModel.EntityId = id.Value;
-            viewModel.CommentsType = IntranetEntityTypeEnum.Comment;
+            viewModel.CommentsType = activityType;
 
             return OkResult();
         }
