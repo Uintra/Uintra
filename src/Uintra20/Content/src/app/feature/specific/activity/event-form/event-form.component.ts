@@ -116,21 +116,25 @@ export class EventFormComponent implements OnInit, AfterViewInit {
   }
 
   public setDatePickerValue(value: IDatepickerData = {}): void {
-    if ((moment(this.initialDates.from).format() !== value.from && moment(this.initialDates.from).subtract(5, "seconds").format() !== value.from)
-      || (moment(this.initialDates.to).format() !== value.to && (moment(this.initialDates.to).add(5, "seconds").format() !== value.to))) {
+
+    if (this.compareDates(value)) {
       this.hasDataChangedService.onDataChanged();
     }
 
-
     this.eventsData.startDate = value.from;
     this.eventsData.endDate = value.to;
-
     this.publishDatepickerOptions = {
       showClose: true,
       minDate: moment(value.from),
       ignoreReadonly: true
     };
+  }
 
+  private compareDates(value): boolean {
+    return (moment(this.initialDates.from).format() !== value.from
+      && moment(this.initialDates.from).subtract(5, "seconds").format() !== value.from)
+      || (moment(this.initialDates.to).format() !== value.to
+        && (moment(this.initialDates.to).add(5, "seconds").format() !== value.to));
   }
 
   public setPinValue(value: IPinedData): void {
