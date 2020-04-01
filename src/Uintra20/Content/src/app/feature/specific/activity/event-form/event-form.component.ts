@@ -47,7 +47,7 @@ export class EventFormComponent implements OnInit, AfterViewInit {
     private pinActivityService: PinActivityService,
     private hasDataChangedService: HasDataChangedService,
     private stripHTML: RTEStripHTMLService,
-    private translate: TranslateService,
+    public translate: TranslateService,
     private contentService: ContentService
   ) { }
 
@@ -70,7 +70,7 @@ export class EventFormComponent implements OnInit, AfterViewInit {
   public ngAfterViewInit(): void {
     // Due to absent disabling the input inside datepicker
     this.contentService.makeReadonly('.udatepicker-input');
-    
+
   }
 
   private setInitialData(): void {
