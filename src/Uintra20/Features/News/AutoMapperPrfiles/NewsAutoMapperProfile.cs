@@ -61,19 +61,7 @@ namespace Uintra20.Features.News.AutoMapperPrfiles
 
             CreateMap<Entities.News, GroupActivityTransferModel>()
                 .IncludeBase<Entities.News, GroupActivityTransferCreateModel>();
-
-            CreateMap<Entities.News, IntranetActivityPreviewModelBase>()
-                .ForMember(dst => dst.CanEdit, o => o.Ignore())
-                .ForMember(dst => dst.Links, o => o.Ignore())
-                .ForMember(dst => dst.Owner, o => o.Ignore())
-                .ForMember(dst => dst.MediaPreview, o => o.Ignore())
-                .ForMember(dst => dst.LikedByCurrentUser, o => o.Ignore())
-                .ForMember(dst => dst.IsPinActual, o => o.Ignore())
-                .ForMember(dst => dst.GroupInfo, o => o.Ignore())
-                .ForMember(dst => dst.IsGroupMember, o => o.Ignore())
-                .ForMember(dst => dst.CurrentMemberSubscribed, o => o.Ignore())
-                .ForMember(dst => dst.ActivityType, o => o.MapFrom(src => src.Type))
-                .ForMember(dst => dst.Dates, o => o.MapFrom(src => src.PublishDate.ToDateFormat().ToEnumerable()));
+            
 
             CreateMap<Entities.News, LatestActivitiesItemViewModel>()
                 .ForMember(dst => dst.Links, o => o.Ignore())

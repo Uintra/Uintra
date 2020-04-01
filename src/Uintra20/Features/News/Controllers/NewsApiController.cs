@@ -207,7 +207,7 @@ namespace Uintra20.Features.News.Controllers
                     MentionedSourceId = news.Id,
                     CreatorId = await _intranetMemberService.GetCurrentMemberIdAsync(),
                     MentionedUserIds = mentionIds,
-                    Title = news.Title?.StripHtml(),
+                    Title = news.Title?.StripMentionHtml(),
                     Url = links.Details,
                     ActivityType = IntranetActivityTypeEnum.News
                 });

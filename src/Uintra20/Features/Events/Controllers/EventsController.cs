@@ -192,7 +192,7 @@ namespace Uintra20.Features.Events.Controllers
                     MentionedSourceId = @event.Id,
                     CreatorId = _intranetMemberService.GetCurrentMemberId(),
                     MentionedUserIds = mentionIds,
-                    Title = @event.Title.StripHtml(),
+                    Title = @event.Title.StripMentionHtml(),
                     Url = links.Details,
                     ActivityType = IntranetActivityTypeEnum.Events
                 });
