@@ -19,15 +19,13 @@ import { ContentService } from 'src/app/shared/services/general/content.service'
   styleUrls: ['./event-form.component.less']
 })
 export class EventFormComponent implements OnInit, AfterViewInit {
+
   @Input() data: any;
   @Input('edit') edit: any;
   @Input() inProgress: boolean;
   @Output() submit = new EventEmitter();
   @Output() cancel = new EventEmitter();
   @Output() hide = new EventEmitter();
-  @HostListener('window:beforeunload') checkIfDataChanged() {
-    return !this.hasDataChangedService.hasDataChanged;
-  }
 
   eventsData: IEventCreateModel;
   selectedTags: ITagData[] = [];
@@ -71,6 +69,10 @@ export class EventFormComponent implements OnInit, AfterViewInit {
     // Due to absent disabling the input inside datepicker
     this.contentService.makeReadonly('.udatepicker-input');
 
+  }
+
+  @HostListener('window:beforeunload') checkIfDataChanged() {
+    return !this.hasDataChangedService.hasDataChanged;
   }
 
   private setInitialData(): void {
