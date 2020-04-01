@@ -3,6 +3,7 @@ import { IDatePickerOptions } from "src/app/shared/interfaces/DatePickerOptions"
 import * as moment from "moment";
 import { IDatepickerData } from "../datepicker-from-to/datepiker-from-to.interface";
 import { PinActivityService } from "./pin-activity.service";
+import { ContentService } from 'src/app/shared/services/general/content.service';
 
 export interface IPinedData {
   isPinCheked: boolean;
@@ -32,7 +33,10 @@ export class PinActivityComponent implements OnInit {
     pinDate: ""
   };
 
-  constructor(private pinActivityService: PinActivityService) {
+  constructor(
+    private pinActivityService: PinActivityService,
+    private contentService: ContentService
+  ) {
     this.pinActivityService.publishDates$.subscribe((dates: IDatepickerData) => {
       this.options = {
         ...this.options,
@@ -52,7 +56,7 @@ export class PinActivityComponent implements OnInit {
 
     this.options = {
       showClose: true,
-      ignoreReadonly: false
+      ignoreReadonly: true
     };
 
     this.pinDate = this.endPinDate ? moment(this.endPinDate) : moment();
@@ -65,5 +69,6 @@ export class PinActivityComponent implements OnInit {
   onAcceptedChange() {
     this.pinedDateValue.isPinCheked = this.isPinCheked;
     this.handleChange.emit(this.pinedDateValue);
+    setTimeout(() => this.contentService.makeReadonly('.udatepicker-input'), 0);
   }
 }
