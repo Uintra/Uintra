@@ -1,97 +1,96 @@
-<section class="profile profile--edit page-wrapper">
-  <div class="profile__header">
-    <h2 class="profile__title">{{profileEdit.title}}</h2>
-    <div class="profile__btns">
-      <button (click)="handleSave()"
-              [disabled]="profileEditForm.invalid"
-              class="button">
-        {{'profile.Save.btn' | translate}}
-      </button>
-      <a [routerLink]="['/profile']"
-         [queryParams]="{id: profileEdit.member.id}"
-         class="button button-default">
-        {{'common.Cancel.lnk' | translate}}
-      </a>
+<section class="page-wrapper">
+  <div class="profile profile--edit">
+    <div class="profile__header">
+      <h2 class="profile__title">{{profileEdit.title}}</h2>
+      <div class="profile__btns">
+        <button (click)="handleSave()"
+                [disabled]="profileEditForm.invalid"
+                class="button">
+          {{'profile.Save.btn' | translate}}
+        </button>
+        <a [routerLink]="['/profile']"
+          [queryParams]="{id: profileEdit.member.id}"
+          class="button button-default">
+          {{'common.Cancel.lnk' | translate}}
+        </a>
+      </div>
     </div>
-  </div>
-  <form [formGroup]="profileEditForm">
-    <div class="user-block">
-      <div class="user-block__col _avatar">
+    <form [formGroup]="profileEditForm">
+      <div class="user-block">
+        <div class="user-block__col _avatar">
 
-        <div *ngIf="profileEdit.member.photo">
-          <button class="icon-close avatar-remove"
-                  [disabled]="isAvatarDeleteDisabled"
-                  (click)="processAvatarDelete()"></button>
-          <img [src]="profileEdit.member.photo"
-               class="avatar">
+          <div *ngIf="profileEdit.member.photo">
+            <button class="icon-close avatar-remove"
+                    (click)="processAvatarDelete()"></button>
+            <img [src]="profileEdit.member.photo"
+                class="avatar">
+          </div>
+          <div *ngIf="!profileEdit.member.photo">
+            <app-dropzone-wrapper #dropdownRef
+                                  [maxFiles]="1"
+                                  [withImage]="false"
+                                  (success)="processAvatarUpload($event)">
+            </app-dropzone-wrapper>
+          </div>
         </div>
-        <div *ngIf="isUploaded || !profileEdit.member.photo">
-          <app-dropzone-wrapper #dropdownRef
-                                [maxFiles]="1"
-                                [disabled]="this.profileEdit.member.photo || files.length > 0"
-                                [filesLength]="files.length"
-                                [withImage]="false"
-                                (success)="processAvatarUpload($event)">
-          </app-dropzone-wrapper>
-        </div>
-      </div>
-      <div class="user-block__col form">
-        <div class="form__row">
-          <label for="firstName">{{'profile.FirstName.lbl' | translate}} </label>
-          <input formControlName="firstName"
-                 type="text"
-                 name="firstName"
-                 id="firstName"
-                 class="input"
-                 [placeholder]="'profile.FirstName.Placeholder' | translate" />
-        </div>
-        <div class="form__row">
-          <label for="lastName">{{'profile.LastName.lbl' | translate}} </label>
-          <input formControlName="lastName"
-                 type="text"
-                 name="lastName"
-                 id="lastName"
-                 class="input"
-                 [placeholder]="'profile.LastName.Placeholder' | translate" />
-        </div>
-        <div class="form__row">
-          <label for="email">{{'profile.Email.lbl' | translate}} </label>
-          <div>{{profileEdit.member.email}}</div>
-        </div>
-        <div class="form__row">
-          <label for="phone">{{'profile.Phone.lbl' | translate}} </label>
-          <input formControlName="phone"
-                 type="text"
-                 name="phone"
-                 id="phone"
-                 class="input"
-                 [placeholder]="'profile.Phone.Placeholder' | translate" />
-        </div>
-        <div class="form__row">
-          <label for="department">{{'profile.Department.lbl' | translate}} </label>
-          <input formControlName="department"
-                 type="text"
-                 name="department"
-                 id="department"
-                 class="input"
-                 [placeholder]="'profile.Department.Placeholder' | translate" />
-        </div>
-        <div class="form__row">
-          <label>{{'userTagsPicker.AddTags.lbl' | translate}}</label>
-          <app-tag-multiselect [availableTags]="profileEdit.member.availableTags"
-                               [ngModel]="profileEdit.member.tags"
-                               [ngModelOptions]="{standalone: true}"
-                               (ngModelChange)="onTagsChange($event)">
-          </app-tag-multiselect>
-        </div>
-        <div class="form__row">
-          <label for="">{{'profile.EmailNotifications.Title.lbl' | translate}}</label>
-          <checkbox-input [isChecked]="profileEdit.member.memberNotifierSettings.emailNotifier"
-                          (change)="handleUpdateNotificationSettings($event)">
-            {{'profile.EmailNotifications.lbl' | translate}}
-          </checkbox-input>
+        <div class="user-block__col form">
+          <div class="form__row">
+            <label for="firstName">{{'profile.FirstName.lbl' | translate}} </label>
+            <input formControlName="firstName"
+                  type="text"
+                  name="firstName"
+                  id="firstName"
+                  class="input"
+                  [placeholder]="'profile.FirstName.Placeholder' | translate" />
+          </div>
+          <div class="form__row">
+            <label for="lastName">{{'profile.LastName.lbl' | translate}} </label>
+            <input formControlName="lastName"
+                  type="text"
+                  name="lastName"
+                  id="lastName"
+                  class="input"
+                  [placeholder]="'profile.LastName.Placeholder' | translate" />
+          </div>
+          <div class="form__row">
+            <label for="email">{{'profile.Email.lbl' | translate}} </label>
+            <div>{{profileEdit.member.email}}</div>
+          </div>
+          <div class="form__row">
+            <label for="phone">{{'profile.Phone.lbl' | translate}} </label>
+            <input formControlName="phone"
+                  type="text"
+                  name="phone"
+                  id="phone"
+                  class="input"
+                  [placeholder]="'profile.Phone.Placeholder' | translate" />
+          </div>
+          <div class="form__row">
+            <label for="department">{{'profile.Department.lbl' | translate}} </label>
+            <input formControlName="department"
+                  type="text"
+                  name="department"
+                  id="department"
+                  class="input"
+                  [placeholder]="'profile.Department.Placeholder' | translate" />
+          </div>
+          <div class="form__row">
+            <label>{{'userTagsPicker.AddTags.lbl' | translate}}</label>
+            <app-tag-multiselect [availableTags]="profileEdit.member.availableTags"
+                                [ngModel]="profileEdit.member.tags"
+                                [ngModelOptions]="{standalone: true}"
+                                (ngModelChange)="onTagsChange($event)">
+            </app-tag-multiselect>
+          </div>
+          <div class="form__row">
+            <label for="">{{'profile.EmailNotifications.Title.lbl' | translate}}</label>
+            <checkbox-input [isChecked]="profileEdit.member.memberNotifierSettings.emailNotifier"
+                            (change)="handleUpdateNotificationSettings($event)">
+              {{'profile.EmailNotifications.lbl' | translate}}
+            </checkbox-input>
+          </div>
         </div>
       </div>
-    </div>
-  </form>
+    </form>
+  </div>
 </section>
