@@ -996,6 +996,7 @@
     <Compile Include="Core\Article\Events\ArticlePageEventService.cs" />
     <Compile Include="Core\Member\CommandBus\MentionHandle.cs" />
     <Compile Include="Core\Member\Controllers\MemberGroupController.cs" />
+    <Compile Include="Core\UbaselineModels\PageNotFoundPageModel.cs" />
     <Compile Include="Features\Events\Handlers\EventHandler.cs" />
     <Compile Include="Core\UmbracoEvents\Services\Contracts\IUmbracoContentPublishedEventService.cs" />
     <Compile Include="Core\UmbracoEvents\Services\Contracts\IUmbracoContentUnPublishedEventService.cs" />
