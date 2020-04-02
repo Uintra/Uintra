@@ -37,10 +37,13 @@
                               [title]="userAvatar.name">
         <div subtitle>{{panelData.date}} - {{'socialCreate.Title' | translate}}</div>
       </app-publication-header>
-      <app-tag-multiselect class="bulletin-popup__multiselect"
-                           [availableTags]="availableTags"
-                           [ngModel]="tags"
-                           (ngModelChange)="onTagsChange($event)"></app-tag-multiselect>
+      <div class="bulletin-popup__multiselect-wrapper">
+        <h3 class="bulletin-popup__multiselect-title">{{'userTagsPicker.AddTags.lbl' | translate}}</h3>
+        <app-tag-multiselect class="bulletin-popup__multiselect"
+                            [availableTags]="availableTags"
+                            [ngModel]="tags"
+                            (ngModelChange)="onTagsChange($event)"></app-tag-multiselect>
+      </div>
       <dropzone #dropdownRef
                 (success)="onUploadSuccess($event)"
                 (removedFile)="onFileRemoved($event)"></dropzone>

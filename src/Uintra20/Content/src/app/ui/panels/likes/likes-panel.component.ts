@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, HostBinding } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import ParseHelper from 'src/app/shared/utils/parse.helper';
 import { ILikeData } from 'src/app/feature/reusable/ui-elements/like-button/like-button.interface';
@@ -21,10 +21,13 @@ export interface ILikesPanelData {
   encapsulation: ViewEncapsulation.None
 })
 export class LikesPanel {
+  @HostBinding('class') hostClass;
   data: any;
   panelData: ILikesPanelData;
   likeData: ILikeData;
   isDisabled: boolean;
+  isContentPage: boolean;
+
   constructor(
     private route: ActivatedRoute) {
     this.route.data.subscribe(data => this.data = data);
@@ -39,5 +42,9 @@ export class LikesPanel {
       activityType: this.panelData.activityType
     };
     this.isDisabled = this.panelData.isGroupMember;
+    this.isContentPage = this.panelData.activityType == '6';
+    if (this.isContentPage) {
+      this.hostClass = "likes-panel--content"
+    }
   }
 }
