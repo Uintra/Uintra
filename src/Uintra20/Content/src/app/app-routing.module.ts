@@ -10,7 +10,7 @@ const routes = [
     path: 'developer-ui-kit', loadChildren: './ui/pages/developer-ui-kit/developer-ui-kit.module#DeveloperUIKitModule'
   },
   {
-    path: 'login', loadChildren: './ui/pages/login/login-page.module#LoginPageModule'
+    path: 'login', loadChildren: './ui/pages/login/login-page.module#LoginPageModule', data: { name: 'Uintra | Login' }
   },
   {
     path: '**', component: ResolveComponent, resolve: { data: ResolveService },
