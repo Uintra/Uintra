@@ -48,7 +48,13 @@
       <div class="col-md-9">
         <ul class="tags">
           <li class="tags__item"
-              *ngFor="let tag of profile.member.tags">{{tag.text}}</li>
+              *ngFor="let tag of profile.member.tags">
+            <a class="tag"
+               [routerLink]="['/search']"
+               [queryParams]="{query: tag.text}"
+               [innerHTML]="tag.text">
+            </a>
+          </li>
         </ul>
       </div>
     </div>

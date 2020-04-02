@@ -4,6 +4,7 @@ using UBaseline.Shared.PageNotFoundPage;
 using Uintra20.Core.UbaselineModels;
 using Uintra20.Features.Links.Models;
 using Uintra20.Infrastructure.Extensions;
+using PageNotFoundPageModel = Uintra20.Core.UbaselineModels.PageNotFoundPageModel;
 
 namespace Uintra20.Features.Links
 {

@@ -79,11 +79,13 @@ namespace Uintra20.Core.Feed.Services
             {
                 var baseModel = new IntranetActivityPreviewModelBase
                 {
+                    Id = feedItem.Id,
                     Links = _linkService.GetLinks(feedItem.Id),
                     Type = _localizationService.Translate(activity.Type.ToString()),
                     CommentsCount = _commentsService.GetCount(feedItem.Id),
                     Likes = _likesService.GetLikeModels(activity.Id),
                     GroupInfo = isGroupFeed ? null : _feedActivityHelper.GetGroupInfo(feedItem.Id),
+                    ActivityType = feedItem.Type
                 };
                 _lightboxHelper.FillGalleryPreview(baseModel, activity.MediaIds);
 
@@ -104,10 +106,11 @@ namespace Uintra20.Core.Feed.Services
             previewModel.LikedByCurrentUser = news.Likes.Any(x => x.UserId == currentMember.Id);
             previewModel.IsGroupMember = !news.GroupId.HasValue || currentMember.GroupIds.Contains(news.GroupId.Value);
             previewModel.IsPinActual = news.IsPinActual;
+            previewModel.IsPinned = news.IsPinned;
             previewModel.CanEdit = _intranetActivityServices.First(s => Equals(s.Type, IntranetActivityTypeEnum.News)).CanEdit(news);
             previewModel.Dates = news.PublishDate.ToDateFormat().ToEnumerable();
             previewModel.Location = news.Location;
-            
+
             return previewModel;
         }
 
@@ -119,7 +122,6 @@ namespace Uintra20.Core.Feed.Services
             previewModel.Owner = _intranetMemberService.Get(social).ToViewModel();
             previewModel.LikedByCurrentUser = social.Likes.Any(x => x.UserId == currentMember.Id);
             previewModel.IsGroupMember = !social.GroupId.HasValue || currentMember.GroupIds.Contains(social.GroupId.Value);
-            previewModel.IsPinActual = social.IsPinActual;
             previewModel.CanEdit = _intranetActivityServices.First(s => Equals(s.Type, IntranetActivityTypeEnum.Social)).CanEdit(social);
             previewModel.Dates = social.PublishDate.ToDateFormat().ToEnumerable();
             previewModel.Location = social.Location;
@@ -138,6 +140,8 @@ namespace Uintra20.Core.Feed.Services
             previewModel.IsPinActual = @event.IsPinActual;
             previewModel.CanEdit = _intranetActivityServices.First(s => Equals(s.Type, IntranetActivityTypeEnum.Events)).CanEdit(@event);
             previewModel.CurrentMemberSubscribed = @event.Subscribers.Any(x => x.UserId == currentMember.Id);
+            previewModel.IsPinActual = @event.IsPinActual;
+            previewModel.IsPinned = @event.IsPinned;
             previewModel.Location = @event.Location;
             
             var startDate = @event.StartDate.ToDateTimeFormat();

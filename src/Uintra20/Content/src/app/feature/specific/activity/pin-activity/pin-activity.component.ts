@@ -6,7 +6,7 @@ import { PinActivityService } from "./pin-activity.service";
 import { ContentService } from 'src/app/shared/services/general/content.service';
 
 export interface IPinedData {
-  isPinCheked: boolean;
+  isPinChecked: boolean;
   isAccepted: boolean;
   pinDate: string;
 }
@@ -16,7 +16,7 @@ export interface IPinedData {
   styleUrls: ["./pin-activity.component.less"]
 })
 export class PinActivityComponent implements OnInit {
-  @Input() isPinCheked: boolean;
+  @Input() isPinChecked: boolean;
   @Input() isAccepted: boolean;
   @Input() endPinDate: string;
   @Input() noMaxDate: any;
@@ -28,7 +28,7 @@ export class PinActivityComponent implements OnInit {
   options: IDatePickerOptions;
   pinDate = null;
   pinedDateValue: IPinedData = {
-    isPinCheked: false,
+    isPinChecked: false,
     isAccepted: false,
     pinDate: ""
   };
@@ -46,10 +46,10 @@ export class PinActivityComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
+  public ngOnInit(): void {
     this.noMaxDate = this.noMaxDate !== undefined;
     this.pinedDateValue = {
-      isPinCheked: this.isPinCheked,
+      isPinChecked: this.isPinChecked,
       isAccepted: this.isAccepted,
       pinDate: this.endPinDate
     };
@@ -59,16 +59,32 @@ export class PinActivityComponent implements OnInit {
       ignoreReadonly: true
     };
 
-    this.pinDate = this.endPinDate ? moment(this.endPinDate) : moment();
+    this.pinDate = this.endPinDate
+      ? moment(this.endPinDate)
+      : moment();
   }
 
-  onDateChange() {
+  public onDateChange(): void {
     this.pinedDateValue.pinDate = this.pinDate ? this.pinDate.format() : "";
     this.handleChange.emit(this.pinedDateValue);
   }
-  onAcceptedChange() {
-    this.pinedDateValue.isPinCheked = this.isPinCheked;
-    this.handleChange.emit(this.pinedDateValue);
+
+  public onAcceptedChange(): void {
+    this.pinedDateValue.isPinChecked = this.isPinChecked;
+
+    this.isPinChecked
+      ? this.handleChange.emit(this.pinedDateValue)
+      : this.handleChange.emit(this.rollbackModel);
+
     setTimeout(() => this.contentService.makeReadonly('.udatepicker-input'), 0);
+  }
+
+
+  private get rollbackModel(): IPinedData {
+    return {
+      isPinChecked: false,
+      isAccepted: undefined,
+      pinDate: null
+    };
   }
 }
