@@ -29,12 +29,14 @@ export class DatepickerFromToComponent implements OnInit {
     // Set if it is create news
     // minDate: moment(),
     useCurrent: false,
-    showClose: true
+    showClose: true,
+    ignoreReadonly: true
   };
   optTo: IDatePickerOptions = {
-    showClear: true,
+    showClear: false,
     useCurrent: false,
-    showClose: true
+    showClose: true,
+    ignoreReadonly: true
   };
 
   minDate: any;

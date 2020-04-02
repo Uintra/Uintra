@@ -34,27 +34,29 @@ namespace Uintra20.Features.Notification
         public NotifierData GetNotifierData<TActivity>(TActivity activity, Enum notificationType)
             where TActivity : IIntranetActivity, IHaveOwner
         {
-            var currentMemberId = _intranetMemberService.GetCurrentMemberId();
+            var currentMemberId = new Lazy<Guid>(()=> _intranetMemberService.GetCurrentMemberId());
             var data = new NotifierData
             {
                 NotificationType = notificationType,
                 ActivityType = activity.Type,
-                ReceiverIds = ReceiverIds(activity, notificationType).Except(new []{ currentMemberId }/*.ToEnumerableOfOne()*/)
             };
 
             switch (notificationType)
             {
                 case ActivityLikeAdded:
-                    data.Value = _notifierDataHelper.GetLikesNotifierDataModel(activity, notificationType, currentMemberId);
+                    data.Value = _notifierDataHelper.GetLikesNotifierDataModel(activity, notificationType, currentMemberId.Value);
+                    data.ReceiverIds = ReceiverIds(activity, notificationType).Except(new[] {currentMemberId.Value});
                     break;
 
                 case BeforeStart:
                     data.Value = _notifierDataHelper.GetActivityReminderDataModel(activity, notificationType);
+                    data.ReceiverIds = ReceiverIds(activity, notificationType);
                     break;
 
                 case EventHidden:
                 case EventUpdated:
-                    data.Value = _notifierDataHelper.GetActivityNotifierDataModel(activity, notificationType, currentMemberId);
+                    data.Value = _notifierDataHelper.GetActivityNotifierDataModel(activity, notificationType, currentMemberId.Value);
+                    data.ReceiverIds = ReceiverIds(activity, notificationType).Except(new[] {currentMemberId.Value});
                     break;
 
                 default:
@@ -82,13 +84,12 @@ namespace Uintra20.Features.Notification
 
         public async Task<NotifierData> GetNotifierDataAsync<TEntity>(TEntity activity, Enum notificationType) where TEntity : IIntranetActivity, IHaveOwner
         {
-            //var currentMember = await _intranetMemberService.GetCurrentMemberAsync();
             var currentMemberId = _intranetMemberService.GetCurrentMemberId();
             var data = new NotifierData
             {
                 NotificationType = notificationType,
                 ActivityType = activity.Type,
-                ReceiverIds = ReceiverIds(activity, notificationType).Except(new [] { currentMemberId }/*.ToEnumerableOfOne()*/)
+                ReceiverIds = ReceiverIds(activity, notificationType).Except(new [] { currentMemberId })
             };
 
             switch (notificationType)

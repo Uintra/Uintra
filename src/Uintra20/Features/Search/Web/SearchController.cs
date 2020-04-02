@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using Compent.Shared.Extensions.Bcl;
 using UBaseline.Core.Controllers;
 using Uintra20.Core.Localization;
 using Uintra20.Core.Search.Entities;
@@ -47,7 +48,7 @@ namespace Uintra20.Features.Search.Web
         [HttpPost]
         public  SearchPageViewModel Search (SearchFilterModel model)
         {
-            var searchableTypeIds = model.Types.Count > 0 ? model.Types : GetSearchableTypes().Select(t => t.ToInt());
+            var searchableTypeIds = model.Types.Count > 0 ? model.Types : GetSearchableTypes().Except(((Enum)UintraSearchableTypeEnum.Tag).ToEnumerable()).Select(t => t.ToInt());
 
             var searchResult = _elasticIndex.Search(new SearchTextQuery
             {

@@ -12,7 +12,8 @@ namespace Uintra20.Infrastructure.Extensions
     {
         private const string GroupIdQueryParam = "groupId";
 
-        //private const string ToExtractAchorsTagsPattern = "</?(a|A).*?>";
+        private const string ToExtractAnchorsTagsPattern = "</?(a|A).*?>";
+
         private const string ToExtractHtmlTagsPattern = "<.*?>";
         //private const string defaultType = "misc";
         //private const int maxViewedLength = 4;
@@ -66,6 +67,15 @@ namespace Uintra20.Infrastructure.Extensions
 
             return Regex.Replace(src, ToExtractHtmlTagsPattern, string.Empty);
         }
+        
+        public static string StripMentionHtml(this string src)
+        {
+            if (src.IsNullOrEmpty()) return string.Empty;
+
+            var withoutAnchors = src.StripHtmlAnchors();
+
+            return Regex.Replace(withoutAnchors, ToExtractHtmlTagsPattern, string.Empty);
+        }
 
         public static string AddIdParameter(this string url, object paramValue) =>
             AddParameter(url, "id", paramValue);
@@ -96,8 +106,8 @@ namespace Uintra20.Infrastructure.Extensions
 
         public static int? ToNullableInt(this string src) =>
             int.TryParse(src, out var result)
-            ? result
-            : new int?();
+                ? result
+                : new int?();
 
         public static string AddGroupId(this string url, Guid groupId) =>
             url.AddParameter(GroupIdQueryParam, groupId);
@@ -126,7 +136,8 @@ namespace Uintra20.Infrastructure.Extensions
         {
             if (src == null) return null;
 
-            return $"{HttpContext.Current.Request.Url.Scheme}{Uri.SchemeDelimiter}{HttpContext.Current.Request.Url.Host}{src}";
+            return
+                $"{HttpContext.Current.Request.Url.Scheme}{Uri.SchemeDelimiter}{HttpContext.Current.Request.Url.Host}{src}";
         }
 
         public static string TrimByWordEnd(this string src, int maxLength)
@@ -145,24 +156,23 @@ namespace Uintra20.Infrastructure.Extensions
         }
 
         public static string SplitOnUpperCaseLetters(this string src) =>
-             src.IsNullOrEmpty()
-            ? string.Empty
-            : Regex.Split(src, @"(?<!^)(?=[A-Z])").JoinWith(" ");
+            src.IsNullOrEmpty()
+                ? string.Empty
+                : Regex.Split(src, @"(?<!^)(?=[A-Z])").JoinWith(" ");
 
         //public static string ReplaceLineBreaksForHtml(this string src)
         //    => src.IsNullOrEmpty()
         //    ? string.Empty
         //    : src.Replace("\r\n", "<br />").Replace("\n", "<br />").Replace("\r", "<br />");
 
-        //public static string StripHtmlAnchors(this string src) =>
-        //    Regex.Replace(src, ToExtractAchorsTagsPattern, string.Empty);
+        public static string StripHtmlAnchors(this string src) =>
+            Regex.Replace(src, ToExtractAnchorsTagsPattern, string.Empty);
 
         public static IEnumerable<TResult> ParseStringCollection<TResult>(
             this string collection,
             Func<string, TResult> parserFunc,
             char separator = ',') =>
             collection.SplitBy(separator.ToString()).Select(parserFunc);
-
 
 
         //public static string ToExtensionViewString(this string src) =>

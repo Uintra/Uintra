@@ -53,13 +53,7 @@ export class SearchPage {
       text: this.translate.instant(item.name)
     }));
     this.resultsList = this.parsedData.results || [];
-
-    const paramsSubscription =  this.route.queryParams.subscribe(params => {
-      let query = params && params.query ? params.query : "";
-      this.inputValue = query;
-    });
-
-    paramsSubscription.unsubscribe();
+    this.inputValue = this.parsedData.query;
   }
 
   onQueryChange(val: string): void {

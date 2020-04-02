@@ -18,7 +18,7 @@ export class ActivityService {
 
   submitSocialContent(data: ISocialCreateModel) {
     return this.http
-      .post("/ubaseline/api/social/createExtended", data)
+      .post("/ubaseline/api/social/create", data)
       .toPromise();
   }
   updateSocial(model: ISocialEdit) {

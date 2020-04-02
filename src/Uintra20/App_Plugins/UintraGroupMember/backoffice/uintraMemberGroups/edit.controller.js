@@ -154,7 +154,7 @@ app.controller('memberGroups.editController',
             memberGroupsService
                 .save(memberGroupId, vm.memberGroup.name)
                 .then(function (result) {
-                    if (result.data === 'true') {
+                    if (result.data === true) {
                         notificationsService.success(notification.SUCCESS, notification.MEMBER_SAVED);
                         syncTree(memberGroupId);
                     } else {

@@ -4,7 +4,6 @@ using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 using Uintra20.Attributes;
 using Uintra20.Core.Activity.Models;
-using Uintra20.Features.Media;
 using Uintra20.Features.Media.Contracts;
 
 namespace Uintra20.Features.Events.Models
@@ -25,6 +24,7 @@ namespace Uintra20.Features.Events.Models
         public string NewMedia { get; set; }
         [RequiredIf("IsPinned", true), GreaterThan("PublishDate")]
         public override DateTime? EndPinDate { get; set; }
+        [StringLength(200)]
         public string LocationTitle { get; set; }
         public bool PinAllowed { get; set; }
         public bool CanSubscribe { get; set; }

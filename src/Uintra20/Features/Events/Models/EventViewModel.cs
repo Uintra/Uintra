@@ -28,6 +28,7 @@ namespace Uintra20.Features.Events.Models
         public IEnumerable<UserTag> Tags { get; set; } = Enumerable.Empty<UserTag>();
         public IEnumerable<UserTag> AvailableTags { get; set; } = Enumerable.Empty<UserTag>();
         public bool IsSubscribed { get; set; }
+        public bool HasSubscribers { get; set; }
         public bool IsNotificationsDisabled { get; set; }
     }
 }
