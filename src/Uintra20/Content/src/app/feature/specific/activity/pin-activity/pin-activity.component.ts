@@ -46,7 +46,7 @@ export class PinActivityComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
+  public ngOnInit(): void {
     this.noMaxDate = this.noMaxDate !== undefined;
     this.pinedDateValue = {
       isPinCheked: this.isPinCheked,
@@ -59,16 +59,32 @@ export class PinActivityComponent implements OnInit {
       ignoreReadonly: true
     };
 
-    this.pinDate = this.endPinDate ? moment(this.endPinDate) : moment();
+    this.pinDate = this.endPinDate
+      ? moment(this.endPinDate)
+      : moment();
   }
 
-  onDateChange() {
+  public onDateChange(): void {
     this.pinedDateValue.pinDate = this.pinDate ? this.pinDate.format() : "";
     this.handleChange.emit(this.pinedDateValue);
   }
-  onAcceptedChange() {
+
+  public onAcceptedChange(): void {
     this.pinedDateValue.isPinCheked = this.isPinCheked;
-    this.handleChange.emit(this.pinedDateValue);
+
+    this.isPinCheked
+      ? this.handleChange.emit(this.pinedDateValue)
+      : this.handleChange.emit(this.rollbackModel);
+
     setTimeout(() => this.contentService.makeReadonly('.udatepicker-input'), 0);
+  }
+
+
+  private get rollbackModel(): IPinedData {
+    return {
+      isPinCheked: false,
+      isAccepted: undefined,
+      pinDate: null
+    };
   }
 }
