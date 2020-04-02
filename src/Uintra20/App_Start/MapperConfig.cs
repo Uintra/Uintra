@@ -3,6 +3,7 @@ using AutoMapper.Configuration;
 using EmailWorker.Web.Infrastructure.Extensions;
 using Uintra20.Core.Activity.AutoMapperProfiles;
 using Uintra20.Core.Controls.LightboxGallery;
+using Uintra20.Core.Feed.Mappers;
 using Uintra20.Core.Jobs.AutoMapperProfiles;
 using Uintra20.Core.Member.AutoMapperProfiles;
 using Uintra20.Core.Member.Profile.Edit.Mappers;
@@ -86,6 +87,7 @@ namespace Uintra20
             cfg.AddProfile<SearchAutoMapperProfile>();
             cfg.AddProfile<SearchableActivityAutoMapperProfile>();
             cfg.AddProfile<SearchResultAutoMapperProfile>();
+            cfg.AddProfile<FeedMapperProfile>();
             //cfg.AddProfile<MailProfile>();
 
             Mapper.Initialize(cfg);
