@@ -142,7 +142,7 @@ export class EventFormComponent implements OnInit, AfterViewInit {
       this.hasDataChangedService.onDataChanged();
     }
     this.eventsData.endPinDate = value.pinDate;
-    this.eventsData.isPinned = value.isPinCheked;
+    this.eventsData.isPinned = value.isPinChecked;
     this.isAccepted = value.isAccepted;
   }
 

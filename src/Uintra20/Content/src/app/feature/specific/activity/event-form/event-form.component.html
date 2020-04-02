@@ -83,7 +83,7 @@
   <app-pin-activity *ngIf="eventsData.pinAllowed"
                     noMaxDate
                     [publishDate]="initialDates.publishDate"
-                    [isPinCheked]="eventsData.isPinned"
+                    [isPinChecked]="eventsData.isPinned"
                     [isAccepted]="isAccepted"
                     [endPinDate]="eventsData.endPinDate"
                     (handleChange)="setPinValue($event)"></app-pin-activity>

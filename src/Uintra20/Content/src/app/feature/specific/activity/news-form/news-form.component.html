@@ -65,16 +65,13 @@
     *ngIf="pinAllowed"
     [publishDate]="newsData.publishDate"
     [unpublishDate]="newsData.unpublishDate"
-    [isPinCheked]="newsData.isPinned"
+    [isPinChecked]="newsData.isPinned"
     [isAccepted]="isAccepted"
     [endPinDate]="newsData.endPinDate"
     (handleChange)="setPinValue($event)"
   ></app-pin-activity>
   <h3 class="location__title subtitle">{{'newsCreate.UploadFiles.lbl' | translate}}</h3>
-  <div class="form-row" *ngIf="newsData.media">
-    <label>
-      {{translate.instant(edit ? 'newsEdit.UploadFiles.lbl' : 'newsCreate.UploadFiles.lbl')}}
-    </label>
+  <div class="form-row" *ngIf="newsData.media?.medias?.length || newsData.media?.otherFiles?.length">
     <app-dropzone-existing-images
       [medias]="newsData.media.medias"
       [otherFiles]="newsData.media.otherFiles"

@@ -87,7 +87,7 @@ namespace Uintra20.Features.Groups.Services
 
         public Task DeleteAsync(GroupDocument document)
         {
-            return _repository.DeleteAsync(document);
+            return _repository.DeleteAsync(document.Id);
         }
 
         public bool CanUpload(Guid groupId)

@@ -1,46 +1,9 @@
 import { Component, ViewEncapsulation, OnInit, NgZone } from "@angular/core";
 import { ICentralFeedPanel, IPublicationsResponse, IFilterState } from "./central-feed-panel.interface";
-import { UmbracoFlatPropertyModel, IUmbracoProperty } from "@ubaseline/next";
+import { UmbracoFlatPropertyModel } from "@ubaseline/next";
 import { PublicationsService } from "./helpers/publications.service";
 import { SignalrService } from "src/app/shared/services/general/signalr.service";
-import { ActivityService } from 'src/app/feature/specific/activity/activity.service';
 import { TranslateService } from '@ngx-translate/core';
-
-// interface IFilterTab {
-//   type: number;
-//   isActive: boolean;
-//   links: string;
-//   title: string;
-//   filters: object;
-// }
-// interface IFeedData {
-//   activity: {
-//     creatorId: string;
-//     description: string;
-//     endPinDate: string;
-//     groupId: string;
-//     isHidden: string;
-//     isPinned: string;
-//     linkPreviewId: string;
-//     ownerId: string;
-//     publishDate: string;
-//     title: string;
-//     umbracoCreatorId: string;
-//   };
-//   controllerName: string;
-//   options: {
-//     isReadOnly: false
-//     links: {
-//       create: string;
-//       details: string;
-//       detailsNoId: string;
-//       edit: string;
-//       feed: string;
-//       overview: string;
-//       owner: string;
-//     }
-//   }
-// }
 
 @Component({
   selector: "central-feed-panel",
@@ -61,11 +24,10 @@ export class CentralFeedPanel implements OnInit {
 
   constructor(
     private publicationsService: PublicationsService,
-    private socialService: ActivityService,
     private signalrService: SignalrService,
     private ngZone: NgZone,
     private translate: TranslateService,
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.tabs = this.filtersBuilder();
