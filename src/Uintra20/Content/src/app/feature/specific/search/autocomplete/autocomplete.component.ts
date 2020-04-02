@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
-import { debounceTime } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { SearchService } from '../search.service';
 import { Router, NavigationStart } from '@angular/router';
 import { IAutocompleteItem, IMapedAutocompleteItem } from '../search.interface';
@@ -25,8 +25,9 @@ export class AutocompleteComponent implements OnInit {
   ) {
     this._query.pipe(
       debounceTime(300),
+      distinctUntilChanged()
     ).subscribe((value: string) => {
-      if (value && value.length > 1) {
+      if (value.trim() && value.trim().length > 1) {
         this.searchService.autocomplete(value).subscribe((res: IAutocompleteItem[]) => {
           this.autocompleteList = res.map(suggestion => ({
             ...suggestion,
@@ -49,7 +50,7 @@ export class AutocompleteComponent implements OnInit {
     })
   }
 
-  onQueryChange(val: string, keyCode: number) {
+  onKeyClick(keyCode: number) {
     switch (keyCode) {
       case 13:
         this.goToSearchPage();
@@ -60,15 +61,14 @@ export class AutocompleteComponent implements OnInit {
       case 40:
         this.nextSuggestion();
         break;
-      default:
-        this.inputValue = val;
-        this.inputValueToRestore = val;
-        if (val.trim().length > 1) {
-          const trimedVal = val.replace(/\s+/g, ' ')
-          this._query.next(trimedVal);
-        }
-        break;
     }
+  }
+
+  onQueryChange(val: string) {
+    this.inputValue = val;
+    this.inputValueToRestore = val;
+    const trimedVal = val.replace(/\s+/g, ' ')
+    this._query.next(trimedVal);
   }
 
   prevSuggestion() {
@@ -141,5 +141,6 @@ export class AutocompleteComponent implements OnInit {
     this.inputValue = "";
     this.inputValueToRestore = "";
     this.autocompleteList = [];
+    this._query.next('');
   }
 }
