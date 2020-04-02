@@ -102,7 +102,6 @@ export class UintraNewsEditPage implements OnInit {
   }
 
   public onCancel(): void {
-    this.hasDataChangedService.reset();
     this.router.navigate([this.details.links.details.originalUrl]);
   }
 

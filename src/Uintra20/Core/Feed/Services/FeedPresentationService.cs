@@ -80,11 +80,13 @@ namespace Uintra20.Core.Feed.Services
             {
                 var baseModel = new IntranetActivityPreviewModelBase
                 {
+                    Id = feedItem.Id,
                     Links = _linkService.GetLinks(feedItem.Id),
                     Type = _localizationService.Translate(activity.Type.ToString()),
                     CommentsCount = _commentsService.GetCount(feedItem.Id),
                     Likes = _likesService.GetLikeModels(activity.Id),
                     GroupInfo = isGroupFeed ? null : _feedActivityHelper.GetGroupInfo(feedItem.Id),
+                    ActivityType = feedItem.Type
                 };
                 _lightboxHelper.FillGalleryPreview(baseModel, activity.MediaIds);
 

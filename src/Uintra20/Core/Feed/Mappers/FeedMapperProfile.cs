@@ -18,6 +18,7 @@ namespace Uintra20.Core.Feed.Mappers
                 .ForMember(d => d.Description, o => o.MapFrom(s => s.Description))
                 .ForMember(d => d.Title, o => o.MapFrom(s => s.Title))
                 .ForMember(d => d.IsPinActual, o => o.MapFrom(s => s.IsPinActual))
+                .ForMember(d => d.IsPinned, o => o.MapFrom(s => s.IsPinned))
                 .ForMember(d => d.Location, o => o.MapFrom(s => s.Location))
                 .ForMember(d => d.Dates, o => o.MapFrom(s => s.PublishDate.ToDateFormat().ToEnumerable()))
                 .ForAllOtherMembers(o => o.Ignore());
@@ -28,6 +29,7 @@ namespace Uintra20.Core.Feed.Mappers
                 .ForMember(d => d.Description, o => o.MapFrom(s => s.Description))
                 .ForMember(d => d.Title, o => o.MapFrom(s => s.Title))
                 .ForMember(d => d.IsPinActual, o => o.MapFrom(s => s.IsPinActual))
+                .ForMember(d => d.IsPinned, o => o.MapFrom(s => s.IsPinned))
                 .ForMember(d => d.Location, o => o.MapFrom(s => s.Location))
                 .ForMember(d => d.Dates, o => o.MapFrom(s => s.PublishDate.ToDateFormat().ToEnumerable()))
                 .ForAllOtherMembers(o => o.Ignore());
@@ -38,6 +40,7 @@ namespace Uintra20.Core.Feed.Mappers
                 .ForMember(d => d.Description, o => o.MapFrom(s => s.Description))
                 .ForMember(d => d.Title, o => o.MapFrom(s => s.Title))
                 .ForMember(d => d.IsPinActual, o => o.MapFrom(s => s.IsPinActual))
+                .ForMember(d => d.IsPinned, o => o.MapFrom(s => s.IsPinned))
                 .ForMember(d => d.Location, o => o.MapFrom(s => s.Location))
                 .ForAllOtherMembers(o => o.Ignore());
         }

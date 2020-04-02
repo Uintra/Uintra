@@ -48,7 +48,7 @@ namespace Uintra20.Features.Search.Web
         [HttpPost]
         public  SearchPageViewModel Search (SearchFilterModel model)
         {
-            var searchableTypeIds = model.Types.Count > 0 ? model.Types : GetSearchableTypes().Except(((Enum)UintraSearchableTypeEnum.Tag).ToEnumerable()).Select(t => t.ToInt());
+            var searchableTypeIds = model.Types.Count > 0 ? model.Types : GetSearchableTypes().Select(t => t.ToInt());
 
             var searchResult = _elasticIndex.Search(new SearchTextQuery
             {
@@ -72,7 +72,7 @@ namespace Uintra20.Features.Search.Web
             {
                 Text = searchRequest.Query,
                 Take = AutocompleteSuggestionCount,
-                SearchableTypeIds = GetUintraSearchableTypes().Select(u=>u.ToInt())
+                SearchableTypeIds = GetAutocompleteSearchableTypes().Select(u=>u.ToInt())
             });
 
             var result = GetAutocompleteResultModels(searchResult.Documents).ToList();
@@ -85,17 +85,6 @@ namespace Uintra20.Features.Search.Web
             return result;
         }
 
-        protected virtual IEnumerable<Enum> GetSearchableTypes()
-        {
-            return _searchableTypeProvider.All;
-        }
-        
-
-        protected virtual IEnumerable<Enum> GetFilterItemTypes()
-        {
-            return _searchableTypeProvider.All;
-        }
-        
         protected virtual SearchPageViewModel GetSearchPage(SearchResult<SearchableBase> searchResult)
         {
             var searchResultViewModels = searchResult.Documents.Select(d =>
@@ -201,7 +190,7 @@ namespace Uintra20.Features.Search.Web
             return status;
         }
 
-        private static List<UintraSearchableTypeEnum> GetUintraSearchableTypes() => new
+        private static List<UintraSearchableTypeEnum> GetAutocompleteSearchableTypes() => new
             List<UintraSearchableTypeEnum>()
             {
                 UintraSearchableTypeEnum.News,
@@ -212,5 +201,10 @@ namespace Uintra20.Features.Search.Web
                 UintraSearchableTypeEnum.Member,
                 UintraSearchableTypeEnum.Tag
             };
+        
+        private static IEnumerable<UintraSearchableTypeEnum> GetSearchableTypes()
+        {
+            return GetAutocompleteSearchableTypes().Except(UintraSearchableTypeEnum.Tag.ToEnumerable());
+        }
     }
 }
