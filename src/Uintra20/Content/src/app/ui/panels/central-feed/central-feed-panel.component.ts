@@ -5,7 +5,6 @@ import { PublicationsService } from "./helpers/publications.service";
 import { SignalrService } from "src/app/shared/services/general/signalr.service";
 import { ActivityService } from 'src/app/feature/specific/activity/activity.service';
 import { TranslateService } from '@ngx-translate/core';
-import { FeedStoreService } from 'src/app/shared/services/general/feed-store.service';
 
 @Component({
   selector: "central-feed-panel",
@@ -26,11 +25,11 @@ export class CentralFeedPanel implements OnInit {
 
   constructor(
     private publicationsService: PublicationsService,
-    private feedStoreService: FeedStoreService,
+    private socialService: ActivityService,
     private signalrService: SignalrService,
     private ngZone: NgZone,
     private translate: TranslateService,
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.tabs = this.filtersBuilder();
@@ -104,7 +103,6 @@ export class CentralFeedPanel implements OnInit {
   concatWithCurrentFeed(data): void {
     this.ngZone.run(() => {
       this.feed = this.feed.concat(data);
-      this.feedStoreService.update(this.feed);
     });
   }
 

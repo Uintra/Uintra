@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ILatestActivitiesPanel } from './latest-activities-panel.interface';
-import { FeedStoreService } from 'src/app/shared/services/general/feed-store.service';
 import ParseHelper from 'src/app/shared/utils/parse.helper';
 
 @Component({
@@ -11,9 +10,7 @@ import ParseHelper from 'src/app/shared/utils/parse.helper';
 })
 export class LatestActivitiesPanelComponent implements OnInit {
 
-  constructor(
-    private feedStoreService: FeedStoreService
-  ) { }
+  constructor() { }
 
   public readonly data: ILatestActivitiesPanel;
   public title: string;
@@ -32,3 +29,5 @@ export class LatestActivitiesPanelComponent implements OnInit {
     this.showAll = parsed.showSeeAllButton;
   }
 }
+
+
