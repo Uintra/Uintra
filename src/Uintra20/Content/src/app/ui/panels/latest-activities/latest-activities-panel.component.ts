@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ILatestActivitiesPanel } from './latest-activities-panel.interface';
 import { FeedStoreService } from 'src/app/shared/services/general/feed-store.service';
+import ParseHelper from 'src/app/shared/utils/parse.helper';
 
 @Component({
   selector: 'latest-activities-panel',
@@ -21,10 +22,13 @@ export class LatestActivitiesPanelComponent implements OnInit {
   public showAll: false;
 
   public ngOnInit(): void {
-    this.title = this.data.title.get();
-    this.teaser = this.data.teaser.get();
-    this.activityCells = Object.values(this.data.feed.get());
-    this.showAll = this.data.showSeeAllButton.get();
-    this.feedStoreService.current.subscribe(feed => { });
+    this.parse();
+  }
+  private parse(): void {
+    const parsed = ParseHelper.parseUbaselineData(this.data);
+    this.title = parsed.title;
+    this.teaser = parsed.teaser;
+    this.activityCells = Object.values(parsed.feed);
+    this.showAll = parsed.showSeeAllButton;
   }
 }

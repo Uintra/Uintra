@@ -19,6 +19,8 @@ export class LatestActivityComponent implements OnInit {
   constructor(private sanitizer: DomSanitizer) { }
 
   public ngOnInit(): void {
+    debugger;
+    this.activityDate = Object.values(this.activityDate)[0];
     this.sanitizedActivityDescription = this.sanitizer.bypassSecurityTrustHtml(this.activityDescription);
   }
 }
