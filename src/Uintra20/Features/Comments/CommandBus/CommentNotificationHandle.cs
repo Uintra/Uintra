@@ -41,13 +41,14 @@ namespace Uintra20.Features.Comments.CommandBus
         {
             var commentsTargetEntityId = command.TargetId;
 
-            if (command.TargetType.Is(IntranetEntityTypeEnum.News, IntranetEntityTypeEnum.Social, IntranetEntityTypeEnum.Events))
-                return BroadcastResult.Success;
-
+            if (!command.TargetType.Is(IntranetEntityTypeEnum.News, IntranetEntityTypeEnum.Social,
+                IntranetEntityTypeEnum.Events)) return BroadcastResult.Success;
+            
             var notifiableService = _activitiesServiceFactory.GetNotifyableService(commentsTargetEntityId);
             notifiableService.Notify(command.EditDto.Id, NotificationTypeEnum.CommentEdited);
 
             return BroadcastResult.Success;
+
         }
     }
 }
