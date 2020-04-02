@@ -72,9 +72,7 @@ namespace Uintra20.Core.Feed.Services
             return baseModel;
         }
 
-        private IntranetActivityPreviewModelBase GetBaseModel(
-            IFeedItem feedItem,
-            bool isGroupFeed)
+        private IntranetActivityPreviewModelBase GetBaseModel(IFeedItem feedItem, bool isGroupFeed)
         {
             if (feedItem is IntranetActivity activity)
             {
@@ -98,62 +96,67 @@ namespace Uintra20.Core.Feed.Services
             return null;
         }
 
-        private IntranetActivityPreviewModelBase ApplyNewsSpecific(
-            News news,
-            IntranetActivityPreviewModelBase preview)
+        private IntranetActivityPreviewModelBase ApplyNewsSpecific(News news, IntranetActivityPreviewModelBase previewModel)
         {
-            var member = _intranetMemberService.GetCurrentMember();
-            var mapped = news.Map(preview);
+            var currentMember = _intranetMemberService.GetCurrentMember();
+            previewModel.Description = news.Description;
+            previewModel.Title = news.Title;
+            previewModel.Owner = _intranetMemberService.Get(news).ToViewModel();
+            previewModel.LikedByCurrentUser = news.Likes.Any(x => x.UserId == currentMember.Id);
+            previewModel.IsGroupMember = !news.GroupId.HasValue || currentMember.GroupIds.Contains(news.GroupId.Value);
+            previewModel.IsPinned = news.IsPinned;
+            previewModel.IsPinActual = news.IsPinActual;
+            previewModel.CanEdit = _intranetActivityServices.First(s => Equals(s.Type, IntranetActivityTypeEnum.News)).CanEdit(news);
+            previewModel.Dates = news.PublishDate.ToDateFormat().ToEnumerable();
+            previewModel.Location = news.Location;
             
-            mapped.Owner = _intranetMemberService.Get(news).ToViewModel();
-            mapped.LikedByCurrentUser = news.Likes.Any(x => x.UserId == member.Id);
-            mapped.IsGroupMember = !news.GroupId.HasValue || member.GroupIds.Contains(news.GroupId.Value);
-            mapped.CanEdit = _intranetActivityServices.First(s => Equals(s.Type, IntranetActivityTypeEnum.News)).CanEdit(news);
-
-            return mapped;
+            return previewModel;
         }
 
-        private IntranetActivityPreviewModelBase ApplySocialSpecific(
-            Social social,
-            IntranetActivityPreviewModelBase preview)
+        private IntranetActivityPreviewModelBase ApplySocialSpecific(Social social, IntranetActivityPreviewModelBase previewModel)
         {
-            var member = _intranetMemberService.GetCurrentMember();
-            var mapped = social.Map(preview);
-
-            mapped.Owner = _intranetMemberService.Get(social).ToViewModel();
-            mapped.LikedByCurrentUser = social.Likes.Any(x => x.UserId == member.Id);
-            mapped.IsGroupMember = !social.GroupId.HasValue || member.GroupIds.Contains(social.GroupId.Value);
-            mapped.CanEdit = _intranetActivityServices.First(s => Equals(s.Type, IntranetActivityTypeEnum.Social)).CanEdit(social);
-
-            return mapped;
-        }
-
-        private IntranetActivityPreviewModelBase ApplyEventSpecific(
-            Event @event,
-            IntranetActivityPreviewModelBase preview)
-        {
-            var member = _intranetMemberService.GetCurrentMember();
-            var mapped = @event.Map(preview);
+            var currentMember = _intranetMemberService.GetCurrentMember();
+            previewModel.Description = social.Description;
+            previewModel.Title = social.Title;
+            previewModel.Owner = _intranetMemberService.Get(social).ToViewModel();
+            previewModel.LikedByCurrentUser = social.Likes.Any(x => x.UserId == currentMember.Id);
+            previewModel.IsGroupMember = !social.GroupId.HasValue || currentMember.GroupIds.Contains(social.GroupId.Value);
+            previewModel.CanEdit = _intranetActivityServices.First(s => Equals(s.Type, IntranetActivityTypeEnum.Social)).CanEdit(social);
+            previewModel.Dates = social.PublishDate.ToDateFormat().ToEnumerable();
+            previewModel.Location = social.Location;
             
-            mapped.Owner = _intranetMemberService.Get(@event).ToViewModel();
-            mapped.LikedByCurrentUser = @event.Likes.Any(x => x.UserId == member.Id);
-            mapped.IsGroupMember = !@event.GroupId.HasValue || member.GroupIds.Contains(@event.GroupId.Value);
-            mapped.CanEdit = _intranetActivityServices.First(s => Equals(s.Type, IntranetActivityTypeEnum.Events)).CanEdit(@event);
-            mapped.CurrentMemberSubscribed = @event.Subscribers.Any(x => x.UserId == member.Id);
-            mapped.Dates = SetDates(@event);
-
-            return mapped;
+            return previewModel;
         }
 
-        private IEnumerable<string> SetDates(Event @event)
+        private IntranetActivityPreviewModelBase ApplyEventSpecific(Event @event, IntranetActivityPreviewModelBase previewModel)
         {
+            var currentMember = _intranetMemberService.GetCurrentMember();
+            previewModel.Description = @event.Description;
+            previewModel.Title = @event.Title;
+            previewModel.Owner = _intranetMemberService.Get(@event).ToViewModel();
+            previewModel.LikedByCurrentUser = @event.Likes.Any(x => x.UserId == currentMember.Id);
+            previewModel.IsGroupMember = !@event.GroupId.HasValue || currentMember.GroupIds.Contains(@event.GroupId.Value);
+            previewModel.IsPinned = @event.IsPinned;
+            previewModel.IsPinActual = @event.IsPinActual;
+            previewModel.CanEdit = _intranetActivityServices.First(s => Equals(s.Type, IntranetActivityTypeEnum.Events)).CanEdit(@event);
+            previewModel.CurrentMemberSubscribed = @event.Subscribers.Any(x => x.UserId == currentMember.Id);
+            previewModel.Location = @event.Location;
+            
             var startDate = @event.StartDate.ToDateTimeFormat();
+            string endDate;
 
-            var endDate = @event.StartDate.Date == @event.EndDate.Date
-                ? @event.EndDate.ToTimeFormat()
-                : @event.EndDate.ToDateTimeFormat();
+            if (@event.StartDate.Date == @event.EndDate.Date)
+            {
+                endDate = @event.EndDate.ToTimeFormat();
+            }
+            else
+            {
+                endDate = @event.EndDate.ToDateTimeFormat();
+            }
 
-            return new[] { startDate, endDate };
+            @previewModel.Dates = new[] { startDate, endDate };
+
+            return previewModel;
         }
     }
 }
