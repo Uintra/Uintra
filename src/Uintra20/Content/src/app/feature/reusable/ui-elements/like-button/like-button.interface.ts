@@ -1,7 +1,7 @@
 export interface ILikeData {
   likedByCurrentUser: boolean;
   id: string;
-  activityType: string | number;
+  activityType: string;
   likes: Array<IUserLikeData>;
 }
 

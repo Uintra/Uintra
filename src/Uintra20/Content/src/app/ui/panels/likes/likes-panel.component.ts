@@ -5,7 +5,7 @@ import { ILikeData } from 'src/app/feature/reusable/ui-elements/like-button/like
 
 export interface ILikesPanelData {
   entityId: string;
-  activityType: string | number;
+  activityType: string;
   likedByCurrentUser: boolean;
   isReadOnly: boolean;
   showTitle: boolean;
@@ -42,7 +42,7 @@ export class LikesPanel {
       activityType: this.panelData.activityType
     };
     this.isDisabled = this.panelData.isGroupMember;
-    this.isContentPage = this.panelData.activityType == 6;
+    this.isContentPage = this.panelData.activityType == '6';
     if (this.isContentPage) {
       this.hostClass = "likes-panel--content"
     }
