@@ -10,13 +10,14 @@
       autocomplete="off"
       #query
 
-      [value]="inputValue"
-      (keyup)="onQueryChange(query.value, $event.keyCode)"
+      [ngModel]="inputValue"
+      (ngModelChange)="onQueryChange($event)"
+      (keyup)="onKeyClick($event.keyCode)"
       (focus)="openAutocomplete()"/>
 
     <span class="icon icon-search-icon"></span>
   </div>
-  <ul *ngIf="isFocused" class="autocomplete-list">
+  <ul *ngIf="isFocused && inputValue.length > 1" class="autocomplete-list">
     <li
       *ngFor="let item of autocompleteList; index as i"
       class="autocomplete-list__item">
