@@ -4,7 +4,6 @@ import ParseHelper from 'src/app/shared/utils/parse.helper';
 import { AddButtonService } from '../../../main-layout/left-navigation/components/my-links/add-button.service';
 import { IProfilePage } from 'src/app/shared/interfaces/pages/profile/profile-page.interface';
 
-
 @Component({
   selector: 'profile-page',
   templateUrl: './profile-page.html',
