@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ILatestActivitiesPanel } from './latest-activities-panel.interface';
+import { FeedStoreService } from 'src/app/shared/services/general/feed-store.service';
 
 @Component({
   selector: 'latest-activities-panel',
@@ -9,7 +10,9 @@ import { ILatestActivitiesPanel } from './latest-activities-panel.interface';
 })
 export class LatestActivitiesPanelComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private feedStoreService: FeedStoreService
+  ) { }
 
   public readonly data: ILatestActivitiesPanel;
   public title: string;
@@ -22,7 +25,6 @@ export class LatestActivitiesPanelComponent implements OnInit {
     this.teaser = this.data.teaser.get();
     this.activityCells = Object.values(this.data.feed.get());
     this.showAll = this.data.showSeeAllButton.get();
+    this.feedStoreService.current.subscribe(feed => { });
   }
 }
-
-
