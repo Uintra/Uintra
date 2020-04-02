@@ -1,24 +1,22 @@
-<div>
-    <section>
-        <div class="holder">
-            <h2 class="holder__title">{{title}}</h2>
-            <div class="holder__teaser rte"
-                 [innerHTML]="teaser"></div>
-            <div *ngFor="let activity of activityCells"
-                 class="block-item">
-                <latest-activity [activityType]="activity.type"
-                                 [activityDate]="activity.dates"
-                                 [activityId]="activity.id"
-                                 [activityLinks]="activity.links"
-                                 [activityTitle]="activity.title"
-                                 [activityDescription]="activity.description">
-                </latest-activity>
-            </div>
-            <a routerLink="socials"
-               class="holder__button"
-               *ngIf="showAll">
-                {{'latestActivities.SeeAll.btn' | translate}}
-            </a>
+<section>
+    <div class="holder">
+        <h2 class="holder__title">{{title}}</h2>
+        <div class="holder__teaser rte"
+             [innerHTML]="teaser"></div>
+        <div *ngFor="let activity of activities"
+             class="block-item">
+            <latest-activity [activityType]="activity.type"
+                             [activityDate]="activity.dates"
+                             [activityId]="activity.id"
+                             [activityLinks]="activity.links"
+                             [activityTitle]="activity.title"
+                             [activityDescription]="activity.description">
+            </latest-activity>
         </div>
-    </section>
-</div>
+        <a routerLink="socials"
+           class="holder__button"
+           *ngIf="showAll">
+            {{'latestActivities.SeeAll.btn' | translate}}
+        </a>
+    </div>
+</section>

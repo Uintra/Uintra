@@ -1,9 +1,8 @@
 import { Component, ViewEncapsulation, OnInit, NgZone } from "@angular/core";
 import { ICentralFeedPanel, IPublicationsResponse, IFilterState } from "./central-feed-panel.interface";
-import { UmbracoFlatPropertyModel, IUmbracoProperty } from "@ubaseline/next";
+import { UmbracoFlatPropertyModel } from "@ubaseline/next";
 import { PublicationsService } from "./helpers/publications.service";
 import { SignalrService } from "src/app/shared/services/general/signalr.service";
-import { ActivityService } from 'src/app/feature/specific/activity/activity.service';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -25,11 +24,10 @@ export class CentralFeedPanel implements OnInit {
 
   constructor(
     private publicationsService: PublicationsService,
-    private socialService: ActivityService,
     private signalrService: SignalrService,
     private ngZone: NgZone,
     private translate: TranslateService,
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.tabs = this.filtersBuilder();
