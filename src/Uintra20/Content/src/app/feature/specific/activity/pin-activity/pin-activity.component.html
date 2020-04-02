@@ -1,10 +1,10 @@
 <div class="pin-block form-row">
   <h3 class="pin-block__title subtitle">{{'pin.Activity.lbl' | translate}}</h3>
-  <checkbox-input [(ngModel)]="isPinCheked"
+  <checkbox-input [(ngModel)]="isPinChecked"
                   (ngModelChange)='onAcceptedChange()'>
     {{'pin.SetPinned.lbl' | translate}}
   </checkbox-input>
-  <div *ngIf="isPinCheked"
+  <div *ngIf="isPinChecked"
        class="pin-info">
     <div class="pin-info__box">
       <div class="pin-info__text">
