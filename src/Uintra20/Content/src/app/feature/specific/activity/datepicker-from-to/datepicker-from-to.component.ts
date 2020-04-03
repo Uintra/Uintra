@@ -9,6 +9,7 @@ import {
 import * as moment from "moment";
 import { IDatePickerOptions } from "src/app/shared/interfaces/DatePickerOptions";
 import { IDatepickerData } from "./datepiker-from-to.interface";
+import { PinActivityService } from '../pin-activity/pin-activity.service';
 
 @Component({
   selector: "app-datepicker-from-to",
@@ -40,8 +41,9 @@ export class DatepickerFromToComponent implements OnInit {
   };
 
   minDate: any;
+  eventSubscription: any;
 
-  constructor() {}
+  constructor(private pinActivityService: PinActivityService) {}
 
   ngOnInit(): void {
     this.fromDate =
@@ -60,16 +62,32 @@ export class DatepickerFromToComponent implements OnInit {
         : moment();
 
     this.setOptionsInitialValues();
+
+    if (this.isEvent) {
+      this.eventSubscription = this.pinActivityService.publishDates$.subscribe((dates: IDatepickerData) => {
+        if (dates.from) {
+          const minDate = moment(dates.from).clone();
+          this.optFrom = {
+            ...this.optFrom,
+            minDate: minDate.hours(0).minutes(0).seconds(0),
+          };
+          if (moment(dates.from) > moment(this.fromDate)) {
+            this.fromModelChanged(moment(dates.from));
+            this.handleChange.emit(this.buildDateObject());
+          }
+        }
+      });
+    }
   }
 
   setOptionsInitialValues() {
     this.optFrom = {
       ...this.optFrom,
-      minDate: this.minDate.subtract(5, "seconds")
+      minDate: this.minDate
     };
     this.optTo = {
       ...this.optTo,
-      minDate: this.minDate.subtract(5, "seconds")
+      minDate: this.minDate
     };
   }
 
@@ -82,7 +100,7 @@ export class DatepickerFromToComponent implements OnInit {
           }
         : {
             ...this.optTo,
-            minDate: this.fromDate.subtract(5, "seconds")
+            minDate: this.fromDate
           };
 
     this.handleChange.emit(this.buildDateObject());
@@ -90,7 +108,7 @@ export class DatepickerFromToComponent implements OnInit {
 
   fromModelChanged(value) {
     if (value) {
-      this.fromDate = value;
+      this.fromDate = moment(value.format());
       if (this.toDate < value && this.isEvent) {
         this.toDate = value.add(8, "hours");
       }
@@ -106,7 +124,7 @@ export class DatepickerFromToComponent implements OnInit {
     this.optFrom = this.toDate && !this.isEvent
       ? {
           ...this.optFrom,
-          maxDate: this.toDate.add(5, "seconds")
+          maxDate: this.toDate
         }
       : {
           ...this.optFrom,
@@ -121,5 +139,11 @@ export class DatepickerFromToComponent implements OnInit {
       from: this.fromDate ? this.fromDate.format() : null,
       to: this.toDate ? this.toDate.format() : null
     };
+  }
+
+  ngOnDestroy() {
+    if (this.isEvent) {
+      this.eventSubscription.unsubscribe();
+    }
   }
 }

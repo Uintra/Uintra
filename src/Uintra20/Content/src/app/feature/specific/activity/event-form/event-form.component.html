@@ -57,7 +57,7 @@
   <div class="datepicker">
     <sq-datetimepicker [groupClass]="'udatepicker'"
                        [inputClass]="'udatepicker-input'"
-                       [ngModel]="eventsData.publishDate"
+                       [ngModel]="initialDates.publishDate"
                        (ngModelChange)="onPublishDateChange($event)"
                        [mode]="'input'"
                        [options]="publishDatepickerOptions"></sq-datetimepicker>
@@ -82,7 +82,8 @@
   </div>
   <app-pin-activity *ngIf="eventsData.pinAllowed"
                     noMaxDate
-                    [publishDate]="initialDates.publishDate"
+                    isEvent
+                    [publishDate]="eventsData.publishDate"
                     [isPinChecked]="eventsData.isPinned"
                     [isAccepted]="isAccepted"
                     [endPinDate]="eventsData.endPinDate"

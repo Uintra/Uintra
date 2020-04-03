@@ -27,6 +27,10 @@ export class EventFormComponent implements OnInit, AfterViewInit {
   @Output() cancel = new EventEmitter();
   @Output() hide = new EventEmitter();
 
+  @HostListener('window:beforeunload') checkIfDataChanged() {
+    return !this.hasDataChangedService.hasDataChanged;
+  }
+
   public eventsData: IEventCreateModel;
   public selectedTags: ITagData[] = [];
   public isAccepted: boolean;
@@ -55,7 +59,7 @@ export class EventFormComponent implements OnInit, AfterViewInit {
 
     this.publishDatepickerOptions = {
       showClose: true,
-      minDate: this.eventsData.publishDate ? this.eventsData.publishDate : moment(),
+      minDate: this.edit ?  moment(this.initialDates.publishDate) : moment().subtract(5, "seconds").format(),
       ignoreReadonly: true
     };
 
@@ -66,10 +70,6 @@ export class EventFormComponent implements OnInit, AfterViewInit {
 
   public ngAfterViewInit(): void {
     this.contentService.makeReadonly('.udatepicker-input');
-  }
-
-  @HostListener('window:beforeunload') checkIfDataChanged() {
-    return !this.hasDataChangedService.hasDataChanged;
   }
 
   private setInitialData(): void {
@@ -115,28 +115,16 @@ export class EventFormComponent implements OnInit, AfterViewInit {
     this.eventsData.description = e;
   }
 
-  public setDatePickerValue(value: IDatepickerData = {}): void {
-
-    if (this.compareDates(value)) {
+  // Data set functions
+  setDatePickerValue(value: IDatepickerData = {}) {
+    const test = moment(this.initialDates.from).format();
+    if ((moment(this.initialDates.from).format() != value.from && moment(this.initialDates.from).subtract(5, "seconds").format() != value.from)
+      || (moment(this.initialDates.to).format() != value.to && (moment(this.initialDates.to).add(5, "seconds").format() != value.to))) {
       this.hasDataChangedService.onDataChanged();
     }
-
     this.eventsData.startDate = value.from;
     this.eventsData.endDate = value.to;
-    this.publishDatepickerOptions = {
-      showClose: true,
-      minDate: moment(value.from),
-      ignoreReadonly: true
-    };
   }
-
-  private compareDates(value): boolean {
-    return (moment(this.initialDates.from).format() !== value.from
-      && moment(this.initialDates.from).subtract(5, "seconds").format() !== value.from)
-      || (moment(this.initialDates.to).format() !== value.to
-        && (moment(this.initialDates.to).add(5, "seconds").format() !== value.to));
-  }
-
   public setPinValue(value: IPinedData): void {
     if (this.data.endPinDate !== this.eventsData.endPinDate) {
       this.hasDataChangedService.onDataChanged();
@@ -153,18 +141,17 @@ export class EventFormComponent implements OnInit, AfterViewInit {
   }
 
   public onPublishDateChange(event: any): void {
-
     if (event) {
-
-      this.eventsData.publishDate = event;
+      this.eventsData.publishDate = event.format();
+      if (event > moment(this.eventsData.endPinDate)) {
+        this.eventsData.endPinDate = this.eventsData.publishDate;
+      }
       this.pinActivityService.setPublishDates({ from: this.eventsData.publishDate });
 
-      if (event && event._i && event._i !== this.initialDates.publishDate) {
-
+      if (event._i && event._i !== this.initialDates.publishDate) {
         this.hasDataChangedService.onDataChanged();
       }
     }
-
   }
 
   public onLocationTitleChange(val: any): void {
