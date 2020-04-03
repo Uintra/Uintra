@@ -11,38 +11,6 @@
     </div>
     <div class="umb-panel-body">
         <div class="umb-pane">
-            <div class="paging">
-                <div class="totalpages">Total pages are {{pagination.pages}}</div>
-                <input type="button"
-                       class="btn"
-                       ng-disabled="pagination.page == 1"
-                       value="First"
-                       ng-click="firstPage()" />
-                <input type="button"
-                       class="btn"
-                       ng-disabled="pagination.page == 1"
-                       value="Prev"
-                       ng-click="previousPage()" />
-                <ul>
-                    <li ng-repeat="pageItem in pagination.displaybtn track by $index">
-                        <input type="button"
-                               class="btn"
-                               value="pageItem"
-                               ng-class="{currentpage: pageItem == pagination.page}"
-                               ng-click="moveToCurrent(pageItem)" />
-                    </li>
-                </ul>
-                <input type="button"
-                       class="btn"
-                       ng-disabled="pagination.page == pagination.pages || mails.length == 0"
-                       value="Next"
-                       ng-click="nextPage()" />
-                <input type="button"
-                       class="btn"
-                       ng-disabled="pagination.page == pagination.pages || mails.length == 0"
-                       value="Last"
-                       ng-click="lastPage()" />
-            </div>
             <form ng-submit="showFiltersValue()">
                 <div class="filters">
                     <table style="text-align: right;margin: 0 auto;">
@@ -227,7 +195,7 @@
                     <tr ng-repeat="mail in mails track by $index">
                         <td ng-repeat="setting in columnSettings track by $index">
                             <div ng-if="setting.Alias == 'Body' || setting.Alias == 'FromName' || setting.Alias == 'ToName'"
-                                 ng-bind-html-unsafe="mail[setting.Alias]"></div>
+                                 ng-bind-html="mail[setting.Alias]"></div>
                             <div ng-if="setting.Alias != 'Body' && setting.Alias != 'IsSent' && setting.Alias != 'FromName' && setting.Alias != 'ToName' && setting.Alias != 'Attachments'">
                                 {{mail[setting.Alias]}}
                             </div>
@@ -266,7 +234,7 @@
                     <li ng-repeat="pageItem in pagination.displaybtn track by $index">
                         <input type="button"
                                class="btn"
-                               value="pageItem"
+                               ng-value="pageItem"
                                ng-class="{currentpage: pageItem == pagination.page}"
                                ng-click="moveToCurrent(pageItem)" />
                     </li>
