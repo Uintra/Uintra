@@ -97,20 +97,20 @@ export class EventFormComponent implements OnInit, AfterViewInit {
       this.eventsData.ownerId = owner.id;
     }
     if (this.defaultOwner.id !== this.eventsData.ownerId) {
-      this.hasDataChangedService.onDataChanged();
+      this.hasDataChangedService.onDataChanged();debugger
     }
   }
 
   public onTitleChange(e: any): void {
     if (this.eventsData.title !== e) {
-      this.hasDataChangedService.onDataChanged();
+      this.hasDataChangedService.onDataChanged();debugger
     }
     this.eventsData.title = e;
   }
 
   public onDescriptionChange(e: any): void {
     if (this.eventsData.description !== e) {
-      this.hasDataChangedService.onDataChanged();
+      this.hasDataChangedService.onDataChanged();debugger
     }
     this.eventsData.description = e;
   }
@@ -118,16 +118,16 @@ export class EventFormComponent implements OnInit, AfterViewInit {
   // Data set functions
   setDatePickerValue(value: IDatepickerData = {}) {
     const test = moment(this.initialDates.from).format();
-    if ((moment(this.initialDates.from).format() != value.from && moment(this.initialDates.from).subtract(5, "seconds").format() != value.from)
-      || (moment(this.initialDates.to).format() != value.to && (moment(this.initialDates.to).add(5, "seconds").format() != value.to))) {
-      this.hasDataChangedService.onDataChanged();
+    if ((moment(this.initialDates.from).format() != value.from && moment(this.initialDates.from).add(5, "seconds").format() != value.from)
+      || (moment(this.initialDates.to).format() != value.to && (moment(this.initialDates.to).subtract(5, "seconds").format() != value.to))) {
+      this.hasDataChangedService.onDataChanged();debugger
     }
     this.eventsData.startDate = value.from;
     this.eventsData.endDate = value.to;
   }
   public setPinValue(value: IPinedData): void {
     if (this.data.endPinDate !== this.eventsData.endPinDate) {
-      this.hasDataChangedService.onDataChanged();
+      this.hasDataChangedService.onDataChanged();debugger
     }
     this.eventsData.endPinDate = value.pinDate;
     this.eventsData.isPinned = value.isPinChecked;
@@ -137,7 +137,7 @@ export class EventFormComponent implements OnInit, AfterViewInit {
   public setLocationValue(location: ILocationResult): void {
     this.eventsData.location.address = location.address;
     this.eventsData.location.shortAddress = location.shortAddress;
-    this.hasDataChangedService.onDataChanged();
+    this.hasDataChangedService.onDataChanged();debugger
   }
 
   public onPublishDateChange(event: any): void {
@@ -149,44 +149,46 @@ export class EventFormComponent implements OnInit, AfterViewInit {
       this.pinActivityService.setPublishDates({ from: this.eventsData.publishDate });
 
       if (event._i && event._i !== this.initialDates.publishDate) {
-        this.hasDataChangedService.onDataChanged();
+        this.hasDataChangedService.onDataChanged();debugger
       }
     }
   }
 
   public onLocationTitleChange(val: any): void {
+    if (this.eventsData.locationTitle !== val) {
+      this.hasDataChangedService.onDataChanged();debugger
+    }
     this.eventsData.locationTitle = val;
-    this.hasDataChangedService.onDataChanged();
   }
 
   public onUploadSuccess(fileArray: Array<any> = []): void {
     this.files.push(fileArray);
-    this.hasDataChangedService.onDataChanged();
+    this.hasDataChangedService.onDataChanged();debugger
   }
 
   public onFileRemoved(removedFile: object): void {
     this.files = this.files.filter(file => file[0] !== removedFile);
-    this.hasDataChangedService.onDataChanged();
+    this.hasDataChangedService.onDataChanged();debugger
   }
 
   public handleImageRemove(image: any): void {
     this.eventsData.media.medias = this.eventsData.media.medias.filter(m => m !== image);
-    this.hasDataChangedService.onDataChanged();
+    this.hasDataChangedService.onDataChanged();debugger
   }
 
   public handleFileRemove(file: any): void {
     this.eventsData.media.otherFiles = this.eventsData.media.otherFiles.filter(m => m !== file);
-    this.hasDataChangedService.onDataChanged();
+    this.hasDataChangedService.onDataChanged();debugger
   }
 
   public onSubscriptionCheckboxChange(val: any): void {
     this.eventsData.canSubscribe = val;
-    this.hasDataChangedService.onDataChanged();
+    this.hasDataChangedService.onDataChanged();debugger
   }
 
   public onSubscriptionNoteChange(val: any): void {
     this.eventsData.subscribeNotes = val;
-    this.hasDataChangedService.onDataChanged();
+    this.hasDataChangedService.onDataChanged();debugger
   }
 
   public onSubmit(): void {
