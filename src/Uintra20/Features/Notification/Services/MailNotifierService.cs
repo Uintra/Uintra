@@ -18,7 +18,10 @@ namespace Uintra20.Features.Notification.Services
     {
         private readonly IMailService _mailService;
         private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
-        private readonly INotificationModelMapper<EmailNotifierTemplate, EmailNotificationMessage> _notificationModelMapper;
+
+        private readonly INotificationModelMapper<EmailNotifierTemplate, EmailNotificationMessage>
+            _notificationModelMapper;
+
         private readonly INotificationSettingsService _notificationSettingsService;
         private readonly ISqlRepository<Sql.Notification> _notificationRepository;
 
@@ -60,7 +63,7 @@ namespace Uintra20.Features.Notification.Services
                     IsViewed = false,
                     Type = data.NotificationType.ToInt(),
                     NotifierType = NotifierTypeEnum.EmailNotifier.ToInt(),
-                    Value = new { message }.ToJson(),
+                    Value = new {message}.ToJson(),
                     ReceiverId = receiverId
                 });
             }
@@ -70,29 +73,30 @@ namespace Uintra20.Features.Notification.Services
         {
             var identity = GetSettingsIdentity(data);
 
-            var settings = await _notificationSettingsService.GetAsync<EmailNotifierTemplate>(identity);
-            if (!settings.IsEnabled) return;
-            //var receivers = (await _intranetMemberService.GetManyAsync(data.ReceiverIds)).ToList();
-            var receivers = (_intranetMemberService.GetMany(data.ReceiverIds)).ToList();
-            foreach (var receiverId in data.ReceiverIds)
+            var settings = _notificationSettingsService.Get<EmailNotifierTemplate>(identity);
+            if (settings != null && settings.IsEnabled)
             {
-                var user = receivers.Find(receiver => receiver.Id == receiverId);
-
-                //var message = await _notificationModelMapper.MapAsync(data.Value, settings.Template, user);
-                var message = _notificationModelMapper.Map(data.Value, settings.Template, user);
-                await _mailService.SendAsync(message);
-
-                await _notificationRepository.AddAsync(new Sql.Notification()
+                var receivers = (await _intranetMemberService.GetManyAsync(data.ReceiverIds)).ToList();
+                foreach (var receiverId in data.ReceiverIds)
                 {
-                    Id = Guid.NewGuid(),
-                    Date = DateTime.UtcNow,
-                    IsNotified = true,
-                    IsViewed = false,
-                    Type = data.NotificationType.ToInt(),
-                    NotifierType = NotifierTypeEnum.EmailNotifier.ToInt(),
-                    Value = new { message }.ToJson(),
-                    ReceiverId = receiverId
-                });
+                    var user = receivers.Find(receiver => receiver.Id == receiverId);
+
+                    var message = _notificationModelMapper.Map(data.Value, settings.Template, user);
+
+                    _mailService.SendAsync(message);
+
+                    _notificationRepository.AddAsync(new Sql.Notification
+                    {
+                        Id = Guid.NewGuid(),
+                        Date = DateTime.UtcNow,
+                        IsNotified = true,
+                        IsViewed = false,
+                        Type = data.NotificationType.ToInt(),
+                        NotifierType = NotifierTypeEnum.EmailNotifier.ToInt(),
+                        Value = new {message}.ToJson(),
+                        ReceiverId = receiverId
+                    });
+                }
             }
         }
 
@@ -102,9 +106,9 @@ namespace Uintra20.Features.Notification.Services
 
             switch (data.NotificationType.ToInt())
             {
-                case (int)NotificationTypeEnum.CommentLikeAdded:
-                case (int)NotificationTypeEnum.MonthlyMail:
-                case (int)IntranetActivityTypeEnum.ContentPage:
+                case (int) NotificationTypeEnum.CommentLikeAdded:
+                case (int) NotificationTypeEnum.MonthlyMail:
+                case (int) IntranetActivityTypeEnum.ContentPage:
                     activityType = CommunicationTypeEnum.CommunicationSettings;
                     break;
                 default:
