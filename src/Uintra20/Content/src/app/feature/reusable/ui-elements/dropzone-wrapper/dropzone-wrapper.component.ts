@@ -44,7 +44,7 @@ export class DropzoneWrapperComponent implements OnInit {
     this.config.maxFiles = this.maxFiles || DEFAULT_DROPZONE_CONFIG.maxFiles;
     this.config.acceptedFiles = this.allowedExtensions ? this.allowedExtensions : null;
     this.className = "dropzone-wrapper";
-    this.message = `${this.withImage ? "<span class='custom-message'><span class='icon-upload'>" : ''}</span>${
+    this.message = `<span class='custom-message'>${this.withImage ? "<span class='icon-upload'></span>" : ''}${
       this.customMessage ? this.customMessage : "Insert image"
     }</span>`;
   }

@@ -19,13 +19,11 @@ import { finalize } from 'rxjs/operators';
   encapsulation: ViewEncapsulation.None
 })
 export class ProfileEditPage implements OnInit {
-  files = [];
   private data: any;
   public profileEdit: IProfileEditPage;
   public profileEditForm: FormGroup;
   public inProgress = false;
   public isUploaded = false;
-  public isAvatarDeleteDisabled = false;
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -133,7 +131,6 @@ export class ProfileEditPage implements OnInit {
   }
 
   public processAvatarUpload(fileArray: Array<any> = []): void {
-    this.files.push(fileArray);
     this.isUploaded = true;
     this.profileEdit.member.newMedia = fileArray[1];
     this.hasDataChangedService.onDataChanged();
@@ -141,14 +138,14 @@ export class ProfileEditPage implements OnInit {
 
   public processAvatarDelete(): void {
     if (confirm(this.translate.instant('profile.DeletePhotoConfirm.lbl'))) {
-      this.isAvatarDeleteDisabled = true;
-      this.profileService.deletePhoto(this.profileEdit.member.photoId).pipe(
-        finalize(() => {this.isAvatarDeleteDisabled = false;})
-      ).subscribe(
-        () => {
-          this.files = [];
-          this.profileEdit.member.photo = null;
+      const currentPhoto = this.profileEdit.member.photo;
+      this.profileEdit.member.photo = null;
+      this.profileService.deletePhoto(this.profileEdit.member.photoId).subscribe(
+        (res) => {
           this.hasDataChangedService.onDataChanged();
+        },
+        (err) => {
+          this.profileEdit.member.photo = currentPhoto;
         }
       );
     }

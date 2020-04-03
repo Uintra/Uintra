@@ -32,6 +32,7 @@ export class AppComponent {
           this.isLoginPage = val.snapshot.component === LoginPage;
           if (this.isLoginPage) {
             this.hasLeftLoginPage = false;
+            document.title = "Uintra | Login";
           }
         }
       }
