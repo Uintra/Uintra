@@ -55,31 +55,33 @@ export class SocialDetailsPanelComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    const parsedData = ParseHelper.parseUbaselineData(this.data);
-    this.details = parsedData.details;
-    this.commentDetails = {
-      entityId: parsedData.details.id,
-      entityType: parsedData.details.activityType
-    };
-    this.canView = !parsedData.requiresRedirect;
-    this.isGroupMember = parsedData.isGroupMember;
-    this.groupHeader = parsedData.groupHeader;
-    this.activityName = this.translateService.instant('socialDetailsTitle.lbl');
-    this.tags = Object.values(parsedData.tags);
-    this.medias = Object.values(parsedData.details.lightboxPreviewModel.medias);
-    this.documents = Object.values(
-      parsedData.details.lightboxPreviewModel.otherFiles
-    );
+    if (this.data) {
+      const parsedData = ParseHelper.parseUbaselineData(this.data);
+      this.details = parsedData.details;
+      this.commentDetails = {
+        entityId: parsedData.details.id,
+        entityType: parsedData.details.activityType
+      };
+      this.canView = !parsedData.requiresRedirect;
+      this.isGroupMember = parsedData.isGroupMember;
+      this.groupHeader = parsedData.groupHeader;
+      this.activityName = this.translateService.instant('socialDetailsTitle.lbl');
+      this.tags = Object.values(parsedData.tags);
+      this.medias = Object.values(parsedData.details.lightboxPreviewModel.medias);
+      this.documents = Object.values(
+        parsedData.details.lightboxPreviewModel.otherFiles
+      );
 
-    this.likeData = {
-      likedByCurrentUser: !!parsedData.likedByCurrentUser,
-      id: parsedData.details.id,
-      activityType: parsedData.details.activityType,
-      likes: parsedData.likes ? Object.values(parsedData.likes) : []
-    };
-    this.detailsDescription = this.sanitizer.bypassSecurityTrustHtml(
-      this.details.description
-    );
+      this.likeData = {
+        likedByCurrentUser: !!parsedData.likedByCurrentUser,
+        id: parsedData.details.id,
+        activityType: parsedData.details.activityType,
+        likes: parsedData.likes ? Object.values(parsedData.likes) : []
+      };
+      this.detailsDescription = this.sanitizer.bypassSecurityTrustHtml(
+        this.details.description
+      );
+    }
   }
 
   public openGallery(i) {

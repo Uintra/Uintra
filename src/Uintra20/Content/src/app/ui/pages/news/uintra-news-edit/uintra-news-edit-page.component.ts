@@ -46,38 +46,40 @@ export class UintraNewsEditPage implements OnInit {
   }
 
   ngOnInit(): void {
-    this.panelData = ParseHelper.parseUbaselineData(this.data);
-    this.details = this.panelData.details;
-    this.members = (Object.values(this.panelData.members) as Array<any>) || [];
-    this.creator = this.details.headerInfo.owner;
-    this.tags = Object.values(this.details.availableTags) || [];
+    if (this.data) {
+      this.panelData = ParseHelper.parseUbaselineData(this.data);
+      this.details = this.panelData.details;
+      this.members = (Object.values(this.panelData.members) as Array<any>) || [];
+      this.creator = this.details.headerInfo.owner;
+      this.tags = Object.values(this.details.availableTags) || [];
 
-    this.newsData = {
-      ownerId: this.details.ownerId,
-      title: this.details.headerInfo.title,
-      description: this.details.description,
-      publishDate: this.details.publishDate,
+      this.newsData = {
+        ownerId: this.details.ownerId,
+        title: this.details.headerInfo.title,
+        description: this.details.description,
+        publishDate: this.details.publishDate,
 
-      unpublishDate: this.details.unpublishDate,
-      media: {
-        medias:
-          (Object.values(this.details.lightboxPreviewModel.medias) as Array<
-            any
-          >) || [],
-        otherFiles:
-          (Object.values(this.details.lightboxPreviewModel.otherFiles) as Array<
-            any
-          >) || []
-      },
-      endPinDate: this.details.endPinDate,
+        unpublishDate: this.details.unpublishDate,
+        media: {
+          medias:
+            (Object.values(this.details.lightboxPreviewModel.medias) as Array<
+              any
+            >) || [],
+          otherFiles:
+            (Object.values(this.details.lightboxPreviewModel.otherFiles) as Array<
+              any
+            >) || []
+        },
+        endPinDate: this.details.endPinDate,
 
-      isPinned: this.details.isPinned,
-      location: {
-        address: this.details.location.address,
-        shortAddress: this.details.location.shortAddress
-      },
-      tags: (Object.values(this.details.tags) as Array<any>) || []
-    };
+        isPinned: this.details.isPinned,
+        location: {
+          address: this.details.location.address,
+          shortAddress: this.details.location.shortAddress
+        },
+        tags: (Object.values(this.details.tags) as Array<any>) || []
+      };
+    }
   }
 
   onSubmit(data) {
