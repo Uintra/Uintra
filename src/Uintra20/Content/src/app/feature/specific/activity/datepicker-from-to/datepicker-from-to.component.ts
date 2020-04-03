@@ -76,6 +76,9 @@ export class DatepickerFromToComponent implements OnInit {
             this.handleChange.emit(this.buildDateObject());
           }
         }
+        if (dates.to) {
+          this.toModelChanged(moment(dates.to))
+        }
       });
     }
   }
