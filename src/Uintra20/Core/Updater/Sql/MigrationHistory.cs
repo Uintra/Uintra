@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Uintra20.Persistence;
 using Uintra20.Persistence.Sql;
 
-namespace Uintra20.MigrationHistories.Sql
+namespace Uintra20.Core.Updater.Sql
 {
     [UintraTable("MigrationHistory")]
     public class MigrationHistory : SqlEntity<int>

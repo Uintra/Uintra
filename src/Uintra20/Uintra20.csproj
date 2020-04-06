@@ -998,6 +998,18 @@
     <Compile Include="Core\Member\CommandBus\MentionHandle.cs" />
     <Compile Include="Core\Member\Controllers\MemberGroupController.cs" />
     <Compile Include="Core\UbaselineModels\PageNotFoundPageModel.cs" />
+    <Compile Include="Core\Updater\2.0\Migration.cs" />
+    <Compile Include="Core\Updater\2.0\Steps\SetupDefaultMemberGroupsPermissionsStep.cs" />
+    <Compile Include="Core\Updater\2.0\Steps\SetupDefaultMemberGroupsStep.cs" />
+    <Compile Include="Core\Updater\ExecutionResult.cs" />
+    <Compile Include="Core\Updater\ExecutionResultType.cs" />
+    <Compile Include="Core\Updater\IMigration.cs" />
+    <Compile Include="Core\Updater\IMigrationHistoryService.cs" />
+    <Compile Include="Core\Updater\IMigrationStep.cs" />
+    <Compile Include="Core\Updater\MigrationExecutor.cs" />
+    <Compile Include="Core\Updater\MigrationHistoryService.cs" />
+    <Compile Include="Core\Updater\MigrationItem.cs" />
+    <Compile Include="Core\Updater\Sql\MigrationHistory.cs" />
     <Compile Include="Features\Events\Handlers\EventHandler.cs" />
     <Compile Include="Core\UmbracoEvents\Services\Contracts\IUmbracoContentPublishedEventService.cs" />
     <Compile Include="Core\UmbracoEvents\Services\Contracts\IUmbracoContentUnPublishedEventService.cs" />
@@ -1776,7 +1788,6 @@
     <Compile Include="Infrastructure\Providers\IContentPageContentProvider.cs" />
     <Compile Include="Infrastructure\UintraInformation\IUintraInformationService.cs" />
     <Compile Include="Infrastructure\UintraInformation\UintraInformationService.cs" />
-    <Compile Include="MigrationHistories\Sql\MigrationHistory.cs" />
     <Compile Include="Core\Feed\Models\IFeedItem.cs" />
     <Compile Include="Features\CentralFeed\Models\GroupFeed\GroupInfo.cs" />
     <Compile Include="Features\Navigation\AutoMapperProfiles\NavigationAutoMapperProfile.cs" />

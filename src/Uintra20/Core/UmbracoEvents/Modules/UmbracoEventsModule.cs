@@ -1,10 +1,13 @@
 ﻿using System.Web.Mvc;
+using LightInject;
+using UBaseline.Core.Extensions;
 using Uintra20.Core.UmbracoEvents.Services.Contracts;
 using Umbraco.Core.Events;
 using Umbraco.Core.Models;
 using Umbraco.Core.Models.Entities;
 using Umbraco.Core.Services;
 using Umbraco.Core.Services.Implement;
+using Umbraco.Web.Composing;
 
 namespace Uintra20.Core.UmbracoEvents.Modules
 {
@@ -86,8 +89,7 @@ namespace Uintra20.Core.UmbracoEvents.Modules
             IMemberGroupService sender,
             SaveEventArgs<IMemberGroup> e)
         {
-            var services =
-                DependencyResolver.Current.GetServices<IUmbracoMemberGroupSavedEventService>();
+            var services = Current.Factory.EnsureScope(s => s.GetAllInstances<IUmbracoMemberGroupSavedEventService>());
 
             foreach (var service in services)
             {
