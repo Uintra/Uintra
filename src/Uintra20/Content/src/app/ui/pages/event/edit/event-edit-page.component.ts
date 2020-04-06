@@ -60,6 +60,7 @@ export class EventEditPage {
     if (confirm(this.translate.instant('common.AreYouSure'))) {
       const isNotificationNeeded = !this.parsedData.details.hasSubscribers || confirm(this.translate.instant('common.NotifyAllSubscribers'));
       this.activityService.hideEvent(this.parsedData.details.id, isNotificationNeeded).subscribe((res: IULink) => {
+        this.hasDataChangedService.reset();
         this.router.navigate([this.parsedData.links.feed.originalUrl]);
       })
     }
