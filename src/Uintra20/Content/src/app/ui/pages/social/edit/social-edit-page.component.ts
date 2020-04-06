@@ -18,6 +18,9 @@ import { TranslateService } from '@ngx-translate/core';
   encapsulation: ViewEncapsulation.None
 })
 export class SocialEditPageComponent {
+  @HostListener('window:beforeunload') checkIfDataChanged() {
+    return !this.hasDataChangedService.hasDataChanged;
+  }
 
   private data: any;
   public files: Array<any> = new Array<any>();
@@ -40,12 +43,12 @@ export class SocialEditPageComponent {
       if (!data.requiresRedirect.get()) {
         this.data = data;
         this.addButtonService.setPageId(data.id);
+        this.onParse();
+        this.initSocialEditForm();
       } else {
         this.router.navigate([data.errorLink.get().originalUrl.get()]);
       }
     });
-    this.onParse();
-    this.initSocialEditForm();
   }
 
   private onParse = (): void => {
@@ -73,10 +76,6 @@ export class SocialEditPageComponent {
       media: null,
       mediaRootId: parsedSocialEdit.mediaRootId
     };
-  }
-
-  @HostListener('window:beforeunload') checkIfDataChanged() {
-    return !this.hasDataChangedService.hasDataChanged;
   }
 
   public handleImageRemove(image): void {

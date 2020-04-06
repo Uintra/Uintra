@@ -13,9 +13,10 @@
                              [activityDescription]="activity.description">
             </latest-activity>
         </div>
-        <a routerLink="socials"
-           class="holder__button"
-           *ngIf="showAll">
+        <a
+          *ngIf="showAll"
+          class="holder__button"
+          (click)=onSeeAllClick()>
             {{'latestActivities.SeeAll.btn' | translate}}
         </a>
     </div>

@@ -1,7 +1,7 @@
 ﻿{
-  "label": "This is an desktop notification that is sent to the creator of the bulletin post when someone adds a comment to it.<br>You can insert the following dynamic values:<br><br>##ActivityTitle## - Head description of bulletin <br>##FullName## - Name of the user who added a comment<br>",
+  "label": "This is an desktop notification that is sent to the creator of the social post when someone adds a comment to it.<br>You can insert the following dynamic values:<br><br>##ActivityTitle## - Head description of social <br>##FullName## - Name of the user who added a comment<br>",
   "template": {
-    "message": "##FullName## has added a comment to your bulletin post: ##ActivityTitle##",
+    "message": "##FullName## has added a comment to your social post: ##ActivityTitle##",
     "title": "##NotificationType##"
   }
 }

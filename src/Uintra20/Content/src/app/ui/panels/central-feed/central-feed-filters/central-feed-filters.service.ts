@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { CookieService } from "ngx-cookie-service";
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: "root"
@@ -8,6 +9,7 @@ export class CentralFeedFiltersService {
   readonly openingStateProperty = "filters-state-opening";
   readonly tabStateProperty = "filters-state-tab";
   readonly filteringStateProperty = "filters-state-filtering";
+  filter = new Subject<number>();
 
   constructor(private cookieService: CookieService) {}
 
@@ -15,7 +17,7 @@ export class CentralFeedFiltersService {
     this.cookieService.set(this.openingStateProperty, JSON.stringify(data));
   }
   setTabState(data) {
-    this.cookieService.set(this.tabStateProperty, JSON.stringify(data));
+    this.cookieService.set(this.tabStateProperty, JSON.stringify(data,));
   }
   setFilteringState(data) {
     this.cookieService.set(this.filteringStateProperty, JSON.stringify(data));
@@ -32,5 +34,8 @@ export class CentralFeedFiltersService {
   getFilteringState() {
     const cookieData = this.cookieService.get(this.filteringStateProperty);
     return cookieData ? JSON.parse(cookieData) : null;
+  }
+  changeFilter(val: number) {
+    this.filter.next(val);
   }
 }

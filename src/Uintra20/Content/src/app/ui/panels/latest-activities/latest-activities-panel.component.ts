@@ -4,6 +4,7 @@ import ParseHelper from 'src/app/shared/utils/parse.helper';
 import { PublicationsService, IFeedListRequest } from '../central-feed/helpers/publications.service';
 import { SignalrService } from 'src/app/shared/services/general/signalr.service';
 import { IPublicationsResponse, IPublication } from '../central-feed/central-feed-panel.interface';
+import { CentralFeedFiltersService } from '../central-feed/central-feed-filters/central-feed-filters.service';
 
 @Component({
   selector: 'latest-activities-panel',
@@ -16,7 +17,8 @@ export class LatestActivitiesPanelComponent implements OnInit {
   constructor(
     private publicationsService: PublicationsService,
     private signalrService: SignalrService,
-    private ngZone: NgZone
+    private ngZone: NgZone,
+    private CFFilterService: CentralFeedFiltersService,
   ) { }
 
   public readonly data: ILatestActivitiesPanel;
@@ -24,6 +26,7 @@ export class LatestActivitiesPanelComponent implements OnInit {
   public teaser: string;
   public activities: Array<IPublication> = new Array<IPublication>();
   public showAll: false;
+  public activityType: number;
 
   public ngOnInit(): void {
     this.parse();
@@ -36,6 +39,7 @@ export class LatestActivitiesPanelComponent implements OnInit {
     this.teaser = parsed.teaser;
     this.activities = Object.values(parsed.feed);
     this.showAll = parsed.showSeeAllButton;
+    this.activityType = parsed.activityType.activityId;
   }
 
   private reload(): void {
@@ -54,6 +58,10 @@ export class LatestActivitiesPanelComponent implements OnInit {
       },
       Page: 1
     };
+  }
+
+  onSeeAllClick() {
+    this.CFFilterService.changeFilter(this.activityType);
   }
 
   private cleanLatestActivity = () =>

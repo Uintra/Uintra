@@ -46,33 +46,28 @@ export class UintraNewsDetailsPage implements OnInit {
   }
 
   public ngOnInit(): void {
-    this.parsedData = ParseHelper.parseUbaselineData(this.data);
-    console.log(this.parsedData);
-    this.details = this.parsedData.details;
-    this.commentDetails = {
-      entityId: this.parsedData.details.id,
-      entityType: this.parsedData.details.activityType
-    };
-    this.activityName = this.translateService.instant('newsDetails.Title');
-    this.tags = Object.values(this.parsedData.tags);
-    this.medias = Object.values(this.parsedData.details.lightboxPreviewModel.medias);
-    this.documents = Object.values(
-      this.parsedData.details.lightboxPreviewModel.otherFiles
-    );
+    if (this.data) {
+      this.parsedData = ParseHelper.parseUbaselineData(this.data);
+      console.log(this.parsedData);
+      this.details = this.parsedData.details;
+      this.commentDetails = {
+        entityId: this.parsedData.details.id,
+        entityType: this.parsedData.details.activityType
+      };
+      this.activityName = this.translateService.instant('newsDetails.Title');
+      this.tags = Object.values(this.parsedData.tags);
+      this.medias = Object.values(this.parsedData.details.lightboxPreviewModel.medias);
+      this.documents = Object.values(
+        this.parsedData.details.lightboxPreviewModel.otherFiles
+      );
 
-    // this.likeData = {
-    //   likedByCurrentUser: !!this.parsedData.likedByCurrentUser,
-    //   id: this.parsedData.details.id,
-    //   activityType: this.parsedData.details.activityType,
-    //   likes: Object.values(this.parsedData.likes)
-    // };
-
-    this.detailsDescription = this.sanitizer.bypassSecurityTrustHtml(
-      this.details.description
-    );
-    this.detailsTitle = this.sanitizer.bypassSecurityTrustHtml(
-      this.details.headerInfo.title
-    );
+      this.detailsDescription = this.sanitizer.bypassSecurityTrustHtml(
+        this.details.description
+      );
+      this.detailsTitle = this.sanitizer.bypassSecurityTrustHtml(
+        this.details.headerInfo.title
+      );
+    }
   }
 
   public openGallery(i) {

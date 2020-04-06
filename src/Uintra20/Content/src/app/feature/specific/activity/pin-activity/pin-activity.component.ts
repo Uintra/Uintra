@@ -20,6 +20,7 @@ export class PinActivityComponent implements OnInit {
   @Input() isAccepted: boolean;
   @Input() endPinDate: string;
   @Input() noMaxDate: any;
+  @Input() isEvent: any;
   @Output() handleChange = new EventEmitter<IPinedData>();
 
   @Input() publishDate: string = null;
@@ -38,15 +39,20 @@ export class PinActivityComponent implements OnInit {
     private contentService: ContentService
   ) {
     this.pinActivityService.publishDates$.subscribe((dates: IDatepickerData) => {
-      this.options = {
+      this.options = this.isEvent ? {
+        ...this.options,
+        minDate: dates.from ? moment(dates.from) : false,
+        maxDate: dates.to && !this.noMaxDate ? moment(dates.to) : false
+      } : {
         ...this.options,
         minDate: dates.from ? moment(dates.from).subtract(5, "minutes") : false,
         maxDate: dates.to && !this.noMaxDate ? moment(dates.to).add(5, "minutes") : false
-      };
+      }
     });
   }
 
   public ngOnInit(): void {
+    this.isEvent = this.isEvent !== undefined;
     this.noMaxDate = this.noMaxDate !== undefined;
     this.pinedDateValue = {
       isPinChecked: this.isPinChecked,
