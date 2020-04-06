@@ -118,8 +118,19 @@ export class EventFormComponent implements OnInit, AfterViewInit {
   // Data set functions
   setDatePickerValue(value: IDatepickerData = {}) {
     const test = moment(this.initialDates.from).format();
-    if ((moment(this.initialDates.from).format() != value.from && moment(this.initialDates.from).add(5, "seconds").format() != value.from)
-      || (moment(this.initialDates.to).format() != value.to && (moment(this.initialDates.to).subtract(5, "seconds").format() != value.to))) {
+    const test1 = moment(this.initialDates.publishDate).format();
+    if ((
+        moment(this.initialDates.from).format() != value.from
+        && moment(this.initialDates.from).add(5, "seconds").format() != value.from
+        && moment(this.initialDates.publishDate).format() != value.from
+        && moment(this.initialDates.publishDate).add(5, "seconds").format() != value.from
+      )
+      || (
+        moment(this.initialDates.to).format() != value.to
+        && moment(this.initialDates.to).subtract(5, "seconds").format() != value.to
+        && moment(this.initialDates.publishDate).add(8, "hours").format() != value.to
+        && moment(this.initialDates.publishDate).add(8, "hours").subtract(5, "seconds").format() != value.to
+      )) {
       this.hasDataChangedService.onDataChanged();
     }
     this.eventsData.startDate = value.from;
