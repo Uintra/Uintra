@@ -999,6 +999,7 @@
     <Compile Include="Core\Member\Controllers\MemberGroupController.cs" />
     <Compile Include="Core\UbaselineModels\PageNotFoundPageModel.cs" />
     <Compile Include="Core\Updater\2.0\Migration.cs" />
+    <Compile Include="Core\Updater\2.0\Steps\SetupDefaultMediaFoldersStep.cs" />
     <Compile Include="Core\Updater\2.0\Steps\SetupDefaultMemberGroupsPermissionsStep.cs" />
     <Compile Include="Core\Updater\2.0\Steps\SetupDefaultMemberGroupsStep.cs" />
     <Compile Include="Core\Updater\ExecutionResult.cs" />
