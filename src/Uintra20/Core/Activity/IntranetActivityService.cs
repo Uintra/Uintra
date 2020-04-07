@@ -10,6 +10,8 @@ using Uintra20.Core.Member.Abstractions;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Services;
 using Uintra20.Features.LinkPreview;
+using Uintra20.Features.LinkPreview.Contracts;
+using Uintra20.Features.LinkPreview.Services;
 using Uintra20.Features.Location.Services;
 using Uintra20.Features.Media;
 using Uintra20.Features.Media.Intranet.Services.Contracts;

@@ -1529,7 +1529,7 @@
     <Compile Include="Core\Feed\Services\IFeedSettingsService.cs" />
     <Compile Include="Features\Information\IInformationService.cs" />
     <Compile Include="Features\Information\InformationService.cs" />
-    <Compile Include="Features\LinkPreview\LinkPreviewConfiguration.cs" />
+    <Compile Include="Features\LinkPreview\Configurations\LinkPreviewConfiguration.cs" />
     <Compile Include="Features\Media\Enums\MediaTypeEnum.cs" />
     <Compile Include="Features\Media\Strategies\Preset\CentralFeedPresetStrategy.cs" />
     <Compile Include="Features\Media\Strategies\Preset\IPresetStrategy.cs" />
@@ -1730,11 +1730,11 @@
     <Compile Include="Features\Likes\Services\ILikesService.cs" />
     <Compile Include="Features\Likes\Services\LikesService.cs" />
     <Compile Include="Features\Likes\Sql\Like.cs" />
-    <Compile Include="Features\LinkPreview\ActivityLinkPreviewService.cs" />
+    <Compile Include="Features\LinkPreview\Services\ActivityLinkPreviewService.cs" />
     <Compile Include="Features\LinkPreview\AutoMapperProfiles\LinkPreviewAutoMapperProfile.cs" />
-    <Compile Include="Features\LinkPreview\IActivityLinkPreviewService.cs" />
-    <Compile Include="Features\LinkPreview\IHasLinkPreview.cs" />
-    <Compile Include="Features\LinkPreview\LinkPreviewModelMapper.cs" />
+    <Compile Include="Features\LinkPreview\Services\IActivityLinkPreviewService.cs" />
+    <Compile Include="Features\LinkPreview\Contracts\IHasLinkPreview.cs" />
+    <Compile Include="Features\LinkPreview\Mappers\LinkPreviewModelMapper.cs" />
     <Compile Include="Features\LinkPreview\Models\LinkPreview.cs" />
     <Compile Include="Features\LinkPreview\Models\LinkPreviewViewModel.cs" />
     <Compile Include="Features\LinkPreview\Sql\ActivityToLinkPreviewEntity.cs" />
@@ -2094,6 +2094,8 @@
     <Folder Include="Core\Feed\Web\" />
     <Folder Include="Core\Member\Events\" />
     <Folder Include="Core\Search\Indexers\Diagnostics\Services\" />
+    <Folder Include="Features\LinkPreview\Constants\" />
+    <Folder Include="Features\LinkPreview\Controllers\" />
     <Folder Include="Features\Navigation\ModelBuilders\" />
     <Folder Include="Features\Notification\Commands\" />
     <Folder Include="Media\" />

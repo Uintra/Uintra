@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using Uintra20.Core.Activity.Entities;
 using Uintra20.Core.Member.Abstractions;
 using Uintra20.Features.LinkPreview;
+using Uintra20.Features.LinkPreview.Contracts;
 
 namespace Uintra20.Features.Social
 {
