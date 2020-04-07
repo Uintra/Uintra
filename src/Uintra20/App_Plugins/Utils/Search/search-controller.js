@@ -1,8 +1,8 @@
 ﻿angular
     .module('umbraco')
     .controller('searchController',
-        ['$scope', 'searchService',
-            function ($scope, searchService) {
+        ['$scope','$http',
+            function ($scope,$http) {
 
                 $scope.inProgress = false;
                 $scope.showResult = false;
@@ -11,7 +11,7 @@
 
                 $scope.rebuild = function () {
                     $scope.inProgress = true;
-                    searchService.rebuildIndex()
+                    $http.post('/ubaseline/api/search/rebuildIndex')
                         .then(
                             function (resolve) {
                                 $scope.class = 'alert-success';
@@ -25,7 +25,7 @@
                             function () {
                                 $scope.showResult = true;
                                 $scope.inProgress = false;
-                                
+
                             });
                 };
 

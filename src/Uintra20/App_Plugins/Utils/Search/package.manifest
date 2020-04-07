@@ -1,6 +1,5 @@
 ﻿{
   "javascript": [
-    "~/App_Plugins/Utils/Search/search-controller.js",
-    "~/App_Plugins/Utils/Search/search-service.js"
+    "~/App_Plugins/Utils/Search/search-controller.js"
   ]
 }

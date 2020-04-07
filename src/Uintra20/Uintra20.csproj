@@ -985,7 +985,6 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Utils\Search\search-service.js" />
     <Compile Include="App_Plugins\Utils\Search\SearchDashboard.cs" />
     <Compile Include="App_Start\UintraApplicationComponent.cs" />
     <Compile Include="Core\Article\Events\ArticlePageEventService.cs" />
