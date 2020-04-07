@@ -4,6 +4,7 @@ using Uintra20.Features.Permissions.Interfaces;
 using Uintra20.Features.Permissions.Models;
 using Uintra20.Infrastructure.Caching;
 using Uintra20.Infrastructure.Extensions;
+using Umbraco.Core.Logging;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 
@@ -12,32 +13,28 @@ namespace Uintra20.Features.Permissions.Implementation
     public class IntranetMemberGroupService : IIntranetMemberGroupService
     {
         protected virtual string IntranetMemberGroupCacheKey => "IntranetMemberGroupCache";
+        private readonly ILogger _logger;
         private readonly IMemberService _memberService;
         private readonly IMemberGroupService _memberGroupService;
         private readonly ICacheService _cacheService;
 
         public IntranetMemberGroupService(IMemberGroupService memberGroupService,
             IMemberService memberService,
-            ICacheService cacheService)
+            ICacheService cacheService,
+            ILogger logger)
         {
             _memberGroupService = memberGroupService;
             _memberService = memberService;
             _cacheService = cacheService;
+            _logger = logger;
         }
 
-        protected virtual IEnumerable<IntranetMemberGroup> CurrentCache
+        protected virtual IEnumerable<IntranetMemberGroup> CurrentCache()
         {
-            get => _cacheService.GetOrSet(IntranetMemberGroupCacheKey,
-                () => _memberGroupService
-                    .GetAll()
-                    .Map<IEnumerable<IntranetMemberGroup>>());
-            //get => _mapper.Map<IEnumerable<IntranetMemberGroup>>(_cacheService.GetOrSet(IntranetMemberGroupCacheKey,
-            //    () => _memberGroupService.GetAll()));
-
-            set => _cacheService.Set(IntranetMemberGroupCacheKey, value);
+            return _cacheService.GetOrSet(IntranetMemberGroupCacheKey, () => _memberGroupService.GetAll().Map<IEnumerable<IntranetMemberGroup>>());
         }
 
-        public virtual IEnumerable<IntranetMemberGroup> GetAll() => CurrentCache;
+        public virtual IEnumerable<IntranetMemberGroup> GetAll() => CurrentCache();
 
         public virtual IEnumerable<IntranetMemberGroup> GetForMember(int id)
         {
@@ -58,7 +55,7 @@ namespace Uintra20.Features.Permissions.Implementation
             _memberGroupService.Save(new MemberGroup {Name = name});
             group = _memberGroupService.GetByName(name);
 
-            CurrentCache = CurrentCache.Append(group.Map<IntranetMemberGroup>());
+            ClearCache();
 
             return group.Id;
         }
@@ -72,7 +69,7 @@ namespace Uintra20.Features.Permissions.Implementation
             memberGroup.Name = name;
             _memberGroupService.Save(memberGroup);
 
-            CurrentCache = CurrentCache.Where(x => x.Id != id).Append(memberGroup.Map<IntranetMemberGroup>());
+            ClearCache();
 
             return true;
         }
@@ -82,7 +79,7 @@ namespace Uintra20.Features.Permissions.Implementation
             var group = _memberGroupService.GetById(id);
             _memberGroupService.Delete(group);
 
-            CurrentCache = CurrentCache.Where(x => x.Id != id);
+            ClearCache();
         }
 
         public void RemoveFromAll(int memberId)

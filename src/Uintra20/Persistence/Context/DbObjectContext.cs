@@ -6,6 +6,7 @@ using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using System.Reflection;
 using Uintra20.Core.Activity.Sql;
+using Uintra20.Core.Updater.Sql;
 using Uintra20.Features.Comments.Sql;
 using Uintra20.Features.Groups.Sql;
 using Uintra20.Features.Likes.Sql;
@@ -19,7 +20,6 @@ using Uintra20.Features.Notification.Sql;
 using Uintra20.Features.Permissions.Sql;
 using Uintra20.Features.Subscribe.Sql;
 using Uintra20.Features.Tagging.UserTags.Sql;
-using Uintra20.MigrationHistories.Sql;
 
 namespace Uintra20.Persistence.Context
 {
@@ -62,8 +62,8 @@ namespace Uintra20.Persistence.Context
         public DbSet<CommentToLinkPreviewEntity> CommentToLinkPreviews { get; set; }
         public DbSet<ActivityToLinkPreviewEntity> ActivityToLinkPreviews { get; set; }
         public DbSet<VideoConvertationLog> VideoConvertationLog { get; set; }
-
         public DbSet<PermissionEntity> Permissions { get; set; }
+        
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
