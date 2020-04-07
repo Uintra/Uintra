@@ -17,8 +17,6 @@
     "~/App_Plugins/BaseControls/VideoLink/videoLinkDirective.js",
     "~/App_Plugins/BaseControls/MediaPicker/media-picker.directive.js",
     "~/App_Plugins/BaseControls/LinksPicker/links-picker.js",
-    "/App_Plugins/BaseControls/DatePicker/date-picker.js",
-    "/App_Plugins/BaseControls/DatePicker/flatpickr/flatpickr.js",
     "/App_Plugins/BaseControls/TinyMce/tiny-mce.js",
     "/App_Plugins/BaseControls/TinyMce/RteLinksPicker/rte-links-picker.js",
     "~/App_Plugins/BaseControls/ContentPicker/contentPickerController.js",
@@ -40,9 +38,7 @@
     "/App_Plugins/BaseControls/EditControl/RichTextEditorControl/rich-text-editor-model.js",
     "/App_Plugins/BaseControls/EditControl/RichTextEditorControl/rich-text-editor.js"
   ],
-  "css": [
-    "/App_Plugins/BaseControls/DatePicker/date-picker.css",
-    "/App_Plugins/BaseControls/DatePicker/flatpickr/flatpickr.css",
+  "css": [ 
     "~/App_Plugins/BaseControls/base.css",
     "~/App_Plugins/BaseControls/LinksPicker/links-picker.css",
     "/App_Plugins/BaseControls/TinyMce/tiny-mce.css",
