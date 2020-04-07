@@ -6,6 +6,7 @@ using Uintra20.Core.Activity.Entities;
 using Uintra20.Features.Comments.Links;
 using Uintra20.Features.Comments.Models;
 using Uintra20.Features.Events.Entities;
+using Uintra20.Features.Groups.Links;
 using Uintra20.Features.Groups.Services;
 using Uintra20.Features.Links;
 using Uintra20.Features.Notification.Configuration;
@@ -19,17 +20,21 @@ namespace Uintra20.Infrastructure.Helpers
         private readonly IActivityLinkService _linkService;
         private readonly ICommentLinkHelper _commentLinkHelper;
         private readonly IGroupService _groupService;
+        private readonly IGroupLinkProvider _groupLinkProvider;
 
         const int MaxTitleLength = 100;
 
         public NotifierDataHelper(
             IActivityLinkService linkService,
             ICommentLinkHelper commentLinkHelper,
-            IGroupService groupService)
+            IGroupService groupService,
+            IGroupLinkProvider groupLinkProvider
+            )
         {
             _linkService = linkService;
             _commentLinkHelper = commentLinkHelper;
             _groupService = groupService;
+            _groupLinkProvider = groupLinkProvider;
         }
 
         public CommentNotifierDataModel GetCommentNotifierDataModel(IIntranetActivity activity, CommentModel comment, Enum notificationType, Guid notifierId)
@@ -114,16 +119,22 @@ namespace Uintra20.Infrastructure.Helpers
             NotificationTypeEnum notificationType,
             Guid groupId,
             Guid notifierId,
-            Guid receiverId) =>
-            new GroupInvitationDataModel
+            Guid receiverId)
+        {
+            var group = _groupService.Get(groupId);
+            var groupRoomLink = _groupLinkProvider.GetGroupRoomLink(groupId);
+            var groupInvitationDataModel = new GroupInvitationDataModel
             {
-                Url = $"/groups/room?groupId={groupId}".ToLinkModel(),
-                Title = _groupService.Get(groupId).Title,
+                Url = groupRoomLink,
+                Title = group.Title,
                 NotificationType = notificationType,
                 GroupId = groupId,
                 NotifierId = notifierId,
                 ReceiverId = receiverId
             };
+            return groupInvitationDataModel;
+        }
+            
 
         public async Task<ActivityNotifierDataModel> GetActivityNotifierDataModelAsync(IIntranetActivity activity, Enum notificationType, Guid notifierId)
         {
