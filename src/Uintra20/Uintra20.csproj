@@ -641,11 +641,6 @@
     <Content Include="App_Plugins\BaseControls\base.css" />
     <Content Include="App_Plugins\BaseControls\ColorPicker\color-picker.js" />
     <Content Include="App_Plugins\BaseControls\ContentPicker\ContentPickerController.js" />
-    <Content Include="App_Plugins\BaseControls\DatePicker\date-picker.css" />
-    <Content Include="App_Plugins\BaseControls\DatePicker\date-picker.html" />
-    <Content Include="App_Plugins\BaseControls\DatePicker\date-picker.js" />
-    <Content Include="App_Plugins\BaseControls\DatePicker\flatpickr\flatpickr.css" />
-    <Content Include="App_Plugins\BaseControls\DatePicker\flatpickr\flatpickr.js" />
     <Content Include="App_Plugins\BaseControls\directives.js" />
     <Content Include="App_Plugins\BaseControls\EditControl\edit-control-model.js" />
     <Content Include="App_Plugins\BaseControls\EditControl\edit-control.html" />
