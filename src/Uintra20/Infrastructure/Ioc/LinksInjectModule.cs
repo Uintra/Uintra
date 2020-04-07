@@ -1,17 +1,12 @@
-﻿using Compent.LinkPreview.HttpClient;
-using Compent.Shared.DependencyInjection.Contract;
+﻿using Compent.Shared.DependencyInjection.Contract;
 using Uintra20.Features.CentralFeed.Links;
 using Uintra20.Features.Groups.Links;
-using Uintra20.Features.LinkPreview;
-using Uintra20.Features.LinkPreview.Configurations;
-using Uintra20.Features.LinkPreview.Mappers;
-using Uintra20.Features.LinkPreview.Services;
 using Uintra20.Features.Links;
 using Uintra20.Features.Navigation.Services;
 
 namespace Uintra20.Infrastructure.Ioc
 {
-	public class LinksInjectModule: IInjectModule
+    public class LinksInjectModule: IInjectModule
 	{
 		public IDependencyCollection Register(IDependencyCollection services)
 		{
@@ -20,12 +15,7 @@ namespace Uintra20.Infrastructure.Ioc
             services.AddTransient<IActivityLinkService, ActivityLinkService>();
             services.AddTransient<IFeedLinkService, ActivityLinkService>();
             services.AddScoped<IMyLinksService, MyLinksService>();
-            services.AddScoped<ILinkPreviewClient, LinkPreviewClient>();
-            services.AddTransient<ILinkPreviewUriProvider, LinkPreviewUriProvider>();
-            
-            services.AddTransient<IActivityLinkPreviewService, ActivityLinkPreviewService>();
             services.AddScoped<IProfileLinkProvider, ProfileLinkProvider>();
-            services.AddScoped<ILinkPreviewConfiguration, LinkPreviewConfiguration>();
             services.AddScoped<IErrorLinksService, ErrorLinksService>();
 
             return services;
