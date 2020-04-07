@@ -60,13 +60,13 @@ namespace Uintra20.Features.LinkPreview.Controllers
             return _linkPreviewModelMapper.MapPreview(entity);
         }
 
-        protected virtual LinkPreviewEntity Map(OpenGraphObject obj) =>
+        protected virtual LinkPreviewEntity Map(OpenGraphObject graph) =>
             new LinkPreviewEntity
             {
-                OgDescription = obj.Description,
-                Title = obj.Title,
-                Uri = obj.Url,
-                MediaId = obj.MediaId
+                OgDescription = graph.Description,
+                Title = graph.Title,
+                Uri = graph.Url,
+                MediaId = graph.MediaId
             };
 
         protected virtual LinkPreviewEntity Map(Compent.LinkPreview.HttpClient.LinkPreview model, string url)

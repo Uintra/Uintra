@@ -1,16 +1,20 @@
 ﻿using System;
 using System.Linq;
 using System.Web;
+using UBaseline.Core.Media;
+using UBaseline.Core.Node;
+using UBaseline.Shared.MetaData;
+using UBaseline.Shared.Node;
 using Uintra20.Core.Activity;
 using Uintra20.Core.Activity.Entities;
+using Uintra20.Features.Media.Helpers;
 using Uintra20.Features.OpenGraph.Models;
 using Uintra20.Features.OpenGraph.Services.Contracts;
 using Uintra20.Infrastructure.Extensions;
 using Uintra20.Infrastructure.Providers;
 using Umbraco.Core;
 using Umbraco.Core.Models.PublishedContent;
-using Umbraco.Web;
-using static Uintra20.Features.LinkPreview.Constants.OpenGraphConstants.Properties;
+using Umbraco.Core.Services;
 using StringExtensions = Uintra20.Infrastructure.Extensions.StringExtensions;
 
 namespace Uintra20.Features.OpenGraph.Services.Implementations
@@ -21,107 +25,108 @@ namespace Uintra20.Features.OpenGraph.Services.Implementations
 
         private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
-        private readonly UmbracoHelper _umbracoHelper;
+        private readonly INodeModelService _nodeModelService;
+        private readonly IMediaProvider _mediaProvider;
+        
 
         private Uri RequestUrl => HttpContext.Current.Request.Url;
 
         public OpenGraphService(
             IDocumentTypeAliasProvider documentTypeAliasProvider,
             IActivitiesServiceFactory activitiesServiceFactory,
-            UmbracoHelper umbracoHelper)
+            INodeModelService nodeModelService,
+            IMediaService mediaService, 
+            IMediaHelper mediaHelper, 
+            IMediaProvider mediaProvider)
         {
             _documentTypeAliasProvider = documentTypeAliasProvider;
             _activitiesServiceFactory = activitiesServiceFactory;
-            _umbracoHelper = umbracoHelper;
+            _nodeModelService = nodeModelService;
+            _mediaProvider = mediaProvider;
         }
 
         public virtual OpenGraphObject GetOpenGraphObject(string url)
         {
             if (url.IsNullOrWhiteSpace()) return null;
 
-            return null;
-            //var uri = new UriBuilder(url).Uri;
-            //var content = HttpContext.Current.Request.Url.Host.Equals(uri.Host) ?
-            //    _umbracoHelper.UmbracoContext.ContentCache.GetByRoute(uri.GetAbsolutePathDecoded()) : null;
-            //if (content == null) return null;
+            var uri = new UriBuilder(url).Uri;
 
-            //if (content.DocumentTypeAlias.InvariantEquals(_documentTypeAliasProvider.GetBulletinsDetailsPage()) ||
-            //    content.DocumentTypeAlias.InvariantEquals(_documentTypeAliasProvider.GetEventsDetailsPage()) ||
-            //    content.DocumentTypeAlias.InvariantEquals(_documentTypeAliasProvider.GetNewsDetailsPage()))
-            //{
-            //    return Guid.TryParse(HttpUtility.ParseQueryString(uri?.Query ?? string.Empty).Get(_queryStringIdKey), out var id) ?
-            //        GetOpenGraphObject(id, url) : null;
-            //}
-            //else
-            //    return GetOpenGraphObject(content, url);
+            var content = HttpContext.Current.Request.Url.Host.Equals(uri.Host)
+                ? _nodeModelService.GetByUrl(uri, null)
+                : null;
+
+            if (content == null) return null;
+
+            if (IsActivityDetailsPage(content))
+            {
+                var query = HttpUtility.ParseQueryString(uri.Query);
+
+                var tryParse = Guid.TryParse(query.Get(_queryStringIdKey), out var id);
+
+                return tryParse
+                    ? GetOpenGraphObject(id, url)
+                    : null;
+            }
+
+            return GetOpenGraphObject(content, url);
         }
 
-        public virtual OpenGraphObject GetOpenGraphObject(IPublishedContent content, string defaultUrl = null)
+        private bool IsActivityDetailsPage(INodeModel content) =>
+            content.ContentTypeAlias.InvariantEquals(_documentTypeAliasProvider.GetBulletinsDetailsPage()) ||
+            content.ContentTypeAlias.InvariantEquals(_documentTypeAliasProvider.GetEventsDetailsPage()) ||
+            content.ContentTypeAlias.InvariantEquals(_documentTypeAliasProvider.GetNewsDetailsPage());
+
+        public virtual OpenGraphObject GetOpenGraphObject(INodeModel nodeModel, string defaultUrl = null)
         {
-            var defaultOpenGraph = GetDefaultObject(defaultUrl);
-            //if (!content.DocumentTypeAlias.Equals(_documentTypeAliasProvider.GetContentPage()))
-            //{
-            //    obj.Title = content.Name;
+            var graph = GetDefaultObject(defaultUrl);
 
-            //    return obj;
-            //}
+            if (nodeModel is IMetaDataComposition metaData)
+            {
+                graph.Title = metaData.MetaData.MetaTitle;
+                graph.Description = metaData.MetaData.MetaDescription;
+                graph.MediaId = metaData.MetaData.SocialImage.DataTypeId;
+                graph.Image = _mediaProvider.GetById(metaData.MetaData.SocialImage.Value.MediaId).Url;
+            }
 
-            var media = content.Value<IPublishedContent>(ImageAlias);
-
-            defaultOpenGraph.Title = content.HasValue(TitleAlias)
-                ? content.Value<string>(TitleAlias)
-                : content.Name;
-
-            defaultOpenGraph.Description = content.Value<string>(DescriptionAlias);
-            defaultOpenGraph.Image = GetAbsoluteImageUrl(media);
-            defaultOpenGraph.MediaId = media?.Id;
-
-            return defaultOpenGraph;
+            return graph;
         }
 
         public virtual OpenGraphObject GetOpenGraphObject(Guid activityId, string defaultUrl = null)
         {
-            var obj = GetDefaultObject(defaultUrl);
+            var defaultGraph = GetDefaultObject(defaultUrl);
 
-            var intranetActivityService = (IIntranetActivityService<IIntranetActivity>)_activitiesServiceFactory
-                .GetService<IIntranetActivityService>(activityId);
-            var currentActivity = intranetActivityService?.Get(activityId);
-            if (currentActivity == null)
-                return obj;
+            var intranetActivityService = (IIntranetActivityService<IIntranetActivity>)
+                _activitiesServiceFactory.GetService<IIntranetActivityService>(activityId);
 
-            obj.Title = currentActivity.Title.IfNullOrWhiteSpace("Social");
-            obj.Description = StringExtensions.StripHtml(currentActivity.Description).TrimByWordEnd(100);
+            var currentActivity = intranetActivityService.Get(activityId);
+
+            if (currentActivity == null) return defaultGraph;
+
+            defaultGraph.Title = currentActivity.Title.IfNullOrWhiteSpace("Social");
+            defaultGraph.Description = StringExtensions.StripHtml(currentActivity.Description).TrimByWordEnd(100);
 
             if (currentActivity.MediaIds.Any())
             {
                 foreach (var mediaId in currentActivity.MediaIds)
                 {
-                    //var media = _umbracoHelper.TypedMedia(mediaId);
-                    //if (media.GetMediaType().Equals(MediaTypeEnum.Image))
-                    //{
-                    //    obj.MediaId = mediaId;
-                    //    obj.Image = GetAbsoluteImageUrl(media);
-                    //    break;
-                    //}
+                    var mediaModel = _mediaProvider.GetById(mediaId) as IMetaDataComposition;
+
+                    defaultGraph.MediaId = mediaId;
+                    defaultGraph.Image = _mediaProvider.GetById(mediaModel.MetaData.SocialImage.Value.MediaId).Url;
                 }
             }
 
-            return obj;
+            return defaultGraph;
         }
 
-        protected virtual OpenGraphObject GetDefaultObject(string defaultUrl = null) =>
+        protected virtual OpenGraphObject GetDefaultObject(string url = null) =>
             new OpenGraphObject
             {
                 SiteName = RequestUrl.Host,
                 Type = "website",
-                Url = defaultUrl.IsNullOrWhiteSpace() ? RequestUrl.AbsoluteUri : defaultUrl
+                Url = url.IsNullOrWhiteSpace()
+                    ? RequestUrl.AbsoluteUri
+                    : url
             };
-
-        private string GetAbsoluteImageUrl(IPublishedContent media)
-        {
-            if (media == null) return null;
-
-            return $"{RequestUrl.GetLeftPart(UriPartial.Authority)}{media.Url.TrimEnd('/')}";
-        }
     }
 }
