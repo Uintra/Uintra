@@ -10,8 +10,5 @@ export class CustomUrlSerializer implements UrlSerializer {
     let dus = new DefaultUrlSerializer(),
       path = dus.serialize(tree);
     return path
-      .replace(/%2/g, ",")
-      .replace(/%3F/g, "?")
-      .replace(/%3D/g, "=");
   }
 }

@@ -1,5 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import ParseHelper from 'src/app/shared/utils/parse.helper';
 import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, finalize } from 'rxjs/operators';
@@ -34,6 +34,7 @@ export class SearchPage {
     private searchService: SearchService,
     private translate: TranslateService,
     private sanitizer: DomSanitizer,
+    private router: Router,
   ) {
     this.route.data.subscribe(data => {
       this.data = data;
@@ -54,6 +55,12 @@ export class SearchPage {
     }));
     this.resultsList = this.parsedData.results || [];
     this.inputValue = this.parsedData.query;
+
+    const paramsSubscription =  this.route.queryParams.subscribe(params => {
+      debugger
+  });
+
+  paramsSubscription.unsubscribe();
   }
 
   onQueryChange(val: string): void {

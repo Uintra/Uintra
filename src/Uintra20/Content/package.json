@@ -26,7 +26,7 @@
     "@ngx-translate/http-loader": "^4.0.0",
     "@types/jquery": "^3.3.31",
     "@types/signalr": "^2.2.35",
-    "@ubaseline/next": "file:./ubaseline-next-0.0.21.tgz",
+    "@ubaseline/next": "file:./ubaseline-next-0.0.22.tgz",
     "es7-object-polyfill": "^1.0.1",
     "jquery": "^3.4.1",
     "moment-timezone": "^0.5.27",
