@@ -7,12 +7,8 @@ using Uintra20.Features.Navigation.Models;
 
 namespace Uintra20.Core.HomePage
 {
-    public class HomePageModel : NodeModel, IPanelSettingsComposition, IUintraNavigationComposition
+    public class HomePageModel : UBaseline.Shared.HomePage.HomePageModel
     {
-        public PanelSettingsCompositionModel PanelSettings { get; set; }
-        public PropertyModel<PanelContainerModel> Panels {get;set;}
-        public NavigationCompositionModel Navigation { get; set; }
-        public PropertyModel<bool> ShowInSubMenu { get; set; }
         public PropertyModel<int> UserListPage { get; set; }
     }
 }
