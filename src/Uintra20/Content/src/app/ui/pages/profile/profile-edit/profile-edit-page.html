@@ -29,7 +29,8 @@
             <app-dropzone-wrapper #dropdownRef
                                   [maxFiles]="1"
                                   [withImage]="false"
-                                  (success)="processAvatarUpload($event)">
+                                  (success)="processAvatarUpload($event)"
+                                  (removedFile)="processAvatarDelete($event)">
             </app-dropzone-wrapper>
           </div>
         </div>
