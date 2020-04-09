@@ -20,8 +20,9 @@
             usersTagsService.getAll($routeParams.id).then(function (response) {
                 $scope.control.value.usersTags = response.data;
                 $scope.overlay.show = true;
-            }, onError);
-        }
+            },
+                onError);
+        };
 
         function init() {
             if (!$scope.control.value) {

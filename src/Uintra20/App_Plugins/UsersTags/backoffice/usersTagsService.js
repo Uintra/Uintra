@@ -7,8 +7,8 @@
 
         self.getAll = function (pageId) {
             return $http.get(baseUrl + "GetAll?pageId=" + pageId);
-        }
-    }
+        };
+    };
 
     service.$inject = ["$http"];
     angular.module('umbraco').service('usersTagsService', service);
