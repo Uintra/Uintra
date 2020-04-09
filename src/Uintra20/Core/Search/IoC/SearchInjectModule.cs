@@ -2,6 +2,9 @@
 using Compent.Shared.DependencyInjection.Contract;
 using Compent.Shared.Extensions.Bcl;
 using Nest;
+using UBaseline.Shared.ArticleContinuedPanel;
+using UBaseline.Shared.ArticleStartPanel;
+using UBaseline.Shared.FAQPanel;
 using Uintra20.Core.Search.Converters.SearchDocumentPanelConverter;
 using Uintra20.Core.Search.Entities;
 using Uintra20.Core.Search.Entities.Mappers;
@@ -17,9 +20,11 @@ using Uintra20.Core.Search.Sorting;
 using Uintra20.Features.Events;
 using Uintra20.Features.News;
 using Uintra20.Features.Search.Configuration;
+using Uintra20.Features.Search.Converters.Panel;
 using Uintra20.Features.Search.Member;
 using Uintra20.Features.Search.Web;
 using Uintra20.Features.Social;
+using Uintra20.Features.Tagging.UserTags.Models;
 
 namespace Uintra20.Core.Search.IoC
 {
@@ -79,6 +84,9 @@ namespace Uintra20.Core.Search.IoC
             services.AddScoped<IIndexerDiagnosticService, IndexerDiagnosticService>();
             
             services.AddScoped<ISearchContentPanelConverterProvider, SearchContentPanelConverterProvider>();
+            services.AddScoped<SearchDocumentPanelConverter<ArticleStartPanelViewModel>, ArticleStartPanelSearchConverter>();
+            services.AddScoped<SearchDocumentPanelConverter<ArticleContinuedPanelViewModel>, ArticleContinuedPanelSearchConverter>();
+            services.AddScoped<SearchDocumentPanelConverter<UserTagsPanelViewModel>, UserTagsPanelSearchConverter>();
             RegisterHelper.ConnectImplementationsToTypesClosing(services, typeof(ISearchDocumentPanelConverter<>), assembly.ToEnumerable(), false);
             
             

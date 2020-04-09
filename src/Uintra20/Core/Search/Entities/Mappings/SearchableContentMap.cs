@@ -1,4 +1,5 @@
-﻿using Uintra20.Core.Search.Helpers;
+﻿using System.Linq;
+using Uintra20.Core.Search.Helpers;
 
 namespace Uintra20.Core.Search.Entities.Mappings
 {
@@ -7,12 +8,12 @@ namespace Uintra20.Core.Search.Entities.Mappings
         public SearchableContentMap()
         {
             Nested<SearchablePanel>(nst =>
-                nst.Name(n => n.Panels)
-                    .Properties(p => p.Text(t => t.Name(n => n.Content).Analyzer(ElasticHelpers.ReplaceNgram))));
+                nst.Name(n => n.Panels.First())
+                    .Properties(p => p.Text(t => t.Name(n => n.Content).Fielddata().Analyzer(ElasticHelpers.ReplaceNgram))));
 
             Nested<SearchablePanel>(nst =>
-                nst.Name(n => n.Panels)
-                    .Properties(p => p.Text(t => t.Name(n => n.Title).Analyzer(ElasticHelpers.ReplaceNgram))));
+                nst.Name(n => n.Panels.First())
+                    .Properties(p => p.Text(t => t.Name(n => n.Title).Fielddata().Analyzer(ElasticHelpers.ReplaceNgram))));
         }
     }
 }
