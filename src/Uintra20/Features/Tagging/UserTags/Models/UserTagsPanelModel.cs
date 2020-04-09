@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using UBaseline.Shared.Node;
+using UBaseline.Shared.Property;
 
 namespace Uintra20.Features.Tagging.UserTags.Models
 {
     public class UserTagsPanelModel : NodeModel
     {
-        public IEnumerable<UserTag> UserTags { get; set; } = Enumerable.Empty<UserTag>();
+        public PropertyModel<IEnumerable<UserTagPanelModel>> Tags { get; set; }
     }
 }

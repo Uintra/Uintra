@@ -40,21 +40,14 @@ namespace Uintra20.Features.Tagging.UserTags.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<UserTagBackofficeViewModel> GetAll(int pageId)
+        public IEnumerable<UserTagPanelViewModel> GetAll(int pageId)
         {
-            var nodeModel = _modelService.Get(pageId);
-
             var allTags = _tagProvider.GetAll();
 
-            var selectedTagsDictionary = _tagsService
-                .Get(nodeModel.Key)
-                .ToDictionary(tag => tag.Id);
-
-            var result = allTags.Select(tag => new UserTagBackofficeViewModel
+            var result = allTags.Select(tag => new UserTagPanelViewModel
             {
                 Id = tag.Id,
-                Text = tag.Text,
-                Selected = selectedTagsDictionary.ContainsKey(tag.Id)
+                Name = tag.Text,
             });
 
             return result;
