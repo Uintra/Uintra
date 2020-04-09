@@ -856,7 +856,6 @@
     <Content Include="App_Plugins\UserPicker\backoffice\RelatedUserPicker\related-user-picker.html" />
     <Content Include="App_Plugins\UserPicker\UserPicker\user-picker.directive.html" />
     <Content Include="App_Plugins\UserPicker\UserPicker\user-picker.directive.js" />
-    <Content Include="App_Plugins\UsersTags\backoffice\users-tags.overlay.html" />
     <Content Include="App_Plugins\UsersTags\backoffice\users-tags.view.html" />
     <Content Include="App_Plugins\UsersTags\backoffice\usersTagsController.js" />
     <Content Include="App_Plugins\UsersTags\backoffice\usersTagsService.js" />

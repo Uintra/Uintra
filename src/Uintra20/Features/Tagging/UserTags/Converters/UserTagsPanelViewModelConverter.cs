@@ -17,7 +17,7 @@ namespace Uintra20.Features.Tagging.UserTags.Converters
         public void Map(UserTagsPanelModel node, UserTagsPanelViewModel viewModel)
         {
             viewModel.Title = _intranetLocalizationService.Translate("UserTagsView.Title.lbl");
-
+            viewModel.Tags = viewModel.Tags;
         }
     }
 }
