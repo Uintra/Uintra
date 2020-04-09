@@ -9,8 +9,6 @@ export class CustomUrlSerializer implements UrlSerializer {
   serialize(tree: UrlTree): any {
     let dus = new DefaultUrlSerializer(),
       path = dus.serialize(tree);
-    return path.startsWith('/search')
-      ? path.replace('/search%3Fquery%3D', '/search?query=')
-      : path.replace(/%3F/g, "?").replace(/%3D/g, "=");
+    return path;
   }
 }

@@ -114,7 +114,7 @@ export class AutocompleteComponent implements OnInit {
       if (currentSuggestionIndex !== -1) {
         this.router.navigate([this.autocompleteList[currentSuggestionIndex].url.originalUrl]);
       } else {
-        this.router.navigate([`/search?query=${encodeURIComponent(this.inputValue)}`]);
+        this.router.navigate(['/search'], {queryParams: {query: encodeURIComponent(this.inputValue)} });
       }
     }
   }
