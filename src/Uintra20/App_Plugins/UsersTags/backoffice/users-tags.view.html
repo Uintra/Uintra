@@ -1,0 +1,10 @@
+﻿﻿<div class="panel" ng-controller="usersTagsController as ctrl">
+    <div class="span12">
+        <select ng-if="ctrl.usersTags"
+                ng-model="model.value"
+                ng-required="true",
+                multiple="true",
+                ng-options="tag as tag.name for tag in ctrl.usersTags track by tag.id">
+        </select>
+    </div>
+</div>

@@ -1,0 +1,18 @@
+{
+  "propertyEditors": [
+    {
+      "alias": "userTags",
+      "name": "UIntra - User Tags",
+      "icon": "icon-traffic",
+      "editor": {
+        "view": "~/App_Plugins/UsersTags/backoffice/users-tags.view.html",
+        "valueType": "JSON"
+      }
+    }
+  ],
+  "javascript": [
+    "~/App_Plugins/UsersTags/backoffice/usersTagsService.js",
+    "~/App_Plugins/UsersTags/backoffice/usersTagsController.js",
+    "~/App_Plugins/UsersTags/usersTags.js"
+  ]
+}

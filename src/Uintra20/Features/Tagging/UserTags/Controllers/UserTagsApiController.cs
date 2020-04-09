@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using UBaseline.Core.Controllers;
+using UBaseline.Core.Node;
 using Uintra20.Features.Tagging.UserTags.Models;
 using Uintra20.Features.Tagging.UserTags.Services;
 
@@ -11,13 +13,16 @@ namespace Uintra20.Features.Tagging.UserTags.Controllers
     {
         private readonly IUserTagService _tagsService;
         private readonly IUserTagProvider _tagProvider;
+        private readonly INodeModelService _modelService;
 
         public UserTagsApiController(
             IUserTagService tagsService,
-            IUserTagProvider tagProvider)
+            IUserTagProvider tagProvider,
+            INodeModelService modelService)
         {
             _tagsService = tagsService;
             _tagProvider = tagProvider;
+            _modelService = modelService;
         }
 
         [HttpGet]
@@ -33,5 +38,14 @@ namespace Uintra20.Features.Tagging.UserTags.Controllers
 
             return pickerViewModel;
         }
+
+        [HttpGet]
+        public IEnumerable<UserTagPanelViewModel> GetAll(int pageId) =>
+            _tagProvider.GetAll()
+                .Select(tag => new UserTagPanelViewModel
+                {
+                    Id = tag.Id,
+                    Name = tag.Text,
+                });
     }
 }
