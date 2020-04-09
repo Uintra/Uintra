@@ -74,9 +74,6 @@
     <Reference Include="Compent.LinkPreview.HttpClient, Version=1.2.6.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Compent.LinkPreview.HttpClient.1.2.6\lib\net471\Compent.LinkPreview.HttpClient.dll</HintPath>
     </Reference>
-    <Reference Include="Compent.MediaToolkit, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Compent.MediaToolkit.1.0.0\lib\net471\Compent.MediaToolkit.dll</HintPath>
-    </Reference>
     <Reference Include="Compent.Shared.ConfigurationProvider.Contract, Version=0.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Compent.Shared.ConfigurationProvider.Contract.0.2.0\lib\net471\Compent.Shared.ConfigurationProvider.Contract.dll</HintPath>
     </Reference>
@@ -926,6 +923,9 @@
     <Content Include="config\UBaseline\ubaselineLoggingSettings.json" />
     <Content Include="config\UBaseline\ubaselineSettings.json" />
     <Content Include="config\UBaseline\videoPickerSettings.json" />
+    <EmbeddedResource Include="Core\MediaToolkit\ffmpeg.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
     <Content Include="css\rte.css" />
     <Content Include="Global.asax" />
     <Content Include="images\videoLoader.jpg" />
@@ -989,6 +989,20 @@
     <Compile Include="App_Start\UintraApplicationComponent.cs" />
     <Compile Include="Core\Article\Events\ArticlePageEventService.cs" />
     <Compile Include="Core\Feed\Services\IFeedPresentationService.cs" />
+    <Compile Include="Core\MediaToolkit\CommandBuilder.cs" />
+    <Compile Include="Core\MediaToolkit\ConversionCompleteEventArgs.cs" />
+    <Compile Include="Core\MediaToolkit\ConvertProgressEventArgs.cs" />
+    <Compile Include="Core\MediaToolkit\Engine.cs" />
+    <Compile Include="Core\MediaToolkit\EngineBase.cs" />
+    <Compile Include="Core\MediaToolkit\EngineParameters.cs" />
+    <Compile Include="Core\MediaToolkit\FFmpegTask.cs" />
+    <Compile Include="Core\MediaToolkit\Model\MediaFile.cs" />
+    <Compile Include="Core\MediaToolkit\Model\Metadata.cs" />
+    <Compile Include="Core\MediaToolkit\Options\ConversionEnums.cs" />
+    <Compile Include="Core\MediaToolkit\Options\ConversionOptions.cs" />
+    <Compile Include="Core\MediaToolkit\Options\CropRectangle.cs" />
+    <Compile Include="Core\MediaToolkit\Util\Extensions.cs" />
+    <Compile Include="Core\MediaToolkit\Util\RegexEngine.cs" />
     <Compile Include="Core\Member\CommandBus\MentionHandle.cs" />
     <Compile Include="Core\Member\Controllers\MemberGroupController.cs" />
     <Compile Include="Core\UbaselineModels\PageNotFoundPageModel.cs" />

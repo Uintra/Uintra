@@ -3,9 +3,9 @@ using System.IO;
 using System.Linq;
 using System.Web.Hosting;
 using Compent.Extensions;
-using Compent.MediaToolkit;
-using Compent.MediaToolkit.Model;
-using Compent.MediaToolkit.Options;
+using Uintra20.Core.MediaToolkit;
+using Uintra20.Core.MediaToolkit.Model;
+using Uintra20.Core.MediaToolkit.Options;
 using Uintra20.Features.Media.Extensions;
 using Uintra20.Features.Media.Video.Helpers.Contracts;
 using Uintra20.Features.Media.Video.Models;
@@ -18,7 +18,6 @@ namespace Uintra20.Features.Media.Video.Helpers.Implementations
     public class VideoHelper : IVideoHelper
     {
         private const string ThumbnailFileExtension = ".jpg";
-        private readonly string _ffmpegPath = HostingEnvironment.MapPath(IntranetConstants.FfmpegRelativePath);
 
         private readonly IApplicationSettings _applicationSettings;
 
@@ -43,7 +42,7 @@ namespace Uintra20.Features.Media.Video.Helpers.Implementations
             var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileFullPath);
             var outputFileFullPath = Path.Combine(directoryName, $"{fileNameWithoutExtension}{ThumbnailFileExtension}");
 
-            using (var engine = new Engine(_ffmpegPath))
+            using (var engine = new Engine(HostingEnvironment.MapPath(IntranetConstants.FfmpegRelativePath)))
             {
                 var inputMediaFile = new MediaFile { Filename = fileFullPath };
                 var outputMediaFile = new MediaFile { Filename = outputFileFullPath };
@@ -64,7 +63,7 @@ namespace Uintra20.Features.Media.Video.Helpers.Implementations
 
             var inputMediaFile = new MediaFile { Filename = fileFullPath };
 
-            using (var engine = new Engine(_ffmpegPath))
+            using (var engine = new Engine(HostingEnvironment.MapPath(IntranetConstants.FfmpegRelativePath)))
             {
                 engine.GetMetadata(inputMediaFile);
 
