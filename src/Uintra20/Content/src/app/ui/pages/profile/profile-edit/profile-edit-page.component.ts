@@ -137,17 +137,21 @@ export class ProfileEditPage implements OnInit {
   }
 
   public processAvatarDelete(): void {
-    if (confirm(this.translate.instant('profile.DeletePhotoConfirm.lbl'))) {
-      const currentPhoto = this.profileEdit.member.photo;
-      this.profileEdit.member.photo = null;
-      this.profileService.deletePhoto(this.profileEdit.member.photoId).subscribe(
-        (res) => {
-          this.hasDataChangedService.onDataChanged();
-        },
-        (err) => {
-          this.profileEdit.member.photo = currentPhoto;
-        }
-      );
+    if (this.profileEdit.member.newMedia) {
+      this.profileEdit.member.newMedia = null;
+    } else {
+      if (confirm(this.translate.instant('profile.DeletePhotoConfirm.lbl'))) {
+        const currentPhoto = this.profileEdit.member.photo;
+        this.profileEdit.member.photo = null;
+        this.profileService.deletePhoto(this.profileEdit.member.photoId).subscribe(
+          (res) => {
+            this.hasDataChangedService.onDataChanged();
+          },
+          (err) => {
+            this.profileEdit.member.photo = currentPhoto;
+          }
+        );
+      }
     }
   }
 
