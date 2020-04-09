@@ -29,5 +29,12 @@ export const panels = [
     path: '__dynamic__',
     loadChildren: './ui/panels/user-list/user-list-panel.module#UserListPanelModule'
   },
+  {
+    id: 'userTagsPanel',
+    path: '__dynamic__',
+    loadChildren: './ui/panels/user-tags/user-tags-panel.module#UserTagsPanelModule'
+  }
 ];
+
+
 

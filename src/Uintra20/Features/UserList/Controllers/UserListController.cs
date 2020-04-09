@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web.Http;
 using Compent.Extensions;
 using UBaseline.Core.Controllers;
@@ -56,16 +57,35 @@ namespace Uintra20.Features.UserList.Controllers
         }
 
         [HttpPost]
-        public virtual MembersRowsViewModel GetUsers([FromBody]MembersListSearchModel listSearch)
+        public virtual MembersRowsViewModel GetUsers([FromBody] MembersListSearchModel listSearch)
         {
-            var (activeUsers, isLastRequest) = GetActiveUsers(listSearch.Map<ActiveMemberSearchQuery>(), listSearch.GroupId);
+            var (activeUsers, isLastRequest) =
+                GetActiveUsers(listSearch.Map<ActiveMemberSearchQuery>(), listSearch.GroupId);
 
             var model = GetUsersRowsViewModel(listSearch.GroupId);
 
-            model.SelectedColumns = UsersPresentationHelper.ExtendIfGroupMembersPage(listSearch.GroupId, UsersPresentationHelper.GetProfileColumns());
+            model.SelectedColumns =
+                UsersPresentationHelper.ExtendIfGroupMembersPage(listSearch.GroupId,
+                    UsersPresentationHelper.GetProfileColumns());
             model.Members = activeUsers;
             model.IsLastRequest = isLastRequest;
 
+            return model;
+        }
+
+        [HttpPost]
+        public virtual MembersRowsViewModel ForInvitation([FromBody] MembersListSearchModel listSearch)
+        {
+            var (activeUsers, isLastRequest) =
+                GetActiveUsers(listSearch.Map<ActiveMemberSearchQuery>(), listSearch.GroupId);
+
+            var model = GetUsersRowsViewModel(listSearch.GroupId);
+
+            model.SelectedColumns =
+                UsersPresentationHelper.AddManagementColumn(UsersPresentationHelper.GetProfileColumns());
+            model.Members = activeUsers;
+            model.IsLastRequest = isLastRequest;
+            model.IsInvite = listSearch.IsInvite;
             return model;
         }
 
@@ -107,16 +127,16 @@ namespace Uintra20.Features.UserList.Controllers
         }
 
         [HttpPost]
-        public IHttpActionResult InviteMember(MemberGroupInviteModel invite)
+        public async Task<IHttpActionResult> InviteMember(MemberGroupInviteModel invite)
         {
-            InviteUser(invite);
+            await InviteUser(invite);
             SendInvitationToUser(invite);
 
             return Ok();
         }
 
-        private void InviteUser(MemberGroupInviteModel invite) =>
-            _groupMemberService.Add(invite.GroupId, new GroupMemberSubscriptionModel
+        private async Task InviteUser(MemberGroupInviteModel invite) =>
+            await _groupMemberService.AddAsync(invite.GroupId, new GroupMemberSubscriptionModel
             {
                 MemberId = invite.MemberId
             });
@@ -127,12 +147,14 @@ namespace Uintra20.Features.UserList.Controllers
                 NotificationType = NotificationTypeEnum.GroupInvitation,
                 ReceiverIds = invite.MemberId.ToEnumerable(),
                 ActivityType = CommunicationTypeEnum.CommunicationSettings,
-                Value = _notifierDataHelper.GetGroupInvitationDataModel(NotificationTypeEnum.GroupInvitation, invite.GroupId, invite.MemberId,
+                Value = _notifierDataHelper.GetGroupInvitationDataModel(NotificationTypeEnum.GroupInvitation,
+                    invite.GroupId, invite.MemberId,
                     _intranetMemberService.GetCurrentMember().Id)
             });
 
 
-        private (IEnumerable<MemberModel> result, bool isLastRequest) GetActiveUsers(ActiveMemberSearchQuery query, Guid? groupId)
+        private (IEnumerable<MemberModel> result, bool isLastRequest) GetActiveUsers(ActiveMemberSearchQuery query,
+            Guid? groupId)
         {
             var (searchResult, totalHits) = GetActiveUserIds(query);
 
@@ -140,7 +162,7 @@ namespace Uintra20.Features.UserList.Controllers
                 .Select(x => MapToViewModel(x, groupId));
 
             var skip = (query.Page - 1) * AmountPerRequest;
-            
+
             var isLastRequest = skip + AmountPerRequest >= totalHits;
 
             return (result, isLastRequest);
@@ -157,7 +179,7 @@ namespace Uintra20.Features.UserList.Controllers
                 Skip = skip,
                 Take = AmountPerRequest,
                 OrderingString = query.OrderingString,
-                SearchableTypeIds = ((int)UintraSearchableTypeEnum.Member).ToEnumerable(),
+                SearchableTypeIds = ((int) UintraSearchableTypeEnum.Member).ToEnumerable(),
                 GroupId = query.GroupId,
                 MembersOfGroup = query.MembersOfGroup
             };
@@ -177,7 +199,7 @@ namespace Uintra20.Features.UserList.Controllers
             };
 
             model.IsCurrentMemberGroupAdmin = groupId.HasValue && _groupMemberService
-                .IsMemberAdminOfGroup(model.CurrentMember.Id, groupId.Value);
+                                                  .IsMemberAdminOfGroup(model.CurrentMember.Id, groupId.Value);
 
             model.GroupId = groupId;
 
@@ -190,7 +212,7 @@ namespace Uintra20.Features.UserList.Controllers
             model.ProfileUrl = _profileLinkProvider.GetProfileLink(user.Id);
 
             var isAdmin = groupId.HasValue && _groupMemberService
-                .IsMemberAdminOfGroup(user.Id, groupId.Value);
+                              .IsMemberAdminOfGroup(user.Id, groupId.Value);
 
             model.IsGroupAdmin = isAdmin;
             model.IsCreator = groupId.HasValue && _groupService.IsMemberCreator(user.Id, groupId.Value);

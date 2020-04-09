@@ -104,18 +104,15 @@ namespace Uintra20.Core.Search.Indexes
                     .Query(q => q
                         .Match(m => m
                             .Query(query)
-                            .Analyzer(ElasticHelpers.Replace)
-                            .Field(f => f.Panels.First().Title)))
-                    .Boost(FieldWithReplaceAnalyzerBoost)),
+                            .Field(f => f.Panels.First().Title)))),
 
-                new QueryContainerDescriptor<SearchableContent>().Nested(nes => nes
+                new QueryContainerDescriptor<SearchableContent>()
+                    .Nested(nes => nes
                     .Path(p => p.Panels)
                     .Query(q => q
                         .Match(m => m
                             .Query(query)
-                            .Analyzer(ElasticHelpers.Replace)
-                            .Field(f => f.Panels.First().Content)))
-                    .Boost(FieldWithReplaceAnalyzerBoost)),
+                            .Field(f => f.Panels.First().Content)))),
             };
 
             return desc.ToArray();
