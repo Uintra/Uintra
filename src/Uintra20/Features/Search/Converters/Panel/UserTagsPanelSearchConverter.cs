@@ -12,7 +12,7 @@ namespace Uintra20.Features.Search.Converters.Panel
         {
             return new SearchablePanel()
             {
-                Content = panel.Tags.Select(t => t.Text).JoinWith()
+                Content = panel.Tags.Value?.Select(t => t.Name).JoinWith()
             };
         }
     }

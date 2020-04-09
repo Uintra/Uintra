@@ -6,10 +6,10 @@
         $routeParams, 
         contentResource, 
         usersTagsService) {
-
         
+        const self = this;
         usersTagsService.getAll($routeParams.id).then(function (response) {
-            $scope.usersTags = response.data;
+            self.usersTags = response.data;
         },onError);
         
     };
