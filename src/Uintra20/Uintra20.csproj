@@ -1008,6 +1008,7 @@
     <Compile Include="Core\MediaToolkit\Util\RegexEngine.cs" />
     <Compile Include="Core\Member\CommandBus\MentionHandle.cs" />
     <Compile Include="Core\Member\Controllers\MemberGroupController.cs" />
+    <Compile Include="Core\UbaselineModels\ForbiddenPageViewModel.cs" />
     <Compile Include="Core\UbaselineModels\PageNotFoundPageModel.cs" />
     <Compile Include="Core\Updater\2.0\Migration.cs" />
     <Compile Include="Core\Updater\2.0\Steps\SetupDefaultMediaFoldersStep.cs" />
