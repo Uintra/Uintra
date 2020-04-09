@@ -3,9 +3,8 @@ using System.IO;
 using System.Linq;
 using System.Web.Hosting;
 using Compent.CommandBus;
-using Compent.MediaToolkit;
-using Compent.MediaToolkit.Model;
-using Compent.MediaToolkit.Options;
+using Uintra20.Core.MediaToolkit;
+using Uintra20.Core.MediaToolkit.Model;
 using Uintra20.Features.Media.Models;
 using Uintra20.Features.Media.Video.Commands;
 using Uintra20.Features.Media.Video.Converters.Contracts;
@@ -22,8 +21,6 @@ namespace Uintra20.Features.Media.Video.Converters.Implementations
         private const string Mp4ExtensionName = ".mp4";
         private readonly ICommandPublisher _commandPublisher;
         private readonly IApplicationSettings _applicationSettings;
-        private readonly Engine _engine;
-        private readonly string _ffmpegPath = HostingEnvironment.MapPath(IntranetConstants.FfmpegRelativePath);
 
         public VideoConverter(
             ICommandPublisher commandPublisher, 
@@ -31,7 +28,6 @@ namespace Uintra20.Features.Media.Video.Converters.Implementations
         {
             _commandPublisher = commandPublisher;
             _applicationSettings = applicationSettings;
-            _engine = new Engine(_ffmpegPath);
         }
 
         public void Convert(MediaConvertModel model)
@@ -45,11 +41,11 @@ namespace Uintra20.Features.Media.Video.Converters.Implementations
                 var inputFile = new MediaFile { Filename = tempFilePath };
                 var outputFile = new MediaFile { Filename = Path.ChangeExtension(tempFilePath, Mp4ExtensionName) };
 
-                using (_engine)
+                using (var engine=new Engine(HostingEnvironment.MapPath(IntranetConstants.FfmpegRelativePath)))
                 {
-                    _engine.GetMetadata(inputFile);
-                    var options = new ConversionOptions();
-                    _engine.Convert(inputFile, outputFile, options);
+                    engine.GetMetadata(inputFile);
+                    var options = new Uintra20.Core.MediaToolkit.Options.ConversionOptions();
+                    engine.Convert(inputFile, outputFile, options);
                 }
 
                 File.Delete(inputFile.Filename);
