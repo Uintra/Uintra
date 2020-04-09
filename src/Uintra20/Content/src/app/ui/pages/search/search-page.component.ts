@@ -87,22 +87,14 @@ export class SearchPage {
 
   getType(item): string {
     switch (item.type) {
-      case '##Search.Member##':
-        return this.translate.instant('##Search.Member##');
-      case '##Search.Socials##':
-        return `${this.translate.instant('##Search.Socials##')} ${item.publishedDate}`;
+      case 'Socials':
+        return `Socials ${item.publishedDate}`;
       case 'News':
-        return `${this.translate.instant('News')} ${item.publishedDate}`;
+        return `News ${item.publishedDate}`;
       case 'Event':
-        return `${this.translate.instant('Event')} ${item.startDate} - ${item.endDate}`;
-      case 'Content':
-        return this.translate.instant('Content');
-      case 'Document':
-        return this.translate.instant('Document');
-      case 'Tag':
-        return this.translate.instant('Tag');
+        return `Event ${item.startDate} - ${item.endDate}`;
       default:
-        return null;
+        return item.type;
     }
   }
 

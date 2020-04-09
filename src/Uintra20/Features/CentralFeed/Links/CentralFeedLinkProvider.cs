@@ -22,7 +22,6 @@ namespace Uintra20.Features.CentralFeed.Links
             var result =  new ActivityLinks
             {
                 Feed = _activityPageHelper.GetFeedUrl(),
-                Overview = null,//helper.GetOverviewPageUrl(),//TODO: Research overview pages
                 Create = _activityPageHelper.GetCreatePageUrl(activity.Type),
                 Details = _activityPageHelper.GetDetailsPageUrl(activity.Type, activity.Id),
                 Edit = _activityPageHelper.GetEditPageUrl(activity.Type, activity.Id),
@@ -37,7 +36,6 @@ namespace Uintra20.Features.CentralFeed.Links
             return new ActivityCreateLinks
             {
                 Feed = _activityPageHelper.GetFeedUrl(),
-                Overview = null,//helper.GetOverviewPageUrl(),//TODO: Research overview pages
                 Create = _activityPageHelper.GetCreatePageUrl(activity.Type),
                 Owner = GetProfileLink(activity.OwnerId),
             };
