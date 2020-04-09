@@ -859,7 +859,6 @@
     <Content Include="App_Plugins\UsersTags\backoffice\users-tags.view.html" />
     <Content Include="App_Plugins\UsersTags\backoffice\usersTagsController.js" />
     <Content Include="App_Plugins\UsersTags\backoffice\usersTagsService.js" />
-    <Content Include="App_Plugins\UsersTags\userTags.js" />
     <Content Include="App_Plugins\uSync8\backoffice\uSync8\dashboard.html" />
     <Content Include="App_Plugins\uSync8\backoffice\uSync8\uSyncDashboardController.js" />
     <Content Include="App_Plugins\uSync8\changeDialog.html" />
