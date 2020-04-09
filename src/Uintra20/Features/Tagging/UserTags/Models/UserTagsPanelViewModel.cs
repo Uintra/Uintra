@@ -7,6 +7,6 @@ namespace Uintra20.Features.Tagging.UserTags.Models
     public class UserTagsPanelViewModel : NodeViewModel
     {
         public string Title { get; set; }
-        public PropertyViewModel<IEnumerable<UserTagPanelViewModel>> Tags { get; set; }
+        public PropertyViewModel<IEnumerable<string>> Tags { get; set; }
     }
 }

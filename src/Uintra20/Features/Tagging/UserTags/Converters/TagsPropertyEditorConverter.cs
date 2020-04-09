@@ -11,17 +11,15 @@ using Umbraco.Web;
 
 namespace Uintra20.Features.Tagging.UserTags.Converters
 {
-    public class TagsPropertyEditorConverter:PropertyEditorConverter<IEnumerable<UserTagPanelModel>, IEnumerable<UserTagPanelViewModel>>
+    public class TagsPropertyEditorConverter:PropertyEditorConverter<IEnumerable<UserTagPanelModel>, IEnumerable<string>>
     {
         public override string[] PropertyEditorAliases =>new[] { "userTags" };
         
-        protected override IEnumerable<UserTagPanelViewModel> GetViewModelValue(INodeModel content, PropertyModel<IEnumerable<UserTagPanelModel>> property)
+        protected override IEnumerable<string> GetViewModelValue(
+            INodeModel content, 
+            PropertyModel<IEnumerable<UserTagPanelModel>> property)
         {
-            return property.Value?.Select(v => new UserTagPanelViewModel()
-            {
-                Id = v.Id,
-                Name = v.Name
-            });
+            return property.Value?.Select(v => v.Name);
         }
 
         protected override IEnumerable<UserTagPanelModel> GetValue(IPublishedProperty property, string culture = null)

@@ -4,6 +4,6 @@
     <a *ngFor="let tag of tags"
        class="feed-item-tags__tag"
        [routerLink]="['/search']"
-       [queryParams]="{ query: tag.name }"
-       [innerHTML]="tag.name"></a>
+       [queryParams]="{ query: tag }"
+       [innerHTML]="tag"></a>
 </div>

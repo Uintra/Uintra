@@ -6,13 +6,13 @@ using Uintra20.Features.Tagging.UserTags.Models;
 
 namespace Uintra20.Features.Search.Converters.Panel
 {
-    public class UserTagsPanelSearchConverter:SearchDocumentPanelConverter<UserTagsPanelViewModel>
+    public class UserTagsPanelSearchConverter : SearchDocumentPanelConverter<UserTagsPanelViewModel>
     {
         protected override SearchablePanel OnConvert(UserTagsPanelViewModel panel)
         {
-            return new SearchablePanel()
+            return new SearchablePanel
             {
-                Content = panel.Tags.Value?.Select(t => t.Name).JoinWith()
+                Content = panel.Tags.Value?.JoinWith()
             };
         }
     }
