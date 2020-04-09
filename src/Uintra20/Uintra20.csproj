@@ -1031,6 +1031,7 @@
     <Compile Include="Features\Notification\Services\IUserMentionNotificationService.cs" />
     <Compile Include="Features\Notification\Services\UserMentionNotificationService.cs" />
     <Compile Include="Features\Permissions\Models\MemberGroupDeleteModel.cs" />
+    <Compile Include="Features\Search\Converters\Panel\UserTagsPanelSearchConverter.cs" />
     <Compile Include="Features\Tagging\UserTags\Converters\UserTagsPanelViewModelConverter.cs" />
     <Compile Include="Features\Tagging\UserTags\Events\UserTagsEventService.cs" />
     <Compile Include="Features\Tagging\UserTags\Models\UserTagsPanelModel.cs" />
