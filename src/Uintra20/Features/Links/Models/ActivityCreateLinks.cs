@@ -3,7 +3,6 @@
     public class ActivityCreateLinks : IActivityCreateLinks
     {
         public UintraLinkModel Feed { get; set; }
-        public UintraLinkModel Overview { get; set; }
         public UintraLinkModel Create { get; set; }
         public UintraLinkModel Owner { get; set; }
     }
