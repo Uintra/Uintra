@@ -20,23 +20,7 @@ export class UserTagsPanel implements OnInit {
   ) { }
 
   public ngOnInit(): void {
-    debugger
     const parsed = ParseHelper.parseUbaselineData(this.data);
     this.tags = Object.values(parsed.tags);
-
-    // this.tags = [
-    //   {
-    //     "id": '1',
-    //     "text": "First"
-    //   },
-    //   {
-    //     "id": '2',
-    //     "text": "Second"
-    //   },
-    //   {
-    //     "id": '3',
-    //     "text": "Third"
-    //   }
-    // ];
   }
 }
