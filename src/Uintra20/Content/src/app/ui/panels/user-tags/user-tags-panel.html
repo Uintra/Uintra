@@ -1,7 +1,6 @@
 <div class="feed-item-tags"
      *ngIf="tags?.length !== 0">
     <span class="feed-item-tags__text">{{'userTagsView.Title.lbl' | translate}}</span>
-    <!-- TODO: get from details.links -->
     <a *ngFor="let tag of tags"
        class="feed-item-tags__tag"
        [routerLink]="['/search']"
