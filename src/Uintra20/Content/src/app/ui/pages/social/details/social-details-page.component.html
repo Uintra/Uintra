@@ -1,13 +1,13 @@
 <ng-container *ngIf="canView">
-<ng-container *ngIf="!groupHeader">
-  <ng-container *ngTemplateOutlet="component"></ng-container>
-</ng-container>
+  <ng-container *ngIf="!groupHeader">
+    <ng-container *ngTemplateOutlet="component"></ng-container>
+  </ng-container>
 
-<app-group-details-wrapper *ngIf="groupHeader" [data]="groupHeader">
-    <div class="group-details-padding">
-        <ng-container *ngTemplateOutlet="component"></ng-container>
-    </div>
-</app-group-details-wrapper>
+  <app-group-details-wrapper *ngIf="groupHeader" [data]="groupHeader">
+      <div class="group-details-padding">
+          <ng-container *ngTemplateOutlet="component"></ng-container>
+      </div>
+  </app-group-details-wrapper>
 </ng-container>
 
 <ng-template #component>
@@ -53,6 +53,7 @@
                     [src]="image.previewUrl"
                     (click)="openGallery(i)"
                   />
+                  <span *ngIf="image.extension == 'mp4'" class="icon-video-play"></span>
                 </li>
               </ul>
               <ng-container *ngIf="documents.length !== 0">

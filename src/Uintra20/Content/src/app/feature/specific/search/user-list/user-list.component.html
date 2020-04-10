@@ -1,0 +1,95 @@
+<h2 class="user-list-panel__title">{{'userListPanel.Title.lbl' | translate}}</h2>
+
+<h3 class="user-list-panel__search-title">{{'userList.Search.Title.lbl' | translate}}</h3>
+<div class="search-holder">
+  <input
+    type="search"
+    ariaLabel="search"
+    id="search"
+    name="search"
+    class="search-holder__input"
+    placeholder="{{'userList.Search.Placeholder.lbl' | translate}}"
+    autocomplete="off"
+    #query
+
+    [value]="inputValue"
+    (keyup)="onQueryChange(query.value)"/>
+
+  <span class="icon icon-search-icon"></span>
+</div>
+<div class="user-list">
+  <a *ngFor="let member of data.details.members" class="user-list__item">
+    <a
+      *ngIf="isNameColumn"
+      [routerLink]="member.profileUrl.originalUrl | ulink"
+      class="user-list__item-member cells--{{data.details.selectedColumns.length}}"
+    >
+      <app-user-avatar
+        class="user-list__item-member-avatar"
+        [photo]="member.photo"
+        [name]="member.displayedName">
+      </app-user-avatar>
+      <span *ngIf="member.displayedName" class="user-list__item-member-name">{{member.displayedName}}</span>
+    </a>
+    <a
+      *ngIf="isInfoColumn"
+      [routerLink]="member.profileUrl.originalUrl | ulink"
+      class="user-list__item-info cells--{{data.details.selectedColumns.length}}"
+    >
+      <p *ngIf="member.email">{{'userList.Table.Email.lbl' | translate}}{{member.email}}</p>
+      <p *ngIf="member.phone">{{'userList.Table.Phone.lbl' | translate}}{{member.phone}}</p>
+      <p *ngIf="member.department">{{'userList.Table.Department.lbl' | translate}}{{member.department}}</p>
+    </a>
+    <div
+      *ngIf="isGroupColumn"
+      class="user-list__item-group cells--{{data.details.selectedColumns.length}}"
+    >
+      <div *ngIf="!member.isCreator && data.details.isCurrentMemberGroupAdmin" class="user-list__item-group-fake-select">
+        <select
+          [ngModel]="member.isGroupAdmin ? '1' : '0'"
+          class="user-list__item-group-select"
+          [disabled]="true"
+          #select
+          (ngModelChange)="changeMemberStatus(member.member.id, select)"
+        >
+          <option value="1">{{'userList.Table.GroupAdmin.lbl' | translate}}</option>
+          <option value="0">{{'userList.Table.GroupMember.lbl' | translate}}</option>
+        </select>
+      </div>
+      <p *ngIf="member.isCreator" class="user-list__item-group-admin">
+        <!-- TODO remove it once we have this icon as a font -->
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="user-list__item-group-admin-svg"
+          viewBox="0 0 24 24"
+          width="18px"
+          height="22px">
+          <path d="M12 22s8-4 8-10V4l-8-2-8 2v8c0 6 8 10 8 10z" class="st0"></path>
+          <text class="st1 st2" transform="translate(8.25 14)">
+              A
+          </text>
+        </svg>
+        {{'userList.Table.GroupAdmin.lbl' | translate}}
+      </p>
+      <p *ngIf="!data.details.isCurrentMemberGroupAdmin && !member.isCreator" class="user-list__item-group-member">
+        {{(member.isGroupAdmin ? 'userList.Table.GroupAdmin.lbl' : 'userList.Table.GroupMember.lbl') | translate}}
+      </p>
+    </div>
+    <div *ngIf="isDeleteColumn" class="user-list__item-delete cells--{{data.details.selectedColumns.length}}">
+      <button
+        *ngIf="!member.isCreator && data.details.isCurrentMemberGroupAdmin"
+        class="user-list__item-delete-btn"
+        (click)="deleteMember(member.member.id)">
+        X
+      </button>
+    </div>
+  </a>
+  <div *ngIf="canLoadMore" class="user-list__item user-list__item--load-more">
+    <button class="user-list__load-more" (click)="loadMore()" [disabled]="isLoadMoreDisabled">
+      {{'userList.Table.LoadMoreButton.Text' | translate}}
+    </button>
+  </div>
+  <div *ngIf="isNoMembers" class="user-list__item user-list__item--no-members">
+    {{'userList.Table.EmptyResult.lbl' | translate}}
+  </div>
+</div>

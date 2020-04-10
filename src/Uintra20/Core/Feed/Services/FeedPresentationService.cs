@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Compent.Extensions;
+using System.Collections.Generic;
 using System.Linq;
-using System.Web.Mvc;
+using AutoMapper;
 using Uintra20.Core.Activity;
 using Uintra20.Core.Activity.Entities;
 using Uintra20.Core.Activity.Models;
@@ -15,7 +16,6 @@ using Uintra20.Features.Likes.Services;
 using Uintra20.Features.Links;
 using Uintra20.Features.News.Entities;
 using Uintra20.Features.Social.Entities;
-using Uintra20.Features.Subscribe;
 using Uintra20.Infrastructure.Extensions;
 using Umbraco.Core.Logging;
 
@@ -66,7 +66,7 @@ namespace Uintra20.Core.Feed.Services
                 case Social social:
                     return ApplySocialSpecific(social, baseModel);
                 case Event @event:
-                    return ApplySocialSpecific(@event, baseModel);
+                    return ApplyEventSpecific(@event, baseModel);
             }
 
             return baseModel;
@@ -76,61 +76,87 @@ namespace Uintra20.Core.Feed.Services
         {
             if (feedItem is IntranetActivity activity)
             {
-                var baseModel = activity.Map<IntranetActivityPreviewModelBase>();
-                baseModel.Links = _linkService.GetLinks(feedItem.Id);
-                baseModel.Type = _localizationService.Translate(activity.Type.ToString());
-                baseModel.CommentsCount = _commentsService.GetCount(feedItem.Id);
-                baseModel.Likes = _likesService.GetLikeModels(activity.Id);
-                baseModel.GroupInfo = isGroupFeed ? null: _feedActivityHelper.GetGroupInfo(feedItem.Id);
+                var baseModel = new IntranetActivityPreviewModelBase
+                {
+                    Id = feedItem.Id,
+                    Links = _linkService.GetLinks(feedItem.Id),
+                    Type = _localizationService.Translate(activity.Type.ToString()),
+                    CommentsCount = _commentsService.GetCount(feedItem.Id),
+                    Likes = _likesService.GetLikeModels(activity.Id),
+                    GroupInfo = isGroupFeed ? null : _feedActivityHelper.GetGroupInfo(feedItem.Id),
+                    ActivityType = feedItem.Type
+                };
                 _lightboxHelper.FillGalleryPreview(baseModel, activity.MediaIds);
 
                 return baseModel;
             }
 
             _logger.Warn<FeedPresentationService>("Feed item is not IntranetActivity (id={0};type={1})", feedItem.Id, feedItem.Type.ToInt());
-            return null;
 
+            return null;
         }
 
         private IntranetActivityPreviewModelBase ApplyNewsSpecific(News news, IntranetActivityPreviewModelBase previewModel)
         {
             var currentMember = _intranetMemberService.GetCurrentMember();
+            previewModel.Description = news.Description;
+            previewModel.Title = news.Title;
             previewModel.Owner = _intranetMemberService.Get(news).ToViewModel();
             previewModel.LikedByCurrentUser = news.Likes.Any(x => x.UserId == currentMember.Id);
             previewModel.IsGroupMember = !news.GroupId.HasValue || currentMember.GroupIds.Contains(news.GroupId.Value);
+            previewModel.IsPinned = news.IsPinned;
             previewModel.IsPinActual = news.IsPinActual;
             previewModel.CanEdit = _intranetActivityServices.First(s => Equals(s.Type, IntranetActivityTypeEnum.News)).CanEdit(news);
+            previewModel.Dates = news.PublishDate.ToDateFormat().ToEnumerable();
+            previewModel.Location = news.Location;
+            
             return previewModel;
         }
 
         private IntranetActivityPreviewModelBase ApplySocialSpecific(Social social, IntranetActivityPreviewModelBase previewModel)
         {
             var currentMember = _intranetMemberService.GetCurrentMember();
+            previewModel.Description = social.Description;
+            previewModel.Title = social.Title;
             previewModel.Owner = _intranetMemberService.Get(social).ToViewModel();
             previewModel.LikedByCurrentUser = social.Likes.Any(x => x.UserId == currentMember.Id);
             previewModel.IsGroupMember = !social.GroupId.HasValue || currentMember.GroupIds.Contains(social.GroupId.Value);
-            previewModel.IsPinActual = social.IsPinActual;
             previewModel.CanEdit = _intranetActivityServices.First(s => Equals(s.Type, IntranetActivityTypeEnum.Social)).CanEdit(social);
-
+            previewModel.Dates = social.PublishDate.ToDateFormat().ToEnumerable();
+            previewModel.Location = social.Location;
+            
             return previewModel;
         }
 
-        private IntranetActivityPreviewModelBase ApplySocialSpecific(Event @event, IntranetActivityPreviewModelBase previewModel)
+        private IntranetActivityPreviewModelBase ApplyEventSpecific(Event @event, IntranetActivityPreviewModelBase previewModel)
         {
             var currentMember = _intranetMemberService.GetCurrentMember();
+            previewModel.Description = @event.Description;
+            previewModel.Title = @event.Title;
             previewModel.Owner = _intranetMemberService.Get(@event).ToViewModel();
             previewModel.LikedByCurrentUser = @event.Likes.Any(x => x.UserId == currentMember.Id);
             previewModel.IsGroupMember = !@event.GroupId.HasValue || currentMember.GroupIds.Contains(@event.GroupId.Value);
+            previewModel.IsPinned = @event.IsPinned;
             previewModel.IsPinActual = @event.IsPinActual;
             previewModel.CanEdit = _intranetActivityServices.First(s => Equals(s.Type, IntranetActivityTypeEnum.Events)).CanEdit(@event);
             previewModel.CurrentMemberSubscribed = @event.Subscribers.Any(x => x.UserId == currentMember.Id);
+            previewModel.Location = @event.Location;
+            
+            var startDate = @event.StartDate.ToDateTimeFormat();
+            string endDate;
+
+            if (@event.StartDate.Date == @event.EndDate.Date)
+            {
+                endDate = @event.EndDate.ToTimeFormat();
+            }
+            else
+            {
+                endDate = @event.EndDate.ToDateTimeFormat();
+            }
+
+            @previewModel.Dates = new[] { startDate, endDate };
 
             return previewModel;
         }
-    }
-
-    public interface IFeedPresentationService
-    {
-        IntranetActivityPreviewModelBase GetPreviewModel(IFeedItem feedItems, bool isGroupFeed);
     }
 }

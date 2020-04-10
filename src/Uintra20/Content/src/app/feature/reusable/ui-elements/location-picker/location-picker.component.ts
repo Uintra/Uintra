@@ -12,6 +12,7 @@ import { MapsAPILoader, MouseEvent } from "@agm/core";
 import { IGoogleMapsModel, ICoordinates } from "./location-picker.interface";
 import { GoogleGeolocationService } from "./services/google-geolocation.service";
 import { GOOGLE_MAPS_CONFIG } from 'src/app/shared/constants/maps/google-maps.const';
+import { LOCATION_TITLE_MAX_LENGTH } from 'src/app/shared/constants/activity/activity-create.const';
 
 @Component({
   selector: "app-location-picker",
@@ -29,6 +30,7 @@ export class LocationPickerComponent implements OnInit {
   public googleMapsModel: IGoogleMapsModel;
   public defaultCoordinates: ICoordinates =
     GOOGLE_MAPS_CONFIG.DEFAULT_COORDINATES;
+  public locationTitleMaxLength: number = LOCATION_TITLE_MAX_LENGTH;
 
   constructor(
     private mapsAPILoader: MapsAPILoader,

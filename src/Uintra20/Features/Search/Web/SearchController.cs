@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using Compent.Shared.Extensions.Bcl;
 using UBaseline.Core.Controllers;
 using Uintra20.Core.Localization;
 using Uintra20.Core.Search.Entities;
@@ -71,7 +72,7 @@ namespace Uintra20.Features.Search.Web
             {
                 Text = searchRequest.Query,
                 Take = AutocompleteSuggestionCount,
-                SearchableTypeIds = GetUintraSearchableTypes().Select(u=>u.ToInt())
+                SearchableTypeIds = GetAutocompleteSearchableTypes().Select(u=>u.ToInt())
             });
 
             var result = GetAutocompleteResultModels(searchResult.Documents).ToList();
@@ -84,17 +85,6 @@ namespace Uintra20.Features.Search.Web
             return result;
         }
 
-        protected virtual IEnumerable<Enum> GetSearchableTypes()
-        {
-            return _searchableTypeProvider.All;
-        }
-        
-
-        protected virtual IEnumerable<Enum> GetFilterItemTypes()
-        {
-            return _searchableTypeProvider.All;
-        }
-        
         protected virtual SearchPageViewModel GetSearchPage(SearchResult<SearchableBase> searchResult)
         {
             var searchResultViewModels = searchResult.Documents.Select(d =>
@@ -200,7 +190,7 @@ namespace Uintra20.Features.Search.Web
             return status;
         }
 
-        private static List<UintraSearchableTypeEnum> GetUintraSearchableTypes() => new
+        private static List<UintraSearchableTypeEnum> GetAutocompleteSearchableTypes() => new
             List<UintraSearchableTypeEnum>()
             {
                 UintraSearchableTypeEnum.News,
@@ -211,5 +201,10 @@ namespace Uintra20.Features.Search.Web
                 UintraSearchableTypeEnum.Member,
                 UintraSearchableTypeEnum.Tag
             };
+        
+        private static IEnumerable<UintraSearchableTypeEnum> GetSearchableTypes()
+        {
+            return GetAutocompleteSearchableTypes().Except(UintraSearchableTypeEnum.Tag.ToEnumerable());
+        }
     }
 }

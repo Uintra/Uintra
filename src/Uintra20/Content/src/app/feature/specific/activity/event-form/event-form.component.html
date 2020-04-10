@@ -71,6 +71,7 @@
                 type="text"
                 aria-label="Location title"
                 id="location-title"
+                [maxLength]="200"
                 class="location-title__input"
                 placeholder="{{'eventsCreate.LocationTitlePlaceholder.lbl' | translate}}"></text-input>
   </div>
@@ -81,8 +82,9 @@
   </div>
   <app-pin-activity *ngIf="eventsData.pinAllowed"
                     noMaxDate
-                    [publishDate]="initialDates.publishDate"
-                    [isPinCheked]="eventsData.isPinned"
+                    isEvent
+                    [publishDate]="eventsData.publishDate"
+                    [isPinChecked]="eventsData.isPinned"
                     [isAccepted]="isAccepted"
                     [endPinDate]="eventsData.endPinDate"
                     (handleChange)="setPinValue($event)"></app-pin-activity>

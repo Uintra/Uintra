@@ -255,6 +255,25 @@ namespace Uintra20.Features.Events
             return null;
         }
 
+        public override async Task<Event> UpdateActivityCacheAsync(Guid id)
+        {
+            var cachedEvent = await GetAsync(id);
+            var @event = await base.UpdateActivityCacheAsync(id);
+            if (IsCacheable(@event) && (@event.GroupId is null || _groupService.IsActivityFromActiveGroup(@event)))
+            {
+                _activityIndex.Index(Map(@event));
+                _documentIndexer.Index(@event.MediaIds);
+                return @event;
+            }
+
+            if (cachedEvent == null) return null;
+
+            _activityIndex.Delete(id);
+            _documentIndexer.DeleteFromIndex(cachedEvent.MediaIds);
+            _mediaHelper.DeleteMedia(cachedEvent.MediaIds);
+            return null;
+        }
+
         public override bool IsActual(IIntranetActivity activity)
         {
             return base.IsActual(activity) && IsActualPublishDate((Event) activity);

@@ -66,13 +66,17 @@ namespace Uintra20.Infrastructure.Ioc
 			services.AddTransient<IJobFactory, IntranetJobFactory>();
 
 			services.AddSingleton<IConfigurationProvider<ReminderConfiguration>>(i =>
-				new ConfigurationProvider<ReminderConfiguration>(
-					"~/Features/Reminder/reminderConfiguration.json"));
+			{
+				var provider= new ConfigurationProvider<ReminderConfiguration>("~/Features/Reminder/Configuration/reminderConfiguration.json");
+				provider.Initialize();
+				return provider;
+			});
 			services.AddSingleton<IJobSettingsConfiguration>(i => JobSettingsConfiguration.Configure);
 
             services.AddScoped<UintraHub>();
 
             services.AddScoped<IUserIdProvider, SignalRUserIdProvider>();
+            services.AddScoped<IUserMentionNotificationService, UserMentionNotificationService>();
 
             return services;
         }

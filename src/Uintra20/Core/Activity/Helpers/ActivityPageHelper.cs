@@ -26,9 +26,9 @@ namespace Uintra20.Core.Activity.Helpers
 
         public UintraLinkModel GetFeedUrl() =>
             _uBaselineRequestContext
-                .HomeNode
-                .Url
-                .ToLinkModel();
+                ?.HomeNode
+                ?.Url
+                ?.ToLinkModel();
 
         public UintraLinkModel GetDetailsPageUrl(Enum activityType, Guid? activityId = null)
         {

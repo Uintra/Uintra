@@ -24,10 +24,10 @@ export class AutocompleteComponent implements OnInit {
     private router: Router,
   ) {
     this._query.pipe(
-      debounceTime(200),
-      distinctUntilChanged(),
+      debounceTime(300),
+      distinctUntilChanged()
     ).subscribe((value: string) => {
-      if (value && value.length > 2) {
+      if (value.trim() && value.trim().length > 1) {
         this.searchService.autocomplete(value).subscribe((res: IAutocompleteItem[]) => {
           this.autocompleteList = res.map(suggestion => ({
             ...suggestion,
@@ -50,7 +50,7 @@ export class AutocompleteComponent implements OnInit {
     })
   }
 
-  onQueryChange(val: string, keyCode: number) {
+  onKeyClick(keyCode: number) {
     switch (keyCode) {
       case 13:
         this.goToSearchPage();
@@ -61,12 +61,14 @@ export class AutocompleteComponent implements OnInit {
       case 40:
         this.nextSuggestion();
         break;
-      default:
-        this.inputValue = val;
-        this.inputValueToRestore = val;
-        this._query.next(val);
-        break;
     }
+  }
+
+  onQueryChange(val: string) {
+    this.inputValue = val;
+    this.inputValueToRestore = val;
+    const trimedVal = val.replace(/\s+/g, ' ')
+    this._query.next(trimedVal);
   }
 
   prevSuggestion() {
@@ -139,5 +141,6 @@ export class AutocompleteComponent implements OnInit {
     this.inputValue = "";
     this.inputValueToRestore = "";
     this.autocompleteList = [];
+    this._query.next('');
   }
 }

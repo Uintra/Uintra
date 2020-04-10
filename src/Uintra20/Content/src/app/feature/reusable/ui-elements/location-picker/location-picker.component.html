@@ -5,6 +5,7 @@
        autocapitalize="off"
        spellcheck="off"
        #search
+       [maxLength]="locationTitleMaxLength"
        [placeholder]="'locationInputPlaceholder' | translate"
        [(ngModel)]="address" />
 <agm-map [latitude]="defaultCoordinates.latitude"

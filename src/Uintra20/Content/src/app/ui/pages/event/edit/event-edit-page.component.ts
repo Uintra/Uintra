@@ -4,6 +4,9 @@ import { ActivityService } from 'src/app/feature/specific/activity/activity.serv
 import ParseHelper from 'src/app/shared/utils/parse.helper';
 import { IULink } from 'src/app/shared/interfaces/general.interface';
 import { TranslateService } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+import { HasDataChangedService } from 'src/app/shared/services/general/has-data-changed.service';
+import { CanDeactivateGuard } from 'src/app/shared/services/general/can-deactivate.service';
 
 @Component({
   selector: 'event-edit-page',
@@ -20,6 +23,8 @@ export class EventEditPage {
     private router: Router,
     private activityService: ActivityService,
     private translate: TranslateService,
+    private hasDataChangedService: HasDataChangedService,
+    private canDeactivateService: CanDeactivateGuard,
   ) {
     this.route.data.subscribe(data => {
       if (!data.requiresRedirect.get()) {
@@ -42,6 +47,7 @@ export class EventEditPage {
   onSubmit(data) {
     const mapedData = this.requesModelBuilder(data);
     this.activityService.updateEvent(mapedData).subscribe((res: IULink) => {
+      this.hasDataChangedService.reset();
       this.router.navigate([res.originalUrl]);
     })
   }
@@ -52,8 +58,9 @@ export class EventEditPage {
 
   onHide() {
     if (confirm(this.translate.instant('common.AreYouSure'))) {
-      const isNotificationNeeded = confirm(this.translate.instant('common.NotifyAllSubscribers'));
+      const isNotificationNeeded = !this.parsedData.details.hasSubscribers || confirm(this.translate.instant('common.NotifyAllSubscribers'));
       this.activityService.hideEvent(this.parsedData.details.id, isNotificationNeeded).subscribe((res: IULink) => {
+        this.hasDataChangedService.reset();
         this.router.navigate([this.parsedData.links.feed.originalUrl]);
       })
     }
@@ -67,8 +74,18 @@ export class EventEditPage {
 
     copyObject.media = otherFilesIds.concat(mediaIds).join(',');
     copyObject["id"] = this.parsedData.details.id;
-    copyObject["notifyAllSubscribers"] = confirm(this.translate.instant('common.NotifyAllSubscribers'));
+    copyObject["notifyAllSubscribers"] = this.parsedData.details.hasSubscribers
+      ? confirm(this.translate.instant('common.NotifyAllSubscribers'))
+      : false;
 
     return copyObject;
+  }
+
+  canDeactivate(): Observable<boolean> | boolean {
+    if (this.hasDataChangedService.hasDataChanged) {
+      return this.canDeactivateService.canDeacrivateConfirm();
+    }
+
+    return true;
   }
 }

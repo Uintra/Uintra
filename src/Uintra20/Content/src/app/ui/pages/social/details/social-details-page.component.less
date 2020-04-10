@@ -85,10 +85,31 @@
     overflow: hidden;
     line-height: 0;
     padding: 1px;
+    position: relative;
 
     @media @md-down {
       max-width: 33.3%;
       flex: 33.3%;
+    }
+
+    & .icon-video-play {
+      pointer-events: none;
+      font-size: 6vw;
+
+      @media @md-up {
+        font-size: 2vw;
+      }
+
+      &::before {
+        pointer-events: none;
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        top: 50%;
+        z-index: 2;
+        background-size: contain;
+        color: @main-color;
+      }
     }
   }
 

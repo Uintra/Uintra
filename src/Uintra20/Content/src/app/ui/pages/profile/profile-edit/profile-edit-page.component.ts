@@ -10,6 +10,7 @@ import { CanDeactivateGuard } from 'src/app/shared/services/general/can-deactiva
 import { IProfileEditPage } from 'src/app/shared/interfaces/pages/profile/profile-edit-page.interface';
 import { AddButtonService } from 'src/app/ui/main-layout/left-navigation/components/my-links/add-button.service';
 import { TranslateService } from '@ngx-translate/core';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'profile-edit-page',
@@ -18,7 +19,6 @@ import { TranslateService } from '@ngx-translate/core';
   encapsulation: ViewEncapsulation.None
 })
 export class ProfileEditPage implements OnInit {
-  files = [];
   private data: any;
   public profileEdit: IProfileEditPage;
   public profileEditForm: FormGroup;
@@ -131,22 +131,27 @@ export class ProfileEditPage implements OnInit {
   }
 
   public processAvatarUpload(fileArray: Array<any> = []): void {
-    this.files.push(fileArray);
     this.isUploaded = true;
     this.profileEdit.member.newMedia = fileArray[1];
     this.hasDataChangedService.onDataChanged();
   }
 
   public processAvatarDelete(): void {
-    if (confirm(this.translate.instant('profile.DeletePhotoConfirm.lbl'))) {
-      this.profileService.deletePhoto(this.profileEdit.member.photoId)
-        .subscribe(
-          () => {
-            this.files = [];
-            this.profileEdit.member.photo = null;
+    if (this.profileEdit.member.newMedia) {
+      this.profileEdit.member.newMedia = null;
+    } else {
+      if (confirm(this.translate.instant('profile.DeletePhotoConfirm.lbl'))) {
+        const currentPhoto = this.profileEdit.member.photo;
+        this.profileEdit.member.photo = null;
+        this.profileService.deletePhoto(this.profileEdit.member.photoId).subscribe(
+          (res) => {
             this.hasDataChangedService.onDataChanged();
+          },
+          (err) => {
+            this.profileEdit.member.photo = currentPhoto;
           }
         );
+      }
     }
   }
 

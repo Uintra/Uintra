@@ -13,27 +13,19 @@ namespace Uintra20.Core.Member.Services
     public class MentionService : IMentionService
     {
         private readonly ICommandPublisher _commandPublisher;
-        private readonly IIntranetUserContentProvider _intranetUserContentProvider;
-
-        public MentionService(
-            ICommandPublisher commandPublisher,
-            IIntranetUserContentProvider intranetUserContentProvider)
-        {
-            _commandPublisher = commandPublisher;
-            _intranetUserContentProvider = intranetUserContentProvider;
-        }
-
         private const string MentionDetectionRegex = "(?<=\\bdata-id=\")[^\"]*";
 
+        public MentionService(ICommandPublisher commandPublisher)
+        {
+            _commandPublisher = commandPublisher;
+        }
 
         public IEnumerable<Guid> GetMentions(string text)
         {
-            var profilePrefix = _intranetUserContentProvider.GetProfilePage()?.Url?.AddIdParameter(string.Empty);
-
             var matches = Regex.Matches(text, MentionDetectionRegex)
                 .Cast<Match>()
-                .Select(m => m.Value.Replace(profilePrefix, string.Empty));
-
+                .Select(x => x.Value);
+            
             return matches
                 .Select(m =>
                 {

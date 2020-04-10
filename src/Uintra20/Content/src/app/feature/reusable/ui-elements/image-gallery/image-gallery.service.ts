@@ -31,11 +31,17 @@ export class ImageGalleryService {
     let options = {
         // optionName: 'option value'
         // for example:
-        index: index // start at first slide
+        index: index, // start at first slide
+        history: false
     };
 
     // Initializes and opens PhotoSwipe
     let gallery = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, items, options);
     gallery.init();
+    gallery.listen('close', () => {
+      document.querySelectorAll('.pswp__video').forEach((element: HTMLVideoElement) => {
+        element.pause();
+      });
+    })
   }
 }

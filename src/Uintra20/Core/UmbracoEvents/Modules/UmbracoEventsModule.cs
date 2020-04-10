@@ -1,10 +1,13 @@
 ﻿using System.Web.Mvc;
+using LightInject;
+using UBaseline.Core.Extensions;
 using Uintra20.Core.UmbracoEvents.Services.Contracts;
 using Umbraco.Core.Events;
 using Umbraco.Core.Models;
 using Umbraco.Core.Models.Entities;
 using Umbraco.Core.Services;
 using Umbraco.Core.Services.Implement;
+using Umbraco.Web.Composing;
 
 namespace Uintra20.Core.UmbracoEvents.Modules
 {
@@ -24,10 +27,9 @@ namespace Uintra20.Core.UmbracoEvents.Modules
             MediaService.Trashed += ProcessMediaTrashed;
             MediaService.Saving += ProcessMediaSaving;
 
-            //ContentService.Published += ProcessContentPublished;
-            //ContentService.Unpublished += ProcessContentUnPublished;
+            ContentService.Published += ProcessContentPublished;
+            ContentService.Unpublished += ProcessContentUnPublished;
             ContentService.Trashed += ProcessContentTrashed;
-            ContentService.Saving += ProcessPanelSaving;
         }
 
         private static void MemberCreateHandler(IMemberService sender, SaveEventArgs<IMember> e)
@@ -87,25 +89,11 @@ namespace Uintra20.Core.UmbracoEvents.Modules
             IMemberGroupService sender,
             SaveEventArgs<IMemberGroup> e)
         {
-            var services =
-                DependencyResolver.Current.GetServices<IUmbracoMemberGroupSavedEventService>();
+            var services = Current.Factory.EnsureScope(s => s.GetAllInstances<IUmbracoMemberGroupSavedEventService>());
 
             foreach (var service in services)
             {
                 service.MemberGroupSavedHandler(sender, e);
-            }
-        }
-
-        private static void ProcessPanelSaving(
-            IContentService sender,
-            SaveEventArgs<IContent> e)
-        {
-            var services =
-                DependencyResolver.Current.GetServices<IUmbracoContentSavingEventService>();
-
-            foreach (var service in services)
-            {
-                service.ProcessContentSaving(sender, e);
             }
         }
 
@@ -161,42 +149,27 @@ namespace Uintra20.Core.UmbracoEvents.Modules
             }
         }
 
-        private static void MemberDeletingHandler(
-            IMemberService sender,
-            DeleteEventArgs<IMember> e)
+        private static void MemberDeletingHandler(IMemberService sender, DeleteEventArgs<IMember> e)
         {
-            var services =
-                DependencyResolver.Current.GetServices<IUmbracoMemberDeletingEventService>();
-
-            foreach (var service in services)
-            {
-                service.MemberDeleteHandler(sender, e);
-            }
+            var services = DependencyResolver.Current.GetServices<IUmbracoMemberDeletingEventService>();
+            foreach (var service in services) service.MemberDeleteHandler(sender, e);
+        }
+        
+        private static void ProcessContentTrashed(IContentService sender, MoveEventArgs<IContent> e)
+        {
+            var services = DependencyResolver.Current.GetServices<IUmbracoContentTrashedEventService>();
+            foreach (var service in services) service.ProcessContentTrashed(sender, e);
+        }
+        private static void ProcessContentPublished(IContentService sender, ContentPublishedEventArgs e)
+        {
+            var services = DependencyResolver.Current.GetServices<IUmbracoContentPublishedEventService>();
+            foreach (var service in services) service.ProcessContentPublished(sender, e);
         }
 
-        //private static void ProcessContentPublished(IPublishingStrategy sender, PublishEventArgs<IContent> e)
-        //{
-        //    var services = DependencyResolver.Current.GetServices<IUmbracoContentPublishedEventService>();
-        //    foreach (var service in services) service.ProcessContentPublished(sender, e);
-        //}
-
-        //private static void ProcessContentUnPublished(IPublishingStrategy sender, PublishEventArgs<IContent> e)
-        //{
-        //    var services = DependencyResolver.Current.GetServices<IUmbracoContentUnPublishedEventService>();
-        //    foreach (var service in services) service.ProcessContentUnPublished(sender, e);
-        //}
-
-        private static void ProcessContentTrashed(
-            IContentService sender,
-            MoveEventArgs<IContent> e)
+        private static void ProcessContentUnPublished(IContentService sender, PublishEventArgs<IContent>  e)
         {
-            var services = 
-                DependencyResolver.Current.GetServices<IUmbracoContentTrashedEventService>();
-
-            foreach (var service in services)
-            {
-                service.ProcessContentTrashed(sender, e);
-            }
+            var services = DependencyResolver.Current.GetServices<IUmbracoContentUnPublishedEventService>();
+            foreach (var service in services) service.ProcessContentUnPublished(sender, e);
         }
     }
 }

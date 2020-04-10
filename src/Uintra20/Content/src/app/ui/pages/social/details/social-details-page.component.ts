@@ -55,39 +55,55 @@ export class SocialDetailsPanelComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    const parsedData = ParseHelper.parseUbaselineData(this.data);
-    this.details = parsedData.details;
-    this.commentDetails = {
-      entityId: parsedData.details.id,
-      entityType: parsedData.details.activityType
-    };
-    this.canView = !parsedData.requiresRedirect;
-    this.isGroupMember = parsedData.isGroupMember;
-    this.groupHeader = parsedData.groupHeader;
-    this.activityName = this.translateService.instant('socialDetailsTitle.lbl');
-    this.tags = Object.values(parsedData.tags);
-    this.medias = Object.values(parsedData.details.lightboxPreviewModel.medias);
-    this.documents = Object.values(
-      parsedData.details.lightboxPreviewModel.otherFiles
-    );
+    if (this.data) {
+      const parsedData = ParseHelper.parseUbaselineData(this.data);
+      this.details = parsedData.details;
+      this.commentDetails = {
+        entityId: parsedData.details.id,
+        entityType: parsedData.details.activityType
+      };
+      this.canView = !parsedData.requiresRedirect;
+      this.isGroupMember = parsedData.isGroupMember;
+      this.groupHeader = parsedData.groupHeader;
+      this.activityName = this.translateService.instant('socialDetailsTitle.lbl');
+      this.tags = Object.values(parsedData.tags);
+      this.medias = Object.values(parsedData.details.lightboxPreviewModel.medias);
+      this.documents = Object.values(
+        parsedData.details.lightboxPreviewModel.otherFiles
+      );
 
-    this.likeData = {
-      likedByCurrentUser: !!parsedData.likedByCurrentUser,
-      id: parsedData.details.id,
-      activityType: parsedData.details.activityType,
-      likes: parsedData.likes ? Object.values(parsedData.likes) : []
-    };
-    this.detailsDescription = this.sanitizer.bypassSecurityTrustHtml(
-      this.details.description
-    );
+      this.likeData = {
+        likedByCurrentUser: !!parsedData.likedByCurrentUser,
+        id: parsedData.details.id,
+        activityType: parsedData.details.activityType,
+        likes: parsedData.likes ? Object.values(parsedData.likes) : []
+      };
+      this.detailsDescription = this.sanitizer.bypassSecurityTrustHtml(
+        this.details.description
+      );
+    }
   }
 
   public openGallery(i) {
-    const items = this.medias.map(el => ({
-      src: el.url,
-      w: el.width,
-      h: el.height
-    }));
+    const items = this.medias.map(el => {
+      if (el.extension == 'mp4') {
+        return {
+          html: `<div class="gallery__video">
+                  <div class="pswp__video-box">
+                    <video class="pswp__video" src="${el.url}" controls=""></video>
+                  <\div>
+                <\div>`,
+          w: el.width,
+          h: el.height
+        }
+      } else {
+        return {
+          src: el.url,
+          w: el.width,
+          h: el.height
+        }
+      }
+    });
 
     this.imageGalleryService.open(items, i);
   }

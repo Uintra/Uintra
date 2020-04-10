@@ -17,6 +17,7 @@ export class CentralFeedFiltersComponent implements OnInit {
   isOpen: boolean = false;
   filtersState: Array<any> = [];
   filtersAllowed: boolean;
+  filterSubscription: any;
 
   constructor(private centralFeedFiltersService: CentralFeedFiltersService) {}
 
@@ -24,6 +25,9 @@ export class CentralFeedFiltersComponent implements OnInit {
     this.setInitValues();
     this.emitFilterState();
     this.resolveFilterPermissions();
+    this.filterSubscription = this.centralFeedFiltersService.filter.subscribe((val: number) => {
+      this.setSelectedTab(val);
+    })
   }
 
   handleOpen(value: boolean) {
@@ -31,8 +35,12 @@ export class CentralFeedFiltersComponent implements OnInit {
   }
 
   setSelectedTab(event) {
+    if (event === 0) {
+      event = "0";
+    }
     this.selectedTabType = event;
-    this.selectedTab = this.tabs.find(tab => tab.get().type.get() === event);
+    //Please don't change it to strict comparison in callback below
+    this.selectedTab = this.tabs.find(tab => tab.get().type.get() == event);
     this.selectTabFilters = this.getTabFilters();
     this.setSelectedFiltersFromCookie();
     this.emitFilterState();
@@ -147,5 +155,9 @@ export class CentralFeedFiltersComponent implements OnInit {
     if (this.tabs.length > 1) {
       this.filtersAllowed = true;
     }
+  }
+
+  ngOnDestroy() {
+    this.filterSubscription.unsubscribe();
   }
 }

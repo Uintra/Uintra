@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using AutoMapper.Configuration;
+using EmailWorker.Data.Features.EmailWorker;
 using EmailWorker.Web.Infrastructure.Extensions;
 using Uintra20.Core.Activity.AutoMapperProfiles;
 using Uintra20.Core.Controls.LightboxGallery;
@@ -28,38 +29,6 @@ namespace Uintra20
     {
         public static void RegisterMappings(Composition composition)
         {
-            //Mapper.AddProfile<PermissionsAutoMapperProfile>();
-            //Mapper.AddProfile<CommentAutoMapperProfile>();
-            //Mapper.AddProfile<Core.News.NewsAutoMapperProfile>();
-            //Mapper.AddProfile<LightboxAutoMapperProfile>();
-            //Mapper.AddProfile<NavigationAutoMapperProfile>();
-            //Mapper.AddProfile<EventsAutoMapperProfile>();
-            //Mapper.AddProfile<SocialAutoMapperProfile>();
-            //Mapper.AddProfile<NotificationAutoMapperProfile>();
-            //Mapper.AddProfile<CentralFeedAutoMapperProfile>();
-            //Mapper.AddProfile<IntranetUserAutoMapperProfile>();
-            //Mapper.AddProfile<IntranetMemberAutoMapperProfile>();
-            //Mapper.AddProfile<SearchResultAutoMapperProfile>();
-            //Mapper.AddProfile<SearchableActivityAutoMapperProfile>();
-            //Mapper.AddProfile<GroupsAutoMapperProfile>();
-            //Mapper.AddProfile<ActivityAutoMapperProfile>();
-            //Mapper.AddProfile<SearchAutoMapperProfile>();
-            //Mapper.AddProfile<JobAutoMapperProfile>();
-            //Mapper.AddProfile<UserTagsAutoMapperProfile>();
-            //Mapper.AddProfile<SubscribeAutoMapperProfiles>();
-            //Mapper.AddProfile<SubscribeSettingAutoMapperProfiles>();
-            //Mapper.AddProfile<LocationAutoMapperProfile>();
-            //Mapper.AddProfile<LinkPreviewAutoMapperProfile>();
-            //Mapper.AddProfile<TablePanelAutoMapperProfiles>();
-            //var typeMaps = Mapper.GetAllTypeMaps();
-            //foreach (var typeMap in typeMaps)
-            //{
-            //    // (╯°□°）╯︵ ┻━┻ Skip invalid umbraco map. 
-            //    if (typeMap.SourceType == typeof(IUser) &&
-            //        typeMap.DestinationType == typeof(BackOfficeIdentityUser)) continue;
-            //    Mapper.AssertConfigurationIsValid(typeMap);
-            //}
-
             var cfg = new MapperConfigurationExpression();
             
             cfg.AddProfile<PermissionsAutoMapperProfile>();
@@ -79,14 +48,13 @@ namespace Uintra20
             cfg.AddProfile<SubscribeSettingAutoMapperProfiles>();
             cfg.AddProfile<LocationAutoMapperProfile>();
             cfg.AddProfile<LinkPreviewAutoMapperProfile>();
-            cfg.UseMailWorkerMapperProfiles();
+            cfg.AddProfile<MailProfile>();
             cfg.AddProfile<NewsAutoMapperProfile>();
             cfg.AddProfile<ProfileEditProfile>();
             cfg.AddProfile<JobAutoMapperProfile>();
             cfg.AddProfile<SearchAutoMapperProfile>();
             cfg.AddProfile<SearchableActivityAutoMapperProfile>();
             cfg.AddProfile<SearchResultAutoMapperProfile>();
-            //cfg.AddProfile<MailProfile>();
 
             Mapper.Initialize(cfg);
             Mapper.AssertConfigurationIsValid();

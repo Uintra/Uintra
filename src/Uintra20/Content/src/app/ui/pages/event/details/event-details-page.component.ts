@@ -59,52 +59,70 @@ export class EventDetailsPage implements OnInit {
   }
 
   get locationUrl() {
-    return (
-      "http://maps.google.co.uk/maps?q=" +
-      this.parsedData.details.location.shortAddress
-    );
+    if (this.data) {
+      return (
+        "http://maps.google.co.uk/maps?q=" +
+        this.parsedData.details.location.address
+      );
+    }
   }
 
   public ngOnInit(): void {
-    this.parsedData = ParseHelper.parseUbaselineData(this.data);
-    this.eventSubscription.getListOfUsers(this.parsedData.details.id).subscribe((res: string[]) => {
-      this.subscribers = res;
-    })
+    if (this.data) {
+      this.parsedData = ParseHelper.parseUbaselineData(this.data);
+      this.eventSubscription.getListOfUsers(this.parsedData.details.id).subscribe((res: string[]) => {
+        this.subscribers = res;
+      })
 
-    this.details = this.parsedData.details;
-    this.commentDetails = {
-      entityId: this.parsedData.details.id,
-      entityType: this.parsedData.details.activityType
-    };
-    this.activityName = ParseHelper.parseActivityType(
-      this.details.activityType
-    );
+      this.details = this.parsedData.details;
+      this.commentDetails = {
+        entityId: this.parsedData.details.id,
+        entityType: this.parsedData.details.activityType
+      };
+      this.activityName = ParseHelper.parseActivityType(
+        this.details.activityType
+      );
 
-    this.tags = Object.values(this.parsedData.tags);
-    this.medias = Object.values(
-      this.parsedData.details.lightboxPreviewModel.medias
-    );
-    this.documents = Object.values(
-      this.parsedData.details.lightboxPreviewModel.otherFiles
-    );
-    this.fullEventTime = Object.values(
-      this.parsedData.details.fullEventTime
-    );
+      this.tags = Object.values(this.parsedData.tags);
+      this.medias = Object.values(
+        this.parsedData.details.lightboxPreviewModel.medias
+      );
+      this.documents = Object.values(
+        this.parsedData.details.lightboxPreviewModel.otherFiles
+      );
+      this.fullEventTime = Object.values(
+        this.parsedData.details.fullEventTime
+      );
 
-    this.detailsDescription = this.sanitizer.bypassSecurityTrustHtml(
-      this.details.description
-    );
-    this.detailsTitle = this.sanitizer.bypassSecurityTrustHtml(
-      this.details.headerInfo.title
-    );
+      this.detailsDescription = this.sanitizer.bypassSecurityTrustHtml(
+        this.details.description
+      );
+      this.detailsTitle = this.sanitizer.bypassSecurityTrustHtml(
+        this.details.headerInfo.title
+      );
+    }
   }
 
   public openGallery(i) {
-    const items = this.medias.map(el => ({
-      src: el.url,
-      w: el.width,
-      h: el.height
-    }));
+    const items = this.medias.map(el => {
+      if (el.extension == 'mp4') {
+        return {
+          html: `<div class="gallery__video">
+                  <div class="pswp__video-box">
+                    <video class="pswp__video" src="${el.url}" controls=""></video>
+                  <\div>
+                <\div>`,
+          w: el.width,
+          h: el.height
+        }
+      } else {
+        return {
+          src: el.url,
+          w: el.width,
+          h: el.height
+        }
+      }
+    });
 
     this.imageGalleryService.open(items, i);
   }

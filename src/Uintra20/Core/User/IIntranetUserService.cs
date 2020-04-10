@@ -6,7 +6,9 @@ namespace Uintra20.Core.User
     {
 	    T GetByEmail(string email);
 	    T GetById(int id);
-		Task<T> GetByEmailAsync(string email);
+	    void Disable(int id);
+	    void Enable(int id);
+	    Task<T> GetByEmailAsync(string email);
         Task<T> GetByIdAsync(int id);
 	}
 }

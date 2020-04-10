@@ -62,9 +62,9 @@ namespace Uintra20.Core.Member.Profile.Services
                 ? newMedias.First()
                 : default(int?);
 
-            await _intranetMemberService.UpdateAsync(member);
-
             await _userTagService.ReplaceAsync(editModel.Id, editModel.TagIdsData);
+            
+            await _intranetMemberService.UpdateAsync(member);
         }
 
         public async Task<ProfileEditViewModel> GetCurrentUserProfile()

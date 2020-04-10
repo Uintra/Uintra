@@ -5,7 +5,6 @@
 }
 
 .block-subtitle-clamp {
-  display: block;
   font-weight: bold;
   font-size: 14px;
   line-height: 1.43;
@@ -13,6 +12,10 @@
   overflow: hidden;
   text-overflow: ellipsis;
   max-height: 60px;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow-wrap: break-word;
+  display: -webkit-box;
 }
 
 .activity-item-container {

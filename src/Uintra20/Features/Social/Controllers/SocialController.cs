@@ -17,15 +17,14 @@ using Uintra20.Core.Member.Models;
 using Uintra20.Core.Member.Services;
 using Uintra20.Features.Groups.Services;
 using Uintra20.Features.Links;
-using Uintra20.Features.Media;
 using Uintra20.Features.Media.Enums;
 using Uintra20.Features.Media.Helpers;
 using Uintra20.Features.Media.Strategies.Preset;
 using Uintra20.Features.Navigation.Services;
+using Uintra20.Features.Notification;
 using Uintra20.Features.Permissions;
 using Uintra20.Features.Permissions.Interfaces;
 using Uintra20.Features.Permissions.Models;
-using Uintra20.Features.Notification;
 using Uintra20.Features.Social.Models;
 using Uintra20.Features.Tagging.UserTags;
 using Uintra20.Infrastructure.Extensions;
@@ -74,28 +73,24 @@ namespace Uintra20.Features.Social.Controllers
         }
 
         [HttpPost]
-        public async Task<IHttpActionResult> CreateExtended(SocialCreateModel model)
+        public async Task<IHttpActionResult> Create(SocialCreateModel social)
         {
-            if (!_permissionsService.Check(new PermissionSettingIdentity(PermissionActionEnum.Create,
-                PermissionResourceTypeEnum.Social)))
+            if (!_permissionsService.Check(new PermissionSettingIdentity(PermissionActionEnum.Create, PermissionResourceTypeEnum.Social)))
             {
                 return StatusCode(HttpStatusCode.Forbidden);
             }
 
-            var result = new SocialCreationResultModel();
+            var mappedSocial = MapToSocial(social);
+            var socialId = await _socialService.CreateAsync(mappedSocial);
+            mappedSocial.Id = socialId;
 
-            var bulletin = MapToBulletin(model);
-            var createdBulletinId = await _socialService.CreateAsync(bulletin);
-            bulletin.Id = createdBulletinId;
-            await OnBulletinCreatedAsync(bulletin, model);
-
-            result.Id = createdBulletinId;
-            result.IsSuccess = true;
-
-            var viewModel = await GetViewModelAsync(createdBulletinId);
+            await OnBulletinCreatedAsync(mappedSocial, social);
 
             ReloadFeed();
-            return Ok(viewModel.Links.Details);
+
+            var result = await GetViewModelAsync(socialId);
+
+            return Ok(result.Links.Details);
         }
 
         [HttpPut]
@@ -134,13 +129,10 @@ namespace Uintra20.Features.Social.Controllers
             return Ok();
         }
 
-        public void ReloadFeed()
-        {
-            var hubContext = GlobalHost.ConnectionManager.GetHubContext<UintraHub>();
-            hubContext.Clients.All.reloadFeed();
-        }
+        public void ReloadFeed() =>
+            GlobalHost.ConnectionManager.GetHubContext<UintraHub>().Clients.All.reloadFeed();
 
-        private SocialBase MapToBulletin(SocialCreateModel model)
+        private SocialBase MapToSocial(SocialCreateModel model)
         {
             var bulletin = model.Map<SocialBase>();
             bulletin.PublishDate = DateTime.UtcNow;
@@ -271,7 +263,7 @@ namespace Uintra20.Features.Social.Controllers
 
         private async Task ResolveMentionsAsync(string text, SocialBase social)
         {
-            var mentionIds = new Guid[] { };//_mentionService.GetMentions(text).ToList();//TODO: uncomment when mention service is ready
+            var mentionIds = _mentionService.GetMentions(text).ToList();
 
             if (mentionIds.Any())
             {
@@ -282,7 +274,7 @@ namespace Uintra20.Features.Social.Controllers
                     MentionedSourceId = social.Id,
                     CreatorId = await _memberService.GetCurrentMemberIdAsync(),
                     MentionedUserIds = mentionIds,
-                    Title = social.Description.StripHtml().TrimByWordEnd(maxTitleLength),
+                    Title = social.Description.StripMentionHtml().TrimByWordEnd(maxTitleLength),
                     Url = links.Details,
                     ActivityType = IntranetActivityTypeEnum.Social
                 });

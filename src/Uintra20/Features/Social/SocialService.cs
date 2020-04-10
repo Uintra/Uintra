@@ -152,6 +152,24 @@ namespace Uintra20.Features.Social
             }
         }
 
+        public override async Task<T> UpdateActivityCacheAsync(Guid id)
+        {
+            var cachedBulletin = await GetAsync(id);
+            var bulletin = await base.UpdateActivityCacheAsync(id);
+            if (IsCacheable(bulletin) && (bulletin.GroupId is null || _groupService.IsActivityFromActiveGroup(bulletin)))
+            {
+                _activityIndex.Index(Map(bulletin));
+                _documentIndexer.Index(bulletin.MediaIds);
+                return bulletin;
+            }
+
+            if (cachedBulletin == null) return null;
+
+            _activityIndex.Delete(id);
+            _documentIndexer.DeleteFromIndex(cachedBulletin.MediaIds);
+            _mediaHelper.DeleteMedia(cachedBulletin.MediaIds);
+            return null;
+        }
         public override T UpdateActivityCache(Guid id)
         {
             var cachedBulletin = Get(id);

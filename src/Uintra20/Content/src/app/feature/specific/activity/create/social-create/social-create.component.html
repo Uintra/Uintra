@@ -23,7 +23,7 @@
     </div>
     <button class="button"
             [disabled]="!panelData.canCreate"
-            (click)="onShowPopUp()">{{'bulletinsCreate.ExpandBulletin.lbl' | translate}}</button>
+            (click)="onShowPopUp()">{{'socialsCreate.ExpandSocial.lbl' | translate}}</button>
   </div>
   <div class="bulletin-popup__wrapper"
        *ngIf="isPopupShowing">
@@ -37,10 +37,13 @@
                               [title]="userAvatar.name">
         <div subtitle>{{panelData.date}} - {{'socialCreate.Title' | translate}}</div>
       </app-publication-header>
-      <app-tag-multiselect class="bulletin-popup__multiselect"
-                           [availableTags]="availableTags"
-                           [ngModel]="tags"
-                           (ngModelChange)="onTagsChange($event)"></app-tag-multiselect>
+      <div class="bulletin-popup__multiselect-wrapper">
+        <h3 class="bulletin-popup__multiselect-title">{{'userTagsPicker.AddTags.lbl' | translate}}</h3>
+        <app-tag-multiselect class="bulletin-popup__multiselect"
+                            [availableTags]="availableTags"
+                            [ngModel]="tags"
+                            (ngModelChange)="onTagsChange($event)"></app-tag-multiselect>
+      </div>
       <dropzone #dropdownRef
                 (success)="onUploadSuccess($event)"
                 (removedFile)="onFileRemoved($event)"></dropzone>
@@ -48,14 +51,14 @@
                             (ngModelChange)="onDescriptionChange($event)"
                             (addAttachment)="addAttachment()"
                             [isUnderline]="false"
-                            [placeholder]="'bulletinsCreate.FormPlaceholder.lbl' | translate">
+                            [placeholder]="'socialsCreate.FormPlaceholder.lbl' | translate">
         <button submit
                 [disabled]="isSubmitDisabled"
                 class="bulletin-popup__submit-button"
                 (click)="onSubmit()">
           <span *ngIf="inProgress"
                 class="bulletin-popup__submit-button-spinner"></span>
-          <span *ngIf="!inProgress">{{'bulletinsCreate.Post.lbl' | translate}}</span>
+          <span *ngIf="!inProgress">{{'socialsCreate.Post.lbl' | translate}}</span>
         </button>
       </app-rich-text-editor>
     </div>

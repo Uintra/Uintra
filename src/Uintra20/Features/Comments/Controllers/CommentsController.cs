@@ -20,6 +20,7 @@ using Uintra20.Features.Comments.Links;
 using Uintra20.Features.Comments.Models;
 using Uintra20.Features.Comments.Services;
 using Uintra20.Features.Groups.Services;
+using Uintra20.Features.Links.Models;
 using Uintra20.Features.Notification;
 using Uintra20.Infrastructure.Extensions;
 
@@ -79,7 +80,7 @@ namespace Uintra20.Features.Comments.Controllers
             var command = new AddCommentCommand(model.EntityId, model.EntityType, createDto);
             _commandPublisher.Publish(command);
 
-            await OnCommentCreatedAsync(createDto.Id);
+            await OnCommentCreatedAsync(createDto.Id, model.EntityType);
 
             switch (model.EntityType)
             {
@@ -104,7 +105,7 @@ namespace Uintra20.Features.Comments.Controllers
             var command = new EditCommentCommand(model.EntityId, model.EntityType, editDto);
             _commandPublisher.Publish(command);
 
-            await OnCommentEditedAsync(model.Id);
+            await OnCommentEditedAsync(model.Id, model.EntityType);
 
             switch (model.EntityType)
             {
@@ -187,69 +188,48 @@ namespace Uintra20.Features.Comments.Controllers
             return (ICommentable)service.Get(activityId);
         }
 
-        private async Task OnCommentCreatedAsync(Guid commentId)
+        private async Task OnCommentCreatedAsync(Guid commentId, IntranetEntityTypeEnum activityType)
         {
             var comment = await _commentsService.GetAsync(commentId);
-            await ResolveMentionsAsync(comment.Text, comment);
+            await ResolveMentionsAsync(comment, activityType);
         }
 
-        private async Task OnCommentEditedAsync(Guid commentId)
+        private async Task OnCommentEditedAsync(Guid commentId, IntranetEntityTypeEnum activityType)
         {
             var comment = await _commentsService.GetAsync(commentId);
-            await ResolveMentionsAsync(comment.Text, comment);
+            await ResolveMentionsAsync(comment, activityType);
         }
 
-        private void OnCommentCreated(Guid commentId)
+        private async Task ResolveMentionsAsync(CommentModel comment, IntranetEntityTypeEnum activityType)
         {
-            var comment = _commentsService.Get(commentId);
-            ResolveMentions(comment.Text, comment);
-        }
+            var mentionIds = _mentionService.GetMentions(comment.Text).ToList();
 
-        private void OnCommentEdited(Guid commentId)
-        {
-            var comment = _commentsService.Get(commentId);
-            ResolveMentions(comment.Text, comment);
-        }
-
-        private async Task ResolveMentionsAsync(string text, CommentModel comment)
-        {
-            var mentionIds = _mentionService.GetMentions(text).ToList();
+            var isActivity = activityType.Is(IntranetEntityTypeEnum.Events, IntranetEntityTypeEnum.News,
+                IntranetEntityTypeEnum.Social);
 
             if (mentionIds.Any())
             {
-                var content = _nodeModelService.AsEnumerable().FirstOrDefault(x => x.Key == comment.ActivityId);
+                UintraLinkModel url;
+
+                if (isActivity)
+                    url = await _commentLinkHelper.GetDetailsUrlWithCommentAsync(comment.ActivityId, comment.Id);
+                else
+                {
+                    var content = _nodeModelService.AsEnumerable().FirstOrDefault(x => x.Key == comment.ActivityId);
+                    url = _commentLinkHelper.GetDetailsUrlWithComment(content, comment.Id);
+                }
+
                 _mentionService.ProcessMention(new MentionModel
                 {
                     MentionedSourceId = comment.Id,
                     CreatorId = await _intranetMemberService.GetCurrentMemberIdAsync(),
                     MentionedUserIds = mentionIds,
-                    Title = comment.Text.StripHtml().TrimByWordEnd(50),
-                    Url = content != null ? _commentLinkHelper.GetDetailsUrlWithComment(content, comment.Id) :
-                        await _commentLinkHelper.GetDetailsUrlWithCommentAsync(comment.ActivityId, comment.Id),
+                    Title = comment.Text.StripMentionHtml().TrimByWordEnd(50),
+                    Url = url,
                     ActivityType = CommunicationTypeEnum.CommunicationSettings
                 });
 
             }
-        }
-
-        private void ResolveMentions(string text, CommentModel comment)
-        {
-            var mentionIds = _mentionService.GetMentions(text).ToArray();
-
-            if (mentionIds.Length == 0) 
-                return;
-
-            var content = _nodeModelService.AsEnumerable().FirstOrDefault(x => x.Key == comment.ActivityId);
-            _mentionService.ProcessMention(new MentionModel
-            {
-                MentionedSourceId = comment.Id,
-                CreatorId = _intranetMemberService.GetCurrentMemberId(),
-                MentionedUserIds = mentionIds,
-                Title = comment.Text.StripHtml().TrimByWordEnd(50),
-                Url = content != null ? _commentLinkHelper.GetDetailsUrlWithComment(content, comment.Id) :
-                    _commentLinkHelper.GetDetailsUrlWithComment(comment.ActivityId, comment.Id),
-                ActivityType = CommunicationTypeEnum.CommunicationSettings
-            });
         }
     }
 }

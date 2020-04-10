@@ -92,36 +92,7 @@ namespace Uintra20.Features.Events.AutoMapperProfiles
 
             CreateMap<Event, GroupActivityTransferModel>()
                 .IncludeBase<Event, GroupActivityTransferCreateModel>();
-
-            CreateMap<Event, IntranetActivityPreviewModelBase>()
-                .ForMember(dst => dst.CanEdit, o => o.Ignore())
-                .ForMember(dst => dst.Links, o => o.Ignore())
-                .ForMember(dst => dst.Owner, o => o.Ignore())
-                .ForMember(dst => dst.MediaPreview, o => o.Ignore())
-                .ForMember(dst => dst.LikedByCurrentUser, o => o.Ignore())
-                .ForMember(dst => dst.IsPinActual, o => o.Ignore())
-                .ForMember(dst => dst.GroupInfo, o => o.Ignore())
-                .ForMember(dst => dst.IsGroupMember, o => o.Ignore())
-                .ForMember(dst => dst.CurrentMemberSubscribed, o => o.Ignore())
-                .ForMember(dst => dst.ActivityType, o => o.MapFrom(src => src.Type))
-                .ForMember(dst => dst.Dates, o => o.Ignore())
-                .AfterMap((src, dst) =>
-                {
-                    var startDate = src.StartDate.ToDateTimeFormat();
-                    string endDate;
-
-                    if (src.StartDate.Date == src.EndDate.Date)
-                    {
-                        endDate = src.EndDate.ToTimeFormat();
-                    }
-                    else
-                    {
-                        endDate = src.EndDate.ToDateTimeFormat();
-                    }
-
-                    dst.Dates = new[] { startDate, endDate };
-                });
-
+            
             //Mapper.CreateMap<EventCreateModel, EventExtendedCreateModel>()
             //    .ForMember(dst => dst.CanSubscribe, o => o.Ignore())
             //    .ForMember(dst => dst.SubscribeNotes, o => o.Ignore())
@@ -190,7 +161,6 @@ namespace Uintra20.Features.Events.AutoMapperProfiles
                 .ForMember(dst => dst.Type, o => o.Ignore())
                 .ForMember(dst => dst.EndPinDate, o => o.Ignore())
                 .ForMember(dst => dst.IsPinActual, o => o.Ignore())
-                .ForMember(dst => dst.GroupId, o => o.Ignore())
                 .ForMember(dst => dst.Type, o => o.Ignore())
                 .ForMember(dst => dst.Likes, o => o.Ignore())
                 .ForMember(dst => dst.Comments, o => o.Ignore())
@@ -234,6 +204,7 @@ namespace Uintra20.Features.Events.AutoMapperProfiles
                 .ForMember(dst => dst.EventDate, o => o.Ignore())
                 .ForMember(dst => dst.EventMonth, o => o.Ignore())
                 .ForMember(dst => dst.IsSubscribed, o => o.Ignore())
+                .ForMember(dst => dst.HasSubscribers, o => o.MapFrom(src => src.Subscribers.Any()))
                 .ForMember(dst => dst.IsNotificationsDisabled, o => o.Ignore())
                 .ForMember(dst => dst.IsPinned, o => o.MapFrom(s => s.IsPinned))
                 .ForMember(dst => dst.EndPinDate, o => o.MapFrom(s => s.EndPinDate))

@@ -189,7 +189,7 @@ namespace Uintra20.Features.Notification.Services
                 NotifierType = identity.NotifierType.ToInt(),
                 ActivityType = identity.Event.ActivityType.ToInt(),
                 NotificationType = identity.Event.NotificationType.ToInt(),
-                IsEnabled = true,
+                IsEnabled = false,
                 JsonData = defaults.Template.ToJson()
             };
         }
