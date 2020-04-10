@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { SearchService } from '../search.service';
-import { Router, NavigationStart } from '@angular/router';
+import { Router, NavigationStart, ActivatedRoute } from '@angular/router';
 import { IAutocompleteItem, IMapedAutocompleteItem } from '../search.interface';
 
 @Component({
@@ -22,6 +22,7 @@ export class AutocompleteComponent implements OnInit {
   constructor(
     private searchService: SearchService,
     private router: Router,
+    private route: ActivatedRoute,
   ) {
     this._query.pipe(
       debounceTime(300),
@@ -47,7 +48,7 @@ export class AutocompleteComponent implements OnInit {
         this.closeAutocomplete();
         this.clearInput();
       }
-    })
+    });
   }
 
   onKeyClick(keyCode: number) {
@@ -114,7 +115,7 @@ export class AutocompleteComponent implements OnInit {
       if (currentSuggestionIndex !== -1) {
         this.router.navigate([this.autocompleteList[currentSuggestionIndex].url.originalUrl]);
       } else {
-        this.router.navigate(['/search'], {queryParams: {query: encodeURIComponent(this.inputValue)} });
+        this.router.navigate(['/search'], {queryParams: {query: this.inputValue} });
       }
     }
   }

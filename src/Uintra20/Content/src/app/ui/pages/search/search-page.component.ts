@@ -54,6 +54,13 @@ export class SearchPage {
     }));
     this.resultsList = this.parsedData.results || [];
     this.inputValue = this.parsedData.query;
+
+    const paramsSubscription =  this.route.queryParams.subscribe(params => {
+      let query = params && params.query ? params.query : "";
+      this.inputValue = query;
+    });
+
+    paramsSubscription.unsubscribe();
   }
 
   onQueryChange(val: string): void {
