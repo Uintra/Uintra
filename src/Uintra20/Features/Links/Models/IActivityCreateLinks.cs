@@ -3,7 +3,6 @@
     public interface IActivityCreateLinks
     {
         UintraLinkModel Feed { get; }
-        UintraLinkModel Overview { get; }
         UintraLinkModel Create { get; }
         UintraLinkModel Owner { get; }
     }

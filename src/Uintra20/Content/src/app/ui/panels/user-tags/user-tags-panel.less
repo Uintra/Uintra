@@ -1,0 +1,24 @@
+@import "base.less";
+
+.feed-item-tags {
+    margin-bottom: 23px;
+  
+    &__text {
+      display: inline-block;
+      margin-right: 20px;
+    }
+  
+    &__tag {
+      display: inline-block;
+      text-decoration: none;
+      padding: 5px 10px 3px 9px;
+      background-color: @border-grey;
+      border-radius: 2px;
+      color: @body-text-color;
+      margin-bottom: 5px;
+  
+      &:not(:last-child) {
+        margin-right: 10px;
+      }
+    }
+  }
