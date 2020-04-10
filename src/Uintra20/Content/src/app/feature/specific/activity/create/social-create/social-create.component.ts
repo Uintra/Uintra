@@ -178,7 +178,7 @@ export class SocialCreateComponent implements OnInit {
 
   getPlaceholder() {
     return this.mq.isTablet(this.deviceWidth)
-      ? 'bulletinsCreate.FormPlaceholder.lbl'
-      : 'bulletinsCreate.MobileBtn.lbl';
+      ? 'socialsCreate.FormPlaceholder.lbl'
+      : 'socialsCreate.MobileBtn.lbl';
   }
 }
