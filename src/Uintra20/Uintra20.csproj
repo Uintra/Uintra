@@ -1,7 +1,7 @@
 ﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\..\packages\Compent.UBaseline.UI.0.2.15-beta17\build\Compent.UBaseline.UI.props" Condition="Exists('..\..\packages\Compent.UBaseline.UI.0.2.15-beta17\build\Compent.UBaseline.UI.props')" />
+  <Import Project="..\..\packages\Compent.UBaseline.UI.0.2.15\build\Compent.UBaseline.UI.props" Condition="Exists('..\..\packages\Compent.UBaseline.UI.0.2.15\build\Compent.UBaseline.UI.props')" />
+  <Import Project="..\..\packages\UmbracoCms.8.6.0\build\UmbracoCms.props" Condition="Exists('..\..\packages\UmbracoCms.8.6.0\build\UmbracoCms.props')" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
-  <Import Project="..\..\packages\UmbracoCms.8.4.0\build\UmbracoCms.props" Condition="Exists('..\..\packages\UmbracoCms.8.4.0\build\UmbracoCms.props')" />
   <Import Project="..\..\packages\EntityFramework.6.4.0\build\EntityFramework.props" Condition="Exists('..\..\packages\EntityFramework.6.4.0\build\EntityFramework.props')" />
   <Import Project="..\..\packages\uSync.8.1.1\build\uSync.props" Condition="Exists('..\..\packages\uSync.8.1.1\build\uSync.props')" />
   <Import Project="..\..\packages\Microsoft.Net.Compilers.2.10.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\..\packages\Microsoft.Net.Compilers.2.10.0\build\Microsoft.Net.Compilers.props')" />
@@ -56,8 +56,8 @@
     <Reference Include="AutoMapper, Version=8.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <HintPath>..\..\packages\AutoMapper.8.1.1\lib\net461\AutoMapper.dll</HintPath>
     </Reference>
-    <Reference Include="ClientDependency.Core, Version=1.9.8.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\ClientDependency.1.9.8\lib\net45\ClientDependency.Core.dll</HintPath>
+    <Reference Include="ClientDependency.Core, Version=1.9.9.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\ClientDependency.1.9.9\lib\net45\ClientDependency.Core.dll</HintPath>
     </Reference>
     <Reference Include="ClientDependency.Core.Mvc, Version=1.9.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\ClientDependency-Mvc5.1.9.3\lib\net45\ClientDependency.Core.Mvc.dll</HintPath>
@@ -128,8 +128,8 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="Examine, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Examine.1.0.1\lib\net452\Examine.dll</HintPath>
+    <Reference Include="Examine, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Examine.1.0.2\lib\net452\Examine.dll</HintPath>
     </Reference>
     <Reference Include="FluentScheduler, Version=5.3.0.0, Culture=neutral, PublicKeyToken=b76503528a14ebd1, processorArchitecture=MSIL">
       <HintPath>..\..\packages\FluentScheduler.5.3.0\lib\net40\FluentScheduler.dll</HintPath>
@@ -582,32 +582,32 @@
     <Reference Include="TimeZoneConverter, Version=3.0.0.0, Culture=neutral, PublicKeyToken=e20ab7d0d9479841, processorArchitecture=MSIL">
       <HintPath>..\..\packages\TimeZoneConverter.3.0.0\lib\net471\TimeZoneConverter.dll</HintPath>
     </Reference>
-    <Reference Include="UBaseline.Core, Version=0.2.15.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\..\packages\Compent.UBaseline.Core.0.2.15-beta17\lib\net472\UBaseline.Core.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="UBaseline.Core, Version=0.2.15.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Compent.UBaseline.Core.0.2.15\lib\net472\UBaseline.Core.dll</HintPath>
     </Reference>
-    <Reference Include="UBaseline.Shared, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\..\packages\Compent.UBaseline.Core.0.2.15-beta17\lib\net472\UBaseline.Shared.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="UBaseline.Shared, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Compent.UBaseline.Core.0.2.15\lib\net472\UBaseline.Shared.dll</HintPath>
     </Reference>
-    <Reference Include="UBaseline.UI, Version=0.2.15.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\..\packages\Compent.UBaseline.UI.0.2.15-beta17\lib\net472\UBaseline.UI.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="UBaseline.UI, Version=0.2.15.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Compent.UBaseline.UI.0.2.15\lib\net472\UBaseline.UI.dll</HintPath>
     </Reference>
     <Reference Include="Umbraco.Core, Version=8.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\UmbracoCms.Core.8.4.0\lib\net472\Umbraco.Core.dll</HintPath>
+      <HintPath>..\..\packages\UmbracoCms.Core.8.6.0\lib\net472\Umbraco.Core.dll</HintPath>
     </Reference>
     <Reference Include="Umbraco.Examine, Version=8.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\UmbracoCms.Web.8.4.0\lib\net472\Umbraco.Examine.dll</HintPath>
+      <HintPath>..\..\packages\UmbracoCms.Web.8.6.0\lib\net472\Umbraco.Examine.dll</HintPath>
     </Reference>
     <Reference Include="Umbraco.ModelsBuilder, Version=8.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Umbraco.ModelsBuilder.8.1.0\lib\net472\Umbraco.ModelsBuilder.dll</HintPath>
     </Reference>
+    <Reference Include="Umbraco.ModelsBuilder.Embedded, Version=8.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\UmbracoCms.Web.8.6.0\lib\net472\Umbraco.ModelsBuilder.Embedded.dll</HintPath>
+    </Reference>
     <Reference Include="Umbraco.Web, Version=8.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\UmbracoCms.Web.8.4.0\lib\net472\Umbraco.Web.dll</HintPath>
+      <HintPath>..\..\packages\UmbracoCms.Web.8.6.0\lib\net472\Umbraco.Web.dll</HintPath>
     </Reference>
     <Reference Include="Umbraco.Web.UI, Version=8.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\UmbracoCms.Web.8.4.0\lib\net472\Umbraco.Web.UI.dll</HintPath>
+      <HintPath>..\..\packages\UmbracoCms.Web.8.6.0\lib\net472\Umbraco.Web.UI.dll</HintPath>
     </Reference>
     <Reference Include="UmbracoIdentity, Version=7.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\UmbracoIdentity.Core.7.0.0\lib\net472\UmbracoIdentity.dll</HintPath>
@@ -628,7 +628,6 @@
   <ItemGroup>
     <Content Include="App_Plugins\AnchorField\anchor-field.controller.js" />
     <Content Include="App_Plugins\AnchorField\anchor-field.html" />
-    <Content Include="App_Plugins\AnchorField\package.manifest" />
     <Content Include="App_Plugins\AnchorField\style.css" />
     <Content Include="App_Plugins\AvailableActivitySelector\available-activity-selector.service.js" />
     <Content Include="App_Plugins\AvailableActivitySelector\available-activity-selector.controller.js" />
@@ -687,7 +686,6 @@
     <Content Include="App_Plugins\BaseControls\VideoLink\videoLinkDirective.js" />
     <Content Include="App_Plugins\ContentPreview\content-preview.controller.js" />
     <Content Include="App_Plugins\ContentPreview\content-preview.html" />
-    <Content Include="App_Plugins\ContentPreview\package.manifest" />
     <Content Include="App_Plugins\EnumLists\enum.resource.js" />
     <Content Include="App_Plugins\EnumLists\enumcheckboxlist.controller.js" />
     <Content Include="App_Plugins\EnumLists\enumcheckboxlist.html" />
@@ -698,20 +696,16 @@
     <Content Include="App_Plugins\ImagePickerExtended\image-picker-extended.controller.js" />
     <Content Include="App_Plugins\ImagePickerExtended\image-picker-extended.html" />
     <Content Include="App_Plugins\ImagePickerExtended\overlay\image-picker-extended-overlay.html" />
-    <Content Include="App_Plugins\ImagePickerExtended\package.manifest" />
     <Content Include="App_Plugins\ImagePickerExtended\polyfills\object.assign.js" />
     <Content Include="App_Plugins\ImagePickerExtended\prevalue-editor\image-picker-extended-prevalue.controller.js" />
     <Content Include="App_Plugins\ImagePickerExtended\prevalue-editor\image-picker-extended-prevalue.html" />
-    <Content Include="App_Plugins\Interceptors\package.manifest" />
     <Content Include="App_Plugins\Interceptors\umbraco-http-interceptors.js" />
     <Content Include="App_Plugins\KeyValueDropdownList\key-value-dropdown-list.controller.js" />
     <Content Include="App_Plugins\KeyValueDropdownList\key-value-dropdown-list.html" />
-    <Content Include="App_Plugins\KeyValueDropdownList\package.manifest" />
     <Content Include="App_Plugins\KeyValueDropdownList\prevalue-editor\key-value-dropdown-list.prevalue.controller.js" />
     <Content Include="App_Plugins\KeyValueDropdownList\prevalue-editor\key-value-dropdown-list.prevalue.html" />
     <Content Include="App_Plugins\KeyValueRadioButtonList\key-value-radio-button-list.controller.js" />
     <Content Include="App_Plugins\KeyValueRadioButtonList\key-value-radio-button-list.html" />
-    <Content Include="App_Plugins\KeyValueRadioButtonList\package.manifest" />
     <Content Include="App_Plugins\KeyValueRadioButtonList\prevalue-editor\key-value-radio-button-list.prevalue.controller.js" />
     <Content Include="App_Plugins\KeyValueRadioButtonList\prevalue-editor\key-value-radio-button-list.prevalue.html" />
     <Content Include="App_Plugins\Localization\backoffice\css\localization.css" />
@@ -726,22 +720,18 @@
     <Content Include="App_Plugins\Localization\backoffice\Shared\polyfills\find.polyfill.js" />
     <Content Include="App_Plugins\Localization\backoffice\Shared\polyfills\findIndex.polyfill.js" />
     <Content Include="App_Plugins\Localization\lang\en-us.xml" />
-    <Content Include="App_Plugins\Localization\package.manifest" />
     <Content Include="App_Plugins\MailchimpListContainer\mailchimp-list-container.controller.js" />
     <Content Include="App_Plugins\MailchimpListContainer\mailchimp-list-container.html" />
     <Content Include="App_Plugins\MailchimpListContainer\mailchimp-list-container.service.js" />
-    <Content Include="App_Plugins\MailchimpListContainer\package.manifest" />
     <Content Include="App_Plugins\MailchimpListContainer\styles.css" />
     <Content Include="App_Plugins\MediaPicker\media-picker.html" />
     <Content Include="App_Plugins\MediaPicker\media-picker.js" />
-    <Content Include="App_Plugins\MediaPicker\package.manifest" />
     <Content Include="App_Plugins\MediaPicker\prevalue-editor\image-picker.prevalue.html" />
     <Content Include="App_Plugins\MediaPicker\prevalue-editor\media.prevalue.html" />
     <Content Include="App_Plugins\MediaPicker\prevalue-editor\media.prevalue.js" />
     <Content Include="App_Plugins\MediaPicker\styles.css" />
     <Content Include="App_Plugins\Microdata\microdata.controller.js" />
     <Content Include="App_Plugins\Microdata\microdata.html" />
-    <Content Include="App_Plugins\Microdata\package.manifest" />
     <Content Include="App_Plugins\Microdata\styles.css" />
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.controller.js" />
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.html" />
@@ -757,7 +747,6 @@
     <Content Include="App_Plugins\PanelContainer\directives\tree.js" />
     <Content Include="App_Plugins\PanelContainer\directives\tree\tree-item.html" />
     <Content Include="App_Plugins\PanelContainer\directives\tree\tree.html" />
-    <Content Include="App_Plugins\PanelContainer\package.manifest" />
     <Content Include="App_Plugins\PanelContainer\panel-container.controller.js" />
     <Content Include="App_Plugins\PanelContainer\panel-container.html" />
     <Content Include="App_Plugins\PanelContainer\panel-container.resource.js" />
@@ -766,7 +755,6 @@
     <Content Include="App_Plugins\PanelContainer\prevalue\hidden-panels-selector.html" />
     <Content Include="App_Plugins\PanelContainer\style.css" />
     <Content Include="App_Plugins\PanelThemePicker\Css\style.css" />
-    <Content Include="App_Plugins\PanelThemePicker\package.manifest" />
     <Content Include="App_Plugins\PanelThemePicker\panel-theme-picker.controller.js" />
     <Content Include="App_Plugins\PanelThemePicker\panel-theme-picker.html" />
     <Content Include="App_Plugins\PanelThemePicker\prevalue-editor\panel-theme-picker-prevalue.controller.js" />
@@ -807,11 +795,9 @@
     <Content Include="App_Plugins\SentMails\lang\en-us.xml" />
     <Content Include="App_Plugins\Shared\directives\key-value-dropdown-list\key-value-dropdown-list.directive.html" />
     <Content Include="App_Plugins\Shared\directives\key-value-dropdown-list\key-value-dropdown-list.directive.js" />
-    <Content Include="App_Plugins\Shared\package.manifest" />
     <Content Include="App_Plugins\Skybrud.Umbraco.Redirects\Lang\da-DK.xml" />
     <Content Include="App_Plugins\Skybrud.Umbraco.Redirects\Lang\en-GB.xml" />
     <Content Include="App_Plugins\Skybrud.Umbraco.Redirects\Lang\en-US.xml" />
-    <Content Include="App_Plugins\Skybrud.Umbraco.Redirects\package.manifest" />
     <Content Include="App_Plugins\Skybrud.Umbraco.Redirects\Scripts\Controllers\Dashboards\Default.js" />
     <Content Include="App_Plugins\Skybrud.Umbraco.Redirects\Scripts\Controllers\Dialogs\Redirect.js" />
     <Content Include="App_Plugins\Skybrud.Umbraco.Redirects\Scripts\Controllers\Editors\Destination.js" />
@@ -833,7 +819,6 @@
     <Content Include="App_Plugins\TableEditor\js\table-editor-column-control.directive.js" />
     <Content Include="App_Plugins\TableEditor\js\table-editor-row-control.directive.js" />
     <Content Include="App_Plugins\TableEditor\js\table-editor.controller.js" />
-    <Content Include="App_Plugins\TableEditor\package.manifest" />
     <Content Include="App_Plugins\TableEditor\views\table-editor.html" />
     <Content Include="App_Plugins\UintraGroupMember\backoffice\uintraMemberGroups\delete.controller.js" />
     <Content Include="App_Plugins\UintraGroupMember\backoffice\uintraMemberGroups\delete.html" />
@@ -848,7 +833,6 @@
     <Content Include="App_Plugins\UmbracoStructureManagement\components\umbracoStructureManagementReportView.html" />
     <Content Include="App_Plugins\UmbracoStructureManagement\components\umbracoStructureManagementReportViewComponent.js" />
     <Content Include="App_Plugins\UmbracoStructureManagement\lang\en-US.xml" />
-    <Content Include="App_Plugins\UmbracoStructureManagement\package.manifest" />
     <Content Include="App_Plugins\UmbracoStructureManagement\settings\default.html" />
     <Content Include="App_Plugins\UmbracoStructureManagement\settings\umbracoStructureManagementController.js" />
     <Content Include="App_Plugins\UmbracoStructureManagement\umbracoStructureManagementService.js" />
@@ -878,14 +862,12 @@
     <Content Include="App_Plugins\uSync8\uSyncHub.js" />
     <Content Include="App_Plugins\uSync8\uSyncService.js" />
     <Content Include="App_Plugins\Utils\Сache\View\developer-cache.html" />
-    <Content Include="App_Plugins\UtmConfiguration\package.manifest" />
     <Content Include="App_Plugins\UtmConfiguration\page\utm-configuration-page.controller.js" />
     <Content Include="App_Plugins\UtmConfiguration\page\utm-configuration-page.css" />
     <Content Include="App_Plugins\UtmConfiguration\page\utm-configuration-page.html" />
     <Content Include="App_Plugins\UtmConfiguration\panel\utm-configuration-panel.controller.js" />
     <Content Include="App_Plugins\UtmConfiguration\panel\utm-configuration-panel.html" />
     <Content Include="App_Plugins\UtmConfiguration\utm-configuration.service.js" />
-    <Content Include="App_Plugins\VideoPicker\package.manifest" />
     <Content Include="App_Plugins\VideoPicker\prevalue-editor\styles.css" />
     <Content Include="App_Plugins\VideoPicker\prevalue-editor\video-picker-prevalue.controller.js" />
     <Content Include="App_Plugins\VideoPicker\prevalue-editor\video-picker-prevalue.html" />
@@ -917,74 +899,17 @@
     <Content Include="config\Lang\ru-RU.user.xml" />
     <Content Include="config\Lang\sv-SE.user.xml" />
     <Content Include="config\Lang\zh-CN.user.xml" />
-    <Content Include="config\Logging\loggingSettings.json" />
-    <Content Include="config\logviewer.searches.config.js" />
     <Content Include="App_Plugins\UserPicker\package.manifest" />
-    <Content Include="config\BackOfficeTours\getting-started.json" />
     <Content Include="App_Plugins\UserPicker\package.manifest" />
-    <Content Include="config\UBaseline\panelContainerSettings.json" />
-    <Content Include="config\UBaseline\ubaselineLoggingSettings.json" />
-    <Content Include="config\UBaseline\ubaselineSettings.json" />
-    <Content Include="config\UBaseline\videoPickerSettings.json" />
     <EmbeddedResource Include="Core\MediaToolkit\ffmpeg.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
+    <Content Include="config\logviewer.searches.config.js" />
     <Content Include="css\rte.css" />
     <Content Include="Global.asax" />
     <Content Include="images\videoLoader.jpg" />
     <Content Include="images\videoLoaderFailure.jpg" />
-    <Content Include="Views\InternalServerErrorPage.cshtml" />
-    <Content Include="Views\SimpleLoginPage.cshtml" />
-    <Content Include="Views\UBaseline\Microdata.cshtml" />
-    <Content Include="Views\UBaseline\Navigation.cshtml" />
-    <Content Include="Views\UBaseline\PageContent.cshtml" />
-    <Content Include="Views\UBaseline\PropertyEditors\ContentPickerMandatory.cshtml" />
-    <Content Include="Views\UBaseline\PropertyEditors\DropDownListMulti.cshtml" />
-    <Content Include="Views\UBaseline\PropertyEditors\DropDownListSingle.cshtml" />
-    <Content Include="Views\UBaseline\PropertyEditors\LabelBigInt.cshtml" />
-    <Content Include="Views\UBaseline\PropertyEditors\LabelDateTime.cshtml" />
-    <Content Include="Views\UBaseline\PropertyEditors\LabelDecimal.cshtml" />
-    <Content Include="Views\UBaseline\PropertyEditors\LabelInt.cshtml" />
-    <Content Include="Views\UBaseline\PropertyEditors\LabelText.cshtml" />
-    <Content Include="Views\UBaseline\PropertyEditors\LabelTime.cshtml" />
-    <Content Include="Views\UBaseline\PropertyEditors\MediaPickerMulti.cshtml" />
-    <Content Include="Views\UBaseline\PropertyEditors\MediaPickerSingle.cshtml" />
-    <Content Include="Views\UBaseline\PropertyEditors\MediaPickerSingleMandatory.cshtml" />
-    <Content Include="Views\UBaseline\PropertyEditors\NestedContentMulti.cshtml" />
-    <Content Include="Views\UBaseline\PropertyEditors\NestedContentSingle.cshtml" />
-    <Content Include="Views\UBaseline\PropertyEditors\NodeTreePickerMultiContent.cshtml" />
-    <Content Include="Views\UBaseline\PropertyEditors\NodeTreePickerSingleContent.cshtml" />
-    <Content Include="Views\UBaseline\PropertyEditors\NodeTreePickerSingleContentMandatory.cshtml" />
-    <Content Include="Views\UBaseline\PropertyEditors\Shared\UBaselineImage.cshtml" />
-    <Content Include="Views\UBaseline\PropertyEditors\Shared\UBaselineLink.cshtml" />
-    <Content Include="Views\UBaseline\PropertyEditors\Shared\UBaselineVideo.cshtml" />
-    <Content Include="Views\UBaseline\PropertyEditors\Shared\UmbracoFile.cshtml" />
-    <Content Include="Views\UBaseline\PropertyEditors\Shared\UmbracoMediaPicker.cshtml" />
-    <Content Include="Views\UBaseline\PropertyEditors\UBaselineImagePickerMulti.cshtml" />
-    <Content Include="Views\UBaseline\PropertyEditors\UBaselineImagePickerSingle.cshtml" />
-    <Content Include="Views\UBaseline\PropertyEditors\UBaselineKeyValueDropdownListMulti.cshtml" />
-    <Content Include="Views\UBaseline\PropertyEditors\UBaselineKeyValueDropdownListSingle.cshtml" />
-    <Content Include="Views\UBaseline\PropertyEditors\UBaselineKeyValueRadioButtonList.cshtml" />
-    <Content Include="Views\UBaseline\PropertyEditors\UBaselineMediaPicker.cshtml" />
-    <Content Include="Views\UBaseline\PropertyEditors\UBaselinePanelContainer.cshtml" />
-    <Content Include="Views\UBaseline\PropertyEditors\UBaselineTableEditor.cshtml" />
-    <Content Include="Views\UBaseline\PropertyEditors\UBaselineVideoPicker.cshtml" />
-    <Content Include="Views\UBaseline\PropertyEditors\UmbracoCheckboxList.cshtml" />
-    <Content Include="Views\UBaseline\PropertyEditors\UmbracoContentPicker.cshtml" />
-    <Content Include="Views\UBaseline\PropertyEditors\UmbracoDateTime.cshtml" />
-    <Content Include="Views\UBaseline\PropertyEditors\UmbracoEmailAddress.cshtml" />
-    <Content Include="Views\UBaseline\PropertyEditors\UmbracoImageCropper.cshtml" />
-    <Content Include="Views\UBaseline\PropertyEditors\UmbracoInteger.cshtml" />
-    <Content Include="Views\UBaseline\PropertyEditors\UmbracoMarkdownEditor.cshtml" />
-    <Content Include="Views\UBaseline\PropertyEditors\UmbracoMultipleTextstring.cshtml" />
-    <Content Include="Views\UBaseline\PropertyEditors\UmbracoRadioButtonList.cshtml" />
-    <Content Include="Views\UBaseline\PropertyEditors\UmbracoTags.cshtml" />
-    <Content Include="Views\UBaseline\PropertyEditors\UmbracoTextArea.cshtml" />
-    <Content Include="Views\UBaseline\PropertyEditors\UmbracoTextBox.cshtml" />
-    <Content Include="Views\UBaseline\PropertyEditors\UmbracoTinyMce.cshtml" />
-    <Content Include="Views\UBaseline\PropertyEditors\UmbracoUploadField.cshtml" />
-    <Content Include="Views\UBaseline\PropertyEditors\UrlPickerMulti.cshtml" />
-    <Content Include="Views\UBaseline\PropertyEditors\UrlPickerSingle.cshtml" />
+    <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Plugins\Utils\Search\SearchDashboard.cs" />
@@ -1988,10 +1913,6 @@
     <Content Include="config\uSync8.config" />
     <Content Include="App_Plugins\uSync8\package.manifest" />
     <Content Include="App_Plugins\uSync8\addons.json" />
-    <Content Include="config\tinyMceConfig.config" />
-    <Content Include="config\serilog.user.config" />
-    <Content Include="config\serilog.config" />
-    <Content Include="config\HealthChecks.config" />
     <Content Include="config\ClientDependency.config" />
     <Content Include="App_Plugins\AvailableActivitySelector\package.manifest" />
     <Content Include="App_Plugins\NotificationSettings\package.manifest" />
@@ -2074,6 +1995,34 @@
     <EmbeddedResource Include="Features\Reminder\Configuration\reminderConfiguration.json" />
     <Content Include="App_Plugins\Utils\Search\package.manifest" />
     <Content Include="App_Plugins\UsersTags\package.manifest" />
+    <Content Include="config\tinyMceConfig.config" />
+    <Content Include="config\serilog.user.config" />
+    <Content Include="config\serilog.config" />
+    <Content Include="config\HealthChecks.config" />
+    <Content Include="config\BackOfficeTours\getting-started.json" />
+    <Content Include="config\UBaseline\videoPickerSettings.json" />
+    <Content Include="config\UBaseline\ubaselineSettings.json" />
+    <Content Include="config\UBaseline\ubaselineLoggingSettings.json" />
+    <Content Include="config\UBaseline\panelContainerSettings.json" />
+    <Content Include="config\Logging\loggingSettings.json" />
+    <Content Include="App_Plugins\VideoPicker\package.manifest" />
+    <Content Include="App_Plugins\UtmConfiguration\package.manifest" />
+    <Content Include="App_Plugins\UmbracoStructureManagement\package.manifest" />
+    <Content Include="App_Plugins\TableEditor\package.manifest" />
+    <Content Include="App_Plugins\Skybrud.Umbraco.Redirects\package.manifest" />
+    <Content Include="App_Plugins\Shared\package.manifest" />
+    <Content Include="App_Plugins\PanelThemePicker\package.manifest" />
+    <Content Include="App_Plugins\PanelContainer\package.manifest" />
+    <Content Include="App_Plugins\Microdata\package.manifest" />
+    <Content Include="App_Plugins\MediaPicker\package.manifest" />
+    <Content Include="App_Plugins\MailchimpListContainer\package.manifest" />
+    <Content Include="App_Plugins\Localization\package.manifest" />
+    <Content Include="App_Plugins\KeyValueRadioButtonList\package.manifest" />
+    <Content Include="App_Plugins\KeyValueDropdownList\package.manifest" />
+    <Content Include="App_Plugins\Interceptors\package.manifest" />
+    <Content Include="App_Plugins\ImagePickerExtended\package.manifest" />
+    <Content Include="App_Plugins\ContentPreview\package.manifest" />
+    <Content Include="App_Plugins\AnchorField\package.manifest" />
     <None Include="config\umbracoSettings.config" />
     <None Include="packages.config" />
     <Content Include="Views\Web.config" />
@@ -2087,8 +2036,68 @@
     <Content Include="Views\Partials\Grid\Editors\Base.cshtml" />
     <Content Include="Views\Partials\Grid\Bootstrap3.cshtml" />
     <Content Include="Views\Partials\Grid\Bootstrap3-Fluid.cshtml" />
-    <Content Include="Uintra20.nuspec" />
-    <Content Include="Web.config.install.xdt" />
+    <Content Include="Views\UBaseline\PropertyEditors\UrlPickerSingle.cshtml" />
+    <Content Include="Views\UBaseline\PropertyEditors\UrlPickerMulti.cshtml" />
+    <Content Include="Views\UBaseline\PropertyEditors\UmbracoUploadField.cshtml" />
+    <Content Include="Views\UBaseline\PropertyEditors\UmbracoTinyMce.cshtml" />
+    <Content Include="Views\UBaseline\PropertyEditors\UmbracoTextBox.cshtml" />
+    <Content Include="Views\UBaseline\PropertyEditors\UmbracoTextArea.cshtml" />
+    <Content Include="Views\UBaseline\PropertyEditors\UmbracoTags.cshtml" />
+    <Content Include="Views\UBaseline\PropertyEditors\UmbracoRadioButtonList.cshtml" />
+    <Content Include="Views\UBaseline\PropertyEditors\UmbracoMultipleTextstring.cshtml" />
+    <Content Include="Views\UBaseline\PropertyEditors\UmbracoMarkdownEditor.cshtml" />
+    <Content Include="Views\UBaseline\PropertyEditors\UmbracoInteger.cshtml" />
+    <Content Include="Views\UBaseline\PropertyEditors\UmbracoImageCropper.cshtml" />
+    <Content Include="Views\UBaseline\PropertyEditors\UmbracoEmailAddress.cshtml" />
+    <Content Include="Views\UBaseline\PropertyEditors\UmbracoDateTime.cshtml" />
+    <Content Include="Views\UBaseline\PropertyEditors\UmbracoContentPicker.cshtml" />
+    <Content Include="Views\UBaseline\PropertyEditors\UmbracoCheckboxList.cshtml" />
+    <Content Include="Views\UBaseline\PropertyEditors\UBaselineVideoPicker.cshtml" />
+    <Content Include="Views\UBaseline\PropertyEditors\UBaselineTableEditor.cshtml" />
+    <Content Include="Views\UBaseline\PropertyEditors\UBaselinePanelContainer.cshtml" />
+    <Content Include="Views\UBaseline\PropertyEditors\UBaselineMediaPicker.cshtml" />
+    <Content Include="Views\UBaseline\PropertyEditors\UBaselineKeyValueRadioButtonList.cshtml" />
+    <Content Include="Views\UBaseline\PropertyEditors\UBaselineKeyValueDropdownListSingle.cshtml" />
+    <Content Include="Views\UBaseline\PropertyEditors\UBaselineKeyValueDropdownListMulti.cshtml" />
+    <Content Include="Views\UBaseline\PropertyEditors\UBaselineImagePickerSingle.cshtml" />
+    <Content Include="Views\UBaseline\PropertyEditors\UBaselineImagePickerMulti.cshtml" />
+    <Content Include="Views\UBaseline\PropertyEditors\Shared\UmbracoMediaPicker.cshtml" />
+    <Content Include="Views\UBaseline\PropertyEditors\Shared\UmbracoFile.cshtml" />
+    <Content Include="Views\UBaseline\PropertyEditors\Shared\UBaselineVideo.cshtml" />
+    <Content Include="Views\UBaseline\PropertyEditors\Shared\UBaselineLink.cshtml" />
+    <Content Include="Views\UBaseline\PropertyEditors\Shared\UBaselineImage.cshtml" />
+    <Content Include="Views\UBaseline\PropertyEditors\NodeTreePickerSingleContentMandatory.cshtml" />
+    <Content Include="Views\UBaseline\PropertyEditors\NodeTreePickerSingleContent.cshtml" />
+    <Content Include="Views\UBaseline\PropertyEditors\NodeTreePickerMultiContent.cshtml" />
+    <Content Include="Views\UBaseline\PropertyEditors\NestedContentSingle.cshtml" />
+    <Content Include="Views\UBaseline\PropertyEditors\NestedContentMulti.cshtml" />
+    <Content Include="Views\UBaseline\PropertyEditors\MediaPickerSingleMandatory.cshtml" />
+    <Content Include="Views\UBaseline\PropertyEditors\MediaPickerSingle.cshtml" />
+    <Content Include="Views\UBaseline\PropertyEditors\MediaPickerMulti.cshtml" />
+    <Content Include="Views\UBaseline\PropertyEditors\LabelTime.cshtml" />
+    <Content Include="Views\UBaseline\PropertyEditors\LabelText.cshtml" />
+    <Content Include="Views\UBaseline\PropertyEditors\LabelInt.cshtml" />
+    <Content Include="Views\UBaseline\PropertyEditors\LabelDecimal.cshtml" />
+    <Content Include="Views\UBaseline\PropertyEditors\LabelDateTime.cshtml" />
+    <Content Include="Views\UBaseline\PropertyEditors\LabelBigInt.cshtml" />
+    <Content Include="Views\UBaseline\PropertyEditors\DropDownListSingle.cshtml" />
+    <Content Include="Views\UBaseline\PropertyEditors\DropDownListMulti.cshtml" />
+    <Content Include="Views\UBaseline\PropertyEditors\ContentPickerMandatory.cshtml" />
+    <Content Include="Views\UBaseline\PageContent.cshtml" />
+    <Content Include="Views\UBaseline\Navigation.cshtml" />
+    <Content Include="Views\UBaseline\Microdata.cshtml" />
+    <Content Include="Views\SimpleLoginPage.cshtml" />
+    <Content Include="Views\InternalServerErrorPage.cshtml" />
+    <None Include="Web.Base.config" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.QA.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.2.6.1\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
@@ -2178,17 +2187,17 @@
     <Error Condition="!Exists('..\..\packages\EntityFramework.6.4.0\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\EntityFramework.6.4.0\build\EntityFramework.props'))" />
     <Error Condition="!Exists('..\..\packages\EntityFramework.6.4.0\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\EntityFramework.6.4.0\build\EntityFramework.targets'))" />
     <Error Condition="!Exists('..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets'))" />
-    <Error Condition="!Exists('..\..\packages\UmbracoCms.8.4.0\build\UmbracoCms.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\UmbracoCms.8.4.0\build\UmbracoCms.props'))" />
-    <Error Condition="!Exists('..\..\packages\UmbracoCms.8.4.0\build\UmbracoCms.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\UmbracoCms.8.4.0\build\UmbracoCms.targets'))" />
-    <Error Condition="!Exists('..\..\packages\Compent.UBaseline.UI.0.2.15-beta17\build\Compent.UBaseline.UI.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Compent.UBaseline.UI.0.2.15-beta17\build\Compent.UBaseline.UI.props'))" />
-    <Error Condition="!Exists('..\..\packages\Compent.UBaseline.UI.0.2.15-beta17\build\Compent.UBaseline.UI.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Compent.UBaseline.UI.0.2.15-beta17\build\Compent.UBaseline.UI.targets'))" />
+    <Error Condition="!Exists('..\..\packages\UmbracoCms.8.6.0\build\UmbracoCms.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\UmbracoCms.8.6.0\build\UmbracoCms.props'))" />
+    <Error Condition="!Exists('..\..\packages\UmbracoCms.8.6.0\build\UmbracoCms.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\UmbracoCms.8.6.0\build\UmbracoCms.targets'))" />
+    <Error Condition="!Exists('..\..\packages\Compent.UBaseline.UI.0.2.15\build\Compent.UBaseline.UI.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Compent.UBaseline.UI.0.2.15\build\Compent.UBaseline.UI.props'))" />
+    <Error Condition="!Exists('..\..\packages\Compent.UBaseline.UI.0.2.15\build\Compent.UBaseline.UI.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Compent.UBaseline.UI.0.2.15\build\Compent.UBaseline.UI.targets'))" />
   </Target>
   <Import Project="..\..\packages\Umbraco.SqlServerCE.4.0.0.1\build\Umbraco.SqlServerCE.targets" Condition="Exists('..\..\packages\Umbraco.SqlServerCE.4.0.0.1\build\Umbraco.SqlServerCE.targets')" />
   <Import Project="..\..\packages\uSync.8.1.1\build\uSync.targets" Condition="Exists('..\..\packages\uSync.8.1.1\build\uSync.targets')" />
   <Import Project="..\..\packages\EntityFramework.6.4.0\build\EntityFramework.targets" Condition="Exists('..\..\packages\EntityFramework.6.4.0\build\EntityFramework.targets')" />
   <Import Project="..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
-  <Import Project="..\..\packages\UmbracoCms.8.4.0\build\UmbracoCms.targets" Condition="Exists('..\..\packages\UmbracoCms.8.4.0\build\UmbracoCms.targets')" />
-  <Import Project="..\..\packages\Compent.UBaseline.UI.0.2.15-beta17\build\Compent.UBaseline.UI.targets" Condition="Exists('..\..\packages\Compent.UBaseline.UI.0.2.15-beta17\build\Compent.UBaseline.UI.targets')" />
+  <Import Project="..\..\packages\UmbracoCms.8.6.0\build\UmbracoCms.targets" Condition="Exists('..\..\packages\UmbracoCms.8.6.0\build\UmbracoCms.targets')" />
+  <Import Project="..\..\packages\Compent.UBaseline.UI.0.2.15\build\Compent.UBaseline.UI.targets" Condition="Exists('..\..\packages\Compent.UBaseline.UI.0.2.15\build\Compent.UBaseline.UI.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
