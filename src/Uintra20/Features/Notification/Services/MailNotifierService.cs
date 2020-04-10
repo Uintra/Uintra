@@ -83,9 +83,9 @@ namespace Uintra20.Features.Notification.Services
 
                     var message = _notificationModelMapper.Map(data.Value, settings.Template, user);
 
-                    _mailService.SendAsync(message);
+                    await _mailService.SendAsync(message);
 
-                    _notificationRepository.AddAsync(new Sql.Notification
+                    await _notificationRepository.AddAsync(new Sql.Notification
                     {
                         Id = Guid.NewGuid(),
                         Date = DateTime.UtcNow,

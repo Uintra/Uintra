@@ -12,12 +12,12 @@ namespace Uintra20.Core.Member.CommandBus
     public class MentionHandle : IHandle<MentionCommand>
     {
         private readonly IUserMentionNotificationService _notificationService;
-        private readonly INotificationsService _notificationsService;
 
         public MentionHandle(IUserMentionNotificationService notificationService)
         {
             _notificationService = notificationService;
         }
+
         public BroadcastResult Handle(MentionCommand command)
         {
 
