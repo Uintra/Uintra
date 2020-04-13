@@ -33,7 +33,7 @@ export class ParamsPipe implements PipeTransform {
 
   reduceSimpleParams(value): object {
     return value.reduce((acc, val) => {
-      acc[val.name] = val.value;
+      acc[val.name] = val.data;
       return acc;
     }, {});
   }

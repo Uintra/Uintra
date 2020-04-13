@@ -13,7 +13,8 @@
       {{ getPublicationDate() }} -
       <a
         class="publication__-type"
-        [routerLink]="publication.links?.details?.originalUrl"
+        [routerLink]="publication.links?.details?.baseUrl | ulink"
+        [queryParams]="publication.links?.details?.params | uparams"
         >{{ publication.type }}
       </a>
       <a
