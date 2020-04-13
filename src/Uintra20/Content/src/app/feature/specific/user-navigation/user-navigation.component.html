@@ -1,8 +1,6 @@
 <div *ngIf="data" class="user-navigation">
   <div *ngIf="data.currentMember" class="user__opener" (click)="toggleUserNavigation($event)">
-    <div *ngIf="data.currentMember.displayedName" class="user__name">
-      {{data.currentMember.displayedName}}
-    </div>
+    <div *ngIf="data.currentMember.displayedName" class="user__name">{{data.currentMember.displayedName}}</div>
     <div class="user__avatar">
       <app-user-avatar
         *ngIf="data.currentMember.photo || data.currentMember.displayedName"

@@ -119,8 +119,8 @@
     <Reference Include="EmailWorker.Data, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EmailWorker.Data.1.0.0\lib\net472\EmailWorker.Data.dll</HintPath>
     </Reference>
-    <Reference Include="EmailWorker.Web, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EmailWorker.Web.1.2.0\lib\net472\EmailWorker.Web.dll</HintPath>
+    <Reference Include="EmailWorker.Web, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EmailWorker.Web.1.0.0\lib\net472\EmailWorker.Web.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.dll</HintPath>
@@ -879,8 +879,8 @@
     <Content Include="App_Plugins\VideoPicker\video-picker.html" />
     <Content Include="App_Plugins\VideoPicker\video-picker.service.js" />
     <Content Include="App_Readme\Elmah.txt" />
-    <Content Include="config\grid.editors.config.js" />
     <Content Include="App_Plugins\UserPicker\package.manifest" />
+    <Content Include="config\grid.editors.config.js" />
     <Content Include="config\Lang\cs-CZ.user.xml" />
     <Content Include="config\Lang\da-DK.user.xml" />
     <Content Include="config\Lang\de-DE.user.xml" />
