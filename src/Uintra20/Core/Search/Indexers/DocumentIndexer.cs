@@ -8,12 +8,11 @@ using Uintra20.Core.Search.Entities;
 using Uintra20.Core.Search.Indexers.Diagnostics;
 using Uintra20.Core.Search.Indexers.Diagnostics.Models;
 using Uintra20.Core.Search.Indexes;
-using Uintra20.Features.Media;
 using Uintra20.Features.Media.Helpers;
 using Uintra20.Features.Search.Configuration;
 using Uintra20.Infrastructure.Constants;
-using Uintra20.Infrastructure.Exceptions;
 using Uintra20.Infrastructure.Extensions;
+using Umbraco.Core.Logging;
 using Umbraco.Core.Models;
 using Umbraco.Core.Models.PublishedContent;
 using Umbraco.Core.Services;
@@ -27,22 +26,22 @@ namespace Uintra20.Core.Search.Indexers
         private readonly IElasticDocumentIndex _documentIndex;
         private readonly ISearchApplicationSettings _settings;
         private readonly IMediaHelper _mediaHelper;
-        private readonly IExceptionLogger _exceptionLogger;
         private readonly IMediaService _mediaService;
+        private readonly ILogger _logger;
         private readonly IIndexerDiagnosticService _indexerDiagnosticService;
 
         public DocumentIndexer(IElasticDocumentIndex documentIndex,
             ISearchApplicationSettings settings,
             IMediaHelper mediaHelper,
-            IExceptionLogger exceptionLogger,
             IMediaService mediaService, 
+            ILogger logger,
             IIndexerDiagnosticService indexerDiagnosticService)
         {
             _documentIndex = documentIndex;
             _settings = settings;
             _mediaHelper = mediaHelper;
-            _exceptionLogger = exceptionLogger;
             _mediaService = mediaService;
+            _logger = logger;
             _indexerDiagnosticService = indexerDiagnosticService;
         }
 
@@ -155,7 +154,7 @@ namespace Uintra20.Core.Search.Indexers
 
                 if (!File.Exists(physicalPath))
                 {
-                    _exceptionLogger.Log(new FileNotFoundException($"Could not find file \"{physicalPath}\""));
+                    _logger.Error<DocumentIndexer>(new FileNotFoundException($"Could not find file \"{physicalPath}\""));
                    return Enumerable.Empty<SearchableDocument>();
                 }
                 var base64File = isFileExtensionAllowedForIndex ? Convert.ToBase64String(File.ReadAllBytes(physicalPath)) : string.Empty;

@@ -32,7 +32,6 @@ namespace Uintra20.Controllers
         private readonly IAuthenticationService _authenticationService;
         private readonly IClientTimezoneProvider _clientTimezoneProvider;
         private readonly IMemberServiceHelper _memberServiceHelper;
-        private readonly ICacheableIntranetMemberService _cacheableIntranetMemberService;
         private readonly IMemberService _memberService;
         private readonly INotificationsService _notificationsService;
         private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
@@ -44,7 +43,6 @@ namespace Uintra20.Controllers
             IAuthenticationService authenticationService,
             IClientTimezoneProvider clientTimezoneProvider,
             IMemberServiceHelper memberServiceHelper,
-            ICacheableIntranetMemberService cacheableIntranetMemberService,
             IMemberService memberService,
             INotificationsService notificationsService,
             IIntranetMemberService<IntranetMember> intranetMemberService,
@@ -55,7 +53,6 @@ namespace Uintra20.Controllers
             _authenticationService = authenticationService;
             _clientTimezoneProvider = clientTimezoneProvider;
             _memberServiceHelper = memberServiceHelper;
-            _cacheableIntranetMemberService = cacheableIntranetMemberService;
             _memberService = memberService;
             _notificationsService = notificationsService;
             _intranetMemberService = intranetMemberService;
@@ -110,20 +107,7 @@ namespace Uintra20.Controllers
 
             return Ok();
         }
-
-        private Task SetDefaultUserData()
-        {
-            var mbr = _memberService.GetByEmail(UsersInstallationConstants.DefaultMember.Email);
-
-            if (mbr == null || _memberServiceHelper.IsFirstLoginPerformed(mbr))
-                return Task.CompletedTask;
-
-            _memberService.SavePassword(mbr, UsersInstallationConstants.DefaultMember.Password);
-            _memberService.AssignRole(mbr.Id, UsersInstallationConstants.MemberGroups.GroupWebMaster);
-
-            return _cacheableIntranetMemberService.UpdateMemberCacheAsync(mbr.Key);
-        }
-
+        
         private void SendWelcomeNotification(Guid userId)
         {
             _notificationsService.ProcessNotification(new NotifierData

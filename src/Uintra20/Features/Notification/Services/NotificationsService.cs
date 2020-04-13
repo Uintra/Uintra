@@ -3,26 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Uintra20.Features.Notification.Entities.Base;
-using Uintra20.Infrastructure.Exceptions;
 using Uintra20.Persistence.Sql;
+using Umbraco.Core.Logging;
 
 namespace Uintra20.Features.Notification.Services
 {
     public class NotificationsService : INotificationsService
     {
         private readonly ISqlRepository<Sql.Notification> _notificationRepository;
-        private readonly IExceptionLogger _exceptionLogger;
+        private readonly ILogger _logger;
         private readonly IMemberNotifiersSettingsService _memberNotifiersSettingsService;
         private readonly IEnumerable<INotifierService> _notifiers;
 
         public NotificationsService(
             ISqlRepository<Sql.Notification> notificationRepository,
-            IExceptionLogger exceptionLogger,
+            ILogger logger,
             IMemberNotifiersSettingsService memberNotifiersSettingsService,
             IEnumerable<INotifierService> notifiers)
         {
             _notificationRepository = notificationRepository;
-            _exceptionLogger = exceptionLogger;
+            _logger = logger;
             _memberNotifiersSettingsService = memberNotifiersSettingsService;
             _notifiers = notifiers;
         }
@@ -60,7 +60,7 @@ namespace Uintra20.Features.Notification.Services
             }
             catch (Exception ex)
             {
-                _exceptionLogger.Log(ex);
+                _logger.Error<NotificationsService>(ex);
             }
         }
 
@@ -97,7 +97,7 @@ namespace Uintra20.Features.Notification.Services
             }
             catch (Exception ex)
             {
-                _exceptionLogger.Log(ex);
+                _logger.Error<NotificationsService>(ex);
             }
         }
 

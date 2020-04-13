@@ -45,7 +45,7 @@
     "UpdatedDateFormat": "dd-MM-yyyy hh:mm"
   },
   "UBaselineVersionManagementSettings": {
-    "IsUBaselineVersionSenderEnabled": true,
+    "IsUBaselineVersionSenderEnabled": false,
     "ReceiverApiUrl": "https://ubaseline-qa.compent2.dk/umbraco/api/packageManagementWebHook/saveConsumer",
     "Attempts": 10,
     "Timeout": 120 // in seconds 

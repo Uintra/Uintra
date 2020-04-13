@@ -4,26 +4,25 @@ using Nest;
 using Uintra20.Core.Search.Entities;
 using Uintra20.Core.Search.Exceptions;
 using Uintra20.Features.Search.Configuration;
-using Uintra20.Infrastructure.Exceptions;
 using Uintra20.Infrastructure.Extensions;
+using Umbraco.Core.Logging;
 
 namespace Uintra20.Core.Search.Repository
 {
     public class ElasticSearchRepository : IElasticSearchRepository
     {
         protected readonly IElasticSettings Configuration;
+        private readonly ILogger _logger;
         protected readonly IElasticClient Client;
         protected readonly string IndexName;
         protected const string AttachmentsPipelineName = "attachments";
 
-        private readonly IExceptionLogger _exceptionLogger;
-
         public ElasticSearchRepository(
             IElasticSettings configuration,
-            IExceptionLogger exceptionLogger)
+            ILogger logger)
         {
             Configuration = configuration;
-            _exceptionLogger = exceptionLogger;
+            _logger = logger;
             IndexName = configuration.IndexName;
 
             var connectionSettings = new ConnectionSettings(new Uri(configuration.SearchUrl)).DefaultIndex(IndexName);
@@ -96,7 +95,7 @@ namespace Uintra20.Core.Search.Repository
         protected void RequestError(IResponse response)
         {
             var exception = new ElasticSearchRequestErrorException(response.DebugInformation, new System.Diagnostics.StackTrace().ToString());
-            _exceptionLogger.Log(exception);
+            _logger.Error<ElasticSearchRepository>(exception);
         }
 
         protected void ApplyAuthentication(ConnectionSettings settings)
@@ -142,8 +141,8 @@ namespace Uintra20.Core.Search.Repository
         public ElasticSearchRepository(
             IElasticSettings configuration,
             PropertiesDescriptor<T> properties,
-            IExceptionLogger exceptionLogger)
-            : base(configuration, exceptionLogger)
+            ILogger logger)
+            : base(configuration, logger)
         {
             _properties = properties;
         }
