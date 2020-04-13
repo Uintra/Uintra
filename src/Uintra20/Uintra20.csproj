@@ -909,7 +909,6 @@
     <Content Include="Global.asax" />
     <Content Include="images\videoLoader.jpg" />
     <Content Include="images\videoLoaderFailure.jpg" />
-    <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Plugins\Utils\Search\SearchDashboard.cs" />
@@ -2088,16 +2087,8 @@
     <Content Include="Views\UBaseline\Microdata.cshtml" />
     <Content Include="Views\SimpleLoginPage.cshtml" />
     <Content Include="Views\InternalServerErrorPage.cshtml" />
-    <None Include="Web.Base.config" />
-    <None Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.QA.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
+    <Content Include="Web.config.install.xdt" />
+    <Content Include="Uintra20.nuspec" />
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.2.6.1\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />

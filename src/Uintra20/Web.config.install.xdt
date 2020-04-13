@@ -1,108 +1,16 @@
 ﻿<?xml version="1.0"?>
 <configuration xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
-
-  <runtime>
-    <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
-      <dependentAssembly xdt:Transform="InsertIfMissing">
-        <assemblyIdentity name="Microsoft.Extensions.DependencyInjection.Abstractions" publicKeyToken="adb9793829ddae60" culture="neutral"/>
-        <bindingRedirect oldVersion="0.0.0.0-2.2.0.0" newVersion="2.2.0.0"/>
-      </dependentAssembly>
-      <dependentAssembly xdt:Transform="InsertIfMissing">
-        <assemblyIdentity name="Microsoft.Extensions.Primitives" publicKeyToken="adb9793829ddae60" culture="neutral"/>
-        <bindingRedirect oldVersion="0.0.0.0-2.2.0.0" newVersion="2.2.0.0"/>
-      </dependentAssembly>
-      <dependentAssembly xdt:Transform="InsertIfMissing">
-        <assemblyIdentity name="MySql.Data" publicKeyToken="c5687fc88969c44d" culture="neutral"/>
-        <bindingRedirect oldVersion="0.0.0.0-6.9.12.0" newVersion="6.9.12.0"/>
-      </dependentAssembly>
-      <dependentAssembly xdt:Transform="InsertIfMissing">
-        <assemblyIdentity name="System.Web.Http.WebHost" publicKeyToken="31bf3856ad364e35" culture="neutral"/>
-        <bindingRedirect oldVersion="0.0.0.0-5.2.7.0" newVersion="5.2.7.0"/>
-      </dependentAssembly>
-      <dependentAssembly xdt:Transform="InsertIfMissing">
-        <assemblyIdentity name="Microsoft.Owin" publicKeyToken="31bf3856ad364e35" culture="neutral"/>
-        <bindingRedirect oldVersion="0.0.0.0-4.0.1.0" newVersion="4.0.1.0"/>
-      </dependentAssembly>
-      <dependentAssembly xdt:Transform="InsertIfMissing">
-        <assemblyIdentity name="Microsoft.Owin.Security" publicKeyToken="31bf3856ad364e35" culture="neutral"/>
-        <bindingRedirect oldVersion="0.0.0.0-4.0.1.0" newVersion="4.0.1.0"/>
-      </dependentAssembly>
-      <dependentAssembly xdt:Transform="InsertIfMissing">
-        <assemblyIdentity name="Microsoft.Owin.Security.Cookies" publicKeyToken="31bf3856ad364e35" culture="neutral"/>
-        <bindingRedirect oldVersion="0.0.0.0-4.0.1.0" newVersion="4.0.1.0"/>
-      </dependentAssembly>
-      <dependentAssembly xdt:Transform="InsertIfMissing">
-        <assemblyIdentity name="Microsoft.Owin.Security.OAuth" publicKeyToken="31bf3856ad364e35" culture="neutral"/>
-        <bindingRedirect oldVersion="0.0.0.0-4.0.1.0" newVersion="4.0.1.0"/>
-      </dependentAssembly>
-      <dependentAssembly xdt:Transform="InsertIfMissing">
-        <assemblyIdentity name="Newtonsoft.Json" publicKeyToken="30ad4fe6b2a6aeed" culture="neutral"/>
-        <bindingRedirect oldVersion="0.0.0.0-12.0.0.0" newVersion="12.0.0.0"/>
-      </dependentAssembly>
-      <dependentAssembly xdt:Transform="InsertIfMissing">
-        <assemblyIdentity name="System.Collections.Immutable" publicKeyToken="b03f5f7f11d50a3a" culture="neutral"/>
-        <bindingRedirect oldVersion="0.0.0.0-1.2.3.0" newVersion="1.2.3.0"/>
-      </dependentAssembly>
-      <dependentAssembly xdt:Transform="InsertIfMissing">
-        <assemblyIdentity name="System.Web.Http" publicKeyToken="31bf3856ad364e35" culture="neutral"/>
-        <bindingRedirect oldVersion="0.0.0.0-5.2.7.0" newVersion="5.2.7.0"/>
-      </dependentAssembly>
-      <dependentAssembly xdt:Transform="InsertIfMissing">
-        <assemblyIdentity name="System.Web.Mvc" publicKeyToken="31bf3856ad364e35" culture="neutral"/>
-        <bindingRedirect oldVersion="0.0.0.0-5.2.7.0" newVersion="5.2.7.0"/>
-      </dependentAssembly>
-      <dependentAssembly xdt:Transform="InsertIfMissing">
-        <assemblyIdentity name="System.ValueTuple" publicKeyToken="cc7b13ffcd2ddd51" culture="neutral"/>
-        <bindingRedirect oldVersion="0.0.0.0-4.0.3.0" newVersion="4.0.3.0"/>
-      </dependentAssembly>
-      <dependentAssembly xdt:Transform="InsertIfMissing">
-        <assemblyIdentity name="System.Net.Http.Formatting" publicKeyToken="31bf3856ad364e35"/>
-        <bindingRedirect oldVersion="0.0.0.0-5.2.7.0" newVersion="5.2.7.0"/>
-      </dependentAssembly>
-      <dependentAssembly xdt:Transform="InsertIfMissing">
-        <assemblyIdentity name="System.Data.SqlServerCe" publicKeyToken="89845dcd8080cc91" culture="neutral"/>
-        <bindingRedirect oldVersion="0.0.0.0-4.0.0.1" newVersion="4.0.0.1"/>
-      </dependentAssembly>
-      <dependentAssembly xdt:Transform="InsertIfMissing">
-        <assemblyIdentity name="Microsoft.AspNet.SignalR.Core" publicKeyToken="31bf3856ad364e35" culture="neutral"/>
-        <bindingRedirect oldVersion="0.0.0.0-2.4.0.0" newVersion="2.4.0.0"/>
-      </dependentAssembly>
-      <dependentAssembly xdt:Transform="InsertIfMissing">
-        <assemblyIdentity name="ClientDependency.Core" publicKeyToken="null" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-1.9.8.0" newVersion="1.9.8.0" />
-      </dependentAssembly>
-      <dependentAssembly xdt:Transform="InsertIfMissing">
-        <assemblyIdentity name="LightInject" publicKeyToken="null" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-5.5.0.0" newVersion="5.5.0.0" />
-      </dependentAssembly>
-      <dependentAssembly xdt:Transform="InsertIfMissing">
-        <assemblyIdentity name="LightInject.Interception" publicKeyToken="null" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-2.0.3.0" newVersion="2.0.3.0" />
-      </dependentAssembly>
-      <dependentAssembly xdt:Transform="InsertIfMissing">
-        <assemblyIdentity name="Compent.Extensions" publicKeyToken="null" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-0.3.4.0" newVersion="0.3.4.0" />
-      </dependentAssembly>
-      <dependentAssembly xdt:Transform="InsertIfMissing">
-        <assemblyIdentity name="Compent.Shared.Extensions.Bcl" publicKeyToken="null" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-0.1.3.0" newVersion="0.1.3.0" />
-      </dependentAssembly>
-      <dependentAssembly xdt:Transform="InsertIfMissing">
-        <assemblyIdentity name="Compent.Shared.DependencyInjection.Contract" publicKeyToken="null" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-0.2.5.0" newVersion="0.2.5.0" />
-      </dependentAssembly>
-      <dependentAssembly xdt:Transform="InsertIfMissing">
-        <assemblyIdentity name="log4net" publicKeyToken="669e0ddf0bb1aa2a" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-2.0.8.0" newVersion="2.0.8.0" />
-      </dependentAssembly>
-      <dependentAssembly xdt:Transform="InsertIfMissing">
-        <assemblyIdentity name="uSync8.BackOffice" publicKeyToken="null" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-8.1.1.72" newVersion="8.1.1.72" />
-      </dependentAssembly>
-      <dependentAssembly xdt:Transform="InsertIfMissing">
-        <assemblyIdentity name="uSync8.Core" publicKeyToken="null" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-8.1.1.722" newVersion="8.1.1.722" />
-      </dependentAssembly>
-    </assemblyBinding>
-  </runtime>
+  <configSections>
+    <section name="UintraJobs" xdt:Locator="Match(name)" xdt:Transform="Remove"/>
+    <section name="UintraJobs" type="Uintra.Core.Jobs.Configuration.JobSettingsConfiguration" xdt:Locator="Condition(@name='UintraJobs')" xdt:Transform="InsertIfMissing" />
+  </configSections>
+  <uIntraJobs xdt:Transform="Remove">
+  </uIntraJobs>
+  <UintraJobs xdt:Transform="InsertIfMissing">
+    <settings>
+      <add job="SendEmailJob" enabled="true" runType="RunEvery" timeType="Minutes" time="1" xdt:Locator="Condition(@job='SendEmailJob')" xdt:Transform="InsertIfMissing"/>
+      <add job="UpdateActivityCacheJob" enabled="true" runType="RunEvery" timeType="Minutes" time="1" xdt:Locator="Condition(@job='UpdateActivityCacheJob')" xdt:Transform="InsertIfMissing"/>
+      <add job="ReminderJob" enabled="true" runType="RunEvery" timeType="Minutes" time="5" xdt:Locator="Condition(@job='ReminderJob')" xdt:Transform="InsertIfMissing"/>
+    </settings>
+  </UintraJobs>
 </configuration>
