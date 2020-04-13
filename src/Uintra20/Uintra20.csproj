@@ -932,6 +932,7 @@
     <Compile Include="Core\UbaselineModels\ForbiddenPageViewModel.cs" />
     <Compile Include="Core\UbaselineModels\PageNotFoundPageModel.cs" />
     <Compile Include="Core\Updater\2.0\Migration.cs" />
+    <Compile Include="Core\Updater\2.0\Steps\CreateDefaultMemberStep.cs" />
     <Compile Include="Core\Updater\2.0\Steps\SetupDefaultMediaFoldersStep.cs" />
     <Compile Include="Core\Updater\2.0\Steps\SetupDefaultMemberGroupsPermissionsStep.cs" />
     <Compile Include="Core\Updater\2.0\Steps\SetupDefaultMemberGroupsStep.cs" />
