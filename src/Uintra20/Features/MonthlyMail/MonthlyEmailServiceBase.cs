@@ -16,27 +16,29 @@ using Uintra20.Features.Notification.Models;
 using Uintra20.Features.Notification.Models.NotifierTemplates;
 using Uintra20.Features.Notification.Services;
 using Uintra20.Infrastructure.ApplicationSettings;
-using Uintra20.Infrastructure.Exceptions;
+using Umbraco.Core.Logging;
 
 namespace Uintra20.Features.MonthlyMail
 {
     public abstract class MonthlyEmailServiceBase : IMonthlyEmailService
     {
         private readonly IMailService _mailService;
-        private readonly IExceptionLogger _logger;
+
         private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
+        private readonly ILogger _logger;
         private readonly INotificationSettingsService _notificationSettingsService;
         private readonly IApplicationSettings _applicationSettings;
 
         protected MonthlyEmailServiceBase(IMailService mailService,
             IIntranetMemberService<IntranetMember> intranetMemberService,
-            IExceptionLogger logger,
+            ILogger logger,
             INotificationSettingsService notificationSettingsService,
             IApplicationSettings applicationSettings)
         {
             _mailService = mailService;
             _intranetMemberService = intranetMemberService;
             _logger = logger;
+
             _notificationSettingsService = notificationSettingsService;
             _applicationSettings = applicationSettings;
         }
@@ -47,7 +49,9 @@ namespace Uintra20.Features.MonthlyMail
 
             var allUsers = _intranetMemberService.GetAll();
             var monthlyMails = allUsers
-                .Select(user => user.Id.Pipe(GetUserActivitiesFilteredByUserTags).Pipe(userActivities => TryGetMonthlyMail(userActivities, user)))
+                .Select(user =>
+                    user.Id.Pipe(GetUserActivitiesFilteredByUserTags)
+                        .Pipe(userActivities => TryGetMonthlyMail(userActivities, user)))
                 .ToList();
 
             var identity = new ActivityEventIdentity(
@@ -73,7 +77,7 @@ namespace Uintra20.Features.MonthlyMail
                     }
                     catch (Exception ex)
                     {
-                        _logger.Log(ex);
+                        _logger.Error<MonthlyEmailServiceBase>(ex);
                     }
                 });
             }
@@ -86,7 +90,6 @@ namespace Uintra20.Features.MonthlyMail
                 CreateAndSendMail();
             }
         }
-
 
 
         protected (IIntranetMember user, MonthlyMailDataModel monthlyMail)? TryGetMonthlyMail(
@@ -106,9 +109,11 @@ namespace Uintra20.Features.MonthlyMail
             }
         }
 
-        protected abstract IEnumerable<(IIntranetActivity activity, UintraLinkModel detailsLink)> GetUserActivitiesFilteredByUserTags(Guid userId);
+        protected abstract IEnumerable<(IIntranetActivity activity, UintraLinkModel detailsLink)>
+            GetUserActivitiesFilteredByUserTags(Guid userId);
 
-        protected abstract MailBase GetMonthlyMailModel(IIntranetMember receiver, MonthlyMailDataModel dataModel, EmailNotifierTemplate template);
+        protected abstract MailBase GetMonthlyMailModel(IIntranetMember receiver, MonthlyMailDataModel dataModel,
+            EmailNotifierTemplate template);
 
         protected virtual MonthlyMailDataModel GetMonthlyMailModel(string userActivities, IIntranetMember member) =>
             new MonthlyMailDataModel
@@ -123,11 +128,13 @@ namespace Uintra20.Features.MonthlyMail
             return currentDate.Day != _applicationSettings.MonthlyEmailJobDay;
         }
 
-        private string GetActivityListString(IEnumerable<(IIntranetActivity activity, UintraLinkModel link)> activities) => activities
-            .Aggregate(
-                new StringBuilder(),
-                (builder, activity) => builder.AppendLine($"<a href='{activity.link}'>{activity.activity.Title}</a></br>"))
-            .ToString();
-
+        private string
+            GetActivityListString(IEnumerable<(IIntranetActivity activity, UintraLinkModel link)> activities) =>
+            activities
+                .Aggregate(
+                    new StringBuilder(),
+                    (builder, activity) =>
+                        builder.AppendLine($"<a href='{activity.link}'>{activity.activity.Title}</a></br>"))
+                .ToString();
     }
 }

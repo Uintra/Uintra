@@ -113,9 +113,6 @@
     <Reference Include="Elmah, Version=1.2.14706.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
     </Reference>
-    <Reference Include="Elmah.Mvc, Version=2.0.0.29988, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Elmah.MVC.2.1.1\lib\net40\Elmah.Mvc.dll</HintPath>
-    </Reference>
     <Reference Include="EmailWorker.Data, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EmailWorker.Data.1.0.0\lib\net472\EmailWorker.Data.dll</HintPath>
     </Reference>
@@ -1612,8 +1609,6 @@
     <Compile Include="Features\Events\AutoMapperProfiles\EventsAutoMapperProfile.cs" />
     <Compile Include="Features\Events\Entities\Events.cs" />
     <Compile Include="Features\Events\EventBase.cs" />
-    <Compile Include="Infrastructure\Exceptions\ExceptionLogger.cs" />
-    <Compile Include="Infrastructure\Exceptions\IExceptionLogger.cs" />
     <Compile Include="Infrastructure\Extensions\ActivitiesServiceFactoryExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\AutoMapperExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\ContextExtensions.cs" />
@@ -2114,7 +2109,6 @@
     <Folder Include="Core\Member\Events\" />
     <Folder Include="Core\Search\Indexers\Diagnostics\Services\" />
     <Folder Include="Features\Navigation\ModelBuilders\" />
-    <Folder Include="Features\Notification\Commands\" />
     <Folder Include="Media\" />
   </ItemGroup>
   <ItemGroup>
