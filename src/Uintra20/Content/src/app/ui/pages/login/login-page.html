@@ -29,7 +29,6 @@
   <div class="login-form__bottom-block">
     <button [disabled]="inProgress || loginForm.invalid"
             class="btn">{{'login.Login.btn' | translate}}</button>
-    <a class="login-form__forgot-password">{{'forgotPassword.lbl' | translate}}</a>
   </div>
   <ul class="error-list"
       *ngIf="errors">
