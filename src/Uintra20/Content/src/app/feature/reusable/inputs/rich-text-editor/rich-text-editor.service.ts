@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { emojiList } from './emoji-list';
+import { emojiList } from './rich-text-editor-emoji/helpers/emoji-list';
 
 interface ISelection {
   index: number;
@@ -9,7 +9,7 @@ interface ISelection {
 @Injectable({
   providedIn: 'root'
 })
-export class EmojiService {
+export class RichTextEditorService {
 
   constructor() {
   }
@@ -32,6 +32,17 @@ export class EmojiService {
           stringFromDelta = stringFromDelta.slice(0, index) + '1' + stringFromDelta.slice(index + emoji.shortcut.length);
         }
       })
+
+      const firstHref = editor.root.innerHTML.match(/href=".+"/);
+      const firstLink = firstHref ? firstHref[0].split(' ')[0].replace('href="', '').replace('"', '') : null;
+      if (firstLink !== editor.firstLink) {
+        if (firstLink === null && editor.firstLink) {
+          //Here you delete preview link
+        } else if (firstLink) {
+          //Here you send request for link preview etc.
+        }
+        editor.firstLink = firstLink;
+      }
     });
   }
 
