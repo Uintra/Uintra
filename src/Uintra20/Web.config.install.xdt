@@ -2,8 +2,41 @@
 <configuration xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
   <configSections xdt:Transform="InsertIfMissing">
     <section name="UintraJobs" xdt:Locator="Match(name)" xdt:Transform="Remove"/>
-    <section name="UintraJobs" type="Uintra.Core.Jobs.Configuration.JobSettingsConfiguration" xdt:Locator="Condition(@name='UintraJobs')" xdt:Transform="InsertIfMissing" />
+    <section name="UintraJobs" type="Uintra20.Core.Jobs.Configuration.JobSettingsConfiguration" xdt:Locator="Condition(@name='UintraJobs')" xdt:Transform="InsertIfMissing" />
+    <section name="localizationConfiguration" xdt:Locator="Match(name)" xdt:Transform="Remove"/>
+    <section name="localizationConfiguration" type="Localization.Core.Configuration.LocalizationConfigurationSection, Localization.Core" xdt:Locator="Condition(@name='localizationConfiguration')" xdt:Transform="InsertIfMissing" />
+    <section name="entityFramework" xdt:Locator="Match(name)" xdt:Transform="Remove" />
+    <section name="entityFramework" type="System.Data.Entity.Internal.ConfigFile.EntityFrameworkSection, EntityFramework" requirePermission="false" xdt:Locator="Condition(@name='entityFramework')" xdt:Transform="InsertIfMissing" />
   </configSections>
+  <appSettings xdt:Transform="InsertIfMissing">
+    <add key="Umbraco.Core.ConfigurationStatus" xdt:Transform="Remove" />
+    <add key="Umbraco.Core.ConfigurationStatus" value="8.6.0" xdt:Locator="Condition(@key='Umbraco.Core.ConfigurationStatus')" xdt:Transform="InsertIfMissing"/>
+    <add key="umbracoTimeOutInMinutes" value="60" xdt:Locator="Condition(@key='umbracoTimeOutInMinutes')" xdt:Transform="InsertIfMissing" />
+    <add key="owin:appStartup" xdt:Transform="Remove" />
+    <add key="owin:appStartup" value="UmbracoIdentityOwinStartup" xdt:Locator="Condition(@key='owin:appStartup')" xdt:Transform="InsertIfMissing" />
+    <add key="Umbraco.ModelsBuilder.Enable" xdt:Transform="Remove" />
+    <add key="Umbraco.ModelsBuilder.Enable" value="false" xdt:Locator="Condition(@key='Umbraco.ModelsBuilder.Enable')" xdt:Transform="InsertIfMissing" />
+    <add key="mediaToolkit.application.name" value="uintra20" xdt:Locator="Condition(@key='mediaToolkit.application.name')" xdt:Transform="InsertIfMissing" />
+    <add key="MyLinks.ActivityTitleLength" value="30" xdt:Locator="Condition(@key='MyLinks.ActivityTitleLength')" xdt:Transform="InsertIfMissing" />
+    <add key="UintraSuperUsers" value="" xdt:Locator="Condition(@key='UintraSuperUsers')" xdt:Transform="InsertIfMissing" />
+    <add key="AdminSecretKey" value="" xdt:Locator="Condition(@key='AdminSecretKey')" xdt:Transform="InsertIfMissing" />
+    <add key="VideoFileTypes" value="ogg, mp4, webm, 3gp, mov, flv, wmv, avi, wmv, mpeg4, divx, mpeg, mkv" xdt:Locator="Condition(@key='VideoFileTypes')" xdt:Transform="InsertIfMissing" />
+    <add key="DaytimeSavingOffset" value="True" xdt:Locator="Condition(@key='DaytimeSavingOffset')" xdt:Transform="InsertIfMissing" />
+    <add key="QaKey" value="650daf52-eb98-480e-914d-521304ff66b2" xdt:Locator="Condition(@key='QaKey')" xdt:Transform="InsertIfMissing" />
+    <add key="Notifications.Mail.NoReplyEmail" value="noreply@uintra.com" xdt:Locator="Condition(@key='Notifications.Mail.NoReplyEmail')" xdt:Transform="InsertIfMissing" />
+    <add key="Notifications.Mail.NoReplyName" value="Uintra" xdt:Locator="Condition(@key='Notifications.Mail.NoReplyName')" xdt:Transform="InsertIfMissing" />
+
+    <add key="Search.Url" value="" xdt:Locator="Condition(@key='Search.Url')" xdt:Transform="InsertIfMissing" />
+    <add key="Search.IndexName" value="" xdt:Locator="Condition(@key='Search.IndexName')" xdt:Transform="InsertIfMissing"/>
+    <add key="Search.IndexingDocumentTypes" value="" xdt:Locator="Condition(@key='Search.IndexingDocumentTypes')" xdt:Transform="InsertIfMissing" />
+    <add key="Search.TitleScore" value="" xdt:Locator="Condition(@key='Search.TitleScore')" xdt:Transform="InsertIfMissing" />
+    <add key="Search.UserNameScore" value="" xdt:Locator="Condition(@key='Search.UserNameScore')" xdt:Transform="InsertIfMissing" />
+    <add key="Search.UserEmailScore" value="" xdt:Locator="Condition(@key='Search.UserEmailScore')" xdt:Transform="InsertIfMissing" />
+    <add key="Search.UserPhoneScore" value="" xdt:Locator="Condition(@key='Search.UserPhoneScore')" xdt:Transform="InsertIfMissing" />
+    <add key="Search.UserDepartmentScore" value="" xdt:Locator="Condition(@key='Search.UserDepartmentScore')" xdt:Transform="InsertIfMissing" />
+    <add key="Application.Name" value="uintra20" xdt:Locator="Condition(@key='Application.Name')" xdt:Transform="InsertIfMissing" />
+    <add key="UintraDocumentationLinkTemplate" value="https://docs.uintra.com/?ver={0}-{1}-{2}-{3}" xdt:Locator="Condition(@key='UintraDocumentationLinkTemplate')" xdt:Transform="InsertIfMissing" />
+  </appSettings>
   <uIntraJobs xdt:Transform="Remove">
   </uIntraJobs>
   <UintraJobs xdt:Transform="InsertIfMissing">
@@ -13,4 +46,17 @@
       <add job="ReminderJob" enabled="true" runType="RunEvery" timeType="Minutes" time="5" xdt:Locator="Condition(@job='ReminderJob')" xdt:Transform="InsertIfMissing"/>
     </settings>
   </UintraJobs>
+  <localizationConfiguration xdt:Transform="Remove" />
+  <localizationConfiguration enableCache="false" cacheTime="0" localizationCacheKey="LocalizationCacheKey" useDefaultLabel="true" saveDefaultLabel="false" xdt:Transform="InsertIfMissing" />
+  <entityFramework xdt:Transform="Remove" />
+  <entityFramework xdt:Transform="InsertIfMissing">
+    <defaultConnectionFactory type="System.Data.Entity.Infrastructure.LocalDbConnectionFactory, EntityFramework" xdt:Transform="InsertIfMissing">
+      <parameters>
+        <parameter value="mssqllocaldb" xdt:Transform="InsertIfMissing"/>
+      </parameters>
+    </defaultConnectionFactory>
+    <providers>
+      <provider invariantName="System.Data.SqlClient" type="System.Data.Entity.SqlServer.SqlProviderServices, EntityFramework.SqlServer" xdt:Transform="InsertIfMissing" />
+    </providers>
+  </entityFramework>
 </configuration>
