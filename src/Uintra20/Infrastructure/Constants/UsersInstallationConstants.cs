@@ -71,13 +71,5 @@ namespace Uintra20.Infrastructure.Constants
             public const string GroupWebMaster = "WebMaster";
             public const string GroupUiUser = "UiUser";
         }
-
-        public class DefaultMember
-        {
-            public const string Email = "admin@testmember.com";
-            public const string Name = "admin";
-            public const int UmbracoAdminUserId = 0;
-            public const string Password = "qwerty1234";
-        }
     }
 }

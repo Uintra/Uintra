@@ -31,7 +31,6 @@ using Uintra20.Features.Subscribe;
 using Uintra20.Infrastructure.ApplicationSettings;
 using Uintra20.Infrastructure.Caching;
 using Uintra20.Infrastructure.Context;
-using Uintra20.Infrastructure.Exceptions;
 using Uintra20.Infrastructure.Providers;
 using Uintra20.Infrastructure.TypeProviders;
 using Uintra20.Infrastructure.Utils;
@@ -57,10 +56,8 @@ namespace Uintra20.Infrastructure.Ioc
 
             services.AddScoped<ICacheService, MemoryCacheService>();
             services.AddScoped<IEmbeddedResourceService, EmbeddedResourceService>();
-            services.AddScoped<IExceptionLogger, ExceptionLogger>();
             services.AddScoped<IMediaHelper, MediaHelper>();
-            services.AddScoped<IMediaFolderTypeProvider>(provider =>
-                new MediaFolderTypeProvider(typeof(MediaFolderTypeEnum)));
+            services.AddScoped<IMediaFolderTypeProvider>(provider => new MediaFolderTypeProvider(typeof(MediaFolderTypeEnum)));
             services.AddScoped<IImageHelper, ImageHelper>();
             services.AddScoped<IVideoConverter, VideoConverter>();
             services.AddScoped<IIntranetMediaService, IntranetMediaService>();

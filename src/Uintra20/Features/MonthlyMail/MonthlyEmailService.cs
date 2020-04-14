@@ -5,8 +5,11 @@ using Uintra20.Core.Activity.Entities;
 using Uintra20.Core.Member.Abstractions;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Services;
+using Uintra20.Features.Events;
+using Uintra20.Features.Events.Entities;
 using Uintra20.Features.Links;
 using Uintra20.Features.Links.Models;
+using Uintra20.Features.News;
 using Uintra20.Features.Notification;
 using Uintra20.Features.Notification.Entities;
 using Uintra20.Features.Notification.Entities.Base.Mails;
@@ -15,16 +18,15 @@ using Uintra20.Features.Notification.Services;
 using Uintra20.Features.Social;
 using Uintra20.Features.Tagging.UserTags.Services;
 using Uintra20.Infrastructure.ApplicationSettings;
-using Uintra20.Infrastructure.Exceptions;
+using Umbraco.Core.Logging;
 
 namespace Uintra20.Features.MonthlyMail
 {
     public class MonthlyEmailService: MonthlyEmailServiceBase
     {
-	    private readonly ISocialService<Social.Entities.Social> _bulletinsService;
-	    //todo uncomment when News and Events will be done
-        //private readonly IEventsService<EventBase> _eventsService;
-        //private readonly INewsService<NewsBase> _newsService;
+        private readonly ISocialService<Social.Entities.Social> _bulletinsService;
+        private readonly IEventsService<Event> _eventsService;
+        private readonly INewsService<News.Entities.News> _newsService;
         private readonly IUserTagRelationService _userTagService;
         private readonly IActivityLinkService _activityLinkService;
         private readonly INotificationModelMapper<EmailNotifierTemplate, EmailNotificationMessage> _notificationModelMapper;
@@ -32,10 +34,10 @@ namespace Uintra20.Features.MonthlyMail
 
         public MonthlyEmailService(IMailService mailService,
             IIntranetMemberService<IntranetMember> intranetMemberService,
-            IExceptionLogger logger,
+            ILogger logger,
             ISocialService<Social.Entities.Social> bulletinsService,
-            //IEventsService<EventBase> eventsService,
-            //INewsService<NewsBase> newsService,
+            IEventsService<Event> eventsService,
+            INewsService<News.Entities.News> newsService,
             IUserTagRelationService userTagService,
             IActivityLinkService activityLinkService,
             INotificationSettingsService notificationSettingsService, 
@@ -44,8 +46,8 @@ namespace Uintra20.Features.MonthlyMail
             : base(mailService, intranetMemberService, logger, notificationSettingsService, applicationSettings)
         {
             _bulletinsService = bulletinsService;
-            //_eventsService = eventsService;
-            //_newsService = newsService;
+            _eventsService = eventsService;
+            _newsService = newsService;
             _userTagService = userTagService;
             _activityLinkService = activityLinkService;
             _notificationModelMapper = notificationModelMapper;
@@ -74,11 +76,10 @@ namespace Uintra20.Features.MonthlyMail
         protected virtual IEnumerable<IIntranetActivity> GetAllActivities()
         {
             var allBulletins = _bulletinsService.GetAll().Cast<IIntranetActivity>();
-            //todo uncomment when News and Events will be done
-			//var allNews = _newsService.GetAll().Cast<IIntranetActivity>();
-			//var allEvents = _eventsService.GetAll().Cast<IIntranetActivity>();
+            var allNews = _newsService.GetAll().Cast<IIntranetActivity>();
+			var allEvents = _eventsService.GetAll().Cast<IIntranetActivity>();
 
-			return allBulletins; /*.Concat(allNews).Concat(allEvents);*/
+			return allBulletins.Concat(allNews).Concat(allEvents);
         }
     }
 }
