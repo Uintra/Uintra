@@ -11,6 +11,8 @@
   <appSettings xdt:Transform="InsertIfMissing">
     <add key="Umbraco.Core.ConfigurationStatus" xdt:Transform="Remove" />
     <add key="Umbraco.Core.ConfigurationStatus" value="8.6.0" xdt:Locator="Condition(@key='Umbraco.Core.ConfigurationStatus')" xdt:Transform="InsertIfMissing"/>
+    <add key="Umbraco.Core.ReservedUrls" value="" xdt:Locator="Condition(@key='Umbraco.Core.ReservedUrls')" xdt:Transform="InsertIfMissing"/>
+    <add key="Umbraco.Core.ReservedPaths" value="" xdt:Locator="Condition(@key='Umbraco.Core.ReservedPaths')" xdt:Transform="InsertIfMissing"/>
     <add key="umbracoTimeOutInMinutes" value="60" xdt:Locator="Condition(@key='umbracoTimeOutInMinutes')" xdt:Transform="InsertIfMissing" />
     <add key="owin:appStartup" xdt:Transform="Remove" />
     <add key="owin:appStartup" value="UmbracoIdentityOwinStartup" xdt:Locator="Condition(@key='owin:appStartup')" xdt:Transform="InsertIfMissing" />
@@ -25,7 +27,13 @@
     <add key="QaKey" value="650daf52-eb98-480e-914d-521304ff66b2" xdt:Locator="Condition(@key='QaKey')" xdt:Transform="InsertIfMissing" />
     <add key="Notifications.Mail.NoReplyEmail" value="noreply@uintra.com" xdt:Locator="Condition(@key='Notifications.Mail.NoReplyEmail')" xdt:Transform="InsertIfMissing" />
     <add key="Notifications.Mail.NoReplyName" value="Uintra" xdt:Locator="Condition(@key='Notifications.Mail.NoReplyName')" xdt:Transform="InsertIfMissing" />
-
+    <add key="elmah.mvc.disableHandler" value="false" xdt:Locator="Condition(@key='elmah.mvc.disableHandler')" xdt:Transform="InsertIfMissing"/>
+    <add key="elmah.mvc.disableHandleErrorFilter" value="false" xdt:Locator="Condition(@key='elmah.mvc.disableHandleErrorFilter')" xdt:Transform="InsertIfMissing"/>
+    <add key="elmah.mvc.requiresAuthentication" value="false" xdt:Locator="Condition(@key='elmah.mvc.requiresAuthentication')" xdt:Transform="InsertIfMissing"/>
+    <add key="elmah.mvc.IgnoreDefaultRoute" value="false" xdt:Locator="Condition(@key='elmah.mvc.IgnoreDefaultRoute')" xdt:Transform="InsertIfMissing" />
+    <add key="elmah.mvc.allowedRoles" value="*" xdt:Locator="Condition(@key='elmah.mvc.allowedRoles')" xdt:Transform="InsertIfMissing" />
+    <add key="elmah.mvc.allowedUsers" value="*" xdt:Locator="Condition(@key='elmah.mvc.allowedUsers')" xdt:Transform="InsertIfMissing" />
+    <add key="elmah.mvc.route" value="elmah" xdt:Locator="Condition(@key='elmah.mvc.route')" xdt:Transform="InsertIfMissing" />
     <add key="Search.Url" value="" xdt:Locator="Condition(@key='Search.Url')" xdt:Transform="InsertIfMissing" />
     <add key="Search.IndexName" value="" xdt:Locator="Condition(@key='Search.IndexName')" xdt:Transform="InsertIfMissing"/>
     <add key="Search.IndexingDocumentTypes" value="" xdt:Locator="Condition(@key='Search.IndexingDocumentTypes')" xdt:Transform="InsertIfMissing" />
