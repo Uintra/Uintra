@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0"?>
 <configuration xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
-  <configSections>
+  <configSections xdt:Transform="InsertIfMissing">
     <section name="UintraJobs" xdt:Locator="Match(name)" xdt:Transform="Remove"/>
     <section name="UintraJobs" type="Uintra.Core.Jobs.Configuration.JobSettingsConfiguration" xdt:Locator="Condition(@name='UintraJobs')" xdt:Transform="InsertIfMissing" />
   </configSections>
