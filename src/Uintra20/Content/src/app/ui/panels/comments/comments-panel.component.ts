@@ -10,6 +10,7 @@ import { ICommentData } from 'src/app/feature/reusable/ui-elements/comments/comm
   encapsulation: ViewEncapsulation.None
 })
 export class CommentsPanel implements OnInit {
+  //TODO: Change data interface from any to appropriate one once you remove UFP from this panel and remove first three lines in ngOnInit()
   data: any;
   comments: any;
   commentDetails: ICommentData;
@@ -22,6 +23,9 @@ export class CommentsPanel implements OnInit {
   }
 
   ngOnInit(): void {
+    if (this.data.get) {
+      this.data = this.data.get();
+    }
     const parsedData = ParseHelper.parseUbaselineData(this.data);
     this.activityType = parsedData.commentsType;
     this.commentDetails = {

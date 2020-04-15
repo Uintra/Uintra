@@ -22,6 +22,7 @@ export interface ILikesPanelData {
 })
 export class LikesPanel {
   @HostBinding('class') hostClass;
+  //TODO: Change data interface from any to appropriate one once you remove UFP from this panel and remove first three lines in ngOnInit()
   data: any;
   panelData: ILikesPanelData;
   likeData: ILikeData;
@@ -34,6 +35,9 @@ export class LikesPanel {
   }
 
   public ngOnInit(): void {
+    if (this.data.get) {
+      this.data = this.data.get();
+    }
     this.panelData = ParseHelper.parseUbaselineData(this.data);
     this.likeData = {
       likedByCurrentUser: !!this.panelData.likedByCurrentUser,

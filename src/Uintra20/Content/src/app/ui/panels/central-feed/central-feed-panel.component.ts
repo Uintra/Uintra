@@ -12,7 +12,9 @@ import { TranslateService } from '@ngx-translate/core';
   encapsulation: ViewEncapsulation.None
 })
 export class CentralFeedPanel implements OnInit {
-  data: ICentralFeedPanel;
+  //TODO: Change data interface from any to ICentralFeedPanel once you remove UFP from this panel and remove first three lines in ngOnInit()
+  data: any;
+  // data: ICentralFeedPanel;
   tabs: Array<any> = null;
   selectTabFilters: Array<IFilterState>;
   selectedTabType: number;
@@ -30,6 +32,9 @@ export class CentralFeedPanel implements OnInit {
   ) { }
 
   ngOnInit() {
+    if (this.data.get) {
+      this.data = this.data.get();
+    }
     this.tabs = this.filtersBuilder();
 
     this.signalrService.getReloadFeedSubjects().subscribe(s => {
@@ -39,7 +44,6 @@ export class CentralFeedPanel implements OnInit {
 
   filtersBuilder() {
     let filtersFromServer = Object.values(this.data.tabs.get());
-
     // TODO: fix ubaselline next and remove it
     const allOption = new UmbracoFlatPropertyModel({
       type: "0",

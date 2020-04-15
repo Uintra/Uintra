@@ -11,8 +11,9 @@ import ParseHelper from 'src/app/shared/utils/parse.helper';
   encapsulation: ViewEncapsulation.None
 })
 export class UserTagsPanel implements OnInit {
-
-  data: IUserTagsPanel;
+  //TODO: Change data interface from any to IUserTagsPanel once you remove UFP from this panel and remove first three lines in ngOnInit()
+  data: any;
+  // data: IUserTagsPanel;
   tags: Array<IUserTag>;
 
   constructor(
@@ -20,6 +21,9 @@ export class UserTagsPanel implements OnInit {
   ) { }
 
   public ngOnInit(): void {
+    if (this.data.get) {
+      this.data = this.data.get();
+    }
     const parsed = ParseHelper.parseUbaselineData(this.data);
     this.tags = Object.values(parsed.tags);
   }

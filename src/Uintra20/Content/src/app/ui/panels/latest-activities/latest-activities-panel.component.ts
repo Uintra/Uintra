@@ -20,8 +20,9 @@ export class LatestActivitiesPanelComponent implements OnInit {
     private ngZone: NgZone,
     private CFFilterService: CentralFeedFiltersService,
   ) { }
-
-  public readonly data: ILatestActivitiesPanel;
+  //TODO: Change data interface from any to ILatestActivitiesPanel once you remove UFP from this panel and remove first three lines in ngOnInit()
+  public data: any;
+  // public data: ILatestActivitiesPanel;
   public title: string;
   public teaser: string;
   public activities: Array<IPublication> = new Array<IPublication>();
@@ -29,6 +30,9 @@ export class LatestActivitiesPanelComponent implements OnInit {
   public activityType: number;
 
   public ngOnInit(): void {
+    if (this.data.get) {
+      this.data = this.data.get();
+    }
     this.parse();
     this.signalrService.getReloadFeedSubjects().subscribe(() => this.reload());
   }
