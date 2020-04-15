@@ -14,6 +14,8 @@
       <section name="errorMail" requirePermission="false" type="Elmah.ErrorMailSectionHandler, Elmah" xdt:Locator="Condition(@name='errorMail')" xdt:Transform="InsertIfMissing" />
       <section name="errorFilter" requirePermission="false" type="Elmah.ErrorFilterSectionHandler, Elmah" xdt:Locator="Condition(@name='errorFilter')" xdt:Transform="InsertIfMissing" />
     </sectionGroup>
+    <section name="linkDetectionConfiguration" xdt:Locator="Match(name)" xdt:Transform="Remove" />
+    <section name="linkDetectionConfiguration" type="Uintra20.Features.LinkPreview.LinkDetectionConfigurationSection" xdt:Locator="Condition(@name='linkDetectionConfiguration')" xdt:Transform="InsertIfMissing" />
   </configSections>
   <appSettings xdt:Transform="InsertIfMissing">
     <add key="Umbraco.Core.ConfigurationStatus" xdt:Transform="Remove" />
@@ -51,6 +53,7 @@
     <add key="Search.UserDepartmentScore" value="" xdt:Locator="Condition(@key='Search.UserDepartmentScore')" xdt:Transform="InsertIfMissing" />
     <add key="Application.Name" value="uintra20" xdt:Locator="Condition(@key='Application.Name')" xdt:Transform="InsertIfMissing" />
     <add key="UintraDocumentationLinkTemplate" value="https://docs.uintra.com/?ver={0}-{1}-{2}-{3}" xdt:Locator="Condition(@key='UintraDocumentationLinkTemplate')" xdt:Transform="InsertIfMissing" />
+    <add key="linkPreviewServiceUri" value="" xdt:Locator="Condition(@key='linkPreviewServiceUri')" xdt:Transform="InsertIfMissing" />
   </appSettings>
   <system.web xdt:Transform="InsertIfMissing">
     <httpModules xdt:Transform="InsertIfMissing">
@@ -94,4 +97,10 @@
       <provider invariantName="System.Data.SqlClient" type="System.Data.Entity.SqlServer.SqlProviderServices, EntityFramework.SqlServer" xdt:Transform="InsertIfMissing" />
     </providers>
   </entityFramework>
+  <linkDetectionConfiguration xdt:Transform="Remove" />
+  <linkDetectionConfiguration xdt:Transform="InsertIfMissing">
+    <regexes>
+      <add key="(www.[^\s]+$)|(https?:\/\/[^\s]+$)" xdt:Transform="InsertIfMissing"/>
+    </regexes>
+  </linkDetectionConfiguration>
 </configuration>
