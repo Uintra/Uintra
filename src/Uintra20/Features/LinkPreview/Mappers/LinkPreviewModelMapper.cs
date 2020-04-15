@@ -2,7 +2,7 @@
 using Compent.LinkPreview.HttpClient;
 using Uintra20.Features.LinkPreview.Sql;
 
-namespace Uintra20.Features.LinkPreview
+namespace Uintra20.Features.LinkPreview.Mappers
 {
     public class LinkPreviewModelMapper
     {

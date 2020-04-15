@@ -113,9 +113,6 @@
     <Reference Include="Elmah, Version=1.2.14706.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
     </Reference>
-    <Reference Include="Elmah.Mvc, Version=2.0.0.29988, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Elmah.MVC.2.1.1\lib\net40\Elmah.Mvc.dll</HintPath>
-    </Reference>
     <Reference Include="EmailWorker.Data, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EmailWorker.Data.1.0.0\lib\net472\EmailWorker.Data.dll</HintPath>
     </Reference>
@@ -913,6 +910,7 @@
   <ItemGroup>
     <Compile Include="App_Plugins\Utils\Search\SearchDashboard.cs" />
     <Compile Include="App_Start\UintraApplicationComponent.cs" />
+    <Compile Include="App_Start\UintraUmbracoEventComponent.cs" />
     <Compile Include="Core\Article\Events\ArticlePageEventService.cs" />
     <Compile Include="Core\Feed\Services\IFeedPresentationService.cs" />
     <Compile Include="Core\MediaToolkit\CommandBuilder.cs" />
@@ -934,6 +932,7 @@
     <Compile Include="Core\UbaselineModels\ForbiddenPageViewModel.cs" />
     <Compile Include="Core\UbaselineModels\PageNotFoundPageModel.cs" />
     <Compile Include="Core\Updater\2.0\Migration.cs" />
+    <Compile Include="Core\Updater\2.0\Steps\CreateDefaultMemberStep.cs" />
     <Compile Include="Core\Updater\2.0\Steps\SetupDefaultMediaFoldersStep.cs" />
     <Compile Include="Core\Updater\2.0\Steps\SetupDefaultMemberGroupsPermissionsStep.cs" />
     <Compile Include="Core\Updater\2.0\Steps\SetupDefaultMemberGroupsStep.cs" />
@@ -949,9 +948,25 @@
     <Compile Include="Features\Events\Handlers\EventHandler.cs" />
     <Compile Include="Core\UmbracoEvents\Services\Contracts\IUmbracoContentPublishedEventService.cs" />
     <Compile Include="Core\UmbracoEvents\Services\Contracts\IUmbracoContentUnPublishedEventService.cs" />
+    <Compile Include="Features\LinkPreview\Configurations\LinkDetectionConfig.cs" />
+    <Compile Include="Features\LinkPreview\Configurations\LinkPreviewConfiguration.cs" />
+    <Compile Include="Features\LinkPreview\Constants\OpenGraphConstants.cs" />
+    <Compile Include="Features\LinkPreview\Contracts\IHasLinkPreview.cs" />
+    <Compile Include="Features\LinkPreview\Controllers\LinkPreviewController.cs" />
+    <Compile Include="Features\LinkPreview\InjectModules\LinkPreviewInjectModule.cs" />
+    <Compile Include="Features\LinkPreview\LinkDetectionConfigurationSection.cs" />
+    <Compile Include="Features\LinkPreview\Mappers\LinkPreviewModelMapper.cs" />
+    <Compile Include="Features\LinkPreview\Providers\Contracts\ILinkPreviewConfigProvider.cs" />
+    <Compile Include="Features\LinkPreview\Providers\Implementations\LinkPreviewConfigProvider.cs" />
+    <Compile Include="Features\LinkPreview\Services\ActivityLinkPreviewService.cs" />
+    <Compile Include="Features\LinkPreview\Services\IActivityLinkPreviewService.cs" />
     <Compile Include="Features\Notification\Models\UserMentionNotificationModel.cs" />
     <Compile Include="Features\Notification\Services\IUserMentionNotificationService.cs" />
     <Compile Include="Features\Notification\Services\UserMentionNotificationService.cs" />
+    <Compile Include="Features\OpenGraph\InjectModules\OpenGraphInjectModule.cs" />
+    <Compile Include="Features\OpenGraph\Models\OpenGraphObject .cs" />
+    <Compile Include="Features\OpenGraph\Services\Contracts\IOpenGraphService.cs" />
+    <Compile Include="Features\OpenGraph\Services\Implementations\OpenGraphService.cs" />
     <Compile Include="Features\Permissions\Models\MemberGroupDeleteModel.cs" />
     <Compile Include="Features\Search\Converters\Panel\UserTagsPanelSearchConverter.cs" />
     <Compile Include="Features\Tagging\UserTags\Converters\TagsPropertyEditorConverter.cs" />
@@ -1063,7 +1078,6 @@
     <Compile Include="Core\UmbracoEvents\Services\Contracts\IUmbracoMemberGroupDeletingEventService.cs" />
     <Compile Include="Core\UmbracoEvents\Services\Contracts\IUmbracoMemberGroupSavedEventService.cs" />
     <Compile Include="Core\UmbracoEvents\Services\Contracts\IUmbracoMemberRemovedRolesEventService.cs" />
-    <Compile Include="Core\UmbracoEvents\Modules\UmbracoEventsModule.cs" />
     <Compile Include="Core\UmbracoEvents\Services\Implementations\MemberGroupEventService.cs" />
     <Compile Include="Core\UmbracoEvents\Services\Implementations\SearchMediaEventService.cs" />
     <Compile Include="Core\UmbracoEvents\Services\Implementations\VideoConvertEventService.cs" />
@@ -1470,7 +1484,6 @@
     <Compile Include="Core\Feed\Services\IFeedSettingsService.cs" />
     <Compile Include="Features\Information\IInformationService.cs" />
     <Compile Include="Features\Information\InformationService.cs" />
-    <Compile Include="Features\LinkPreview\LinkPreviewConfiguration.cs" />
     <Compile Include="Features\Media\Enums\MediaTypeEnum.cs" />
     <Compile Include="Features\Media\Strategies\Preset\CentralFeedPresetStrategy.cs" />
     <Compile Include="Features\Media\Strategies\Preset\IPresetStrategy.cs" />
@@ -1611,8 +1624,6 @@
     <Compile Include="Features\Events\AutoMapperProfiles\EventsAutoMapperProfile.cs" />
     <Compile Include="Features\Events\Entities\Events.cs" />
     <Compile Include="Features\Events\EventBase.cs" />
-    <Compile Include="Infrastructure\Exceptions\ExceptionLogger.cs" />
-    <Compile Include="Infrastructure\Exceptions\IExceptionLogger.cs" />
     <Compile Include="Infrastructure\Extensions\ActivitiesServiceFactoryExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\AutoMapperExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\ContextExtensions.cs" />
@@ -1671,11 +1682,7 @@
     <Compile Include="Features\Likes\Services\ILikesService.cs" />
     <Compile Include="Features\Likes\Services\LikesService.cs" />
     <Compile Include="Features\Likes\Sql\Like.cs" />
-    <Compile Include="Features\LinkPreview\ActivityLinkPreviewService.cs" />
     <Compile Include="Features\LinkPreview\AutoMapperProfiles\LinkPreviewAutoMapperProfile.cs" />
-    <Compile Include="Features\LinkPreview\IActivityLinkPreviewService.cs" />
-    <Compile Include="Features\LinkPreview\IHasLinkPreview.cs" />
-    <Compile Include="Features\LinkPreview\LinkPreviewModelMapper.cs" />
     <Compile Include="Features\LinkPreview\Models\LinkPreview.cs" />
     <Compile Include="Features\LinkPreview\Models\LinkPreviewViewModel.cs" />
     <Compile Include="Features\LinkPreview\Sql\ActivityToLinkPreviewEntity.cs" />
@@ -2105,7 +2112,6 @@
     <Folder Include="Core\Member\Events\" />
     <Folder Include="Core\Search\Indexers\Diagnostics\Services\" />
     <Folder Include="Features\Navigation\ModelBuilders\" />
-    <Folder Include="Features\Notification\Commands\" />
     <Folder Include="Media\" />
   </ItemGroup>
   <ItemGroup>

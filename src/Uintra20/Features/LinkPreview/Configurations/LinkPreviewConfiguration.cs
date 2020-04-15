@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Compent.LinkPreview.HttpClient;
+using System;
 using System.Configuration;
-using Compent.LinkPreview.HttpClient;
 
-namespace Uintra20.Features.LinkPreview
+namespace Uintra20.Features.LinkPreview.Configurations
 {
     public class LinkPreviewConfiguration : ILinkPreviewConfiguration
     {
