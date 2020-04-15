@@ -7,6 +7,13 @@
     <section name="localizationConfiguration" type="Localization.Core.Configuration.LocalizationConfigurationSection, Localization.Core" xdt:Locator="Condition(@name='localizationConfiguration')" xdt:Transform="InsertIfMissing" />
     <section name="entityFramework" xdt:Locator="Match(name)" xdt:Transform="Remove" />
     <section name="entityFramework" type="System.Data.Entity.Internal.ConfigFile.EntityFrameworkSection, EntityFramework" requirePermission="false" xdt:Locator="Condition(@name='entityFramework')" xdt:Transform="InsertIfMissing" />
+    <sectionGroup name="elmah" xdt:Locator="Match(name)" xdt:Transform="Remove" />
+    <sectionGroup name="elmah" xdt:Locator="Match(name)" xdt:Transform="InsertIfMissing">
+      <section name="security" requirePermission="false" type="Elmah.SecuritySectionHandler, Elmah" xdt:Locator="Condition(@name='security')" xdt:Transform="InsertIfMissing"/>
+      <section name="errorLog" requirePermission="false" type="Elmah.ErrorLogSectionHandler, Elmah" xdt:Locator="Condition(@name='errorLog')" xdt:Transform="InsertIfMissing" />
+      <section name="errorMail" requirePermission="false" type="Elmah.ErrorMailSectionHandler, Elmah" xdt:Locator="Condition(@name='errorMail')" xdt:Transform="InsertIfMissing" />
+      <section name="errorFilter" requirePermission="false" type="Elmah.ErrorFilterSectionHandler, Elmah" xdt:Locator="Condition(@name='errorFilter')" xdt:Transform="InsertIfMissing" />
+    </sectionGroup>
   </configSections>
   <appSettings xdt:Transform="InsertIfMissing">
     <add key="Umbraco.Core.ConfigurationStatus" xdt:Transform="Remove" />
@@ -45,6 +52,26 @@
     <add key="Application.Name" value="uintra20" xdt:Locator="Condition(@key='Application.Name')" xdt:Transform="InsertIfMissing" />
     <add key="UintraDocumentationLinkTemplate" value="https://docs.uintra.com/?ver={0}-{1}-{2}-{3}" xdt:Locator="Condition(@key='UintraDocumentationLinkTemplate')" xdt:Transform="InsertIfMissing" />
   </appSettings>
+  <system.web xdt:Transform="InsertIfMissing">
+    <httpModules xdt:Transform="InsertIfMissing">
+      <add name="ErrorLog" type="Elmah.ErrorLogModule, Elmah" xdt:Locator="Match(name)" xdt:Transform="InsertIfMissing" />
+      <add name="ErrorMail" type="Elmah.ErrorMailModule, Elmah" xdt:Locator="Match(name)" xdt:Transform="InsertIfMissing" />
+      <add name="ErrorFilter" type="Elmah.ErrorFilterModule, Elmah" xdt:Locator="Match(name)" xdt:Transform="InsertIfMissing" />
+    </httpModules>
+    <authentication xdt:Transform="Remove" />
+    <authentication mode="Forms" xdt:Transform="InsertIfMissing">
+      <forms name="yourAuthCookie" loginUrl="login.aspx" protection="All" path="/" xdt:Locator="Match(name)" xdt:Transform="InsertIfMissing" />
+    </authentication>
+    <authorization xdt:Transform="InsertIfMissing">
+      <allow users="?" xdt:Transform="InsertIfMissing"/>
+    </authorization>
+    <pages xdt:Transform="InsertIfMissing">
+      <namespaces xdt:Transform="InsertIfMissing">
+        <add namespace="ClientDependency.Core.Mvc" xdt:Transform="InsertIfMissing" />
+        <add namespace="ClientDependency.Core" xdt:Transform="InsertIfMissing" />
+      </namespaces>
+    </pages>
+  </system.web>
   <uIntraJobs xdt:Transform="Remove">
   </uIntraJobs>
   <UintraJobs xdt:Transform="InsertIfMissing">
