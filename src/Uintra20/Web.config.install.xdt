@@ -75,6 +75,34 @@
       </namespaces>
     </pages>
   </system.web>
+
+  <system.webServer xdt:Transform="InsertIfMissing">
+    <modules runAllManagedModulesForAllRequests="true" xdt:Transform="InsertIfMissing">
+      <add name="FormsAuthentication" type="System.Web.Security.FormsAuthenticationModule" xdt:Transform="InsertIfMissing" />
+      <add name="ErrorLog" type="Elmah.ErrorLogModule, Elmah" preCondition="managedHandler" xdt:Transform="InsertIfMissing" />
+      <add name="ErrorMail" type="Elmah.ErrorMailModule, Elmah" preCondition="managedHandler" xdt:Transform="InsertIfMissing" />
+      <add name="ErrorFilter" type="Elmah.ErrorFilterModule, Elmah" preCondition="managedHandler" xdt:Transform="InsertIfMissing" />
+    </modules>
+    <handlers accessPolicy="Read, Write, Script, Execute" xdt:Transform="InsertIfMissing">
+      <remove name="DependencyHandler" xdt:Transform="InsertIfMissing" />
+      <add name="DependencyHandler" preCondition="integratedMode" verb="GET" path="DependencyHandler.axd"
+           type="ClientDependency.Core.CompositeFiles.CompositeDependencyHandler, ClientDependency.Core " xdt:Transform="InsertIfMissing" />
+    </handlers>
+
+    <rewrite xdt:Transform="InsertIfMissing">
+      <rules>
+        <rule name="Uintra20 Https redirect rule" stopProcessing="true" xdt:Transform="InsertIfMissing">
+          <match url="(.*)" xdt:Transform="InsertIfMissing" />
+          <conditions>
+            <add input="{HTTPS}" pattern="off" ignoreCase="true" xdt:Transform="InsertIfMissing"/>
+            <add input="{HTTP_HOST}" pattern="localhost" negate="true" xdt:Transform="InsertIfMissing"/>
+          </conditions>
+          <action type="Redirect" url="https://{HTTP_HOST}/{R:1}" redirectType="Permanent" xdt:Transform="InsertIfMissing"/>
+        </rule>
+      </rules>
+    </rewrite>
+  </system.webServer>
+
   <uIntraJobs xdt:Transform="Remove">
   </uIntraJobs>
   <UintraJobs xdt:Transform="InsertIfMissing">
@@ -103,4 +131,20 @@
       <add key="(www.[^\s]+$)|(https?:\/\/[^\s]+$)" xdt:Transform="InsertIfMissing"/>
     </regexes>
   </linkDetectionConfiguration>
+
+  <elmah xdt:Transform="InsertIfMissing">
+    <security allowRemoteAccess="false" xdt:Transform="InsertIfMissing" />
+  </elmah>
+  <location path="elmah.axd" inheritInChildApplications="false" xdt:Transform="InsertIfMissing">
+    <system.web xdt:Transform="InsertIfMissing">
+      <httpHandlers xdt:Transform="InsertIfMissing">
+        <add verb="POST,GET,HEAD" path="elmah.axd" type="Elmah.ErrorLogPageFactory, Elmah" xdt:Transform="InsertIfMissing"/>
+      </httpHandlers>
+    </system.web>
+    <system.webServer xdt:Transform="InsertIfMissing">
+      <handlers xdt:Transform="InsertIfMissing">
+        <add name="ELMAH" verb="POST,GET,HEAD" path="elmah.axd" type="Elmah.ErrorLogPageFactory, Elmah" preCondition="integratedMode" xdt:Transform="InsertIfMissing"/>
+      </handlers>
+    </system.webServer>
+  </location>
 </configuration>
