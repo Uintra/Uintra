@@ -911,6 +911,7 @@
   <ItemGroup>
     <Compile Include="App_Plugins\Utils\Search\SearchDashboard.cs" />
     <Compile Include="App_Start\UintraApplicationComponent.cs" />
+    <Compile Include="App_Start\UintraUmbracoEventComponent.cs" />
     <Compile Include="Core\Article\Events\ArticlePageEventService.cs" />
     <Compile Include="Core\Feed\Services\IFeedPresentationService.cs" />
     <Compile Include="Core\MediaToolkit\CommandBuilder.cs" />
@@ -1062,7 +1063,6 @@
     <Compile Include="Core\UmbracoEvents\Services\Contracts\IUmbracoMemberGroupDeletingEventService.cs" />
     <Compile Include="Core\UmbracoEvents\Services\Contracts\IUmbracoMemberGroupSavedEventService.cs" />
     <Compile Include="Core\UmbracoEvents\Services\Contracts\IUmbracoMemberRemovedRolesEventService.cs" />
-    <Compile Include="Core\UmbracoEvents\Modules\UmbracoEventsModule.cs" />
     <Compile Include="Core\UmbracoEvents\Services\Implementations\MemberGroupEventService.cs" />
     <Compile Include="Core\UmbracoEvents\Services\Implementations\SearchMediaEventService.cs" />
     <Compile Include="Core\UmbracoEvents\Services\Implementations\VideoConvertEventService.cs" />
