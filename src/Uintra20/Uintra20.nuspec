@@ -19,7 +19,8 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="Content\**" target="content/Content" exclude="**/node_modules/**" />
+    <file src="Content\**" target="UintraFiles/Content" exclude="**/node_modules/**" />
     <file src="uSync\**" target="content/uSync" />
+    <file src="install.ps1" target="tools" />
   </files>
 </package>
