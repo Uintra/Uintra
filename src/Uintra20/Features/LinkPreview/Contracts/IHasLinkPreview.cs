@@ -1,4 +1,4 @@
-﻿namespace Uintra20.Features.LinkPreview
+﻿namespace Uintra20.Features.LinkPreview.Contracts
 {
     public interface IHasLinkPreview
     {

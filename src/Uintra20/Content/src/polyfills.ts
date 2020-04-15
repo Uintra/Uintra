@@ -1,3 +1,15 @@
+if (!('remove' in Element.prototype)) {
+  (Element as any).prototype['remove'] = function () {
+    if (this.parentNode) {
+      this.parentNode.removeChild(this);
+    }
+  };
+}
+const pageContentEl = document.getElementById("page-content");
+if (pageContentEl) {
+  pageContentEl.remove();
+}
+
 /**
  * This file includes polyfills needed by Angular and is loaded before the app.
  * You can add your own extra polyfills to this file.

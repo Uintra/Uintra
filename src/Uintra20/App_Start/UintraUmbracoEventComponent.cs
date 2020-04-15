@@ -1,19 +1,29 @@
 ﻿using System.Web.Mvc;
 using LightInject;
-using UBaseline.Core.Extensions;
 using Uintra20.Core.UmbracoEvents.Services.Contracts;
+using Uintra20.Infrastructure.Extensions;
+using Umbraco.Core.Composing;
 using Umbraco.Core.Events;
 using Umbraco.Core.Models;
 using Umbraco.Core.Models.Entities;
 using Umbraco.Core.Services;
 using Umbraco.Core.Services.Implement;
-using Umbraco.Web.Composing;
 
-namespace Uintra20.Core.UmbracoEvents.Modules
-{
-    public static class UmbracoEventsModule
+namespace Uintra20
+{     
+    public class UintraUmbracoEventComponent:  IComponent
+
     {
-        public static void RegisterEvents()
+        public void Initialize()
+        {
+            RegisterEvents();
+        }
+
+        public void Terminate()
+        {
+        }
+        
+         private static void RegisterEvents()
         {
             MemberService.AssignedRoles += AssignedRolesHandler;
             MemberService.RemovedRoles += MemberRemovedRolesHandler;
@@ -171,5 +181,6 @@ namespace Uintra20.Core.UmbracoEvents.Modules
             var services = DependencyResolver.Current.GetServices<IUmbracoContentUnPublishedEventService>();
             foreach (var service in services) service.ProcessContentUnPublished(sender, e);
         }
+        
     }
 }
