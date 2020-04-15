@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Uintra20.Features.LinkPreview.Mappers;
 using Uintra20.Features.LinkPreview.Sql;
 using Uintra20.Persistence.Sql;
 
-namespace Uintra20.Features.LinkPreview
+namespace Uintra20.Features.LinkPreview.Services
 {
     public class ActivityLinkPreviewService : IActivityLinkPreviewService
     {

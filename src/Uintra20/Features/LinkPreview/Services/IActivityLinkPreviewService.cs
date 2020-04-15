@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace Uintra20.Features.LinkPreview
+namespace Uintra20.Features.LinkPreview.Services
 {
     public interface IActivityLinkPreviewService
     {
