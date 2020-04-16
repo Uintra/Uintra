@@ -909,8 +909,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Plugins\Utils\Search\SearchDashboard.cs" />
-    <Compile Include="App_Start\UintraApplicationComponent.cs" />
-    <Compile Include="App_Start\UintraUmbracoEventComponent.cs" />
+    <Content Include="App_Start\UintraApplicationComponent.cs" />
+    <Content Include="App_Start\UintraUmbracoEventComponent.cs" />
     <Compile Include="Core\Article\Events\ArticlePageEventService.cs" />
     <Compile Include="Core\Feed\Services\IFeedPresentationService.cs" />
     <Compile Include="Core\MediaToolkit\CommandBuilder.cs" />
@@ -1337,10 +1337,10 @@
     <Compile Include="Infrastructure\Ioc\EventInjectModule.cs" />
     <Compile Include="Infrastructure\Ioc\GroupInjectModule.cs" />
     <Compile Include="Infrastructure\Ioc\LightInjectScopedConnection.cs" />
-    <Compile Include="App_Start\MapperConfig.cs" />
+    <Content Include="App_Start\MapperConfig.cs" />
     <Compile Include="Core\Hubs\SignalRStartup.cs" />
-    <Compile Include="App_Start\StartupComposer.cs" />
-    <Compile Include="App_Start\UmbracoIdentityOwinStartup.cs" />
+    <Content Include="App_Start\StartupComposer.cs" />
+    <Content Include="App_Start\UmbracoIdentityOwinStartup.cs" />
     <Compile Include="Attributes\CustomAuthorizeAttribute.cs" />
     <Compile Include="Attributes\GreaterThanAttribute.cs" />
     <Compile Include="Attributes\RequiredIfAllEmpty.cs" />
