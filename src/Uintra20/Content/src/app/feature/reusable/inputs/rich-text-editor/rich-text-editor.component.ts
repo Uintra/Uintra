@@ -5,7 +5,9 @@ import {
   forwardRef,
   Input,
   Output,
-  EventEmitter
+  EventEmitter,
+  ChangeDetectorRef,
+  NgZone
 } from "@angular/core";
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 
@@ -56,7 +58,8 @@ export class RichTextEditorComponent implements ControlValueAccessor {
   constructor(
     @Inject(QUILL_CONFIG_TOKEN) config: QuillConfig,
     private richTextEditorService: RichTextEditorService,
-    private mentionsService: MentionsService
+    private mentionsService: MentionsService,
+    private ngZone: NgZone,
   ) {
     config.modules = {
       ...config.modules,
@@ -86,6 +89,9 @@ export class RichTextEditorComponent implements ControlValueAccessor {
     if (!this.isEventsOrNews) {
       editor.focus();
     }
+    this.richTextEditorService.linkPreviewSource.subscribe(result => {
+      this.ngZone.run(() => this.editor.firstLinkPreview = result);
+    });
   }
 
   onShowDropdown() {

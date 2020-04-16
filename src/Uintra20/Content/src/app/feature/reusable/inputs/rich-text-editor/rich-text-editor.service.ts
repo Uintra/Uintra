@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { emojiList } from './rich-text-editor-emoji/helpers/emoji-list';
 import { HttpClient } from '@angular/common/http';
 import { ILinkPreview } from './rich-text-editor.interface';
+import { Subject, BehaviorSubject } from 'rxjs';
 
 interface ISelection {
   index: number;
@@ -14,6 +15,7 @@ interface ISelection {
 export class RichTextEditorService {
 
   private linkPreviewUrl = '/ubaseline/api/LinkPreview/Preview?url=';
+  public linkPreviewSource = new BehaviorSubject(null);
 
   constructor(private httpClient: HttpClient) {
   }
@@ -49,7 +51,10 @@ export class RichTextEditorService {
 
           this.httpClient.get<ILinkPreview>(`${this.linkPreviewUrl}${firstLink}`)
             .subscribe(
-              (res: ILinkPreview) => editor.firstLinkPreview = res,
+              (res: ILinkPreview) => {
+                editor.firstLinkPreview = res;
+                this.linkPreviewSource.next(res);
+              },
               (error) => editor.firstLink = null
             );
         }
