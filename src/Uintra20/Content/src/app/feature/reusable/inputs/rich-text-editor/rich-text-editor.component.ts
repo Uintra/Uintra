@@ -92,9 +92,9 @@ export class RichTextEditorComponent implements ControlValueAccessor {
     this.addAttachment.emit();
   }
 
-  onTouched(): any {}
-  onChange(): any {}
-  propagateChange(val) {}
+  onTouched(): any { }
+  onChange(): any { }
+  propagateChange(val) { }
   writeValue(value) {
     this.value = value;
   }
@@ -125,5 +125,8 @@ export class RichTextEditorComponent implements ControlValueAccessor {
     this.richTextEditorService.addEmoji(this.editor, emoji);
 
     this.closeEmojiPalette();
+  }
+  public closeLinkPreview(): void {
+    this.editor.firstLinkPreview = null;
   }
 }

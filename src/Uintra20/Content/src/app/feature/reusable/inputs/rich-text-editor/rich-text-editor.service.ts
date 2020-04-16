@@ -13,7 +13,9 @@ interface ISelection {
 })
 export class RichTextEditorService {
 
-  constructor(private http: HttpClient) {
+  private linkPreviewUrl = '/ubaseline/api/LinkPreview/Preview?url=';
+
+  constructor(private httpClient: HttpClient) {
   }
 
   addOnTextChangeCallback(editor) {
@@ -33,28 +35,37 @@ export class RichTextEditorService {
           //Change emoji shortcut to symbol '1' in string representation of editor's input
           stringFromDelta = stringFromDelta.slice(0, index) + '1' + stringFromDelta.slice(index + emoji.shortcut.length);
         }
-      })
+      });
 
-      const firstHref = editor.root.innerHTML.match(/href=".+"/);
-      const firstLink = firstHref ? firstHref[0].split(' ')[0].replace('href="', '').replace('"', '') : null;
+      const firstLink = this.getLink(delta);
+
       if (firstLink !== editor.firstLink) {
+
         if (firstLink === null && editor.firstLink) {
-          //Here you delete preview link
+
           editor.firstLinkPreview = null;
+
         } else if (firstLink) {
-          //Here you send request for link preview etc.
-          this.http.get<ILinkPreview>(`/ubaseline/api/LinkPreview/Preview?url=${firstLink}`).subscribe(
-            (res: ILinkPreview) => {
-              editor.firstLinkPreview = res;
-            },
-            (error) => {
-              editor.firstLink = null;
-            }
-          )
+
+          this.httpClient.get<ILinkPreview>(`${this.linkPreviewUrl}${firstLink}`)
+            .subscribe(
+              (res: ILinkPreview) => editor.firstLinkPreview = res,
+              (error) => editor.firstLink = null
+            );
         }
         editor.firstLink = firstLink;
       }
     });
+  }
+
+  private getLink(delta): string {
+    const obj = delta.ops.pop();
+    if (obj.hasOwnProperty('attributes')) {
+
+      return obj.attributes.link;
+    }
+
+    return null;
   }
 
   //Creates string representaition of editor's input with '1' symbol instead of emoji
