@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { emojiList } from './rich-text-editor-emoji/helpers/emoji-list';
+import { HttpClient } from '@angular/common/http';
+import { ILinkPreview } from './rich-text-editor.interface';
 
 interface ISelection {
   index: number;
@@ -11,7 +13,7 @@ interface ISelection {
 })
 export class RichTextEditorService {
 
-  constructor() {
+  constructor(private http: HttpClient) {
   }
 
   addOnTextChangeCallback(editor) {
@@ -38,8 +40,17 @@ export class RichTextEditorService {
       if (firstLink !== editor.firstLink) {
         if (firstLink === null && editor.firstLink) {
           //Here you delete preview link
+          editor.firstLinkPreview = null;
         } else if (firstLink) {
           //Here you send request for link preview etc.
+          this.http.get<ILinkPreview>(`/ubaseline/api/LinkPreview/Preview?url=${firstLink}`).subscribe(
+            (res: ILinkPreview) => {
+              editor.firstLinkPreview = res;
+            },
+            (error) => {
+              editor.firstLink = null;
+            }
+          )
         }
         editor.firstLink = firstLink;
       }

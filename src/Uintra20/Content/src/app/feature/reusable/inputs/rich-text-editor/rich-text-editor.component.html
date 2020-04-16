@@ -46,6 +46,16 @@
   </div>
 </div>
 
+<a *ngIf="editor?.firstLinkPreview" [href]="editor.firstLinkPreview.url" class="link-preview">
+  <div class="link-preview__image-wrapper">
+    <img [src]="editor.firstLinkPreview.imageUrl" class="link-preview__image">
+  </div>
+  <div class="link-preview__info">
+    <p *ngIf="editor.firstLinkPreview.title" class="link-preview__info-title">{{editor.firstLinkPreview.title}}</p>
+    <p *ngIf="editor.firstLinkPreview.description" class="link-preview__info-description">{{editor.firstLinkPreview.description}}</p>
+  </div>
+</a>
+
 <ng-template #default>
   <button class="ql-bold" [title]="'Bold'"></button>
   <button class="ql-italic" [title]="'Italic'"></button>
