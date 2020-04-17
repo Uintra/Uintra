@@ -21,13 +21,16 @@ namespace Uintra20.Features.Social.AutoMapperProfiles
                 .ForMember(dst => dst.HeaderInfo, o => o.Ignore())
                 .ForMember(dst => dst.IsReadOnly, o => o.Ignore())
                 .ForMember(d => d.LinkPreview, o => o.MapFrom(s => s.LinkPreview));
+                
 
             CreateMap<SocialBase, SocialEditModel>()
-              .ForMember(dst => dst.NewMedia, o => o.Ignore())
-              .ForMember(dst => dst.TagIdsData, o => o.Ignore())
-              .ForMember(dst => dst.Media, o => o.MapFrom(el => el.MediaIds.Select(m => m.ToString()).JoinWith(",")))
-              .ForMember(dst => dst.CanDelete, o => o.Ignore())
-              .ForMember(d => d.LinkPreview, o => o.MapFrom(s => s.LinkPreview));
+                .ForMember(dst => dst.NewMedia, o => o.Ignore())
+                .ForMember(dst => dst.TagIdsData, o => o.Ignore())
+                .ForMember(dst => dst.Media, o => o.MapFrom(el => el.MediaIds.Select(m => m.ToString()).JoinWith(",")))
+                .ForMember(dst => dst.CanDelete, o => o.Ignore())
+                .ForMember(d => d.LinkPreview, o => o.MapFrom(s => s.LinkPreview))
+                .ForMember(d => d.LinkPreviewId, o => o.MapFrom(s => s.LinkPreviewId));
+
 
             CreateMap<SocialCreateModel, SocialBase>()
                 .ForMember(dst => dst.Id, o => o.Ignore())
@@ -43,7 +46,8 @@ namespace Uintra20.Features.Social.AutoMapperProfiles
                 .ForMember(dst => dst.IsPinned, o => o.Ignore())
                 .ForMember(dst => dst.Title, o => o.Ignore())
                 .ForMember(dst => dst.IsPinActual, o => o.Ignore())
-                .ForMember(dst => dst.LinkPreview, o => o.MapFrom(s => s.LinkPreview));
+                .ForMember(dst => dst.LinkPreview, o => o.MapFrom(s => s.LinkPreview))
+                .ForMember(d => d.LinkPreviewId, o => o.MapFrom(s => s.LinkPreviewId));
 
             CreateMap<SocialEditModel, SocialBase>()
                 .ForMember(dst => dst.Title, o => o.Ignore())
@@ -60,6 +64,7 @@ namespace Uintra20.Features.Social.AutoMapperProfiles
                 .ForMember(dst => dst.OwnerId, o => o.Ignore())
                 .ForMember(dst => dst.IsPinActual, o => o.Ignore())
                 .ForMember(dst => dst.LinkPreview, o => o.MapFrom(s => s.LinkPreview))
+                .ForMember(d => d.LinkPreviewId, o => o.MapFrom(s => s.LinkPreviewId))
                 .AfterMap((src, dst) =>
                 {
                     dst.MediaIds = src.Media.ToIntCollection();
