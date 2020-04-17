@@ -1,8 +1,8 @@
 export interface ILinkPreview {
   id: string;
-  url: string;
+  uri: string;
   title: string;
   description: string;
-  imageUrl: string;
-  faviconUrl: string;
+  imageUri: string;
+  faviconUri: string;
 }

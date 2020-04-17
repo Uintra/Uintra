@@ -41,6 +41,7 @@ export class RichTextEditorComponent implements ControlValueAccessor {
   @Input() isEmoji: boolean = true;
   @Input() isEventsOrNews: boolean = false;
   @Output() addAttachment = new EventEmitter();
+  @Output() linkPreview = new EventEmitter();
 
   config: QuillConfig;
   editor: Quill;
@@ -90,7 +91,10 @@ export class RichTextEditorComponent implements ControlValueAccessor {
       editor.focus();
     }
     this.richTextEditorService.linkPreviewSource.subscribe(result => {
-      this.ngZone.run(() => this.editor.firstLinkPreview = result);
+      this.ngZone.run(() => {
+        this.editor.firstLinkPreview = result;
+        this.linkPreview.emit(result && result.id);
+      });
     });
   }
 

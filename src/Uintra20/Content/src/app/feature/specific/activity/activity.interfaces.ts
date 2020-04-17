@@ -11,6 +11,7 @@ export interface ISocialCreateModel {
   newMedia: string;
   tagIdsData: string[];
   groupId?: string;
+  linkPreviewId?: number;
 }
 
 export interface INewsCreateModel {
