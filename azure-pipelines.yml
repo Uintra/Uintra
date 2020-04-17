@@ -15,15 +15,6 @@ variables:
   buildConfiguration: 'QA'
 
 steps:
-
-- task: ArchiveFiles@2
-  inputs:
-    rootFolderOrFile: '$(Build.BinariesDirectory)/Tests/UI'
-    includeRootFolder: true
-    archiveType: 'zip'
-    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
-    replaceExistingArchive: true
-
 - task: NuGetToolInstaller@1
   inputs:
     versionSpec: '>2.7'
