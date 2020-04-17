@@ -16,6 +16,7 @@ export class RichTextEditorService {
 
   private linkPreviewUrl = '/ubaseline/api/LinkPreview/Preview?url=';
   public linkPreviewSource = new BehaviorSubject(null);
+  public cleanLinksToSkipSubject = new BehaviorSubject(null);
 
   constructor(private http: HttpClient) {
   }
@@ -38,6 +39,16 @@ export class RichTextEditorService {
           stringFromDelta = stringFromDelta.slice(0, index) + '1' + stringFromDelta.slice(index + emoji.shortcut.length);
         }
       });
+
+      const linksArray = this.createEditorInput(editor).match(/(www.[^\s]+$)|(https?:\/\/[^\s]+$)/);
+
+      linksArray && linksArray.forEach(link => {
+        const linkIndex = this.createEditorInput(editor).indexOf(link);
+        editor.deleteText(linkIndex, link.length);
+        editor.insertEmbed(linkIndex, 'link', link);
+      });
+
+      this.replaceLink(editor, delta);
 
       this.getLinkPreview(editor);
     });
@@ -88,10 +99,9 @@ export class RichTextEditorService {
   }
 
   getLinkPreview(editor) {
-    debugger
     let allHref = editor.root.innerHTML.match(/(href="[^\s]+")/g);
     allHref = allHref && allHref.filter(link => !editor.linksToSkip.includes(link.replace('href="', '').replace('"', '')));
-    const firstLink = allHref.length ? allHref[0].split(' ')[0].replace('href="', '').replace('"', '') : null;
+    const firstLink = allHref && allHref.length ? allHref[0].split(' ')[0].replace('href="', '').replace('"', '') : null;
 
     if (firstLink !== editor.firstLink) {
       if (firstLink === null && editor.firstLink) {
@@ -108,5 +118,44 @@ export class RichTextEditorService {
       }
       editor.firstLink = firstLink;
     }
+  }
+
+  cleanLinksToSkip() {
+    this.cleanLinksToSkipSubject.next(null);
+  }
+
+  replaceLink(editor, delta) {
+    const regex = /(www.[^\s]+$)|(https?:\/\/[^\s]+$)/;
+      if(delta.ops.length === 2 && delta.ops[0].retain && this.isWhitespace(delta.ops[1].insert)) {
+        const endRetain = delta.ops[0].retain;
+        const text = editor.getText().substr(0, endRetain);
+        const match = text.match(regex);
+
+        if(match !== null) {
+          const url = match[0];
+
+          let ops = [];
+          if(endRetain > url.length) {
+            ops.push({ retain: endRetain - url.length });
+          }
+
+          ops = ops.concat([
+            { delete: url.length },
+            { insert: url, attributes: { link: url } }
+          ]);
+
+          editor.updateContents({
+            ops: ops
+          });
+        }
+      }
+  }
+
+  isWhitespace(ch) {
+    let whiteSpace = false
+    if ((ch == ' ') || (ch == '\t') || (ch == '\n')) {
+      whiteSpace = true;
+    }
+    return whiteSpace;
   }
 }

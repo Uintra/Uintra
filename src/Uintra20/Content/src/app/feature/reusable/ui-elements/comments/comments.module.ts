@@ -11,6 +11,7 @@ import { CommentHeaderComponent } from './components/comment-header/comment-head
 import { UlinkModule } from 'src/app/shared/pipes/link/ulink.module';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { LinkPreviewModule } from 'src/app/feature/specific/link-preview/link-preview.module';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { TranslateModule } from '@ngx-translate/core';
     UlinkModule,
     FormsModule,
     TranslateModule,
+    LinkPreviewModule,
   ],
   exports: [
     CommentsComponent

@@ -92,12 +92,16 @@ export class RichTextEditorComponent implements ControlValueAccessor {
       editor.focus();
     }
     this.richTextEditorService.linkPreviewSource.subscribe(result => {
-      debugger
-      this.ngZone.run(() => {
-        this.editor.firstLinkPreview = result;
-        this.linkPreview.emit(result && result.id);
-      });
+      if ((this.editor.firstLinkPreview && this.editor.firstLinkPreview.uri) === (result && result.uri)) {
+        this.ngZone.run(() => {
+          this.editor.firstLinkPreview === result;
+          this.linkPreview.emit(result && result.id);
+        });
+      }
     });
+    this.richTextEditorService.cleanLinksToSkipSubject.subscribe(() => {
+      this.editor.linksToSkip = [];
+    })
   }
 
   onShowDropdown() {

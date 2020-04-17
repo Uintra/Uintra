@@ -3,6 +3,7 @@ import ParseHelper from 'src/app/shared/utils/parse.helper';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ILikeData } from '../../../like-button/like-button.interface.js';
 import { RTEStripHTMLService } from 'src/app/feature/specific/activity/rich-text-editor/helpers/rte-strip-html.service.js';
+import { ILinkPreview } from 'src/app/feature/reusable/inputs/rich-text-editor/rich-text-editor.interface.js';
 
 @Component({
   selector: 'app-subcomment-item',
@@ -21,6 +22,7 @@ export class SubcommentItemComponent implements OnInit {
   initialValue = '';
   editedValue = '';
   likeModel: ILikeData;
+  linkPreview: ILinkPreview;
 
   get isEditSubmitDisabled() {
     return this.stripHTML.isEmpty(this.editedValue) || this.isReplyEditingInProgress;
@@ -32,6 +34,7 @@ export class SubcommentItemComponent implements OnInit {
     this.editedValue = this.data.text;
     this.data.text = this.sanitizer.bypassSecurityTrustHtml(this.data.text);
     const parsed = ParseHelper.parseUbaselineData(this.data);
+    this.linkPreview = parsed.linkPreview;
     this.likeModel = {
       likedByCurrentUser: !!parsed.likeModel.likedByCurrentUser,
       id: this.data.id,

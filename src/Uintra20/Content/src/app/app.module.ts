@@ -26,8 +26,7 @@ import { LinkPreviewComponent } from './feature/specific/link-preview/link-previ
 
 @NgModule({
   declarations: [
-    AppComponent,
-    LinkPreviewComponent
+    AppComponent
   ],
   imports: [
     HeaderModule,
