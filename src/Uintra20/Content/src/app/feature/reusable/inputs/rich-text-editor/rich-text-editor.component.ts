@@ -84,6 +84,7 @@ export class RichTextEditorComponent implements ControlValueAccessor {
 
   initEditor(editor) {
     this.editor = editor;
+    this.editor.linksToSkip = [];
     this.richTextEditorService.addOnTextChangeCallback(editor);
     this.richTextEditorService.addStylesToImages(editor);
 
@@ -91,6 +92,7 @@ export class RichTextEditorComponent implements ControlValueAccessor {
       editor.focus();
     }
     this.richTextEditorService.linkPreviewSource.subscribe(result => {
+      debugger
       this.ngZone.run(() => {
         this.editor.firstLinkPreview = result;
         this.linkPreview.emit(result && result.id);
@@ -137,6 +139,7 @@ export class RichTextEditorComponent implements ControlValueAccessor {
     this.closeEmojiPalette();
   }
   public closeLinkPreview(): void {
-    this.editor.firstLinkPreview = null;
+    this.editor.linksToSkip.push(this.editor.firstLinkPreview && this.editor.firstLinkPreview.uri);
+    this.richTextEditorService.getLinkPreview(this.editor);
   }
 }

@@ -17,7 +17,7 @@ export class RichTextEditorService {
   private linkPreviewUrl = '/ubaseline/api/LinkPreview/Preview?url=';
   public linkPreviewSource = new BehaviorSubject(null);
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private http: HttpClient) {
   }
 
   addOnTextChangeCallback(editor) {
@@ -39,38 +39,8 @@ export class RichTextEditorService {
         }
       });
 
-      const firstLink = this.getLink(delta);
-
-      if (firstLink !== editor.firstLink) {
-
-        if (firstLink === null && editor.firstLink) {
-
-          editor.firstLinkPreview = null;
-
-        } else if (firstLink) {
-
-          this.httpClient.get<ILinkPreview>(`${this.linkPreviewUrl}${firstLink}`)
-            .subscribe(
-              (res: ILinkPreview) => {
-                editor.firstLinkPreview = res;
-                this.linkPreviewSource.next(res);
-              },
-              (error) => editor.firstLink = null
-            );
-        }
-        editor.firstLink = firstLink;
-      }
+      this.getLinkPreview(editor);
     });
-  }
-
-  private getLink(delta): string {
-    const obj = delta.ops.pop();
-    if (obj.hasOwnProperty('attributes')) {
-
-      return obj.attributes.link;
-    }
-
-    return null;
   }
 
   //Creates string representaition of editor's input with '1' symbol instead of emoji
@@ -115,5 +85,28 @@ export class RichTextEditorService {
     }
     //In case if input is not focused, using delta property of quill check if something inserted in input, if yes returns length of input otherwise returns zero
     return editor.getContents().ops.length > 1 ? editor.getLength() - 1 : 0;
+  }
+
+  getLinkPreview(editor) {
+    debugger
+    let allHref = editor.root.innerHTML.match(/(href="[^\s]+")/g);
+    allHref = allHref && allHref.filter(link => !editor.linksToSkip.includes(link.replace('href="', '').replace('"', '')));
+    const firstLink = allHref ? allHref[0].split(' ')[0].replace('href="', '').replace('"', '') : null;
+
+    if (firstLink !== editor.firstLink) {
+      if (firstLink === null && editor.firstLink) {
+        editor.firstLinkPreview = null;
+      } else if (firstLink) {
+        this.http.get<ILinkPreview>(`${this.linkPreviewUrl}${firstLink}`)
+          .subscribe(
+            (res: ILinkPreview) => {
+              editor.firstLinkPreview = res;
+              this.linkPreviewSource.next(res);
+            },
+            (error) => editor.firstLink = null
+          );
+      }
+      editor.firstLink = firstLink;
+    }
   }
 }
