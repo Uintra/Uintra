@@ -59,8 +59,6 @@ namespace Uintra20.Features.LinkPreview.Controllers
 
             var linkPreview = _linkPreviewModelMapper.MapPreview(entity);
 
-            linkPreview.Url = linkPreview.Uri.AbsoluteUri;
-            
             return linkPreview;
         }
 
