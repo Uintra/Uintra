@@ -1,7 +1,6 @@
-﻿using System.Linq;
-using AutoMapper;
+﻿using AutoMapper;
 using Compent.Extensions;
-using Uintra20.Core.Activity.Models;
+using System.Linq;
 using Uintra20.Core.Activity.Models.Headers;
 using Uintra20.Features.CentralFeed.Models;
 using Uintra20.Features.Groups.Links;
@@ -20,13 +19,15 @@ namespace Uintra20.Features.Social.AutoMapperProfiles
                 .ForMember(dst => dst.LightboxGalleryPreviewInfo, o => o.Ignore())
                 .ForMember(dst => dst.ActivityType, o => o.MapFrom(el => el.Type))
                 .ForMember(dst => dst.HeaderInfo, o => o.Ignore())
-                .ForMember(dst => dst.IsReadOnly, o => o.Ignore());
+                .ForMember(dst => dst.IsReadOnly, o => o.Ignore())
+                .ForMember(d => d.LinkPreview, o => o.MapFrom(s => s.LinkPreview));
 
             CreateMap<SocialBase, SocialEditModel>()
               .ForMember(dst => dst.NewMedia, o => o.Ignore())
               .ForMember(dst => dst.TagIdsData, o => o.Ignore())
-              .ForMember(dst => dst.Media, o => o.MapFrom(el => el.MediaIds.Select(m=>m.ToString()).JoinWith(",")))
-              .ForMember(dst => dst.CanDelete, o => o.Ignore());
+              .ForMember(dst => dst.Media, o => o.MapFrom(el => el.MediaIds.Select(m => m.ToString()).JoinWith(",")))
+              .ForMember(dst => dst.CanDelete, o => o.Ignore())
+              .ForMember(d => d.LinkPreview, o => o.MapFrom(s => s.LinkPreview));
 
             CreateMap<SocialCreateModel, SocialBase>()
                 .ForMember(dst => dst.Id, o => o.Ignore())
@@ -42,7 +43,7 @@ namespace Uintra20.Features.Social.AutoMapperProfiles
                 .ForMember(dst => dst.IsPinned, o => o.Ignore())
                 .ForMember(dst => dst.Title, o => o.Ignore())
                 .ForMember(dst => dst.IsPinActual, o => o.Ignore())
-                .ForMember(dst => dst.LinkPreview, o => o.Ignore());
+                .ForMember(dst => dst.LinkPreview, o => o.MapFrom(s => s.LinkPreview));
 
             CreateMap<SocialEditModel, SocialBase>()
                 .ForMember(dst => dst.Title, o => o.Ignore())
@@ -58,7 +59,7 @@ namespace Uintra20.Features.Social.AutoMapperProfiles
                 .ForMember(dst => dst.CreatorId, o => o.Ignore())
                 .ForMember(dst => dst.OwnerId, o => o.Ignore())
                 .ForMember(dst => dst.IsPinActual, o => o.Ignore())
-                .ForMember(dst => dst.LinkPreview, o => o.Ignore())
+                .ForMember(dst => dst.LinkPreview, o => o.MapFrom(s => s.LinkPreview))
                 .AfterMap((src, dst) =>
                 {
                     dst.MediaIds = src.Media.ToIntCollection();
@@ -72,7 +73,7 @@ namespace Uintra20.Features.Social.AutoMapperProfiles
                 .ForMember(dst => dst.IsReadOnly, o => o.Ignore())
                 .ForMember(dst => dst.Media, o => o.Ignore())
                 .ForMember(dst => dst.LightboxPreviewModel, o => o.Ignore());
-            
+
 
             CreateMap<SocialBase, IntranetActivityDetailsHeaderViewModel>()
                 .ForMember(dst => dst.Links, o => o.Ignore())
@@ -82,48 +83,6 @@ namespace Uintra20.Features.Social.AutoMapperProfiles
             CreateMap<SocialBase, IntranetActivityItemHeaderViewModel>()
                 .IncludeBase<SocialBase, IntranetActivityDetailsHeaderViewModel>()
                 .ForMember(dst => dst.ActivityId, o => o.MapFrom(el => el.Id));
-
-            //CreateMap<BulletinsBackofficeCreateModel, SocialBase>()
-            //    .ForMember(dst => dst.Location, o => o.Ignore())
-            //    .ForMember(dst => dst.MediaIds, o => o.Ignore())
-            //    .ForMember(dst => dst.Type, o => o.Ignore())
-            //    .ForMember(dst => dst.CreatorId, o => o.Ignore())
-            //    .ForMember(dst => dst.Id, o => o.Ignore())
-            //    .ForMember(dst => dst.CreatedDate, o => o.Ignore())
-            //    .ForMember(dst => dst.ModifyDate, o => o.Ignore())
-            //    .ForMember(dst => dst.IsPinned, o => o.Ignore())
-            //    .ForMember(dst => dst.EndPinDate, o => o.Ignore())
-            //    .ForMember(dst => dst.IsHidden, o => o.Ignore())
-            //    .ForMember(dst => dst.IsPinActual, o => o.Ignore())
-            //    .ForMember(dst => dst.UmbracoCreatorId, o => o.Ignore())
-            //    .ForMember(dst => dst.OwnerId, o => o.Ignore())
-            //    .ForMember(dst => dst.LinkPreview, o => o.Ignore())
-            //    .ForMember(dst => dst.LinkPreviewId, o => o.Ignore())
-            //    .AfterMap((dst, src) =>
-            //    {
-            //        src.MediaIds = dst.Media.ToIntCollection();
-            //    });
-
-            //CreateMap<BulletinsBackofficeSaveModel, SocialBase>()
-            //    .ForMember(dst => dst.Location, o => o.Ignore())
-            //    .ForMember(dst => dst.MediaIds, o => o.Ignore())
-            //    .ForMember(dst => dst.Type, o => o.Ignore())
-            //    .ForMember(dst => dst.CreatorId, o => o.Ignore())
-            //    .ForMember(dst => dst.OwnerId, o => o.Ignore())
-            //    .ForMember(dst => dst.CreatedDate, o => o.Ignore())
-            //    .ForMember(dst => dst.ModifyDate, o => o.Ignore())
-            //    .ForMember(dst => dst.IsPinned, o => o.Ignore())
-            //    .ForMember(dst => dst.EndPinDate, o => o.Ignore())
-            //    .ForMember(dst => dst.IsHidden, o => o.Ignore())
-            //    .ForMember(dst => dst.IsPinActual, o => o.Ignore())
-            //    .ForMember(dst => dst.LinkPreview, o => o.Ignore())
-            //    .ForMember(dst => dst.LinkPreviewId, o => o.Ignore())
-            //    .AfterMap((dst, src) =>
-            //    {
-            //        src.MediaIds = dst.Media.ToIntCollection();
-            //    });
-
-
 
             CreateMap<Entities.Social, SocialExtendedViewModel>()
                 .IncludeBase<SocialBase, SocialViewModel>()
