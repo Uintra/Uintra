@@ -1,0 +1,9 @@
+{
+    "loginFormValidation": "Credentials not valid"
+    ,"createNews":[
+        "A title is required", "A description is required", "Accept should be checked"
+    ]
+    ,"createEvent":[
+        "A title is required", "A description is required", "Accept should be checked"
+    ]
+}
