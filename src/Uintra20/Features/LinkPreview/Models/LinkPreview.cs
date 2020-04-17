@@ -7,6 +7,7 @@ namespace Uintra20.Features.LinkPreview.Models
         public int Id { get; set; }
 
         public Uri Uri { get; set; }
+        public string Url { get; set; }
 
         public string Title { get; set; }
 

@@ -57,7 +57,11 @@ namespace Uintra20.Features.LinkPreview.Controllers
 
             _previewRepository.Add(entity);
 
-            return _linkPreviewModelMapper.MapPreview(entity);
+            var linkPreview = _linkPreviewModelMapper.MapPreview(entity);
+
+            linkPreview.Url = linkPreview.Uri.AbsoluteUri;
+            
+            return linkPreview;
         }
 
         protected virtual LinkPreviewEntity Map(OpenGraphObject graph) =>
