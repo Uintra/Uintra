@@ -139,7 +139,7 @@ export class RichTextEditorComponent implements ControlValueAccessor {
     this.closeEmojiPalette();
   }
   public closeLinkPreview(): void {
-    this.editor.linksToSkip.push(this.editor.firstLinkPreview && this.editor.firstLinkPreview.uri);
+    this.editor.linksToSkip.push(this.editor.firstLinkPreview && this.editor.firstLinkPreview.url);
     this.richTextEditorService.getLinkPreview(this.editor);
   }
 }

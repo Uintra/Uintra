@@ -91,7 +91,7 @@ export class RichTextEditorService {
     debugger
     let allHref = editor.root.innerHTML.match(/(href="[^\s]+")/g);
     allHref = allHref && allHref.filter(link => !editor.linksToSkip.includes(link.replace('href="', '').replace('"', '')));
-    const firstLink = allHref ? allHref[0].split(' ')[0].replace('href="', '').replace('"', '') : null;
+    const firstLink = allHref.length ? allHref[0].split(' ')[0].replace('href="', '').replace('"', '') : null;
 
     if (firstLink !== editor.firstLink) {
       if (firstLink === null && editor.firstLink) {

@@ -22,10 +22,12 @@ import { NavNotificationsModule } from './feature/specific/nav-notifications/nav
 import { SearchModule } from './feature/reusable/inputs/search/search.module';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslationsLoader } from './shared/services/general/translations-loader';
+import { LinkPreviewComponent } from './feature/specific/link-preview/link-preview.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LinkPreviewComponent
   ],
   imports: [
     HeaderModule,

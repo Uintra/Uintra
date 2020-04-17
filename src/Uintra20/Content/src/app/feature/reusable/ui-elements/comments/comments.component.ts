@@ -22,6 +22,7 @@ export class CommentsComponent {
   description = '';
   inProgress: boolean;
   isReplyInProgress: boolean;
+  linkPreviewId: number;
 
   get isSubmitDisabled(): boolean {
     const isEmpty = this.stripHTML.isEmpty(this.description);
@@ -45,6 +46,7 @@ export class CommentsComponent {
       entityType: this.activityType,
       parentId: replyData ? replyData.parentId : null,
       text: replyData ? replyData.description : this.description,
+      linkPreviewId: this.linkPreviewId
     };
     this.commentsService.onCreate(data).then((res: any) => {
       this.comments.data = res.comments;
@@ -66,5 +68,9 @@ export class CommentsComponent {
 
   editComment(comments) {
     this.comments.data = comments;
+  }
+
+  addLinkPreview(linkPreviewId: number) {
+    this.linkPreviewId = linkPreviewId;
   }
 }

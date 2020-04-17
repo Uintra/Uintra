@@ -16,6 +16,7 @@ import { IUserAvatar } from "src/app/feature/reusable/ui-elements/user-avatar/us
 import { ActivityService } from "src/app/feature/specific/activity/activity.service";
 import { ISocialCreateModel, IActivityCreatePanel } from "src/app/feature/specific/activity/activity.interfaces";
 import { TranslateService } from '@ngx-translate/core';
+import { RichTextEditorService } from 'src/app/feature/reusable/inputs/rich-text-editor/rich-text-editor.service';
 
 @Component({
   selector: "app-social-create",
@@ -60,6 +61,7 @@ export class SocialCreateComponent implements OnInit {
     private hasDataChangedService: HasDataChangedService,
     private mq: MqService,
     private translate: TranslateService,
+    private RTEService: RichTextEditorService,
   ) { }
 
   public ngOnInit(): void {
@@ -94,6 +96,7 @@ export class SocialCreateComponent implements OnInit {
     this.modalService.removeClassFromRoot("disable-scroll");
     this.isPopupShowing = false;
     this.hasDataChangedService.reset();
+    this.RTEService.linkPreviewSource.next(null);
   }
 
   showPopUp() {
