@@ -140,7 +140,7 @@ namespace Uintra20.Features.Notification.Services
                     NotifierType = NotifierTypeEnum.UiNotifier.ToInt(),
                     IsViewed = false,
                     Type = el.NotificationType.ToInt(),
-                    Value = new { el.Message, el.Url, el.NotifierId, el.IsPinned, el.IsPinActual, el.DesktopMessage, el.DesktopTitle, el.IsDesktopNotificationEnabled }.ToJson(),
+                    Value = new { el.Message, el.Url, el.NotifierId, el.NotifierPhotoUrl,el.IsPinned, el.IsPinActual, el.DesktopMessage, el.DesktopTitle, el.IsDesktopNotificationEnabled }.ToJson(),
                     ReceiverId = el.ReceiverId
                 }).ToList();
 
