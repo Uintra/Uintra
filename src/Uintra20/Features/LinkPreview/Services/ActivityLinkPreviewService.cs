@@ -52,8 +52,10 @@ namespace Uintra20.Features.LinkPreview.Services
 
         public async Task UpdateLinkPreviewAsync(Guid activityId, int previewId)
         {
-            var relations = (await _previewRelationRepository.FindAllAsync(r => r.ActivityId == activityId)).ToList();
-            await _previewRelationRepository.DeleteAsync(relations);
+            var entities = await _previewRelationRepository.FindAllAsync(r => r.ActivityId == activityId);
+            
+            await _previewRelationRepository.DeleteAsync(entities);
+
             await AddLinkPreviewAsync(activityId, previewId);
         }
 
