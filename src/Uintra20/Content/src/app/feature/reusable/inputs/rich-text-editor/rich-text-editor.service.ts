@@ -100,12 +100,13 @@ export class RichTextEditorService {
 
   getLinkPreview(editor) {
     let allHref = editor.root.innerHTML.match(/(href="[^\s]+")/g);
-    allHref = allHref && allHref.filter(link => !editor.linksToSkip.includes(link.replace('href="', '').replace('"', '')));
+    allHref = allHref && allHref.filter(link => !this.hasToSkipLink(link.replace('href="', '').replace('"', ''), editor));
     const firstLink = allHref && allHref.length ? allHref[0].split(' ')[0].replace('href="', '').replace('"', '') : null;
 
     if (firstLink !== editor.firstLink) {
       if (firstLink === null && editor.firstLink) {
         editor.firstLinkPreview = null;
+        this.linkPreviewSource.next(null);
       } else if (firstLink) {
         this.http.get<ILinkPreview>(`${this.linkPreviewUrl}${firstLink}`)
           .subscribe(
@@ -157,5 +158,13 @@ export class RichTextEditorService {
       whiteSpace = true;
     }
     return whiteSpace;
+  }
+
+  hasToSkipLink(link: string, editor): boolean {
+    return editor.linksToSkip.includes(link)
+      || editor.linksToSkip.includes(`http://${link}`)
+      || editor.linksToSkip.includes(`http://${link}/`)
+      || editor.linksToSkip.includes(`https://${link}`)
+      || editor.linksToSkip.includes(`https://${link}/`)
   }
 }

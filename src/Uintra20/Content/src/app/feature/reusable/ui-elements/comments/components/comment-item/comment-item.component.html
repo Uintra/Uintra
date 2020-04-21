@@ -18,6 +18,7 @@
                           [(ngModel)]="editedValue"
                           [isDropzone]="false"
                           [isEditing]="isEditing"
+                          (linkPreview)="addEditLinkPreview($event)"
                           placeholder="">
       <div class="submit-container"
            edit>
@@ -46,7 +47,7 @@
                           [isEditing]="false"
                           [(ngModel)]="subcommentDescription"
                           [isDropzone]="false"
-                          (linkPreview)="addLinkPreview($event)"
+                          (linkPreview)="addReplyLinkPreview($event)"
                           placeholder="Reply to comment...">
       <button submit
               class="bulletin-popup__submit-button"

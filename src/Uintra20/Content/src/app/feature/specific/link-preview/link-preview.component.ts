@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, NgZone } from '@angular/core';
 import { ILinkPreview } from '../../reusable/inputs/rich-text-editor/rich-text-editor.interface';
 import { RichTextEditorService } from '../../reusable/inputs/rich-text-editor/rich-text-editor.service';
 
@@ -11,13 +11,13 @@ export class LinkPreviewComponent implements OnInit {
   @Input() firstLinkPreview: ILinkPreview;
   @Input() editor: any;
 
-  constructor(private richTextEditorService: RichTextEditorService,) { }
+  constructor(private richTextEditorService: RichTextEditorService) { }
 
   ngOnInit() {
   }
 
   public closeLinkPreview(): void {
-    this.editor.linksToSkip.push(this.editor.firstLinkPreview && this.editor.firstLinkPreview.url);
+    this.editor.linksToSkip.push(this.editor.firstLinkPreview && this.editor.firstLinkPreview.uri);
     this.richTextEditorService.getLinkPreview(this.editor);
   }
 }

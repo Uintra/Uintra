@@ -48,7 +48,7 @@ export class CommentsComponent {
       entityType: this.activityType,
       parentId: replyData ? replyData.parentId : null,
       text: replyData ? replyData.description : this.description,
-      linkPreviewId: this.linkPreviewId
+      linkPreviewId: replyData ? replyData.linkPreviewId : this.linkPreviewId
     };
     this.commentsService.onCreate(data).then((res: any) => {
       this.comments.data = res.comments;

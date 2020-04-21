@@ -33,7 +33,8 @@ export class CommentItemComponent implements OnInit {
   isEditSubmitLoading: boolean;
   isReplyEditingInProgress: boolean;
   linkPreview: ILinkPreview;
-  linkPreviewId: number;
+  replyLinkPreviewId: number;
+  editLinkPreviewId: number;
 
   get isSubcommentSubmitDisabled() {
     return this.stripHTML.isEmpty(this.subcommentDescription) || this.isReplyInProgress;
@@ -78,6 +79,8 @@ export class CommentItemComponent implements OnInit {
     } else {
       this.editedValue = this.initialValue;
     }
+    this.RTEService.linkPreviewSource.next(null);
+    this.RTEService.cleanLinksToSkip();
   }
 
   onSubmitEditedValue(subcomment?) {
@@ -88,7 +91,6 @@ export class CommentItemComponent implements OnInit {
       ).then((res: any) => {
         this.editComment.emit(res.comments);
         this.toggleEditingMode();
-        this.RTEService.cleanLinksToSkip();
       }).finally(() => {
         this.isEditSubmitLoading = false;
         this.isReplyEditingInProgress = false;
@@ -97,10 +99,16 @@ export class CommentItemComponent implements OnInit {
 
   onToggleReply() {
     this.isReply = !this.isReply;
+    this.RTEService.linkPreviewSource.next(null);
+    this.RTEService.cleanLinksToSkip();
   }
 
   onCommentReply() {
-    this.replyComment.emit({ parentId: this.data.id, description: this.subcommentDescription });
+    this.replyComment.emit({
+      parentId: this.data.id,
+      description: this.subcommentDescription,
+      linkPreviewId: this.replyLinkPreviewId
+     });
     this.RTEService.linkPreviewSource.next(null);
     this.RTEService.cleanLinksToSkip();
   }
@@ -111,10 +119,15 @@ export class CommentItemComponent implements OnInit {
       EntityId: subcomment ? subcomment.entityId : this.data.activityId,
       EntityType: this.activityType,
       Text: subcomment ? subcomment.text : this.editedValue,
+      linkPreviewId: subcomment ? subcomment.linkPreviewId : this.editLinkPreviewId,
     };
   }
 
-  addLinkPreview(linkPreviewId: number) {
-    this.linkPreviewId = linkPreviewId;
+  addReplyLinkPreview(linkPreviewId: number) {
+    this.replyLinkPreviewId = linkPreviewId;
+  }
+
+  addEditLinkPreview(linkPreviewId: number) {
+    this.editLinkPreviewId = linkPreviewId;
   }
 }

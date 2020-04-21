@@ -4,6 +4,7 @@ import { IULink } from "src/app/shared/interfaces/general.interface";
 import { UmbracoFlatPropertyModel } from "@ubaseline/next";
 import { IGroupDetailsHeaderData } from "../groups/groups.interface";
 import { UlinkModule } from 'src/app/shared/pipes/link/ulink.module';
+import { ILinkPreview } from '../../reusable/inputs/rich-text-editor/rich-text-editor.interface';
 
 export interface ISocialCreateModel {
   description: string;
@@ -54,6 +55,7 @@ export interface ISocialEdit {
   mediaRootId: number;
   canEdit?: boolean;
   canDelete?: boolean;
+  linkPreviewId?: number;
 
   location?: {
     address?: string;
@@ -81,6 +83,7 @@ export interface ISocialDetails {
   publishDate: Date;
   links: IActivityLinks;
   location: ILocation;
+  linkPreview?: ILinkPreview;
 }
 export interface ILocation {
   address: string;

@@ -18,6 +18,7 @@
       [isEditing]="isEditing"
       [(ngModel)]="editedValue"
       [isDropzone]="false"
+      (linkPreview)="addEditLinkPreview($event)"
       placeholder="">
         <div class="submit-container" edit>
           <button
