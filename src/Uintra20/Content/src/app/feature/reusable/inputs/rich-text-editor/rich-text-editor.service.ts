@@ -39,18 +39,20 @@ export class RichTextEditorService {
           stringFromDelta = stringFromDelta.slice(0, index) + '1' + stringFromDelta.slice(index + emoji.shortcut.length);
         }
       });
+      if (editor.showLinkPreview) {
+        const linksArray = this.createEditorInput(editor).match(/(www.[^\s]+$)|(https?:\/\/[^\s]+$)/);
 
-      const linksArray = this.createEditorInput(editor).match(/(www.[^\s]+$)|(https?:\/\/[^\s]+$)/);
+        linksArray && linksArray.forEach(link => {
+          const linkIndex = this.createEditorInput(editor).indexOf(link);
+          editor.deleteText(linkIndex, link.length);
+          editor.insertEmbed(linkIndex, 'link', link);
+        });
 
-      linksArray && linksArray.forEach(link => {
-        const linkIndex = this.createEditorInput(editor).indexOf(link);
-        editor.deleteText(linkIndex, link.length);
-        editor.insertEmbed(linkIndex, 'link', link);
-      });
+        this.replaceLink(editor, delta);
 
-      this.replaceLink(editor, delta);
+        this.getLinkPreview(editor);
+      }
 
-      this.getLinkPreview(editor);
     });
   }
 
