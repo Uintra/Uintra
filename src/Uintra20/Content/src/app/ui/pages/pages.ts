@@ -89,7 +89,6 @@ export const pages = [
     loadChildren:
       "./ui/pages/uintra-groups/members/uintra-groups-members-page.module#UintraGroupsMembersPageModule",
     cache: false,
-    legacy: true
   },
   {
     id: "uintraGroupsRoomPage",

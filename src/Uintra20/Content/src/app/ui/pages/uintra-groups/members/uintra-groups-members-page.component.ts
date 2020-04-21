@@ -1,7 +1,7 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import ParseHelper from 'src/app/shared/utils/parse.helper';
 import { AddButtonService } from 'src/app/ui/main-layout/left-navigation/components/my-links/add-button.service';
+import { UintraGroupsMembersInterface } from '../../../../shared/interfaces/pages/uintra-groups/members/uintra-groups-members.interface';
 
 @Component({
   selector: 'uintra-groups-members-page',
@@ -10,21 +10,20 @@ import { AddButtonService } from 'src/app/ui/main-layout/left-navigation/compone
   encapsulation: ViewEncapsulation.None
 })
 export class UintraGroupsMembersPage {
-  data: any;
+  data: UintraGroupsMembersInterface;
   parsedData: any;
 
   constructor(
-    private route: ActivatedRoute,
+    private activatedRoute: ActivatedRoute,
     private addButtonService: AddButtonService,
-    private router: Router,
+    private router: Router
   ) {
-    this.route.data.subscribe(data => {
-      if (!data.requiresRedirect.get()) {
+    this.activatedRoute.data.subscribe(data => {
+      if (!data.requiresRedirect) {
         this.data = data;
-        this.parsedData = ParseHelper.parseUbaselineData(data);
-        this.addButtonService.setPageId(data.id);
+        this.addButtonService.setPageId(data.id.toString());
       } else {
-        this.router.navigate([data.errorLink.get().originalUrl.get()]);
+        this.router.navigate([data.errorLink.originalUrl]);
       }
     });
   }
