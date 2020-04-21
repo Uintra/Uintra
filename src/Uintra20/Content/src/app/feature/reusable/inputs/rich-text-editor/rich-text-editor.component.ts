@@ -85,6 +85,7 @@ export class RichTextEditorComponent implements ControlValueAccessor {
   initEditor(editor) {
     this.editor = editor;
     this.editor.linksToSkip = [];
+    this.editor.showLinkPreview = !this.isEventsOrNews;
     this.richTextEditorService.addOnTextChangeCallback(editor);
     this.richTextEditorService.addStylesToImages(editor);
 
