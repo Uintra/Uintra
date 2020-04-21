@@ -89,6 +89,9 @@ export class RichTextEditorComponent implements ControlValueAccessor {
     this.richTextEditorService.addOnTextChangeCallback(editor);
     this.richTextEditorService.addStylesToImages(editor);
 
+    if (this.value) {
+      this.richTextEditorService.getLinkPreview(this.editor);
+    }
     if (!this.isEventsOrNews) {
       editor.focus();
     }
