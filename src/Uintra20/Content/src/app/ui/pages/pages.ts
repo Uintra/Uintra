@@ -75,7 +75,6 @@ export const pages = [
     loadChildren:
       "./ui/pages/uintra-groups/create/uintra-groups-create-page.module#UintraGroupsCreatePageModule",
     cache: false,
-    legacy: true
   },
   {
     id: "uintraGroupsEditPage",

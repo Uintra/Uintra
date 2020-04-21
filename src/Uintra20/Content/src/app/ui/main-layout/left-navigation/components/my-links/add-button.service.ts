@@ -13,6 +13,7 @@ export class AddButtonService {
 
   constructor() { }
 
+  // TODO: Refactor to number, when all code that points to this function moved from UFP to regular interfaces
   setPageId(id: UmbracoFlatPropertyModel | string) {
     this.pageId = id instanceof UmbracoFlatPropertyModel ? id.get() : id;
     this.pageIdTrigger.next(this.pageId);
