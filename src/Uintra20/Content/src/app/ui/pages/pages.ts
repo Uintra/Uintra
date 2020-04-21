@@ -104,7 +104,6 @@ export const pages = [
     loadChildren:
       "./ui/pages/uintra-groups/documents/uintra-groups-documents-page.module#UintraGroupsDocumentsPageModule",
     cache: false,
-    legacy: true
   },
   {
     id: "uintraGroupsPage",
