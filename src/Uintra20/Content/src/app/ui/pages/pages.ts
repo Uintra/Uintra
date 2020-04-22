@@ -18,8 +18,7 @@ export const pages = [
     path: '__dynamic__',
     loadChildren:
       './ui/pages/notifications/notifications-page.module#NotificationsPageModule',
-    cache: false,
-    legacy: true
+    cache: false
   },
   {
     id: 'socialDetailsPage',
