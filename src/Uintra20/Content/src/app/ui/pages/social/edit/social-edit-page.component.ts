@@ -167,4 +167,8 @@ export class SocialEditPageComponent {
 
     return true;
   }
+
+  addLinkPreview(linkPreviewId: number) {
+    this.socialEdit.linkPreviewId = linkPreviewId;
+  }
 }

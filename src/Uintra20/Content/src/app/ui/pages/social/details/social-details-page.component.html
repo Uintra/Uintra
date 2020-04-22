@@ -31,6 +31,7 @@
               [activityName]="activityName"
             ></app-detailas-header>
             <div class="feed-item__text rte" [innerHtml]="detailsDescription"></div>
+            <app-link-preview *ngIf="details?.linkPreview" [firstLinkPreview]="details.linkPreview"></app-link-preview>
             <div class="feed-item-tags" *ngIf="tags.length !== 0">
               <span class="feed-item-tags__text">{{'userTagsView.Title.lbl' | translate}}</span>
               <!-- TODO: get from details.links -->

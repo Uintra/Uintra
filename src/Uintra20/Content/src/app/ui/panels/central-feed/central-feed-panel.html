@@ -15,6 +15,7 @@
     <app-central-feed-publication
       *ngFor="let publication of feed"
       [publication]="publication"
+      [id]="publication.id"
     ></app-central-feed-publication>
 
     <div *ngIf="isFeedLoading" class="central-feed__loader-wrapper">
