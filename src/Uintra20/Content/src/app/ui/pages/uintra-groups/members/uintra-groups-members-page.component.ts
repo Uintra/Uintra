@@ -10,15 +10,14 @@ import { UintraGroupsMembersInterface } from '../../../../shared/interfaces/page
   encapsulation: ViewEncapsulation.None
 })
 export class UintraGroupsMembersPage {
-  data: UintraGroupsMembersInterface;
-  parsedData: any;
+  public data: UintraGroupsMembersInterface;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private addButtonService: AddButtonService,
     private router: Router
   ) {
-    this.activatedRoute.data.subscribe(data => {
+    this.activatedRoute.data.subscribe((data: UintraGroupsMembersInterface) => {
       if (!data.requiresRedirect) {
         this.data = data;
         this.addButtonService.setPageId(data.id.toString());

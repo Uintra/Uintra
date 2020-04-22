@@ -13,7 +13,7 @@ import { UintraGroupEditInterface } from '../../../../shared/interfaces/pages/ui
   encapsulation: ViewEncapsulation.None
 })
 export class UintraGroupsEditPage {
-  data: UintraGroupEditInterface;
+  public data: UintraGroupEditInterface;
 
   constructor(
     private route: ActivatedRoute,
@@ -22,7 +22,7 @@ export class UintraGroupsEditPage {
     private hasDataChangedService: HasDataChangedService,
     private canDeactivateService: CanDeactivateGuard,
   ) {
-    this.route.data.subscribe(data => {
+    this.route.data.subscribe((data: UintraGroupEditInterface) => {
       if (!data.requiresRedirect) {
         this.data = data;
         this.addButtonService.setPageId(data.id.toString());
@@ -32,7 +32,7 @@ export class UintraGroupsEditPage {
     });
   }
 
-  canDeactivate(): Observable<boolean> | boolean {
+  public canDeactivate(): Observable<boolean> | boolean {
     if (this.hasDataChangedService.hasDataChanged) {
       return this.canDeactivateService.canDeacrivateConfirm();
     }

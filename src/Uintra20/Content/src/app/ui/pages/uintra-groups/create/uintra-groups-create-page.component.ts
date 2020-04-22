@@ -13,7 +13,7 @@ import { UintraGroupCreateInterface } from '../../../../shared/interfaces/pages/
   encapsulation: ViewEncapsulation.None
 })
 export class UintraGroupsCreatePage {
-  data: UintraGroupCreateInterface;
+  public data: UintraGroupCreateInterface;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -22,7 +22,7 @@ export class UintraGroupsCreatePage {
     private canDeactivateService: CanDeactivateGuard,
     private router: Router,
   ) {
-    this.activatedRoute.data.subscribe(data => {
+    this.activatedRoute.data.subscribe((data: UintraGroupCreateInterface) => {
       if (!data.requiresRedirect) {
         this.data = data;
         this.addButtonService.setPageId(this.data.id.toString());
