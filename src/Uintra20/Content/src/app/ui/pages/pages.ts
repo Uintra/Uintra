@@ -10,8 +10,7 @@ export const pages = [
     id: 'articlePage',
     path: '__dynamic__',
     loadChildren: './ui/pages/article/article-page.module#ArticlePageModule',
-    cache: false,
-    legacy: true
+    cache: false
   },
   {
     id: 'notificationsPage',
