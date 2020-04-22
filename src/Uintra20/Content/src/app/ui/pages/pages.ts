@@ -164,8 +164,7 @@ export const pages = [
     id: 'forbiddenPage',
     path: '__dynamic__',
     loadChildren: './ui/pages/forbidden/forbidden-page.module#ForbiddenPageModule',
-    cache: false,
-    legacy: true
+    cache: false
   },
 ];
 

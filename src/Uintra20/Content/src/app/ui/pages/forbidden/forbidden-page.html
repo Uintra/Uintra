@@ -7,10 +7,8 @@
         <h3 class="forbidden__info-text">Contact with Administrator</h3>
       </div>
     </div>
-    <ubl-dynamic-component
-      *ngFor="let panel of data.panels.get()"
-      [data]="panel.get()"
-    >
+    <ubl-dynamic-component *ngFor="let panel of data.panels"
+                           [data]="panel">
     </ubl-dynamic-component>
   </div>
 </div>

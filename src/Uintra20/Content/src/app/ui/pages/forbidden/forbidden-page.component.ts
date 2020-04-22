@@ -8,7 +8,8 @@ import { ActivatedRoute } from '@angular/router';
   encapsulation: ViewEncapsulation.None
 })
 export class ForbiddenPage {
-  data: any;
+
+  public data: any;
 
   constructor(
     private route: ActivatedRoute
