@@ -47,7 +47,7 @@
         <div class="col-md-9">
           <ul class="tags">
             <li class="tags__item"
-                *ngFor="let tag of data.tags; trackBy: tag?.id">
+                *ngFor="let tag of data.tags; trackBy: trackIndex">
               <a class="tag"
                  [routerLink]="['/search']"
                  [queryParams]="{query: tag.text}"

@@ -62,4 +62,6 @@ export class NotificationsPage implements OnInit, OnDestroy {
         this.addNotifications(response);
       });
   }
+
+  public trackIndex = (index, item): string => item.id;
 }

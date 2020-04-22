@@ -12,7 +12,7 @@
              (scrolled)="onScroll()"
              *ngIf="notifications?.length !== 0">
           <app-notifications-item [notification]="notification"
-                                  *ngFor="let notification of notifications; trackBy: notification?.id">
+                                  *ngFor="let notification of notifications; trackBy: trackIndex">
           </app-notifications-item>
         </div>
       </div>

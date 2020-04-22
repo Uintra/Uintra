@@ -29,4 +29,6 @@ export class ProfilePage implements OnInit {
       }
     });
   }
+
+  public trackIndex = (index, item): string => item.id;
 }
