@@ -157,8 +157,7 @@ export const pages = [
     id: 'pageNotFoundPage',
     path: '__dynamic__',
     loadChildren: './ui/pages/page-not-found/page-not-found-page.module#PageNotFoundPageModule',
-    cache: false,
-    legacy: true
+    cache: false
   },
   {
     id: 'forbiddenPage',
