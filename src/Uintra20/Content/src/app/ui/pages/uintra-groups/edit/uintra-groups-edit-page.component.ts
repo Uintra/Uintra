@@ -22,7 +22,7 @@ export class UintraGroupsEditPage {
     private hasDataChangedService: HasDataChangedService,
     private canDeactivateService: CanDeactivateGuard,
   ) {
-    this.route.data.subscribe((data: UintraGroupEditInterface) => {
+    this.route.data.subscribe(data => {
       if (!data.requiresRedirect) {
         this.data = data;
         this.addButtonService.setPageId(data.id.toString());

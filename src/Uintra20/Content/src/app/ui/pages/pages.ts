@@ -117,8 +117,7 @@ export const pages = [
     path: "__dynamic__",
     loadChildren:
       "./ui/pages/uintra-groups/my-groups-page/uintra-my-groups-page.module#UintraMyGroupsPageModule",
-    cache: false,
-    legacy: true
+    cache: false
   },
   {
     id: 'uintraNewsCreatePage',
