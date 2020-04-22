@@ -15,6 +15,7 @@ import { CheckboxInputModule } from "src/app/feature/reusable/inputs/checkbox-in
 import { PublicationHeaderModule } from "src/app/feature/reusable/ui-elements/publication-header/publication-header.module";
 import { LikeButtonModule } from "src/app/feature/reusable/ui-elements/like-button/like-button.module";
 import { TranslateModule } from '@ngx-translate/core';
+import { LinkPreviewModule } from 'src/app/feature/specific/link-preview/link-preview.module';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { TranslateModule } from '@ngx-translate/core';
     RouterModule,
     UlinkModule,
     TranslateModule,
+    LinkPreviewModule,
   ],
   providers: [{ provide: AS_DYNAMIC_COMPONENT, useValue: CentralFeedPanel }],
   entryComponents: [CentralFeedPanel]

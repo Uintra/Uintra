@@ -19,6 +19,7 @@
       [(ngModel)]="description"
       [isDropzone]="false"
       [isEditing]="false"
+      (linkPreview)="addLinkPreview($event)"
       placeholder="Write a comment...">
       <button submit
         class="bulletin-popup__submit-button"

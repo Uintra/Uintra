@@ -5,6 +5,8 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ICreator } from 'src/app/shared/interfaces/general.interface';
 import { ILikeData } from '../../../like-button/like-button.interface';
 import { RTEStripHTMLService } from 'src/app/feature/specific/activity/rich-text-editor/helpers/rte-strip-html.service';
+import { ILinkPreview } from 'src/app/feature/reusable/inputs/rich-text-editor/rich-text-editor.interface';
+import { RichTextEditorService } from 'src/app/feature/reusable/inputs/rich-text-editor/rich-text-editor.service';
 
 @Component({
   selector: 'app-comment-item',
@@ -30,6 +32,9 @@ export class CommentItemComponent implements OnInit {
   sanitizedContent: SafeHtml;
   isEditSubmitLoading: boolean;
   isReplyEditingInProgress: boolean;
+  linkPreview: ILinkPreview;
+  replyLinkPreviewId: number;
+  editLinkPreviewId: number;
 
   get isSubcommentSubmitDisabled() {
     return this.stripHTML.isEmpty(this.subcommentDescription) || this.isReplyInProgress;
@@ -42,13 +47,15 @@ export class CommentItemComponent implements OnInit {
   constructor(
     private commentsService: CommentsService,
     private sanitizer: DomSanitizer,
-    private stripHTML: RTEStripHTMLService) { }
+    private stripHTML: RTEStripHTMLService,
+    private RTEService: RichTextEditorService) { }
 
   ngOnInit() {
     this.editedValue = this.data.text;
     this.sanitizedContent = this.sanitizer.bypassSecurityTrustHtml(this.data.text);
     const parsed = ParseHelper.parseUbaselineData(this.data);
     this.commentCreator = parsed.creator;
+    this.linkPreview = parsed.linkPreview;
     this.likeModel = {
       likedByCurrentUser: !!parsed.likeModel.likedByCurrentUser,
       id: this.data.id,
@@ -72,6 +79,8 @@ export class CommentItemComponent implements OnInit {
     } else {
       this.editedValue = this.initialValue;
     }
+    this.RTEService.linkPreviewSource.next(null);
+    this.RTEService.cleanLinksToSkip();
   }
 
   onSubmitEditedValue(subcomment?) {
@@ -90,10 +99,18 @@ export class CommentItemComponent implements OnInit {
 
   onToggleReply() {
     this.isReply = !this.isReply;
+    this.RTEService.linkPreviewSource.next(null);
+    this.RTEService.cleanLinksToSkip();
   }
 
   onCommentReply() {
-    this.replyComment.emit({ parentId: this.data.id, description: this.subcommentDescription });
+    this.replyComment.emit({
+      parentId: this.data.id,
+      description: this.subcommentDescription,
+      linkPreviewId: this.replyLinkPreviewId
+     });
+    this.RTEService.linkPreviewSource.next(null);
+    this.RTEService.cleanLinksToSkip();
   }
 
   private buildComment(subcomment?) {
@@ -102,6 +119,15 @@ export class CommentItemComponent implements OnInit {
       EntityId: subcomment ? subcomment.entityId : this.data.activityId,
       EntityType: this.activityType,
       Text: subcomment ? subcomment.text : this.editedValue,
+      linkPreviewId: subcomment ? subcomment.linkPreviewId : this.editLinkPreviewId,
     };
+  }
+
+  addReplyLinkPreview(linkPreviewId: number) {
+    this.replyLinkPreviewId = linkPreviewId;
+  }
+
+  addEditLinkPreview(linkPreviewId: number) {
+    this.editLinkPreviewId = linkPreviewId;
   }
 }

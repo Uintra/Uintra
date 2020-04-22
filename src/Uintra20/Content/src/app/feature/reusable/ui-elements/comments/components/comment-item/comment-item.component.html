@@ -12,11 +12,13 @@
                         (commentDelete)="onCommentDelete($event)">
     </app-comment-header>
     <div *ngIf="!isEditing" class="comment__content rte" [innerHTML]="sanitizedContent"></div>
+    <app-link-preview *ngIf="linkPreview && !isEditing" [firstLinkPreview]="linkPreview"></app-link-preview>
     <app-like-button [likeData]="likeModel"></app-like-button>
     <app-rich-text-editor *ngIf="isEditing"
                           [(ngModel)]="editedValue"
                           [isDropzone]="false"
                           [isEditing]="isEditing"
+                          (linkPreview)="addEditLinkPreview($event)"
                           placeholder="">
       <div class="submit-container"
            edit>
@@ -45,6 +47,7 @@
                           [isEditing]="false"
                           [(ngModel)]="subcommentDescription"
                           [isDropzone]="false"
+                          (linkPreview)="addReplyLinkPreview($event)"
                           placeholder="Reply to comment...">
       <button submit
               class="bulletin-popup__submit-button"

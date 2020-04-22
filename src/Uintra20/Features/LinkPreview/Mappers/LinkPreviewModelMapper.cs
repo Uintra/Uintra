@@ -20,7 +20,7 @@ namespace Uintra20.Features.LinkPreview.Mappers
             var result = new Models.LinkPreview
             {
                 Id = entity.Id,
-                Uri = new UriBuilder(entity.Uri).Uri,
+                Uri = new UriBuilder(entity.Uri).Uri.AbsoluteUri,
                 Title = entity.Title,
                 Description = GetLongest(entity.OgDescription, entity.Description)
             };
