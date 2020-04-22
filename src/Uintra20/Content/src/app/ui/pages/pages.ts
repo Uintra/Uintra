@@ -40,8 +40,7 @@ export const pages = [
     path: '__dynamic__',
     loadChildren:
       './ui/pages/profile/profile-details/profile-page.module#ProfilePageModule',
-    cache: false,
-    legacy: true
+    cache: false
   },
   {
     id: 'profileEditPage',

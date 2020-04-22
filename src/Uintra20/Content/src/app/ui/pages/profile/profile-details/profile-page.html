@@ -1,45 +1,43 @@
 <section class="page-wrapper">
   <div class="profile">
     <div class="profile__header">
-      <h2 class="profile__title">{{profile.title}}</h2>
-      <a *ngIf="data.editProfileLink.data.value"
-        [routerLink]="data.editProfileLink.data.originalUrl | ulink"
-        class="button button-default">
+      <h2 class="profile__title">{{data.profile.title}}</h2>
+      <a *ngIf="data.editProfileLink"
+         [routerLink]="data.editProfileLink.originalUrl | ulink"
+         class="button button-default">
         {{'detailsView.Edit.lbl' | translate}}
       </a>
     </div>
     <div class="user-block">
       <div class="user-block__col _avatar">
-        <app-user-avatar [photo]="profile.member.photo"
-                        [name]="profile.member.firstName">
+        <app-user-avatar [photo]="data.profile.photo"
+                         [name]="data.profile.firstName">
         </app-user-avatar>
       </div>
       <div class="user-block__col form">
         <div class="form__col">
           <div class="form__row">
-            <h2>{{profile.member.firstName}} {{profile.member.lastName}}</h2>
-            <!-- <span class="user-role">role position</span> -->
+            <h2>{{data.profile.firstName}} {{data.profile.lastName}}</h2>
           </div>
         </div>
         <div class="form__col">
           <div class="form__row">
             <label>{{'profile.Overview.Email.lbl' | translate}} </label>
-            <a href="mailto:{{profile.member.email}}">{{profile.member.email}}</a>
+            <a href="mailto:{{data.profile.email}}">{{data.profile.email}}</a>
           </div>
           <div class="form__row">
             <label>{{'profile.Overview.Phone.lbl' | translate}}</label>
-            <a *ngIf="profile.member.phone"
-              href="tel:+{{profile.member.phone}}">{{profile.member.phone}}</a>
+            <a *ngIf="data.profile.phone"
+               href="tel:+{{data.profile.phone}}">{{data.profile.phone}}</a>
           </div>
           <div class="form__row">
             <label>{{'profile.Overview.Department.lbl' | translate}} </label>
-            <span *ngIf="profile.member.department">{{profile.member.department}}</span>
+            <span *ngIf="data.profile.department">{{data.profile.department}}</span>
           </div>
         </div>
       </div>
     </div>
     <div class="profile__row">
-      <!-- <button type="button" class="button button-default">Write message to {{profile.member.firstName}}</button> -->
     </div>
     <div class="user-info">
       <div class="row-flex m-b">
@@ -49,11 +47,11 @@
         <div class="col-md-9">
           <ul class="tags">
             <li class="tags__item"
-                *ngFor="let tag of profile.member.tags">
+                *ngFor="let tag of data.tags; trackBy: tag?.id">
               <a class="tag"
-                [routerLink]="['/search']"
-                [queryParams]="{query: tag.text}"
-                [innerHTML]="tag.text">
+                 [routerLink]="['/search']"
+                 [queryParams]="{query: tag.text}"
+                 [innerHTML]="tag.text">
               </a>
             </li>
           </ul>
