@@ -1,9 +1,9 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import ParseHelper from 'src/app/shared/utils/parse.helper';
 import { Observable } from 'rxjs';
 import { CanDeactivateGuard } from 'src/app/shared/services/general/can-deactivate.service';
 import { HasDataChangedService } from 'src/app/shared/services/general/has-data-changed.service';
+import { UintraNewsCreateInterface } from 'src/app/shared/interfaces/pages/news/create/uintra-news-create.interface';
 
 @Component({
   selector: 'uintra-news-create-page',
@@ -12,26 +12,24 @@ import { HasDataChangedService } from 'src/app/shared/services/general/has-data-
   encapsulation: ViewEncapsulation.None
 })
 export class UintraNewsCreatePage {
-  data: any;
-  parsedData: any;
+  public data: UintraNewsCreateInterface;
 
   constructor(
-    private route: ActivatedRoute,
+    private activatedRoute: ActivatedRoute,
     private router: Router,
     private hasDataChangedService: HasDataChangedService,
     private canDeactivateService: CanDeactivateGuard
   ) {
-    this.route.data.subscribe(data => {
-      if (!data.requiresRedirect.get()) {
+    this.activatedRoute.data.subscribe((data: UintraNewsCreateInterface) => {
+      if (!data.requiresRedirect) {
         this.data = data;
-        this.parsedData = ParseHelper.parseUbaselineData(this.data);
       } else {
-        this.router.navigate([data.errorLink.get().originalUrl.get()]);
+        this.router.navigate([data.errorLink.originalUrl]);
       }
     });
   }
 
-  canDeactivate(): Observable<boolean> | boolean {
+  public canDeactivate(): Observable<boolean> | boolean {
     if (this.hasDataChangedService.hasDataChanged) {
       return this.canDeactivateService.canDeacrivateConfirm();
     }

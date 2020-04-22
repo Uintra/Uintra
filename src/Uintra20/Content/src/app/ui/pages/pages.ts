@@ -123,8 +123,7 @@ export const pages = [
     id: 'uintraNewsCreatePage',
     path: '__dynamic__',
     loadChildren: './ui/pages/news/uintra-news-create/uintra-news-create-page.module#UintraNewsCreatePageModule',
-    cache: false,
-    legacy: true
+    cache: false
   },
   {
     id: 'eventCreatePage',
