@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { UintraGroupsService } from "./uintra-groups-documents-page.service";
 import { AddButtonService } from 'src/app/ui/main-layout/left-navigation/components/my-links/add-button.service';
 import { DropzoneWrapperComponent } from 'src/app/feature/reusable/ui-elements/dropzone-wrapper/dropzone-wrapper.component';
-import { UintraGroupsDocumentsInterface } from '../../../../shared/interfaces/pages/uintra-groups/uintra-groups-documents.interface';
+import { UintraGroupsDocumentsInterface } from 'src/app/shared/interfaces/pages/uintra-groups/documents/uintra-groups-documents.interface';
 
 @Component({
   selector: "uintra-groups-documents-page",
@@ -25,7 +25,7 @@ export class UintraGroupsDocumentsPage {
     private addButtonService: AddButtonService,
     private router: Router,
   ) {
-    this.route.data.subscribe(data => {
+    this.route.data.subscribe((data: UintraGroupsDocumentsInterface) => {
       if (!data.requiresRedirect) {
         this.data = data;
         this.addButtonService.setPageId(data.id.toString());
