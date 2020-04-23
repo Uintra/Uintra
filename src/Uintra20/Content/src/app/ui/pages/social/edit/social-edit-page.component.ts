@@ -1,12 +1,11 @@
-import { Component, ViewEncapsulation, HostListener, OnDestroy } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
-import ParseHelper from "../../../../shared/utils/parse.helper";
-import { FormGroup, FormControl, Validators } from "@angular/forms";
-import { RouterResolverService } from "src/app/shared/services/general/router-resolver.service";
-import { Observable, Subscription } from "rxjs";
-import { HasDataChangedService } from "src/app/shared/services/general/has-data-changed.service";
-import { CanDeactivateGuard } from "src/app/shared/services/general/can-deactivate.service";
-import { ActivityService } from "src/app/feature/specific/activity/activity.service";
+import { Component, ViewEncapsulation, HostListener, OnDestroy } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { RouterResolverService } from 'src/app/shared/services/general/router-resolver.service';
+import { Observable, Subscription } from 'rxjs';
+import { HasDataChangedService } from 'src/app/shared/services/general/has-data-changed.service';
+import { CanDeactivateGuard } from 'src/app/shared/services/general/can-deactivate.service';
+import { ActivityService } from 'src/app/feature/specific/activity/activity.service';
 import { ISocialEdit } from 'src/app/feature/specific/activity/activity.interfaces';
 import { TranslateService } from '@ngx-translate/core';
 import { ISocialEditPage } from 'src/app/shared/interfaces/pages/social/edit/social-edit-page.interface';
@@ -40,15 +39,15 @@ export class SocialEditPageComponent implements OnDestroy {
   ) {
     this.activatedRoute.data.subscribe((data: ISocialEditPage) => {
       this.data = data;
-      debugger;
       this.onParse();
       this.initSocialEditForm();
     });
   }
 
   public ngOnDestroy(): void {
-    this.$deleteSubscription.unsubscribe();
-    this.$updateSubscription.unsubscribe();
+    if (this.$deleteSubscription) { this.$deleteSubscription.unsubscribe(); }
+
+    if (this.$updateSubscription) { this.$updateSubscription.unsubscribe(); }
   }
 
   @HostListener('window:beforeunload') public checkIfDataChanged() {

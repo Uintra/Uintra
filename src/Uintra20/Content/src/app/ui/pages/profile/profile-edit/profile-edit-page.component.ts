@@ -45,8 +45,9 @@ export class ProfileEditPage implements OnInit, OnDestroy {
   }
 
   public ngOnDestroy(): void {
-    this.$updateSubscription.unsubscribe();
-    this.$notificationSubscription.unsubscribe();
+    if (this.$updateSubscription) { this.$updateSubscription.unsubscribe(); }
+
+    if (this.$notificationSubscription) { this.$notificationSubscription.unsubscribe(); }
   }
 
   private onInitForm = (): void => {

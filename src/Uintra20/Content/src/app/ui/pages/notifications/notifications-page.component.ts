@@ -17,7 +17,7 @@ export class NotificationsPage implements OnInit, OnDestroy {
   public currentPage: number;
   public isLoading = false;
   public isScrollDisabled = false;
-  public notificationsSubscription: Subscription;
+  public $notificationsSubscription: Subscription;
 
   constructor(
     private route: ActivatedRoute,
@@ -34,7 +34,7 @@ export class NotificationsPage implements OnInit, OnDestroy {
   }
 
   public ngOnDestroy(): void {
-    this.notificationsSubscription.unsubscribe();
+    if (this.$notificationsSubscription) { this.$notificationsSubscription.unsubscribe(); }
   }
 
   public onScroll(): void {
@@ -53,7 +53,7 @@ export class NotificationsPage implements OnInit, OnDestroy {
   public getNotifications(): void {
     this.isLoading = true;
 
-    this.notificationsSubscription = this.navNotificationsService
+    this.$notificationsSubscription = this.navNotificationsService
       .getNotificationsByPage(this.currentPage)
       .subscribe((response: any) => {
         this.addNotifications(response);
