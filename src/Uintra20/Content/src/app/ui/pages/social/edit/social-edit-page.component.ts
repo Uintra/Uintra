@@ -3,7 +3,6 @@ import { ActivatedRoute, Router } from "@angular/router";
 import ParseHelper from "../../../../shared/utils/parse.helper";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { RouterResolverService } from "src/app/shared/services/general/router-resolver.service";
-import { AddButtonService } from "src/app/ui/main-layout/left-navigation/components/my-links/add-button.service";
 import { Observable } from "rxjs";
 import { HasDataChangedService } from "src/app/shared/services/general/has-data-changed.service";
 import { CanDeactivateGuard } from "src/app/shared/services/general/can-deactivate.service";
@@ -34,7 +33,6 @@ export class SocialEditPageComponent {
     private socialService: ActivityService,
     private router: Router,
     private routerResolverService: RouterResolverService,
-    private addButtonService: AddButtonService,
     private hasDataChangedService: HasDataChangedService,
     private canDeactivateService: CanDeactivateGuard,
     private translate: TranslateService
@@ -42,7 +40,6 @@ export class SocialEditPageComponent {
     this.route.data.subscribe(data => {
       if (!data.requiresRedirect.get()) {
         this.data = data;
-        this.addButtonService.setPageId(data.id);
         this.onParse();
         this.initSocialEditForm();
       } else {

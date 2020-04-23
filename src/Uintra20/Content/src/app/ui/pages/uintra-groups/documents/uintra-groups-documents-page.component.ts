@@ -1,7 +1,6 @@
 import { Component, ViewEncapsulation, ViewChild } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { UintraGroupsService } from "./uintra-groups-documents-page.service";
-import { AddButtonService } from 'src/app/ui/main-layout/left-navigation/components/my-links/add-button.service';
 import { DropzoneWrapperComponent } from 'src/app/feature/reusable/ui-elements/dropzone-wrapper/dropzone-wrapper.component';
 import { UintraGroupsDocumentsInterface } from 'src/app/shared/interfaces/pages/uintra-groups/documents/uintra-groups-documents.interface';
 
@@ -22,13 +21,11 @@ export class UintraGroupsDocumentsPage {
   constructor(
     private route: ActivatedRoute,
     private uintraGroupsService: UintraGroupsService,
-    private addButtonService: AddButtonService,
     private router: Router,
   ) {
     this.route.data.subscribe((data: UintraGroupsDocumentsInterface) => {
       if (!data.requiresRedirect) {
         this.data = data;
-        this.addButtonService.setPageId(data.id.toString());
       } else {
         this.router.navigate([data.errorLink.originalUrl]);
       }

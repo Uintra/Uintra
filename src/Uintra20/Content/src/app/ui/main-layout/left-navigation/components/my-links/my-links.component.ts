@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { MyLinksService, IMyLink } from "./my-links.service";
-import { AddButtonService } from "./add-button.service";
+import { PageIdService } from "@ubaseline/next";
 
 @Component({
   selector: "app-my-links",
@@ -15,14 +15,14 @@ export class MyLinksComponent implements OnInit {
 
   constructor(
     private myLinksService: MyLinksService,
-    private addButtonService: AddButtonService
+    private pageIdService: PageIdService,
   ) {}
 
   ngOnInit() {
     this.isShowAddButton = this.checkCurrentPage(this.myLinks);
     this.isOpen = this.myLinksService.getOpenState();
 
-    this.addButtonService.pageIdTrigger$.subscribe((id: number) => {
+    this.pageIdService.pageIdSubject.subscribe((id: number) => {
       this.currentPageId = id;
       this.isShowAddButton = this.checkCurrentPage(this.myLinks);
     });

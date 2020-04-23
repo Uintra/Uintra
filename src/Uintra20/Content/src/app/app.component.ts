@@ -2,6 +2,7 @@ import { Component } from "@angular/core";
 import { ActivatedRoute, Router, ActivationStart, ChildActivationStart } from "@angular/router";
 import { LoginPage } from "./ui/pages/login/login-page.component";
 import { TranslateService } from '@ngx-translate/core';
+import { SiteSettingsService, ISiteSettings } from '@ubaseline/next';
 
 @Component({
   selector: "app-root",
@@ -14,25 +15,31 @@ export class AppComponent {
   isLoginPage: boolean = true;
   hasLeftLoginPage: boolean = true;
   hasPanels: boolean = false;
+  siteSettings: ISiteSettings;
 
   data: any;
   latestActivities: any;
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private translateService: TranslateService) {
+    private translateService: TranslateService,
+    private siteSettingsService: SiteSettingsService,
+  ) {
     this.route.data.subscribe(data => {
       this.data = data;
       this.hasPanels = data && data.panels && data.panels.get();
     });
 
-    router.events.subscribe(val => {
+    this.router.events.subscribe(val => {
       if (val instanceof ActivationStart) {
         if (val.snapshot.component) {
           this.isLoginPage = val.snapshot.component === LoginPage;
           if (this.isLoginPage) {
             this.hasLeftLoginPage = false;
-            document.title = "Uintra | Login";
+            this.siteSettingsService.getSiteSettings().then((res: ISiteSettings) => {
+              this.siteSettings = res;
+            })
+            document.title = `Login ${this.siteSettings.pageTitleSeparator} ${this.siteSettings.siteTitle}`;
           }
         }
       }

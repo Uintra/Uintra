@@ -1,6 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AddButtonService } from 'src/app/ui/main-layout/left-navigation/components/my-links/add-button.service';
 import { Observable } from 'rxjs';
 import { HasDataChangedService } from 'src/app/shared/services/general/has-data-changed.service';
 import { CanDeactivateGuard } from 'src/app/shared/services/general/can-deactivate.service';
@@ -17,7 +16,6 @@ export class UintraGroupsEditPage {
 
   constructor(
     private route: ActivatedRoute,
-    private addButtonService: AddButtonService,
     private router: Router,
     private hasDataChangedService: HasDataChangedService,
     private canDeactivateService: CanDeactivateGuard,
@@ -25,7 +23,6 @@ export class UintraGroupsEditPage {
     this.route.data.subscribe(data => {
       if (!data.requiresRedirect) {
         this.data = data;
-        this.addButtonService.setPageId(data.id.toString());
       } else {
         this.router.navigate([data.errorLink.originalUrl]);
       }

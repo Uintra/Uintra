@@ -1,6 +1,5 @@
 import { Component, ViewEncapsulation, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AddButtonService } from '../../main-layout/left-navigation/components/my-links/add-button.service';
 import { NavNotificationsService } from 'src/app/feature/specific/nav-notifications/nav-notifications.service';
 import { INotificationsPage, INotificationsData } from 'src/app/shared/interfaces/pages/notifications/notifications-page.interface';
 import { Subscription } from 'rxjs';
@@ -23,11 +22,9 @@ export class NotificationsPage implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private navNotificationsService: NavNotificationsService,
-    private addButtonService: AddButtonService
   ) {
     this.route.data.subscribe((data: INotificationsPage) => {
       this.data = data;
-      this.addButtonService.setPageId(data.id.toString());
     });
   }
 

@@ -1,6 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AddButtonService } from '../../../main-layout/left-navigation/components/my-links/add-button.service';
 import { UintraMyGroupsInterface } from 'src/app/shared/interfaces/pages/uintra-groups/my/uintra-my-groups.interface';
 
 @Component({
@@ -14,12 +13,11 @@ export class UintraMyGroupsPage {
   public data: UintraMyGroupsInterface;
 
   constructor(
-    private activatedRoute: ActivatedRoute,
-    private addButtonService: AddButtonService
+    private route: ActivatedRoute,
+
   ) {
     this.activatedRoute.data.subscribe((data: UintraMyGroupsInterface) => {
       this.data = data;
-      this.addButtonService.setPageId(data.id.toString());
     });
   }
 }

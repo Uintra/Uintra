@@ -7,7 +7,6 @@ import { HasDataChangedService } from 'src/app/shared/services/general/has-data-
 import { Observable, Subscription } from 'rxjs';
 import { CanDeactivateGuard } from 'src/app/shared/services/general/can-deactivate.service';
 import { IProfileEditPage } from 'src/app/shared/interfaces/pages/profile/profile-edit-page.interface';
-import { AddButtonService } from 'src/app/ui/main-layout/left-navigation/components/my-links/add-button.service';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -30,15 +29,11 @@ export class ProfileEditPage implements OnInit, OnDestroy {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private profileService: ProfileService,
-    private addButtonService: AddButtonService,
     private hasDataChangedService: HasDataChangedService,
     private canDeactivateService: CanDeactivateGuard,
     private translate: TranslateService,
   ) {
-    this.activatedRoute.data.subscribe((data: IProfileEditPage) => {
-      this.data = data;
-      this.addButtonService.setPageId(data.id.toString());
-    });
+    this.activatedRoute.data.subscribe((data: IProfileEditPage) => this.data = data);
   }
 
   @HostListener('window:beforeunload') checkIfDataChanged() {

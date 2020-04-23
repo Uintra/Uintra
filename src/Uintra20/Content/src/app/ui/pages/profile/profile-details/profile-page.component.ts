@@ -1,6 +1,5 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AddButtonService } from '../../../main-layout/left-navigation/components/my-links/add-button.service';
 import { IProfilePage } from 'src/app/shared/interfaces/pages/profile/profile-page.interface';
 
 @Component({
@@ -14,8 +13,7 @@ export class ProfilePage implements OnInit {
   public data: IProfilePage;
 
   constructor(
-    private activatedRoute: ActivatedRoute,
-    private addButtonService: AddButtonService,
+    private route: ActivatedRoute,
     private router: Router) {
   }
 
@@ -23,7 +21,6 @@ export class ProfilePage implements OnInit {
     this.activatedRoute.data.subscribe((data: IProfilePage) => {
       if (!data.requiresRedirect) {
         this.data = data;
-        this.addButtonService.setPageId(data.id.toString());
       } else {
         this.router.navigate([data.errorLink.originalUrl]);
       }
