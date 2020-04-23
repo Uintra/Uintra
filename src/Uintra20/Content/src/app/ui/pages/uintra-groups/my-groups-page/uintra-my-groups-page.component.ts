@@ -13,7 +13,7 @@ export class UintraMyGroupsPage {
   public data: UintraMyGroupsInterface;
 
   constructor(
-    private route: ActivatedRoute,
+    private activatedRoute: ActivatedRoute,
 
   ) {
     this.activatedRoute.data.subscribe((data: UintraMyGroupsInterface) => {

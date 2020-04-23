@@ -15,7 +15,7 @@ export class UintraGroupsCreatePage {
   public data: UintraGroupCreateInterface;
 
   constructor(
-    private route: ActivatedRoute,
+    private activatedRoute: ActivatedRoute,
     private hasDataChangedService: HasDataChangedService,
     private canDeactivateService: CanDeactivateGuard,
     private router: Router,

@@ -16,7 +16,7 @@ export class ArticlePage {
   public data: IArcticlePage;
 
   constructor(
-    private route: ActivatedRoute,
+    private activatedRoute: ActivatedRoute,
     private hasDataChangedService: HasDataChangedService,
     private canDeactivateService: CanDeactivateGuard,
   ) {

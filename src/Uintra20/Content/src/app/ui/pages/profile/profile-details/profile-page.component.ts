@@ -13,7 +13,7 @@ export class ProfilePage implements OnInit {
   public data: IProfilePage;
 
   constructor(
-    private route: ActivatedRoute,
+    private activatedRoute: ActivatedRoute,
     private router: Router) {
   }
 
