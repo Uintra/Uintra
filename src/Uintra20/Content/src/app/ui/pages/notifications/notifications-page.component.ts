@@ -1,6 +1,8 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { INotificationsData, NavNotificationsService } from 'src/app/feature/specific/nav-notifications/nav-notifications.service';
+import { NavNotificationsService } from 'src/app/feature/specific/nav-notifications/nav-notifications.service';
+import { INotificationsPage, INotificationsData } from 'src/app/shared/interfaces/pages/notifications/notifications-page.interface';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'notifications-page',
@@ -8,34 +10,39 @@ import { INotificationsData, NavNotificationsService } from 'src/app/feature/spe
   styleUrls: ['./notifications-page.less'],
   encapsulation: ViewEncapsulation.None
 })
-// tslint:disable-next-line: component-class-suffix
-export class NotificationsPage {
-  data: any;
-  notifications: INotificationsData[] = [];
-  currentPage: number;
-  isLoading: boolean = false;
-  isScrollDisabled: boolean = false;
+export class NotificationsPage implements OnInit, OnDestroy {
+
+  public data: INotificationsPage;
+  public notifications: INotificationsData[] = [];
+  public currentPage: number;
+  public isLoading = false;
+  public isScrollDisabled = false;
+  public notificationsSubscription: Subscription;
 
   constructor(
     private route: ActivatedRoute,
     private navNotificationsService: NavNotificationsService,
   ) {
-    this.route.data.subscribe(data => {
+    this.route.data.subscribe((data: INotificationsPage) => {
       this.data = data;
     });
   }
 
-  ngOnInit() {
+  public ngOnInit(): void {
     this.currentPage = 1;
     this.getNotifications();
   }
 
-  onScroll() {
+  public ngOnDestroy(): void {
+    this.notificationsSubscription.unsubscribe();
+  }
+
+  public onScroll(): void {
     this.currentPage += 1;
     this.getNotifications();
   }
 
-  addNotifications(notifications = []) {
+  public addNotifications(notifications = []): void {
     if (notifications.length) {
       this.notifications = this.notifications.concat(notifications);
     } else {
@@ -43,13 +50,15 @@ export class NotificationsPage {
     }
   }
 
-  getNotifications() {
+  public getNotifications(): void {
     this.isLoading = true;
 
-    this.navNotificationsService
+    this.notificationsSubscription = this.navNotificationsService
       .getNotificationsByPage(this.currentPage)
       .subscribe((response: any) => {
         this.addNotifications(response);
       });
   }
+
+  public trackIndex = (index, item): string => item.id;
 }

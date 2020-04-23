@@ -1,30 +1,24 @@
-<app-group-details-wrapper *ngIf="parsedData" [data]="parsedData.groupHeader">
+<app-group-details-wrapper *ngIf="data"
+                           [data]="data.groupHeader">
   <div class="page-wrapper row-flex">
     <div class="group-details-padding col-md-8">
       <div class="group-documents">
-        <div class="group-documents__dropzone" *ngIf="data?.canUpload.get()">
+        <div class="group-documents__dropzone"
+             *ngIf="data?.canUpload">
           <h4 class="group-documents__title">{{'groupDocument.Upload.lbl' | translate}}</h4>
-
-          <app-dropzone-wrapper
-            #dropdownRef
-            [filesLength]="files.length"
-            (success)="onUploadSuccess($event)"
-            (removedFile)="onFileRemoved($event)"
-          >
+          <app-dropzone-wrapper #dropdownRef
+                                [filesLength]="files.length"
+                                (success)="onUploadSuccess($event)"
+                                (removedFile)="onFileRemoved($event)">
           </app-dropzone-wrapper>
-
-          <button
-            [disabled]="!isUploadPossible"
-            (click)="onUploadFiles()"
-            class="button"
-          >
+          <button [disabled]="!isUploadPossible"
+                  (click)="onUploadFiles()"
+                  class="button">
             {{'groupdocumentS.CREATE.BTN' | translate}}
           </button>
         </div>
-
-        <app-document-table [groupId]="data.groupId.get()"></app-document-table>
+        <app-document-table [groupId]="data.groupId"></app-document-table>
       </div>
     </div>
   </div>
 </app-group-details-wrapper>
-

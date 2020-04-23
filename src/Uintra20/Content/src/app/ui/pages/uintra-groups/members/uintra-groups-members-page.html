@@ -1,7 +1,8 @@
-<app-group-details-wrapper [data]="parsedData?.groupHeader">
+<app-group-details-wrapper [data]="data?.groupHeader">
   <div class="page-wrapper row-flex">
     <div class="group-details-padding col-md-8">
-      <ubl-dynamic-component *ngFor="let panel of data.panels.get()" [data]="panel.get()"></ubl-dynamic-component>
+      <ubl-dynamic-component *ngFor="let panel of data.panels"
+                             [data]="panel"></ubl-dynamic-component>
     </div>
   </div>
 </app-group-details-wrapper>

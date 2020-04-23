@@ -1,9 +1,9 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import ParseHelper from 'src/app/shared/utils/parse.helper';
 import { HasDataChangedService } from 'src/app/shared/services/general/has-data-changed.service';
 import { Observable } from 'rxjs';
 import { CanDeactivateGuard } from 'src/app/shared/services/general/can-deactivate.service';
+import { UintraGroupCreateInterface } from '../../../../shared/interfaces/pages/uintra-groups/create/uintra-groups-create.interface';
 
 @Component({
   selector: 'uintra-groups-create-page',
@@ -12,7 +12,7 @@ import { CanDeactivateGuard } from 'src/app/shared/services/general/can-deactiva
   encapsulation: ViewEncapsulation.None
 })
 export class UintraGroupsCreatePage {
-  data: any;
+  public data: UintraGroupCreateInterface;
 
   constructor(
     private route: ActivatedRoute,
@@ -20,11 +20,11 @@ export class UintraGroupsCreatePage {
     private canDeactivateService: CanDeactivateGuard,
     private router: Router,
   ) {
-    this.route.data.subscribe(data => {
-      if (!data.requiresRedirect.get()) {
-        this.data = ParseHelper.parseUbaselineData(data);
+    this.activatedRoute.data.subscribe((data: UintraGroupCreateInterface) => {
+      if (!data.requiresRedirect) {
+        this.data = data;
       } else {
-        this.router.navigate([data.errorLink.get().originalUrl.get()]);
+        this.router.navigate([data.errorLink.originalUrl]);
       }
     });
   }
@@ -37,3 +37,4 @@ export class UintraGroupsCreatePage {
     return true;
   }
 }
+

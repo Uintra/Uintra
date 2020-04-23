@@ -1,9 +1,9 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import ParseHelper from 'src/app/shared/utils/parse.helper';
 import { Observable } from 'rxjs';
 import { HasDataChangedService } from 'src/app/shared/services/general/has-data-changed.service';
 import { CanDeactivateGuard } from 'src/app/shared/services/general/can-deactivate.service';
+import { UintraGroupEditInterface } from '../../../../shared/interfaces/pages/uintra-groups/edit/uintra-groups-edit.interface';
 
 @Component({
   selector: 'uintra-groups-edit-page',
@@ -12,7 +12,7 @@ import { CanDeactivateGuard } from 'src/app/shared/services/general/can-deactiva
   encapsulation: ViewEncapsulation.None
 })
 export class UintraGroupsEditPage {
-  data: any;
+  public data: UintraGroupEditInterface;
 
   constructor(
     private route: ActivatedRoute,
@@ -21,15 +21,15 @@ export class UintraGroupsEditPage {
     private canDeactivateService: CanDeactivateGuard,
   ) {
     this.route.data.subscribe(data => {
-      if (!data.requiresRedirect.get()) {
-        this.data = ParseHelper.parseUbaselineData(data);
+      if (!data.requiresRedirect) {
+        this.data = data;
       } else {
-        this.router.navigate([data.errorLink.get().originalUrl.get()]);
+        this.router.navigate([data.errorLink.originalUrl]);
       }
     });
   }
 
-  canDeactivate(): Observable<boolean> | boolean {
+  public canDeactivate(): Observable<boolean> | boolean {
     if (this.hasDataChangedService.hasDataChanged) {
       return this.canDeactivateService.canDeacrivateConfirm();
     }
