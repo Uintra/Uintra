@@ -123,8 +123,7 @@ export const pages = [
     id: 'eventCreatePage',
     path: '__dynamic__',
     loadChildren: './ui/pages/event/create/event-create-page.module#EventCreatePageModule',
-    cache: false,
-    legacy: true
+    cache: false
   },
   {
     id: 'eventEditPage',

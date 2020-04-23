@@ -1,4 +1,4 @@
-export interface EventCreateInterface {
+export interface IEventCreatePage {
     addToSitemap?: boolean;
     contentTypeAlias?: string;
     data?: any;

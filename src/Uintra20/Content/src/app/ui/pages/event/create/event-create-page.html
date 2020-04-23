@@ -1,19 +1,18 @@
-<ng-container *ngIf="parsedData">
-  <app-group-details-wrapper *ngIf="parsedData?.groupHeader"
-                             [data]="parsedData.groupHeader">
+<ng-container *ngIf="data">
+  <app-group-details-wrapper *ngIf="data?.groupHeader"
+                             [data]="data.groupHeader">
     <div class="group-details-padding">
       <div class="page-wrapper col-md-8">
-        <app-event-form [data]="parsedData.data"
+        <app-event-form [data]="data.data"
                         (submit)="onSubmit($event)"
                         (cancel)="onCancel()">
         </app-event-form>
       </div>
     </div>
   </app-group-details-wrapper>
-
   <div class="page-wrapper col-md-8"
-       *ngIf="!parsedData?.groupHeader">
-    <app-event-form [data]="parsedData.data"
+       *ngIf="!data?.groupHeader">
+    <app-event-form [data]="data.data"
                     (submit)="onSubmit($event)"
                     (cancel)="onCancel()"
                     [(inProgress)]="inProgress">
