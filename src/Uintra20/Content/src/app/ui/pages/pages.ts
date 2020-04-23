@@ -31,8 +31,7 @@ export const pages = [
     path: '__dynamic__',
     loadChildren:
       './ui/pages/social/edit/social-edit-page.module#SocialEditPageModule',
-    cache: false,
-    legacy: true
+    cache: false
   },
   {
     id: 'profilePage',
