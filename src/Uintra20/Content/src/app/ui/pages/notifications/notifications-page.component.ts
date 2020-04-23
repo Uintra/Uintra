@@ -1,6 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AddButtonService } from '../../main-layout/left-navigation/components/my-links/add-button.service';
 import { INotificationsData, NavNotificationsService } from 'src/app/feature/specific/nav-notifications/nav-notifications.service';
 
 @Component({
@@ -20,11 +19,9 @@ export class NotificationsPage {
   constructor(
     private route: ActivatedRoute,
     private navNotificationsService: NavNotificationsService,
-    private addButtonService: AddButtonService
   ) {
     this.route.data.subscribe(data => {
       this.data = data;
-      this.addButtonService.setPageId(data.id);
     });
   }
 

@@ -3,7 +3,6 @@ import { ActivatedRoute, Router } from "@angular/router";
 
 import ParseHelper from "src/app/shared/utils/parse.helper";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
-import { AddButtonService } from "src/app/ui/main-layout/left-navigation/components/my-links/add-button.service";
 import {
   IDocument,
   ISocialDetails,
@@ -40,14 +39,12 @@ export class SocialDetailsPanelComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private imageGalleryService: ImageGalleryService,
     private sanitizer: DomSanitizer,
-    private addButtonService: AddButtonService,
     private router: Router,
     private translateService: TranslateService
   ) {
     this.activatedRoute.data.subscribe(data => {
       if (!data.requiresRedirect.get()) {
         this.data = data;
-        this.addButtonService.setPageId(data.id);
       } else {
         this.router.navigate([data.errorLink.get().originalUrl.get()]);
       }

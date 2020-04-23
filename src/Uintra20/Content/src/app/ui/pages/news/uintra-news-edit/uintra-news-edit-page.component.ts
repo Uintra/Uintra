@@ -3,7 +3,6 @@ import { ActivatedRoute, Router } from "@angular/router";
 import ParseHelper from "src/app/shared/utils/parse.helper";
 import { ParamsPipe } from "src/app/shared/pipes/link/params.pipe";
 import { RouterResolverService } from 'src/app/shared/services/general/router-resolver.service';
-import { AddButtonService } from 'src/app/ui/main-layout/left-navigation/components/my-links/add-button.service';
 import { HasDataChangedService } from 'src/app/shared/services/general/has-data-changed.service';
 import { Observable } from 'rxjs';
 import { CanDeactivateGuard } from 'src/app/shared/services/general/can-deactivate.service';
@@ -31,14 +30,12 @@ export class UintraNewsEditPage implements OnInit {
     private activityService: ActivityService,
     private router: Router,
     private routerResolverService: RouterResolverService,
-    private addButtonService: AddButtonService,
     private hasDataChangedService: HasDataChangedService,
     private canDeactivateService: CanDeactivateGuard,
   ) {
     this.route.data.subscribe(data => {
       if (!data.requiresRedirect.get()) {
         this.data = data;
-        this.addButtonService.setPageId(data.id);
       } else {
         this.router.navigate([data.errorLink.get().originalUrl.get()]);
       }

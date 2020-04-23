@@ -2,7 +2,6 @@ import { Component, ViewEncapsulation, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { SafeHtml, DomSanitizer } from "@angular/platform-browser";
 import ParseHelper from "src/app/shared/utils/parse.helper";
-import { AddButtonService } from "src/app/ui/main-layout/left-navigation/components/my-links/add-button.service";
 import {
   IUserTag,
   IMedia,
@@ -42,7 +41,6 @@ export class EventDetailsPage implements OnInit {
     private activatedRoute: ActivatedRoute,
     private imageGalleryService: ImageGalleryService,
     private sanitizer: DomSanitizer,
-    private addButtonService: AddButtonService,
     private router: Router,
     private eventSubscription: EventSubscriptionService,
     private hasDataChangedService: HasDataChangedService,
@@ -51,7 +49,6 @@ export class EventDetailsPage implements OnInit {
     this.activatedRoute.data.subscribe(data => {
       if (!data.requiresRedirect.get()) {
         this.data = data;
-        this.addButtonService.setPageId(data.id);
       } else {
         this.router.navigate([data.errorLink.get().originalUrl.get()]);
       }
