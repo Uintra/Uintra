@@ -47,8 +47,7 @@ export const pages = [
     path: '__dynamic__',
     loadChildren:
       './ui/pages/profile/profile-edit/profile-edit-page.module#ProfileEditPageModule',
-    cache: false,
-    legacy: true
+    cache: false
   },
   {
     id: 'uintraNewsEditPage',
