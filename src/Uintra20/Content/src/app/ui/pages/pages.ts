@@ -52,8 +52,7 @@ export const pages = [
     path: '__dynamic__',
     loadChildren:
       './ui/pages/news/uintra-news-edit/uintra-news-edit-page.module#UintraNewsEditPageModule',
-    cache: false,
-    legacy: true
+    cache: false
   },
   {
     id: 'uintraNewsDetailsPage',
