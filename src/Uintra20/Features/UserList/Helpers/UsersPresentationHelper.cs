@@ -52,7 +52,6 @@ namespace Uintra20.Features.UserList.Helpers
                 Id = i.Id,
                 Name = i.DisplayName,
                 Type = i.Type,
-                Alias = i.Alias,
                 PropertyName = i.PropertyName,
                 SupportSorting = i.SupportSorting
             }).OrderBy(i => i.Id);
