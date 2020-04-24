@@ -135,8 +135,7 @@ export const pages = [
     id: 'eventDetailsPage',
     path: '__dynamic__',
     loadChildren: './ui/pages/event/details/event-details-page.module#EventDetailsPageModule',
-    cache: false,
-    legacy: true
+    cache: false
   },
   {
     id: 'searchPage',
