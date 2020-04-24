@@ -9,9 +9,7 @@ export const panels = [
   {
     id: 'latestActivitiesPanel',
     path: '__dynamic__',
-    loadChildren:
-      './ui/panels/latest-activities/latest-activities-panel.module#LatestActivitiesPanelModule',
-    legacy: true
+    loadChildren: './ui/panels/latest-activities/latest-activities-panel.module#LatestActivitiesPanelModule'
   },
   {
     id: 'likesPanel',
