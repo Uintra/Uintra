@@ -129,8 +129,7 @@ export const pages = [
     id: 'eventEditPage',
     path: '__dynamic__',
     loadChildren: './ui/pages/event/edit/event-edit-page.module#EventEditPageModule',
-    cache: false,
-    legacy: true
+    cache: false
   },
   {
     id: 'eventDetailsPage',
