@@ -3,8 +3,7 @@ export const pages = [
     id: 'homePage',
     path: '__dynamic__',
     loadChildren: './ui/pages/home/home-page.module#HomePageModule',
-    cache: false,
-    legacy: true
+    cache: false
   },
   {
     id: 'articlePage',
@@ -87,8 +86,7 @@ export const pages = [
     path: '__dynamic__',
     loadChildren:
       './ui/pages/uintra-groups/room/uintra-groups-room-page.module#UintraGroupsRoomPageModule',
-    cache: false,
-    legacy: true
+    cache: false
   },
   {
     id: 'uintraGroupsDocumentsPage',

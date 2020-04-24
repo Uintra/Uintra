@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { HasDataChangedService } from 'src/app/shared/services/general/has-data-changed.service';
 import { CanDeactivateGuard } from 'src/app/shared/services/general/can-deactivate.service';
+import { IHomePage } from 'src/app/shared/interfaces/pages/home/home-page.interface';
 
 @Component({
   selector: 'home-page',
@@ -12,38 +13,37 @@ import { CanDeactivateGuard } from 'src/app/shared/services/general/can-deactiva
 })
 export class HomePage implements OnInit {
 
-  data: any;
-  latestActivities: any;
-  socialCreateData: any;
-  otherPanels: any;
+  public data: IHomePage;
+  public latestActivities: any;
+  public socialCreateData: any;
+  public otherPanels: any;
+
   constructor(
     private route: ActivatedRoute,
     private hasDataChangedService: HasDataChangedService,
     private canDeactivateService: CanDeactivateGuard,
   ) {
-    this.route.data.subscribe(data => {
-      this.data = data;
-    });
+    this.route.data.subscribe((data: IHomePage) => this.data = data);
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     if (this.data.panels) {
-      this.latestActivities = this.data.panels.get().filter(p => p.data.contentTypeAlias === 'latestActivitiesPanel')[0];
-      this.otherPanels = this.data.panels.get().filter(p => p.data.contentTypeAlias !== 'latestActivitiesPanel');
+      this.latestActivities = this.data.panels.filter(p => p.contentTypeAlias === 'latestActivitiesPanel')[0];
+      this.otherPanels = this.data.panels.filter(p => p.contentTypeAlias !== 'latestActivitiesPanel');
     }
-    this.socialCreateData = this.data.socialCreateModel.get().data.get();
+    this.socialCreateData = this.data.socialCreateModel;
     if (this.socialCreateData) {
-      this.socialCreateData.canCreate = !this.data.socialCreateModel.get().requiresRedirect.get();
-      this.socialCreateData.createNewsLink = this.data.createNewsLink.get();
-      this.socialCreateData.createEventsLink = this.data.createEventsLink.get();
+      this.socialCreateData.canCreate = !this.data.socialCreateModel.requiresRedirect;
+      this.socialCreateData.createNewsLink = this.data.createNewsLink;
+      this.socialCreateData.createEventsLink = this.data.createEventsLink;
     }
   }
 
-  canDeactivate(): Observable<boolean> | boolean {
-    if (this.hasDataChangedService.hasDataChanged) {
-      return this.canDeactivateService.canDeacrivateConfirm();
-    }
-
-    return true;
+  public canDeactivate(): Observable<boolean> | boolean {
+    return this.hasDataChangedService.hasDataChanged
+      ? this.canDeactivateService.canDeacrivateConfirm()
+      : true;
   }
+
+  public index = (index): number => index;
 }

@@ -20,16 +20,18 @@ import { ContentService } from 'src/app/shared/services/general/content.service'
 })
 export class EventFormComponent implements OnInit, AfterViewInit {
 
-  @Input() data: any;
-  @Input('edit') edit: any;
-  @Input() inProgress: boolean;
-  @Output() submit = new EventEmitter();
-  @Output() cancel = new EventEmitter();
-  @Output() hide = new EventEmitter();
-
-  @HostListener('window:beforeunload') checkIfDataChanged() {
-    return !this.hasDataChangedService.hasDataChanged;
-  }
+  @Input()
+  public data: any;
+  @Input('edit')
+  public edit: any;
+  @Input()
+  public inProgress: boolean;
+  @Output()
+  public submit = new EventEmitter();
+  @Output()
+  public cancel = new EventEmitter();
+  @Output()
+  public hide = new EventEmitter();
 
   public eventsData: IEventCreateModel;
   public selectedTags: ITagData[] = [];
@@ -38,7 +40,7 @@ export class EventFormComponent implements OnInit, AfterViewInit {
   public defaultOwner: ISelectItem;
   public initialDates: IEventsInitialDates;
   public initialLocation: string;
-  public locationTitle = "";
+  public locationTitle = '';
   public publishDatepickerOptions: IPublishDatepickerOptions;
   public files: Array<any> = [];
   public isShowValidation: boolean;
@@ -59,7 +61,7 @@ export class EventFormComponent implements OnInit, AfterViewInit {
 
     this.publishDatepickerOptions = {
       showClose: true,
-      minDate: this.edit ?  moment(this.initialDates.publishDate) : moment().subtract(5, "seconds").format(),
+      minDate: this.edit ? moment(this.initialDates.publishDate) : moment().subtract(5, "seconds").format(),
       ignoreReadonly: true
     };
 
@@ -70,6 +72,10 @@ export class EventFormComponent implements OnInit, AfterViewInit {
 
   public ngAfterViewInit(): void {
     this.contentService.makeReadonly('.udatepicker-input');
+  }
+
+  @HostListener('window:beforeunload') checkIfDataChanged() {
+    return !this.hasDataChangedService.hasDataChanged;
   }
 
   private setInitialData(): void {
@@ -120,11 +126,11 @@ export class EventFormComponent implements OnInit, AfterViewInit {
     const test = moment(this.initialDates.from).format();
     const test1 = moment(this.initialDates.publishDate).format();
     if ((
-        moment(this.initialDates.from).format() != value.from
-        && moment(this.initialDates.from).add(5, "seconds").format() != value.from
-        && moment(this.initialDates.publishDate).format() != value.from
-        && moment(this.initialDates.publishDate).add(5, "seconds").format() != value.from
-      )
+      moment(this.initialDates.from).format() != value.from
+      && moment(this.initialDates.from).add(5, "seconds").format() != value.from
+      && moment(this.initialDates.publishDate).format() != value.from
+      && moment(this.initialDates.publishDate).add(5, "seconds").format() != value.from
+    )
       || (
         moment(this.initialDates.to).format() != value.to
         && moment(this.initialDates.to).subtract(5, "seconds").format() != value.to

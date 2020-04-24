@@ -1,4 +1,4 @@
-export interface UintraGroupsRoomInterface {
+export interface IUintraGroupsRoomPage {
     addToSitemap?: boolean;
     contentTypeAlias?: string;
     createEventsLink?: any;

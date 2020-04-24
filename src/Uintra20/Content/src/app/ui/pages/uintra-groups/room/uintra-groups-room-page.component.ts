@@ -1,15 +1,13 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import ParseHelper from 'src/app/shared/utils/parse.helper';
-import { RouterResolverService } from 'src/app/shared/services/general/router-resolver.service';
 import { IULink } from 'src/app/shared/interfaces/general.interface';
 import { Observable } from 'rxjs';
 import { HasDataChangedService } from 'src/app/shared/services/general/has-data-changed.service';
 import { CanDeactivateGuard } from 'src/app/shared/services/general/can-deactivate.service';
-import { IGroupRoomData } from 'src/app/feature/specific/groups/groups.interface';
 import { GroupsService } from 'src/app/feature/specific/groups/groups.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ResolveService } from '@ubaseline/next';
+import { IUintraGroupsRoomPage } from 'src/app/shared/interfaces/pages/uintra-groups/room/uintra-groups-room-page.interface';
 
 @Component({
   selector: 'uintra-groups-room-page',
@@ -17,74 +15,69 @@ import { ResolveService } from '@ubaseline/next';
   styleUrls: ['./uintra-groups-room-page.less'],
   encapsulation: ViewEncapsulation.None
 })
-export class UintraGroupsRoomPage {
-  data: any;
-  parsedData: IGroupRoomData;
-  isLoading: boolean;
-  socialCreateData: any;
+export class UintraGroupsRoomPage implements OnInit {
+
+  public data: IUintraGroupsRoomPage;
+  public isLoading: boolean;
+  public socialCreateData: any;
 
   constructor(
     private route: ActivatedRoute,
     private groupsService: GroupsService,
     private router: Router,
-    private routerResolverService: RouterResolverService,
     private hasDataChangedService: HasDataChangedService,
     private canDeactivateService: CanDeactivateGuard,
     private translate: TranslateService,
     private resolveService: ResolveService,
   ) {
-    this.route.data.subscribe(data => {
-      if (!data.requiresRedirect.get()) {
-        this.data = data;
-        this.parsedData = ParseHelper.parseUbaselineData(data);
-      } else {
-        this.router.navigate([data.errorLink.get().originalUrl.get()]);
-      }
+    this.route.data.subscribe((data: IUintraGroupsRoomPage) => {
+      this.data = data;
     });
   }
 
-  ngOnInit() {
-    this.socialCreateData = this.data.socialCreateModel.get().data.get();
+  public ngOnInit(): void {
+    this.socialCreateData = this.data.socialCreateModel;
     if (this.socialCreateData) {
-      this.socialCreateData.canCreate = !this.data.socialCreateModel.get().requiresRedirect.get();
-      this.socialCreateData.createNewsLink = this.data.createNewsLink.get();
-      this.socialCreateData.createEventsLink = this.data.createEventsLink.get();
+      this.socialCreateData.canCreate = !this.data.socialCreateModel.requiresRedirect;
+      this.socialCreateData.createNewsLink = this.data.createNewsLink;
+      this.socialCreateData.createEventsLink = this.data.createEventsLink;
     }
   }
 
-  toggleSubscribe() {
-    if (!this.parsedData.groupInfo.isMember || confirm(this.translate.instant('groupInfo.Unsubscribe.Message.lnk'))) {
+  public toggleSubscribe(): void {
+    if (!this.data.groupInfo.isMember || confirm(this.translate.instant('groupInfo.Unsubscribe.Message.lnk'))) {
       this.isLoading = true;
-      this.groupsService.toggleSubscribe(this.parsedData.groupId)
-      .then((res: IULink) => {
-        if (this.parsedData.groupInfo.isMember) {
-          this.parsedData.groupInfo.membersCount -= 1;
-          this.parsedData.groupInfo.isMember = false;
-        } else {
-          this.parsedData.groupInfo.membersCount += 1;
-          this.parsedData.groupInfo.isMember = true;
-        }
-        this.data = this.resolveService.getData(this.router.url);
-      })
-      .finally(() => {
-        this.isLoading = false;
-      })
+      this.groupsService.toggleSubscribe(this.data.groupId)
+        .then((res: IULink) => {
+          if (this.data.groupInfo.isMember) {
+            this.data.groupInfo.membersCount -= 1;
+            this.data.groupInfo.isMember = false;
+          } else {
+            this.data.groupInfo.membersCount += 1;
+            this.data.groupInfo.isMember = true;
+          }
+          // TODO: Investigate how to handle response
+          const result = this.resolveService.getData(this.router.url);
+        })
+        .finally(() => {
+          this.isLoading = false;
+        });
     }
   }
 
-  getMembersText() {
-    return this.parsedData.groupInfo.membersCount === 1
+  public getMembersText(): string {
+    return this.data.groupInfo.membersCount === 1
       ? this.translate.instant('groupInfo.OneMemberCount.lbl')
       : this.translate.instant('groupInfo.MembersCount.lbl');
   }
 
-  getSubscribeBtn() {
-    return this.parsedData.groupInfo.isMember
+  public getSubscribeBtn(): string {
+    return this.data.groupInfo.isMember
       ? this.translate.instant('groupInfo.Unsubscribe.lnk')
       : this.translate.instant('groupInfo.Subscribe.lnk');
   }
 
-  canDeactivate(): Observable<boolean> | boolean {
+  public canDeactivate(): Observable<boolean> | boolean {
     if (this.hasDataChangedService.hasDataChanged) {
       return this.canDeactivateService.canDeacrivateConfirm();
     }
