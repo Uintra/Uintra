@@ -1,9 +1,10 @@
-import { Component, OnInit, ViewEncapsulation, NgZone } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, NgZone, OnDestroy } from '@angular/core';
 import { PublicationsService, IFeedListRequest } from '../central-feed/helpers/publications.service';
 import { SignalrService } from 'src/app/shared/services/general/signalr.service';
 import { IPublicationsResponse } from '../central-feed/central-feed-panel.interface';
 import { CentralFeedFiltersService } from '../central-feed/central-feed-filters/central-feed-filters.service';
 import { ILatestActivitiesPanel } from 'src/app/shared/interfaces/panels/latest-activities/latest-activities-panel.interface';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'latest-activities-panel',
@@ -11,7 +12,7 @@ import { ILatestActivitiesPanel } from 'src/app/shared/interfaces/panels/latest-
   styleUrls: ['./latest-activities-panel.component.less'],
   encapsulation: ViewEncapsulation.None
 })
-export class LatestActivitiesPanelComponent implements OnInit {
+export class LatestActivitiesPanelComponent implements OnInit, OnDestroy {
 
   constructor(
     private publicationsService: PublicationsService,
@@ -20,18 +21,27 @@ export class LatestActivitiesPanelComponent implements OnInit {
     private CFFilterService: CentralFeedFiltersService,
   ) {
   }
+
+  private $publications: Subscription;
   public data: ILatestActivitiesPanel;
 
   public ngOnInit(): void {
     this.signalrService.getReloadFeedSubjects().subscribe(() => this.reload());
   }
 
+  public ngOnDestroy(): void {
+    if (this.$publications) { this.$publications.unsubscribe(); }
+  }
+
   private reload(): void {
     this.cleanLatestActivity();
 
-    this.publicationsService.getPublications(this.requestModel)
-      .then((response: IPublicationsResponse) =>
-        this.ngZone.run(() => this.data.feed = response.feed.slice(0, 5)));
+    this.$publications = this.publicationsService.getPublications(this.requestModel)
+      .subscribe(
+        (next: IPublicationsResponse) => {
+          this.ngZone.run(() => this.data.feed = next.feed.slice(0, 5));
+        }
+      );
   }
 
   private get requestModel(): IFeedListRequest {
