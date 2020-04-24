@@ -14,8 +14,7 @@ export const panels = [
   {
     id: 'likesPanel',
     path: '__dynamic__',
-    loadChildren: './ui/panels/likes/likes-panel.module#LikesPanelModule',
-    legacy: true
+    loadChildren: './ui/panels/likes/likes-panel.module#LikesPanelModule'
   },
   {
     id: 'commentsPanel',
