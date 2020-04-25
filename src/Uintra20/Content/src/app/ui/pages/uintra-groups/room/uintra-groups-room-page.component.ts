@@ -1,3 +1,4 @@
+
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IULink } from 'src/app/shared/interfaces/general.interface';
@@ -36,19 +37,14 @@ export class UintraGroupsRoomPage implements OnInit {
   }
 
   public ngOnInit(): void {
-    this.socialCreateData = this.data.socialCreateModel;
-    if (this.socialCreateData) {
-      this.socialCreateData.canCreate = !this.data.socialCreateModel.requiresRedirect;
-      this.socialCreateData.createNewsLink = this.data.createNewsLink;
-      this.socialCreateData.createEventsLink = this.data.createEventsLink;
-    }
+    this.setSocialCreateData();
   }
 
   public toggleSubscribe(): void {
     if (!this.data.groupInfo.isMember || confirm(this.translate.instant('groupInfo.Unsubscribe.Message.lnk'))) {
       this.isLoading = true;
       this.groupsService.toggleSubscribe(this.data.groupId)
-        .then((res: IULink) => {
+        .then(async (res: IULink) => {
           if (this.data.groupInfo.isMember) {
             this.data.groupInfo.membersCount -= 1;
             this.data.groupInfo.isMember = false;
@@ -56,8 +52,9 @@ export class UintraGroupsRoomPage implements OnInit {
             this.data.groupInfo.membersCount += 1;
             this.data.groupInfo.isMember = true;
           }
-          // TODO: Investigate how to handle response
-          const result = this.resolveService.getData(this.router.url);
+
+          this.data = await this.resolveService.resolveDataOnSameUrl(this.router.url);
+          this.setSocialCreateData();
         })
         .finally(() => {
           this.isLoading = false;
@@ -75,6 +72,15 @@ export class UintraGroupsRoomPage implements OnInit {
     return this.data.groupInfo.isMember
       ? this.translate.instant('groupInfo.Unsubscribe.lnk')
       : this.translate.instant('groupInfo.Subscribe.lnk');
+  }
+
+  setSocialCreateData() {
+    this.socialCreateData = this.data.socialCreateModel;
+    if (this.socialCreateData) {
+      this.socialCreateData.canCreate = !this.data.socialCreateModel.requiresRedirect;
+      this.socialCreateData.createNewsLink = this.data.createNewsLink;
+      this.socialCreateData.createEventsLink = this.data.createEventsLink;
+    }
   }
 
   public canDeactivate(): Observable<boolean> | boolean {
