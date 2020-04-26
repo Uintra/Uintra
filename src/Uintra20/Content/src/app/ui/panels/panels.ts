@@ -9,15 +9,12 @@ export const panels = [
   {
     id: 'latestActivitiesPanel',
     path: '__dynamic__',
-    loadChildren:
-      './ui/panels/latest-activities/latest-activities-panel.module#LatestActivitiesPanelModule',
-    legacy: true
+    loadChildren: './ui/panels/latest-activities/latest-activities-panel.module#LatestActivitiesPanelModule'
   },
   {
     id: 'likesPanel',
     path: '__dynamic__',
-    loadChildren: './ui/panels/likes/likes-panel.module#LikesPanelModule',
-    legacy: true
+    loadChildren: './ui/panels/likes/likes-panel.module#LikesPanelModule'
   },
   {
     id: 'commentsPanel',

@@ -1,10 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { IUserListPanel } from './user-list-panel.interface';
-import { Subject } from 'rxjs';
-import { debounceTime, distinctUntilChanged, finalize } from 'rxjs/operators';
-import { SearchService } from 'src/app/feature/specific/search/search.service';
 import ParseHelper from 'src/app/shared/utils/parse.helper';
-import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'user-list-panel',

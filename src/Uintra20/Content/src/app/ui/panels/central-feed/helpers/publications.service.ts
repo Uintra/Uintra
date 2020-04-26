@@ -27,15 +27,15 @@ export class PublicationsService {
     private http: HttpClient
   ) { }
 
-  getPublications(data: IFeedListRequest) {
-    return this.http.post(`/ubaseline/api/centralFeedApi/FeedList`, data).toPromise();
-  }
+  public getPublications = (data: IFeedListRequest) =>
+    this.http.post(`/ubaseline/api/centralFeedApi/FeedList`, data)
 
-  addLike({entityId, entityType }: IAddLikeRequest) {
+
+  public addLike({ entityId, entityType }: IAddLikeRequest) {
     return this.http.post(`/ubaseline/api/likes/AddLike?entityId=${entityId}&entityType=${entityType}`, {}).toPromise();
   }
 
-  removeLike({entityId, entityType }: IAddLikeRequest) {
+  public removeLike({ entityId, entityType }: IAddLikeRequest) {
     return this.http.post(`/ubaseline/api/likes/RemoveLike?entityId=${entityId}&entityType=${entityType}`, {}).toPromise();
   }
 }
