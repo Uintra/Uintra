@@ -36,6 +36,12 @@
     color: @body-text-color;
     margin-bottom: 2px;
   }
+
+  &__invite-btn {
+    .button-white;
+    display: block;
+    margin: 0 0 5px auto;
+  }
 }
 
 .search-holder {
@@ -46,13 +52,12 @@
 
   &__input {
     width: 100%;
-    margin-right: 10px;
     background-color: @main-color;
     border: 1px solid @border-color;
     font-size: 16px;
     line-height: 20px;
     height: 40px;
-    padding: 11px 40px 9px 21px;
+    padding: 11px 30px 9px 21px;
     color: @body-text-color;
 
     @media @md-up {
@@ -65,7 +70,7 @@
     line-height: 40px;
     font-size: 30px;
     position: absolute;
-    right: 20px;
+    right: 5px;
 
     &::before {
       color: @black !important;

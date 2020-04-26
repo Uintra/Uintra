@@ -17,6 +17,7 @@
 
   <span class="icon icon-search-icon"></span>
 </div>
+<button *ngIf="data.details.groupId" type="button" class="user-list-panel__invite-btn">{{'userList.Button.Invite' | translate}}</button>
 <div class="user-list">
   <a *ngFor="let member of data.details.members" class="user-list__item">
     <a
