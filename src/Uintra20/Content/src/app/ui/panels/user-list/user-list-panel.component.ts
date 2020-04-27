@@ -1,4 +1,5 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+import { IUserListPanel } from 'src/app/shared/interfaces/panels/user-list/user-list-panel.interface';
 
 @Component({
   selector: 'user-list-panel',
@@ -8,7 +9,7 @@ import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 })
 export class UserListPanel implements OnInit {
 
-  public data: any;
+  public data: IUserListPanel;
 
   constructor() { }
 

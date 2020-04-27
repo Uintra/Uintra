@@ -6,6 +6,7 @@ import { HasDataChangedService } from 'src/app/shared/services/general/has-data-
 import { TITLE_MAX_LENGTH } from 'src/app/shared/constants/activity/activity-create.const';
 import { GroupsService } from '../groups.service';
 import { TranslateService } from '@ngx-translate/core';
+import { IGroupsForm } from 'src/app/shared/interfaces/components/groups-form/groups-form.interface';
 
 export interface IEditGroupData {
   id?: string;
@@ -24,7 +25,7 @@ export interface IEditGroupData {
 })
 export class GroupsFormComponent implements OnInit {
   @Input()
-  public data: any;
+  public data: IGroupsForm;
   @Input()
   public allowedExtensions: string;
   @Input('edit')
