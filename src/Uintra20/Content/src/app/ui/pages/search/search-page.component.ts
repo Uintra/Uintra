@@ -123,7 +123,7 @@ export class SearchPage implements OnInit, OnDestroy {
         description: this.sanitizer.bypassSecurityTrustHtml(result.description),
       }));
       this.query = res.query;
-      this.availableFilters = Object.values(res.filterItems).map((item: any) => ({ id: item.id, text: item.name }));
+      this.availableFilters = res.filterItems.map((item: any) => ({ id: item.id, text: item.name }));
       this.data.allTypesPlaceholder = res.allTypesPlaceholder;
       this.resultsCount = res.resultsCount;
     });

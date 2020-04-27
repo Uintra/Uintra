@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import ParseHelper from 'src/app/shared/utils/parse.helper';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ILikeData } from '../../../like-button/like-button.interface.js';
 import { RTEStripHTMLService } from 'src/app/feature/specific/activity/rich-text-editor/helpers/rte-strip-html.service.js';
@@ -10,19 +9,19 @@ import { RTEStripHTMLService } from 'src/app/feature/specific/activity/rich-text
   styleUrls: ['./subcomment-item.component.less']
 })
 export class SubcommentItemComponent implements OnInit {
-  @Input() data: any;
-  @Input() activityType: any;
-  @Input() commentsActivity: any;
-  @Input() isReplyEditingInProgress: boolean;
-  @Output() submitEditedValue = new EventEmitter();
-  @Output() deleteComment = new EventEmitter();
+  @Input() public data: any;
+  @Input() public activityType: any;
+  @Input() public commentsActivity: any;
+  @Input() public isReplyEditingInProgress: boolean;
+  @Output() public submitEditedValue = new EventEmitter();
+  @Output() public deleteComment = new EventEmitter();
 
-  isEditing = false;
-  initialValue = '';
-  editedValue = '';
-  likeModel: ILikeData;
+  public isEditing = false;
+  public initialValue = '';
+  public editedValue = '';
+  public likeModel: ILikeData;
 
-  get isEditSubmitDisabled() {
+  public get isEditSubmitDisabled() {
     return this.stripHTML.isEmpty(this.editedValue) || this.isReplyEditingInProgress;
   }
 
@@ -31,12 +30,11 @@ export class SubcommentItemComponent implements OnInit {
   public ngOnInit(): void {
     this.editedValue = this.data.text;
     this.data.text = this.sanitizer.bypassSecurityTrustHtml(this.data.text);
-    const parsed = ParseHelper.parseUbaselineData(this.data);
     this.likeModel = {
-      likedByCurrentUser: !!parsed.likeModel.likedByCurrentUser,
+      likedByCurrentUser: !!this.data.likeModel.likedByCurrentUser,
       id: this.data.id,
       activityType: this.commentsActivity,
-      likes: parsed.likes,
+      likes: this.data.likes,
     };
   }
 

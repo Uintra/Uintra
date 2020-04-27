@@ -18,7 +18,8 @@
 <div class="user-list">
   <a *ngFor="let member of data.details.members; trackBy: index"
      class="user-list__item">
-    <a [routerLink]="member.profileUrl.originalUrl | ulink"
+    <a *ngIf="isNameColumn"
+       [routerLink]="member.profileUrl.originalUrl | ulink"
        class="user-list__item-member cells--{{data.details.selectedColumns.length}}">
       <app-user-avatar class="user-list__item-member-avatar"
                        [photo]="member.photo"
@@ -27,13 +28,15 @@
       <span *ngIf="member.displayedName"
             class="user-list__item-member-name">{{member.displayedName}}</span>
     </a>
-    <a [routerLink]="member.profileUrl.originalUrl | ulink"
+    <a *ngIf="isInfoColumn"
+       [routerLink]="member.profileUrl.originalUrl | ulink"
        class="user-list__item-info cells--{{data.details.selectedColumns.length}}">
       <p *ngIf="member.email">{{'userList.Table.Email.lbl' | translate}}{{member.email}}</p>
       <p *ngIf="member.phone">{{'userList.Table.Phone.lbl' | translate}}{{member.phone}}</p>
       <p *ngIf="member.department">{{'userList.Table.Department.lbl' | translate}}{{member.department}}</p>
     </a>
-    <div class="user-list__item-group cells--{{data.details.selectedColumns.length}}">
+    <div *ngIf="isGroupColumn"
+         class="user-list__item-group cells--{{data.details.selectedColumns.length}}">
       <div *ngIf="!member.isCreator && data.details.isCurrentMemberGroupAdmin"
            class="user-list__item-group-fake-select">
         <select [ngModel]="member.isGroupAdmin ? '1' : '0'"
@@ -67,7 +70,8 @@
         {{(member.isGroupAdmin ? 'userList.Table.GroupAdmin.lbl' : 'userList.Table.GroupMember.lbl') | translate}}
       </p>
     </div>
-    <div class="user-list__item-delete cells--{{data.details.selectedColumns.length}}">
+    <div *ngIf="isDeleteColumn"
+         class="user-list__item-delete cells--{{data.details.selectedColumns.length}}">
       <button *ngIf="!member.isCreator && data.details.isCurrentMemberGroupAdmin"
               class="user-list__item-delete-btn"
               (click)="deleteMember(member.member.id)">

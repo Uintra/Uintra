@@ -21,7 +21,7 @@ export class LatestActivityComponent implements OnInit {
   ) { }
 
   public ngOnInit(): void {
-    this.activityDate = Object.values(this.activityDate)[0];
+    this.activityDate = this.activityDate[0];
     this.sanitizedActivityDescription = this.sanitizer.bypassSecurityTrustHtml(this.activityDescription);
   }
 }

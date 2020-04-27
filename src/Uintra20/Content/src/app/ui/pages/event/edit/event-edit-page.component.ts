@@ -63,18 +63,16 @@ export class EventEditPage {
   }
 
   public requesModelBuilder(data): void {
-    const copyObject = JSON.parse(JSON.stringify(data));
+    const otherFilesIds = data.media.otherFiles.map(m => m.id);
+    const mediaIds = data.media.medias.map(m => m.id);
 
-    const otherFilesIds = copyObject.media.otherFiles.map(m => m.id);
-    const mediaIds = copyObject.media.medias.map(m => m.id);
-
-    copyObject.media = otherFilesIds.concat(mediaIds).join(',');
-    copyObject['id'] = this.data.details.id;
-    copyObject['notifyAllSubscribers'] = this.data.details.hasSubscribers
+    data.media = otherFilesIds.concat(mediaIds).join(',');
+    data['id'] = this.data.details.id;
+    data['notifyAllSubscribers'] = this.data.details.hasSubscribers
       ? confirm(this.translate.instant('common.NotifyAllSubscribers'))
       : false;
 
-    return copyObject;
+    return data;
   }
 
   public canDeactivate(): Observable<boolean> | boolean {

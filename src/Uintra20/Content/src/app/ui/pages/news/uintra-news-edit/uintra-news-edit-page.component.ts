@@ -76,15 +76,13 @@ export class UintraNewsEditPage implements OnInit, OnDestroy {
   }
 
   public requesModelBuilder(data) {
-    const copyObject = JSON.parse(JSON.stringify(data));
+    const otherFilesIds = data.media.otherFiles.map(m => m.id);
+    const mediaIds = data.media.medias.map(m => m.id);
 
-    const otherFilesIds = copyObject.media.otherFiles.map(m => m.id);
-    const mediaIds = copyObject.media.medias.map(m => m.id);
+    data.media = otherFilesIds.concat(mediaIds).join(',');
+    data['id'] = this.details.id;
 
-    copyObject.media = otherFilesIds.concat(mediaIds).join(',');
-    copyObject['id'] = this.details.id;
-
-    return copyObject;
+    return data;
   }
 
   public onCancel(): void {

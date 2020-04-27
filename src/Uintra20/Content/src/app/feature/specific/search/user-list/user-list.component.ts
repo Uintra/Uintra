@@ -49,7 +49,7 @@ export class UserListComponent implements OnInit, OnDestroy {
   }
 
   public ngOnInit(): void {
-    // this.getColumns();
+    this.getColumns();
     this.canLoadMore = !this.data.details.isLastRequest;
   }
 
@@ -83,12 +83,12 @@ export class UserListComponent implements OnInit, OnDestroy {
     this.getMembers();
   }
 
-  // public getColumns() {
-  //   this.isNameColumn = this.data.details.selectedColumns.findIndex(column => column.alias === 'Name') !== -1;
-  //   this.isInfoColumn = this.data.details.selectedColumns.findIndex(column => column.alias === 'Info') !== -1;
-  //   this.isGroupColumn = this.data.details.selectedColumns.findIndex(column => column.alias === 'Group') !== -1;
-  //   this.isDeleteColumn = this.data.details.selectedColumns.findIndex(column => column.alias === 'Management') !== -1;
-  // }
+  public getColumns() {
+    this.isNameColumn = this.data.details.selectedColumns.findIndex(column => column.name === 'Name') !== -1;
+    this.isInfoColumn = this.data.details.selectedColumns.findIndex(column => column.name === 'Info') !== -1;
+    this.isGroupColumn = this.data.details.selectedColumns.findIndex(column => column.name === 'Group') !== -1;
+    this.isDeleteColumn = this.data.details.selectedColumns.findIndex(column => column.name === 'Management') !== -1;
+  }
 
   public requestDataBuilder() {
     return {

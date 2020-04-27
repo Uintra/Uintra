@@ -138,4 +138,6 @@ export interface IActivityCreatePanel {
   tags: any;
   activityType: any;
   members: any;
+  links: any;
+  pinAllowed: boolean;
 }
