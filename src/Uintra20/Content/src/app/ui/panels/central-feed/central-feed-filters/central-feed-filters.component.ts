@@ -43,10 +43,12 @@ export class CentralFeedFiltersComponent implements OnInit, OnDestroy {
   public setSelectedTab(event) {
     if (event === 0) {
       event = '0';
+      this.selectedTab = this.tabs.find(tab => tab.type === 0);
+    } else {
+      this.selectedTab = this.tabs.find(tab => tab.type === event);
     }
     this.selectedTabType = event;
-    this.selectedTab = this.tabs.find(tab => tab.type === event);
-    this.selectTabFilters = this.getTabFilters();
+    this.selectTabFilters = this.selectedTab.filters;
     this.setSelectedFiltersFromCookie();
     this.emitFilterState();
   }
@@ -70,11 +72,9 @@ export class CentralFeedFiltersComponent implements OnInit, OnDestroy {
 
   private setInitValues(): void {
     this.isOpen = this.centralFeedFiltersService.getOpeningState();
-
     this.setUniqueFiltersState();
     this.setSelectedTabFromCookie();
-
-    this.selectTabFilters = this.getTabFilters();
+    this.selectTabFilters = this.selectedTab.filters;
     this.setSelectedFiltersFromCookie();
   }
 
@@ -130,10 +130,6 @@ export class CentralFeedFiltersComponent implements OnInit, OnDestroy {
     }
 
     this.setFiltersState();
-  }
-
-  private getTabFilters() {
-    return this.selectedTab.filters;
   }
 
   private setFiltersState() {
