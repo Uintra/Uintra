@@ -24,6 +24,14 @@ export class SearchService {
     return this.http.post<IUserListData>("/ubaseline/api/UserList/GetUsers", data)
   }
 
+  userListSearchForInvitation(data: IUserListRequest): Observable<IUserListData> {
+    return this.http.post<IUserListData>("/ubaseline/api/UserList/ForInvitation", data)
+  }
+
+  userListInvite(data: IMemberStatusRequest) {
+    return this.http.post<IUserListData>("/ubaseline/api/UserList/InviteMember", data)
+  }
+
   changeMemberStatus(data: IMemberStatusRequest) {
     return this.http.put("/ubaseline/api/userlist/assign", data);
   }
