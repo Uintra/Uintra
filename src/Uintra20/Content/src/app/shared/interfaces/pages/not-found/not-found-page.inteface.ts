@@ -1,4 +1,4 @@
-export interface NotFoundPageInterface {
+export interface INotFoundPage {
     addToSitemap?: boolean;
     contentTypeAlias?: string;
     id?: number;

@@ -1,4 +1,4 @@
-export interface UintraGroupEditInterface {
+export interface UintraGroupEdit {
     addToSitemap?: boolean;
     allowedMediaExtensions?: string;
     contentTypeAlias?: string;

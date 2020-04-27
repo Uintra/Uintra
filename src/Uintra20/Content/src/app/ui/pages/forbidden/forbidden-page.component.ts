@@ -14,6 +14,6 @@ export class ForbiddenPage {
   constructor(
     private route: ActivatedRoute
   ) {
-    this.route.data.subscribe(data => this.data = data);
+    this.route.data.subscribe((data: any) => this.data = data);
   }
 }

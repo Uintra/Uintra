@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { CanDeactivateGuard } from 'src/app/shared/services/general/can-deactivate.service';
 import { HasDataChangedService } from 'src/app/shared/services/general/has-data-changed.service';
-import { UintraNewsCreateInterface } from 'src/app/shared/interfaces/pages/news/create/uintra-news-create.interface';
+import { UintraNewsCreate } from 'src/app/shared/interfaces/pages/news/create/uintra-news-create.interface';
 
 @Component({
   selector: 'uintra-news-create-page',
@@ -12,7 +12,7 @@ import { UintraNewsCreateInterface } from 'src/app/shared/interfaces/pages/news/
   encapsulation: ViewEncapsulation.None
 })
 export class UintraNewsCreatePage {
-  public data: UintraNewsCreateInterface;
+  public data: UintraNewsCreate;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -20,7 +20,7 @@ export class UintraNewsCreatePage {
     private hasDataChangedService: HasDataChangedService,
     private canDeactivateService: CanDeactivateGuard
   ) {
-    this.activatedRoute.data.subscribe((data: UintraNewsCreateInterface) => {
+    this.activatedRoute.data.subscribe((data: UintraNewsCreate) => {
       if (!data.requiresRedirect) {
         this.data = data;
       } else {

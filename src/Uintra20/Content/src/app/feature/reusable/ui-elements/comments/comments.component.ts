@@ -4,6 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { RTEStripHTMLService } from 'src/app/feature/specific/activity/rich-text-editor/helpers/rte-strip-html.service';
 import { Subscription } from 'rxjs';
 import { finalize } from 'rxjs/operators';
+import { ICommentItem } from 'src/app/shared/interfaces/components/comments/item/comment-item.interface';
 
 @Component({
   selector: 'app-comments',
@@ -15,7 +16,7 @@ export class CommentsComponent implements OnInit, OnDestroy {
   private $deleteCommentSubscription: Subscription;
   private $createCommentSubscription: Subscription;
   @Input()
-  public comments: any;
+  public comments: Array<ICommentItem>;
   @Input()
   public entityId: string;
   @Input()

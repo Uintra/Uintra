@@ -19,6 +19,7 @@ import { ISocialCreateModel } from 'src/app/feature/specific/activity/activity.i
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { finalize } from 'rxjs/operators';
+import { ISocialCreate } from 'src/app/shared/interfaces/components/social/create/social-create.interface';
 
 @Component({
   selector: 'app-social-create',
@@ -29,7 +30,7 @@ export class SocialCreateComponent implements OnInit, OnDestroy {
 
   private $socialCreateSubscription: Subscription;
   @Input()
-  public data: any;
+  public data: ISocialCreate;
 
   @ViewChild('dropdownRef', { static: false })
   public dropdownRef: DropzoneComponent;
@@ -66,6 +67,7 @@ export class SocialCreateComponent implements OnInit, OnDestroy {
     };
     this.deviceWidth = window.innerWidth;
     this.getPlaceholder();
+    debugger
   }
 
   public ngOnDestroy(): void {

@@ -1,12 +1,12 @@
-export interface UintraGroupsDocuments {
+export interface ISocialCreate {
     addToSitemap?: boolean;
-    allowedMediaExtensions?: string;
-    canUpload?: boolean;
+    canCreate?: boolean;
     contentTypeAlias?: string;
+    createEventsLink?: any;
+    createNewsLink?: any;
+    data?: any;
     errorLink?: any;
     groupHeader?: any;
-    groupId?: string;
-    groupNavigation?: any;
     id?: number;
     name?: string;
     nodeType?: number;

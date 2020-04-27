@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { HasDataChangedService } from 'src/app/shared/services/general/has-data-changed.service';
 import { Observable } from 'rxjs';
 import { CanDeactivateGuard } from 'src/app/shared/services/general/can-deactivate.service';
-import { UintraGroupCreateInterface } from '../../../../shared/interfaces/pages/uintra-groups/create/uintra-groups-create.interface';
+import { UintraGroupCreate } from '../../../../shared/interfaces/pages/uintra-groups/create/uintra-groups-create.interface';
 
 @Component({
   selector: 'uintra-groups-create-page',
@@ -12,7 +12,7 @@ import { UintraGroupCreateInterface } from '../../../../shared/interfaces/pages/
   encapsulation: ViewEncapsulation.None
 })
 export class UintraGroupsCreatePage {
-  public data: UintraGroupCreateInterface;
+  public data: UintraGroupCreate;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -20,7 +20,7 @@ export class UintraGroupsCreatePage {
     private canDeactivateService: CanDeactivateGuard,
     private router: Router,
   ) {
-    this.activatedRoute.data.subscribe((data: UintraGroupCreateInterface) => {
+    this.activatedRoute.data.subscribe((data: UintraGroupCreate) => {
       if (!data.requiresRedirect) {
         this.data = data;
       } else {

@@ -1,4 +1,4 @@
-export interface UintraGroupsMembersInterface {
+export interface UintraGroupsMembers {
     addToSitemap?: boolean;
     contentTypeAlias?: string;
     errorLink?: any;

@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { HasDataChangedService } from 'src/app/shared/services/general/has-data-changed.service';
 import { CanDeactivateGuard } from 'src/app/shared/services/general/can-deactivate.service';
-import { UintraGroupEditInterface } from '../../../../shared/interfaces/pages/uintra-groups/edit/uintra-groups-edit.interface';
+import { UintraGroupEdit } from '../../../../shared/interfaces/pages/uintra-groups/edit/uintra-groups-edit.interface';
 
 @Component({
   selector: 'uintra-groups-edit-page',
@@ -12,7 +12,7 @@ import { UintraGroupEditInterface } from '../../../../shared/interfaces/pages/ui
   encapsulation: ViewEncapsulation.None
 })
 export class UintraGroupsEditPage {
-  public data: UintraGroupEditInterface;
+  public data: UintraGroupEdit;
 
   constructor(
     private route: ActivatedRoute,

@@ -9,6 +9,7 @@ import { GroupsService } from 'src/app/feature/specific/groups/groups.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ResolveService } from '@ubaseline/next';
 import { IUintraGroupsRoomPage } from 'src/app/shared/interfaces/pages/uintra-groups/room/uintra-groups-room-page.interface';
+import { ISocialCreate } from 'src/app/shared/interfaces/components/social/create/social-create.interface';
 
 @Component({
   selector: 'uintra-groups-room-page',
@@ -20,7 +21,7 @@ export class UintraGroupsRoomPage implements OnInit {
 
   public data: IUintraGroupsRoomPage;
   public isLoading: boolean;
-  public socialCreateData: any;
+  public socialCreateData: ISocialCreate;
 
   constructor(
     private route: ActivatedRoute,

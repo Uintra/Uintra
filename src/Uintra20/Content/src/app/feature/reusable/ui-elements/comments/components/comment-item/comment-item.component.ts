@@ -6,6 +6,7 @@ import { ILikeData } from '../../../like-button/like-button.interface';
 import { RTEStripHTMLService } from 'src/app/feature/specific/activity/rich-text-editor/helpers/rte-strip-html.service';
 import { finalize } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
+import { ICommentItem } from 'src/app/shared/interfaces/components/comments/item/comment-item.interface';
 
 @Component({
   selector: 'app-comment-item',
@@ -16,7 +17,7 @@ export class CommentItemComponent implements OnInit, OnDestroy {
 
   private $editCommentSubscription: Subscription;
   @Input()
-  public data: any;
+  public data: ICommentItem;
   @Input()
   public activityType: any;
   @Input()
@@ -59,8 +60,8 @@ export class CommentItemComponent implements OnInit, OnDestroy {
   }
 
   public ngOnInit(): void {
-    this.editedValue = this.data.text;
-    this.sanitizedContent = this.sanitizer.bypassSecurityTrustHtml(this.data.text);
+    this.editedValue = this.data.text.toString();
+    this.sanitizedContent = this.sanitizer.bypassSecurityTrustHtml(this.data.text.toString());
     this.commentCreator = this.data.creator;
     this.likeModel = {
       likedByCurrentUser: !!this.data.likeModel.likedByCurrentUser,

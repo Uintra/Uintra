@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { HasDataChangedService } from 'src/app/shared/services/general/has-data-changed.service';
 import { CanDeactivateGuard } from 'src/app/shared/services/general/can-deactivate.service';
 import { IHomePage } from 'src/app/shared/interfaces/pages/home/home-page.interface';
+import { ISocialCreate } from 'src/app/shared/interfaces/components/social/create/social-create.interface';
 
 @Component({
   selector: 'home-page',
@@ -15,7 +16,7 @@ export class HomePage implements OnInit {
 
   public data: IHomePage;
   public latestActivities: any;
-  public socialCreateData: any;
+  public socialCreateData: ISocialCreate;
   public otherPanels: any;
 
   constructor(

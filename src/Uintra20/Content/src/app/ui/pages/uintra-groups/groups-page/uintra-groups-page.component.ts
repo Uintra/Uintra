@@ -1,6 +1,6 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { UintraGroupsInterface } from '../../../../shared/interfaces/pages/uintra-groups/uintra-groups.interface';
+import { UintraGroups } from '../../../../shared/interfaces/pages/uintra-groups/uintra-groups.interface';
 
 @Component({
   selector: 'uintra-groups-page',
@@ -9,12 +9,12 @@ import { UintraGroupsInterface } from '../../../../shared/interfaces/pages/uintr
   encapsulation: ViewEncapsulation.None
 })
 export class UintraGroupsPage {
-  public data: UintraGroupsInterface;
+  public data: UintraGroups;
 
   constructor(
     private activatedRoute: ActivatedRoute,
   ) {
-    this.activatedRoute.data.subscribe((data: UintraGroupsInterface) => {
+    this.activatedRoute.data.subscribe((data: UintraGroups) => {
       this.data = data;
     });
   }

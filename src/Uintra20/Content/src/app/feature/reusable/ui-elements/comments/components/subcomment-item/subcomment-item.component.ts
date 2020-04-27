@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ILikeData } from '../../../like-button/like-button.interface.js';
 import { RTEStripHTMLService } from 'src/app/feature/specific/activity/rich-text-editor/helpers/rte-strip-html.service.js';
+import { ICommentItem } from 'src/app/shared/interfaces/components/comments/item/comment-item.interface.js';
 
 @Component({
   selector: 'app-subcomment-item',
@@ -9,7 +10,7 @@ import { RTEStripHTMLService } from 'src/app/feature/specific/activity/rich-text
   styleUrls: ['./subcomment-item.component.less']
 })
 export class SubcommentItemComponent implements OnInit {
-  @Input() public data: any;
+  @Input() public data: ICommentItem;
   @Input() public activityType: any;
   @Input() public commentsActivity: any;
   @Input() public isReplyEditingInProgress: boolean;
@@ -28,8 +29,8 @@ export class SubcommentItemComponent implements OnInit {
   constructor(private sanitizer: DomSanitizer, private stripHTML: RTEStripHTMLService) { }
 
   public ngOnInit(): void {
-    this.editedValue = this.data.text;
-    this.data.text = this.sanitizer.bypassSecurityTrustHtml(this.data.text);
+    this.editedValue = this.data.text.toString();
+    this.data.text = this.sanitizer.bypassSecurityTrustHtml(this.data.text.toString());
     this.likeModel = {
       likedByCurrentUser: !!this.data.likeModel.likedByCurrentUser,
       id: this.data.id,
@@ -41,7 +42,7 @@ export class SubcommentItemComponent implements OnInit {
   public toggleEditingMode(): void {
     this.isEditing = !this.isEditing;
     if (this.isEditing) {
-      this.initialValue = this.data.text;
+      this.initialValue = this.data.text.toString();
     }
   }
 

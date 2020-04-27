@@ -1,4 +1,4 @@
-export interface UintraMyGroupsInterface {
+export interface UintraMyGroups {
     addToSitemap?: boolean;
     contentTypeAlias?: string;
     groupNavigation?: any;

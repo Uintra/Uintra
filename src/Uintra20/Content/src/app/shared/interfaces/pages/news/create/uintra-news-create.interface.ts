@@ -1,4 +1,4 @@
-export interface UintraNewsCreateInterface {
+export interface UintraNewsCreate {
     addToSitemap?: boolean;
     contentTypeAlias?: string;
     data?: any;

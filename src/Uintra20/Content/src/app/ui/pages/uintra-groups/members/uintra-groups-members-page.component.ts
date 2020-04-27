@@ -1,6 +1,6 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UintraGroupsMembersInterface } from '../../../../shared/interfaces/pages/uintra-groups/members/uintra-groups-members.interface';
+import { UintraGroupsMembers } from '../../../../shared/interfaces/pages/uintra-groups/members/uintra-groups-members.interface';
 
 @Component({
   selector: 'uintra-groups-members-page',
@@ -9,13 +9,13 @@ import { UintraGroupsMembersInterface } from '../../../../shared/interfaces/page
   encapsulation: ViewEncapsulation.None
 })
 export class UintraGroupsMembersPage {
-  public data: UintraGroupsMembersInterface;
+  public data: UintraGroupsMembers;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
   ) {
-    this.activatedRoute.data.subscribe((data: UintraGroupsMembersInterface) => {
+    this.activatedRoute.data.subscribe((data: UintraGroupsMembers) => {
       if (!data.requiresRedirect) {
         this.data = data;
       } else {

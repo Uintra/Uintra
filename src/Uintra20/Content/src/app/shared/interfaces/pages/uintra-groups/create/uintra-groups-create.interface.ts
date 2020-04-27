@@ -1,4 +1,4 @@
-export interface UintraGroupCreateInterface {
+export interface UintraGroupCreate {
     addToSitemap?: boolean;
     allowedMediaExtensions?: string;
     contentTypeAlias?: string;
