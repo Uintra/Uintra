@@ -15,4 +15,5 @@ export interface ISocialCreate {
     requiresRedirect?: boolean;
     statusCode?: number;
     url?: string;
+    date?: string;
 }

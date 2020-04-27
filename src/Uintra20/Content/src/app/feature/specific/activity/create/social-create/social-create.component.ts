@@ -67,7 +67,6 @@ export class SocialCreateComponent implements OnInit, OnDestroy {
     };
     this.deviceWidth = window.innerWidth;
     this.getPlaceholder();
-    debugger
   }
 
   public ngOnDestroy(): void {

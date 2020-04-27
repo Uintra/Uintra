@@ -9,8 +9,8 @@ import { RTEStripHTMLService } from '../rich-text-editor/helpers/rte-strip-html.
 import { IDatepickerData } from '../datepicker-from-to/datepiker-from-to.interface';
 import { ILocationResult } from 'src/app/feature/reusable/ui-elements/location-picker/location-picker.interface';
 import { IPinedData } from '../pin-activity/pin-activity.component';
-import * as moment from "moment";
-import { IEventCreateModel, IEventsInitialDates, IPublishDatepickerOptions } from './event-form.interface';
+import * as moment from 'moment';
+import { IEventCreateModel, IEventsInitialDates, IPublishDatepickerOptions, IEventForm } from './event-form.interface';
 import { ContentService } from 'src/app/shared/services/general/content.service';
 
 @Component({
@@ -21,7 +21,7 @@ import { ContentService } from 'src/app/shared/services/general/content.service'
 export class EventFormComponent implements OnInit, AfterViewInit {
 
   @Input()
-  public data: any;
+  public data: IEventForm;
   @Input('edit')
   public edit: any;
   @Input()
