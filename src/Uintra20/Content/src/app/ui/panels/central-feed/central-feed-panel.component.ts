@@ -53,7 +53,7 @@ export class CentralFeedPanel implements OnInit, OnDestroy {
   public filtersBuilder() {
     const filtersFromServer = this.data.tabs;
     const allOption = {
-      type: 0,
+      type: "0",
       isActive: true,
       links: null,
       title: this.translate.instant('centralFeed.Filter.All.lnk'),

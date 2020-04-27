@@ -18,7 +18,7 @@ export interface ICentralFeedTab {
     isActive?: boolean;
     links?: any;
     title?: string;
-    type?: number;
+    type?: string;
 }
 
 export interface IFilter {
