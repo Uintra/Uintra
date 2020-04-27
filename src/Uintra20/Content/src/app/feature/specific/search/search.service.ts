@@ -1,6 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ISearchRequestData, IAutocompleteItem, ISearchData, IDeleteMemberRequest, IMemberStatusRequest, IUserListRequest, IUserListData } from './search.interface';
+import {
+  ISearchRequestData,
+  IAutocompleteItem,
+  ISearchData,
+  IDeleteMemberRequest,
+  IMemberStatusRequest,
+  IUserListRequest,
+  IUserListData
+} from './search.interface';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -8,27 +16,22 @@ import { Observable } from 'rxjs';
 })
 export class SearchService {
 
-  constructor(
-    private http: HttpClient,
-  ) { }
+  private prefix = '/ubaseline/api/';
 
-  autocomplete(query: string): Observable<IAutocompleteItem[]> {
-    return this.http.post<IAutocompleteItem[]>("/ubaseline/api/search/autocomplete", {query: query});
-  }
+  constructor(private http: HttpClient) { }
 
-  search(data: ISearchRequestData): Observable<ISearchData> {
-    return this.http.post<ISearchData>("/ubaseline/api/search/search", data)
-  }
+  public autocomplete = (query: string): Observable<IAutocompleteItem[]> =>
+    this.http.post<IAutocompleteItem[]>(`${this.prefix}search/autocomplete`, { query });
 
-  userListSearch(data: IUserListRequest): Observable<IUserListData> {
-    return this.http.post<IUserListData>("/ubaseline/api/UserList/GetUsers", data)
-  }
+  public search = (data: ISearchRequestData): Observable<ISearchData> =>
+    this.http.post<ISearchData>(`${this.prefix}search/search`, data)
 
-  changeMemberStatus(data: IMemberStatusRequest) {
-    return this.http.put("/ubaseline/api/userlist/assign", data);
-  }
+  public userListSearch = (data: IUserListRequest): Observable<IUserListData> =>
+    this.http.post<IUserListData>(`${this.prefix}UserList/GetUsers`, data)
 
-  deleteMember(data : IDeleteMemberRequest) {
-    return this.http.delete(`/ubaseline/api/userList/ExcludeUserFromGroup?groupId=${data.groupId}&userId=${data.userId}`);
-  }
+  public changeMemberStatus = (data: IMemberStatusRequest): Observable<any> =>
+    this.http.put(`${this.prefix}userlist/assign`, data)
+
+  public deleteMember = (data: IDeleteMemberRequest): Observable<any> =>
+    this.http.delete(`${this.prefix}userList/ExcludeUserFromGroup?groupId=${data.groupId}&userId=${data.userId}`)
 }

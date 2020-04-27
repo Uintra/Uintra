@@ -1,5 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
-import ParseHelper from 'src/app/shared/utils/parse.helper';
+import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 
 @Component({
   selector: 'user-list-panel',
@@ -7,20 +6,11 @@ import ParseHelper from 'src/app/shared/utils/parse.helper';
   styleUrls: ['./user-list-panel.less'],
   encapsulation: ViewEncapsulation.None
 })
-export class UserListPanel {
-  //TODO: Change data interface from any to IUserListPanel once you remove UFP from this panel and remove first three lines in ngOnInit()
-  data: any;
-  // data: IUserListPanel;
-  parsedData: any;
+export class UserListPanel implements OnInit {
 
-  constructor() {}
+  public data: any;
 
-  ngOnInit() {
-    if (this.data.get) {
-      this.data = this.data.get();
-    }
-    this.parsedData = ParseHelper.parseUbaselineData(this.data);
-    this.parsedData.details.members = Object.values(this.parsedData.details.members);
-    this.parsedData.details.selectedColumns = Object.values(this.parsedData.details.selectedColumns);
-  }
+  constructor() { }
+
+  public ngOnInit(): void { }
 }

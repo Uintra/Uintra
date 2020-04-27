@@ -1,5 +1,4 @@
 import { IULink } from 'src/app/shared/interfaces/general.interface';
-import { IMember } from 'src/app/shared/interfaces/pages/profile/profile-page.interface';
 import { IOwner } from '../activity/activity.interfaces';
 
 export interface ISearchRequestData {
@@ -45,7 +44,7 @@ export interface IAutocompleteItem {
     type: string;
     photo: string;
     email: string;
-  }
+  };
 }
 export interface IMapedAutocompleteItem {
   title: string;
@@ -56,7 +55,7 @@ export interface IMapedAutocompleteItem {
     type: string;
     photo: string;
     email: string;
-  }
+  };
 }
 export interface IUserListRequest {
   text: string;
@@ -67,11 +66,11 @@ export interface IUserListRequest {
 }
 export interface IDeleteMemberRequest {
   userId: string;
-  groupId: string
+  groupId: string;
 }
 export interface IMemberStatusRequest {
   memberId: string;
-  groupId: string
+  groupId: string;
 }
 export interface IUserListData {
   details: {
@@ -82,7 +81,7 @@ export interface IUserListData {
     isCurrentMemberGroupAdmin: boolean;
     groupId: string;
     isInvite: boolean;
-  }
+  };
 }
 export interface IUserListSelectedColumn {
   id: number;
