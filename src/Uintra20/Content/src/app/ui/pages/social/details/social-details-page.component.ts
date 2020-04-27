@@ -8,11 +8,11 @@ import {
   IMedia
 } from 'src/app/feature/specific/activity/activity.interfaces';
 import { ILikeData } from 'src/app/feature/reusable/ui-elements/like-button/like-button.interface';
-import { ICommentData } from 'src/app/feature/reusable/ui-elements/comments/comments.component';
 import { ImageGalleryService } from 'src/app/feature/reusable/ui-elements/image-gallery/image-gallery.service';
 import { IGroupDetailsHeaderData } from 'src/app/feature/specific/groups/groups.interface';
 import { TranslateService } from '@ngx-translate/core';
 import { ISocialDetailsPage } from 'src/app/shared/interfaces/pages/social/details/social-details-page.interface';
+import { ICommentData } from 'src/app/shared/interfaces/panels/comments/comments-panel.interface';
 
 @Component({
   selector: 'social-details',

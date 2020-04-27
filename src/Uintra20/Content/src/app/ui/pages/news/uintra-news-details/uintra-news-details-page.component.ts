@@ -2,11 +2,11 @@ import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
 import { ISocialDetails, IUserTag, IMedia, IDocument } from 'src/app/feature/specific/activity/activity.interfaces';
-import { ICommentData } from 'src/app/feature/reusable/ui-elements/comments/comments.component';
 import { ImageGalleryService } from 'src/app/feature/reusable/ui-elements/image-gallery/image-gallery.service';
 import { ILikeData } from 'src/app/feature/reusable/ui-elements/like-button/like-button.interface';
 import { TranslateService } from '@ngx-translate/core';
 import { IUintraNewsDetailsPage } from 'src/app/shared/interfaces/pages/news/details/uintra-news-details-page.interface';
+import { ICommentData } from 'src/app/shared/interfaces/panels/comments/comments-panel.interface';
 
 @Component({
   selector: 'uintra-news-details-page',

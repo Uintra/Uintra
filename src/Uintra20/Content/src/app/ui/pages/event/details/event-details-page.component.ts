@@ -7,7 +7,6 @@ import {
   IMedia,
   IDocument
 } from 'src/app/feature/specific/activity/activity.interfaces';
-import { ICommentData } from 'src/app/feature/reusable/ui-elements/comments/comments.component';
 import { ImageGalleryService } from 'src/app/feature/reusable/ui-elements/image-gallery/image-gallery.service';
 import { ILikeData } from 'src/app/feature/reusable/ui-elements/like-button/like-button.interface';
 import { EventSubscriptionService } from '../../../../feature/specific/activity/event-subscription/event-subscription.service';
@@ -16,6 +15,7 @@ import { HasDataChangedService } from 'src/app/shared/services/general/has-data-
 import { Observable, Subscription } from 'rxjs';
 import { CanDeactivateGuard } from 'src/app/shared/services/general/can-deactivate.service';
 import { IEventDetailsPage } from 'src/app/shared/interfaces/pages/event/details/event-details-page.interface';
+import { ICommentData } from 'src/app/shared/interfaces/panels/comments/comments-panel.interface';
 
 @Component({
   selector: 'event-details-page',

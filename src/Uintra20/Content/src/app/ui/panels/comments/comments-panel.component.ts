@@ -1,7 +1,6 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import ParseHelper from 'src/app/shared/utils/parse.helper';
-import { ICommentData } from 'src/app/feature/reusable/ui-elements/comments/comments.component';
+import { ICommentsPanel } from 'src/app/shared/interfaces/panels/comments/comments-panel.interface';
 
 @Component({
   selector: 'comments-panel',
@@ -10,29 +9,12 @@ import { ICommentData } from 'src/app/feature/reusable/ui-elements/comments/comm
   encapsulation: ViewEncapsulation.None
 })
 export class CommentsPanel implements OnInit {
-  //TODO: Change data interface from any to appropriate one once you remove UFP from this panel and remove first three lines in ngOnInit()
-  data: any;
-  comments: any;
-  commentDetails: ICommentData;
-  activityType: number;
-  commentsActivity: number;
-  isGroupMember: boolean;
+
+  public data: ICommentsPanel;
 
   constructor(private activatedRoute: ActivatedRoute) {
-    this.activatedRoute.data.subscribe(data => this.data = data);
+    this.activatedRoute.data.subscribe((data: ICommentsPanel) => this.data = data);
   }
 
-  ngOnInit(): void {
-    if (this.data.get) {
-      this.data = this.data.get();
-    }
-    const parsedData = ParseHelper.parseUbaselineData(this.data);
-    this.activityType = parsedData.commentsType;
-    this.commentDetails = {
-      entityId: parsedData.entityId,
-      entityType: parsedData.activityId
-    };
-    this.commentsActivity = parsedData.commentsType;
-    this.isGroupMember = parsedData.isGroupMember;
-  }
+  public ngOnInit(): void { }
 }

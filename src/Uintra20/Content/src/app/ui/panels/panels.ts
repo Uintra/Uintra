@@ -19,9 +19,7 @@ export const panels = [
   {
     id: 'commentsPanel',
     path: '__dynamic__',
-    loadChildren:
-      './ui/panels/comments/comments-panel.module#CommentsPanelModule',
-    legacy: true
+    loadChildren: './ui/panels/comments/comments-panel.module#CommentsPanelModule'
   },
   {
     id: 'userListPanel',

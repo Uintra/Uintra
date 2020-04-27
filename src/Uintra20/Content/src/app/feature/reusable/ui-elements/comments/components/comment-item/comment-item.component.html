@@ -11,7 +11,9 @@
                         (toggleEditingMode)="toggleEditingMode()"
                         (commentDelete)="onCommentDelete($event)">
     </app-comment-header>
-    <div *ngIf="!isEditing" class="comment__content rte" [innerHTML]="sanitizedContent"></div>
+    <div *ngIf="!isEditing"
+         class="comment__content rte"
+         [innerHTML]="sanitizedContent"></div>
     <app-like-button [likeData]="likeModel"></app-like-button>
     <app-rich-text-editor *ngIf="isEditing"
                           [(ngModel)]="editedValue"
