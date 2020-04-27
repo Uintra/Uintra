@@ -1,4 +1,4 @@
-import { IPublication } from 'src/app/ui/panels/central-feed/central-feed-panel.interface';
+import { IPublication } from '../central-feed/central-feed-panel.interface';
 
 export interface ILatestActivitiesPanel {
     activityType?: any;

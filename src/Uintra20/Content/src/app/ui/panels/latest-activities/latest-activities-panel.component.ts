@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewEncapsulation, NgZone, OnDestroy } from '@angular/core';
 import { PublicationsService, IFeedListRequest } from '../central-feed/helpers/publications.service';
 import { SignalrService } from 'src/app/shared/services/general/signalr.service';
-import { IPublicationsResponse } from '../central-feed/central-feed-panel.interface';
 import { CentralFeedFiltersService } from '../central-feed/central-feed-filters/central-feed-filters.service';
 import { ILatestActivitiesPanel } from 'src/app/shared/interfaces/panels/latest-activities/latest-activities-panel.interface';
 import { Subscription } from 'rxjs';
+import { IPublicationsResponse } from 'src/app/shared/interfaces/panels/central-feed/central-feed-panel.interface';
 
 @Component({
   selector: 'latest-activities-panel',

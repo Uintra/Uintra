@@ -2,9 +2,7 @@ export const panels = [
   {
     id: 'centralFeedPanel',
     path: '__dynamic__',
-    loadChildren:
-      './ui/panels/central-feed/central-feed-panel.module#CentralFeedPanelModule',
-    legacy: true
+    loadChildren: './ui/panels/central-feed/central-feed-panel.module#CentralFeedPanelModule'
   },
   {
     id: 'latestActivitiesPanel',

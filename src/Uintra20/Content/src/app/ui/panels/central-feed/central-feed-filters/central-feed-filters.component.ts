@@ -1,58 +1,63 @@
-import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
-import { UmbracoFlatPropertyModel } from "@ubaseline/next";
-import { CentralFeedFiltersService } from "./central-feed-filters.service";
+import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { CentralFeedFiltersService } from './central-feed-filters.service';
 
 @Component({
-  selector: "app-central-feed-filters",
-  templateUrl: "./central-feed-filters.component.html",
-  styleUrls: ["./central-feed-filters.component.less"]
+  selector: 'app-central-feed-filters',
+  templateUrl: './central-feed-filters.component.html',
+  styleUrls: ['./central-feed-filters.component.less']
 })
-export class CentralFeedFiltersComponent implements OnInit {
-  @Input() tabs: Array<UmbracoFlatPropertyModel>;
-  @Output() selectFilters = new EventEmitter();
+export class CentralFeedFiltersComponent implements OnInit, OnDestroy {
 
-  selectedTab: UmbracoFlatPropertyModel = null;
-  selectTabFilters: Array<any>;
-  selectedTabType: number;
-  isOpen: boolean = false;
-  filtersState: Array<any> = [];
-  filtersAllowed: boolean;
-  filterSubscription: any;
+  @Input()
+  public tabs: Array<any>;
+  @Output()
+  public selectFilters = new EventEmitter();
 
-  constructor(private centralFeedFiltersService: CentralFeedFiltersService) {}
+  public selectedTab: any = null;
+  public selectTabFilters: Array<any>;
+  public selectedTabType: number;
+  public isOpen = false;
+  public filtersState: Array<any> = [];
+  public filtersAllowed: boolean;
+  public filterSubscription: any;
 
-  ngOnInit() {
+  constructor(private centralFeedFiltersService: CentralFeedFiltersService) { }
+
+  public ngOnInit(): void {
     this.setInitValues();
     this.emitFilterState();
     this.resolveFilterPermissions();
     this.filterSubscription = this.centralFeedFiltersService.filter.subscribe((val: number) => {
       this.setSelectedTab(val);
-    })
+    });
   }
 
-  handleOpen(value: boolean) {
+  public ngOnDestroy(): void {
+    this.filterSubscription.unsubscribe();
+  }
+
+  public handleOpen(value: boolean) {
     this.centralFeedFiltersService.setOpeningState(this.isOpen);
   }
 
-  setSelectedTab(event) {
+  public setSelectedTab(event) {
     if (event === 0) {
-      event = "0";
+      event = '0';
     }
     this.selectedTabType = event;
-    //Please don't change it to strict comparison in callback below
-    this.selectedTab = this.tabs.find(tab => tab.get().type.get() == event);
+    this.selectedTab = this.tabs.find(tab => tab.type === event);
     this.selectTabFilters = this.getTabFilters();
     this.setSelectedFiltersFromCookie();
     this.emitFilterState();
   }
 
-  changeFilters() {
+  public changeFilters() {
     this.setFiltersState();
     this.emitFilterState();
   }
 
-  clearFilters() {
-    this.centralFeedFiltersService.setFilteringState("");
+  public clearFilters() {
+    this.centralFeedFiltersService.setFilteringState('');
     this.filtersState = [];
     this.setInitValues();
 
@@ -60,9 +65,7 @@ export class CentralFeedFiltersComponent implements OnInit {
       ...filter,
       isActive: false
     }));
-    this.setSelectedTab(
-      this.tabs.find(tab => tab.get().isActive.get() === true).get().type.get()
-    );
+    this.setSelectedTab(this.tabs.find(tab => tab.isActive === true).type);
   }
 
   private setInitValues(): void {
@@ -77,7 +80,7 @@ export class CentralFeedFiltersComponent implements OnInit {
 
   private setUniqueFiltersState() {
     const filtersState = this.tabs.map(tab => {
-      return Object.values(JSON.parse(JSON.stringify(tab.get().filters.get())));
+      return tab.filters;
     });
     filtersState.forEach(filter => {
       filter.forEach((item: any) => {
@@ -93,15 +96,13 @@ export class CentralFeedFiltersComponent implements OnInit {
 
     if (selectedTabType) {
       this.selectedTabType = selectedTabType;
-      this.selectedTab = this.tabs.find(
-        tab => tab.get().type === selectedTabType
-      );
+      this.selectedTab = this.tabs.find(tab => tab.type === selectedTabType);
       if (!this.selectedTab) {
         this.selectedTab = this.tabs[0];
       }
     } else {
-      this.selectedTab = this.tabs.find(tab => tab.get().isActive);
-      this.selectedTabType = this.selectedTab.get().type.get();
+      this.selectedTab = this.tabs.find(tab => tab.isActive);
+      this.selectedTabType = this.selectedTab.type;
     }
   }
 
@@ -120,9 +121,7 @@ export class CentralFeedFiltersComponent implements OnInit {
 
     if (selectTabFilters && selectTabFilters.length) {
       this.selectTabFilters = this.selectTabFilters.map(filter => {
-        const foundFilter = selectTabFilters.find(
-          cur => cur.key === filter.key
-        );
+        const foundFilter = selectTabFilters.find(cur => cur.key === filter.key);
 
         return foundFilter
           ? { ...filter, isActive: foundFilter.isActive }
@@ -134,16 +133,12 @@ export class CentralFeedFiltersComponent implements OnInit {
   }
 
   private getTabFilters() {
-    return Object.values(
-      JSON.parse(JSON.stringify(this.selectedTab.get().filters.get()))
-    );
+    return this.selectedTab.filters;
   }
 
   private setFiltersState() {
     this.filtersState = this.filtersState.map(filter => {
-      const foundFilter = this.selectTabFilters.find(
-        cur => cur.key === filter.key
-      );
+      const foundFilter = this.selectTabFilters.find(cur => cur.key === filter.key);
       if (foundFilter) {
         filter.isActive = foundFilter.isActive;
       }
@@ -156,8 +151,5 @@ export class CentralFeedFiltersComponent implements OnInit {
       this.filtersAllowed = true;
     }
   }
-
-  ngOnDestroy() {
-    this.filterSubscription.unsubscribe();
-  }
 }
+
