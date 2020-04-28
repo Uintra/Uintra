@@ -46,6 +46,7 @@
           (scrolled)="onScroll()">
           <a
             *ngFor="let result of resultsList"
+            target="_blank"
             class="search-results__item"
             [routerLink]="result.url | ulink">
             <div class="search-results__item-info">
