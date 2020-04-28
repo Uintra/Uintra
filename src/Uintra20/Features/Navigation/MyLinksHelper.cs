@@ -1,12 +1,13 @@
-﻿using System;
+﻿using Compent.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Compent.Extensions;
 using UBaseline.Core.Node;
 using UBaseline.Shared.Node;
 using Uintra20.Core.Activity;
 using Uintra20.Core.Activity.Entities;
+using Uintra20.Core.Localization;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Services;
 using Uintra20.Features.Groups.Services;
@@ -31,6 +32,7 @@ namespace Uintra20.Features.Navigation
         private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
         private readonly IActivityTypeProvider _activityTypeProvider;
         private readonly INodeModelService _nodeModelService;
+        private readonly IIntranetLocalizationService _intranetLocalizationService;
 
         public MyLinksHelper(
             IDocumentTypeAliasProvider documentTypeAliasProvider,
@@ -40,7 +42,8 @@ namespace Uintra20.Features.Navigation
             INavigationApplicationSettings navigationApplicationSettings,
             IGroupService groupService,
             INodeModelService nodeModelService,
-            IActivityTypeProvider activityTypeProvider)
+            IActivityTypeProvider activityTypeProvider,
+            IIntranetLocalizationService intranetLocalizationService)
         {
             _intranetMemberService = intranetMemberService;
             _myLinksService = myLinksService;
@@ -50,6 +53,7 @@ namespace Uintra20.Features.Navigation
             _nodeModelService = nodeModelService;
             _documentTypeAliasProvider = documentTypeAliasProvider;
             _activityTypeProvider = activityTypeProvider;
+            _intranetLocalizationService = intranetLocalizationService;
         }
 
         public IEnumerable<MyLinkItemModel> GetMenu()
@@ -67,13 +71,13 @@ namespace Uintra20.Features.Navigation
                 (link, content) => new MyLinkItemModel
                 {
                     Id = link.Id,
-                    ContentId=content.Id,
-                    ActivityId=link.ActivityId,
+                    ContentId = content.Id,
+                    ActivityId = link.ActivityId,
                     Name = link.ActivityId.HasValue ? GetLinkName(link.ActivityId.Value) : GetNavigationName(content),
                     Url = GetUrl(link, content)
                 });
 
-            return models;
+            return MapLinks(models);
         }
 
         public async Task<IEnumerable<MyLinkItemModel>> GetMenuAsync()
@@ -91,13 +95,13 @@ namespace Uintra20.Features.Navigation
                 (link, content) => new MyLinkItemModel
                 {
                     Id = link.Id,
-                    ActivityId=link.ActivityId,
-                    ContentId=content.Id,
+                    ActivityId = link.ActivityId,
+                    ContentId = content.Id,
                     Name = link.ActivityId.HasValue ? GetLinkName(link.ActivityId.Value) : GetNavigationName(content),
                     Url = GetUrl(link, content)
                 });
 
-            return models;
+            return MapLinks(models);
         }
 
         public bool IsActivityLink(int contentId)
@@ -183,7 +187,7 @@ namespace Uintra20.Features.Navigation
 
         protected virtual string GetNavigationName(INodeModel content)
         {
-            if(content is IUintraNavigationComposition navigationModel)
+            if (content is IUintraNavigationComposition navigationModel)
             {
                 if (navigationModel.Navigation.NavigationTitle.Value.HasValue())
                 {
@@ -192,6 +196,26 @@ namespace Uintra20.Features.Navigation
             }
 
             return content.Name;
+        }
+
+        protected IEnumerable<MyLinkItemModel> MapLinks(IEnumerable<MyLinkItemModel> links)
+        {
+            var result = links.Select(link =>
+            {
+                if (!link.ActivityId.HasValue) return link;
+
+                if (!link.Name.IsEmpty()) return link;
+
+                var intranetActivityService = _activitiesServiceFactory.GetService<IIntranetActivityService<IIntranetActivity>>(link.ActivityId.Value);
+
+                var activity = intranetActivityService.Get(link.ActivityId.Value);
+
+                link.Name = $"{_intranetLocalizationService.Translate("MyLinks.Social.lbl")} {activity.CreatedDate}";
+
+                return link;
+            });
+
+            return result;
         }
     }
 }
