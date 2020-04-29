@@ -83,6 +83,8 @@ export interface IUserListData {
     groupId: string;
     isInvite: boolean;
   }
+  customTitle?: string;
+  isInvitePopUp?: boolean;
 }
 export interface IUserListSelectedColumn {
   id: number;
@@ -104,4 +106,5 @@ export interface IUserListMember {
   profileUrl: IULink;
   isGroupAdmin: boolean;
   isCreator: boolean;
+  isInviteBtnDisabled?: boolean;
 }

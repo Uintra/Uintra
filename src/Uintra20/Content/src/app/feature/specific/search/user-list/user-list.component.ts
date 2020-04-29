@@ -1,8 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, HostBinding, NgZone } from '@angular/core';
 import { SearchService } from '../search.service';
 import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, finalize } from 'rxjs/operators';
 import { IUserListData } from '../search.interface';
+import { ModalService } from 'src/app/shared/services/general/modal.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-user-list',
@@ -11,13 +13,14 @@ import { IUserListData } from '../search.interface';
 })
 export class UserListComponent implements OnInit {
   @Input() data: IUserListData;
+  @HostBinding('class') className: string;
   inputValue: string = "";
   currentPage: number = 1;
   canLoadMore: boolean;
   isNameColumn: boolean;
   isInfoColumn: boolean;
   isGroupColumn: boolean;
-  isDeleteColumn: boolean;
+  isManagementColumn: boolean;
   isLoadMoreDisabled: boolean;
   isNoMembers: boolean;
 
@@ -25,6 +28,8 @@ export class UserListComponent implements OnInit {
 
   constructor(
     private searchService: SearchService,
+    private modalService: ModalService,
+    private translate: TranslateService,
   ) {
     this._query.pipe(
       debounceTime(200),
@@ -40,6 +45,7 @@ export class UserListComponent implements OnInit {
   ngOnInit() {
     this.getColumns();
     this.canLoadMore = !this.data.details.isLastRequest;
+    this.className = this.data.isInvitePopUp ? "pop-up" : "";
   }
 
   onQueryChange(val) {
@@ -51,7 +57,11 @@ export class UserListComponent implements OnInit {
     this.isLoadMoreDisabled = true;
     this.isNoMembers = false;
 
-    this.searchService.userListSearch(this.requestDataBuilder()).pipe(
+    (
+      this.data.isInvitePopUp
+        ? this.searchService.userListSearchForInvitation(this.requestDataBuilder())
+        : this.searchService.userListSearch(this.requestDataBuilder())
+    ).pipe(
       finalize(() => {
         this.isLoadMoreDisabled = false;
       })
@@ -70,10 +80,12 @@ export class UserListComponent implements OnInit {
   }
 
   getColumns() {
-    this.isNameColumn = this.data.details.selectedColumns.findIndex(column => column.alias == 'Name') !== -1;
-    this.isInfoColumn = this.data.details.selectedColumns.findIndex(column => column.alias == 'Info') !== -1;
-    this.isGroupColumn = this.data.details.selectedColumns.findIndex(column => column.alias == 'Group') !== -1;
-    this.isDeleteColumn = this.data.details.selectedColumns.findIndex(column => column.alias == 'Management') !== -1;
+    if (this.data && this.data.details && this.data.details.selectedColumns) {
+      this.isNameColumn = this.data.details.selectedColumns.findIndex(column => column.name == 'Name') !== -1;
+      this.isInfoColumn = this.data.details.selectedColumns.findIndex(column => column.name == 'Info') !== -1;
+      this.isGroupColumn = this.data.details.selectedColumns.findIndex(column => column.name == 'Group') !== -1;
+      this.isManagementColumn = this.data.details.selectedColumns.findIndex(column => column.name == 'Management') !== -1;
+    }
   }
 
   requestDataBuilder() {
@@ -82,7 +94,7 @@ export class UserListComponent implements OnInit {
       page: this.currentPage,
       groupId: this.data.details.groupId || null,
       orderingString: null,
-      isInvite: null
+      isInvite: this.data.isInvitePopUp
     }
   }
 
@@ -105,5 +117,44 @@ export class UserListComponent implements OnInit {
     this.searchService.deleteMember(requestData).subscribe(res => {
       this.data.details.members = this.data.details.members.filter(member => member.member.id !== userId);
     })
+  }
+
+  inviteToGroup(memberId: string, e) {
+    e.stopPropagation();
+    const requestData = {memberId: memberId, groupId: this.data.details.groupId};
+    this.data.details.members = this.data.details.members.map(member => ({
+      ...member,
+      isInviteBtnDisabled: member.isInviteBtnDisabled || member.member.id === memberId
+    }));
+
+    this.searchService.userListInvite(requestData).subscribe(
+      res => {},
+      err => {
+        this.data.details.members = this.data.details.members.map(member => ({
+          ...member,
+          isInviteBtnDisabled: member.member.id === memberId ? false : member.isInviteBtnDisabled
+        }));
+      }
+    )
+  }
+
+  openInvitePopUp(e) {
+    e.stopPropagation();
+    this.modalService.appendComponentToBody(UserListComponent, {
+      data: {
+        isInvitePopUp: true,
+        customTitle: this.translate.instant('userListPanel.GroupPopUpTitle.lbl'),
+        details: {
+          isLastRequest: true,
+          groupId: this.data.details.groupId
+        }
+      }
+    });
+  }
+
+  closeInvitePopUp() {
+    if (this.data.isInvitePopUp) {
+      this.modalService.removeComponentFromBody();
+    }
   }
 }

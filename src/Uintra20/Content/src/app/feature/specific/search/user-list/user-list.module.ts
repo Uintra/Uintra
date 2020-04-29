@@ -6,6 +6,9 @@ import { TranslateModule } from '@ngx-translate/core';
 import { UserAvatarModule } from '../../../reusable/ui-elements/user-avatar/user-avatar.module';
 import { RouterModule } from '@angular/router';
 import { UlinkModule } from 'src/app/shared/pipes/link/ulink.module';
+import { ModalService } from 'src/app/shared/services/general/modal.service';
+import { NotificationsItemComponent } from '../../nav-notifications/notifications-item/notifications-item.component';
+import { ClickOutsideModule } from 'src/app/shared/directives/click-outside/click-outside.module';
 
 
 
@@ -18,7 +21,10 @@ import { UlinkModule } from 'src/app/shared/pipes/link/ulink.module';
     UserAvatarModule,
     RouterModule,
     UlinkModule,
+    ClickOutsideModule,
   ],
-  exports: [UserListComponent]
+  providers: [ModalService],
+  exports: [UserListComponent],
+  entryComponents: [UserListComponent]
 })
 export class UserListModule { }
