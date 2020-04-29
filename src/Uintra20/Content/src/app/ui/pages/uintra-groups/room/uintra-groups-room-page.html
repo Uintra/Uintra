@@ -1,46 +1,48 @@
-<app-group-details-wrapper [data]="parsedData?.groupHeader">
+<app-group-details-wrapper [data]="data?.groupHeader">
   <div class="page-wrapper">
     <div class="group-details-padding row-flex">
       <div class="col-md-8">
-        <app-social-create *ngIf="socialCreateData?.canCreate" [data]="socialCreateData"></app-social-create>
-        <ubl-dynamic-component *ngFor="let panel of data.panels.get()" [data]="panel.get()"></ubl-dynamic-component>
+        <app-social-create *ngIf="socialCreateData?.canCreate"
+                           [data]="socialCreateData"></app-social-create>
+        <ubl-dynamic-component *ngFor="let panel of data.panels"
+                               [data]="panel"></ubl-dynamic-component>
       </div>
-      <div *ngIf="parsedData" class="col-md-4">
-        <div *ngIf="parsedData?.groupInfo" class="right-column">
-          <h2 *ngIf="parsedData?.groupInfo?.title" class="right-column__title">
-            {{parsedData.groupInfo.title}}
+      <div *ngIf="data"
+           class="col-md-4">
+        <div *ngIf="data?.groupInfo"
+             class="right-column">
+          <h2 *ngIf="data?.groupInfo?.title"
+              class="right-column__title">
+            {{data.groupInfo.title}}
           </h2>
-          <img
-            *ngIf="parsedData?.groupInfo?.hasImage"
-            class="right-column__image"
-            [src]="parsedData.groupInfo.groupImageUrl">
+          <img *ngIf="data?.groupInfo?.hasImage"
+               class="right-column__image"
+               [src]="data.groupInfo.groupImageUrl">
           <div class="right-column__info">
-            <div
-              *ngIf="parsedData?.groupInfo?.description"
-              class="right-column__info-description"
-              [innerHTML]="parsedData.groupInfo?.description">
+            <div *ngIf="data?.groupInfo?.description"
+                 class="right-column__info-description"
+                 [innerHTML]="data.groupInfo?.description">
             </div>
             <div class="right-column__info-members">
-              <span *ngIf="parsedData?.groupInfo?.membersCount">
-                {{parsedData.groupInfo.membersCount}} {{getMembersText()}} -
+              <span *ngIf="data?.groupInfo?.membersCount">
+                {{data.groupInfo.membersCount}} {{getMembersText()}} -
               </span>
-              <span *ngIf="parsedData?.groupInfo?.creator">
+              <span *ngIf="data?.groupInfo?.creator">
                 {{'groupInfo.OwnerName.lbl' | translate}}
-                <a
-                  class="right-column__info-owner-link"
-                  [routerLink]="parsedData.groupInfo.creator.profileLink.originalUrl | ulink">
-                  {{parsedData.groupInfo.creator.displayedName}}
+                <a class="right-column__info-owner-link"
+                   [routerLink]="data.groupInfo.creator.profileLink.originalUrl | ulink">
+                  {{data.groupInfo.creator.displayedName}}
                 </a>
               </span>
             </div>
-            <ng-container *ngIf="!parsedData?.groupInfo?.isCreator">
-              <p *ngIf="parsedData?.groupInfo?.isMember" class="right-column__info-unsubscribe-text">
+            <ng-container *ngIf="!data?.groupInfo?.isCreator">
+              <p *ngIf="data?.groupInfo?.isMember"
+                 class="right-column__info-unsubscribe-text">
                 {{'groupInfo.IsSubscribed.lbl' | translate}}
               </p>
-              <button
-                class="right-column__info-subscribe"
-                [disabled]="isLoading"
-                (click)="toggleSubscribe()">
+              <button class="right-column__info-subscribe"
+                      [disabled]="isLoading"
+                      (click)="toggleSubscribe()">
                 {{getSubscribeBtn()}}
               </button>
             </ng-container>

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
-import { UbaselineCoreModule } from '@ubaseline/next';
+import { UbaselineCoreModule } from 'ubaseline-next-for-uintra';
 import { DeveloperUIKitPage } from './developer-ui-kit.component';
 import { FormsModule } from '@angular/forms';
 import { SqDatetimepickerModule } from 'ngx-eonasdan-datetimepicker';

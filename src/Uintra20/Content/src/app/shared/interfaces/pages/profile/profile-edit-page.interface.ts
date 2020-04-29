@@ -1,8 +1,17 @@
 import { ITagData } from 'src/app/feature/reusable/inputs/tag-multiselect/tag-multiselect.interface';
 
 export interface IProfileEditPage {
-  member: IProfile;
+  profile: IProfile;
   title: string;
+  addToSitemap: boolean;
+  availableTags: Array<ITagData>;
+  contentTypeAlias: string;
+  id: number;
+  name: string;
+  nodeType: number;
+  pageSettings: any;
+  panels: any;
+  tags: Array<ITagData>;
   url: string;
 }
 

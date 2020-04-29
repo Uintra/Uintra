@@ -10,19 +10,19 @@
   </div>
   <div class="feed-btns">
     <div class="feed-btns__other-activities">
-      <a *ngIf="panelData.createEventsLink"
+      <a *ngIf="data.createEventsLink"
          class="button-default"
-         [routerLink]="panelData.createEventsLink.originalUrl | ulink">
+         [routerLink]="data.createEventsLink.originalUrl | ulink">
         {{'centralFeed.CreateLink_Events.lnk' | translate}}
       </a>
-      <a *ngIf="panelData.createNewsLink"
+      <a *ngIf="data.createNewsLink"
          class="button-default"
-         [routerLink]="panelData.createNewsLink.originalUrl | ulink">
+         [routerLink]="data.createNewsLink.originalUrl | ulink">
         {{'centralFeed.CreateLink_News.lnk' | translate}}
       </a>
     </div>
     <button class="button"
-            [disabled]="!panelData.canCreate"
+            [disabled]="!data.canCreate"
             (click)="onShowPopUp()">{{'socialsCreate.ExpandSocial.lbl' | translate}}</button>
   </div>
   <div class="bulletin-popup__wrapper"
@@ -35,14 +35,14 @@
       <app-publication-header class="bulletin-popup__header"
                               [avatar]="userAvatar?.photo"
                               [title]="userAvatar.name">
-        <div subtitle>{{panelData.date}} - {{'socialCreate.Title' | translate}}</div>
+        <div subtitle>{{data.date}} - {{'socialCreate.Title' | translate}}</div>
       </app-publication-header>
       <div class="bulletin-popup__multiselect-wrapper">
         <h3 class="bulletin-popup__multiselect-title">{{'userTagsPicker.AddTags.lbl' | translate}}</h3>
         <app-tag-multiselect class="bulletin-popup__multiselect"
-                            [availableTags]="availableTags"
-                            [ngModel]="tags"
-                            (ngModelChange)="onTagsChange($event)"></app-tag-multiselect>
+                             [availableTags]="availableTags"
+                             [ngModel]="tags"
+                             (ngModelChange)="onTagsChange($event)"></app-tag-multiselect>
       </div>
       <dropzone #dropdownRef
                 (success)="onUploadSuccess($event)"

@@ -15,17 +15,18 @@ export class DetailasHeaderComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
+  public ngOnInit(): void {
     if (this.location && this.location.address) {
       this.googleMapUrl = `http://maps.google.co.uk/maps?q=${this.location.address}`;
     }
   }
 
-  getDates() {
+  public getDates() {
     if (!this.details.headerInfo.dates) {
-      return "";
-    }
-    return Object.values(this.details.headerInfo.dates).join(" - ");
-  }
 
+      return '';
+    }
+
+    return this.details.headerInfo.dates.join(' - ');
+  }
 }

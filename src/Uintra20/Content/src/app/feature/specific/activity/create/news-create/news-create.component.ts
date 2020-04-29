@@ -1,17 +1,16 @@
-import { Component, OnInit, Input } from "@angular/core";
-import ParseHelper from "src/app/shared/utils/parse.helper";
-import { Router } from "@angular/router";
-import { RouterResolverService } from "src/app/shared/services/general/router-resolver.service";
-import { HasDataChangedService } from "src/app/shared/services/general/has-data-changed.service";
-import { ActivityService } from "src/app/feature/specific/activity/activity.service";
-import { INewsCreateModel, IActivityCreatePanel } from "src/app/feature/specific/activity/activity.interfaces";
+import { Component, OnInit, Input } from '@angular/core';
+import { Router } from '@angular/router';
+import { RouterResolverService } from 'src/app/shared/services/general/router-resolver.service';
+import { HasDataChangedService } from 'src/app/shared/services/general/has-data-changed.service';
+import { ActivityService } from 'src/app/feature/specific/activity/activity.service';
+import { INewsCreateModel, IActivityCreatePanel } from 'src/app/feature/specific/activity/activity.interfaces';
 import { Observable } from 'rxjs';
 import { CanDeactivateGuard } from 'src/app/shared/services/general/can-deactivate.service';
 
 @Component({
-  selector: "app-news-create",
-  templateUrl: "./news-create.component.html",
-  styleUrls: ["./news-create.component.less"]
+  selector: 'app-news-create',
+  templateUrl: './news-create.component.html',
+  styleUrls: ['./news-create.component.less']
 })
 export class NewsCreateComponent implements OnInit {
   @Input() data: IActivityCreatePanel;
@@ -19,9 +18,7 @@ export class NewsCreateComponent implements OnInit {
   members: Array<any>;
   creator: any;
   tags: Array<any>;
-  isSubmitLoading: boolean = false;
-
-  panelData;
+  isSubmitLoading = false;
 
   constructor(
     private activityService: ActivityService,
@@ -32,10 +29,9 @@ export class NewsCreateComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.panelData = ParseHelper.parseUbaselineData(this.data);
-    this.members = (Object.values(this.panelData.members) as Array<any>) || [];
-    this.creator = this.panelData.creator;
-    this.tags = Object.values(this.panelData.tags);
+    this.members = this.data.members as Array<any> || [];
+    this.creator = this.data.creator;
+    this.tags = this.data.tags;
 
     this.newsData = {
       ownerId: this.creator.id,
@@ -46,10 +42,6 @@ export class NewsCreateComponent implements OnInit {
   }
 
   onSubmit(data) {
-    if (this.panelData.groupId) {
-      data.groupId = this.panelData.groupId;
-    }
-
     this.isSubmitLoading = true;
 
     this.activityService.submitNewsContent(data).subscribe(
@@ -64,12 +56,11 @@ export class NewsCreateComponent implements OnInit {
     );
   }
 
-  onCancel() {
-    
-    this.router.navigate([this.panelData.links.feed.originalUrl]);
+  public onCancel() {
+    this.router.navigate([this.data.links.feed.originalUrl]);
   }
 
-  canDeactivate(): Observable<boolean> | boolean {
+  public canDeactivate(): Observable<boolean> | boolean {
     if (this.hasDataChangedService.hasDataChanged) {
       return this.canDeactivateService.canDeacrivateConfirm();
     }

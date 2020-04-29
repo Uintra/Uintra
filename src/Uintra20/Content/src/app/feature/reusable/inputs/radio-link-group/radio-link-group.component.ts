@@ -1,10 +1,6 @@
 import { Component, OnInit, Input, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
-// interface IRadioLink {
-//   type: string;
-// }
-
 @Component({
   selector: 'app-radio-link-group',
   templateUrl: './radio-link-group.component.html',
@@ -19,26 +15,32 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 })
 export class RadioLinkGroupComponent implements ControlValueAccessor, OnInit {
 
-  // @Input() links: Array<IRadioLink> = [];
-  @Input() links: Array<any> = [];
-  selectedLink: number;
-  TOTAL_LINKS_COUNT = 4;
+  @Input() 
+  public links: Array<any> = [];
+  public selectedLink: number;
+  public TOTAL_LINKS_COUNT = 4;
+
   constructor() { }
 
   public ngOnInit(): void {
-      if (this.links.length < this.TOTAL_LINKS_COUNT) {
-          this.links = this.links.filter(l => l.data.title !== "All");
-      }
+    if (this.links.length < this.TOTAL_LINKS_COUNT) {
+      this.links = this.links.filter(l => l.data.title !== 'All');
+    }
   }
 
-  onRadioChange() {
+  public onRadioChange(): void {
     this.propagateChange(this.selectedLink);
   }
 
-  onTouched(): any { }
-  onChange(): any {}
-  propagateChange: any = () => { };
-  writeValue(value) { this.selectedLink = value; }
-  registerOnChange(fn) { this.propagateChange = fn; }
-  registerOnTouched(fn) { this.onTouched = fn; }
+  public onTouched(): any { }
+
+  public onChange(): any { }
+
+  public propagateChange: any = () => { };
+
+  public writeValue(value) { this.selectedLink = value; }
+
+  public registerOnChange(fn) { this.propagateChange = fn; }
+
+  public registerOnTouched(fn) { this.onTouched = fn; }
 }

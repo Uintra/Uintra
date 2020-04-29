@@ -6,17 +6,19 @@ import { HttpClient } from '@angular/common/http';
 })
 export class CommentsService {
 
+  private routePrefix = '/ubaseline/api/comments/';
+
   constructor(private http: HttpClient) { }
 
-  onCreate(data) {
-    return this.http.post('/ubaseline/api/comments/add', data).toPromise();
+  public onCreate = (data) => {
+    return this.http.post(`${this.routePrefix}add`, data);
   }
 
-  deleteComment(data) {
-    return this.http.delete(`ubaseline/api/comments/delete?targetId=${data.targetId}&targetType=${data.targetType}&commentId=${data.commentId}`, {}).toPromise();
+  public deleteComment = (data) => {
+    return this.http.delete(`${this.routePrefix}delete?targetId=${data.targetId}&targetType=${data.targetType}&commentId=${data.commentId}`, {});
   }
 
-  editComment(data) {
-    return this.http.put('/ubaseline/api/comments/edit', data).toPromise();
+  public editComment = (data) => {
+    return this.http.put(`${this.routePrefix}edit`, data);
   }
 }

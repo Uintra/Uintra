@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
-import { UbaselineCoreModule } from '@ubaseline/next';
+import { UbaselineCoreModule } from 'ubaseline-next-for-uintra';
 import { SearchPage } from './search-page.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { TagMultiselectModule } from 'src/app/feature/reusable/inputs/tag-multiselect/tag-multiselect.module';

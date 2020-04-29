@@ -1,58 +1,45 @@
-import { Injectable } from "@angular/core";
-import { HttpClient, HttpParams } from "@angular/common/http";
-import { Subject} from "rxjs";
-import {
-  ISocialCreateModel,
-  INewsCreateModel,
-  ISocialEdit
-} from "./activity.interfaces";
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Subject } from 'rxjs';
+import { ISocialCreateModel, INewsCreateModel, ISocialEdit } from './activity.interfaces';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class ActivityService {
   private feedRefreshTrigger = new Subject();
+  private routePrevix = '/ubaseline/api/';
+
   feedRefreshTrigger$ = this.feedRefreshTrigger.asObservable();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  submitSocialContent(data: ISocialCreateModel) {
-    return this.http
-      .post("/ubaseline/api/social/create", data)
-      .toPromise();
-  }
-  updateSocial(model: ISocialEdit) {
-    return this.http.put("/ubaseline/api/social/Update", model);
-  }
+  public submitSocialContent = (data: ISocialCreateModel) =>
+    this.http.post(`${this.routePrevix}social/create`, data)
 
+  public updateSocial = (model: ISocialEdit) =>
+    this.http.put(`${this.routePrevix}social/Update`, model)
 
-  public deleteSocial(id: string) {
-    return this.http.delete("/ubaseline/api/social/Delete", {
-      params: new HttpParams().set("id", id)
-    });
-  }
+  public deleteSocial = (id: string) =>
+    this.http.delete(`${this.routePrevix}social/Delete`, {
+      params: new HttpParams().set('id', id)
+    })
 
-  updateNews(model: INewsCreateModel) {
-    return this.http.put("/ubaseline/api/newsApi/edit", model);
-  }
+  public updateNews = (model: INewsCreateModel) =>
+    this.http.put(`${this.routePrevix}newsApi/edit`, model)
 
-  submitNewsContent(data: INewsCreateModel) {
-    return this.http.post("/ubaseline/api/newsApi/create", data);
-  }
+  public submitNewsContent = (data: INewsCreateModel) =>
+    this.http.post(`${this.routePrevix}newsApi/create`, data)
 
-  createEvent(data) {
-    return this.http.post("/ubaseline/api/events/create", data);
-  }
+  public createEvent = (data) =>
+    this.http.post(`${this.routePrevix}events/create`, data)
 
-  updateEvent(data) {
-    return this.http.put("/ubaseline/api/events/edit", data);
-  }
+  public updateEvent = (data) =>
+    this.http.put(`${this.routePrevix}events/edit`, data)
 
-  hideEvent(id, isNotificationNeeded) {
-    return this.http.post(`/ubaseline/api/events/hide?id=${id}&isNotificationNeeded=${isNotificationNeeded}`, {})
-  }
+  public hideEvent = (id, isNotificationNeeded) =>
+    this.http.post(`${this.routePrevix}events/hide?id=${id}&isNotificationNeeded=${isNotificationNeeded}`, {})
 
-  refreshFeed() {
-    this.feedRefreshTrigger.next();
-  }
+  public refreshFeed = (): void =>
+    this.feedRefreshTrigger.next()
 }

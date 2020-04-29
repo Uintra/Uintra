@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
-import { UbaselineCoreModule } from '@ubaseline/next';
+import { UbaselineCoreModule } from 'ubaseline-next-for-uintra';
 import { UintraGroupsRoomPage } from './uintra-groups-room-page.component';
 import { UlinkModule } from 'src/app/shared/pipes/link/ulink.module';
 import { CanDeactivateGuard } from 'src/app/shared/services/general/can-deactivate.service';

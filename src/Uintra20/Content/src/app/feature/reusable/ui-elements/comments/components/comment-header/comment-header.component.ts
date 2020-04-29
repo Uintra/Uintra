@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { ICommentHeader } from 'src/app/shared/interfaces/components/comments/header/comment-header.interface';
 
 @Component({
   selector: 'app-comment-header',
@@ -6,15 +7,14 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./comment-header.component.less']
 })
 export class CommentHeaderComponent implements OnInit {
-  @Input() data: any;
+  @Input() data: ICommentHeader;
   @Output() toggleReply = new EventEmitter();
   @Output() toggleEditingMode = new EventEmitter();
   @Output() commentDelete = new EventEmitter();
 
   constructor() { }
 
-  ngOnInit() {
-  }
+  public ngOnInit(): void { }
 
   onToggleReply() {
     this.toggleReply.emit();

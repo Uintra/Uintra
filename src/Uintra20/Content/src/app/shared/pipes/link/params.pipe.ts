@@ -1,5 +1,4 @@
-import { Pipe, PipeTransform } from "@angular/core";
-import { UmbracoFlatPropertyModel } from "@ubaseline/next";
+import { Pipe, PipeTransform } from '@angular/core';
 
 interface IULinkParam {
   name: string;
@@ -7,13 +6,10 @@ interface IULinkParam {
 }
 
 @Pipe({
-  name: "uparams"
+  name: 'uparams'
 })
 export class ParamsPipe implements PipeTransform {
-  transform(value: UmbracoFlatPropertyModel | Array<IULinkParam>): object {
-    if (value instanceof UmbracoFlatPropertyModel) {
-      return this.reduceUFPParams(value);
-    }
+  transform(value: Array<IULinkParam>): object {
 
     if (Array.isArray(value)) {
       return this.reduceSimpleParams(value);
@@ -22,18 +18,9 @@ export class ParamsPipe implements PipeTransform {
     return {};
   }
 
-  reduceUFPParams(value): object {
-    const paramsArray = Object.values(value.get());
-
-    return paramsArray.reduce((acc, val: { data: IULinkParam }) => {
-      acc[val.data.name] = val.data.value;
-      return acc;
-    }, {}) as object;
-  }
-
   reduceSimpleParams(value): object {
     return value.reduce((acc, val) => {
-      acc[val.name] = val.value;
+      acc[val.name] = val.data;
       return acc;
     }, {});
   }

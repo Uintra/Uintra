@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { finalize } from 'rxjs/operators';
+import { IUserNavigation } from '../../reusable/ui-elements/comments/components/user-navigation/user-navigation.interface';
+import { UserNavigationService } from './services/user-navigation.service';
+import { Subscription } from 'rxjs';
 
 export enum IconType {
   'icon-umbraco-logo' = 1,
@@ -15,50 +18,57 @@ export enum IconType {
   templateUrl: './user-navigation.component.html',
   styleUrls: ['./user-navigation.component.less']
 })
-export class UserNavigationComponent implements OnInit {
-  public inProgress: boolean;
-  data: any;
-  navigationExpanded: boolean;
+export class UserNavigationComponent implements OnInit, OnDestroy {
 
-  get isNavigationExpanded() {
+  private $navigation: Subscription;
+  private $redirect: Subscription;
+
+  public inProgress: boolean;
+  public data: IUserNavigation;
+  public navigationExpanded: boolean;
+
+  public get isNavigationExpanded() {
     return this.navigationExpanded;
   }
 
-  constructor(
-    private router: Router,
-    private http: HttpClient) { }
+  constructor(private userNavigationService: UserNavigationService) { }
 
-  ngOnInit() {
-    this.http.get('/ubaseline/api/IntranetNavigation/TopNavigation')
-    .subscribe(res => {
-      this.data = res;
-    });
+  public ngOnInit(): void {
+    this.$navigation = this.userNavigationService.topNavigation()
+      .subscribe((next: IUserNavigation) => {
+        this.data = next;
+      });
   }
 
-  toggleUserNavigation(e) {
+  public ngOnDestroy(): void {
+    if (this.$navigation) { this.$navigation.unsubscribe(); }
+    if (this.$redirect) { this.$redirect.unsubscribe(); }
+  }
+
+  public toggleUserNavigation(e): void {
     e.stopPropagation();
     this.navigationExpanded = !this.navigationExpanded;
   }
 
-  closeUserNavigation() {
+  public closeUserNavigation(): void {
     this.navigationExpanded = false;
   }
 
-  getClass(type) {
+  public getClass(type) {
     return IconType[type];
   }
 
-  redirect(url, type) {
+  public redirect(url, type): void {
     this.inProgress = true;
 
-    if (type == 1) {
-      this.http.post(url.originalUrl, null).pipe(
+    if (type === 1) {
+      this.$redirect = this.userNavigationService.redirect(url.originalUrl).pipe(
         finalize(() => {
           this.inProgress = false;
         })
       ).subscribe(
         (next) => {
-          window.open(window.location.origin + "/umbraco", "_blank");
+          window.open(window.location.origin + '/umbraco', '_blank');
         },
         (error) => {
           if (error.status === 403) {
@@ -68,12 +78,12 @@ export class UserNavigationComponent implements OnInit {
       );
     }
 
-    if (type == 4) {
-      this.http.post(url.originalUrl, null).pipe(
+    if (type === 4) {
+      this.$redirect = this.userNavigationService.redirect(url.originalUrl).pipe(
         finalize(() => {
           this.inProgress = false;
         })
-      ).subscribe(() => { window.location.href = '/login'; })
+      ).subscribe(() => { window.location.href = '/login'; });
     }
   }
 }

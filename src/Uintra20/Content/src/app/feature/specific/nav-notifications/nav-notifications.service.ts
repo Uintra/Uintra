@@ -1,41 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { IULink } from 'src/app/shared/interfaces/general.interface';
-
-export interface INotificationsListData {
-  notificationPageUrl: string;
-  notifications: Array<INotificationsData>;
-}
-
-export interface INotificationsData {
-  id: string;
-  date: string;
-  isNotified: boolean;
-  isViewed: boolean;
-  type: number;
-
-  notifier: {
-    id: string;
-    displayedName: string;
-    photo: string;
-    photoId: number;
-    email: string;
-    loginName: string;
-    inactive: boolean;
-  };
-
-  value: {
-    message: string;
-    url: IULink;
-    notifierId: string;
-    isPinned: boolean;
-    isPinActual: boolean;
-    desktopMessage: string;
-    desktopTitle: string;
-    isDesktopNotificationEnabled: boolean;
-  };
-}
+import { INotificationsListData } from 'src/app/shared/interfaces/pages/notifications/notifications-page.interface';
 
 @Injectable({
   providedIn: 'root'

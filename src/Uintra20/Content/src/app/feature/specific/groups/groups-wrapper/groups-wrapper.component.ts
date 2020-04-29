@@ -9,17 +9,17 @@ import { GroupsService } from '../groups.service';
   styleUrls: ['./groups-wrapper.component.less']
 })
 export class GroupsWrapperComponent implements OnInit {
-  @Input() data: IGroupsData;
-  breadcrumbs: IBreadcrumbsItem[];
-  tabs: IUlinkWithTitle[];
+
+  @Input() public data: IGroupsData;
+  public breadcrumbs: IBreadcrumbsItem[];
+  public tabs: IUlinkWithTitle[];
 
   constructor(private groupsService: GroupsService) { }
 
-  ngOnInit() {
+  public ngOnInit(): void {
     this.groupsService.getBreadcrumbs().subscribe((res: IBreadcrumbsItem[]) => {
       this.breadcrumbs = res;
-    })
-    this.tabs = [this.data.groupPageItem, ...Object.values(this.data.items)];
+    });
+    this.tabs = [this.data.groupPageItem, ...this.data.items];
   }
-
 }
