@@ -59,7 +59,8 @@ export class EventFormComponent implements OnInit, AfterViewInit {
 
     this.publishDatepickerOptions = {
       showClose: true,
-      minDate: this.edit ?  moment(this.initialDates.publishDate) : moment().subtract(5, "seconds").format(),
+      format: "DD/MM/YYYY HH:mm",
+      minDate: this.edit ? moment(this.initialDates.publishDate) : moment().subtract(5, "seconds").format(),
       ignoreReadonly: true
     };
 

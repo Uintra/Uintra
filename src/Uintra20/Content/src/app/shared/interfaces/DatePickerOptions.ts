@@ -4,5 +4,6 @@ export interface IDatePickerOptions {
   showClear?: boolean;
   useCurrent?: boolean;
   showClose?: boolean;
+  format?: string;
   ignoreReadonly?: boolean;
 }
