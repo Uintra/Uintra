@@ -7,7 +7,7 @@ import { HasDataChangedService } from 'src/app/shared/services/general/has-data-
 import { CanDeactivateGuard } from 'src/app/shared/services/general/can-deactivate.service';
 import { GroupsService } from 'src/app/feature/specific/groups/groups.service';
 import { TranslateService } from '@ngx-translate/core';
-import { ResolveService } from '@ubaseline/next';
+import { ResolveService } from 'ubaseline-next-for-uintra';
 import { IUintraGroupsRoomPage } from 'src/app/shared/interfaces/pages/uintra-groups/room/uintra-groups-room-page.interface';
 import { ISocialCreate } from 'src/app/shared/interfaces/components/social/create/social-create.interface';
 

@@ -1,6 +1,6 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { AS_DYNAMIC_COMPONENT, UbaselineCoreModule } from "@ubaseline/next";
+import { AS_DYNAMIC_COMPONENT, UbaselineCoreModule } from "ubaseline-next-for-uintra";
 import { RouterModule } from "@angular/router";
 import { SocialDetailsPanelComponent } from "./social-details-page.component";
 import { LikeButtonModule } from 'src/app/feature/reusable/ui-elements/like-button/like-button.module';

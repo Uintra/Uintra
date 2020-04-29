@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { MyLinksService, IMyLink } from "./my-links.service";
-import { PageIdService } from "@ubaseline/next";
+import { PageIdService } from "ubaseline-next-for-uintra";
 
 @Component({
   selector: "app-my-links",

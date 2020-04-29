@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { AS_DYNAMIC_COMPONENT } from '@ubaseline/next';
+import { AS_DYNAMIC_COMPONENT } from 'ubaseline-next-for-uintra';
 import { UserListPanel } from './user-list-panel.component';
 import { UserListModule } from 'src/app/feature/specific/search/user-list/user-list.module';
 

@@ -2,7 +2,7 @@ import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
 
-import { AS_DYNAMIC_COMPONENT, NotImplementedModule } from "@ubaseline/next";
+import { AS_DYNAMIC_COMPONENT, NotImplementedModule } from "ubaseline-next-for-uintra";
 import { CentralFeedPanel } from "./central-feed-panel.component";
 import { CentralFeedPublicationComponent } from "./central-feed-publication/central-feed-publication.component";
 import { InfiniteScrollModule } from "ngx-infinite-scroll";

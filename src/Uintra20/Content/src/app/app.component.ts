@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, ActivationStart, ChildActivationStart } from '@angular/router';
 import { LoginPage } from './ui/pages/login/login-page.component';
 import { TranslateService } from '@ngx-translate/core';
-import { SiteSettingsService, ISiteSettings } from '@ubaseline/next';
+import { SiteSettingsService, ISiteSettings } from 'ubaseline-next-for-uintra';
 import { IApplication } from './shared/interfaces/components/application/iapplication.interface';
 
 @Component({
