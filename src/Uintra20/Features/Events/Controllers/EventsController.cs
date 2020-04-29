@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web.Http;
 using AutoMapper;
+using Microsoft.AspNet.SignalR;
 using UBaseline.Core.Controllers;
 using Uintra20.Attributes;
 using Uintra20.Core.Activity;
@@ -15,6 +16,7 @@ using Uintra20.Features.Links;
 using Uintra20.Features.Media;
 using Uintra20.Features.Media.Enums;
 using Uintra20.Features.Media.Helpers;
+using Uintra20.Features.Notification;
 using Uintra20.Features.Notification.Configuration;
 using Uintra20.Features.Notification.Services;
 using Uintra20.Features.Permissions;
@@ -83,7 +85,7 @@ namespace Uintra20.Features.Events.Controllers
             ResolveMentions(createModel.Description, @event);
 
             var redirectUrl = _activityLinkService.GetLinks(activityId).Details;
-
+            ReloadFeed();
             return Ok(redirectUrl);
         }
 
@@ -112,12 +114,12 @@ namespace Uintra20.Features.Events.Controllers
             ResolveMentions(editModel.Description, activity);
 
             var redirectUrl = _activityLinkService.GetLinks(activity.Id).Details;
-
+            ReloadFeed();
             return Ok(redirectUrl);
         }
 
         [HttpPost]
-        public virtual void Hide(Guid id, bool isNotificationNeeded)
+        public void Hide(Guid id, bool isNotificationNeeded)
         {
             if (_eventsService.CanHide(id))
             {
@@ -128,6 +130,13 @@ namespace Uintra20.Features.Events.Controllers
                     ((INotifyableService)_eventsService).Notify(id, NotificationTypeEnum.EventHidden);
                 }
             }
+            ReloadFeed();
+        }
+        
+        public void ReloadFeed()
+        {
+            var hubContext = GlobalHost.ConnectionManager.GetHubContext<UintraHub>();
+            hubContext.Clients.All.reloadFeed();
         }
 
         private Event MapToEvent(EventCreateModel createModel)
