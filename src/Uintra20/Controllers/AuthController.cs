@@ -125,7 +125,7 @@ namespace Uintra20.Controllers
             _memberServiceHelper.SetFirstLoginPerformed(member);
             var notifications = _popupNotificationService.Get(member.Key).Map<IEnumerable<PopupNotificationViewModel>>();
             var hubContext = GlobalHost.ConnectionManager.GetHubContext<UintraHub>();
-            hubContext.Clients.User(member.Key.ToString()).updateNotifications(notifications);
+            hubContext.Clients.User(member.Key.ToString()).showPopup(notifications);
         }
     }
 }
