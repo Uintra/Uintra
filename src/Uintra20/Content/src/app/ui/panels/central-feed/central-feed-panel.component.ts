@@ -36,7 +36,9 @@ export class CentralFeedPanel implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     this.tabs = this.filtersBuilder();
-    this.signalrService.getReloadFeedSubjects().subscribe(s => {
+    // this.signalrService.getReloadFeedSubjects().subscribe(s => {
+    this.signalrService.getUpdateShowPopUp().subscribe(s => {
+      debugger
       this.reloadFeed();
     });
   }
