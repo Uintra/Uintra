@@ -7,6 +7,7 @@ import { ILikeData } from '../../../like-button/like-button.interface';
 import { RTEStripHTMLService } from 'src/app/feature/specific/activity/rich-text-editor/helpers/rte-strip-html.service';
 import { ILinkPreview } from 'src/app/feature/reusable/inputs/rich-text-editor/rich-text-editor.interface';
 import { RichTextEditorService } from 'src/app/feature/reusable/inputs/rich-text-editor/rich-text-editor.service';
+import { IntranetEntity } from 'src/app/shared/enums/intranet-entity.enum';
 
 @Component({
   selector: 'app-comment-item',
@@ -59,7 +60,7 @@ export class CommentItemComponent implements OnInit {
     this.likeModel = {
       likedByCurrentUser: !!parsed.likeModel.likedByCurrentUser,
       id: this.data.id,
-      activityType: this.commentsActivity,
+      activityType: IntranetEntity.Comment,
       likes: parsed.likes,
     };
   }
@@ -84,17 +85,17 @@ export class CommentItemComponent implements OnInit {
   }
 
   onSubmitEditedValue(subcomment?) {
-    if (subcomment) {this.isReplyEditingInProgress = true}
+    if (subcomment) { this.isReplyEditingInProgress = true }
     this.isEditSubmitLoading = true;
     this.commentsService.editComment(
       this.buildComment(subcomment)
-      ).then((res: any) => {
-        this.editComment.emit(res.comments);
-        this.toggleEditingMode();
-      }).finally(() => {
-        this.isEditSubmitLoading = false;
-        this.isReplyEditingInProgress = false;
-      });
+    ).then((res: any) => {
+      this.editComment.emit(res.comments);
+      this.toggleEditingMode();
+    }).finally(() => {
+      this.isEditSubmitLoading = false;
+      this.isReplyEditingInProgress = false;
+    });
   }
 
   onToggleReply() {
@@ -108,7 +109,7 @@ export class CommentItemComponent implements OnInit {
       parentId: this.data.id,
       description: this.subcommentDescription,
       linkPreviewId: this.replyLinkPreviewId
-     });
+    });
     this.RTEService.linkPreviewSource.next(null);
     this.RTEService.cleanLinksToSkip();
   }

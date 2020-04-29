@@ -5,6 +5,7 @@ import { ILikeData } from '../../../like-button/like-button.interface.js';
 import { RTEStripHTMLService } from 'src/app/feature/specific/activity/rich-text-editor/helpers/rte-strip-html.service.js';
 import { ILinkPreview } from 'src/app/feature/reusable/inputs/rich-text-editor/rich-text-editor.interface.js';
 import { RichTextEditorService } from 'src/app/feature/reusable/inputs/rich-text-editor/rich-text-editor.service.js';
+import { IntranetEntity } from 'src/app/shared/enums/intranet-entity.enum.js';
 
 @Component({
   selector: 'app-subcomment-item',
@@ -43,7 +44,7 @@ export class SubcommentItemComponent implements OnInit {
     this.likeModel = {
       likedByCurrentUser: !!parsed.likeModel.likedByCurrentUser,
       id: this.data.id,
-      activityType: this.commentsActivity,
+      activityType: IntranetEntity.Comment,
       likes: parsed.likes,
     };
   }
