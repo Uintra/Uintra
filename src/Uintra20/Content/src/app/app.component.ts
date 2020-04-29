@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, ActivationStart, ChildActivationStart } from '@angular/router';
 import { LoginPage } from './ui/pages/login/login-page.component';
 import { TranslateService } from '@ngx-translate/core';
-import { SiteSettingsService, ISiteSettings } from 'ubaseline-next-for-uintra';
 import { IApplication } from './shared/interfaces/components/application/iapplication.interface';
 
 @Component({
@@ -16,7 +15,6 @@ export class AppComponent implements OnInit {
   public isLoginPage = true;
   public hasLeftLoginPage = true;
   public hasPanels = false;
-  public siteSettings: ISiteSettings;
 
   public data: IApplication;
   public latestActivities: any;
@@ -24,7 +22,6 @@ export class AppComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private translateService: TranslateService,
-    private siteSettingsService: SiteSettingsService,
   ) {
     this.route.data.subscribe((data: IApplication) => {
       this.data = data;
@@ -37,10 +34,7 @@ export class AppComponent implements OnInit {
           this.isLoginPage = val.snapshot.component === LoginPage;
           if (this.isLoginPage) {
             this.hasLeftLoginPage = false;
-            this.siteSettingsService.getSiteSettings().then((res: ISiteSettings) => {
-              this.siteSettings = res;
-            });
-            document.title = `Login ${this.siteSettings.pageTitleSeparator} ${this.siteSettings.siteTitle}`;
+            document.title = 'Login | Uintra';
           }
         }
       }
