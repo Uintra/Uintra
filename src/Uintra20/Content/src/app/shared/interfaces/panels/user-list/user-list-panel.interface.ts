@@ -7,4 +7,5 @@ export interface IUserListPanel {
     name?: any;
     nodeType?: number;
     url?: string;
+    customTitle?: string;
 }

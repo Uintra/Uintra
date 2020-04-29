@@ -24,6 +24,7 @@
                                   (ngModelChange)="onDescriptionChange($event)"
                                   formControlName="description"
                                   [isDropzone]="false"
+                                  (linkPreview)="addLinkPreview($event)"
                                   [placeholder]="'socialsCreate.FormPlaceholder.lbl' | translate">
             </app-rich-text-editor>
           </div>

@@ -6,6 +6,7 @@ using Uintra20.Core.Member.Models;
 using Uintra20.Features.CentralFeed.Models.GroupFeed;
 using Uintra20.Features.Likes;
 using Uintra20.Features.Likes.Models;
+using Uintra20.Features.LinkPreview.Models;
 using Uintra20.Features.Links.Models;
 using Uintra20.Features.Location.Models;
 
@@ -33,5 +34,7 @@ namespace Uintra20.Core.Activity.Models
         public string Description { get; set; }
         public GroupInfo? GroupInfo { get; set; }
         public bool IsGroupMember { get; set; }
+        public int? LinkPreviewId { get; set; }
+        public LinkPreview LinkPreview { get; set; }
     }
 }

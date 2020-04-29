@@ -18,6 +18,7 @@ namespace Uintra20.Features.Social.Models
         [RequiredIfEmpty(OtherProperty = nameof(Description))]
         public string NewMedia { get; set; }
         public int? LinkPreviewId { get; set; }
+        public LinkPreview.Models.LinkPreview LinkPreview { get; set; }
         public Guid? GroupId { get; set; }
         public IEnumerable<Guid> TagIdsData { get; set; }
     }

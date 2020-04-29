@@ -6,7 +6,7 @@ namespace Uintra20.Features.Reminder.Services
 {
     public interface IReminderService
     {
-        Notification.Sql.Reminder CreateIfNotExists(Guid activityId, ReminderTypeEnum type);
+        void CreateIfNotExists(Guid activityId, ReminderTypeEnum type);
         void SetAsDelivered(Guid id);
         IEnumerable<Notification.Sql.Reminder> GetAllNotDelivered();
     }

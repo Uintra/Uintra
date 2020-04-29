@@ -50,6 +50,7 @@
       <app-rich-text-editor [ngModel]="description"
                             (ngModelChange)="onDescriptionChange($event)"
                             (addAttachment)="addAttachment()"
+                            (linkPreview)="addLinkPreview($event)"
                             [isUnderline]="false"
                             [placeholder]="'socialsCreate.FormPlaceholder.lbl' | translate">
         <button submit

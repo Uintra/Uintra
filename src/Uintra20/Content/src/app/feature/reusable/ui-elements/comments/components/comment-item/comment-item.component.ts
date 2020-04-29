@@ -7,6 +7,9 @@ import { RTEStripHTMLService } from 'src/app/feature/specific/activity/rich-text
 import { finalize } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { ICommentItem } from 'src/app/shared/interfaces/components/comments/item/comment-item.interface';
+import { ILinkPreview } from 'src/app/feature/reusable/inputs/rich-text-editor/rich-text-editor.interface';
+import { RichTextEditorService } from 'src/app/feature/reusable/inputs/rich-text-editor/rich-text-editor.service';
+import { IntranetEntity } from 'src/app/shared/enums/intranet-entity.enum';
 
 @Component({
   selector: 'app-comment-item',
@@ -41,6 +44,9 @@ export class CommentItemComponent implements OnInit, OnDestroy {
   public sanitizedContent: SafeHtml;
   public isEditSubmitLoading: boolean;
   public isReplyEditingInProgress: boolean;
+  linkPreview: ILinkPreview;
+  replyLinkPreviewId: number;
+  editLinkPreviewId: number;
 
   public get isSubcommentSubmitDisabled() {
     return this.stripHTML.isEmpty(this.subcommentDescription) || this.isReplyInProgress;
@@ -53,7 +59,8 @@ export class CommentItemComponent implements OnInit, OnDestroy {
   constructor(
     private commentsService: CommentsService,
     private sanitizer: DomSanitizer,
-    private stripHTML: RTEStripHTMLService) { }
+    private stripHTML: RTEStripHTMLService,
+    private RTEService: RichTextEditorService) { }
 
   public ngOnDestroy(): void {
     if (this.$editCommentSubscription) { this.$editCommentSubscription.unsubscribe(); }
@@ -63,11 +70,12 @@ export class CommentItemComponent implements OnInit, OnDestroy {
     this.editedValue = this.data.text.toString();
     this.sanitizedContent = this.sanitizer.bypassSecurityTrustHtml(this.data.text.toString());
     this.commentCreator = this.data.creator;
+    this.linkPreview = this.data.linkPreview;
     this.likeModel = {
       likedByCurrentUser: !!this.data.likeModel.likedByCurrentUser,
       id: this.data.id,
-      activityType: this.commentsActivity,
-      likes: this.data.likes,
+      activityType: IntranetEntity.Comment,
+      likes: this.data.likes
     };
   }
 
@@ -86,6 +94,8 @@ export class CommentItemComponent implements OnInit, OnDestroy {
     } else {
       this.editedValue = this.initialValue;
     }
+    this.RTEService.linkPreviewSource.next(null);
+    this.RTEService.cleanLinksToSkip();
   }
 
   public onSubmitEditedValue(subcomment?): void {
@@ -106,10 +116,18 @@ export class CommentItemComponent implements OnInit, OnDestroy {
 
   public onToggleReply(): void {
     this.isReply = !this.isReply;
+    this.RTEService.linkPreviewSource.next(null);
+    this.RTEService.cleanLinksToSkip();
   }
 
-  public onCommentReply(): void {
-    this.replyComment.emit({ parentId: this.data.id, description: this.subcommentDescription });
+  onCommentReply() {
+    this.replyComment.emit({
+      parentId: this.data.id,
+      description: this.subcommentDescription,
+      linkPreviewId: this.replyLinkPreviewId
+    });
+    this.RTEService.linkPreviewSource.next(null);
+    this.RTEService.cleanLinksToSkip();
   }
 
   private buildComment(subcomment?) {
@@ -118,6 +136,15 @@ export class CommentItemComponent implements OnInit, OnDestroy {
       EntityId: subcomment ? subcomment.entityId : this.data.activityId,
       EntityType: this.activityType,
       Text: subcomment ? subcomment.text : this.editedValue,
+      linkPreviewId: subcomment ? subcomment.linkPreviewId : this.editLinkPreviewId,
     };
+  }
+
+  addReplyLinkPreview(linkPreviewId: number) {
+    this.replyLinkPreviewId = linkPreviewId;
+  }
+
+  addEditLinkPreview(linkPreviewId: number) {
+    this.editLinkPreviewId = linkPreviewId;
   }
 }

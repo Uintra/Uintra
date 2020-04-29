@@ -2,6 +2,7 @@ import { ITagData } from '../../reusable/inputs/tag-multiselect/tag-multiselect.
 import { ActivityEnum } from 'src/app/shared/enums/activity-type.enum';
 import { IULink } from 'src/app/shared/interfaces/general.interface';
 import { IGroupDetailsHeaderData } from '../groups/groups.interface';
+import { ILinkPreview } from '../../reusable/inputs/rich-text-editor/rich-text-editor.interface';
 
 export interface ISocialCreateModel {
   description: string;
@@ -9,6 +10,7 @@ export interface ISocialCreateModel {
   newMedia: string;
   tagIdsData: string[];
   groupId?: string;
+  linkPreviewId?: number;
 }
 
 export interface INewsCreateModel {
@@ -51,6 +53,7 @@ export interface ISocialEdit {
   mediaRootId: number;
   canEdit?: boolean;
   canDelete?: boolean;
+  linkPreviewId?: number;
 
   location?: {
     address?: string;
@@ -78,6 +81,7 @@ export interface ISocialDetails {
   publishDate: Date;
   links: IActivityLinks;
   location: ILocation;
+  linkPreview?: ILinkPreview;
 }
 export interface ILocation {
   address: string;

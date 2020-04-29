@@ -29,8 +29,17 @@ export class SearchService {
   public userListSearch = (data: IUserListRequest): Observable<IUserListData> =>
     this.http.post<IUserListData>(`${this.prefix}UserList/GetUsers`, data)
 
-  public changeMemberStatus = (data: IMemberStatusRequest): Observable<any> =>
-    this.http.put(`${this.prefix}userlist/assign`, data)
+  userListSearchForInvitation(data: IUserListRequest): Observable<IUserListData> {
+    return this.http.post<IUserListData>("/ubaseline/api/UserList/ForInvitation", data)
+  }
+
+  userListInvite(data: IMemberStatusRequest) {
+    return this.http.post<IUserListData>("/ubaseline/api/UserList/InviteMember", data)
+  }
+
+  changeMemberStatus(data: IMemberStatusRequest) {
+    return this.http.put("/ubaseline/api/userlist/assign", data);
+  }
 
   public deleteMember = (data: IDeleteMemberRequest): Observable<any> =>
     this.http.delete(`${this.prefix}userList/ExcludeUserFromGroup?groupId=${data.groupId}&userId=${data.userId}`)

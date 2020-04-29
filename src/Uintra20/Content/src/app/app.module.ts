@@ -55,7 +55,7 @@ import { TranslationsLoader } from './shared/services/general/translations-loade
     { provide: DYNAMIC_COMPONENTS, useValue: panels },
     { provide: UrlSerializer, useClass: CustomUrlSerializer },
     HasDataChangedService,
-    CanDeactivateGuard
+    CanDeactivateGuard,
   ],
   bootstrap: [AppComponent]
 })

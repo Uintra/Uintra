@@ -7,7 +7,6 @@ using UBaseline.Core.Controllers;
 using UBaseline.Core.Node;
 using UBaseline.Core.RequestContext;
 using Uintra20.Core.Member.Entities;
-using Uintra20.Core.Member.Helpers;
 using Uintra20.Core.Member.Services;
 using Uintra20.Features.Notification.Models;
 using Uintra20.Features.Notification.Services;
@@ -30,9 +29,7 @@ namespace Uintra20.Features.Notification.Controllers
             INodeModelService nodeModelService,
             IUiNotificationService uiNotifierService,
             IPopupNotificationService popupNotificationService,
-            IMemberNotifiersSettingsService memberNotifiersSettingsService,
-            IIntranetMemberService<IntranetMember> intranetMemberService,
-            IMemberServiceHelper memberHelper)
+            IIntranetMemberService<IntranetMember> intranetMemberService)
         {
             _requestContext = requestContext;
             _nodeModelService = nodeModelService;
@@ -99,16 +96,6 @@ namespace Uintra20.Features.Notification.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<PopupNotificationViewModel>> GetPopupNotifications()
-        {
-            var receiverId = await _intranetMemberService.GetCurrentMemberIdAsync();
-            var notifications = (await _popupNotificationService.GetAsync(receiverId))
-                .Map<IEnumerable<PopupNotificationViewModel>>();
-
-            return notifications;
-        }
-
-        [HttpGet]
         public async Task<int> GetNotNotifiedCount()
         {
             var currentMember = await _intranetMemberService.GetCurrentMemberAsync();
@@ -125,12 +112,7 @@ namespace Uintra20.Features.Notification.Controllers
         {
             return _uiNotifierService.ViewNotificationAsync(id);
         }
-
-        [HttpPost]
-        public Task SetPopupNotificationViewed([FromBody]Guid id)
-        {
-            return _popupNotificationService.ViewNotificationAsync(id);
-        }
+        
 
         [HttpPost]
         public Task<bool> Notified(Guid id)

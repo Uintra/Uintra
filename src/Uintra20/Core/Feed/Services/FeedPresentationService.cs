@@ -84,8 +84,13 @@ namespace Uintra20.Core.Feed.Services
                     CommentsCount = _commentsService.GetCount(feedItem.Id),
                     Likes = _likesService.GetLikeModels(activity.Id),
                     GroupInfo = isGroupFeed ? null : _feedActivityHelper.GetGroupInfo(feedItem.Id),
-                    ActivityType = feedItem.Type
+                    ActivityType = feedItem.Type,
                 };
+                if (feedItem is Social social)
+                {
+                    baseModel.LinkPreviewId = social.LinkPreviewId;
+                    baseModel.LinkPreview = social.LinkPreview;
+                }
                 _lightboxHelper.FillGalleryPreview(baseModel, activity.MediaIds);
 
                 return baseModel;

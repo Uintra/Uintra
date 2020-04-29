@@ -170,4 +170,8 @@ export class SocialEditPageComponent implements OnDestroy {
 
     return true;
   }
+
+  addLinkPreview(linkPreviewId: number) {
+    this.socialEdit.linkPreviewId = linkPreviewId;
+  }
 }

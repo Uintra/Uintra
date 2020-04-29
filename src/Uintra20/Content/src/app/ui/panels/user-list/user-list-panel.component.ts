@@ -1,4 +1,5 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { IUserListPanel } from 'src/app/shared/interfaces/panels/user-list/user-list-panel.interface';
 
 @Component({
@@ -11,7 +12,11 @@ export class UserListPanel implements OnInit {
 
   public data: IUserListPanel;
 
-  constructor() { }
+  constructor(private translate: TranslateService) {}
 
-  public ngOnInit(): void { }
+  ngOnInit() {
+    if (this.data.details.groupId) {
+      this.data.customTitle = this.translate.instant('userListPanel.GroupTitle.lbl');
+    }
+  }
 }

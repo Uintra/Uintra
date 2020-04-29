@@ -43,12 +43,13 @@
            [innerHTML]="publication.description"></div>
     </a>
 
-    <div *ngIf="publication.currentMemberSubscribed"
-         class="publication__subscribed">
-      <div class="publication__subscribed-label">
-        <i class="publication__subscribed-icon icon-checkmark-icon"></i>
-        {{'centralFeed.IsSubscribed.lbl' | translate}}
-      </div>
+    <app-link-preview *ngIf="publication?.linkPreview" [firstLinkPreview]="publication.linkPreview"></app-link-preview>
+
+    <div *ngIf="publication.currentMemberSubscribed" class="publication__subscribed">
+        <div class="publication__subscribed-label">
+          <i class="publication__subscribed-icon icon-checkmark-icon"></i>
+          {{'centralFeed.IsSubscribed.lbl' | translate}}
+        </div>
     </div>
     <div *ngIf="medias.length"
          class="gallery"

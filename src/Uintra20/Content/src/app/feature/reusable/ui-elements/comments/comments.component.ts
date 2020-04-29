@@ -2,6 +2,7 @@ import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { CommentsService } from './helpers/comments.service';
 import { TranslateService } from '@ngx-translate/core';
 import { RTEStripHTMLService } from 'src/app/feature/specific/activity/rich-text-editor/helpers/rte-strip-html.service';
+import { RichTextEditorService } from '../../inputs/rich-text-editor/rich-text-editor.service';
 import { Subscription } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import { ICommentItem } from 'src/app/shared/interfaces/components/comments/item/comment-item.interface';
@@ -28,6 +29,7 @@ export class CommentsComponent implements OnInit, OnDestroy {
   public description = '';
   public inProgress: boolean;
   public isReplyInProgress: boolean;
+  linkPreviewId: number;
 
   get isSubmitDisabled(): boolean {
     const isEmpty = this.stripHTML.isEmpty(this.description);
@@ -40,7 +42,8 @@ export class CommentsComponent implements OnInit, OnDestroy {
   constructor(
     private commentsService: CommentsService,
     private stripHTML: RTEStripHTMLService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private RTEService: RichTextEditorService,
   ) { }
 
   public ngOnDestroy(): void {
@@ -58,6 +61,7 @@ export class CommentsComponent implements OnInit, OnDestroy {
       entityType: this.activityType,
       parentId: replyData ? replyData.parentId : null,
       text: replyData ? replyData.description : this.description,
+      linkPreviewId: replyData ? replyData.linkPreviewId : this.linkPreviewId
     };
     this.$createCommentSubscription = this.commentsService.onCreate(data)
       .pipe(
@@ -68,6 +72,8 @@ export class CommentsComponent implements OnInit, OnDestroy {
       .subscribe((next: any) => {
         this.comments = next.comments;
         this.description = '';
+        this.RTEService.linkPreviewSource.next(null);
+        this.RTEService.cleanLinksToSkip();
       });
   }
 
@@ -82,5 +88,9 @@ export class CommentsComponent implements OnInit, OnDestroy {
 
   public editComment(comments): void {
     this.comments = comments;
+  }
+
+  addLinkPreview(linkPreviewId: number) {
+    this.linkPreviewId = linkPreviewId;
   }
 }

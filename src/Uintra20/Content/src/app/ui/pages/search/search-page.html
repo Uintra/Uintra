@@ -41,10 +41,12 @@
              [infiniteScrollDistance]="2"
              [infiniteScrollThrottle]="250"
              [infiniteScrollDisabled]="isScrollDisabled"
+
              (scrolled)="onScroll()">
-          <a *ngFor="let result of resultsList; trackBy: trackingIndex"
-             class="search-results__item"
-             [routerLink]="result.url | ulink">
+            <a *ngFor="let result of resultsList; trackBy: trackingIndex"
+               target="_blank"
+               class="search-results__item"
+               [routerLink]="result.url | ulink">
             <div class="search-results__item-info">
               <h3 *ngIf="result.title"
                   class="search-results__item-title"

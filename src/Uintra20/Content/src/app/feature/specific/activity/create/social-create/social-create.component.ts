@@ -20,6 +20,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import { ISocialCreate } from 'src/app/shared/interfaces/components/social/create/social-create.interface';
+import { RichTextEditorService } from 'src/app/feature/reusable/inputs/rich-text-editor/rich-text-editor.service';
 
 @Component({
   selector: 'app-social-create',
@@ -43,6 +44,7 @@ export class SocialCreateComponent implements OnInit, OnDestroy {
   public inProgress = false;
   public userAvatar: IUserAvatar;
   public files: Array<any> = [];
+  linkPreviewId: number;
 
   public get isSubmitDisabled() {
     if (ParseHelper.stripHtml(this.description).length > MAX_LENGTH || this.inProgress) {
@@ -57,6 +59,7 @@ export class SocialCreateComponent implements OnInit, OnDestroy {
     private hasDataChangedService: HasDataChangedService,
     private mq: MqService,
     private translate: TranslateService,
+    private RTEService: RichTextEditorService,
   ) { }
 
   public ngOnInit(): void {
@@ -104,6 +107,7 @@ export class SocialCreateComponent implements OnInit, OnDestroy {
     this.modalService.removeClassFromRoot('disable-scroll');
     this.isPopupShowing = false;
     this.hasDataChangedService.reset();
+    this.RTEService.linkPreviewSource.next(null);
   }
 
   public showPopUp(): void {
@@ -149,7 +153,8 @@ export class SocialCreateComponent implements OnInit, OnDestroy {
   public resetForm(): void {
     this.files = [];
     this.tags = [];
-    this.description = '';
+    this.description = "";
+    this.linkPreviewId = null;
   }
 
   public onSubmit(): void {
@@ -158,7 +163,8 @@ export class SocialCreateComponent implements OnInit, OnDestroy {
       description: this.description,
       ownerId: this.data.data.creator.id,
       newMedia: this.getMediaIdsForResponse(),
-      tagIdsData: this.getTagsForResponse()
+      tagIdsData: this.getTagsForResponse(),
+      linkPreviewId: this.linkPreviewId
     };
     if (this.data.data.groupId) {
       requestModel.groupId = this.data.data.groupId;
@@ -195,5 +201,9 @@ export class SocialCreateComponent implements OnInit, OnDestroy {
     return this.mq.isTablet(this.deviceWidth)
       ? 'socialsCreate.FormPlaceholder.lbl'
       : 'socialsCreate.MobileBtn.lbl';
+  }
+
+  addLinkPreview(linkPreviewId: number) {
+    this.linkPreviewId = linkPreviewId;
   }
 }

@@ -15,11 +15,11 @@ namespace Uintra20.Features.Reminder.Services
             _reminderRepository = reminderRepository;
         }
 
-        public Notification.Sql.Reminder CreateIfNotExists(Guid activityId, ReminderTypeEnum type)
+        public void CreateIfNotExists(Guid activityId, ReminderTypeEnum type)
         {
-            if (_reminderRepository.Exists(r => r.ActivityId == activityId && r.Type == type && !r.IsDelivered))
+            if (_reminderRepository.Exists(r => r.ActivityId == activityId && r.Type == type))
             {
-                return null;
+                return;
             }
 
             var entity = new Notification.Sql.Reminder
@@ -30,7 +30,6 @@ namespace Uintra20.Features.Reminder.Services
             };
 
             _reminderRepository.Add(entity);
-            return entity;
         }
 
         public void SetAsDelivered(Guid id)

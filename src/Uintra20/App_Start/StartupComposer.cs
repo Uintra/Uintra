@@ -6,9 +6,8 @@ using LightInject;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Extensions.Configuration;
 using System.Web;
+using UBaseline.Core.Composers;
 using UBaseline.Core.Startup;
-using Uintra20.Core.UmbracoEvents;
-using Uintra20.Core.UmbracoEvents.Modules;
 using Uintra20.Models.UmbracoIdentity;
 using Umbraco.Core;
 using Umbraco.Core.Composing;
@@ -17,7 +16,7 @@ using UmbracoIdentity;
 
 namespace Uintra20
 {
-    [RuntimeLevel(MinLevel = RuntimeLevel.Boot)]
+    [ComposeAfter(typeof(ComponentComposer))]
     public class StartupComposer : IUserComposer
     {
         public void Compose(Composition composition)
@@ -57,9 +56,9 @@ namespace Uintra20
                 .RegisterConverters(assembly);
 
 			composition.Components().Append<UintraApplicationComponent>();
+            composition.Components().Append<UintraUmbracoEventComponent>();
 
-			MapperConfig.RegisterMappings(composition);
-            UmbracoEventsModule.RegisterEvents();
+            MapperConfig.RegisterMappings(composition);
         }
     }
 

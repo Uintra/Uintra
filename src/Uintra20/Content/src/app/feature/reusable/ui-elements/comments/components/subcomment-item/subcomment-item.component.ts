@@ -3,6 +3,9 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { ILikeData } from '../../../like-button/like-button.interface.js';
 import { RTEStripHTMLService } from 'src/app/feature/specific/activity/rich-text-editor/helpers/rte-strip-html.service.js';
 import { ICommentItem } from 'src/app/shared/interfaces/components/comments/item/comment-item.interface.js';
+import { ILinkPreview } from 'src/app/feature/reusable/inputs/rich-text-editor/rich-text-editor.interface.js';
+import { RichTextEditorService } from 'src/app/feature/reusable/inputs/rich-text-editor/rich-text-editor.service.js';
+import { IntranetEntity } from 'src/app/shared/enums/intranet-entity.enum.js';
 
 @Component({
   selector: 'app-subcomment-item',
@@ -17,24 +20,30 @@ export class SubcommentItemComponent implements OnInit {
   @Output() public submitEditedValue = new EventEmitter();
   @Output() public deleteComment = new EventEmitter();
 
-  public isEditing = false;
-  public initialValue = '';
-  public editedValue = '';
-  public likeModel: ILikeData;
+  isEditing = false;
+  initialValue = '';
+  editedValue = '';
+  likeModel: ILikeData;
+  linkPreview: ILinkPreview;
+  editLinkPreviewId: number;
 
   public get isEditSubmitDisabled() {
     return this.stripHTML.isEmpty(this.editedValue) || this.isReplyEditingInProgress;
   }
 
-  constructor(private sanitizer: DomSanitizer, private stripHTML: RTEStripHTMLService) { }
+  constructor(
+    private sanitizer: DomSanitizer,
+    private stripHTML: RTEStripHTMLService,
+    private RTEService: RichTextEditorService) { }
 
   public ngOnInit(): void {
     this.editedValue = this.data.text.toString();
     this.data.text = this.sanitizer.bypassSecurityTrustHtml(this.data.text.toString());
+    this.linkPreview = this.data.linkPreview;
     this.likeModel = {
       likedByCurrentUser: !!this.data.likeModel.likedByCurrentUser,
       id: this.data.id,
-      activityType: this.commentsActivity,
+      activityType: IntranetEntity.Comment,
       likes: this.data.likes,
     };
   }
@@ -44,6 +53,8 @@ export class SubcommentItemComponent implements OnInit {
     if (this.isEditing) {
       this.initialValue = this.data.text.toString();
     }
+    this.RTEService.linkPreviewSource.next(null);
+    this.RTEService.cleanLinksToSkip();
   }
 
   public onSubmitEditedValue(): void {
@@ -51,10 +62,17 @@ export class SubcommentItemComponent implements OnInit {
       id: this.data.id,
       entityId: this.data.activityId,
       text: this.editedValue,
+      linkPreviewId: this.editLinkPreviewId
     });
+    this.RTEService.linkPreviewSource.next(null);
+    this.RTEService.cleanLinksToSkip();
   }
 
   public onCommentDelete(): void {
     this.deleteComment.emit(this.data.id);
+  }
+
+  public addEditLinkPreview(linkPreviewId: number) {
+    this.editLinkPreviewId = linkPreviewId;
   }
 }

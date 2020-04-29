@@ -46,6 +46,8 @@
   </div>
 </div>
 
+<app-link-preview *ngIf="editor?.firstLinkPreview && editor?.showLinkPreview" [firstLinkPreview]="editor.firstLinkPreview" [editor]="editor"></app-link-preview>
+
 <ng-template #default>
   <button class="ql-bold" [title]="'Bold'"></button>
   <button class="ql-italic" [title]="'Italic'"></button>
