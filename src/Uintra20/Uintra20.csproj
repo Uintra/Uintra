@@ -2142,7 +2142,6 @@
     <Folder Include="Core\Feed\Web\" />
     <Folder Include="Core\Member\Events\" />
     <Folder Include="Core\Search\Indexers\Diagnostics\Services\" />
-    <Folder Include="Features\Navigation\ModelBuilders\" />
     <Folder Include="Media\" />
   </ItemGroup>
   <ItemGroup>

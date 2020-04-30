@@ -1,6 +1,6 @@
-import {ITagData} from 'src/app/feature/reusable/inputs/tag-multiselect/tag-multiselect.interface';
-import {ActivityEnum} from "../../../../shared/enums/activity-type.enum";
-import {IHeaderInfo, ILocation, IActivityLinks} from "../activity.interfaces";
+import { ITagData } from 'src/app/feature/reusable/inputs/tag-multiselect/tag-multiselect.interface';
+import { ActivityEnum } from "../../../../shared/enums/activity-type.enum";
+import { IHeaderInfo, ILocation, IActivityLinks } from "../activity.interfaces";
 
 export interface IEventsInitialDates {
   publishDate: string;
@@ -51,7 +51,24 @@ export interface IEventDetails {
 
 export interface IPublishDatepickerOptions {
   showClose: boolean;
+  format?: string;
   minDate?: any;
   maxDate?: any;
   ignoreReadonly?: boolean;
+}
+
+export interface IEventForm {
+  allowedMediaExtensions?: string;
+  canEditOwner?: boolean;
+  creator?: any;
+  endDate?: string;
+  groupId?: string;
+  links?: any;
+  members?: any;
+  pinAllowed?: boolean;
+  publishDate?: string;
+  startDate?: string;
+  selectedTags: any;
+  location: any;
+  endPinDate: any;
 }

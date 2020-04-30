@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subject, Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { SearchService } from '../search.service';
-import { Router, NavigationStart } from '@angular/router';
+import { Router, NavigationStart, ActivatedRoute } from '@angular/router';
 import { IAutocompleteItem, IMapedAutocompleteItem } from '../search.interface';
 
 @Component({
@@ -10,47 +10,53 @@ import { IAutocompleteItem, IMapedAutocompleteItem } from '../search.interface';
   templateUrl: './autocomplete.component.html',
   styleUrls: ['./autocomplete.component.less']
 })
-export class AutocompleteComponent implements OnInit {
+export class AutocompleteComponent implements OnInit, OnDestroy {
+
+  private $autocompleteSubscription: Subscription;
 
   _query = new Subject<string>();
-  inputValue: string = '';
+  inputValue = '';
   autocompleteList: IMapedAutocompleteItem[] = [];
-  hasResults: boolean = true;
+  hasResults = true;
   isFocused: boolean;
   inputValueToRestore: string;
 
   constructor(
     private searchService: SearchService,
-    private router: Router,
+    private router: Router
   ) {
     this._query.pipe(
       debounceTime(300),
       distinctUntilChanged()
     ).subscribe((value: string) => {
       if (value.trim() && value.trim().length > 1) {
-        this.searchService.autocomplete(value).subscribe((res: IAutocompleteItem[]) => {
+        this.$autocompleteSubscription = this.searchService.autocomplete(value).subscribe((res: IAutocompleteItem[]) => {
           this.autocompleteList = res.map(suggestion => ({
             ...suggestion,
             isActive: false
           }));
           this.hasResults = res.length > 0;
-        })
+        });
       } else {
         this.autocompleteList = [];
       }
-    })
+    });
   }
 
-  ngOnInit() {
+  public ngOnInit(): void {
     this.router.events.subscribe(e => {
       if (e instanceof NavigationStart) {
         this.closeAutocomplete();
         this.clearInput();
       }
-    })
+    });
   }
 
-  onKeyClick(keyCode: number) {
+  public ngOnDestroy(): void {
+    if (this.$autocompleteSubscription) { this.$autocompleteSubscription.unsubscribe(); }
+  }
+
+  public onKeyClick(keyCode: number): void {
     switch (keyCode) {
       case 13:
         this.goToSearchPage();
@@ -64,14 +70,14 @@ export class AutocompleteComponent implements OnInit {
     }
   }
 
-  onQueryChange(val: string) {
+  public onQueryChange(val: string): void {
     this.inputValue = val;
     this.inputValueToRestore = val;
-    const trimedVal = val.replace(/\s+/g, ' ')
+    const trimedVal = val.replace(/\s+/g, ' ');
     this._query.next(trimedVal);
   }
 
-  prevSuggestion() {
+  public prevSuggestion(): void {
     if (this.autocompleteList.length > 0) {
       const currentSuggestionIndex = this.autocompleteList.findIndex(suggestion => suggestion.isActive == true);
 
@@ -88,7 +94,7 @@ export class AutocompleteComponent implements OnInit {
     }
   }
 
-  nextSuggestion() {
+  public nextSuggestion(): void {
     if (this.autocompleteList.length > 0) {
       const currentSuggestionIndex = this.autocompleteList.findIndex(suggestion => suggestion.isActive == true);
 
@@ -105,7 +111,7 @@ export class AutocompleteComponent implements OnInit {
     }
   }
 
-  goToSearchPage() {
+  public goToSearchPage(): void {
     if (this.inputValue.length > 1) {
       const currentSuggestionIndex = this.autocompleteList.length
         ? this.autocompleteList.findIndex(suggestion => suggestion.isActive == true)
@@ -114,12 +120,12 @@ export class AutocompleteComponent implements OnInit {
       if (currentSuggestionIndex !== -1) {
         this.router.navigate([this.autocompleteList[currentSuggestionIndex].url.originalUrl]);
       } else {
-        this.router.navigate([`/search?query=${encodeURIComponent(this.inputValue)}`]);
+        this.router.navigate(['/search'], { queryParams: { query: this.inputValue } });
       }
     }
   }
 
-  clearActiveLink() {
+  public clearActiveLink(): void {
     if (this.autocompleteList.length > 0) {
       const currentSuggestionIndex = this.autocompleteList.findIndex(suggestion => suggestion.isActive == true);
 
@@ -129,17 +135,17 @@ export class AutocompleteComponent implements OnInit {
     }
   }
 
-  closeAutocomplete() {
+  public closeAutocomplete(): void {
     this.isFocused = false;
   }
 
-  openAutocomplete() {
+  public openAutocomplete(): void {
     this.isFocused = true;
   }
 
-  clearInput() {
-    this.inputValue = "";
-    this.inputValueToRestore = "";
+  public clearInput(): void {
+    this.inputValue = '';
+    this.inputValueToRestore = '';
     this.autocompleteList = [];
     this._query.next('');
   }

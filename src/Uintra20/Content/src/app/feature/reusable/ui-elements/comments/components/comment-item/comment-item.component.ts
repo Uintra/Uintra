@@ -1,46 +1,58 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { CommentsService } from '../../helpers/comments.service';
-import ParseHelper from 'src/app/shared/utils/parse.helper';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ICreator } from 'src/app/shared/interfaces/general.interface';
 import { ILikeData } from '../../../like-button/like-button.interface';
 import { RTEStripHTMLService } from 'src/app/feature/specific/activity/rich-text-editor/helpers/rte-strip-html.service';
+import { finalize } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+import { ICommentItem } from 'src/app/shared/interfaces/components/comments/item/comment-item.interface';
 import { ILinkPreview } from 'src/app/feature/reusable/inputs/rich-text-editor/rich-text-editor.interface';
 import { RichTextEditorService } from 'src/app/feature/reusable/inputs/rich-text-editor/rich-text-editor.service';
+import { IntranetEntity } from 'src/app/shared/enums/intranet-entity.enum';
 
 @Component({
   selector: 'app-comment-item',
   templateUrl: './comment-item.component.html',
   styleUrls: ['./comment-item.component.less']
 })
-export class CommentItemComponent implements OnInit {
-  @Input() data: any;
-  @Input() activityType: any;
-  @Input() commentsActivity: any;
-  @Input() isReplyInProgress: boolean;
-  @Output() deleteComment = new EventEmitter();
-  @Output() editComment = new EventEmitter();
-  @Output() replyComment = new EventEmitter();
+export class CommentItemComponent implements OnInit, OnDestroy {
 
-  isEditing = false;
-  editedValue: string;
-  initialValue: any;
-  isReply: boolean = false;
-  subcommentDescription: string;
-  likeModel: ILikeData;
-  commentCreator: ICreator;
-  sanitizedContent: SafeHtml;
-  isEditSubmitLoading: boolean;
-  isReplyEditingInProgress: boolean;
+  private $editCommentSubscription: Subscription;
+  @Input()
+  public data: ICommentItem;
+  @Input()
+  public activityType: any;
+  @Input()
+  public commentsActivity: any;
+  @Input()
+  public isReplyInProgress: boolean;
+  @Output()
+  public deleteComment = new EventEmitter();
+  @Output()
+  public editComment = new EventEmitter();
+  @Output()
+  public replyComment = new EventEmitter();
+
+  public isEditing = false;
+  public editedValue: string;
+  public initialValue: any;
+  public isReply = false;
+  public subcommentDescription: string;
+  public likeModel: ILikeData;
+  public commentCreator: ICreator;
+  public sanitizedContent: SafeHtml;
+  public isEditSubmitLoading: boolean;
+  public isReplyEditingInProgress: boolean;
   linkPreview: ILinkPreview;
   replyLinkPreviewId: number;
   editLinkPreviewId: number;
 
-  get isSubcommentSubmitDisabled() {
+  public get isSubcommentSubmitDisabled() {
     return this.stripHTML.isEmpty(this.subcommentDescription) || this.isReplyInProgress;
   }
 
-  get isEditSubmitDisabled() {
+  public get isEditSubmitDisabled() {
     return this.stripHTML.isEmpty(this.editedValue) || this.isEditSubmitLoading;
   }
 
@@ -50,21 +62,24 @@ export class CommentItemComponent implements OnInit {
     private stripHTML: RTEStripHTMLService,
     private RTEService: RichTextEditorService) { }
 
-  ngOnInit() {
-    this.editedValue = this.data.text;
-    this.sanitizedContent = this.sanitizer.bypassSecurityTrustHtml(this.data.text);
-    const parsed = ParseHelper.parseUbaselineData(this.data);
-    this.commentCreator = parsed.creator;
-    this.linkPreview = parsed.linkPreview;
+  public ngOnDestroy(): void {
+    if (this.$editCommentSubscription) { this.$editCommentSubscription.unsubscribe(); }
+  }
+
+  public ngOnInit(): void {
+    this.editedValue = this.data.text.toString();
+    this.sanitizedContent = this.sanitizer.bypassSecurityTrustHtml(this.data.text.toString());
+    this.commentCreator = this.data.creator;
+    this.linkPreview = this.data.linkPreview;
     this.likeModel = {
-      likedByCurrentUser: !!parsed.likeModel.likedByCurrentUser,
+      likedByCurrentUser: !!this.data.likeModel.likedByCurrentUser,
       id: this.data.id,
-      activityType: this.commentsActivity,
-      likes: parsed.likes,
+      activityType: IntranetEntity.Comment,
+      likes: this.data.likes
     };
   }
 
-  onCommentDelete(subcommentId?) {
+  public onCommentDelete(subcommentId?): void {
     this.deleteComment.emit({
       targetId: this.data.activityId,
       targetType: this.activityType,
@@ -72,7 +87,7 @@ export class CommentItemComponent implements OnInit {
     });
   }
 
-  toggleEditingMode() {
+  public toggleEditingMode(): void {
     this.isEditing = !this.isEditing;
     if (this.isEditing) {
       this.initialValue = this.data.text;
@@ -83,21 +98,23 @@ export class CommentItemComponent implements OnInit {
     this.RTEService.cleanLinksToSkip();
   }
 
-  onSubmitEditedValue(subcomment?) {
-    if (subcomment) {this.isReplyEditingInProgress = true}
+  public onSubmitEditedValue(subcomment?): void {
+    if (subcomment) { this.isReplyEditingInProgress = true; }
     this.isEditSubmitLoading = true;
-    this.commentsService.editComment(
-      this.buildComment(subcomment)
-      ).then((res: any) => {
+    this.$editCommentSubscription = this.commentsService.editComment(this.buildComment(subcomment))
+      .pipe(
+        finalize(() => {
+          this.isEditSubmitLoading = false;
+          this.isReplyEditingInProgress = false;
+        })
+      )
+      .subscribe((res: any) => {
         this.editComment.emit(res.comments);
         this.toggleEditingMode();
-      }).finally(() => {
-        this.isEditSubmitLoading = false;
-        this.isReplyEditingInProgress = false;
       });
   }
 
-  onToggleReply() {
+  public onToggleReply(): void {
     this.isReply = !this.isReply;
     this.RTEService.linkPreviewSource.next(null);
     this.RTEService.cleanLinksToSkip();
@@ -108,7 +125,7 @@ export class CommentItemComponent implements OnInit {
       parentId: this.data.id,
       description: this.subcommentDescription,
       linkPreviewId: this.replyLinkPreviewId
-     });
+    });
     this.RTEService.linkPreviewSource.next(null);
     this.RTEService.cleanLinksToSkip();
   }

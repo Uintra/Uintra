@@ -12,7 +12,7 @@ namespace Uintra20.Features.UserList.Helpers
         public static IEnumerable<ProfileColumnModel> AddManagementColumn(IEnumerable<ProfileColumnModel> columns) =>
             columns.Append(new ProfileColumnModel
             {
-                Alias = "Management",
+                
                 Id = 100,
                 Name = "Management",
                 PropertyName = "management",
@@ -28,7 +28,6 @@ namespace Uintra20.Features.UserList.Helpers
 
             return columns.Append(new ProfileColumnModel
             {
-                Alias = "Group",
                 Id = 99,
                 Name = "Group",
                 PropertyName = "role",
@@ -36,7 +35,6 @@ namespace Uintra20.Features.UserList.Helpers
                 Type = ColumnType.GroupRole
             }).Append(new ProfileColumnModel
             {
-                Alias = "Management",
                 Id = 100,
                 Name = "Management",
                 PropertyName = "management",
@@ -52,7 +50,6 @@ namespace Uintra20.Features.UserList.Helpers
                 Id = i.Id,
                 Name = i.DisplayName,
                 Type = i.Type,
-                Alias = i.Alias,
                 PropertyName = i.PropertyName,
                 SupportSorting = i.SupportSorting
             }).OrderBy(i => i.Id);

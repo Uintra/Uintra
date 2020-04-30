@@ -26,7 +26,6 @@
     "@ngx-translate/http-loader": "^4.0.0",
     "@types/jquery": "^3.3.31",
     "@types/signalr": "^2.2.35",
-    "@ubaseline/next": "file:./ubaseline-next-0.0.22.tgz",
     "es7-object-polyfill": "^1.0.1",
     "jquery": "^3.4.1",
     "moment-timezone": "^0.5.27",
@@ -48,6 +47,7 @@
     "signalr": "^2.4.1",
     "simple-scrollbar": "^0.4.0",
     "tslib": "^1.10.0",
+    "ubaseline-next-for-uintra": "^0.1.0",
     "zone.js": "~0.9.1"
   },
   "devDependencies": {

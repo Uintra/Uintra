@@ -1,11 +1,8 @@
 import { Component, OnInit, NgZone, OnDestroy } from "@angular/core";
-import {
-  NavNotificationsService,
-  INotificationsData,
-  INotificationsListData
-} from "./nav-notifications.service";
+import { NavNotificationsService } from "./nav-notifications.service";
 import { DesktopNotificationService } from "./helpers/desktop-notification.service";
 import { SignalrService } from "src/app/shared/services/general/signalr.service";
+import { INotificationsData, INotificationsListData } from 'src/app/shared/interfaces/pages/notifications/notifications-page.interface';
 
 declare let $: any;
 
@@ -28,7 +25,7 @@ export class NavNotificationsComponent implements OnInit, OnDestroy {
     private signalrService: SignalrService,
     private navNotificationsService: NavNotificationsService,
     private ngNotificationZone: NgZone
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.navNotificationsService

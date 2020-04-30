@@ -1,18 +1,6 @@
-import { Component, ViewEncapsulation, HostBinding } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import ParseHelper from 'src/app/shared/utils/parse.helper';
+import { Component, ViewEncapsulation, HostBinding, OnInit } from '@angular/core';
 import { ILikeData } from 'src/app/feature/reusable/ui-elements/like-button/like-button.interface';
-
-export interface ILikesPanelData {
-  entityId: string;
-  activityType: string;
-  likedByCurrentUser: boolean;
-  isReadOnly: boolean;
-  showTitle: boolean;
-  likes: any;
-  contentTypeAlias: string;
-  isGroupMember: boolean;
-}
+import { ILikesPanel } from 'src/app/shared/interfaces/panels/likes/likes-panel.interface';
 
 @Component({
   selector: 'likes-panel',
@@ -20,31 +8,27 @@ export interface ILikesPanelData {
   styleUrls: ['./likes-panel.less'],
   encapsulation: ViewEncapsulation.None
 })
-export class LikesPanel {
-  @HostBinding('class') hostClass;
-  data: any;
-  panelData: ILikesPanelData;
-  likeData: ILikeData;
-  isDisabled: boolean;
-  isContentPage: boolean;
+export class LikesPanel implements OnInit {
+  @HostBinding('class')
+  public hostClass;
+  public data: ILikesPanel;
+  public likeData: ILikeData;
+  public isDisabled: boolean;
+  public isContentPage: boolean;
 
-  constructor(
-    private route: ActivatedRoute) {
-    this.route.data.subscribe(data => this.data = data);
-  }
+  constructor() { }
 
   public ngOnInit(): void {
-    this.panelData = ParseHelper.parseUbaselineData(this.data);
     this.likeData = {
-      likedByCurrentUser: !!this.panelData.likedByCurrentUser,
-      id: this.panelData.entityId,
-      likes: Object.values(this.panelData.likes),
-      activityType: this.panelData.activityType
+      likedByCurrentUser: !!this.data.likedByCurrentUser,
+      id: this.data.entityId,
+      likes: this.data.likes,
+      activityType: this.data.activityType.toString()
     };
-    this.isDisabled = this.panelData.isGroupMember;
-    this.isContentPage = this.panelData.activityType == '6';
+    this.isDisabled = this.data.isGroupMember;
+    this.isContentPage = this.data.activityType.toString() === '6';
     if (this.isContentPage) {
-      this.hostClass = "likes-panel--content"
+      this.hostClass = 'likes-panel--content';
     }
   }
 }

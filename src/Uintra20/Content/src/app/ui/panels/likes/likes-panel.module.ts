@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { AS_DYNAMIC_COMPONENT, NotImplementedModule } from '@ubaseline/next';
+import { AS_DYNAMIC_COMPONENT, NotImplementedModule } from 'ubaseline-next-for-uintra';
 import { LikesPanel } from './likes-panel.component';
 import { LikeButtonModule } from 'src/app/feature/reusable/ui-elements/like-button/like-button.module';
 import { TranslateModule } from '@ngx-translate/core';

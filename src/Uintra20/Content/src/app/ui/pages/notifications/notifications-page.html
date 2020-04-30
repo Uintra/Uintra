@@ -1,27 +1,21 @@
 <div class="page-wrapper">
   <div class="row-flex">
     <div class="col-md-8">
-      <div class="notifications-page" *ngIf="data">
-        <h1 class="notifications-page__title">{{ data.title.get() }}</h1>
-        <div
-          class="notifications-page__content"
-          infiniteScroll
-          [infiniteScrollDistance]="1"
-          [infiniteScrollThrottle]="300"
-          [infiniteScrollDisabled]="isScrollDisabled"
-          (scrolled)="onScroll()"
-          *ngIf="notifications && notifications.length"
-        >
-          <!-- <div *ngFor="let notification of data.notifications">
-              {{notification | json}}
-            </div> -->
-          <app-notifications-item
-            [notification]="notification"
-            *ngFor="let notification of notifications"
-          ></app-notifications-item>
+      <div class="notifications-page"
+           *ngIf="data">
+        <h1 class="notifications-page__title">{{ data.title }}</h1>
+        <div class="notifications-page__content"
+             infiniteScroll
+             [infiniteScrollDistance]="1"
+             [infiniteScrollThrottle]="300"
+             [infiniteScrollDisabled]="isScrollDisabled"
+             (scrolled)="onScroll()"
+             *ngIf="notifications?.length !== 0">
+          <app-notifications-item [notification]="notification"
+                                  *ngFor="let notification of notifications; trackBy: trackIndex">
+          </app-notifications-item>
         </div>
       </div>
     </div>
   </div>
 </div>
-

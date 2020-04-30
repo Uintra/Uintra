@@ -13,7 +13,7 @@ import * as moment from "moment-timezone";
   encapsulation: ViewEncapsulation.None
 })
 export class LoginPage implements OnDestroy {
-  private loginSubscription: Subscription;
+  private $loginSubscription: Subscription;
   public inProgress = false;
   public errors = [];
   public loginForm = new FormGroup(
@@ -29,7 +29,7 @@ export class LoginPage implements OnDestroy {
   }
 
   public ngOnDestroy(): void {
-    if (this.loginSubscription != null) { this.loginSubscription.unsubscribe(); }
+    if (this.$loginSubscription) { this.$loginSubscription.unsubscribe(); }
   }
 
   public submit() {

@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 
-import { DYNAMIC_COMPONENTS, UmbracoSupportModule, UbaselineCoreModule } from '@ubaseline/next';
+import { DYNAMIC_COMPONENTS, UmbracoSupportModule, UbaselineCoreModule } from 'ubaseline-next-for-uintra';
 import { pages } from './ui/pages/pages';
 import { panels } from './ui/panels/panels';
 import { LeftNavigationModule } from './ui/main-layout/left-navigation/left-navigation.module';
@@ -22,7 +22,6 @@ import { NavNotificationsModule } from './feature/specific/nav-notifications/nav
 import { SearchModule } from './feature/reusable/inputs/search/search.module';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslationsLoader } from './shared/services/general/translations-loader';
-import { LinkPreviewComponent } from './feature/specific/link-preview/link-preview.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +55,7 @@ import { LinkPreviewComponent } from './feature/specific/link-preview/link-previ
     { provide: DYNAMIC_COMPONENTS, useValue: panels },
     { provide: UrlSerializer, useClass: CustomUrlSerializer },
     HasDataChangedService,
-    CanDeactivateGuard
+    CanDeactivateGuard,
   ],
   bootstrap: [AppComponent]
 })
