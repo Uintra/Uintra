@@ -171,7 +171,7 @@ export class UserListComponent implements OnInit, OnDestroy {
 
   closeInvitePopUp() {
     if (this.data.isInvitePopUp) {
-      if (this.data.details.members.filter(member => member.isInviteBtnDisabled).length) {
+      if (this.data && this.data.details && this.data.details.members && this.data.details.members.filter(member => member.isInviteBtnDisabled).length) {
         this.searchService.refreshGroupMembersPage();
       }
       this.modalService.removeComponentFromBody();
