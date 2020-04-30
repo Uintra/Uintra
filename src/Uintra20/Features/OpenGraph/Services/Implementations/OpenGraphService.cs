@@ -79,7 +79,7 @@ namespace Uintra20.Features.OpenGraph.Services.Implementations
             graph.Title = metaData.MetaData.MetaTitle;
             graph.Description = metaData.MetaData.MetaDescription;
             graph.MediaId = metaData.MetaData.SocialImage.DataTypeId;
-            graph.Image = _mediaProvider.GetById(metaData.MetaData.SocialImage.Value.MediaId).Url;
+            graph.Image = "/images/preview.png";
 
             return graph;
         }
