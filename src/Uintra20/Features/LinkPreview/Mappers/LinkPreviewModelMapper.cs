@@ -6,7 +6,7 @@ namespace Uintra20.Features.LinkPreview.Mappers
 {
     public class LinkPreviewModelMapper
     {
-        private const string DefaultPreviewImagePath = "/content/images/preview.png";
+        private const string DefaultPreviewImagePath = "/images/preview.png";
         private readonly ILinkPreviewUriProvider _linkPreviewUriProvider;
 
         public LinkPreviewModelMapper(

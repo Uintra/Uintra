@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using UBaseline.Core.Media;
 using UBaseline.Core.Node;
+using UBaseline.Shared.Media;
 using UBaseline.Shared.MetaData;
 using UBaseline.Shared.Node;
 using Uintra20.Core.Activity;
@@ -84,26 +86,30 @@ namespace Uintra20.Features.OpenGraph.Services.Implementations
 
         public virtual OpenGraphObject GetOpenGraphObject(Guid activityId, string defaultUrl = null)
         {
-            var defaultGraph = GetDefaultObject(defaultUrl);
+            var graph = GetDefaultObject(defaultUrl);
 
             var intranetActivityService = (IIntranetActivityService<IIntranetActivity>)
                 _activitiesServiceFactory.GetService<IIntranetActivityService>(activityId);
 
             var currentActivity = intranetActivityService.Get(activityId);
 
-            if (currentActivity == null) return defaultGraph;
+            if (currentActivity == null) return graph;
 
-            defaultGraph.Title = currentActivity.Title.IfNullOrWhiteSpace("Social");
-            defaultGraph.Description = StringExtensions.StripHtml(currentActivity.Description).TrimByWordEnd(100);
+            graph.Title = currentActivity.Title.IfNullOrWhiteSpace("Social");
+            graph.Description = StringExtensions.StripHtml(currentActivity.Description).TrimByWordEnd(100);
 
-            if (!currentActivity.MediaIds.Any()) return defaultGraph;
+            if (!currentActivity.MediaIds.Any()) return graph;
 
-            var mediaId = currentActivity.MediaIds.First();
+            var list = new List<IMediaModel>();
 
-            defaultGraph.MediaId = mediaId;
-            defaultGraph.Image = _mediaProvider.GetById(mediaId)?.Url;
+            currentActivity.MediaIds.ToList().ForEach(i => list.Add(_mediaProvider.GetById(i)));
 
-            return defaultGraph;
+            var image = list.FirstOrDefault(m => m is ImageModel);
+
+            graph.MediaId = image?.Id;
+            graph.Image = image?.Url;
+
+            return graph;
         }
 
         protected virtual OpenGraphObject GetDefaultObject(string url = null) =>
