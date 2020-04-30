@@ -40,7 +40,6 @@ namespace Uintra20.Controllers
         private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
         private readonly UmbracoContext _umbracoContext;
         private readonly IIntranetLocalizationService _intranetLocalizationService;
-        private readonly IPopupNotificationService _popupNotificationService;
 
         public AuthController(
             UmbracoMembersUserManager<UmbracoApplicationMember> userManager,
@@ -51,8 +50,7 @@ namespace Uintra20.Controllers
             INotificationsService notificationsService,
             IIntranetMemberService<IntranetMember> intranetMemberService,
             UmbracoContext umbracoContext,
-            IIntranetLocalizationService intranetLocalizationService,
-            IPopupNotificationService popupNotificationService)
+            IIntranetLocalizationService intranetLocalizationService)
         {
             _userManager = userManager;
             _authenticationService = authenticationService;
@@ -63,7 +61,6 @@ namespace Uintra20.Controllers
             _intranetMemberService = intranetMemberService;
             _umbracoContext = umbracoContext;
             _intranetLocalizationService = intranetLocalizationService;
-            _popupNotificationService = popupNotificationService;
         }
 
         [HttpPost]
@@ -123,9 +120,6 @@ namespace Uintra20.Controllers
             });
 
             _memberServiceHelper.SetFirstLoginPerformed(member);
-            var notifications = _popupNotificationService.Get(member.Key).Map<IEnumerable<PopupNotificationViewModel>>();
-            var hubContext = GlobalHost.ConnectionManager.GetHubContext<UintraHub>();
-            hubContext.Clients.User(member.Key.ToString()).showPopup(notifications);
         }
     }
 }

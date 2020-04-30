@@ -2,15 +2,21 @@
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
+using Microsoft.AspNet.SignalR;
 using UBaseline.Core.Controllers;
 using UBaseline.Core.Navigation;
 using UBaseline.Core.Node;
 using UBaseline.Core.RequestContext;
 using Uintra20.Core.HomePage;
+using Uintra20.Core.Member.Entities;
+using Uintra20.Core.Member.Services;
 using Uintra20.Features.Groups.Helpers;
 using Uintra20.Features.Links.Models;
 using Uintra20.Features.Navigation.Models;
 using Uintra20.Features.Navigation.Models.MyLinks;
+using Uintra20.Features.Notification;
+using Uintra20.Features.Notification.Services;
+using Uintra20.Features.Notification.ViewModel;
 using Uintra20.Infrastructure.Extensions;
 
 namespace Uintra20.Features.Navigation.Web
@@ -22,19 +28,25 @@ namespace Uintra20.Features.Navigation.Web
         private readonly IMyLinksHelper _myLinksHelper;
         private readonly IGroupHelper _groupHelper;
         private readonly IUBaselineRequestContext _ubaselineRequestContext;
+        private readonly IPopupNotificationService _popupNotificationService;
+        private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
 
         public IntranetNavigationController(
             INavigationModelsBuilder navigationModelsBuilder,
             INodeModelService nodeModelService,
             IMyLinksHelper myLinksHelper,
             IGroupHelper groupHelper,
-            IUBaselineRequestContext ubaselineRequestContext)
+            IUBaselineRequestContext ubaselineRequestContext,
+            IPopupNotificationService popupNotificationService,
+            IIntranetMemberService<IntranetMember> intranetMemberService )
         {
             _navigationModelsBuilder = navigationModelsBuilder;
             _nodeModelService = nodeModelService;
             _myLinksHelper = myLinksHelper;
             _groupHelper = groupHelper;
             _ubaselineRequestContext = ubaselineRequestContext;
+            _popupNotificationService = popupNotificationService;
+            _intranetMemberService = intranetMemberService;
         }
 
         [HttpGet]
@@ -52,7 +64,18 @@ namespace Uintra20.Features.Navigation.Web
             var model = _navigationModelsBuilder.GetTopNavigationModel();
             var viewModel = model.Map<TopNavigationViewModel>();
             viewModel.CurrentMember = model.CurrentMember.ToViewModel();
+
+            ShowPopupNotifications();
             return viewModel;
+        }
+
+        private void ShowPopupNotifications()
+        {
+            var memberId = _intranetMemberService.GetCurrentMemberId();
+            var notifications =
+                _popupNotificationService.Get(memberId).Map<IEnumerable<PopupNotificationViewModel>>();
+            var hubContext = GlobalHost.ConnectionManager.GetHubContext<UintraHub>();
+            hubContext.Clients.User(memberId.ToString()).showPopup(notifications);
         }
 
         [HttpGet]
@@ -86,7 +109,8 @@ namespace Uintra20.Features.Navigation.Web
 
         private IEnumerable<SharedLinkApiViewModel> GetSharedLinks()
         {
-            var sharedLinks = _nodeModelService.AsEnumerable().OfType<SharedLinkItemModel>().Where(sl => sl.Links.Value != null);
+            var sharedLinks = _nodeModelService.AsEnumerable().OfType<SharedLinkItemModel>()
+                .Where(sl => sl.Links.Value != null);
 
             sharedLinks = sharedLinks.ToArray();
 
@@ -98,7 +122,7 @@ namespace Uintra20.Features.Navigation.Web
         {
             return _navigationModelsBuilder.GetLeftSideNavigation().Select(MapMenuItem);
         }
-        
+
         protected virtual async Task<IEnumerable<MyLinkItemViewModel>> GetMyLinksAsync()
         {
             var linkModels = await _myLinksHelper.GetMenuAsync();
