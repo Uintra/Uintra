@@ -41,6 +41,9 @@ export class CentralFeedPanel implements OnInit, OnDestroy {
       debugger
       this.reloadFeed();
     });
+    this.signalrService.getShowPopup().subscribe(s => {
+      debugger
+    });
   }
 
   public index = (index, item): string => {

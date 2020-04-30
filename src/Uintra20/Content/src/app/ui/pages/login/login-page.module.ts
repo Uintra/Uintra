@@ -5,6 +5,9 @@ import { UbaselineCoreModule } from 'ubaseline-next-for-uintra';
 import { LoginPage } from './login-page.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
+import { PopUpModule } from 'src/app/shared/ui-elements/pop-up/pop-up.module';
+import { PopUpComponent } from 'src/app/shared/ui-elements/pop-up/pop-up.component';
+import { ModalService } from 'src/app/shared/services/general/modal.service';
 
 @NgModule({
   declarations: [LoginPage],
@@ -14,7 +17,9 @@ import { TranslateModule } from '@ngx-translate/core';
     UbaselineCoreModule,
     ReactiveFormsModule,
     TranslateModule,
+    PopUpModule
   ],
-  entryComponents: [LoginPage]
+  providers: [ModalService],
+  entryComponents: [PopUpComponent]
 })
 export class LoginPageModule { }

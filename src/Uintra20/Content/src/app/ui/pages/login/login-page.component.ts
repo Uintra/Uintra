@@ -5,6 +5,8 @@ import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/shared/services/auth/auth.service';
 import { ILoginPage } from './login-page.interface';
 import * as moment from "moment-timezone";
+import { ModalService } from 'src/app/shared/services/general/modal.service';
+import { PopUpComponent } from 'src/app/shared/ui-elements/pop-up/pop-up.component';
 
 @Component({
   selector: 'login-page',
@@ -25,7 +27,8 @@ export class LoginPage implements OnDestroy {
 
   constructor(
     private authService: AuthService,
-    private router: Router) {
+    private router: Router,
+    private modalService: ModalService) {
   }
 
   public ngOnDestroy(): void {
@@ -59,5 +62,24 @@ export class LoginPage implements OnDestroy {
 
   private getCurrentTimeZoneId() {
     return moment.tz.guess();
+  }
+
+  test(e) {
+    e.stopPropagation();
+    const testArray = [
+      "1123 1123 1123 1123 1123 1123 1123 1123 1123 1123 1123 1123 1123 1123 1123 1123 11123 1123 1123 1123 11123 1123 1123 1123 11123 1123 1123 1123 11123 1123 1123 1123 11123 1123 1123 1123 11123 1123 1123 1123 11123 1123 1123 1123 11123 1123 1123 1123 11123 1123 1123 1123 11123 1123 1123 1123 11123 1123 1123 1123 11123 1123 1123 1123 ",
+      "11123 1123 1123 ",
+      "11123 1123 1123 1123 1123 1123 1123 11123 1123 1123 1123 11123 1123 1123 1123 11123 1123 1123 1123 11123 1123 1123 1123 11123 1123 1123 1123 11123 1123 1123 1123 11123 1123 1123 1123 11123 1123 1123 1123 11123 1123 1123 1123 ",
+      "11123 1123 1123 1123 1123 1123 1123 1123 1123 1123 1123 1123 1 ",
+      "11123 1123 1123 ",
+      "11123 1123 1123 1123 1123 1123 11123 1123 1123 1123 11123 1123 1123 1123 11123 1123 1123 1123 11123 1123 1123 1123 11123 1123 1123 1123 ",
+      "11123 1123 1123 ",
+      "11123 1123 1123 1123 1123 1123 1123 1123 1123 1123 ",
+      "11123 1123 1123 1123 ",
+      "11123 1123 1123 1123 1123 1123 11123 1123 1123 1123 11123 1123 1123 1123 11123 1123 1123 1123 ",
+      "11123 1123 1"];
+    testArray.forEach((val, index, arr) => {
+      this.modalService.appendComponentToBody(PopUpComponent, {data: val}, null, index.toString(), index === arr.length - 1);
+    })
   }
 }
