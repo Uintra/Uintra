@@ -953,6 +953,9 @@
     <Compile Include="Core\MediaToolkit\Util\RegexEngine.cs" />
     <Compile Include="Core\Member\CommandBus\MentionHandle.cs" />
     <Compile Include="Core\Member\Controllers\MemberGroupController.cs" />
+    <Compile Include="Core\Member\Profile\Edit\Builders\IProfileEditPageViewModelBuilder.cs" />
+    <Compile Include="Core\Member\Profile\Edit\Builders\ProfileEditPageViewModelBuilder.cs" />
+    <Compile Include="Core\Member\Profile\InjectModules\ProfileInjectModule.cs" />
     <Compile Include="Core\UbaselineModels\ForbiddenPageViewModel.cs" />
     <Compile Include="Core\UbaselineModels\PageNotFoundPageModel.cs" />
     <Compile Include="Core\Updater\2.0\Migration.cs" />
