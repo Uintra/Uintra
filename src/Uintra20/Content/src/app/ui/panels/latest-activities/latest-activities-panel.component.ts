@@ -5,6 +5,7 @@ import { CentralFeedFiltersService } from '../central-feed/central-feed-filters/
 import { ILatestActivitiesPanel } from 'src/app/shared/interfaces/panels/latest-activities/latest-activities-panel.interface';
 import { Subscription } from 'rxjs';
 import { IPublicationsResponse } from 'src/app/shared/interfaces/panels/central-feed/central-feed-panel.interface';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'latest-activities-panel',
@@ -19,14 +20,17 @@ export class LatestActivitiesPanelComponent implements OnInit, OnDestroy {
     private signalrService: SignalrService,
     private ngZone: NgZone,
     private CFFilterService: CentralFeedFiltersService,
+    private sanitizer: DomSanitizer,
   ) {
   }
 
   private $publications: Subscription;
   public data: ILatestActivitiesPanel;
+  public teaser: SafeHtml;
 
   public ngOnInit(): void {
     this.signalrService.getReloadFeedSubjects().subscribe(() => this.reload());
+    this.teaser = this.sanitizer.bypassSecurityTrustHtml(this.data.teaser);
   }
 
   public ngOnDestroy(): void {
