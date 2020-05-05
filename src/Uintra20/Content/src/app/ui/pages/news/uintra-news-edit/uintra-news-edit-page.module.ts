@@ -1,11 +1,9 @@
-import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { RouterModule } from "@angular/router";
-
-import { UbaselineCoreModule } from "ubaseline-next-for-uintra";
-import { UintraNewsEditPage } from "./uintra-news-edit-page.component";
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { UbaselineCoreModule } from 'ubaseline-next-for-uintra';
+import { UintraNewsEditPage } from './uintra-news-edit-page.component';
 import { DROPZONE_CONFIG } from 'ngx-dropzone-wrapper';
-import { DEFAULT_DROPZONE_CONFIG } from 'src/app/shared/constants/dropzone/drop-zone.const';
 import { UlinkModule } from 'src/app/shared/pipes/link/ulink.module';
 import { CanDeactivateGuard } from 'src/app/shared/services/general/can-deactivate.service';
 import { MAX_LENGTH } from 'src/app/shared/constants/activity/activity-create.const';
@@ -17,7 +15,7 @@ import { GroupDetailsWrapperModule } from 'src/app/feature/specific/groups/group
   declarations: [UintraNewsEditPage],
   imports: [
     CommonModule,
-    RouterModule.forChild([{ path: "", component: UintraNewsEditPage, canDeactivate: [CanDeactivateGuard]}]),
+    RouterModule.forChild([{ path: '', component: UintraNewsEditPage, canDeactivate: [CanDeactivateGuard]}]),
     UbaselineCoreModule,
     NewsFormModule,
     UlinkModule,
