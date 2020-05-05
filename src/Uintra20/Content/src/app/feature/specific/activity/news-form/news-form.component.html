@@ -1,6 +1,6 @@
 <section class="news-create-panel" *ngIf="newsData">
   <h2 class="news-create-panel__title form-row">
-    {{translate.instant(edit ? 'newsEdit.Title.lbl' : 'newsCreatePage.Title.lbl')}}
+    {{translate.instant(edit ? 'newsEdit.PageTitle.lbl' : 'newsCreatePage.Title.lbl')}}
   </h2>
   <div *ngIf="owners?.length > 1" class="owner form-row">
     <h3 class="owner__title subtitle">
@@ -115,6 +115,6 @@
     <button class="buttons__submit" [disabled]="isSubmitLoading" (click)="onSubmit()">
       {{translate.instant(edit ? 'newsEdit.Edit.btn' : 'newsCreate.Create.btn')}}
     </button>
-    <button class="buttons__cancel" (click)="onCancel()">{{'common.Cancel.lnk' | translate}}</button>
+    <button class="buttons__cancel" (click)="onCancel()">{{translate.instant(edit ? 'newsEdit.Cancel.btn' : 'newsCreate.Cancel.btn')}}</button>
   </div>
 </section>
