@@ -33,7 +33,7 @@ export default class Counter {
 
   setHTML(container) {
     const length = this.calculate();
-    container.innerHTML = `<span>${length}</span> / ${this.options.maxLength}`;
+    container.innerHTML = `<span>${length}</span>/${this.options.maxLength}`;
 
     if (length > this.options.maxLength) {
       container.classList.add("invalid");
