@@ -1,0 +1,6 @@
+<div *ngIf="ublBeforeText" [innerHTML]="ublBeforeText" class="text-panel__before-content"></div>
+<div *ngIf="ublText" #divInnerHTML [innerHTML]="ublText" class="text-panel__content"></div>
+<div *ngIf="isShow" #divContent class="text-panel__content">
+  <ng-content></ng-content>
+</div>
+<div *ngIf="ublAfterText" [innerHTML]="ublAfterText" class="text-panel__after-content"></div>

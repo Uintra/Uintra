@@ -28,8 +28,10 @@ export const panels = [
     id: 'userTagsPanel',
     path: '__dynamic__',
     loadChildren: './ui/panels/user-tags/user-tags-panel.module#UserTagsPanelModule'
-  }
+  },
+  {
+    id: 'textPanel',
+    path: '__dynamic__',
+    loadChildren: './ui/panels/text/text-panel.module#TextPanelModule'
+  },
 ];
-
-
-
