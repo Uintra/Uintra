@@ -34,8 +34,7 @@ export class MyLinksComponent implements OnInit {
   onAddLink() {
     this.myLinksService.addMyLinks().subscribe(r => {
       this.myLinks = r;
-      debugger
-      this.isShowAddButton = this.checkCurrentPage(r);debugger
+      this.isShowAddButton = this.checkCurrentPage(r);
     });
   }
 
