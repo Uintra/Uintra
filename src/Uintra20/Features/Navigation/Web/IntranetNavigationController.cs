@@ -102,6 +102,7 @@ namespace Uintra20.Features.Navigation.Web
         protected virtual async Task<IEnumerable<MyLinkItemViewModel>> GetMyLinksAsync()
         {
             var linkModels = await _myLinksHelper.GetMenuAsync();
+
             return linkModels.Map<IEnumerable<MyLinkItemViewModel>>();
         }
 
