@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { MyLinksService, IMyLink } from "./my-links.service";
 import { PageIdService } from "ubaseline-next-for-uintra";
+import { Router, Scroll } from '@angular/router';
 
 @Component({
   selector: "app-my-links",
@@ -16,22 +17,25 @@ export class MyLinksComponent implements OnInit {
   constructor(
     private myLinksService: MyLinksService,
     private pageIdService: PageIdService,
+    private router: Router,
   ) {}
 
   ngOnInit() {
     this.isShowAddButton = this.checkCurrentPage(this.myLinks);
     this.isOpen = this.myLinksService.getOpenState();
 
-    this.pageIdService.pageIdSubject.subscribe((id: number) => {
-      this.currentPageId = id;
-      this.isShowAddButton = this.checkCurrentPage(this.myLinks);
+    this.router.events.subscribe((val) => {
+      if (val instanceof Scroll) {
+        this.isShowAddButton = this.checkCurrentPage(this.myLinks);
+      }
     });
   }
 
   onAddLink() {
     this.myLinksService.addMyLinks().subscribe(r => {
       this.myLinks = r;
-      this.isShowAddButton = this.checkCurrentPage(r);
+      debugger
+      this.isShowAddButton = this.checkCurrentPage(r);debugger
     });
   }
 
@@ -52,10 +56,6 @@ export class MyLinksComponent implements OnInit {
   }
 
   checkCurrentPage(r: Array<IMyLink>): boolean {
-    if (!this.currentPageId) {
-      return true;
-    }
-
-    return r.every(link => link.contentId !== this.currentPageId);
+    return r.every(link => link.url !== this.router.url);
   }
 }
