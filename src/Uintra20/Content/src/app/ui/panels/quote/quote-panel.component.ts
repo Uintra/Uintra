@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { IQuotePanel } from '../../../shared/interfaces/panels/quote/quote-panel.interface';
 
 @Component({
@@ -9,8 +9,4 @@ import { IQuotePanel } from '../../../shared/interfaces/panels/quote/quote-panel
 })
 export class QuotePanel {
   data: IQuotePanel;
-
-  ngOnInit() {
-    debugger
-  }
 }
