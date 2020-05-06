@@ -8,15 +8,20 @@
   customToolbarPosition="bottom"
 >
   <div quill-editor-toolbar class="toolbar">
-    <div class="ql-counter" id="counter"></div>
 
-    <div class="toolbar__second-row">
-      <div class="ql-formats-wrapper">
-        <div class="ql-formats" *ngIf="isEventsOrNews; then eventsOrNewsCreate; else comments"></div>
+    <div class="toolbar-actions">
+      <div class="toolbar__first-row">
+        <div class="ql-counter" id="counter"></div>
+        <a href="#" class="toolbar__link">+ Add tags</a>
       </div>
+      <div class="toolbar__second-row">
+        <div class="ql-formats-wrapper">
+          <div class="ql-formats" *ngIf="isEventsOrNews; then eventsOrNewsCreate; else comments"></div>
+        </div>
 
-      <div class="ql-submit-button">
-        <ng-content select="[submit]"></ng-content>
+        <div class="ql-submit-button">
+          <ng-content select="[submit]"></ng-content>
+        </div>
       </div>
     </div>
 
