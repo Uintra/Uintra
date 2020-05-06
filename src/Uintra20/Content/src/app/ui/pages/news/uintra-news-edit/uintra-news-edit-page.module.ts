@@ -10,6 +10,7 @@ import { MAX_LENGTH } from 'src/app/shared/constants/activity/activity-create.co
 import { NewsFormModule } from 'src/app/feature/specific/activity/news-form/news-form.module';
 import { RichTextEditorModule } from 'src/app/feature/reusable/inputs/rich-text-editor/rich-text-editor.module';
 import { GroupDetailsWrapperModule } from 'src/app/feature/specific/groups/group-details-wrapper/group-details-wrapper.module';
+import { DEFAULT_DROPZONE_CONFIG } from 'src/app/shared/constants/dropzone/drop-zone.const';
 
 @NgModule({
   declarations: [UintraNewsEditPage],
