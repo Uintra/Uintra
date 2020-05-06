@@ -39,5 +39,11 @@ export const panels = [
     path: '__dynamic__',
     loadChildren: './ui/panels/quote/quote-panel.module#QuotePanelModule'
   },
+  {
+    id: 'tablePanel',
+    path: '__dynamic__',
+    loadChildren: './ui/panels/table/table-panel.module#TablePanelModule'
+  },
 ];
+
 
