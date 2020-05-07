@@ -14,11 +14,11 @@
 table-panel {
   .table-panel {
     margin-bottom: 40px;
-  
+
     @media @sm-up {
       margin-bottom: 60px;
     }
-  
+
     app-heading .heading__title {
       font-family: @body-font;
       color: @text-color;
@@ -29,32 +29,32 @@ table-panel {
       line-height: 1.3;
       margin-bottom: 20px;
     }
-  
+
     &__table {
       width: 100%;
-  
+
       tr {
         &:nth-child(even) td {
           background-color: @even-row-color;
         }
-  
+
         &:nth-child(odd) td {
           background-color: @odd-row-color;
         }
       }
-  
+
       th,
       td {
         padding: @top-bottom-padding @side-padding;
       }
-  
+
       th {
-        // .theme(bg-color);
-        // .theme(text-color);
+        .theme(bg-color);
+        .theme(text-color);
       }
     }
   }
-  
+
   // Adaptive
   @media @sm-down {
     .table-panel {
@@ -64,34 +64,34 @@ table-panel {
       tr {
         display: block;
       }
-  
+
       thead tr {
         position: absolute;
         top: -9999px;
         left: -9999px;
       }
-  
+
       tr {
         td {
           &:first-child {
-            // .theme(bg-color);
-            // .theme(text-color);
+            .theme(bg-color);
+            .theme(text-color);
           }
-  
+
           &:nth-child(odd) {
             background-color: @odd-row-color;
           }
-  
+
           &:nth-child(even) {
             background-color: @even-row-color;
           }
         }
       }
-  
+
       td {
         display: flex;
         justify-content: space-between;
-  
+
         &[data-label] {
           &:before {
             content: attr(data-label);

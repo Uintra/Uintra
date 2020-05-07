@@ -3,5 +3,5 @@ export interface IQuotePanel {
   quote: string;
   author?: string;
   description?: string;
-  siteSettings?: any;
+  panelSettings?: any;
 }
