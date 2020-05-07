@@ -1,7 +1,7 @@
 import { Component, ViewEncapsulation, HostBinding } from '@angular/core';
 import { ILinksPanel } from '../../../shared/interfaces/panels/links/links-panel.interface';
 import { Link } from 'src/app/feature/reusable/ui-elements/ubl-ui-kit/core/interface/link';
-import { resolveThemeCssClass } from 'src/app/feature/reusable/ui-elements/ubl-ui-kit/core/interface/panel-settings';
+import { resolveThemeCssClass } from 'src/app/feature/reusable/ui-elements/ubl-ui-kit/core/helpers/panel-settings';
 
 @Component({
   selector: 'links-panel',
