@@ -44,6 +44,12 @@ export const panels = [
     path: '__dynamic__',
     loadChildren: './ui/panels/table/table-panel.module#TablePanelModule'
   },
+  {
+    id: 'imagePanel',
+    path: '__dynamic__',
+    loadChildren: './ui/panels/image/image-panel.module#ImagePanelModule'
+  },
 ];
+
 
 

@@ -1,6 +1,5 @@
-import { IUProperty } from './umbraco-property';
 import { HexColor } from './types';
-import { get } from 'lodash';
+import { IUProperty } from './umbraco-property';
 
 export interface IPanelSettings {
     behaviour: IUProperty<'full-content'>;
@@ -13,12 +12,4 @@ export interface IPanelTheme {
    buttonColor: HexColor;
    textColor: HexColor;
    titleColor: HexColor;
-}
-
-export function resolveThemeCssClass(settings: IPanelSettings)
-{
-  let theme = get(settings, 'theme.value.alias', 'default-theme');
-  let behavior = get(settings, 'behaviour.value', 'full-content');
-
-  return `${theme} ${behavior}`;
 }
