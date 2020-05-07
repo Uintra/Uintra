@@ -17,8 +17,8 @@ export class QuotePanel implements OnInit{
   @HostBinding('class') rootClasses;
 
   ngOnInit() {
-    // this.rootClasses = `
-    //   ${ this.data.panelSettings.theme.value.alias || 'default-theme' }
-    // `;
+    this.rootClasses = `
+      ${ this.data.panelSettings.theme.value.alias || 'default-theme' }
+    `;
   }
 }
