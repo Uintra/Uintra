@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, HostBinding, ViewEncapsulation } from '@angular/core';
 import { ITablePanel, ICellData } from '../../../shared/interfaces/panels/table/table-panel.interface';
 
 @Component({
@@ -12,10 +12,17 @@ export class TablePanel {
 
   headerRow: Array<ICellData>;
 
+  @HostBinding('class') rootClasses;
+
+
   constructor() { }
 
   ngOnInit(): void {
     this.checkFirstRowAsHeader();
+
+    this.rootClasses = `
+      ${ this.data.panelSettings.theme.value.alias || 'default-theme' }
+    `;
   }
 
   private checkFirstRowAsHeader(): void {
