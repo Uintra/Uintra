@@ -1,0 +1,9 @@
+<ng-container *ngIf="data">
+  <ng-content select="[position='beforeTitle']"></ng-content>
+  <div class="title">{{ data.title }}</div>
+  <ng-content select="[position='afterTitle']"></ng-content>
+  <div class="links">
+      <ubl-link *ngFor="let link of links" [data]="link">{{ link.label }}</ubl-link>
+  </div>
+  <ng-content select="[position='afterLinks']"></ng-content>
+</ng-container>
