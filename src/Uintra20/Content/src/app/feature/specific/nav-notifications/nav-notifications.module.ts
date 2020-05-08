@@ -11,9 +11,10 @@ import {PinActivityModule} from '../activity/pin-activity/pin-activity.module';
 import {ClickOutsideModule} from 'src/app/shared/directives/click-outside/click-outside.module';
 import {TranslateModule} from '@ngx-translate/core';
 import {PopUpComponent} from "../../../shared/ui-elements/pop-up/pop-up.component";
+import { PopUpModule } from 'src/app/shared/ui-elements/pop-up/pop-up.module';
 
 @NgModule({
-  declarations: [NavNotificationsComponent, NotificationsItemComponent, NotificationCountComponent,PopUpComponent],
+  declarations: [NavNotificationsComponent, NotificationsItemComponent, NotificationCountComponent],
   imports: [
     CommonModule,
     HttpClientModule,
@@ -23,6 +24,7 @@ import {PopUpComponent} from "../../../shared/ui-elements/pop-up/pop-up.componen
     UlinkModule,
     PinActivityModule,
     TranslateModule,
+    PopUpModule,
   ],
   exports: [NavNotificationsComponent, NotificationsItemComponent],
   entryComponents: [PopUpComponent]

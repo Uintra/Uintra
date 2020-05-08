@@ -42,8 +42,7 @@ namespace Uintra20.Features.Navigation.Web
             IGroupHelper groupHelper,
             IUBaselineRequestContext ubaselineRequestContext,
             IPopupNotificationService popupNotificationService,
-            IUBaselineRequestContext ubaselineRequestContext, 
-            IBreadcrumbService breadcrumbService)
+            IBreadcrumbService breadcrumbService,
             IIntranetMemberService<IntranetMember> intranetMemberService)
         {
             _navigationModelsBuilder = navigationModelsBuilder;
@@ -85,7 +84,7 @@ namespace Uintra20.Features.Navigation.Web
             {
                 Task.Run(() =>
                 {
-                    Thread.Sleep(3000);
+                    Thread.Sleep(5000);
                     hubContext.Clients.User(currentMemberId.ToString()).showPopup(notifications);
                 });
             }
