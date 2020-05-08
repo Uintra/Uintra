@@ -29,8 +29,8 @@ export class HomePage implements OnInit {
 
   public ngOnInit(): void {
     if (this.data.panels) {
-      this.latestActivities = this.data.panels.filter(p => p.contentTypeAlias === 'latestActivitiesPanel')[0];
-      this.otherPanels = this.data.panels.filter(p => p.contentTypeAlias !== 'latestActivitiesPanel');
+      this.latestActivities = this.data.panels.filter(p => p.contentTypeAlias === 'quotePanel')[0];
+      this.otherPanels = this.data.panels.filter(p => p.contentTypeAlias !== 'quotePanel');
     }
     this.socialCreateData = this.data.socialCreateModel;
     if (this.socialCreateData) {

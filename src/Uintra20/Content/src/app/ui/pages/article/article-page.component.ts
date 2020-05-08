@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CanDeactivateGuard } from 'src/app/shared/services/general/can-deactivate.service';
 import { HasDataChangedService } from 'src/app/shared/services/general/has-data-changed.service';
@@ -11,7 +11,7 @@ import { IArcticlePage } from 'src/app/shared/interfaces/pages/article/article-p
   styleUrls: ['./article-page.less'],
   encapsulation: ViewEncapsulation.None
 })
-export class ArticlePage {
+export class ArticlePage implements OnInit {
 
   public data: IArcticlePage;
 
@@ -24,6 +24,8 @@ export class ArticlePage {
       this.data = data;
     });
   }
+
+  public ngOnInit(): void { }
 
   public canDeactivate(): Observable<boolean> | boolean {
     if (this.hasDataChangedService.hasDataChanged) {

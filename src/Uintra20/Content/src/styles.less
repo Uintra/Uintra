@@ -29,7 +29,13 @@ body {
     margin: 0;
     background-color: @main-body-bg;
     color: @body-text-color;
-    font: @body-font;
+    font: 18px/1.5 @body-font;
+    @media @md-up{
+      font-size: 20px;
+    }
+    @media @lg-up{
+      font-size: 22px;
+    }
 
     &.nav--open {
       overflow: hidden;

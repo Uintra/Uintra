@@ -11,6 +11,8 @@ using UBaseline.Core.RequestContext;
 using Uintra20.Core.HomePage;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Services;
+using Uintra20.Features.Breadcrumbs.Models;
+using Uintra20.Features.Breadcrumbs.Services.Contracts;
 using Uintra20.Features.Groups.Helpers;
 using Uintra20.Features.Links.Models;
 using Uintra20.Features.Navigation.Models;
@@ -30,6 +32,7 @@ namespace Uintra20.Features.Navigation.Web
         private readonly IGroupHelper _groupHelper;
         private readonly IUBaselineRequestContext _ubaselineRequestContext;
         private readonly IPopupNotificationService _popupNotificationService;
+        private readonly IBreadcrumbService _breadcrumbService;
         private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
 
         public IntranetNavigationController(
@@ -39,6 +42,8 @@ namespace Uintra20.Features.Navigation.Web
             IGroupHelper groupHelper,
             IUBaselineRequestContext ubaselineRequestContext,
             IPopupNotificationService popupNotificationService,
+            IUBaselineRequestContext ubaselineRequestContext, 
+            IBreadcrumbService breadcrumbService)
             IIntranetMemberService<IntranetMember> intranetMemberService)
         {
             _navigationModelsBuilder = navigationModelsBuilder;
@@ -47,6 +52,7 @@ namespace Uintra20.Features.Navigation.Web
             _groupHelper = groupHelper;
             _ubaselineRequestContext = ubaselineRequestContext;
             _popupNotificationService = popupNotificationService;
+            _breadcrumbService = breadcrumbService;
             _intranetMemberService = intranetMemberService;
         }
 
@@ -109,10 +115,8 @@ namespace Uintra20.Features.Navigation.Web
         }
 
         [HttpGet]
-        public virtual IEnumerable<BreadcrumbItemViewModel> Breadcrumbs()
-        {
-            return _navigationModelsBuilder.GetBreadcrumbsItems().ToList();
-        }
+        public virtual IEnumerable<BreadcrumbViewModel> Breadcrumbs() => 
+            _breadcrumbService.GetBreadcrumbs();
 
         private IEnumerable<SharedLinkApiViewModel> GetSharedLinks()
         {

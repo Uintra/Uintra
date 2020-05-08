@@ -6,18 +6,38 @@
       <thead *ngIf="headerRow">
         <tr>
           <th
-            *ngFor="let cell of headerRow"
-            [innerHTML]="cell.value"
-            [ngStyle]="{ textAlign: getAlignClass(cell) }"></th>
+            [innerHTML]="headerRow[0].value"
+            [ngStyle]="{ textAlign: getAlignClass(headerRow[0]) }"></th>
+          <th>
+            <table>
+              <tr>
+                <th
+                  *ngFor="let cell of headerRow.slice(1)"
+                  [innerHTML]="cell.value"
+                  [ngStyle]="{ textAlign: getAlignClass(cell) }"></th>
+              </tr>
+            </table>
+          </th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let row of data.table.cells">
           <td
-            *ngFor="let cell of row; let i = index"
-            [innerHTML]="cell.value"
-            [attr.data-label]="(headerRow && headerRow[i].plainText) ? headerRow[i].plainText : null"
-            [ngStyle]="{ textAlign: getAlignClass(cell) }"></td>
+            [innerHTML]="row[0].value"
+            [attr.data-label]="(headerRow && headerRow[0].plainText) ? headerRow[0].plainText : null"
+            [ngStyle]="{ textAlign: getAlignClass(row[0]) }">
+          </td>
+          <td>
+            <table>
+              <tr>
+                <td
+                  *ngFor="let cell of row.slice(1); let i = index"
+                  [innerHTML]="cell.value"
+                  [attr.data-label]="(headerRow && headerRow[i].plainText) ? headerRow[i].plainText : null"
+                  [ngStyle]="{ textAlign: getAlignClass(cell) }"></td>
+              </tr>
+            </table>
+          </td>
         </tr>
       </tbody>
     </table>
