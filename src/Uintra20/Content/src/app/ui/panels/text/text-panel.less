@@ -1,5 +1,17 @@
 @import "base.less";
 
-text-panel {
+.text-panel{
+  .theme(bg-color);
+  .theme(text-color);
 
+  &__content{
+    padding: 40px 10px 30px;
+
+    @media @md-up{
+      padding: 46px 20px 30px;
+    }
+    @media @lg-up{
+      padding: 48px 20px 30px;
+    }
+  }
 }

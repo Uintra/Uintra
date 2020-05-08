@@ -1,21 +1,24 @@
 @import "base.less";
 
-// :host {
-//   .default-theme;
-// }
-
-// :host(@{theme-1}) {
-//   .reversal-theme;
-// }
-// :root quote-panel{
-// }
+:host {
+  display: block;
+}
 
 .quote-panel {
   position: relative;
-  background: #fadddc;
+  // background: #fadddc;
+  // color:#333;
   padding: 98px 10px 47px;
   font: 22px/1.5 @font;
-  color:#333;
+  .theme(bg-color);
+  .theme(text-color);
+
+  .aside &{
+    padding: 60px 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+  }
+
   @media @md-up{
     font-size: 24px;
     padding: 117px 14.5% 47px;
@@ -33,6 +36,11 @@
     transform: translateX(-50%);
     font: bold 100px/0.52 @font;
     z-index: 2;
+
+    .aside &{
+      font-size: 70px;
+      top:28px;
+    }
   }
   &__text{
     margin-bottom:15px;
@@ -47,12 +55,17 @@
   &__author{
     font-size: 18px;
     line-height: 1.5;
-    color: @body-text-color;
+    color: #555;
     @media @md-up{
       font-size: 20px;
     }
     @media @lg-up{
       font-size: 22px;
+    }
+
+    .aside &{
+      font-size: 16px;
+      font-weight: normal;
     }
 
     &:before{
@@ -63,6 +76,7 @@
   }
 
   &__description{
+    color: #555;
     font-size: 12px;
     margin-top: 10px;
     @media @md-up{
@@ -70,5 +84,11 @@
     @media @lg-up{
       font-size: 16px;
     }
+
+    .aside &{
+      font-size: 16px;
+      font-weight: normal;
+    }
   }
 }
+
