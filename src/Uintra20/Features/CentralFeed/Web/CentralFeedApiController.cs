@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web.Http;
 using UBaseline.Core.Controllers;
 using UBaseline.Core.Node;
 using UBaseline.Core.RequestContext;
@@ -48,13 +49,13 @@ namespace Uintra20.Features.CentralFeed.Web
             _requestContext = requestContext;
         }
 
-        [System.Web.Http.HttpGet]
+        [HttpGet]
         public string AvailableActivityTypes()
         {
             return _centralFeedHelper.AvailableActivityTypes();
         }
 
-        [System.Web.Http.HttpPost]
+        [HttpPost]
         public FeedListViewModel FeedList(FeedListModel model)
         {
             var centralFeedType = _feedTypeProvider[model.TypeId];
