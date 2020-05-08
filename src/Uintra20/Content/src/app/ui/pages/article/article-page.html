@@ -1,6 +1,8 @@
-<div class="page-wrapper"
-     *ngIf="!data?.groupId">
-  <ubl-dynamic-component *ngFor="let panel of data.panels"
-                         [data]="panel">
-  </ubl-dynamic-component>
+<div class="page-wrapper">
+  <app-breadcrumbs [breadcrumbs]="data.breadcrumbs"></app-breadcrumbs>
+  <div *ngIf="!data?.groupId">
+    <ubl-dynamic-component *ngFor="let panel of data.panels"
+                           [data]="panel">
+    </ubl-dynamic-component>
+  </div>
 </div>

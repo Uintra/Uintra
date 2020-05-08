@@ -969,6 +969,9 @@
     <Compile Include="Core\Updater\MigrationHistoryService.cs" />
     <Compile Include="Core\Updater\MigrationItem.cs" />
     <Compile Include="Core\Updater\Sql\MigrationHistory.cs" />
+    <Compile Include="Features\Breadcrumbs\Services\Contracts\IBreadcrumbService.cs" />
+    <Compile Include="Features\Breadcrumbs\Services\Implementations\BreadcrumbService.cs" />
+    <Compile Include="Features\Breadcrumbs\UnjectModules\BreadcrumbInjectModule.cs" />
     <Compile Include="Features\Events\Handlers\EventHandler.cs" />
     <Compile Include="Core\UmbracoEvents\Services\Contracts\IUmbracoContentPublishedEventService.cs" />
     <Compile Include="Core\UmbracoEvents\Services\Contracts\IUmbracoContentUnPublishedEventService.cs" />
@@ -1238,7 +1241,7 @@
     <Compile Include="Features\Groups\ContentServices\IGroupContentProvider.cs" />
     <Compile Include="Features\Navigation\Configuration\NavigationItemTypeSettings.cs" />
     <Compile Include="Features\Navigation\Configuration\NavigationPropertySettings.cs" />
-    <Compile Include="Features\Navigation\Models\BreadcrumbItemViewModel.cs" />
+    <Compile Include="Features\Breadcrumbs\Models\BreadcrumbViewModel.cs" />
     <Compile Include="Features\Navigation\Models\LeftNavigationUserMenuViewModel.cs" />
     <Compile Include="Features\Navigation\Models\MenuItemViewModel.cs" />
     <Compile Include="Features\Navigation\Models\LeftNavigationViewModel.cs" />
