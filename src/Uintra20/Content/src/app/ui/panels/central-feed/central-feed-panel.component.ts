@@ -6,6 +6,7 @@ import { finalize } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs';
 import { IFilterState, ICentralFeedPanel, IPublicationsResponse } from 'src/app/shared/interfaces/panels/central-feed/central-feed-panel.interface';
+import {PopUpComponent} from "../../../shared/ui-elements/pop-up/pop-up.component";
 
 @Component({
   selector: 'central-feed-panel',
@@ -38,9 +39,6 @@ export class CentralFeedPanel implements OnInit, OnDestroy {
     this.tabs = this.filtersBuilder();
     this.signalrService.getReloadFeedSubjects().subscribe(s => {
       this.reloadFeed();
-    });
-    this.signalrService.getShowPopup().subscribe(s => {
-      debugger
     });
   }
 

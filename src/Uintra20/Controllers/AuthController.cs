@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -8,7 +9,6 @@ using Microsoft.AspNet.SignalR;
 using Uintra20.Core.Authentication;
 using Uintra20.Core.Authentication.Models;
 using Uintra20.Core.Localization;
-using Uintra20.Core.Member.Abstractions;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Helpers;
 using Uintra20.Core.Member.Services;
@@ -17,7 +17,6 @@ using Uintra20.Features.Notification.Configuration;
 using Uintra20.Features.Notification.Entities.Base;
 using Uintra20.Features.Notification.Services;
 using Uintra20.Features.Notification.ViewModel;
-using Uintra20.Infrastructure.Constants;
 using Uintra20.Infrastructure.Extensions;
 using Uintra20.Infrastructure.Providers;
 using Uintra20.Models.UmbracoIdentity;
@@ -40,6 +39,7 @@ namespace Uintra20.Controllers
         private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
         private readonly UmbracoContext _umbracoContext;
         private readonly IIntranetLocalizationService _intranetLocalizationService;
+        private readonly IPopupNotificationService _popupNotificationService;
 
         public AuthController(
             UmbracoMembersUserManager<UmbracoApplicationMember> userManager,
@@ -50,7 +50,8 @@ namespace Uintra20.Controllers
             INotificationsService notificationsService,
             IIntranetMemberService<IntranetMember> intranetMemberService,
             UmbracoContext umbracoContext,
-            IIntranetLocalizationService intranetLocalizationService)
+            IIntranetLocalizationService intranetLocalizationService,
+            IPopupNotificationService popupNotificationService)
         {
             _userManager = userManager;
             _authenticationService = authenticationService;
@@ -61,6 +62,7 @@ namespace Uintra20.Controllers
             _intranetMemberService = intranetMemberService;
             _umbracoContext = umbracoContext;
             _intranetLocalizationService = intranetLocalizationService;
+            _popupNotificationService = popupNotificationService;
         }
 
         [HttpPost]
@@ -120,6 +122,17 @@ namespace Uintra20.Controllers
             });
 
             _memberServiceHelper.SetFirstLoginPerformed(member);
+            
+            var notifications = _popupNotificationService.Get(member.Key).Map<IEnumerable<PopupNotificationViewModel>>();
+            var hubContext = GlobalHost.ConnectionManager.GetHubContext<UintraHub>();
+            if (notifications.Any())
+            {
+                Task.Run(() =>
+                {
+                    Task.Delay(3000);
+                    hubContext.Clients.User(member.Key.ToString()).showPopup(notifications);
+                });
+            }
         }
     }
 }

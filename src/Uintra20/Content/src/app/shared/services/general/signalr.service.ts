@@ -12,7 +12,6 @@ export class SignalrService {
   constructor() {}
 
   public startHub() {
-    debugger
     this.uintraHub = $.connection.uintraHub;
     this.uintraHub.notificationSubject = new Subject<any>();
     this.uintraHub.centralFeedSubject = new Subject<any>();
