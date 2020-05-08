@@ -12,12 +12,21 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let row of data.table.cells">
-          <td
-            *ngFor="let cell of row; let i = index"
-            [innerHTML]="cell.value"
-            [attr.data-label]="(headerRow && headerRow[i].plainText) ? headerRow[i].plainText : null"
-            [ngStyle]="{ textAlign: getAlignClass(cell) }"></td>
+        <tr *ngFor="let row of data.table.cells; let index = index">
+          <ng-container *ngIf="index === 0">
+            <td
+              *ngFor="let cell of row; let i = index"
+              [innerHTML]="cell.value"
+              [attr.data-label]="(headerRow && headerRow[i].plainText) ? headerRow[i].plainText : null"
+              [ngStyle]="{ textAlign: getAlignClass(cell) }"></td>
+          </ng-container>
+          <div *ngIf="index > 0">
+            <td
+              *ngFor="let cell of row; let i = index"
+              [innerHTML]="cell.value"
+              [attr.data-label]="(headerRow && headerRow[i].plainText) ? headerRow[i].plainText : null"
+              [ngStyle]="{ textAlign: getAlignClass(cell) }"></td>
+          </div>
         </tr>
       </tbody>
     </table>
