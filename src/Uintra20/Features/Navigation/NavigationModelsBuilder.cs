@@ -4,8 +4,6 @@ using System.Linq;
 using UBaseline.Core.Navigation;
 using UBaseline.Core.Node;
 using UBaseline.Core.RequestContext;
-using UBaseline.Shared.Navigation;
-using UBaseline.Shared.Node;
 using Uintra20.Core.HomePage;
 using Uintra20.Core.Localization;
 using Uintra20.Core.Member.Entities;
@@ -133,39 +131,6 @@ namespace Uintra20.Features.Navigation
             };
 
             return model;
-        }
-
-        public virtual IEnumerable<BreadcrumbItemViewModel> GetBreadcrumbsItems()
-        {
-
-            var pathToRoot = PathToRoot(_uBaselineRequestContext.Node).Reverse().ToList();
-            var result = pathToRoot.Select(page =>
-            {
-                var navigationName = string.Empty;
-                if (page is INavigationComposition composition)
-                {
-                    navigationName = composition.Navigation.NavigationTitle;
-                }
-
-                return new BreadcrumbItemViewModel
-                {
-                    Name = navigationName.HasValue() ? navigationName : page.Name,
-                    Url = page.Url,
-                    IsClickable = _uBaselineRequestContext.Node.Url != page.Url && !(page is HeadingPageModel)
-                };
-            });
-            return result;
-        }
-
-        protected virtual IEnumerable<INodeModel> PathToRoot(INodeModel node)
-        {
-            var current = node;
-
-            while (current != null)
-            {
-                yield return current;
-                current = _nodeModelService.Get(current.ParentId);
-            }
         }
 
         protected virtual bool IsActive(int nodeId)
