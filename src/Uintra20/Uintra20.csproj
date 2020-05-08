@@ -904,6 +904,7 @@
     <Content Include="config\logviewer.searches.config.js" />
     <Content Include="css\rte.css" />
     <Content Include="Global.asax" />
+    <Content Include="images\preview.png" />
     <Content Include="images\videoLoader.jpg" />
     <Content Include="images\videoLoaderFailure.jpg" />
     <Content Include="Tests\UI\cypress\fixtures\image.png" />
@@ -2142,7 +2143,6 @@
     <Folder Include="Core\Feed\Web\" />
     <Folder Include="Core\Member\Events\" />
     <Folder Include="Core\Search\Indexers\Diagnostics\Services\" />
-    <Folder Include="Features\Navigation\ModelBuilders\" />
     <Folder Include="Media\" />
   </ItemGroup>
   <ItemGroup>

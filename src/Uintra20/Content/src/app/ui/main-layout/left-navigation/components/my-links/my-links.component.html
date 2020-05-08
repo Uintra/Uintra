@@ -23,10 +23,8 @@
 
         <a class="left-nav__item-link left-nav__item-link--inside left-nav__item-link--with-hover"
            [title]="link.name"
-           [href]="link.url">
-          <span class="icon-drag left-nav__item-drag-icon"></span>
-          {{ link.name }}
-        </a>
+           [href]="link.url"
+        ><span class="icon-drag left-nav__item-drag-icon"></span>{{ link.name }}</a>
 
         <button (click)="onRemoveLink(link)"
                 class="left-nav__item-remove">&times;</button>

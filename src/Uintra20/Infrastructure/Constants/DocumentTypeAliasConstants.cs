@@ -9,14 +9,14 @@
         public const string SearchResultPage = "searchResultPage";
 
         public const string NewsOverviewPage = "newsOverviewPage";
-        public const string NewsCreatePage = "newsCreatePage";
+        public const string NewsCreatePage = "uintraNewsCreatePage";
         public const string NewsEditPage = "uintraNewsEditPage";
         public const string NewsDetailsPage = "uintraNewsDetailsPage";
 
-        public const string EventsOverviewPage = "eventsOverviewPage";
-        public const string EventsCreatePage = "eventsCreatePage";
-        public const string EventsEditPage = "eventsEditPage";
-        public const string EventsDetailsPage = "eventsDetailsPage";
+        public const string EventsOverviewPage = "eventOverviewPage";
+        public const string EventsCreatePage = "eventCreatePage";
+        public const string EventsEditPage = "eventEditPage";
+        public const string EventsDetailsPage = "eventDetailsPage";
 
         public const string SocialOverviewPage = "socialDetailsPage";
         public const string SocialEditPage = "socialEditPage";
@@ -45,11 +45,5 @@
         public const string GroupsDocumentsPage = "groupsDocumentsPage";
         public const string GroupsMembersPage = "groupsMembersPage";
         public const string GroupsDeactivatedGroupPage = "groupsDeactivatedGroupPage";
-    }
-
-
-    public static class MailTemplatePropertiesConstants
-    {
-        public const string EmailType = "emailType";
     }
 }

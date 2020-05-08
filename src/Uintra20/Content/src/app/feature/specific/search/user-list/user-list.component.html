@@ -1,5 +1,11 @@
 <div class="user-list-panel-wrapper">
   <div class="user-list-panel" (clickOutside)="closeInvitePopUp()">
+    <button
+      *ngIf="data.isInvitePopUp"
+      type="button"
+      class="user-list-panel__close-btn icon-close"
+      (click)="closeInvitePopUp()">
+    </button>
     <h2 class="user-list-panel__title">{{data.customTitle || 'userListPanel.Title.lbl' | translate}}</h2>
 
     <h3 class="user-list-panel__search-title">{{'userList.Search.Title.lbl' | translate}}</h3>
@@ -106,7 +112,7 @@
           {{'userList.Table.LoadMoreButton.Text' | translate}}
         </button>
       </div>
-      <div *ngIf="isNoMembers" class="user-list__item user-list__item--no-members">
+      <div *ngIf="isNoMembers && query.value" class="user-list__item user-list__item--no-members">
         {{'userList.Table.EmptyResult.lbl' | translate}}
       </div>
     </div>

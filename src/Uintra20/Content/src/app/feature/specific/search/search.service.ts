@@ -9,7 +9,7 @@ import {
   IUserListRequest,
   IUserListData
 } from './search.interface';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +17,7 @@ import { Observable } from 'rxjs';
 export class SearchService {
 
   private prefix = '/ubaseline/api/';
+  public groupMembersRefreshTrigger = new Subject();
 
   constructor(private http: HttpClient) { }
 
@@ -29,18 +30,22 @@ export class SearchService {
   public userListSearch = (data: IUserListRequest): Observable<IUserListData> =>
     this.http.post<IUserListData>(`${this.prefix}UserList/GetUsers`, data)
 
-  userListSearchForInvitation(data: IUserListRequest): Observable<IUserListData> {
-    return this.http.post<IUserListData>("/ubaseline/api/UserList/ForInvitation", data)
+  public userListSearchForInvitation(data: IUserListRequest): Observable<IUserListData> {
+    return this.http.post<IUserListData>(`${this.prefix}UserList/ForInvitation`, data)
   }
 
-  userListInvite(data: IMemberStatusRequest) {
-    return this.http.post<IUserListData>("/ubaseline/api/UserList/InviteMember", data)
+  public userListInvite(data: IMemberStatusRequest) {
+    return this.http.post<IUserListData>(`${this.prefix}UserList/InviteMember`, data)
   }
 
-  changeMemberStatus(data: IMemberStatusRequest) {
-    return this.http.put("/ubaseline/api/userlist/assign", data);
+  public changeMemberStatus(data: IMemberStatusRequest) {
+    return this.http.put(`${this.prefix}userlist/assign`, data);
   }
 
   public deleteMember = (data: IDeleteMemberRequest): Observable<any> =>
     this.http.delete(`${this.prefix}userList/ExcludeUserFromGroup?groupId=${data.groupId}&userId=${data.userId}`)
+
+  public refreshGroupMembersPage() {
+    this.groupMembersRefreshTrigger.next();
+  }
 }

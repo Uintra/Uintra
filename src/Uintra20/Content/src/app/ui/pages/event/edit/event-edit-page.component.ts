@@ -33,7 +33,7 @@ export class EventEditPage {
       this.data.details.creator = { id: this.data.details.headerInfo.owner.id };
       this.data.details.pinAllowed = this.data.pinAllowed;
       this.data.details.members = this.data.members;
-      this.data.details.availableTags = this.data.details.availableTags;
+      
       this.data.details.selectedTags = this.data.details.tags;
       this.data.details.lightboxPreviewModel.medias = this.data.details.lightboxPreviewModel.medias || [];
       this.data.details.lightboxPreviewModel.otherFiles = this.data.details.lightboxPreviewModel.otherFiles || [];

@@ -28,7 +28,6 @@ export class UserListComponent implements OnInit, OnDestroy {
   isManagementColumn: boolean;
   isLoadMoreDisabled: boolean;
   isNoMembers: boolean;
-  
 
   public _query = new Subject<string>();
 
@@ -44,7 +43,7 @@ export class UserListComponent implements OnInit, OnDestroy {
       this.currentPage = 1;
       this.data.details.members = [];
       this.canLoadMore = false;
-      this.getMembers();
+      if (value) this.getMembers();
     });
   }
   public ngOnDestroy(): void {
@@ -172,6 +171,9 @@ export class UserListComponent implements OnInit, OnDestroy {
 
   closeInvitePopUp() {
     if (this.data.isInvitePopUp) {
+      if (this.data && this.data.details && this.data.details.members && this.data.details.members.filter(member => member.isInviteBtnDisabled).length) {
+        this.searchService.refreshGroupMembersPage();
+      }
       this.modalService.removeComponentFromBody();
     }
   }

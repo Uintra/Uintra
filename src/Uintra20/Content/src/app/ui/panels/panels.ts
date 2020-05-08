@@ -28,7 +28,32 @@ export const panels = [
     id: 'userTagsPanel',
     path: '__dynamic__',
     loadChildren: './ui/panels/user-tags/user-tags-panel.module#UserTagsPanelModule'
-  }
+  },
+  {
+    id: 'textPanel',
+    path: '__dynamic__',
+    loadChildren: './ui/panels/text/text-panel.module#TextPanelModule'
+  },
+  {
+    id: 'quotePanel',
+    path: '__dynamic__',
+    loadChildren: './ui/panels/quote/quote-panel.module#QuotePanelModule'
+  },
+  {
+    id: 'tablePanel',
+    path: '__dynamic__',
+    loadChildren: './ui/panels/table/table-panel.module#TablePanelModule'
+  },
+  {
+    id: 'imagePanel',
+    path: '__dynamic__',
+    loadChildren: './ui/panels/image/image-panel.module#ImagePanelModule'
+  },
+  {
+    id: 'linksPanel',
+    path: '__dynamic__',
+    loadChildren: './ui/panels/links/links-panel.module#LinksPanelModule'
+  },
 ];
 
 

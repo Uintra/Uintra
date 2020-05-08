@@ -7,18 +7,49 @@ quill-editor {
   position: relative;
 
   .toolbar {
-    width: 100%;
-    border-top: 1px solid #ddd;
+    /* width: 100%;
+     border-top: 1px solid #ddd;
 
     @media @sm-up {
       display: flex;
       align-items: center;
-    }
+    }*/
 
+    &__first-row{
+      flex-grow: 1;
+      justify-content: space-between;
+      display: flex;
+      margin:0 10px 7px 0;
+
+      @media @sm-down {
+        margin:0 0 5px;
+      }
+    }
     &__second-row {
       display: flex;
+      align-items: center;
+    }
+
+    &-actions{
+      width: 100%;
+      border-top: 1px solid #ddd;
+
+      @media @sm-up {
+        display: flex;
+        align-items: center;
+      }
+    }
+
+    &__link{
+      color: @black;
+      font: 11px/2 @font;
+
+      &:hover{
+        text-decoration: none;
+      }
     }
   }
+
 
   // Disable default icon in toolbar
   .ql-link,
@@ -27,7 +58,7 @@ quill-editor {
   .ql-emoji,
   .ql-dropzone {
     font-size: 14px;
-    margin-right: 8px;
+    margin-right: 10px;
 
     svg {
       display: none;
@@ -58,7 +89,7 @@ quill-editor {
     line-height: 20px;
   }
   .ql-dropzone.icon-attachment:before {
-    font-size: 26px;
+    font-size: 25px;
     line-height: 20px;
   }
 
@@ -75,19 +106,16 @@ quill-editor {
   .ql-editor {
     padding: 0 15px;
     margin: 14px 0;
-    font-size: 16px;
-    line-height: 24px;
+    font: 16px/1.38 @font;
     max-height: @editor-height;
 
     @media @sm-up {
-      padding: 0 30px;
+      padding: 0 20px;
     }
 
     &.ql-blank::before {
       left: 15px;
-      font-style: normal;
       color: #aaa;
-
       font-style: normal;
       opacity: 1;
       white-space: nowrap;
@@ -95,24 +123,36 @@ quill-editor {
       overflow: hidden;
 
       @media @sm-up {
-        left: 30px;
+        left: 20px;
       }
     }
   }
 
   // Customize toolbar
   .ql-toolbar.ql-snow {
-    padding: 15px;
+    padding: 5px 0 0;
     border: 0;
-    border-top: 1px solid #ccc;
+    // padding: 15px;
+    // border: 0;
+    // border-top: 1px solid #ccc;
 
-    @media @sm-up {
-      padding: 15px 30px;
-    }
+    // @media @sm-up {
+    //   padding: 15px 30px;
+    // }
 
     &.top-mode {
       padding: 8px;
       border: 1px solid #ccc !important;
+    }
+
+    .toolbar-actions{
+      padding: 10px 15px 6px;
+      border: 0;
+      border-top: 1px solid #ccc;
+
+      @media @sm-up {
+        padding: 10px 20px 6px;
+      }
     }
   }
 
@@ -126,13 +166,19 @@ quill-editor {
     }
   }
 
-  .ql-toolbar button {
+  .ql-formats-wrapper{
+    @media @sm-up {
+      margin-right: 10px;
+    }
+  }
+
+  .ql-toolbar .toolbar-actions button {
     margin-bottom: 5px;
   }
 
   // Customize buttons
-  .ql-snow.ql-toolbar button,
-  .ql-snow .ql-toolbar button {
+  .ql-snow.ql-toolbar .toolbar-actions button,
+  .ql-snow .ql-toolbar .toolbar-actions button {
     float: initial;
     display: flex;
     padding: 5px;
@@ -145,6 +191,7 @@ quill-editor {
   .ql-snow.ql-toolbar .ql-submit-button button,
   .ql-snow .ql-toolbar .ql-submit-button button {
     .button-blue;
+    padding: 6px 17px;
   }
 
   .ql-snow.ql-toolbar.top-mode button {
@@ -153,10 +200,10 @@ quill-editor {
 
   // Customize symbols counter
   .ql-counter {
-    margin-right: auto;
-
-    @media @sm-down {
-      margin-bottom: 5px;
+    color: @black;
+    font: 11px/2 @font;
+    @media @sm-up {
+      margin-right: 6px;
     }
 
     &.invalid span {

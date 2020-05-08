@@ -199,7 +199,7 @@ export class SocialCreateComponent implements OnInit, OnDestroy {
 
   public getPlaceholder(): string {
     return this.mq.isTablet(this.deviceWidth)
-      ? 'socialsCreate.FormPlaceholder.lbl'
+      ? 'socialsCreate.PopupPlaceholder.lbl'
       : 'socialsCreate.MobileBtn.lbl';
   }
 

@@ -2,7 +2,7 @@
     <div class="holder">
         <h2 class="holder__title">{{data.title}}</h2>
         <div class="holder__teaser rte"
-             [innerHTML]="data.teaser"></div>
+             [innerHTML]="teaser"></div>
         <div *ngFor="let activity of data.feed;trackBy: index"
              class="block-item">
             <latest-activity [activityType]="activity.type"

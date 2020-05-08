@@ -1,0 +1,74 @@
+@import "base.less";
+
+// :host {
+//   .default-theme;
+// }
+
+// :host(@{theme-1}) {
+//   .reversal-theme;
+// }
+// :root quote-panel{
+// }
+
+.quote-panel {
+  position: relative;
+  background: #fadddc;
+  padding: 98px 10px 47px;
+  font: 22px/1.5 @font;
+  color:#333;
+  @media @md-up{
+    font-size: 24px;
+    padding: 117px 14.5% 47px;
+  }
+  @media @lg-up{
+    font-size: 28px;
+    padding: 118px 10% 44px;
+  }
+
+  &:before{
+    content: '"';
+    position: absolute;
+    left:50%;
+    top:36px;
+    transform: translateX(-50%);
+    font: bold 100px/0.52 @font;
+    z-index: 2;
+  }
+  &__text{
+    margin-bottom:15px;
+    @media @md-up{
+      margin-bottom:11px;
+    }
+    @media @lg-up{
+      margin-bottom:7px;
+    }
+  }
+
+  &__author{
+    font-size: 18px;
+    line-height: 1.5;
+    color: @body-text-color;
+    @media @md-up{
+      font-size: 20px;
+    }
+    @media @lg-up{
+      font-size: 22px;
+    }
+
+    &:before{
+      content: '-';
+      display: inline-block;
+      margin-right: 5px;
+    }
+  }
+
+  &__description{
+    font-size: 12px;
+    margin-top: 10px;
+    @media @md-up{
+      font-size: 14px;}
+    @media @lg-up{
+      font-size: 16px;
+    }
+  }
+}
