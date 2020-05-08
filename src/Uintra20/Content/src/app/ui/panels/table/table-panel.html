@@ -20,13 +20,16 @@
               [attr.data-label]="(headerRow && headerRow[i].plainText) ? headerRow[i].plainText : null"
               [ngStyle]="{ textAlign: getAlignClass(cell) }"></td>
           </ng-container>
-          <div *ngIf="index > 0">
-            <td
-              *ngFor="let cell of row; let i = index"
-              [innerHTML]="cell.value"
-              [attr.data-label]="(headerRow && headerRow[i].plainText) ? headerRow[i].plainText : null"
-              [ngStyle]="{ textAlign: getAlignClass(cell) }"></td>
-          </div>
+          <td *ngIf="index > 0">
+            <table>
+              <tr>
+                <td *ngFor="let cell of row; let i = index"
+                  [innerHTML]="cell.value"
+                  [attr.data-label]="(headerRow && headerRow[i].plainText) ? headerRow[i].plainText : null"
+                  [ngStyle]="{ textAlign: getAlignClass(cell) }"></td>
+              </tr>
+            </table>
+          </td>
         </tr>
       </tbody>
     </table>
