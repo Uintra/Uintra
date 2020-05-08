@@ -1,4 +1,4 @@
-﻿namespace Uintra20.Features.Navigation.Models
+﻿namespace Uintra20.Features.Breadcrumbs.Models
 {
     public class BreadcrumbItemViewModel
     {

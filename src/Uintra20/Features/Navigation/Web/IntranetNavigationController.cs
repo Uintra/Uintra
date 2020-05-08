@@ -7,6 +7,8 @@ using UBaseline.Core.Navigation;
 using UBaseline.Core.Node;
 using UBaseline.Core.RequestContext;
 using Uintra20.Core.HomePage;
+using Uintra20.Features.Breadcrumbs.Models;
+using Uintra20.Features.Breadcrumbs.Services.Contracts;
 using Uintra20.Features.Groups.Helpers;
 using Uintra20.Features.Links.Models;
 using Uintra20.Features.Navigation.Models;
@@ -22,19 +24,22 @@ namespace Uintra20.Features.Navigation.Web
         private readonly IMyLinksHelper _myLinksHelper;
         private readonly IGroupHelper _groupHelper;
         private readonly IUBaselineRequestContext _ubaselineRequestContext;
+        private readonly IBreadcrumbService _breadcrumbService;
 
         public IntranetNavigationController(
             INavigationModelsBuilder navigationModelsBuilder,
             INodeModelService nodeModelService,
             IMyLinksHelper myLinksHelper,
             IGroupHelper groupHelper,
-            IUBaselineRequestContext ubaselineRequestContext)
+            IUBaselineRequestContext ubaselineRequestContext, 
+            IBreadcrumbService breadcrumbService)
         {
             _navigationModelsBuilder = navigationModelsBuilder;
             _nodeModelService = nodeModelService;
             _myLinksHelper = myLinksHelper;
             _groupHelper = groupHelper;
             _ubaselineRequestContext = ubaselineRequestContext;
+            _breadcrumbService = breadcrumbService;
         }
 
         [HttpGet]
@@ -79,10 +84,8 @@ namespace Uintra20.Features.Navigation.Web
         }
 
         [HttpGet]
-        public virtual IEnumerable<BreadcrumbItemViewModel> Breadcrumbs()
-        {
-            return _navigationModelsBuilder.GetBreadcrumbsItems().ToList();
-        }
+        public virtual IEnumerable<BreadcrumbItemViewModel> Breadcrumbs() => 
+            _breadcrumbService.GetBreadcrumbsItems();
 
         private IEnumerable<SharedLinkApiViewModel> GetSharedLinks()
         {
