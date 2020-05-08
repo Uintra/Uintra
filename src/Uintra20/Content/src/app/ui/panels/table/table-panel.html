@@ -6,9 +6,18 @@
       <thead *ngIf="headerRow">
         <tr>
           <th
-            *ngFor="let cell of headerRow"
-            [innerHTML]="cell.value"
-            [ngStyle]="{ textAlign: getAlignClass(cell) }"></th>
+            [innerHTML]="headerRow[0].value"
+            [ngStyle]="{ textAlign: getAlignClass(headerRow[0]) }"></th>
+          <th>
+            <table>
+              <tr>
+                <th
+                  *ngFor="let cell of headerRow.slice(1)"
+                  [innerHTML]="cell.value"
+                  [ngStyle]="{ textAlign: getAlignClass(cell) }"></th>
+              </tr>
+            </table>
+          </th>
         </tr>
       </thead>
       <tbody>
