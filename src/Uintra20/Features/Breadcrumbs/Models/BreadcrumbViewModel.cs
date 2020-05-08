@@ -1,6 +1,6 @@
 ﻿namespace Uintra20.Features.Breadcrumbs.Models
 {
-    public class BreadcrumbItemViewModel
+    public class BreadcrumbViewModel
     {
         public string Name { get; set; }
         public string Url { get; set; }

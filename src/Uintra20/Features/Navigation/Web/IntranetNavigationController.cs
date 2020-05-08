@@ -84,8 +84,8 @@ namespace Uintra20.Features.Navigation.Web
         }
 
         [HttpGet]
-        public virtual IEnumerable<BreadcrumbItemViewModel> Breadcrumbs() => 
-            _breadcrumbService.GetBreadcrumbsItems();
+        public virtual IEnumerable<BreadcrumbViewModel> Breadcrumbs() => 
+            _breadcrumbService.GetBreadcrumbs();
 
         private IEnumerable<SharedLinkApiViewModel> GetSharedLinks()
         {

@@ -11,6 +11,6 @@ namespace Uintra20.Core.Article
     {
         public PropertyViewModel<bool> ShowInSubMenu { get; set; }
         public Guid? GroupId { get; set; }
-        public IEnumerable<BreadcrumbItemViewModel> Breadcrumbs { get; set; } = Enumerable.Empty<BreadcrumbItemViewModel>();
+        public IEnumerable<BreadcrumbViewModel> Breadcrumbs { get; set; } = Enumerable.Empty<BreadcrumbViewModel>();
     }
 }

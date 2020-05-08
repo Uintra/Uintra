@@ -24,7 +24,7 @@ namespace Uintra20.Features.Breadcrumbs.Services.Implementations
             _nodeModelService = nodeModelService;
         }
 
-        public virtual IEnumerable<BreadcrumbItemViewModel> GetBreadcrumbsItems()
+        public virtual IEnumerable<BreadcrumbViewModel> GetBreadcrumbs()
         {
             var pathToRoot = PathToRoot(_uBaselineRequestContext.Node).Reverse();
 
@@ -36,7 +36,7 @@ namespace Uintra20.Features.Breadcrumbs.Services.Implementations
                     navigationName = composition.Navigation.NavigationTitle;
                 }
 
-                return new BreadcrumbItemViewModel
+                return new BreadcrumbViewModel
                 {
                     Name = navigationName.HasValue()
                         ? navigationName

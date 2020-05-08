@@ -1241,7 +1241,7 @@
     <Compile Include="Features\Groups\ContentServices\IGroupContentProvider.cs" />
     <Compile Include="Features\Navigation\Configuration\NavigationItemTypeSettings.cs" />
     <Compile Include="Features\Navigation\Configuration\NavigationPropertySettings.cs" />
-    <Compile Include="Features\Breadcrumbs\Models\BreadcrumbItemViewModel.cs" />
+    <Compile Include="Features\Breadcrumbs\Models\BreadcrumbViewModel.cs" />
     <Compile Include="Features\Navigation\Models\LeftNavigationUserMenuViewModel.cs" />
     <Compile Include="Features\Navigation\Models\MenuItemViewModel.cs" />
     <Compile Include="Features\Navigation\Models\LeftNavigationViewModel.cs" />

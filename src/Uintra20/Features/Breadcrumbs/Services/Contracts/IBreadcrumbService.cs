@@ -6,6 +6,6 @@ namespace Uintra20.Features.Breadcrumbs.Services.Contracts
 {
     public interface IBreadcrumbService
     {
-        IEnumerable<BreadcrumbItemViewModel> GetBreadcrumbsItems();
+        IEnumerable<BreadcrumbViewModel> GetBreadcrumbs();
     }
 }
