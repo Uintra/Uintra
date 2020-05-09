@@ -35,6 +35,10 @@ export class SocialCreateComponent implements OnInit {
 
   public ngOnInit() {
     this.getPlaceholder();
+    this.userAvatar = {
+      name: this.data.data.creator.displayedName,
+      photo: this.data.data.creator.photo
+    };
   }
 
   public onShowPopUp(): void {
