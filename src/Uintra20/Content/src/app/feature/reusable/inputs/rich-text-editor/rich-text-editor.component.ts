@@ -17,6 +17,7 @@ import Counter from "./quill-modules/counter";
 import "quill-mention";
 import { MentionsService } from "./quill-modules/mentions.service";
 import { RichTextEditorService } from './rich-text-editor.service';
+import { ITagData } from '../tag-multiselect/tag-multiselect.interface';
 Quill.register("modules/counter", Counter);
 
 @Component({
@@ -40,13 +41,16 @@ export class RichTextEditorComponent implements ControlValueAccessor {
   @Input() isEditing: boolean = false;
   @Input() isEmoji: boolean = true;
   @Input() isEventsOrNews: boolean = false;
+  @Input() tags: ITagData[];
+  @Input() availableTags: ITagData[];
   @Output() addAttachment = new EventEmitter();
   @Output() linkPreview = new EventEmitter();
+  @Output() tagsChange = new EventEmitter();
 
   config: QuillConfig;
   editor: Quill;
   isEmojiPalette: boolean = false;
-  test: false;
+  isShowMultiselect: boolean = false;
 
   get value() {
     return this._value;
@@ -149,5 +153,14 @@ export class RichTextEditorComponent implements ControlValueAccessor {
   public closeLinkPreview(): void {
     this.editor.linksToSkip.push(this.editor.firstLinkPreview && this.editor.firstLinkPreview.url);
     this.richTextEditorService.getLinkPreview(this.editor);
+  }
+  public onTagsChange(e): void {
+    this.tagsChange.emit(e);
+  }
+  public toggleMultiselect() {
+    if (this.isShowMultiselect) {
+      this.onTagsChange([]);
+    }
+    this.isShowMultiselect= !this.isShowMultiselect;
   }
 }

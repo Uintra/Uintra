@@ -177,9 +177,8 @@ quill-editor {
   }
 
   // Customize buttons
-  .ql-snow.ql-toolbar .toolbar-actions button,
-  .ql-snow .ql-toolbar .toolbar-actions button {
-    float: initial;
+  .ql-snow.ql-toolbar .toolbar-actions button:not(.toolbar__toggle-multiselect),
+  .ql-snow .ql-toolbar .toolbar-actions button:not(.toolbar__toggle-multiselect) {
     display: flex;
     padding: 5px;
     width: 30px;
@@ -188,8 +187,8 @@ quill-editor {
     border: 1px solid #d6d6d6;
     justify-content: center;
   }
-  .ql-snow.ql-toolbar .ql-submit-button button,
-  .ql-snow .ql-toolbar .ql-submit-button button {
+  .ql-snow.ql-toolbar .ql-submit-button button:not(.toolbar__toggle-multiselect),
+  .ql-snow .ql-toolbar .ql-submit-button button:not(.toolbar__toggle-multiselect) {
     .button-blue;
     padding: 6px 17px;
   }
@@ -247,5 +246,136 @@ quill-editor {
   a {
     color: @link-color;
     text-decoration: none;
+  }
+}
+
+//multiselect
+@import '../../tag-multiselect/tag-multiselect.component.less';
+
+.multiselect {
+  & .open .tag-multiselect{
+    border-color:#ddd !important;
+  }
+
+  & .tag-multiselect{
+    border-width:1px 0 0;
+
+    &__input-field{
+      padding: 5px 9px 5px 15px;
+
+      @media @sm-up{
+        padding: 5px 9px 5px 20px;
+      }
+    }
+
+    &__open-btn{
+      background: none !important;
+      border: 0 !important;
+      outline: 0 !important;
+      font: inherit !important;
+      color: inherit !important;
+      text-decoration: none !important;
+      padding: 0px 16px !important;
+      height: auto !important;
+      padding: 0 17px !important;
+      width: auto !important;
+
+      &:focus{
+        outline: none;
+      }
+
+      .icon:before{
+        font-weight: bold;
+      }
+    }
+
+    &__clear-btn{
+      background: none !important;
+      border: 0 !important;
+      outline: 0 !important;
+      font: inherit !important;
+      color: inherit !important;
+      text-decoration: none !important;
+      font-size: 1.5em !important;
+      padding: 0px 16px !important;
+      float: none !important;
+      height: auto !important;
+      width: auto !important;
+    }
+
+    &-dropdown{
+      margin-top: -1px;
+
+      &-row{
+        float: none !important;
+        height: auto !important;
+        background: none !important;
+        border: 0 !important;
+        outline: 0 !important;
+        text-decoration: none !important;
+        display: block !important;
+        width: 100% !important;
+        text-align: left !important;
+        padding: 9px 13px 9px 15px !important;
+        border-bottom: 1px solid #ddd !important;
+        color: @text-color !important;
+        font: 13px/22px @font !important;
+        cursor: pointer !important;
+
+        @media @sm-up{
+          padding-left: 20px !important;
+        }
+
+        &:hover {
+          background: #b2b2b2 !important;
+        }
+
+        &.selected {
+          color: @border-color !important;
+        }
+      }
+    }
+  }
+
+  & .input-wrapper .tag{
+    background: @white;
+    flex-direction: row;
+    border-radius: 22px;
+    border:1px solid  #b2b2b2;
+    padding: 0 9px;
+    margin-right: 9px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+
+    &__text{
+      font-size: 11px;
+      line-height: 2;
+      color:#333;
+    }
+
+    &__remove{
+      margin: 0 0 0 5px;
+      color: #000;
+      font-size: 1em;
+      height: auto;
+      padding: 0;
+      width: auto;
+      float:none;
+    }
+  }
+}
+
+.toolbar__toggle-multiselect {
+  width: auto !important;
+  color: @text-color !important;
+  margin-bottom: 0 !important;
+  text-decoration: underline;
+  border: none;
+
+  &:hover,
+  &:active,
+  &:focus {
+    text-decoration: none;
+    outline: none;
   }
 }
