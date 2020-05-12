@@ -7,6 +7,11 @@
     font-size: 22px;
   }
 
+  .aside &{
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
   h2 {
     font-size: 34px;
     line-height: 1.29;
@@ -14,6 +19,12 @@
     @media @sm-up{
       font-size: 40px;
       line-height: 1.3;
+    }
+
+    .aside &{
+      font-size: 16px;
+      line-height: 1.5;
+      margin: 0 0 10px;
     }
   }
 
@@ -26,6 +37,11 @@
     }
     @media @lg-up{
       font-size: 28px;
+    }
+
+    .aside &{
+      font-size: 16px;
+      line-height: 1.5;
     }
   }
 
@@ -119,6 +135,20 @@
           left:-42px;
         }
       }
+    }
+  }
+
+  img{
+    max-width: 100%;
+    height: auto;
+    vertical-align: top;
+  }
+
+  a{
+    text-decoration: underline;
+
+    &:hover{
+      text-decoration: none;
     }
   }
 }

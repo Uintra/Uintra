@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, HostBinding } from '@angular/core';
+import { Component, HostBinding } from '@angular/core';
 import { ITextPanelData } from 'src/app/shared/interfaces/panels/text/text-panel.interface';
 import { resolveThemeCssClass } from 'src/app/feature/reusable/ui-elements/ubl-ui-kit/core/helpers/panel-settings';
 

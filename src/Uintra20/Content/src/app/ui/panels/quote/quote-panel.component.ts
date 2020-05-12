@@ -1,4 +1,4 @@
-import { Component, OnInit, HostBinding, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, HostBinding } from '@angular/core';
 import { IQuotePanel } from '../../../shared/interfaces/panels/quote/quote-panel.interface';
 
 @Component({
