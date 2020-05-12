@@ -16,6 +16,7 @@ import { Observable, Subscription } from 'rxjs';
 import { CanDeactivateGuard } from 'src/app/shared/services/general/can-deactivate.service';
 import { IEventDetailsPage } from 'src/app/shared/interfaces/pages/event/details/event-details-page.interface';
 import { ICommentData } from 'src/app/shared/interfaces/panels/comments/comments-panel.interface';
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'event-details-page',
@@ -46,6 +47,7 @@ export class EventDetailsPage implements OnInit, OnDestroy {
     private eventSubscription: EventSubscriptionService,
     private hasDataChangedService: HasDataChangedService,
     private canDeactivateService: CanDeactivateGuard,
+    private translateService: TranslateService
   ) {
     this.activatedRoute.data.subscribe((data: IEventDetailsPage) => {
       this.data = data;
@@ -72,7 +74,7 @@ export class EventDetailsPage implements OnInit, OnDestroy {
         entityId: this.data.details.id,
         entityType: this.data.details.activityType
       };
-      this.activityName = ParseHelper.parseActivityType(this.details.activityType);
+      this.activityName = this.translateService.instant('eventDetails.Title');
       this.tags = this.data.tags;
       this.medias = this.data.details.lightboxPreviewModel.medias;
       this.documents = this.data.details.lightboxPreviewModel.otherFiles;
