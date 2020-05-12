@@ -23,6 +23,6 @@ export class PopUpComponent implements OnInit {
   closePopUp(e) {
     this.modalService.removeComponentFromBody(this.id);
     this.modalService.closePopUpSubject.next();
-    this.notificationsService.markPopUpAsClosed(this.data.Id);
+    this.notificationsService.markPopUpAsClosed(this.data.Id).subscribe(res => console.log(res));
   }
 }
