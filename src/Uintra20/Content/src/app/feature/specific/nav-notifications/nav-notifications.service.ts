@@ -32,4 +32,8 @@ export class NavNotificationsService {
   markAsNotified(id: string): Observable<boolean> {
     return this.http.post<boolean>(this.api + `/Notified?id=${id}`, {});
   }
+
+  markPopUpAsClosed(id: string) {
+    return this.http.post<boolean>(this.api + `/ViewPopup?id=${id}`, {});
+  }
 }

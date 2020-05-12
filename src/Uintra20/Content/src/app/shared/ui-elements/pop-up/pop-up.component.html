@@ -1,6 +1,7 @@
+<div *ngIf="needsShadowBackground" class="pop-up__background" (click)="closePopUp($event)"></div>
 <div class="pop-up-content-wrapper">
-  <div class="pop-up-content rte">
+  <div class="pop-up-content">
     <button class="pop-up-content__close-btn icon-close" (click)="closePopUp($event)"></button>
-    TEST {{id}} {{data}}
+    <div class="rte" [innerHTML]="data.Value.message"></div>
   </div>
 </div>

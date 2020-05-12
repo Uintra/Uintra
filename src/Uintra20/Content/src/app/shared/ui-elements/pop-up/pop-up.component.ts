@@ -1,5 +1,6 @@
 import { Component, OnInit, HostBinding } from '@angular/core';
 import { ModalService } from '../../services/general/modal.service';
+import { NavNotificationsService } from 'src/app/feature/specific/nav-notifications/nav-notifications.service';
 
 @Component({
   selector: 'app-pop-up',
@@ -13,17 +14,15 @@ export class PopUpComponent implements OnInit {
   id: string;
   needsShadowBackground: boolean;
 
-  constructor(private modalService: ModalService) { }
+  constructor(private modalService: ModalService, private notificationsService: NavNotificationsService) { }
 
   ngOnInit() {
-    this.modalService.closePopUpSubject.subscribe(() => {
-      this.className = this.needsShadowBackground ? 'pop-up pop-up--with-shadow' : 'pop-up';
-    })
-    this.className = this.needsShadowBackground ? 'pop-up pop-up--with-shadow' : 'pop-up';
+    this.className = 'pop-up';
   }
 
   closePopUp(e) {
     this.modalService.removeComponentFromBody(this.id);
     this.modalService.closePopUpSubject.next();
+    this.notificationsService.markPopUpAsClosed(this.data.Id);
   }
 }

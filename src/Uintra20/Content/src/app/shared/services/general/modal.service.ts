@@ -55,6 +55,7 @@ export class ModalService {
       .rootNodes[0] as HTMLElement;
 
     document.body.appendChild(domElem);
+    this.addClassToRoot('disable-scroll');
   }
 
   removeComponentFromBody(id?: string) {
@@ -64,12 +65,15 @@ export class ModalService {
       this.componentsById[id] = null;
       if (this.componentsById[parseInt(id) - 1]) {
         Object.assign(this.componentsById[parseInt(id) - 1].instance as object, {needsShadowBackground: true});
+      } else {
+        this.removeClassFromRoot('disable-scroll');
       }
     } else {
       if (this.currentComponentRef) {
         this.appRef.detachView(this.currentComponentRef.hostView);
         this.currentComponentRef.destroy();
         this.currentComponentRef = null;
+        this.removeClassFromRoot('disable-scroll');
       }
     }
   }
