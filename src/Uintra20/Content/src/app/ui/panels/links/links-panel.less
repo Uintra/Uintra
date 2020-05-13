@@ -1,5 +1,51 @@
 @import "base.less";
 
-links-panel {
+:host {
+  display: block;
+}
 
+::ng-deep .links-panel {
+  padding: 40px 10px 45px;
+  font-size: 18px;
+  line-height: 1.5;
+  .theme(bg-color);
+  .theme(text-color);
+
+  @media @md-up{
+    font-size: 20px;
+    padding: 29px 20px 49px;
+  }
+
+  @media @lg-up{
+    font-size: 22px;
+  }
+
+  ::ng-deep .aside &{
+    font-size: 16px;
+    line-height: 1.5;
+    padding: 11px 10px 20px;
+  }
+
+  .title{
+    font-weight: bold;
+    font-size: 28px;
+    line-height: 1.5;
+    .theme(title-color);
+    text-transform: none;
+    margin: 0 0 26px;
+
+    @media @md-up{
+      margin: 0 0 27px;
+    }
+
+    ::ng-deep .aside &{
+      font-size: 16px;
+      line-height: 1.5;
+      margin: 0 0 10px;
+    }
+  }
+
+  ubl-link{
+    display: block;
+  }
 }

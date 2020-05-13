@@ -1,4 +1,4 @@
-<ng-container *ngIf="data">
+<section class="links-panel" *ngIf="data">
   <ng-content select="[position='beforeTitle']"></ng-content>
   <div class="title">{{ data.title }}</div>
   <ng-content select="[position='afterTitle']"></ng-content>
@@ -6,4 +6,4 @@
       <ubl-link *ngFor="let link of links" [data]="link">{{ link.label }}</ubl-link>
   </div>
   <ng-content select="[position='afterLinks']"></ng-content>
-</ng-container>
+</section>

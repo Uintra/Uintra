@@ -28,6 +28,10 @@ export class HomePage implements OnInit {
   }
 
   public ngOnInit(): void {
+    if (this.data.panels) {
+      this.latestActivities = this.data.panels.filter(p => p.contentTypeAlias === 'imagePanel')[0];
+      this.otherPanels = this.data.panels.filter(p => p.contentTypeAlias !== 'imagePanel');//latestActivitiesPanel
+    }
     this.socialCreateData = this.data.socialCreateModel;
     if (this.socialCreateData) {
       this.socialCreateData.canCreate = !this.data.socialCreateModel.requiresRedirect;

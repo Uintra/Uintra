@@ -6,8 +6,8 @@ import { resolveThemeCssClass } from 'src/app/feature/reusable/ui-elements/ubl-u
 @Component({
   selector: 'links-panel',
   templateUrl: './links-panel.html',
-  styleUrls: ['./links-panel.less'],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./links-panel.less']//,
+  //encapsulation: ViewEncapsulation.None
 })
 export class LinksPanel {
   data: ILinksPanel;
