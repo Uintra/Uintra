@@ -1,0 +1,148 @@
+@import "base.less";
+
+  .faq-panel {
+    &__content {
+        margin-bottom: 60px;
+    }
+  
+    &__title {
+      margin-bottom: 16px;
+    }
+  
+    &__top {
+      margin-bottom: 40px;
+    }
+  
+    &__items {
+      border-bottom: 1px solid @border-color;
+    }
+  }
+  
+  .accordion {
+    &__tab {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+  
+      .label {
+        display: block;
+        position: relative;
+        padding: 20px 30px 20px 0;
+        transition: border, color .3s;
+        cursor: pointer;
+        font-weight: 600;
+        color: @text-color;
+  
+        text-transform: uppercase;
+        border-top: 1px solid @border-color;
+  
+        .plus-vertical {
+          display: block;
+          position: absolute;
+          top: 50%;
+          right: 4px;
+          width: 14px;
+          height: 2px;
+          border-style: solid;
+          border-color: @border-color;
+          border-width: 2px 2px 0 0;
+          transition: 0.2s;
+          transform: translateY(-75%) rotate(90deg);
+          font-size: 0;
+          @media @md-up {
+            width: 15px;
+          }
+        }
+        .plus-horisontal {
+          display: block;
+          position: absolute;
+          top: 50%;
+          right: 4px;
+          width: 14px;
+          height: 2px;
+          border-style: solid;
+          border-color: @border-color;
+          border-width: 2px 2px 0 0;
+          transform: translateY(-75%);
+          font-size: 0;
+          @media @md-up {
+            width: 15px;
+          }
+        }
+        &:hover {
+          .plus-horisontal,
+          .plus-vertical {
+            opacity: 0.7;
+          }
+        }
+      }
+  
+      .tab-content {
+        position: relative;
+        max-height: 1px;
+        overflow: hidden;
+        transition-property: max-height, padding;
+        transition-duration: .3s;
+        transition-timing-function: cubic-bezier(0, 1, 0, 1), linear;
+        display: none;
+  
+        @media @sm-up {
+          font-size: 18px;
+        }
+  
+        & ::ng-deep p {
+          &:not(:last-child) {
+            margin-bottom: 16px;
+          }
+        }
+  
+        & ::ng-deep a {
+          //link styles
+        }
+      }
+  
+      .input {
+        position: absolute;
+        z-index: -1;
+        opacity: 0;
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+  
+        &:focus {
+          & ~ label {
+            &:after {
+              content: "";
+              position: absolute;
+              top: 0;
+              bottom: 0;
+              left: 0;
+              right: 0;
+              width: 100%;
+              height: 100%;
+              display: block;
+              border: 1px dotted gray;
+            }
+          }
+        }
+  
+        &:checked {
+          & ~ .label {
+            .plus-vertical {
+              transform: translateY(-75%) rotate(0deg);
+            }
+          }
+  
+          & ~ .tab-content {
+            display: block;
+            max-height: 500vh;
+            padding: 0 0 30px;
+            transition-property: max-height, padding;
+            transition-duration: .3s;
+            transition-timing-function: cubic-bezier(1, 0, 1, 0), linear;
+          }
+        }
+      }
+    }
+  }

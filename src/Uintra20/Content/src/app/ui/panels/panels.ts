@@ -54,7 +54,14 @@ export const panels = [
     path: '__dynamic__',
     loadChildren: './ui/panels/links/links-panel.module#LinksPanelModule'
   },
+  // {
+  //   id: 'videoPanel',
+  //   path: '__dynamic__',
+  //   loadChildren: './ui/panels/video/video-panel.module#VideoPanelModule'
+  // },
+  {
+    id: 'faqPanel',
+    path: '__dynamic__',
+    loadChildren: './ui/panels/faq/faq-panel.module#FaqPanelModule'
+  },
 ];
-
-
-
