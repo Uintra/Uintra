@@ -1,8 +1,14 @@
 <div class="page-wrapper">
-  <app-breadcrumbs [breadcrumbs]="data.breadcrumbs"></app-breadcrumbs>
-  <div *ngIf="!data?.groupId">
-    <ubl-dynamic-component *ngFor="let panel of data.panels"
-                           [data]="panel">
-    </ubl-dynamic-component>
+  <app-breadcrumbs [breadcrumbs]="data?.breadcrumbs"></app-breadcrumbs>
+  <div class="row-flex">
+    <div class="main-column" [ngClass]="{'main-column--full-content': !data?.rightColumnPanels?.length}">
+      <ubl-dynamic-component
+        *ngFor="let panel of data?.panels"
+        [data]="panel"
+      ></ubl-dynamic-component>
+    </div>
+    <div class="right-column" *ngIf="data?.rightColumnPanels?.length">
+      <ubl-dynamic-component *ngFor="let panel of data?.rightColumnPanels;" [data]="panel"></ubl-dynamic-component>
+    </div>
   </div>
 </div>
