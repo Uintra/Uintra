@@ -9,7 +9,7 @@
             [innerHTML]="headerRow[0].value"
             [ngStyle]="{ textAlign: getAlignClass(headerRow[0]) }"></th>
           <th>
-            <table>
+            <table class="table-panel__inner-table">
               <tr>
                 <th
                   *ngFor="let cell of headerRow.slice(1)"
@@ -28,12 +28,12 @@
             [ngStyle]="{ textAlign: getAlignClass(row[0]) }">
           </td>
           <td>
-            <table>
+            <table class="table-panel__inner-table">
               <tr>
                 <td
                   *ngFor="let cell of row.slice(1); let i = index"
                   [innerHTML]="cell.value"
-                  [attr.data-label]="(headerRow && headerRow[i].plainText) ? headerRow[i].plainText : null"
+                  [attr.data-label]="(headerRow && headerRow[i+1].plainText) ? headerRow[i+1].plainText : null"
                   [ngStyle]="{ textAlign: getAlignClass(cell) }"></td>
               </tr>
             </table>

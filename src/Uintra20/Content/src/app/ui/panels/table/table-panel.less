@@ -1,105 +1,183 @@
 @import "base.less";
 
-// Variables
-@even-row-color: darken(@main-color, 10);
-@odd-row-color: darken(@main-color, 5);
-
-@side-padding: 16px;
-@top-bottom-padding: 14px;
-
 :host {
   display: block;
 }
 
-table-panel {
-  .table-panel {
-    margin-bottom: 40px;
+::ng-deep .table-panel {
+  padding: 40px 10px 45px;
+  font-size: 18px;
+  line-height: 1.5;
+  .theme(bg-color);
+  .theme(text-color);
 
-    @media @sm-up {
-      margin-bottom: 60px;
+  @media @md-up{
+    font-size: 20px;
+    padding: 29px 20px 49px;
+  }
+
+  ::ng-deep .aside &{
+    font-size: 16px;
+    line-height: 1.5;
+    padding: 11px 10px 20px;
+  }
+
+  app-heading .heading__title {
+    font-weight: bold;
+    font-size: 28px;
+    line-height: 1.5;
+    .theme(title-color);
+    text-transform: none;
+    margin: 0 0 26px;
+
+    @media @md-up{
+      margin: 0 0 7px;
     }
 
-    app-heading .heading__title {
-      font-family: @body-font;
-      color: @text-color;
+    ::ng-deep .aside &{
+      font-size: 16px;
+      line-height: 1.5;
+    }
+  }
 
-      font-size: 18px;
-      font-weight: 600;
-      text-transform: uppercase;
-      line-height: 1.3;
-      margin-bottom: 20px;
+  thead tr {
+    ::ng-deep .aside &{
+      position: absolute;
+      top: -9999px;
+      left: -9999px;
+    }
+  }
+
+  &__table {
+    width: 100%;
+    tr{
+      border-bottom-width: 1px;
+      border-style: solid;
+      border-color:@grey;
+
+      &:first-child{
+        @media @sm-down{
+          border-top:1px solid @grey;
+        }
+      }
     }
 
-    &__table {
-      width: 100%;
+    th,
+    td {
+      &:first-child{
+        width: 23.5%;
 
-      tr {
-        &:nth-child(even) td {
-          background-color: @even-row-color;
+        @media @md-up{
+          padding: 19px 3px;
+        }
+        @media @lg-up{
+          padding: 18px 3px 17px;
         }
 
-        &:nth-child(odd) td {
-          background-color: @odd-row-color;
+        ::ng-deep .aside &{
+          width:45%;
         }
       }
 
-      th,
-      td {
-        padding: @top-bottom-padding @side-padding;
+      ::ng-deep .aside &{
+        padding: 20px 3px;
       }
+    }
 
-      th {
-        .theme(bg-color);
-        .theme(text-color);
+    td[data-label]:before {
+      ::ng-deep .aside &{
+        content: attr(data-label);
+        padding-right: 3px;
+        text-align: left;
       }
     }
   }
 
-  // Adaptive
-  @media @sm-down {
-    .table-panel {
-      table,
-      thead,
-      tbody,
-      tr {
-        display: block;
+  &__inner-table{
+    width: 100%;
+    table-layout: fixed;
+
+    tr{
+      border: 0;
+      &:first-child{
+        border: 0;
+      }
+    }
+
+    th,
+    td {
+      @media @md-up{
+        padding: 19px 3px;
+      }
+      @media @lg-up{
+        padding: 18px 3px 17px;
       }
 
-      thead tr {
-        position: absolute;
-        top: -9999px;
-        left: -9999px;
-      }
-
-      tr {
-        td {
-          &:first-child {
-            .theme(bg-color);
-            .theme(text-color);
-          }
-
-          &:nth-child(odd) {
-            background-color: @odd-row-color;
-          }
-
-          &:nth-child(even) {
-            background-color: @even-row-color;
-          }
-        }
-      }
-
-      td {
+      ::ng-deep .aside &{
+        padding: 0;
         display: flex;
         justify-content: space-between;
+      }
 
-        &[data-label] {
-          &:before {
-            content: attr(data-label);
-            padding-right: @side-padding;
-            text-align: left;
-          }
+      &:first-child{
+        width: auto;
+
+        ::ng-deep .aside &{
+          width: auto;
+        }
+      }
+      &:last-child{
+        @media @lg-up{
+          width: 15%;
+        }
+        ::ng-deep .aside &{
+          width: auto;
         }
       }
     }
   }
 }
+
+// Adaptive
+@media @sm-down {
+  .table-panel {
+    &__table{
+      td{
+        padding: 20px 3px;
+
+        &:first-child{
+          width:45%;
+        }
+      }
+    }
+
+    thead tr {
+      position: absolute;
+      top: -9999px;
+      left: -9999px;
+    }
+
+    &__inner-table{
+      td {
+        padding: 0;
+        display: flex;
+        justify-content: space-between;
+
+        &:first-child{
+          width:auto;
+        }
+      }
+    }
+
+    td {
+      &[data-label] {
+        &:before {
+          content: attr(data-label);
+          padding-right: 3px;
+          text-align: left;
+        }
+      }
+    }
+  }
+}
+

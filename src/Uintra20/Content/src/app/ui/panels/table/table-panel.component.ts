@@ -4,8 +4,8 @@ import { ITablePanel, ICellData } from '../../../shared/interfaces/panels/table/
 @Component({
   selector: 'table-panel',
   templateUrl: './table-panel.html',
-  styleUrls: ['./table-panel.less'],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./table-panel.less']//,
+  //encapsulation: ViewEncapsulation.None
 })
 export class TablePanel {
   public data: ITablePanel;
