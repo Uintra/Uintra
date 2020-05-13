@@ -1,19 +1,66 @@
 @import "base.less";
 
-image-panel {
-  .image-panel {
-    margin-bottom: 40px;
-  
-    &__content {
-      display: block;
+:host {
+  display: block;
+}
+
+::ng-deep .image-panel {
+  padding: 30px 10px 9px;
+  font-size: 16px;
+  line-height: 1.5;
+  .theme(bg-color);
+  .theme(text-color);
+
+  // background-color: #fadddc;
+
+  @media @md-up{
+    font-size: 18px;
+    padding: 29px 20px 49px;
+  }
+
+  ::ng-deep .aside &{
+    font-size: 16px;
+    line-height: 1.5;
+    padding: 11px 10px 20px;
+  }
+
+  // app-heading .heading__title
+  .heading__title {
+    font-weight: bold;
+    font-size: 28px;
+    line-height: 1.5;
+    .theme(title-color);
+    text-transform: none;
+    margin: 0 0 26px;
+
+    @media @md-up{
+      margin: 0 0 27px;
     }
-  
-    &__description {
-      margin-top: 20px;
-  
-      @media @sm-up {
-        margin-top: 30px;
-      }
+
+    ::ng-deep .aside &{
+      font-size: 16px;
+      line-height: 1.5;
+      margin: 0 0 10px;
     }
+  }
+
+  &__content {
+    display: block;
+    margin-bottom: 18px;
+
+    @media @md-up{
+      margin-bottom: 14px;
+    }
+    @media @lg-up{
+      margin-bottom: 18px;
+    }
+
+    ::ng-deep .aside &{
+      margin: 0 0 14px;
+    }
+  }
+
+  a{
+    .theme(link-color);
   }
 }

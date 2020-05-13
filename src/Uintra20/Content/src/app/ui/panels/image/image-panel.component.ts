@@ -5,14 +5,16 @@ import { resolveThemeCssClass } from 'src/app/feature/reusable/ui-elements/ubl-u
 @Component({
   selector: 'image-panel',
   templateUrl: './image-panel.html',
-  styleUrls: ['./image-panel.less'],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./image-panel.less']//,
+  //encapsulation: ViewEncapsulation.None
 })
 export class ImagePanel {
   data: IImagePanel;
-  @HostBinding('class') hostClasses;
+  @HostBinding('class') rootClasses;
 
-  ngOnInit(): void {
-    this.hostClasses = resolveThemeCssClass(this.data.panelSettings);
+  ngOnInit() {
+    this.rootClasses = `
+      ${ this.data.panelSettings.theme.value.alias || 'default-theme' }
+    `;
   }
 }
