@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { IAccordionPanel } from '../../../shared/interfaces/panels/faq/faq-panel.interface'
 import { DomSanitizer } from '@angular/platform-browser';
 
