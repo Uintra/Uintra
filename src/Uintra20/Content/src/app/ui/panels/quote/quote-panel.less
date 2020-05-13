@@ -4,14 +4,14 @@
   display: block;
 }
 
-.quote-panel {
+::ng-deep .quote-panel {
   position: relative;
   padding: 98px 10px 47px;
   font: 22px/1.5 @font;
   .theme(bg-color);
   .theme(text-color);
 
-  .aside &{
+  ::ng-deep .aside &{
     padding: 60px 10px 20px;
     font-size: 16px;
     font-weight: bold;
@@ -35,7 +35,7 @@
     font: bold 100px/0.52 @font;
     z-index: 2;
 
-    .aside &{
+    ::ng-deep .aside &{
       font-size: 70px;
       top:28px;
     }
@@ -61,7 +61,7 @@
       font-size: 22px;
     }
 
-    .aside &{
+    ::ng-deep .aside &{
       font-size: 16px;
       font-weight: normal;
     }
@@ -83,7 +83,7 @@
       font-size: 16px;
     }
 
-    .aside &{
+    ::ng-deep aside &{
       font-size: 16px;
       font-weight: normal;
     }

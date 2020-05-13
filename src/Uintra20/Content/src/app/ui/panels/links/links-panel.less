@@ -5,7 +5,7 @@
 }
 
 ::ng-deep .links-panel {
-  padding: 40px 10px 45px;
+  padding: 40px 10px 35px;
   font-size: 18px;
   line-height: 1.5;
   .theme(bg-color);
@@ -13,7 +13,7 @@
 
   @media @md-up{
     font-size: 20px;
-    padding: 29px 20px 49px;
+    padding: 39px 41px 34px;
   }
 
   @media @lg-up{
@@ -32,10 +32,10 @@
     line-height: 1.5;
     .theme(title-color);
     text-transform: none;
-    margin: 0 0 26px;
+    margin: 0 0 32px;
 
     @media @md-up{
-      margin: 0 0 27px;
+      margin: 0 0 28px;
     }
 
     ::ng-deep .aside &{
@@ -45,7 +45,34 @@
     }
   }
 
+  .links{
+    @media @sm-down{
+      margin-left: 11px;
+    }
+
+    ::ng-deep .aside &{
+      margin-left: 0;
+    }
+  }
+
   ubl-link{
     display: block;
+    margin-top: 28px;
+
+    @media @lg-up{
+      margin-top: 22px;
+    }
+
+    &:first-child{
+      margin-top: 0;
+
+      ::ng-deep .aside &{
+        margin-top: 0;
+      }
+    }
+
+    ::ng-deep .aside &{
+      margin-top: 16px;
+    }
   }
 }

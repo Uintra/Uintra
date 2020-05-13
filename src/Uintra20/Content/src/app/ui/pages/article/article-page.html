@@ -7,7 +7,7 @@
         [data]="panel"
       ></ubl-dynamic-component>
     </div>
-    <div class="right-column" *ngIf="data?.rightColumnPanels?.length">
+    <div class="right-column aside" *ngIf="data?.rightColumnPanels?.length">
       <ubl-dynamic-component *ngFor="let panel of data?.rightColumnPanels;" [data]="panel"></ubl-dynamic-component>
     </div>
   </div>
