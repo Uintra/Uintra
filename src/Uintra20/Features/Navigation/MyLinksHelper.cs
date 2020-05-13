@@ -74,7 +74,7 @@ namespace Uintra20.Features.Navigation
                     ContentId = content.Id,
                     ActivityId = link.ActivityId,
                     Name = link.ActivityId.HasValue ? GetLinkName(link.ActivityId.Value) : GetNavigationName(content),
-                    Url = GetUrl(link, content)
+                    Url = GetUrl(link, content.Url)
                 });
 
             return MapLinks(models);
@@ -98,7 +98,7 @@ namespace Uintra20.Features.Navigation
                     ActivityId = link.ActivityId,
                     ContentId = content.Id,
                     Name = link.ActivityId.HasValue ? GetLinkName(link.ActivityId.Value) : GetNavigationName(content),
-                    Url = GetUrl(link, content)
+                    Url = GetUrl(link, content.Url)
                 });
 
             return MapLinks(models);
@@ -163,14 +163,11 @@ namespace Uintra20.Features.Navigation
             return activity.Title;
         }
 
-        private static string GetUrl(MyLink link, INodeModel content)
+        private static string GetUrl(MyLink link, string content)
         {
-            if (link.QueryString.IsNullOrEmpty())
-            {
-                return content.Url;
-            }
-
-            return $"{content.Url}?{link.QueryString}";
+            if (link.QueryString.IsNullOrEmpty()) return content;
+            
+            return $"{content.TrimLastCharacter()}?{link.QueryString}";
         }
 
         private string GetGroupLink(Guid entityId)

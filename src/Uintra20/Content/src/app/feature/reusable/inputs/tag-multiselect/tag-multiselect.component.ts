@@ -58,6 +58,7 @@ export class TagMultiselectComponent implements ControlValueAccessor {
     this.selectedList = [];
     this.isAddedTag = false;
     this.onHideDropdown();
+    this.writeValue(this.selectedList);
   }
 
   selectedCheck(tag: ITagData): boolean {

@@ -1,6 +1,6 @@
+import { ActivityEnum } from '../../../../shared/enums/activity-type.enum';
+import { IHeaderInfo, ILocation, IActivityLinks } from '../activity.interfaces';
 import { ITagData } from 'src/app/feature/reusable/inputs/tag-multiselect/tag-multiselect.interface';
-import { ActivityEnum } from "../../../../shared/enums/activity-type.enum";
-import { IHeaderInfo, ILocation, IActivityLinks } from "../activity.interfaces";
 
 export interface IEventsInitialDates {
   publishDate: string;
@@ -18,7 +18,7 @@ export interface IEventCreateModel {
   location: {
     address: string;
     shortAddress: string;
-  },
+  };
   pinAllowed: boolean;
   isPinned: boolean;
   tagIdsData?: string[];
@@ -71,4 +71,5 @@ export interface IEventForm {
   selectedTags: any;
   location: any;
   endPinDate: any;
+  availableTags: Array<ITagData>;
 }

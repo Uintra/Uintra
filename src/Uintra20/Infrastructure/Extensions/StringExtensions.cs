@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Compent.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
-using Compent.Extensions;
 using Uintra20.Features.Links.Models;
 
 namespace Uintra20.Infrastructure.Extensions
@@ -67,7 +67,7 @@ namespace Uintra20.Infrastructure.Extensions
 
             return Regex.Replace(src, ToExtractHtmlTagsPattern, string.Empty);
         }
-        
+
         public static string StripMentionHtml(this string src)
         {
             if (src.IsNullOrEmpty()) return string.Empty;
@@ -223,5 +223,10 @@ namespace Uintra20.Infrastructure.Extensions
                 };
             }
         }
+
+        public static string TrimLastCharacter(this string source) =>
+            source.IsNullOrEmpty()
+                ? source
+                : source.TrimEnd(source[source.Length - 1]);
     }
 }

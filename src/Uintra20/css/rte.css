@@ -5,7 +5,7 @@
 }
 h1, h2, h3, h4, h5 {
     font-family: 'Roboto', sans-serif;
-    margin: 2.75rem 0 1rem;
+    margin: 0;
     font-weight: 400;
 }
 
@@ -30,12 +30,25 @@ h5 {
 }
 
 /**umb_name:small*/
-text--small {
+.text--small {
 	font-size: 0.833em;
 }
 
 /**umb_name:paragraph*/
 p {
-	margin-bottom: 1.25em;
+	margin: 0;
 	font-family: 'Roboto', sans-serif;
+}
+
+ul, ol{
+    margin:0;
+}
+
+ul li, ol li{
+    margin-top:15px;
+}
+
+ul li:first-child, ol li:first-child{
+    margin-top:0;
+}
 }

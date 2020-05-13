@@ -28,7 +28,7 @@ namespace Uintra20.Infrastructure.Providers
 
         public virtual string GetErrorPage() => DocumentTypeAliasConstants.ErrorPage;
 
-        public virtual string GetBulletinsDetailsPage() => DocumentTypeAliasConstants.SocialEditPage;
+        public virtual string GetBulletinsDetailsPage() => DocumentTypeAliasConstants.SocialDetailsPage;
 
         public virtual string GetEventsDetailsPage() => DocumentTypeAliasConstants.EventsDetailsPage;
 

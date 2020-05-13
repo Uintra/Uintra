@@ -15,8 +15,10 @@ export class SignalrService {
     this.uintraHub = $.connection.uintraHub;
     this.uintraHub.notificationSubject = new Subject<any>();
     this.uintraHub.centralFeedSubject = new Subject<any>();
+    this.uintraHub.showPopupSubject = new Subject<any>();
     this.uintraHub.client.updateNotifications = this.broadcastUpdateNotifications;
     this.uintraHub.client.reloadFeed = this.broadcastReloadFeed;
+    this.uintraHub.client.showPopup = this.broadcastShowPopup;
 
     $.connection.hub.disconnected(() => {
       if ($.connection.hub.lastError) {
@@ -52,6 +54,10 @@ export class SignalrService {
     return this.uintraHub.centralFeedSubject.asObservable();
   }
 
+  public getShowPopup(): Observable<any> {
+    return this.uintraHub.showPopupSubject.asObservable();
+  }
+
   private broadcastUpdateNotifications(notifications = []) {
     // @ts-ignore: Unreachable code error: 'this' variable is uintraHub context
     this.notificationSubject.next(notifications);
@@ -60,6 +66,11 @@ export class SignalrService {
   private broadcastReloadFeed() {
     // @ts-ignore: Unreachable code error: 'this' variable is uintraHub context
     this.centralFeedSubject.next();
+  }
+
+  private broadcastShowPopup(popups = []) {
+    // @ts-ignore: Unreachable code error: 'this' variable is uintraHub context
+    this.showPopupSubject.next(popups);
   }
 
   public hubConnectionStop() {

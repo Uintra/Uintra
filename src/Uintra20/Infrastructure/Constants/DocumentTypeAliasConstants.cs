@@ -9,7 +9,7 @@
         public const string SearchResultPage = "searchResultPage";
 
         public const string NewsOverviewPage = "newsOverviewPage";
-        public const string NewsCreatePage = "newsCreatePage";
+        public const string NewsCreatePage = "uintraNewsCreatePage";
         public const string NewsEditPage = "uintraNewsEditPage";
         public const string NewsDetailsPage = "uintraNewsDetailsPage";
 

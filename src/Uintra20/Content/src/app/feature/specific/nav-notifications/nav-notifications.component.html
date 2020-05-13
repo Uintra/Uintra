@@ -13,7 +13,7 @@
     </div>
     <div class="nav-notification__spinner-wrapper"
          *ngIf="!isLoading && notifications && notifications.length === 0">
-      No new notifications
+      {{'notifications.EmptyNotificationList.lbl'}}
     </div>
     <ng-container *ngIf="notifications">
       <app-notifications-item (handleClick)="handleClick()"
