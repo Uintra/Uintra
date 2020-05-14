@@ -15,9 +15,7 @@ export const config = {
 export class MqService {
   readonly desktopMediaQuery = `(min-width: ${config.minWidthTablet}px)`;
 
-  constructor(
-    private bpObserver: BreakpointObserver
-  ) { }
+  constructor(private bpObserver: BreakpointObserver) { }
 
   isDesktopHD(width: number): boolean {
     return width >= config.minWidthDesktopHD;

@@ -22,6 +22,8 @@ export class DatepickerFromToComponent implements OnInit {
   @Input() fromLabel: string;
   @Input() toLabel: string;
   @Input() isEvent: boolean;
+  @Input() isEventEdit: boolean;
+  @Input() eventPublishDate: string;
   @Output() handleChange = new EventEmitter();
 
   fromDate = null;
@@ -68,7 +70,9 @@ export class DatepickerFromToComponent implements OnInit {
     if (this.isEvent) {
       this.eventSubscription = this.pinActivityService.publishDates$.subscribe((dates: IDatepickerData) => {
         if (dates.from) {
-          const minDate = moment(dates.from).clone();
+          const minDate = this.isEventEdit 
+            ? moment(dates.from).clone() < moment() ? moment() : moment(dates.from).clone()
+            : moment(dates.from).clone();
           this.optFrom = {
             ...this.optFrom,
             minDate: minDate.hours(0).minutes(0).seconds(0),
@@ -88,16 +92,15 @@ export class DatepickerFromToComponent implements OnInit {
   setOptionsInitialValues() {
     this.optFrom = {
       ...this.optFrom,
-      minDate: this.minDate
+      minDate: this.minDate.clone().hours(0).minutes(0).seconds(0)
     };
     this.optTo = {
       ...this.optTo,
-      minDate: this.minDate
+      minDate: this.minDate.clone().hours(0).minutes(0).seconds(0)
     };
   }
 
   fromDateChange() {
-    this.optTo =
       this.toDate && !this.fromDate
         ? {
             ...this.optTo,
@@ -105,7 +108,7 @@ export class DatepickerFromToComponent implements OnInit {
           }
         : {
             ...this.optTo,
-            minDate: this.fromDate
+            minDate: this.fromDate.clone().hours(0).minutes(0).seconds(0)
           };
 
     this.handleChange.emit(this.buildDateObject());
@@ -113,7 +116,7 @@ export class DatepickerFromToComponent implements OnInit {
 
   fromModelChanged(value) {
     if (value) {
-      this.fromDate = moment(value.format());
+      this.fromDate = moment(value.format()) < moment(this.eventPublishDate) ? moment(this.eventPublishDate) : moment(value.format());
       if (this.toDate < value && this.isEvent) {
         this.toDate = value.add(8, "hours");
       }
@@ -121,7 +124,7 @@ export class DatepickerFromToComponent implements OnInit {
   }
   toModelChanged(value) {
     if (value) {
-      this.toDate = value;
+      this.toDate = moment(value) < moment(this.fromDate) ? moment(this.fromDate) : moment(value);
     }
   }
 

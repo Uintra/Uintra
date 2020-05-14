@@ -32,7 +32,10 @@ export class EventFormComponent implements OnInit, AfterViewInit {
   public cancel = new EventEmitter();
   @Output()
   public hide = new EventEmitter();
-
+  @HostListener('window:beforeunload') checkIfDataChanged() {
+    return !this.hasDataChangedService.hasDataChanged;
+  }
+  
   public eventsData: IEventCreateModel;
   public selectedTags: ITagData[] = [];
   public isAccepted: boolean;
@@ -63,8 +66,8 @@ export class EventFormComponent implements OnInit, AfterViewInit {
       showClose: true,
       format: 'DD/MM/YYYY HH:mm',
       minDate: this.edit
-        ? moment(this.initialDates.publishDate)
-        : moment().subtract(5, 'seconds').format(),
+        ? moment(this.initialDates.publishDate).hours(0).minutes(0).seconds(0)
+        : moment().hours(0).minutes(0).seconds(0),
       ignoreReadonly: true
     };
 
@@ -75,10 +78,6 @@ export class EventFormComponent implements OnInit, AfterViewInit {
 
   public ngAfterViewInit(): void {
     this.contentService.makeReadonly('.udatepicker-input');
-  }
-
-  @HostListener('window:beforeunload') checkIfDataChanged() {
-    return !this.hasDataChangedService.hasDataChanged;
   }
 
   private setInitialData(): void {
@@ -160,8 +159,9 @@ export class EventFormComponent implements OnInit, AfterViewInit {
     this.hasDataChangedService.onDataChanged();
   }
 
-  public onPublishDateChange(event: any): void {
-    if (event) {
+  public onPublishDateChange(e: any): void {
+    if (e) {
+      const event = this.initialDates.publishDate && e < moment(this.initialDates.publishDate) ? moment(this.initialDates.publishDate) : e;
       this.eventsData.publishDate = event.format();
       if (event > moment(this.eventsData.endPinDate)) {
         this.eventsData.endPinDate = this.eventsData.publishDate;
