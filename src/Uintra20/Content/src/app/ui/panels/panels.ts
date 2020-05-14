@@ -69,4 +69,9 @@ export const panels = [
     path: '__dynamic__',
     loadChildren: './ui/panels/spot/spot-panel.module#SpotPanelModule'
   },
+  {
+    id: 'contactPanel',
+    path: '__dynamic__',
+    loadChildren: './ui/panels/contact/contact-panel.module#ContactPanelModule'
+  },
 ];
