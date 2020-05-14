@@ -104,8 +104,8 @@ namespace Uintra20.Core.Authentication
             var ext = Path.GetExtension(url.LocalPath);
             if (ext.IsNullOrWhiteSpace()) return false;
             var toInclude = new[] { ".aspx", ".ashx", ".asmx", ".axd", ".svc" };
-            //return toInclude.Any(ext.InvariantEquals) == false;
-            return toInclude.Any(ext.InvariantEquals);
+            return toInclude.Any(ext.InvariantEquals) == false;
+            //return toInclude.Any(ext.InvariantEquals);
         }
 
         private static bool IsBackOfficeRequest(IOwinRequest request, IGlobalSettings globalSettings)
