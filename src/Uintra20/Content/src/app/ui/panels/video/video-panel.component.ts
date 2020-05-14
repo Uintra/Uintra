@@ -4,9 +4,9 @@ import { resolveThemeCssClass } from 'src/app/feature/reusable/ui-elements/ubl-u
 import { MqService, config } from 'src/app/shared/services/general/mq.service';
 import { ThumbnailBuilderService } from './service/thumbnail-builder.service';
 import { ModalService } from 'src/app/shared/services/general/modal.service';
-import { VideoPanelPopUpComponent } from './components/video-panel-pop-up/video-panel-pop-up.component';
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { Subscription } from 'rxjs';
+import { ModalVideoComponent } from 'src/app/feature/reusable/ui-elements/ubl-ui-kit/modal-video/modal-video.component';
 
 @Component({
   selector: 'video-panel',
@@ -41,7 +41,7 @@ export class VideoPanel {
   }
 
   open() {
-    this.modalService.appendComponentToBody(VideoPanelPopUpComponent, {data: this.videoData})
+    this.modalService.appendComponentToBody(ModalVideoComponent, {data: this.videoData})
   }
 
   private prepareVm(data: IVideoPickerVideoData): IVideoViewModel
