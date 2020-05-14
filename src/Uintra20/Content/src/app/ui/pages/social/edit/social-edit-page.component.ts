@@ -1,15 +1,14 @@
-import { Component, ViewEncapsulation, HostListener } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
-import ParseHelper from "../../../../shared/utils/parse.helper";
-import { FormGroup, FormControl, Validators } from "@angular/forms";
-import { RouterResolverService } from "src/app/shared/services/general/router-resolver.service";
-import { AddButtonService } from "src/app/ui/main-layout/left-navigation/components/my-links/add-button.service";
-import { Observable } from "rxjs";
-import { HasDataChangedService } from "src/app/shared/services/general/has-data-changed.service";
-import { CanDeactivateGuard } from "src/app/shared/services/general/can-deactivate.service";
-import { ActivityService } from "src/app/feature/specific/activity/activity.service";
+import { Component, ViewEncapsulation, HostListener, OnDestroy } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { RouterResolverService } from 'src/app/shared/services/general/router-resolver.service';
+import { Observable, Subscription } from 'rxjs';
+import { HasDataChangedService } from 'src/app/shared/services/general/has-data-changed.service';
+import { CanDeactivateGuard } from 'src/app/shared/services/general/can-deactivate.service';
+import { ActivityService } from 'src/app/feature/specific/activity/activity.service';
 import { ISocialEdit } from 'src/app/feature/specific/activity/activity.interfaces';
 import { TranslateService } from '@ngx-translate/core';
+import { ISocialEditPage } from 'src/app/shared/interfaces/pages/social/edit/social-edit-page.interface';
 
 @Component({
   selector: 'social-edit',
@@ -17,12 +16,12 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./social-edit-page.component.less'],
   encapsulation: ViewEncapsulation.None
 })
-export class SocialEditPageComponent {
-  @HostListener('window:beforeunload') checkIfDataChanged() {
-    return !this.hasDataChangedService.hasDataChanged;
-  }
+export class SocialEditPageComponent implements OnDestroy {
 
-  private data: any;
+  private $deleteSubscription: Subscription;
+  private $updateSubscription: Subscription;
+
+  public data: ISocialEditPage;
   public files: Array<any> = new Array<any>();
   public inProgress = false;
   public socialEdit: ISocialEdit;
@@ -30,51 +29,54 @@ export class SocialEditPageComponent {
   public socialEditForm: FormGroup;
 
   constructor(
-    private route: ActivatedRoute,
+    private activatedRoute: ActivatedRoute,
     private socialService: ActivityService,
     private router: Router,
     private routerResolverService: RouterResolverService,
-    private addButtonService: AddButtonService,
     private hasDataChangedService: HasDataChangedService,
     private canDeactivateService: CanDeactivateGuard,
     private translate: TranslateService
   ) {
-    this.route.data.subscribe(data => {
-      if (!data.requiresRedirect.get()) {
-        this.data = data;
-        this.addButtonService.setPageId(data.id);
-        this.onParse();
-        this.initSocialEditForm();
-      } else {
-        this.router.navigate([data.errorLink.get().originalUrl.get()]);
-      }
+    this.activatedRoute.data.subscribe((data: ISocialEditPage) => {
+      this.data = data;
+      this.onParse();
+      this.initSocialEditForm();
     });
   }
 
+  public ngOnDestroy(): void {
+    if (this.$deleteSubscription) { this.$deleteSubscription.unsubscribe(); }
+
+    if (this.$updateSubscription) { this.$updateSubscription.unsubscribe(); }
+  }
+
+  @HostListener('window:beforeunload') public checkIfDataChanged() {
+    return !this.hasDataChangedService.hasDataChanged;
+  }
+
   private onParse = (): void => {
-    const parsedSocialEdit = ParseHelper.parseUbaselineData(this.data);
     this.socialEdit = {
-      ownerId: parsedSocialEdit.ownerId,
-      description: parsedSocialEdit.description,
-      tags: Object.values(parsedSocialEdit.tags),
-      availableTags: Object.values(parsedSocialEdit.availableTags),
+      ownerId: this.data.ownerId,
+      description: this.data.description,
+      tags: this.data.tags,
+      availableTags: this.data.availableTags,
       lightboxPreviewModel: {
-        medias: Object.values(parsedSocialEdit.lightboxPreviewModel.medias || []),
-        otherFiles: Object.values(parsedSocialEdit.lightboxPreviewModel.otherFiles || []),
-        filesToDisplay: parsedSocialEdit.lightboxPreviewModel.filesToDisplay,
-        additionalImages: parsedSocialEdit.lightboxPreviewModel.additionalImages,
-        hiddenImagesCount: parsedSocialEdit.lightboxPreviewModel.hiddenImagesCount
+        medias: this.data.lightboxPreviewModel.medias || [],
+        otherFiles: this.data.lightboxPreviewModel.otherFiles || [],
+        filesToDisplay: this.data.lightboxPreviewModel.filesToDisplay,
+        additionalImages: this.data.lightboxPreviewModel.additionalImages,
+        hiddenImagesCount: this.data.lightboxPreviewModel.hiddenImagesCount
       },
-      id: parsedSocialEdit.id,
-      groupHeader: parsedSocialEdit.groupHeader,
-      links: parsedSocialEdit.links,
-      canDelete: !!parsedSocialEdit.canDelete,
-      canEdit: !parsedSocialEdit.requiresRedirect,
-      name: parsedSocialEdit.name,
+      id: this.data.id,
+      groupHeader: this.data.groupHeader,
+      links: this.data.links,
+      canDelete: !!this.data.canDelete,
+      canEdit: !this.data.requiresRedirect,
+      name: this.data.name,
       tagIdsData: new Array<string>(),
       newMedia: null,
       media: null,
-      mediaRootId: parsedSocialEdit.mediaRootId
+      mediaRootId: this.data.mediaRootId
     };
   }
 
@@ -100,14 +102,14 @@ export class SocialEditPageComponent {
   }
 
   public onTagsChange(e): void {
-    if (this.socialEdit.tags != e) {
+    if (this.socialEdit.tags !== e) {
       this.hasDataChangedService.onDataChanged();
     }
     this.socialEdit.tags = e;
   }
 
   public onDescriptionChange(e): void {
-    if (this.socialEdit.description != e) {
+    if (this.socialEdit.description !== e) {
       this.hasDataChangedService.onDataChanged();
     }
     this.socialEdit.description = e;
@@ -126,7 +128,7 @@ export class SocialEditPageComponent {
     this.socialEdit.tagIdsData = this.socialEdit.tags.map(t => t.id);
     this.inProgress = true;
 
-    this.socialService.updateSocial(this.socialEdit)
+    this.$updateSubscription = this.socialService.updateSocial(this.socialEdit)
       .subscribe(
         (next: any) => {
           this.routerResolverService.removePageRouter(next.originalUrl);
@@ -143,7 +145,7 @@ export class SocialEditPageComponent {
     if (confirm(this.translate.instant('common.AreYouSure'))) {
       this.inProgress = true;
 
-      this.socialService.deleteSocial(this.socialEdit.id)
+      this.$deleteSubscription = this.socialService.deleteSocial(this.socialEdit.id)
         .subscribe(
           (next) => {
             this.router.navigate([this.socialEdit.links.feed.originalUrl]);
@@ -154,17 +156,22 @@ export class SocialEditPageComponent {
         );
     }
   }
+
   private initSocialEditForm(): void {
     this.socialEditForm = new FormGroup({
       description: new FormControl(this.socialEdit.description, Validators.required)
     });
   }
 
-  canDeactivate(): Observable<boolean> | boolean {
+  public canDeactivate(): Observable<boolean> | boolean {
     if (this.hasDataChangedService.hasDataChanged) {
       return this.canDeactivateService.canDeacrivateConfirm();
     }
 
     return true;
+  }
+
+  addLinkPreview(linkPreviewId: number) {
+    this.socialEdit.linkPreviewId = linkPreviewId;
   }
 }

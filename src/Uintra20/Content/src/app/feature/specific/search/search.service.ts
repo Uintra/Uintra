@@ -1,34 +1,51 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ISearchRequestData, IAutocompleteItem, ISearchData, IDeleteMemberRequest, IMemberStatusRequest, IUserListRequest, IUserListData } from './search.interface';
-import { Observable } from 'rxjs';
+import {
+  ISearchRequestData,
+  IAutocompleteItem,
+  ISearchData,
+  IDeleteMemberRequest,
+  IMemberStatusRequest,
+  IUserListRequest,
+  IUserListData
+} from './search.interface';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SearchService {
 
-  constructor(
-    private http: HttpClient,
-  ) { }
+  private prefix = '/ubaseline/api/';
+  public groupMembersRefreshTrigger = new Subject();
 
-  autocomplete(query: string): Observable<IAutocompleteItem[]> {
-    return this.http.post<IAutocompleteItem[]>("/ubaseline/api/search/autocomplete", {query: query});
+  constructor(private http: HttpClient) { }
+
+  public autocomplete = (query: string): Observable<IAutocompleteItem[]> =>
+    this.http.post<IAutocompleteItem[]>(`${this.prefix}search/autocomplete`, { query });
+
+  public search = (data: ISearchRequestData): Observable<ISearchData> =>
+    this.http.post<ISearchData>(`${this.prefix}search/search`, data)
+
+  public userListSearch = (data: IUserListRequest): Observable<IUserListData> =>
+    this.http.post<IUserListData>(`${this.prefix}UserList/GetUsers`, data)
+
+  public userListSearchForInvitation(data: IUserListRequest): Observable<IUserListData> {
+    return this.http.post<IUserListData>(`${this.prefix}UserList/ForInvitation`, data)
   }
 
-  search(data: ISearchRequestData): Observable<ISearchData> {
-    return this.http.post<ISearchData>("/ubaseline/api/search/search", data)
+  public userListInvite(data: IMemberStatusRequest) {
+    return this.http.post<IUserListData>(`${this.prefix}UserList/InviteMember`, data)
   }
 
-  userListSearch(data: IUserListRequest): Observable<IUserListData> {
-    return this.http.post<IUserListData>("/ubaseline/api/UserList/GetUsers", data)
+  public changeMemberStatus(data: IMemberStatusRequest) {
+    return this.http.put(`${this.prefix}userlist/assign`, data);
   }
 
-  changeMemberStatus(data: IMemberStatusRequest) {
-    return this.http.put("/ubaseline/api/userlist/assign", data);
-  }
+  public deleteMember = (data: IDeleteMemberRequest): Observable<any> =>
+    this.http.delete(`${this.prefix}userList/ExcludeUserFromGroup?groupId=${data.groupId}&userId=${data.userId}`)
 
-  deleteMember(data : IDeleteMemberRequest) {
-    return this.http.delete(`/ubaseline/api/userList/ExcludeUserFromGroup?groupId=${data.groupId}&userId=${data.userId}`);
+  public refreshGroupMembersPage() {
+    this.groupMembersRefreshTrigger.next();
   }
 }

@@ -1,20 +1,19 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using UBaseline.Core.Media;
 using UBaseline.Core.Node;
+using UBaseline.Shared.Media;
 using UBaseline.Shared.MetaData;
 using UBaseline.Shared.Node;
 using Uintra20.Core.Activity;
 using Uintra20.Core.Activity.Entities;
-using Uintra20.Features.Media.Helpers;
 using Uintra20.Features.OpenGraph.Models;
 using Uintra20.Features.OpenGraph.Services.Contracts;
 using Uintra20.Infrastructure.Extensions;
 using Uintra20.Infrastructure.Providers;
 using Umbraco.Core;
-using Umbraco.Core.Models.PublishedContent;
-using Umbraco.Core.Services;
 using StringExtensions = Uintra20.Infrastructure.Extensions.StringExtensions;
 
 namespace Uintra20.Features.OpenGraph.Services.Implementations
@@ -27,7 +26,7 @@ namespace Uintra20.Features.OpenGraph.Services.Implementations
         private readonly IActivitiesServiceFactory _activitiesServiceFactory;
         private readonly INodeModelService _nodeModelService;
         private readonly IMediaProvider _mediaProvider;
-        
+
 
         private Uri RequestUrl => HttpContext.Current.Request.Url;
 
@@ -35,8 +34,6 @@ namespace Uintra20.Features.OpenGraph.Services.Implementations
             IDocumentTypeAliasProvider documentTypeAliasProvider,
             IActivitiesServiceFactory activitiesServiceFactory,
             INodeModelService nodeModelService,
-            IMediaService mediaService, 
-            IMediaHelper mediaHelper, 
             IMediaProvider mediaProvider)
         {
             _documentTypeAliasProvider = documentTypeAliasProvider;
@@ -57,18 +54,15 @@ namespace Uintra20.Features.OpenGraph.Services.Implementations
 
             if (content == null) return null;
 
-            if (IsActivityDetailsPage(content))
-            {
-                var query = HttpUtility.ParseQueryString(uri.Query);
+            if (!IsActivityDetailsPage(content)) return GetOpenGraphObject(content, url);
 
-                var tryParse = Guid.TryParse(query.Get(_queryStringIdKey), out var id);
+            var query = HttpUtility.ParseQueryString(uri.Query);
 
-                return tryParse
-                    ? GetOpenGraphObject(id, url)
-                    : null;
-            }
+            var tryParse = Guid.TryParse(query.Get(_queryStringIdKey), out var id);
 
-            return GetOpenGraphObject(content, url);
+            return tryParse
+                ? GetOpenGraphObject(id, url)
+                : null;
         }
 
         private bool IsActivityDetailsPage(INodeModel content) =>
@@ -80,43 +74,42 @@ namespace Uintra20.Features.OpenGraph.Services.Implementations
         {
             var graph = GetDefaultObject(defaultUrl);
 
-            if (nodeModel is IMetaDataComposition metaData)
-            {
-                graph.Title = metaData.MetaData.MetaTitle;
-                graph.Description = metaData.MetaData.MetaDescription;
-                graph.MediaId = metaData.MetaData.SocialImage.DataTypeId;
-                graph.Image = _mediaProvider.GetById(metaData.MetaData.SocialImage.Value.MediaId).Url;
-            }
+            if (!(nodeModel is IMetaDataComposition metaData)) return graph;
+
+            graph.Title = metaData.MetaData.MetaTitle;
+            graph.Description = metaData.MetaData.MetaDescription;
+            graph.MediaId = metaData.MetaData.SocialImage.DataTypeId;
+            graph.Image = "/images/preview.png";
 
             return graph;
         }
 
         public virtual OpenGraphObject GetOpenGraphObject(Guid activityId, string defaultUrl = null)
         {
-            var defaultGraph = GetDefaultObject(defaultUrl);
+            var graph = GetDefaultObject(defaultUrl);
 
             var intranetActivityService = (IIntranetActivityService<IIntranetActivity>)
                 _activitiesServiceFactory.GetService<IIntranetActivityService>(activityId);
 
             var currentActivity = intranetActivityService.Get(activityId);
 
-            if (currentActivity == null) return defaultGraph;
+            if (currentActivity == null) return graph;
 
-            defaultGraph.Title = currentActivity.Title.IfNullOrWhiteSpace("Social");
-            defaultGraph.Description = StringExtensions.StripHtml(currentActivity.Description).TrimByWordEnd(100);
+            graph.Title = currentActivity.Title.IfNullOrWhiteSpace("Social");
+            graph.Description = StringExtensions.StripHtml(currentActivity.Description).TrimByWordEnd(100);
 
-            if (currentActivity.MediaIds.Any())
-            {
-                foreach (var mediaId in currentActivity.MediaIds)
-                {
-                    var mediaModel = _mediaProvider.GetById(mediaId) as IMetaDataComposition;
+            if (!currentActivity.MediaIds.Any()) return graph;
 
-                    defaultGraph.MediaId = mediaId;
-                    defaultGraph.Image = _mediaProvider.GetById(mediaModel.MetaData.SocialImage.Value.MediaId).Url;
-                }
-            }
+            var list = new List<IMediaModel>();
 
-            return defaultGraph;
+            currentActivity.MediaIds.ToList().ForEach(i => list.Add(_mediaProvider.GetById(i)));
+
+            var image = list.FirstOrDefault(m => m is ImageModel);
+
+            graph.MediaId = image?.Id;
+            graph.Image = image?.Url;
+
+            return graph;
         }
 
         protected virtual OpenGraphObject GetDefaultObject(string url = null) =>

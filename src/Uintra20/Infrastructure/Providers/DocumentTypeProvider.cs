@@ -1,7 +1,6 @@
 ﻿using System;
 using UBaseline.Core.Node;
 using UBaseline.Core.RequestContext;
-using UBaseline.Shared.Node;
 using Uintra20.Core.Activity;
 using Uintra20.Features.Social.Models;
 using Uintra20.Infrastructure.Constants;
@@ -11,14 +10,6 @@ namespace Uintra20.Infrastructure.Providers
 {
     public class DocumentTypeProvider : IDocumentTypeAliasProvider
     {
-        private readonly INodeModelService _nodeModelService;
-        private readonly IUBaselineRequestContext _uBaselineRequestContext;
-
-        public DocumentTypeProvider(INodeModelService nodeModelService, IUBaselineRequestContext uBaselineRequestContext)
-        {
-            _nodeModelService = nodeModelService;
-            _uBaselineRequestContext = uBaselineRequestContext;
-        }
         public virtual string GetNavigationComposition() => DocumentTypeAliasConstants.NavigationComposition;
 
         public virtual string GetArticlePage() => DocumentTypeAliasConstants.ArticlePage;
@@ -37,7 +28,7 @@ namespace Uintra20.Infrastructure.Providers
 
         public virtual string GetErrorPage() => DocumentTypeAliasConstants.ErrorPage;
 
-        public virtual string GetBulletinsDetailsPage() => DocumentTypeAliasConstants.SocialEditPage;
+        public virtual string GetBulletinsDetailsPage() => DocumentTypeAliasConstants.SocialDetailsPage;
 
         public virtual string GetEventsDetailsPage() => DocumentTypeAliasConstants.EventsDetailsPage;
 
@@ -47,9 +38,9 @@ namespace Uintra20.Infrastructure.Providers
         {
             switch (type.ToInt())
             {
-                case (int)IntranetActivityTypeEnum.News: return DocumentTypeAliasConstants.NewsOverviewPage;
-                case (int)IntranetActivityTypeEnum.Events: return DocumentTypeAliasConstants.EventsOverviewPage;
-                case (int)IntranetActivityTypeEnum.Social: return DocumentTypeAliasConstants.SocialOverviewPage;
+                case (int) IntranetActivityTypeEnum.News: return DocumentTypeAliasConstants.NewsOverviewPage;
+                case (int) IntranetActivityTypeEnum.Events: return DocumentTypeAliasConstants.EventsOverviewPage;
+                case (int) IntranetActivityTypeEnum.Social: return DocumentTypeAliasConstants.SocialOverviewPage;
                 default:
                     return null;
             }
@@ -59,9 +50,9 @@ namespace Uintra20.Infrastructure.Providers
         {
             switch (type.ToInt())
             {
-                case (int)IntranetActivityTypeEnum.News: return DocumentTypeAliasConstants.NewsEditPage;
-                case (int)IntranetActivityTypeEnum.Events: return DocumentTypeAliasConstants.EventsEditPage;
-                case (int)IntranetActivityTypeEnum.Social: return DocumentTypeAliasConstants.SocialEditPage;
+                case (int) IntranetActivityTypeEnum.News: return DocumentTypeAliasConstants.NewsEditPage;
+                case (int) IntranetActivityTypeEnum.Events: return DocumentTypeAliasConstants.EventsEditPage;
+                case (int) IntranetActivityTypeEnum.Social: return DocumentTypeAliasConstants.SocialEditPage;
                 default:
                     return null;
             }
@@ -71,9 +62,9 @@ namespace Uintra20.Infrastructure.Providers
         {
             switch (type.ToInt())
             {
-                case (int)IntranetActivityTypeEnum.News: return DocumentTypeAliasConstants.NewsDetailsPage;
-                case (int)IntranetActivityTypeEnum.Events: return DocumentTypeAliasConstants.EventsDetailsPage;
-                case (int)IntranetActivityTypeEnum.Social: return DocumentTypeAliasConstants.SocialDetailsPage;
+                case (int) IntranetActivityTypeEnum.News: return DocumentTypeAliasConstants.NewsDetailsPage;
+                case (int) IntranetActivityTypeEnum.Events: return DocumentTypeAliasConstants.EventsDetailsPage;
+                case (int) IntranetActivityTypeEnum.Social: return DocumentTypeAliasConstants.SocialDetailsPage;
                 default:
                     return null;
             }
@@ -83,8 +74,8 @@ namespace Uintra20.Infrastructure.Providers
         {
             switch (type.ToInt())
             {
-                case (int)IntranetActivityTypeEnum.News: return DocumentTypeAliasConstants.NewsCreatePage;
-                case (int)IntranetActivityTypeEnum.Events: return DocumentTypeAliasConstants.EventsCreatePage;
+                case (int) IntranetActivityTypeEnum.News: return DocumentTypeAliasConstants.NewsCreatePage;
+                case (int) IntranetActivityTypeEnum.Events: return DocumentTypeAliasConstants.EventsCreatePage;
                 default:
                     return null;
             }
@@ -115,10 +106,5 @@ namespace Uintra20.Infrastructure.Providers
         public virtual string GetGroupMyGroupsOverviewPage() => DocumentTypeAliasConstants.GroupsMyGroupsOverviewPage;
 
         public virtual string GetGroupDeactivatedPage() => DocumentTypeAliasConstants.GroupsDeactivatedGroupPage;
-
-        private string GetUbaselinePage<T>(string alias) where T : NodeModel
-        {
-            return _nodeModelService.GetByAlias<T>(alias, _uBaselineRequestContext.HomeNode.RootId).ContentTypeAlias;
-        }
     }
 }

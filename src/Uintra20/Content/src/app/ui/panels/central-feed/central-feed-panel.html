@@ -13,14 +13,15 @@
     (scrolled)="onScroll()"
   >
     <app-central-feed-publication
-      *ngFor="let publication of feed"
+      *ngFor="let publication of feed; trackBy: index"
       [publication]="publication"
+      [id]="publication.id"
     ></app-central-feed-publication>
 
     <div *ngIf="isFeedLoading" class="central-feed__loader-wrapper">
       <div class="central-feed__loader"></div>
     </div>
-
-    <div *ngIf="!isFeedLoading && !isResponseFailed && !feed.length" class="central-feed__empty-feed">{{'centralFeedList.Empty.lbl' | translate}}</div>
+    <div *ngIf="!isFeedLoading && !isResponseFailed && !feed.length"
+         class="central-feed__empty-feed">{{'centralFeedList.Empty.lbl' | translate}}</div>
   </div>
 </section>

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, HostListener, OnChanges, DoCheck, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, HostListener, AfterViewInit } from '@angular/core';
 import { ISelectItem } from 'src/app/feature/reusable/inputs/select/select.component';
 import { ITagData } from 'src/app/feature/reusable/inputs/tag-multiselect/tag-multiselect.interface';
 import { PinActivityService } from '../pin-activity/pin-activity.service';
@@ -9,8 +9,8 @@ import { RTEStripHTMLService } from '../rich-text-editor/helpers/rte-strip-html.
 import { IDatepickerData } from '../datepicker-from-to/datepiker-from-to.interface';
 import { ILocationResult } from 'src/app/feature/reusable/ui-elements/location-picker/location-picker.interface';
 import { IPinedData } from '../pin-activity/pin-activity.component';
-import * as moment from "moment";
-import { IEventCreateModel, IEventsInitialDates, IPublishDatepickerOptions } from './event-form.interface';
+import * as moment from 'moment';
+import { IEventCreateModel, IEventsInitialDates, IPublishDatepickerOptions, IEventForm } from './event-form.interface';
 import { ContentService } from 'src/app/shared/services/general/content.service';
 
 @Component({
@@ -20,16 +20,18 @@ import { ContentService } from 'src/app/shared/services/general/content.service'
 })
 export class EventFormComponent implements OnInit, AfterViewInit {
 
-  @Input() data: any;
-  @Input('edit') edit: any;
-  @Input() inProgress: boolean;
-  @Output() submit = new EventEmitter();
-  @Output() cancel = new EventEmitter();
-  @Output() hide = new EventEmitter();
-
-  @HostListener('window:beforeunload') checkIfDataChanged() {
-    return !this.hasDataChangedService.hasDataChanged;
-  }
+  @Input()
+  public data: IEventForm;
+  @Input('edit')
+  public edit: any;
+  @Input()
+  public inProgress: boolean;
+  @Output()
+  public submit = new EventEmitter();
+  @Output()
+  public cancel = new EventEmitter();
+  @Output()
+  public hide = new EventEmitter();
 
   public eventsData: IEventCreateModel;
   public selectedTags: ITagData[] = [];
@@ -38,7 +40,7 @@ export class EventFormComponent implements OnInit, AfterViewInit {
   public defaultOwner: ISelectItem;
   public initialDates: IEventsInitialDates;
   public initialLocation: string;
-  public locationTitle = "";
+  public locationTitle = '';
   public publishDatepickerOptions: IPublishDatepickerOptions;
   public files: Array<any> = [];
   public isShowValidation: boolean;
@@ -59,7 +61,10 @@ export class EventFormComponent implements OnInit, AfterViewInit {
 
     this.publishDatepickerOptions = {
       showClose: true,
-      minDate: this.edit ?  moment(this.initialDates.publishDate) : moment().subtract(5, "seconds").format(),
+      format: 'DD/MM/YYYY HH:mm',
+      minDate: this.edit
+        ? moment(this.initialDates.publishDate)
+        : moment().subtract(5, 'seconds').format(),
       ignoreReadonly: true
     };
 
@@ -72,7 +77,14 @@ export class EventFormComponent implements OnInit, AfterViewInit {
     this.contentService.makeReadonly('.udatepicker-input');
   }
 
+  @HostListener('window:beforeunload') checkIfDataChanged() {
+    return !this.hasDataChangedService.hasDataChanged;
+  }
+
   private setInitialData(): void {
+
+    if (this.data.members === null) { this.data.members = []; }
+
     this.owners = this.eventFormService.getMembers(this.data.members);
 
     this.defaultOwner = this.data.creator
@@ -91,7 +103,7 @@ export class EventFormComponent implements OnInit, AfterViewInit {
   }
 
   public changeOwner(owner: ISelectItem | string): void {
-    if (typeof owner === "string") {
+    if (typeof owner === 'string') {
       this.eventsData.ownerId = owner;
     } else {
       this.eventsData.ownerId = owner.id;
@@ -115,21 +127,18 @@ export class EventFormComponent implements OnInit, AfterViewInit {
     this.eventsData.description = e;
   }
 
-  // Data set functions
-  setDatePickerValue(value: IDatepickerData = {}) {
-    const test = moment(this.initialDates.from).format();
-    const test1 = moment(this.initialDates.publishDate).format();
+  public setDatePickerValue(value: IDatepickerData = {}) {
     if ((
-        moment(this.initialDates.from).format() != value.from
-        && moment(this.initialDates.from).add(5, "seconds").format() != value.from
-        && moment(this.initialDates.publishDate).format() != value.from
-        && moment(this.initialDates.publishDate).add(5, "seconds").format() != value.from
-      )
+      moment(this.initialDates.from).format() !== value.from
+      && moment(this.initialDates.from).add(5, 'seconds').format() !== value.from
+      && moment(this.initialDates.publishDate).format() !== value.from
+      && moment(this.initialDates.publishDate).add(5, 'seconds').format() !== value.from
+    )
       || (
-        moment(this.initialDates.to).format() != value.to
-        && moment(this.initialDates.to).subtract(5, "seconds").format() != value.to
-        && moment(this.initialDates.publishDate).add(8, "hours").format() != value.to
-        && moment(this.initialDates.publishDate).add(8, "hours").subtract(5, "seconds").format() != value.to
+        moment(this.initialDates.to).format() !== value.to
+        && moment(this.initialDates.to).subtract(5, 'seconds').format() !== value.to
+        && moment(this.initialDates.publishDate).add(8, 'hours').format() !== value.to
+        && moment(this.initialDates.publishDate).add(8, 'hours').subtract(5, 'seconds').format() !== value.to
       )) {
       this.hasDataChangedService.onDataChanged();
     }

@@ -42,11 +42,13 @@ export class PinActivityComponent implements OnInit {
       this.options = this.isEvent ? {
         ...this.options,
         minDate: dates.from ? moment(dates.from) : false,
-        maxDate: dates.to && !this.noMaxDate ? moment(dates.to) : false
+        maxDate: dates.to && !this.noMaxDate ? moment(dates.to) : false,
+        format: "DD/MM/YYYY HH:mm"
       } : {
         ...this.options,
         minDate: dates.from ? moment(dates.from).subtract(5, "minutes") : false,
-        maxDate: dates.to && !this.noMaxDate ? moment(dates.to).add(5, "minutes") : false
+        maxDate: dates.to && !this.noMaxDate ? moment(dates.to).add(5, "minutes") : false,
+        format: "DD/MM/YYYY HH:mm"
       }
     });
   }

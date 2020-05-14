@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { UbaselineCoreModule } from '@ubaseline/next';
+import { UbaselineCoreModule } from 'ubaseline-next-for-uintra';
 import { ProfilePage } from './profile-page.component';
 import { UlinkModule } from 'src/app/shared/pipes/link/ulink.module';
 import { UserAvatarModule } from 'src/app/feature/reusable/ui-elements/user-avatar/user-avatar.module';

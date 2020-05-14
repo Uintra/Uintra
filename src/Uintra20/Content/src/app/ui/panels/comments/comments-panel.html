@@ -1,7 +1,5 @@
-<app-comments
-  [comments]="data.comments"
-  [commentDetails]="commentDetails"
-  [activityType]='activityType'
-  [isGroupMember]="isGroupMember"
-  [commentsActivity]="commentsActivity"
-></app-comments>
+<app-comments [comments]="data.comments"
+              [entityId]="data.entityId"
+              [activityType]="data.commentsType"
+              [isGroupMember]="data.isGroupMember"
+              [commentsActivity]="data.commentsType"></app-comments>

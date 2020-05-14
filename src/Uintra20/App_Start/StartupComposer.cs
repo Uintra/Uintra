@@ -13,10 +13,11 @@ using Umbraco.Core;
 using Umbraco.Core.Composing;
 using Umbraco.Web;
 using UmbracoIdentity;
+using Uintra20.Core.Updater;
 
 namespace Uintra20
 {
-    [ComposeAfter(typeof(ComponentComposer))]
+    [RuntimeLevel(MinLevel = RuntimeLevel.Boot)]
     public class StartupComposer : IUserComposer
     {
         public void Compose(Composition composition)
@@ -44,10 +45,10 @@ namespace Uintra20
                 .AddConfiguration()
                 .Build();
 
-			var assembly = typeof(StartupComposer).Assembly;
+			var assembly = typeof(MigrationExecutor).Assembly;
 
 			var dependencyCollection = new LightInjectDependencyCollection(container, configuration);
-			dependencyCollection.AddLogging()
+			dependencyCollection
                 .AddLogging()
                 .AddUBaseline()
                 .RegisterInjectModules(assembly)
@@ -55,8 +56,8 @@ namespace Uintra20
                 .RegisterApiControllers(assembly)
                 .RegisterConverters(assembly);
 
-			composition.Components().Append<UintraApplicationComponent>();
-            composition.Components().Append<UintraUmbracoEventComponent>();
+			//composition.Components().Append<UintraApplicationComponent>();
+            //composition.Components().Append<UintraUmbracoEventComponent>();
 
             MapperConfig.RegisterMappings(composition);
         }

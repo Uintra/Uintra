@@ -1,0 +1,36 @@
+<div class="modal">
+  <div class="modal__background"
+        (click)="onHidePopUp()"></div>
+  <div class="bulletin-popup__wrapper">
+    <div class="bulletin-popup">
+      <button class="bulletin-popup__close-button"
+              (click)="onHidePopUp()">&times;</button>
+      <app-publication-header class="bulletin-popup__header"
+                              [avatar]="userAvatar?.photo"
+                              [title]="userAvatar.name">
+        <div subtitle>{{data.date}} - {{'socialCreate.Title' | translate}}</div>
+      </app-publication-header>
+      <dropzone #dropdownRef
+                (success)="onUploadSuccess($event)"
+                (removedFile)="onFileRemoved($event)"></dropzone>
+      <app-rich-text-editor [ngModel]="description"
+                            [availableTags]="availableTags"
+                            [tags]="tags"
+                            (ngModelChange)="onDescriptionChange($event)"
+                            (addAttachment)="addAttachment()"
+                            (linkPreview)="addLinkPreview($event)"
+                            (tagsChange)="onTagsChange($event)"
+                            [isUnderline]="false"
+                            [placeholder]="'socialsCreate.FormPlaceholder.lbl' | translate">
+        <button submit
+                [disabled]="isSubmitDisabled"
+                class="bulletin-popup__submit-button"
+                (click)="onSubmit()">
+          <span *ngIf="inProgress"
+                class="bulletin-popup__submit-button-spinner"></span>
+          <span *ngIf="!inProgress">{{'socialsCreate.Post.lbl' | translate}}</span>
+        </button>
+      </app-rich-text-editor>
+    </div>
+  </div>
+</div>

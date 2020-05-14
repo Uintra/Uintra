@@ -8,15 +8,26 @@
   customToolbarPosition="bottom"
 >
   <div quill-editor-toolbar class="toolbar">
-    <div class="ql-counter" id="counter"></div>
-
-    <div class="toolbar__second-row">
-      <div class="ql-formats-wrapper">
-        <div class="ql-formats" *ngIf="isEventsOrNews; then eventsOrNewsCreate; else comments"></div>
+    <app-tag-multiselect *ngIf="(tags.length || availableTags.length) && isShowMultiselect" 
+                                class="multiselect"
+                                [availableTags]="availableTags"
+                                [ngModel]="tags"
+                                (ngModelChange)="onTagsChange($event)"></app-tag-multiselect>
+    <div class="toolbar-actions">
+      <div class="toolbar__first-row">
+        <div class="ql-counter" id="counter"></div>
+        <button class="toolbar__toggle-multiselect" (click)="toggleMultiselect()">
+          {{(isShowMultiselect ? 'socialCreate.HideTags.btn' : 'socialCreate.ShowTags.btn') | translate}}
+        </button>
       </div>
+      <div class="toolbar__second-row">
+        <div class="ql-formats-wrapper">
+          <div class="ql-formats" *ngIf="isEventsOrNews; then eventsOrNewsCreate; else comments"></div>
+        </div>
 
-      <div class="ql-submit-button">
-        <ng-content select="[submit]"></ng-content>
+        <div class="ql-submit-button">
+          <ng-content select="[submit]"></ng-content>
+        </div>
       </div>
     </div>
 
@@ -45,6 +56,8 @@
     <ng-content select="[edit]"></ng-content>
   </div>
 </div>
+
+<app-link-preview *ngIf="editor?.firstLinkPreview && editor?.showLinkPreview" [firstLinkPreview]="editor.firstLinkPreview" [editor]="editor"></app-link-preview>
 
 <ng-template #default>
   <button class="ql-bold" [title]="'Bold'"></button>

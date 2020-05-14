@@ -1,5 +1,6 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { INotFoundPage } from 'src/app/shared/interfaces/pages/not-found/not-found-page.inteface';
 
 @Component({
   selector: 'page-not-found-page',
@@ -8,11 +9,12 @@ import { ActivatedRoute } from '@angular/router';
   encapsulation: ViewEncapsulation.None
 })
 export class PageNotFoundPage {
-  data: any;
+
+  public data: INotFoundPage;
 
   constructor(
     private route: ActivatedRoute
   ) {
-    this.route.data.subscribe(data => this.data = data);
+    this.route.data.subscribe((data: INotFoundPage) => this.data = data);
   }
 }

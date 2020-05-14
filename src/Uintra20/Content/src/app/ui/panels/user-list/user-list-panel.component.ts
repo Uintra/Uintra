@@ -1,10 +1,6 @@
-import { Component, ViewEncapsulation } from '@angular/core';
-import { IUserListPanel } from './user-list-panel.interface';
-import { Subject } from 'rxjs';
-import { debounceTime, distinctUntilChanged, finalize } from 'rxjs/operators';
-import { SearchService } from 'src/app/feature/specific/search/search.service';
-import ParseHelper from 'src/app/shared/utils/parse.helper';
-import { HttpClient } from '@angular/common/http';
+import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { IUserListPanel } from 'src/app/shared/interfaces/panels/user-list/user-list-panel.interface';
 
 @Component({
   selector: 'user-list-panel',
@@ -12,15 +8,15 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./user-list-panel.less'],
   encapsulation: ViewEncapsulation.None
 })
-export class UserListPanel {
-  data: IUserListPanel;
-  parsedData: any;
+export class UserListPanel implements OnInit {
 
-  constructor() {}
+  public data: IUserListPanel;
+
+  constructor(private translate: TranslateService) {}
 
   ngOnInit() {
-    this.parsedData = ParseHelper.parseUbaselineData(this.data);
-    this.parsedData.details.members = Object.values(this.parsedData.details.members);
-    this.parsedData.details.selectedColumns = Object.values(this.parsedData.details.selectedColumns);
+    if (this.data.details.groupId) {
+      this.data.customTitle = this.translate.instant('userListPanel.GroupTitle.lbl');
+    }
   }
 }

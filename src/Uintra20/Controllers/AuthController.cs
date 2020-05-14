@@ -7,7 +7,6 @@ using System.Web.Security;
 using Uintra20.Core.Authentication;
 using Uintra20.Core.Authentication.Models;
 using Uintra20.Core.Localization;
-using Uintra20.Core.Member.Abstractions;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Helpers;
 using Uintra20.Core.Member.Services;
@@ -15,10 +14,10 @@ using Uintra20.Features.Notification;
 using Uintra20.Features.Notification.Configuration;
 using Uintra20.Features.Notification.Entities.Base;
 using Uintra20.Features.Notification.Services;
-using Uintra20.Infrastructure.Constants;
 using Uintra20.Infrastructure.Extensions;
 using Uintra20.Infrastructure.Providers;
 using Uintra20.Models.UmbracoIdentity;
+using Umbraco.Core.Models;
 using Umbraco.Core.Services;
 using Umbraco.Web;
 using UmbracoIdentity;
@@ -46,7 +45,7 @@ namespace Uintra20.Controllers
             IMemberService memberService,
             INotificationsService notificationsService,
             IIntranetMemberService<IntranetMember> intranetMemberService,
-            UmbracoContext umbracoContext, 
+            UmbracoContext umbracoContext,
             IIntranetLocalizationService intranetLocalizationService)
         {
             _userManager = userManager;
@@ -57,7 +56,7 @@ namespace Uintra20.Controllers
             _notificationsService = notificationsService;
             _intranetMemberService = intranetMemberService;
             _umbracoContext = umbracoContext;
-            _intranetLocalizationService = intranetLocalizationService;
+            _intranetLocalizationService = intranetLocalizationService; 
         }
 
         [HttpPost]
@@ -80,8 +79,7 @@ namespace Uintra20.Controllers
             var member = _memberService.GetByUsername(login);
             if (!_memberServiceHelper.IsFirstLoginPerformed(member))
             {
-                SendWelcomeNotification(member.Key);
-                _memberServiceHelper.SetFirstLoginPerformed(member);
+                GreetNewMember(member);
             }
 
             return Ok();
@@ -107,15 +105,17 @@ namespace Uintra20.Controllers
 
             return Ok();
         }
-        
-        private void SendWelcomeNotification(Guid userId)
+
+        private void GreetNewMember(IMember member)
         {
             _notificationsService.ProcessNotification(new NotifierData
             {
                 NotificationType = NotificationTypeEnum.Welcome,
-                ReceiverIds = new List<Guid> { userId },
+                ReceiverIds = new List<Guid> {member.Key},
                 ActivityType = CommunicationTypeEnum.Member
             });
+
+            _memberServiceHelper.SetFirstLoginPerformed(member);
         }
     }
 }

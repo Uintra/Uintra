@@ -88,28 +88,29 @@ namespace Uintra20.Features.Social.Controllers
 
             ReloadFeed();
 
-            var result = await GetViewModelAsync(socialId);
+            var result = await GetSocialViewModelAsync(socialId);
 
             return Ok(result.Links.Details);
         }
 
         [HttpPut]
-        public async Task<IHttpActionResult> Update(SocialEditModel editModel)
+        public async Task<IHttpActionResult> Update(SocialEditModel socialEdit)
         {
-            if (!_permissionsService.Check(new PermissionSettingIdentity(PermissionActionEnum.Edit,
-                PermissionResourceTypeEnum.Social)))
+            if (!_permissionsService.Check(new PermissionSettingIdentity(PermissionActionEnum.Edit, PermissionResourceTypeEnum.Social)))
             {
-                return Ok((await _activityLinkService.GetLinksAsync(editModel.Id)).Details);
+                return Ok((await _activityLinkService.GetLinksAsync(socialEdit.Id)).Details);
             }
 
-            var bulletin = MapToBulletin(editModel);
+            var social = MapToSocial(socialEdit);
 
-            await _socialService.SaveAsync(bulletin);
+            await _socialService.SaveAsync(social);
 
-            await OnBulletinEditedAsync(bulletin, editModel);
+            await OnSocialEditedAsync(social, socialEdit);
 
-            var model = await GetViewModelAsync(bulletin.Id);
+            var model = await GetSocialViewModelAsync(social.Id);
+
             ReloadFeed();
+
             return Ok(model.Links.Details);
         }
 
@@ -146,7 +147,7 @@ namespace Uintra20.Features.Social.Controllers
             return bulletin;
         }
 
-        protected async Task<SocialExtendedViewModel> GetViewModelAsync(Guid id)
+        protected async Task<SocialExtendedViewModel> GetSocialViewModelAsync(Guid id)
         {
             var social = _socialService.Get(id);
 
@@ -168,11 +169,11 @@ namespace Uintra20.Features.Social.Controllers
             return extendedModel;
         }
 
-        private SocialBase MapToBulletin(SocialEditModel socialEditModel)
+        private SocialBase MapToSocial(SocialEditModel socialEditModel)
         {
             var social = _socialService.Get(socialEditModel.Id);
 
-            social = Mapper.Map(socialEditModel, social);
+            social = socialEditModel.Map(social);
 
             social.MediaIds = social.MediaIds.Concat(_mediaHelper.CreateMedia(socialEditModel, MediaFolderTypeEnum.SocialsContent));
 
@@ -187,7 +188,7 @@ namespace Uintra20.Features.Social.Controllers
             ResolveMentions(model.Description, social);
         }
 
-        private async Task OnBulletinEditedAsync(SocialBase social, SocialEditModel model)
+        private async Task OnSocialEditedAsync(SocialBase social, SocialEditModel model)
         {
             await _activityTagsHelper.ReplaceTagsAsync(social.Id, model.TagIdsData);
 

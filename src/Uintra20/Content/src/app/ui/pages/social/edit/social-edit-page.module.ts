@@ -1,7 +1,7 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
-import { UbaselineCoreModule, AS_DYNAMIC_COMPONENT } from "@ubaseline/next";
+import { UbaselineCoreModule, AS_DYNAMIC_COMPONENT } from "ubaseline-next-for-uintra";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { SocialEditPageComponent } from "./social-edit-page.component";
 import { HttpClientModule } from "@angular/common/http";

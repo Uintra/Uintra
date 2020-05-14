@@ -14,11 +14,13 @@ import { RichTextEditorModule } from 'src/app/feature/reusable/inputs/rich-text-
 import { DEFAULT_DROPZONE_CONFIG } from 'src/app/shared/constants/dropzone/drop-zone.const';
 import { MAX_LENGTH } from 'src/app/shared/constants/activity/activity-create.const';
 import { SocialCreateComponent } from './social-create.component';
+import { SocialPopUpComponent } from './components/social-pop-up/social-pop-up.component';
+import { ModalService } from 'src/app/shared/services/general/modal.service';
 
 
 
 @NgModule({
-  declarations: [SocialCreateComponent],
+  declarations: [SocialCreateComponent, SocialPopUpComponent],
   imports: [
     CommonModule,
     UlinkModule,
@@ -43,8 +45,10 @@ import { SocialCreateComponent } from './social-create.component';
     {
       provide: DROPZONE_CONFIG,
       useValue: DEFAULT_DROPZONE_CONFIG
-    }
+    },
+    ModalService,
   ],
-  exports: [SocialCreateComponent]
+  exports: [SocialCreateComponent],
+  entryComponents: [SocialPopUpComponent]
 })
 export class SocialCreateModule { }

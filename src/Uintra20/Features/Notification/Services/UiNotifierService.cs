@@ -66,6 +66,10 @@ namespace Uintra20.Features.Notification.Services
                     uiMsg.DesktopTitle = desktopMsg.Title;
                     uiMsg.DesktopMessage = desktopMsg.Message;
                     uiMsg.IsDesktopNotificationEnabled = true;
+                    if (uiMsg.NotifierId.HasValue)
+                    {
+                        uiMsg.NotifierPhotoUrl = _intranetMemberService.Get(uiMsg.NotifierId.Value)?.Photo;    
+                    }
                 }
                 return uiMsg;
             });

@@ -1,9 +1,8 @@
-import { ITagData } from "../../reusable/inputs/tag-multiselect/tag-multiselect.interface";
-import { ActivityEnum } from "src/app/shared/enums/activity-type.enum";
-import { IULink } from "src/app/shared/interfaces/general.interface";
-import { UmbracoFlatPropertyModel } from "@ubaseline/next";
-import { IGroupDetailsHeaderData } from "../groups/groups.interface";
-import { UlinkModule } from 'src/app/shared/pipes/link/ulink.module';
+import { ITagData } from '../../reusable/inputs/tag-multiselect/tag-multiselect.interface';
+import { ActivityEnum } from 'src/app/shared/enums/activity-type.enum';
+import { IULink } from 'src/app/shared/interfaces/general.interface';
+import { IGroupDetailsHeaderData } from '../groups/groups.interface';
+import { ILinkPreview } from '../../reusable/inputs/rich-text-editor/rich-text-editor.interface';
 
 export interface ISocialCreateModel {
   description: string;
@@ -11,6 +10,7 @@ export interface ISocialCreateModel {
   newMedia: string;
   tagIdsData: string[];
   groupId?: string;
+  linkPreviewId?: number;
 }
 
 export interface INewsCreateModel {
@@ -53,6 +53,7 @@ export interface ISocialEdit {
   mediaRootId: number;
   canEdit?: boolean;
   canDelete?: boolean;
+  linkPreviewId?: number;
 
   location?: {
     address?: string;
@@ -80,6 +81,7 @@ export interface ISocialDetails {
   publishDate: Date;
   links: IActivityLinks;
   location: ILocation;
+  linkPreview?: ILinkPreview;
 }
 export interface ILocation {
   address: string;
@@ -119,8 +121,8 @@ export interface ISocialAttachment {
   extension: string;
 }
 
-export interface IMedia extends ISocialAttachment {}
-export interface IDocument extends ISocialAttachment {}
+export interface IMedia extends ISocialAttachment { }
+export interface IDocument extends ISocialAttachment { }
 
 export interface IActivityLinks {
   details: IULink;
@@ -133,12 +135,13 @@ export interface IActivityLinks {
 }
 
 export interface IActivityCreatePanel {
-  contentTypeAlias: UmbracoFlatPropertyModel;
-  creator: UmbracoFlatPropertyModel;
-  dates: UmbracoFlatPropertyModel;
-  tabType: UmbracoFlatPropertyModel;
-  tags: UmbracoFlatPropertyModel;
-  activityType: UmbracoFlatPropertyModel;
-
-  members: UmbracoFlatPropertyModel;
+  contentTypeAlias: any;
+  creator: any;
+  dates: any;
+  tabType: any;
+  tags: any;
+  activityType: any;
+  members: any;
+  links: any;
+  pinAllowed: boolean;
 }

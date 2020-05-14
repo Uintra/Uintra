@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { AS_DYNAMIC_COMPONENT } from '@ubaseline/next';
+import { AS_DYNAMIC_COMPONENT } from 'ubaseline-next-for-uintra';
 import { UserTagsPanel } from './user-tags-panel.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterModule } from '@angular/router';

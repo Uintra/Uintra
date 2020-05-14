@@ -10,6 +10,7 @@ namespace Uintra20.Features.Notification.Models
         public Guid? NotifierId { get; set; }
         public UintraLinkModel Url { get; set; }
         public string Message { get; set; }
+        public string NotifierPhotoUrl { get; set; }
         public string DesktopMessage { get; set; }
         public string DesktopTitle { get; set; }
         public bool IsPinned { get; set; }

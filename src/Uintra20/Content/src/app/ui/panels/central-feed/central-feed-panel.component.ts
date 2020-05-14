@@ -1,26 +1,32 @@
-import { Component, ViewEncapsulation, OnInit, NgZone } from "@angular/core";
-import { ICentralFeedPanel, IPublicationsResponse, IFilterState } from "./central-feed-panel.interface";
-import { UmbracoFlatPropertyModel } from "@ubaseline/next";
-import { PublicationsService } from "./helpers/publications.service";
-import { SignalrService } from "src/app/shared/services/general/signalr.service";
+import { Component, ViewEncapsulation, OnInit, NgZone, OnDestroy } from '@angular/core';
+import { PublicationsService } from './helpers/publications.service';
+import { SignalrService } from 'src/app/shared/services/general/signalr.service';
 import { TranslateService } from '@ngx-translate/core';
+import { finalize } from 'rxjs/operators';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Subscription } from 'rxjs';
+import { IFilterState, ICentralFeedPanel, IPublicationsResponse } from 'src/app/shared/interfaces/panels/central-feed/central-feed-panel.interface';
+import {PopUpComponent} from "../../../shared/ui-elements/pop-up/pop-up.component";
 
 @Component({
-  selector: "central-feed-panel",
-  templateUrl: "./central-feed-panel.html",
-  styleUrls: ["./central-feed-panel.less"],
+  selector: 'central-feed-panel',
+  templateUrl: './central-feed-panel.html',
+  styleUrls: ['./central-feed-panel.less'],
   encapsulation: ViewEncapsulation.None
 })
-export class CentralFeedPanel implements OnInit {
-  data: ICentralFeedPanel;
-  tabs: Array<any> = null;
-  selectTabFilters: Array<IFilterState>;
-  selectedTabType: number;
-  feed: Array<any> = [];
-  currentPage = 1;
-  isFeedLoading = false;
-  isResponseFailed = false;
-  isScrollDisabled = false;
+export class CentralFeedPanel implements OnInit, OnDestroy {
+
+  private $publications: Subscription;
+
+  public data: ICentralFeedPanel;
+  public tabs: Array<any> = null;
+  public selectTabFilters: Array<IFilterState>;
+  public selectedTabType: number;
+  public feed: Array<any> = [];
+  public currentPage = 1;
+  public isFeedLoading = false;
+  public isResponseFailed = false;
+  public isScrollDisabled = false;
 
   constructor(
     private publicationsService: PublicationsService,
@@ -29,46 +35,50 @@ export class CentralFeedPanel implements OnInit {
     private translate: TranslateService,
   ) { }
 
-  ngOnInit() {
+  public ngOnInit(): void {
     this.tabs = this.filtersBuilder();
-
     this.signalrService.getReloadFeedSubjects().subscribe(s => {
       this.reloadFeed();
     });
   }
 
-  filtersBuilder() {
-    let filtersFromServer = Object.values(this.data.tabs.get());
+  public index = (index, item): string => {
+    return item.id;
+  }
 
-    // TODO: fix ubaselline next and remove it
-    const allOption = new UmbracoFlatPropertyModel({
+
+  public ngOnDestroy(): void {
+    if (this.$publications) { this.$publications.unsubscribe(); }
+  }
+
+  public filtersBuilder() {
+    const filtersFromServer = this.data.tabs;
+    const allOption = {
       type: "0",
       isActive: true,
       links: null,
       title: this.translate.instant('centralFeed.Filter.All.lnk'),
       filters: [
         {
-          key: "ShowPinned",
+          key: 'ShowPinned',
           title: this.translate.instant('centralFeedList.ShowPinned.chkbx'),
           isActive: false
         }
       ]
-    } as any);
+    };
 
     filtersFromServer.unshift(allOption);
 
     return filtersFromServer;
   }
 
-  reloadFeed(): void {
-    if (typeof window !== "undefined") {
-      window.scrollTo(0, 0);
-    }
+  public reloadFeed(): void {
+    if (typeof window !== 'undefined') { window.scrollTo(0, 0); }
     this.resetFeed();
     this.getPublications();
   }
 
-  getPublications(): void {
+  public getPublications(): void {
     const FilterState = {};
 
     this.selectTabFilters.forEach(filter => {
@@ -78,47 +88,43 @@ export class CentralFeedPanel implements OnInit {
       TypeId: this.selectedTabType,
       FilterState,
       Page: this.currentPage,
-      groupId: this.data.groupId.data.value
+      groupId: this.data.groupId
     };
-
     this.isFeedLoading = true;
-
-    this.publicationsService
+    this.$publications = this.publicationsService
       .getPublications(data)
-      .then((response: IPublicationsResponse) => {
-        this.isScrollDisabled = response.feed.length === 0;
-        this.concatWithCurrentFeed(response.feed);
-        this.isResponseFailed = false;
-      })
-      .catch((err) => {
-        this.isResponseFailed = true;
-      })
-      .finally(() => {
-        this.isFeedLoading = false;
-      });
+      .pipe(finalize(() => this.isFeedLoading = false))
+      .subscribe(
+        (next: IPublicationsResponse) => {
+          this.isScrollDisabled = next.feed.length === 0;
+          this.concatWithCurrentFeed(next.feed);
+          this.isResponseFailed = false;
+        },
+        (error: HttpErrorResponse) => this.isResponseFailed = true);
+
   }
 
-  concatWithCurrentFeed(data): void {
+  public concatWithCurrentFeed(data): void {
     this.ngZone.run(() => {
       this.feed = this.feed.concat(data);
     });
   }
 
-  onLoadMore(): void {
+  public onLoadMore(): void {
     this.currentPage += 1;
     this.getPublications();
   }
 
-  onScroll(): void {
+  public onScroll(): void {
     this.onLoadMore();
   }
 
-  resetFeed(): void {
+  public resetFeed(): void {
     this.feed = [];
     this.currentPage = 1;
   }
 
-  selectFilters({ selectedTabType, selectTabFilters }): void {
+  public selectFilters({ selectedTabType, selectTabFilters }): void {
     this.selectTabFilters = selectTabFilters;
     this.selectedTabType = selectedTabType;
     this.reloadFeed();

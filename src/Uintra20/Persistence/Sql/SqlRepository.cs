@@ -122,15 +122,21 @@ namespace Uintra20.Persistence.Sql
 
         public async Task DeleteAsync(IEnumerable<T> entities, IntranetDbContext context = null)
         {
-            bool isExternalContext = context != null;
+            var isExternalContext = context != null;
+
             context = context ?? DbContextAsync;
 
             var set = context.Set<T>();
-            set.RemoveRange(entities);
+
+            var entityList = entities.ToList();
+
+            entityList.ForEach(e => set.Attach(e));
+
+            set.RemoveRange(entityList);
+
             await SaveAsync(context);
 
-            if (!isExternalContext)
-                context.Dispose();
+            if (!isExternalContext) context.Dispose();
         }
 
         public async Task DeleteAsync(T entity)

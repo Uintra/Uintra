@@ -1,10 +1,20 @@
-import { IULink } from "../../general.interface";
-import { IUserTag } from "src/app/feature/specific/activity/activity.interfaces";
+import { IUserTag } from 'src/app/feature/specific/activity/activity.interfaces';
 
 export interface IProfilePage {
-  title: string;
-  member: IMember;
-  link: IULink;
+  addToSitemap: boolean;
+  contentTypeAlias: string;
+  editProfileLink: any;
+  errorLink: any;
+  id: number;
+  name: string;
+  nodeType: number;
+  pageSettings: any;
+  panels: any;
+  profile: any;
+  requiresRedirect: boolean;
+  statusCode: number;
+  tags: any;
+  url: string;
 }
 
 export interface IMember {
@@ -16,3 +26,5 @@ export interface IMember {
   department: string;
   tags: Array<IUserTag>;
 }
+
+

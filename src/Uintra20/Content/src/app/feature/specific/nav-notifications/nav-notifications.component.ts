@@ -1,11 +1,13 @@
-import { Component, OnInit, NgZone, OnDestroy } from "@angular/core";
+import {Component, OnInit, NgZone, OnDestroy} from "@angular/core";
+import {NavNotificationsService} from "./nav-notifications.service";
+import {DesktopNotificationService} from "./helpers/desktop-notification.service";
+import {SignalrService} from "src/app/shared/services/general/signalr.service";
 import {
-  NavNotificationsService,
   INotificationsData,
   INotificationsListData
-} from "./nav-notifications.service";
-import { DesktopNotificationService } from "./helpers/desktop-notification.service";
-import { SignalrService } from "src/app/shared/services/general/signalr.service";
+} from 'src/app/shared/interfaces/pages/notifications/notifications-page.interface';
+import {PopUpComponent} from "../../../shared/ui-elements/pop-up/pop-up.component";
+import {ModalService} from "../../../shared/services/general/modal.service";
 
 declare let $: any;
 
@@ -24,11 +26,13 @@ export class NavNotificationsComponent implements OnInit, OnDestroy {
   permission: NotificationPermission = null;
 
   constructor(
+    private modalService: ModalService,
     private desktopNotificationService: DesktopNotificationService,
     private signalrService: SignalrService,
     private navNotificationsService: NavNotificationsService,
     private ngNotificationZone: NgZone
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     this.navNotificationsService
@@ -37,12 +41,22 @@ export class NavNotificationsComponent implements OnInit, OnDestroy {
         this.notificationCount = response;
       });
 
+
     this.signalrService.startHub();
     this.signalrService
       .getUpdateNotificationsSubjects()
       .subscribe(notifications => {
         this.getNewNotification(notifications);
       });
+
+    this.signalrService
+      .getShowPopup()
+      .subscribe(n => {
+        n.forEach((val, index, arr) => {
+          this.modalService.appendComponentToBody(PopUpComponent, {data: val}, null, index.toString(), index === arr.length - 1);
+        })
+
+      })
 
     if ("Notification" in window) {
       Notification.requestPermission(status => {
@@ -116,6 +130,7 @@ export class NavNotificationsComponent implements OnInit, OnDestroy {
   show() {
     this.isShow = true;
   }
+
   hide() {
     this.isShow = false;
   }

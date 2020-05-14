@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { INotificationsData, NavNotificationsService } from '../nav-notifications.service';
+import { NavNotificationsService } from '../nav-notifications.service';
+import { INotificationsData } from 'src/app/shared/interfaces/pages/notifications/notifications-page.interface';
 
 @Component({
   selector: 'app-notifications-item',

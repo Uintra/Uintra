@@ -8,13 +8,20 @@ namespace Uintra20.Features.LinkPreview.AutoMapperProfiles
     {
         public LinkPreviewAutoMapperProfile()
         {
-            CreateMap<Models.LinkPreview, LinkPreviewViewModel>();
-
             CreateMap<Compent.LinkPreview.HttpClient.LinkPreview, LinkPreviewEntity>()
-                .ForMember(dst => dst.Id, o => o.Ignore())
-                .ForMember(dst => dst.OgDescription, o => o.Ignore())
-                .ForMember(dst => dst.Uri, o => o.Ignore())
-                .ForMember(dst => dst.MediaId, o => o.Ignore());
+                .ForMember(d => d.Id, o => o.Ignore())
+                .ForMember(d => d.OgDescription, o => o.Ignore())
+                .ForMember(d => d.Uri, o => o.Ignore())
+                .ForMember(d => d.MediaId, o => o.Ignore());
+
+            CreateMap<Models.LinkPreview, LinkPreviewViewModel>()
+                .ForMember(d => d.Id, o => o.MapFrom(s => s.Id))
+                .ForMember(d => d.Uri, o => o.MapFrom(s => s.Uri))
+                .ForMember(d => d.Title, o => o.MapFrom(s => s.Title))
+                .ForMember(d => d.Description, o => o.MapFrom(s => s.Description))
+                .ForMember(d => d.FaviconUri, o => o.MapFrom(s => s.FaviconUri))
+                .ForMember(d => d.ImageUri, o => o.MapFrom(s => s.ImageUri))
+                .ReverseMap();
         }
     }
 }

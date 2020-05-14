@@ -1,7 +1,9 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import ParseHelper from 'src/app/shared/utils/parse.helper';
-import { AddButtonService } from 'src/app/ui/main-layout/left-navigation/components/my-links/add-button.service';
+import { UintraGroupsMembers } from '../../../../shared/interfaces/pages/uintra-groups/members/uintra-groups-members.interface';
+import { SearchService } from 'src/app/feature/specific/search/search.service';
+import { ResolveService } from 'ubaseline-next-for-uintra';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'uintra-groups-members-page',
@@ -10,22 +12,27 @@ import { AddButtonService } from 'src/app/ui/main-layout/left-navigation/compone
   encapsulation: ViewEncapsulation.None
 })
 export class UintraGroupsMembersPage {
-  data: any;
-  parsedData: any;
+  public data: UintraGroupsMembers;
+  private refreshSubscription: Subscription;
 
   constructor(
-    private route: ActivatedRoute,
-    private addButtonService: AddButtonService,
+    private activatedRoute: ActivatedRoute,
     private router: Router,
+    private searchService: SearchService,
+    private resolveService: ResolveService,
   ) {
-    this.route.data.subscribe(data => {
-      if (!data.requiresRedirect.get()) {
-        this.data = data;
-        this.parsedData = ParseHelper.parseUbaselineData(data);
-        this.addButtonService.setPageId(data.id);
-      } else {
-        this.router.navigate([data.errorLink.get().originalUrl.get()]);
-      }
+    this.activatedRoute.data.subscribe((data: UintraGroupsMembers) => {
+      this.data = data;
     });
+  }
+
+  ngOnInit() {
+    this.refreshSubscription = this.searchService.groupMembersRefreshTrigger.subscribe(async (res: UintraGroupsMembers) => {
+      this.data = await this.resolveService.resolveDataOnSameUrl(this.router.url);
+    })
+  }
+
+  ngOnDestroy() {
+    this.refreshSubscription.unsubscribe();
   }
 }

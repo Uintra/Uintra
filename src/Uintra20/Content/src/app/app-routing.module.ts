@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { ResolveComponent, ResolveService } from '@ubaseline/next';
+import { ResolveComponent, ResolveService } from 'ubaseline-next-for-uintra';
 import { pages } from './ui/pages/pages';
 import { panels } from './ui/panels/panels';
 

@@ -1,5 +1,24 @@
 @import 'base.less';
 
+:host(.pop-up) {
+  display: block;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 10;
+  background-color: rgba(0, 0, 0, 0.5);
+  overflow-y: auto;
+
+  .user-list-panel-wrapper {
+    width: 800px;
+    max-width: 90%;
+    padding: 0 5%;
+    margin: 5% auto;
+  }
+}
+
 .cells--1 {
   flex: 0 0 100%;
 }
@@ -21,11 +40,15 @@
 }
 
 .user-list-panel {
+  .white-block;
+  padding: 20px 20px 0;
+  position: relative;
+
   &__title {
     font-size: 25px;
     font-weight: normal;
-    line-height: 0.88;
     color: @text-color;
+    padding-right: 40px;
     margin-bottom: 28px;
   }
 
@@ -35,6 +58,27 @@
     line-height: 22px;
     color: @body-text-color;
     margin-bottom: 2px;
+  }
+
+  &__invite-btn {
+    .button-white;
+    display: block;
+    margin: 0 0 5px auto;
+  }
+
+  &__close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    font-size: 20px;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    color: @body-text-color;
+    border: none;
+    background: transparent;
   }
 }
 
@@ -46,13 +90,12 @@
 
   &__input {
     width: 100%;
-    margin-right: 10px;
     background-color: @main-color;
     border: 1px solid @border-color;
     font-size: 16px;
     line-height: 20px;
     height: 40px;
-    padding: 11px 40px 9px 21px;
+    padding: 11px 30px 9px 21px;
     color: @body-text-color;
 
     @media @md-up {
@@ -65,7 +108,7 @@
     line-height: 40px;
     font-size: 30px;
     position: absolute;
-    right: 20px;
+    right: 5px;
 
     &::before {
       color: @black !important;
@@ -78,13 +121,16 @@
   margin-left: -20px;
 
   &__item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     min-height: 50px;
     padding: 10px 0 10px;
     border-bottom: 1px solid @border-color;
     color: @body-text-color;
+
+    @media @md-up {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
     &:first-child {
       border-top: 1px solid @border-color;
@@ -125,8 +171,16 @@
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
-      flex-grow: 0.25;
-      max-width: 35%;
+
+      @media @md-down {
+        display: block;
+        padding-left: 50px;
+      }
+
+      @media @md-up {
+        flex-grow: 0.25;
+        max-width: 35%;
+      }
 
       & p {
         overflow: hidden;
@@ -138,7 +192,11 @@
     &-group {
       flex: 0 0 125px;
       position: relative;
-      padding: 0 0 0 23px;
+      padding-left: 50px;
+
+      @media @md-up {
+        padding-left: 23px;
+      }
 
       &-fake-select {
         position: relative;
@@ -185,7 +243,11 @@
         &-svg {
           position: absolute;
           top: -2px;
-          left: 2px;
+          left: 25px;
+
+          @media @md-up {
+            left: 2px;
+          }
         }
       }
 
@@ -194,45 +256,54 @@
       }
     }
 
-    &-delete {
+    &-management {
       flex: 0 0 10.5%;
       text-align: right;
       padding: 10px 2.7% 10px 0;
+    }
 
-      &-btn {
-        width: 31px;
-        height: 31px;
-        border: none;
-        padding: 0;
-        margin: -4px -10px 0px 0;
-        background: none;
-        text-indent: -9999px;
-        overflow: hidden;
-        position: relative;
+    &-delete-btn {
+      width: 31px;
+      height: 31px;
+      border: none;
+      padding: 0;
+      margin: -4px -10px 0px 0;
+      background: none;
+      text-indent: -9999px;
+      overflow: hidden;
+      position: relative;
 
-        &::before {
-          content: '';
-          position: absolute;
-          left: 8px;
-          top: 50%;
-          right: 8px;
-          height: 2px;
-          background: #303030;
-          transform: rotate(45deg);
-          margin-top: -1px;
-        }
+      &::before {
+        content: '';
+        position: absolute;
+        left: 8px;
+        top: 50%;
+        right: 8px;
+        height: 2px;
+        background: #303030;
+        transform: rotate(45deg);
+        margin-top: -1px;
+      }
 
-        &::after {
-          content: '';
-          position: absolute;
-          left: 8px;
-          top: 50%;
-          right: 8px;
-          height: 2px;
-          background: #303030;
-          transform: rotate(-45deg);
-          margin-top: -1px;
-        }
+      &::after {
+        content: '';
+        position: absolute;
+        left: 8px;
+        top: 50%;
+        right: 8px;
+        height: 2px;
+        background: #303030;
+        transform: rotate(-45deg);
+        margin-top: -1px;
+      }
+    }
+
+    &-add-btn {
+      .button-white;
+
+      &:disabled {
+        cursor: not-allowed;
+        opacity: 0.5;
       }
     }
   }

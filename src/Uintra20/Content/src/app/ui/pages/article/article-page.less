@@ -1,5 +1,28 @@
 @import "base.less";
 
 article-page {
+  display: block;
 
+  .main-column {
+    -webkit-box-flex: 0;
+    flex: 1 0 66.66666667%;
+    max-width: 66.66666667%;
+    padding: 0 15px;
+
+    &--full-content {
+      max-width: 100%;
+    }
+  }
+
+  .right-column {
+    -webkit-box-flex: 0;
+    flex: 0 0 33.33333333%;
+    max-width: 33.33333333%;
+    padding: 0 15px;
+
+    ubl-dynamic-component{
+      display: block;
+      margin-bottom: 63px;
+    }
+  }
 }

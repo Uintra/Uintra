@@ -1,10 +1,11 @@
-import { Component, OnInit, ViewEncapsulation, NgZone } from '@angular/core';
-import { ILatestActivitiesPanel } from './latest-activities-panel.interface';
-import ParseHelper from 'src/app/shared/utils/parse.helper';
+import { Component, OnInit, ViewEncapsulation, NgZone, OnDestroy } from '@angular/core';
 import { PublicationsService, IFeedListRequest } from '../central-feed/helpers/publications.service';
 import { SignalrService } from 'src/app/shared/services/general/signalr.service';
-import { IPublicationsResponse, IPublication } from '../central-feed/central-feed-panel.interface';
 import { CentralFeedFiltersService } from '../central-feed/central-feed-filters/central-feed-filters.service';
+import { ILatestActivitiesPanel } from 'src/app/shared/interfaces/panels/latest-activities/latest-activities-panel.interface';
+import { Subscription } from 'rxjs';
+import { IPublicationsResponse } from 'src/app/shared/interfaces/panels/central-feed/central-feed-panel.interface';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'latest-activities-panel',
@@ -12,42 +13,39 @@ import { CentralFeedFiltersService } from '../central-feed/central-feed-filters/
   styleUrls: ['./latest-activities-panel.component.less'],
   encapsulation: ViewEncapsulation.None
 })
-export class LatestActivitiesPanelComponent implements OnInit {
+export class LatestActivitiesPanelComponent implements OnInit, OnDestroy {
 
   constructor(
     private publicationsService: PublicationsService,
     private signalrService: SignalrService,
     private ngZone: NgZone,
     private CFFilterService: CentralFeedFiltersService,
-  ) { }
-
-  public readonly data: ILatestActivitiesPanel;
-  public title: string;
-  public teaser: string;
-  public activities: Array<IPublication> = new Array<IPublication>();
-  public showAll: false;
-  public activityType: number;
-
-  public ngOnInit(): void {
-    this.parse();
-    this.signalrService.getReloadFeedSubjects().subscribe(() => this.reload());
+    private sanitizer: DomSanitizer,
+  ) {
   }
 
-  private parse(): void {
-    const parsed = ParseHelper.parseUbaselineData(this.data);
-    this.title = parsed.title;
-    this.teaser = parsed.teaser;
-    this.activities = Object.values(parsed.feed);
-    this.showAll = parsed.showSeeAllButton;
-    this.activityType = parsed.activityType.activityId;
+  private $publications: Subscription;
+  public data: ILatestActivitiesPanel;
+  public teaser: SafeHtml;
+
+  public ngOnInit(): void {
+    this.signalrService.getReloadFeedSubjects().subscribe(() => this.reload());
+    this.teaser = this.sanitizer.bypassSecurityTrustHtml(this.data.teaser);
+  }
+
+  public ngOnDestroy(): void {
+    if (this.$publications) { this.$publications.unsubscribe(); }
   }
 
   private reload(): void {
     this.cleanLatestActivity();
 
-    this.publicationsService.getPublications(this.requestModel)
-      .then((response: IPublicationsResponse) =>
-        this.ngZone.run(() => this.activities = response.feed.slice(0, 5)));
+    this.$publications = this.publicationsService.getPublications(this.requestModel)
+      .subscribe(
+        (next: IPublicationsResponse) => {
+          this.ngZone.run(() => this.data.feed = next.feed.slice(0, 5));
+        }
+      );
   }
 
   private get requestModel(): IFeedListRequest {
@@ -60,12 +58,14 @@ export class LatestActivitiesPanelComponent implements OnInit {
     };
   }
 
-  onSeeAllClick() {
-    this.CFFilterService.changeFilter(this.activityType);
+  public onSeeAllClick(): void {
+    this.CFFilterService.changeFilter(this.data.activityType.activityId);
   }
 
   private cleanLatestActivity = () =>
-    this.activities = []
+    this.data.feed = []
+
+  public index = (index): number => index;
 }
 
 

@@ -1,58 +1,49 @@
-<div
-  class="publication publication--important"
-  *ngIf="publication?.links?.owner?.originalUrl"
->
-  <app-publication-header
-    [avatar]="publication.owner?.photo"
-    [title]="publication.owner?.displayedName"
-    [originalUrl]="publication.links?.owner?.originalUrl"
-    [groupInfo]="publication.groupInfo"
-    class="publication__header"
-  >
-    <div class="publication__subtitle" subtitle>
+<div class="publication publication--important"
+     *ngIf="publication?.links?.owner?.originalUrl">
+  <app-publication-header [avatar]="publication.owner?.photo"
+                          [title]="publication.owner?.displayedName"
+                          [originalUrl]="publication.links?.owner?.originalUrl"
+                          [groupInfo]="publication.groupInfo"
+                          class="publication__header">
+    <div class="publication__subtitle"
+         subtitle>
       {{ getPublicationDate() }} -
-      <a
-        class="publication__-type"
-        [routerLink]="publication.links?.details?.originalUrl"
-        >{{ publication.type }}
+      <a class="publication__-type"
+         [routerLink]="publication.links?.details?.baseUrl | ulink"
+         [queryParams]="publication.links?.details?.params | uparams">{{ publication.type }}
       </a>
-      <a
-        *ngIf="publication.location?.address && publication.location?.shortAddress"
-        [href]="
+      <a *ngIf="publication.location?.address && publication.location?.shortAddress"
+         [href]="
           'https://www.google.co.uk/maps?q=' +
           publication.location.address
         "
-        class="icon-pin-icon publication__location-link"
-        target="_blank"
-      >
+         class="icon-pin-icon publication__location-link"
+         target="_blank">
         {{ publication.location.shortAddress }}
       </a>
     </div>
-    <div
-      *ngIf="publication.isPinned"
-      label
-      class="publication__label"
-      [ngClass]="{
+    <div *ngIf="publication.isPinned"
+         label
+         class="publication__label"
+         [ngClass]="{
         'publication__label--no-actual': !publication.isPinActual
-      }"
-    >
+      }">
       {{'activity.Pinned.lbl' | translate}}
     </div>
   </app-publication-header>
 
   <div class="publication__content">
-    <a
-      class="publication__clickable-aria"
-      [routerLink]="publication.links?.details?.originalUrl | ulink"
-    >
-      <p *ngIf="publication.title" class="publication__title">
+    <a class="publication__clickable-aria"
+       [routerLink]="publication.links?.details?.originalUrl | ulink">
+      <p *ngIf="publication.title"
+         class="publication__title">
         {{ publication.title }}
       </p>
-      <div
-        class="publication__text rte"
-        [innerHTML]="publication.description"
-      ></div>
+      <div class="publication__text rte"
+           [innerHTML]="publication.description"></div>
     </a>
+
+    <app-link-preview *ngIf="publication?.linkPreview" [firstLinkPreview]="publication.linkPreview"></app-link-preview>
 
     <div *ngIf="publication.currentMemberSubscribed" class="publication__subscribed">
         <div class="publication__subscribed-label">
@@ -60,27 +51,28 @@
           {{'centralFeed.IsSubscribed.lbl' | translate}}
         </div>
     </div>
-
-    <div *ngIf="medias.length" class="gallery" [ngClass]="'items-' + countToDisplay">
-      <div
-        *ngFor="let image of medias | slice: 0:countToDisplay; index as i"
-        class="gallery__image"
-        (click)="openGallery(i)"
-        [ngStyle]="{ backgroundImage: 'url(' + image.previewUrl + ')' }"
-      >
-        <span *ngIf="image.extension == 'mp4'" class="icon-video-play" [ngClass]="'icon-video-play--' + countToDisplay"></span>
+    <div *ngIf="medias.length"
+         class="gallery"
+         [ngClass]="'items-' + countToDisplay">
+      <div *ngFor="let image of medias | slice: 0:countToDisplay; index as i"
+           class="gallery__image"
+           (click)="openGallery(i)"
+           [ngStyle]="{ backgroundImage: 'url(' + image.previewUrl + ')' }">
+        <span *ngIf="image.extension == 'mp4'"
+              class="icon-video-play"
+              [ngClass]="'icon-video-play--' + countToDisplay"></span>
       </div>
-      <div class="gallery__counter" *ngIf="additionalImages">
+      <div class="gallery__counter"
+           *ngIf="additionalImages">
         + {{ additionalImages }}
       </div>
     </div>
     <div class="publication__footer">
       <div class="publication__footer-left-block">
-        <app-like-button [likeData]="likeData" [isDisabled]="!publication?.isGroupMember"></app-like-button>
-        <a
-          class="publication__comment publication__footer-item"
-          [routerLink]="publication.links?.details?.originalUrl | ulink"
-        >
+        <app-like-button [likeData]="likeData"
+                         [isDisabled]="!publication?.isGroupMember"></app-like-button>
+        <a class="publication__comment publication__footer-item"
+           [routerLink]="publication.links?.details?.originalUrl | ulink">
           <i class="icon-comment"></i>
           {{ publication?.isGroupMember ? commentsCount : '' }}
         </a>
@@ -90,11 +82,9 @@
         </button>
       </div>
 
-      <a
-        class="publication__files publication__footer-item"
-        *ngIf="documentsCount"
-        [routerLink]="publication.links?.details?.originalUrl | ulink"
-      >
+      <a class="publication__files publication__footer-item"
+         *ngIf="documentsCount"
+         [routerLink]="publication.links?.details?.originalUrl | ulink">
         <i class="icon-attachment"></i>
         {{ documentsCount }}
         {{getDocumentsText()}}
