@@ -67,7 +67,7 @@ namespace Uintra20.Infrastructure.Ioc
 
 			services.AddSingleton<IConfigurationProvider<ReminderConfiguration>>(i =>
 			{
-				var provider= new ConfigurationProvider<ReminderConfiguration>("~/Features/Reminder/Configuration/reminderConfiguration.json");
+				var provider= new ConfigurationProvider<ReminderConfiguration>("Uintra20.Features.Reminder.Configuration.reminderConfiguration.json");
 				provider.Initialize();
 				return provider;
 			});

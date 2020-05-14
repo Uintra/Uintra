@@ -105,6 +105,7 @@ namespace Uintra20.Core.Authentication
             if (ext.IsNullOrWhiteSpace()) return false;
             var toInclude = new[] { ".aspx", ".ashx", ".asmx", ".axd", ".svc" };
             return toInclude.Any(ext.InvariantEquals) == false;
+            //return toInclude.Any(ext.InvariantEquals);
         }
 
         private static bool IsBackOfficeRequest(IOwinRequest request, IGlobalSettings globalSettings)
@@ -133,7 +134,7 @@ namespace Uintra20.Core.Authentication
         private bool ShouldAuthForBackOfficeRequest(IOwinContext ctx)
         {
             if (_runtime.Level == RuntimeLevel.Install)
-                return false;
+                return true;
 
             var request = ctx.Request;
 

@@ -28,7 +28,7 @@ namespace Uintra20.Core.Hubs
                 if (claim != null) return claim.Value;
             }
 
-            _logger.Error(typeof(SignalRUserIdProvider), $"{nameof(SignalRUserIdProvider)}. Not claims identity or empty UserId claim - {request.User.Identity.ToJson()}");
+            _logger.Error(typeof(SignalRUserIdProvider), $"{nameof(SignalRUserIdProvider)}. Not claims identity or empty UserId claim - {request.User?.Identity?.Name}");
 
             return string.Empty;
         }
