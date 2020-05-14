@@ -64,4 +64,9 @@ export const panels = [
     path: '__dynamic__',
     loadChildren: './ui/panels/faq/faq-panel.module#FaqPanelModule'
   },
+  {
+    id: 'spotPanel',
+    path: '__dynamic__',
+    loadChildren: './ui/panels/spot/spot-panel.module#SpotPanelModule'
+  },
 ];
