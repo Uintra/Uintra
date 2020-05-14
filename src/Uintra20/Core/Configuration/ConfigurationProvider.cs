@@ -1,7 +1,8 @@
 ﻿using System;
 using System.IO;
-using System.Web.Hosting;
+using System.Web.Mvc;
 using Newtonsoft.Json;
+using Uintra20.Infrastructure.Utils;
 
 namespace Uintra20.Core.Configuration
 {
@@ -12,12 +13,14 @@ namespace Uintra20.Core.Configuration
         private readonly object _syncRoot;
 
         protected TConfiguration Settings;
+        protected IEmbeddedResourceService embeddedResourceService;
 
         public ConfigurationProvider(
             string settingsFilePath)
         {
-            _settingsFilePath = HostingEnvironment.MapPath(settingsFilePath);
+            _settingsFilePath = settingsFilePath;
             _syncRoot = new object();
+            embeddedResourceService = DependencyResolver.Current.GetService<IEmbeddedResourceService>();
         }
 
         public void Initialize()
@@ -67,8 +70,8 @@ namespace Uintra20.Core.Configuration
         private void LoadSettings()
         {
             AssertFilePathIsValid();
-            AssertFileExists();
-            var content = File.ReadAllText(_settingsFilePath);
+            //AssertFileExists();
+            var content = embeddedResourceService.ReadResourceContent(_settingsFilePath);
             Settings = JsonConvert.DeserializeObject<TConfiguration>(content);
         }
 

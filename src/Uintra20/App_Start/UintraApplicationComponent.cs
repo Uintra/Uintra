@@ -7,7 +7,6 @@ using Umbraco.Core.Composing;
 
 namespace Uintra20
 {
-	[RuntimeLevel(MinLevel = RuntimeLevel.Run)]
 	public class UintraApplicationComponent : IComponent
 	{
 		public void Initialize()

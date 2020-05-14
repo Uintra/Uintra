@@ -1910,15 +1910,8 @@
     <Compile Include="Infrastructure\Utils\EmbeddedResourceService.cs" />
     <Compile Include="Infrastructure\Utils\EmbeddedResourcesUtils.cs" />
     <Compile Include="Infrastructure\Utils\IEmbeddedResourceService.cs" />
-    <Compile Include="Models\UmbracoIdentity\ExternalLoginListViewModel.cs" />
-    <Compile Include="Models\UmbracoIdentity\ForgotPasswordViewModel.cs" />
-    <Compile Include="Models\UmbracoIdentity\LoginViewModel.cs" />
-    <Compile Include="Models\UmbracoIdentity\RegisterViewModel.cs" />
-    <Compile Include="Models\UmbracoIdentity\ResetPasswordViewModel.cs" />
-    <Compile Include="Models\UmbracoIdentity\RoleManagementModel.cs" />
     <Compile Include="Models\UmbracoIdentity\UmbracoApplicationMember.cs" />
     <Compile Include="Models\UmbracoIdentity\UmbracoApplicationRole.cs" />
-    <Compile Include="Models\UmbracoIdentity\UserPasswordModel.cs" />
     <Compile Include="Persistence\Context\DbContextFactory.cs" />
     <Compile Include="Persistence\Context\DbObjectContext.cs" />
     <Compile Include="Persistence\Context\IntranetDbContext.cs" />
