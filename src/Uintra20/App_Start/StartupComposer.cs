@@ -56,8 +56,8 @@ namespace Uintra20
                 .RegisterApiControllers(assembly)
                 .RegisterConverters(assembly);
 
-			composition.Components().Append<UintraApplicationComponent>();
-            composition.Components().Append<UintraUmbracoEventComponent>();
+			//composition.Components().Append<UintraApplicationComponent>();
+            //composition.Components().Append<UintraUmbracoEventComponent>();
 
             MapperConfig.RegisterMappings(composition);
         }
