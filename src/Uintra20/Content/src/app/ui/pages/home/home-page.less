@@ -4,10 +4,12 @@ home-page {
   display: block;
 
   .main-column {
-    -webkit-box-flex: 0;
-    flex: 1 0 66.66666667%;
-    max-width: 66.66666667%;
     padding: 0 15px;
+    @media @md-up {
+      -webkit-box-flex: 0;
+      flex: 1 0 66.66666667%;
+      max-width: 66.66666667%;
+    }
 
     &--full-content {
       max-width: 100%;
@@ -15,14 +17,19 @@ home-page {
   }
 
   .right-column {
-    -webkit-box-flex: 0;
-    flex: 0 0 33.33333333%;
-    max-width: 33.33333333%;
     padding: 0 15px;
+    @media @md-up{
+      -webkit-box-flex: 0;
+      max-width: 33.33333333%;
+    }
 
     ubl-dynamic-component{
       display: block;
-      margin-bottom: 63px;
+      margin-bottom: 10px;
+
+      @media @md-up{
+        margin-bottom: 63px;
+      }
     }
   }
 }
