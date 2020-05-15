@@ -988,6 +988,7 @@
     <Compile Include="Features\LinkPreview\Providers\Implementations\LinkPreviewConfigProvider.cs" />
     <Compile Include="Features\LinkPreview\Services\ActivityLinkPreviewService.cs" />
     <Compile Include="Features\LinkPreview\Services\IActivityLinkPreviewService.cs" />
+    <Compile Include="Features\Media\Images\Constants\ImageConstants.cs" />
     <Compile Include="Features\Notification\Models\UserMentionNotificationModel.cs" />
     <Compile Include="Features\Notification\Services\IUserMentionNotificationService.cs" />
     <Compile Include="Features\Notification\Services\UserMentionNotificationService.cs" />
@@ -1358,6 +1359,7 @@
     <Compile Include="Infrastructure\Context\IIntranetRequestContext.cs" />
     <Compile Include="Infrastructure\Context\IntranetRequestContext.cs" />
     <Compile Include="Infrastructure\Extensions\ArrayExtensions.cs" />
+    <Compile Include="Infrastructure\Extensions\ByteExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\InconsistentDataException.cs" />
     <Compile Include="Infrastructure\Extensions\SerializationExtentions.cs" />
     <Compile Include="Infrastructure\Helpers\EnumHelper.cs" />

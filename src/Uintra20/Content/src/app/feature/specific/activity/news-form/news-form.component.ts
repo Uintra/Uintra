@@ -18,6 +18,7 @@ import { PinActivityService } from '../pin-activity/pin-activity.service';
 import { HasDataChangedService } from 'src/app/shared/services/general/has-data-changed.service';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from "moment";
+import { ContentService } from 'src/app/shared/services/general/content.service';
 
 @Component({
   selector: "app-news-form",
@@ -60,12 +61,17 @@ export class NewsFormComponent implements OnInit {
     private pinActivityService: PinActivityService,
     private hasDataChangedService: HasDataChangedService,
     public translate: TranslateService,
+    private contentService: ContentService,
     ) {}
 
   ngOnInit() {
     this.edit = this.edit !== undefined;
     this.newsData = this.newsFormService.getNewsDataInitialValue(this.data);
     this.setInitialData();
+  }
+  
+  public ngAfterViewInit(): void {
+    this.contentService.makeReadonly('.udatepicker-input');
   }
 
   private setInitialData(): void {

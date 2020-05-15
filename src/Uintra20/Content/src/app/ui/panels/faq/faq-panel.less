@@ -1,82 +1,123 @@
 @import "base.less";
+:host {
+  display: block;
+}
 
-  .faq-panel {
-    &__content {
-        margin-bottom: 60px;
-    }
-  
-    &__title {
-      margin-bottom: 16px;
-    }
-  
-    &__top {
-      margin-bottom: 40px;
-    }
-  
-    &__items {
-      border-bottom: 1px solid @border-color;
+::ng-deep  .faq-panel {
+  padding: 30px 10px 48px;
+  font-size: 18px;
+  line-height: 1.5;
+  .theme(bg-color);
+  .theme(text-color);
+
+  @media @md-up{
+    font-size: 20px;
+    padding: 30px 20px 52px;
+  }
+
+  @media @lg-up{
+    font-size: 22px;
+    padding: 30px 41px 52px;
+  }
+
+  ::ng-deep .aside &{
+    font-size: 16px;
+    line-height: 1.5;
+    padding: 11px 10px 20px;
+  }
+
+  &__title {
+    font-weight: bold;
+    font-size: 28px;
+    line-height: 1.5;
+    .theme(title-color);
+    text-transform: none;
+    margin: 0 0 28px;
+
+    ::ng-deep .aside &{
+      font-size: 16px;
+      line-height: 1.5;
+      margin: 0 0 10px;
     }
   }
-  
+
+  &__items {
+    border-bottom: 1px solid @grey;
+    margin: 0 -10px;
+    padding-top: 18px;
+
+    @media @md-up{
+      margin: 0 -20px;
+    }
+    @media @lg-up{
+      margin: 0 -21px;
+    }
+
+    & ::ng-deep{
+      margin: 0 -10px;
+    }
+  }
+
+  & ::ng-deep a{
+    .theme(link-color);
+  }
+
   .accordion {
+    &__label {
+      display: block;
+      position: relative;
+      padding: 19px 36px 19px 11px;
+      cursor: pointer;
+      border-top: 1px solid @grey;
+      font-size: 20px;
+      line-height: 1.5;
+      font-weight: 600;
+      .theme(text-color);
+
+      @media @md-up{
+        font-size: 22px;
+        padding: 17px 47px 17px 20px;
+      }
+      @media @lg-up{
+        padding: 17px 47px 17px 23px;
+      }
+
+      ::ng-deep .aside &{
+        font-size: 16px;
+        padding: 10px 36px 10px 10px;
+      }
+    }
+
+    &__arrow {
+      position: absolute;
+      top: 50%;
+      right: 12px;
+      z-index: 2;
+      margin-top: -11px;
+      width: 12px;
+      height: 12px;
+      border: solid @dark-grey;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+      transition: 0.2s;
+      @media @md-up{
+        right: 22px;
+      }
+
+      ::ng-deep .aside &{
+        right: 12px;
+        border-width: 0 1px 1px 0;
+        width: 9px;
+        height: 9px;
+        margin-top: -8px;
+      }
+    }
+
     &__tab {
       position: relative;
       width: 100%;
       overflow: hidden;
-  
-      .label {
-        display: block;
-        position: relative;
-        padding: 20px 30px 20px 0;
-        transition: border, color .3s;
-        cursor: pointer;
-        font-weight: 600;
-        color: @text-color;
-  
-        text-transform: uppercase;
-        border-top: 1px solid @border-color;
-  
-        .plus-vertical {
-          display: block;
-          position: absolute;
-          top: 50%;
-          right: 4px;
-          width: 14px;
-          height: 2px;
-          border-style: solid;
-          border-color: @border-color;
-          border-width: 2px 2px 0 0;
-          transition: 0.2s;
-          transform: translateY(-75%) rotate(90deg);
-          font-size: 0;
-          @media @md-up {
-            width: 15px;
-          }
-        }
-        .plus-horisontal {
-          display: block;
-          position: absolute;
-          top: 50%;
-          right: 4px;
-          width: 14px;
-          height: 2px;
-          border-style: solid;
-          border-color: @border-color;
-          border-width: 2px 2px 0 0;
-          transform: translateY(-75%);
-          font-size: 0;
-          @media @md-up {
-            width: 15px;
-          }
-        }
-        &:hover {
-          .plus-horisontal,
-          .plus-vertical {
-            opacity: 0.7;
-          }
-        }
-      }
-  
+
       .tab-content {
         position: relative;
         max-height: 1px;
@@ -85,22 +126,18 @@
         transition-duration: .3s;
         transition-timing-function: cubic-bezier(0, 1, 0, 1), linear;
         display: none;
-  
-        @media @sm-up {
-          font-size: 18px;
+        margin-top: -3px;
+        font-size: 18px;
+
+        @media @md-up{
+          font-size: 22px;
         }
-  
-        & ::ng-deep p {
-          &:not(:last-child) {
-            margin-bottom: 16px;
-          }
-        }
-  
-        & ::ng-deep a {
-          //link styles
+
+        ::ng-deep .aside &{
+          font-size: 16px;
         }
       }
-  
+
       .input {
         position: absolute;
         z-index: -1;
@@ -109,7 +146,7 @@
         width: 100%;
         height: 100%;
         opacity: 0;
-  
+
         &:focus {
           & ~ label {
             &:after {
@@ -122,27 +159,40 @@
               width: 100%;
               height: 100%;
               display: block;
-              border: 1px dotted gray;
+              border: 1px dotted @grey;
             }
           }
         }
-  
+
         &:checked {
-          & ~ .label {
-            .plus-vertical {
-              transform: translateY(-75%) rotate(0deg);
+          & ~ .accordion__label {
+            .accordion__arrow{
+              margin-top: -3px;
+              transform: rotate(-135deg);
             }
           }
-  
+
           & ~ .tab-content {
             display: block;
             max-height: 500vh;
-            padding: 0 0 30px;
+            padding: 0 10px 28px;
+            margin-top: -3px;
             transition-property: max-height, padding;
             transition-duration: .3s;
             transition-timing-function: cubic-bezier(1, 0, 1, 0), linear;
+            @media @md-up{
+              padding: 0 20px 28px;
+            }
+            @media @lg-up{
+              padding: 0 23px 27px;
+            }
+
+            ::ng-deep .aside &{
+              padding: 0 10px 28px;
+            }
           }
         }
       }
     }
   }
+}

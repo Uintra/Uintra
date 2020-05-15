@@ -81,7 +81,9 @@ namespace Uintra20.Features.Social.Controllers
             }
 
             var mappedSocial = MapToSocial(social);
+
             var socialId = await _socialService.CreateAsync(mappedSocial);
+
             mappedSocial.Id = socialId;
 
             await OnBulletinCreatedAsync(mappedSocial, social);
