@@ -144,4 +144,5 @@ export interface IActivityCreatePanel {
   members: any;
   links: any;
   pinAllowed: boolean;
+  publishDate?: string;
 }
