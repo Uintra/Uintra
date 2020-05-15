@@ -37,7 +37,7 @@ export class NewsCreateComponent implements OnInit {
       ownerId: this.creator.id,
       title: null,
       description: null,
-      publishDate: null
+      publishDate: this.data.publishDate
     };
   }
 

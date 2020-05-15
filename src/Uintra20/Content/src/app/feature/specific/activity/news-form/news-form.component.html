@@ -50,6 +50,7 @@
       [initialValues]="initialDates"
       [fromLabel]="'newsCreate.PublishDate.lbl' | translate"
       [toLabel]="'newsCreate.UnpublishDate.lbl' | translate"
+      [isNews]="true"
       (handleChange)="setDatePickerValue($event)"
     ></app-datepicker-from-to>
   </div>

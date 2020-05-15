@@ -24,6 +24,7 @@ export class DatepickerFromToComponent implements OnInit {
   @Input() isEvent: boolean;
   @Input() isEventEdit: boolean;
   @Input() eventPublishDate: string;
+  @Input() isNews: boolean;
   @Output() handleChange = new EventEmitter();
 
   fromDate = null;
@@ -100,7 +101,7 @@ export class DatepickerFromToComponent implements OnInit {
     };
   }
 
-  fromDateChange() {
+  fromDateChange() {debugger
       this.toDate && !this.fromDate
         ? {
             ...this.optTo,
@@ -114,15 +115,28 @@ export class DatepickerFromToComponent implements OnInit {
     this.handleChange.emit(this.buildDateObject());
   }
 
-  fromModelChanged(value) {
+  fromModelChanged(value) {debugger
     if (value) {
       if (this.eventPublishDate) {
         this.fromDate = moment(value.format()) < moment(this.eventPublishDate) ? moment(this.eventPublishDate) : moment(value.format());
       } else {
         this.fromDate = moment(value.format());
       }
-      if (this.toDate < value && this.isEvent) {
-        this.toDate = value.add(8, "hours");
+
+      if (this.toDate < value) {
+        if (this.isEvent) {
+          this.toDate = value.add(8, "hours");
+        }
+        if (this.isNews) {
+          this.toDate = null;
+        }
+      }
+
+      if (this.isNews) {
+        this.optTo = {
+          ...this.optTo,
+          minDate: this.fromDate.clone().hours(0).minutes(0).seconds(0)
+        }
       }
     }
   }
@@ -133,15 +147,10 @@ export class DatepickerFromToComponent implements OnInit {
   }
 
   toDateChange() {
-    this.optFrom = this.toDate && !this.isEvent
-      ? {
-          ...this.optFrom,
-          maxDate: this.toDate
-        }
-      : {
-          ...this.optFrom,
-          maxDate: false
-        };
+    this.optFrom = {
+      ...this.optFrom,
+      maxDate: false
+    };
 
     this.handleChange.emit(this.buildDateObject());
   }
