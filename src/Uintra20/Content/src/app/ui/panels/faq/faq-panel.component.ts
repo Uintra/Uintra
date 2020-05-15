@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, HostBinding } from '@angular/core';
 import { IAccordionPanel } from '../../../shared/interfaces/panels/faq/faq-panel.interface'
 import { DomSanitizer } from '@angular/platform-browser';
 
@@ -9,14 +9,19 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class FaqPanel {
   @Input() data: IAccordionPanel;
-
   constructor(
     private sanitizer: DomSanitizer,
-  ) { }
+    ) { }
+
+  @HostBinding('class') rootClasses;
 
   ngOnInit()
   {
     this.setUniqueToItems();
+
+    this.rootClasses = `
+      ${ this.data.panelSettings.theme.value.alias || 'default-theme' }
+    `;
   }
 
   setUniqueToItems() {

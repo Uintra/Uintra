@@ -1,10 +1,12 @@
 <section class="video-panel" *ngIf="videoData">
   <div class="video-panel__content">
-      <button (click)="open()" class="video-panel__thumbnail" *ngIf="videoData">
-        <div class="video-panel__thumbnail-img">
-         <app-picture [data]="videoData.thumbnail"></app-picture>
-        </div>
-      </button>
+    <h3 *ngIf="data.title" class="video-panel__title">{{data.title}}</h3>
+    <button (click)="open()" class="video-panel__thumbnail" *ngIf="videoData">
+      <div class="video-panel__thumbnail-img">
+        <app-picture [data]="videoData.thumbnail"></app-picture>
+      </div>
+    </button>
+    <div *ngIf="data.description" class="video-panel__descr" [innerHTML]="data.description"></div>
 
   </div>
 </section>
