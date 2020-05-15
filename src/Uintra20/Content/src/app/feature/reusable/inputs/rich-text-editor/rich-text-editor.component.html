@@ -8,7 +8,7 @@
   customToolbarPosition="bottom"
 >
   <div quill-editor-toolbar class="toolbar">
-    <app-tag-multiselect *ngIf="(tags.length || availableTags.length) && isShowMultiselect" 
+    <app-tag-multiselect *ngIf="(tags?.length || availableTags?.length) && isShowMultiselect" 
                                 class="multiselect"
                                 [availableTags]="availableTags"
                                 [ngModel]="tags"
@@ -16,7 +16,7 @@
     <div class="toolbar-actions">
       <div class="toolbar__first-row">
         <div class="ql-counter" id="counter"></div>
-        <button class="toolbar__toggle-multiselect" (click)="toggleMultiselect()">
+        <button *ngIf="tags?.length || availableTags?.length" class="toolbar__toggle-multiselect" (click)="toggleMultiselect()">
           {{(isShowMultiselect ? 'socialCreate.HideTags.btn' : 'socialCreate.ShowTags.btn') | translate}}
         </button>
       </div>
