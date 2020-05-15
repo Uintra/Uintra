@@ -61,135 +61,135 @@
   & ::ng-deep a{
     .theme(link-color);
   }
-}
 
-::ng-deep .accordion {
-  &__label {
-    display: block;
-    position: relative;
-    padding: 19px 36px 19px 11px;
-    cursor: pointer;
-    border-top: 1px solid @grey;
-    font-size: 20px;
-    line-height: 1.5;
-    font-weight: 600;
-    .theme(text-color);
-
-    @media @md-up{
-      font-size: 22px;
-      padding: 17px 47px 17px 20px;
-    }
-    @media @lg-up{
-      padding: 17px 47px 17px 23px;
-    }
-
-    ::ng-deep .aside &{
-      font-size: 16px;
-      padding: 10px 36px 10px 10px;
-    }
-  }
-
-  &__arrow {
-    position: absolute;
-    top: 50%;
-    right: 12px;
-    z-index: 2;
-    margin-top: -11px;
-    width: 12px;
-    height: 12px;
-    border: solid @dark-grey;
-    border-width: 0 2px 2px 0;
-    transform: rotate(45deg);
-    transition: 0.2s;
-    @media @md-up{
-      right: 22px;
-    }
-
-    ::ng-deep .aside &{
-      right: 12px;
-      border-width: 0 1px 1px 0;
-      width: 9px;
-      height: 9px;
-      margin-top: -8px;
-    }
-  }
-
-  &__tab {
-    position: relative;
-    width: 100%;
-    overflow: hidden;
-
-    .tab-content {
+  .accordion {
+    &__label {
+      display: block;
       position: relative;
-      max-height: 1px;
-      overflow: hidden;
-      transition-property: max-height, padding;
-      transition-duration: .3s;
-      transition-timing-function: cubic-bezier(0, 1, 0, 1), linear;
-      display: none;
-      margin-top: -3px;
-      font-size: 18px;
+      padding: 19px 36px 19px 11px;
+      cursor: pointer;
+      border-top: 1px solid @grey;
+      font-size: 20px;
+      line-height: 1.5;
+      font-weight: 600;
+      .theme(text-color);
 
       @media @md-up{
         font-size: 22px;
+        padding: 17px 47px 17px 20px;
+      }
+      @media @lg-up{
+        padding: 17px 47px 17px 23px;
       }
 
       ::ng-deep .aside &{
         font-size: 16px;
+        padding: 10px 36px 10px 10px;
       }
     }
 
-    .input {
+    &__arrow {
       position: absolute;
-      z-index: -1;
-      opacity: 0;
-      margin: 0;
-      width: 100%;
-      height: 100%;
-      opacity: 0;
+      top: 50%;
+      right: 12px;
+      z-index: 2;
+      margin-top: -11px;
+      width: 12px;
+      height: 12px;
+      border: solid @dark-grey;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+      transition: 0.2s;
+      @media @md-up{
+        right: 22px;
+      }
 
-      &:focus {
-        & ~ label {
-          &:after {
-            content: "";
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            width: 100%;
-            height: 100%;
-            display: block;
-            border: 1px dotted @grey;
-          }
+      ::ng-deep .aside &{
+        right: 12px;
+        border-width: 0 1px 1px 0;
+        width: 9px;
+        height: 9px;
+        margin-top: -8px;
+      }
+    }
+
+    &__tab {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+
+      .tab-content {
+        position: relative;
+        max-height: 1px;
+        overflow: hidden;
+        transition-property: max-height, padding;
+        transition-duration: .3s;
+        transition-timing-function: cubic-bezier(0, 1, 0, 1), linear;
+        display: none;
+        margin-top: -3px;
+        font-size: 18px;
+
+        @media @md-up{
+          font-size: 22px;
+        }
+
+        ::ng-deep .aside &{
+          font-size: 16px;
         }
       }
 
-      &:checked {
-        & ~ .accordion__label {
-          .accordion__arrow{
-            margin-top: -3px;
-            transform: rotate(-135deg);
+      .input {
+        position: absolute;
+        z-index: -1;
+        opacity: 0;
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+
+        &:focus {
+          & ~ label {
+            &:after {
+              content: "";
+              position: absolute;
+              top: 0;
+              bottom: 0;
+              left: 0;
+              right: 0;
+              width: 100%;
+              height: 100%;
+              display: block;
+              border: 1px dotted @grey;
+            }
           }
         }
 
-        & ~ .tab-content {
-          display: block;
-          max-height: 500vh;
-          padding: 0 10px 28px;
-          margin-top: -3px;
-          transition-property: max-height, padding;
-          transition-duration: .3s;
-          transition-timing-function: cubic-bezier(1, 0, 1, 0), linear;
-          @media @md-up{
-            padding: 0 20px 28px;
-          }
-          @media @lg-up{
-            padding: 0 23px 27px;
+        &:checked {
+          & ~ .accordion__label {
+            .accordion__arrow{
+              margin-top: -3px;
+              transform: rotate(-135deg);
+            }
           }
 
-          ::ng-deep .aside &{
+          & ~ .tab-content {
+            display: block;
+            max-height: 500vh;
             padding: 0 10px 28px;
+            margin-top: -3px;
+            transition-property: max-height, padding;
+            transition-duration: .3s;
+            transition-timing-function: cubic-bezier(1, 0, 1, 0), linear;
+            @media @md-up{
+              padding: 0 20px 28px;
+            }
+            @media @lg-up{
+              padding: 0 23px 27px;
+            }
+
+            ::ng-deep .aside &{
+              padding: 0 10px 28px;
+            }
           }
         }
       }
