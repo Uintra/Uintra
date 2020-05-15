@@ -1,11 +1,12 @@
 @theme-1: .blue-theme;
+//pink-theme
 
 // @theme-1
 .reversal-theme() {
     @panel-background-color: @key-color;
     @panel-text-color: @text-reverse-color;
 }
-@themes: blue, grey, grey-blue, default;
+@themes: blue, grey, pink, default;
 
 .theme(@prop, @opacity: 100) {
     & when (@prop = bg-color) {
@@ -24,8 +25,8 @@
                     .grey-theme-vars;
                     background-color: fade(@panel-background-color, @opacity);
                 }
-                & when (@theme = grey-blue) {
-                    .grey-blue-theme-vars;
+                & when (@theme = pink) {
+                    .pink-theme-vars;
                     background-color: fade(@panel-background-color, @opacity);
                 }
             }
@@ -49,8 +50,8 @@
                     .grey-theme-vars;
                     color: @panel-text-color;
                 }
-                & when (@theme = grey-blue) {
-                    .grey-blue-theme-vars;
+                & when (@theme = pink) {
+                    .pink-theme-vars;
                     color: @panel-text-color;
                 }
             }
@@ -74,8 +75,8 @@
                     .grey-theme-vars;
                     color: @panel-button-color;
                 }
-                & when (@theme = grey-blue) {
-                    .grey-blue-theme-vars;
+                & when (@theme = pink) {
+                    .pink-theme-vars;
                     color: @panel-button-color;
                 }
             }
@@ -99,8 +100,8 @@
                     .grey-theme-vars;
                     color: @panel-title-color;
                 }
-                & when (@theme = grey-blue) {
-                    .grey-blue-theme-vars;
+                & when (@theme = pink) {
+                    .pink-theme-vars;
                     color: @panel-title-color;
                 }
             }
@@ -127,8 +128,8 @@
                 color: @panel-link-color;
                 border-color: @panel-link-underline-color;
               }
-              & when (@theme = grey-blue) {
-                .grey-blue-theme-vars;
+              & when (@theme = pink) {
+                .pink-theme-vars;
                 color: @panel-link-color;
                 border-color: @panel-link-underline-color;
               }
@@ -172,7 +173,7 @@
   @panel-link-underline-color:  fade(@text-color, 60%);
 }
 
-.grey-blue-theme-vars () {
+.pink-theme-vars () {
   @panel-background-color: @pink;
   @panel-text-color: @body-text-color;
   @panel-title-color: @black;
