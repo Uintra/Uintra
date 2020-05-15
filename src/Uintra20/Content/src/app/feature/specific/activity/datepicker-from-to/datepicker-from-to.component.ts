@@ -116,7 +116,11 @@ export class DatepickerFromToComponent implements OnInit {
 
   fromModelChanged(value) {
     if (value) {
-      this.fromDate = moment(value.format()) < moment(this.eventPublishDate) ? moment(this.eventPublishDate) : moment(value.format());
+      if (this.eventPublishDate) {
+        this.fromDate = moment(value.format()) < moment(this.eventPublishDate) ? moment(this.eventPublishDate) : moment(value.format());
+      } else {
+        this.fromDate = moment(value.format());
+      }
       if (this.toDate < value && this.isEvent) {
         this.toDate = value.add(8, "hours");
       }
