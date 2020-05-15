@@ -1,6 +1,6 @@
 <section class="video-panel" *ngIf="videoData">
   <div class="video-panel__content">
-    <h3 *ngIf="data.title" class="video-panel__title">{{data.title}}</h3>
+    <h2 *ngIf="data.title" class="video-panel__title">{{data.title}}</h2>
     <button (click)="open()" class="video-panel__thumbnail" *ngIf="videoData">
       <div class="video-panel__thumbnail-img">
         <app-picture [data]="videoData.thumbnail"></app-picture>
