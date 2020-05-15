@@ -101,6 +101,8 @@ export class RichTextEditorService {
   }
 
   getLinkPreview(editor) {
+    let isMention = editor.root.innerHTML.match(/(class="mention")/g);
+    if (isMention) return;
     let allHref = editor.root.innerHTML.match(/(href="[^\s]+")/g);
     allHref = allHref && allHref.filter(link => !this.hasToSkipLink(link.replace('href="', '').replace('"', ''), editor));
     const firstLink = allHref && allHref.length ? allHref[0].split(' ')[0].replace('href="', '').replace('"', '') : null;
