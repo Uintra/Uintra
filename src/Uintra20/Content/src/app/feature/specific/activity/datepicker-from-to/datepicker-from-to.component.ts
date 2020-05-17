@@ -132,11 +132,9 @@ export class DatepickerFromToComponent implements OnInit {
         }
       }
 
-      if (this.isNews) {
-        this.optTo = {
-          ...this.optTo,
-          minDate: this.fromDate.clone().hours(0).minutes(0).seconds(0)
-        }
+      this.optTo = {
+        ...this.optTo,
+        minDate: this.fromDate.clone().hours(0).minutes(0).seconds(0)
       }
     }
   }
