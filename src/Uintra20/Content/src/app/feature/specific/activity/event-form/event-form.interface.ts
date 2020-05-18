@@ -72,4 +72,5 @@ export interface IEventForm {
   location: any;
   endPinDate: any;
   availableTags: Array<ITagData>;
+  tags?: Array<ITagData>;
 }
