@@ -1,25 +1,28 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { IUserLikeData } from './like-button.interface';
 
-export interface IAddLikeRequest {
+export interface ILike {
   entityId: string;
   entityType: string;
 }
+export interface IAddLikeRequest extends ILike { }
+
+export interface IRemoveLikeRequest extends ILike { }
 
 @Injectable({
   providedIn: 'root'
 })
 export class LikeButtonService {
 
-  constructor(
-    private http: HttpClient
-  ) { }
+  private routePrefix = '/ubaseline/api/likes/';
 
-  addLike({entityId, entityType }: IAddLikeRequest) {
-    return this.http.post(`/ubaseline/api/likes/AddLike?entityId=${entityId}&entityType=${entityType}`, {}).toPromise();
-  }
+  constructor(private httpClient: HttpClient) { }
 
-  removeLike({entityId, entityType }: IAddLikeRequest) {
-    return this.http.post(`/ubaseline/api/likes/RemoveLike?entityId=${entityId}&entityType=${entityType}`, {}).toPromise();
-  }
+  public addLike = ({ entityId, entityType }: ILike): Observable<Array<IUserLikeData>> =>
+    this.httpClient.post<Array<IUserLikeData>>(`${this.routePrefix}AddLike?entityId=${entityId}&entityType=${entityType}`, {})
+
+  public removeLike = ({ entityId, entityType }: ILike): Observable<Array<IUserLikeData>> =>
+    this.httpClient.post<Array<IUserLikeData>>(`${this.routePrefix}RemoveLike?entityId=${entityId}&entityType=${entityType}`, {})
 }
