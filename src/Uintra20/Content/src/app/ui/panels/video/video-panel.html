@@ -5,8 +5,9 @@
       <div class="video-panel__thumbnail-img">
         <app-picture [data]="videoData.thumbnail"></app-picture>
       </div>
+      <span class="video-panel__play-btn"></span>
     </button>
-    <div *ngIf="data.description" class="video-panel__descr" [innerHTML]="data.description"></div>
+    <div *ngIf="data.description" class="video-panel__description" [innerHTML]="data.description"></div>
 
   </div>
 </section>
