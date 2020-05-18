@@ -822,6 +822,7 @@
     <Content Include="App_Plugins\UintraGroupMember\backoffice\uintraMemberGroups\edit.controller.js" />
     <Content Include="App_Plugins\UintraGroupMember\backoffice\uintraMemberGroups\edit.html" />
     <Content Include="App_Plugins\UintraGroupMember\backoffice\uintraMemberGroups\memberGroupsService.js" />
+    <Content Include="App_Plugins\UintraGroupMember\backoffice\uintraMemberGroups\styles.css" />
     <Content Include="App_Plugins\UintraGroupMember\member-changes-watcher.controller.js" />
     <Content Include="App_Plugins\UintraGroupMember\member-changes-watcher.html" />
     <Content Include="App_Plugins\UintraGroupMember\member.service.js" />

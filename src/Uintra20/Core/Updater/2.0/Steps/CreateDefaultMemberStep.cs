@@ -13,7 +13,7 @@ namespace Uintra20.Core.Updater._2._0.Steps
     {
         private const string DefaultEmail = "admin@testmember.com";
         private const string DefaultName = "admin";
-        private const int UmbracoAdminUserId = 0;
+        private const int UmbracoAdminUserId = -1;
         private const string DefaultPassword = "qwerty1234";
 
         private readonly ILogger _logger;
@@ -28,7 +28,7 @@ namespace Uintra20.Core.Updater._2._0.Steps
 
         public ExecutionResult Execute()
         {
-            _logger.Info<SetupDefaultMediaFoldersStep>("SetupDefaultMediaFoldersStep is running");
+            _logger.Info<SetupDefaultMediaFoldersStep>("CreateDefaultMemberStep is running");
             AddDefaultMember();
 
             return ExecutionResult.Success;

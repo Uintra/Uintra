@@ -127,7 +127,8 @@ namespace Uintra20.Core.Authentication
                 "/api/auth/login",
                 "/ubaseline/api/node/getByUrl",
                 "/ubaseline/api/localization/getAll",
-                "/ubaseline/api/search/rebuildIndex"
+                "/ubaseline/api/search/rebuildIndex",
+                "/ubaseline/api/CentralFeedApi/AvailableActivityTypes"
             };
         }
 
