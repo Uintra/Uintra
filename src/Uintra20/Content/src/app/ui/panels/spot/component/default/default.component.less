@@ -4,7 +4,9 @@
 	display: block;
 }
 
-.spot-panel {
+::ng-deep .spot-panel {
+  .video-modal{display: none !important;}//todo
+
 	&__list {
 		@media @sm-up {
 			margin-right: -20px;

@@ -133,7 +133,7 @@ export class ProfileEditPage implements OnInit, OnDestroy {
   }
 
   public onTagsChange(e) {
-    if (this.data.profile.tags !== e) {
+    if (this.data.tags !== e) {
       this.hasDataChangedService.onDataChanged();
     }
     this.data.profile.tags = e;

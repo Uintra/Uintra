@@ -11,12 +11,12 @@ import { ModalVideoComponent } from 'src/app/feature/reusable/ui-elements/ubl-ui
 @Component({
   selector: 'video-panel',
   templateUrl: './video-panel.html',
-  styleUrls: ['./video-panel.less'],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./video-panel.less']//,
+  //encapsulation: ViewEncapsulation.None
 })
 export class VideoPanel {
   data: IVideoPanel;
-  @HostBinding('class') hostClasses;
+  @HostBinding('class') rootClasses;
 
   videoData: IVideoViewModel;
   isShow: boolean = false;
@@ -29,8 +29,12 @@ export class VideoPanel {
   ) { }
 
   ngOnInit() {
-    this.hostClasses = resolveThemeCssClass(this.data.panelSettings);
+      this.rootClasses = `
+      ${ this.data.panelSettings.theme.value.alias || 'default-theme' }
+    `;
+
     this.mobileDesktop(this.mobile.bind(this), this.desktop.bind(this));
+
   }
 
   mobile() {

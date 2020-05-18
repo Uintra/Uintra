@@ -1,17 +1,22 @@
-<div>
-  <!-- Only umbraco media -->
-  <video *ngIf="data?.video?.type === UMEDIA_TYPE" controls="true" autoplay="false" name="media" class="video-panel__video">
-    <source [src]="data.video.url" type="video/mp4">
-  </video>
+<div class="video-modal">
+  <div class="video-modal__content">
+    <div class="video-modal__block">
+      <!-- Only umbraco media -->
+      <video *ngIf="data?.video?.type === UMEDIA_TYPE" controls="true" autoplay="false" name="media" class="video-modal__video">
+        <source [src]="data.video.url" type="video/mp4">
+      </video>
 
-  <!-- Other sources -->
-  <app-iframe
-    *ngIf=" data?.video && data.video.type !== UMEDIA_TYPE"
-    class="video-panel__video"
-    [src]="data.video.url"
-    [params]="data.params">
-  </app-iframe>
+      <!-- Other sources -->
+      <app-iframe
+        *ngIf=" data?.video && data.video.type !== UMEDIA_TYPE"
+        class="video-modal__video"
+        [src]="data.video.url"
+        [params]="data.params">
+      </app-iframe>
 
-  <h3 *ngIf="data?.title" class="video-panel__title">{{data.title}}</h3>
-  <div *ngIf="data?.description" class="video-panel__descr" [innerHTML]="data.description"></div>
+      <!-- <h3 *ngIf="data?.title" class="video-modal__title">{{data.title}}</h3>
+      <div *ngIf="data?.description" class="video-modal__descr" [innerHTML]="data.description"></div> -->
+    </div>
+  </div>
+  <div class="video-modal__overlay" (click)="close()"></div>
 </div>
