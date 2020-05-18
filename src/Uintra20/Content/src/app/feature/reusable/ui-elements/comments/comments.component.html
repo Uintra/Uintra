@@ -18,6 +18,7 @@
       [(ngModel)]="description"
       [isDropzone]="false"
       [isEditing]="false"
+      [needsAutoFocus]="rteAutofocus"
       (linkPreview)="addLinkPreview($event)"
       placeholder="Write a comment...">
       <button submit

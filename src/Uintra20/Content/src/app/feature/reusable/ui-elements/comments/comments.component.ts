@@ -6,6 +6,7 @@ import { RichTextEditorService } from '../../inputs/rich-text-editor/rich-text-e
 import { Subscription } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import { ICommentItem } from 'src/app/shared/interfaces/components/comments/item/comment-item.interface';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-comments',
@@ -29,7 +30,8 @@ export class CommentsComponent implements OnInit, OnDestroy {
   public description = '';
   public inProgress: boolean;
   public isReplyInProgress: boolean;
-  linkPreviewId: number;
+  public linkPreviewId: number;
+  public rteAutofocus: boolean = false;
 
   get isSubmitDisabled(): boolean {
     const isEmpty = this.stripHTML.isEmpty(this.description);
@@ -44,6 +46,7 @@ export class CommentsComponent implements OnInit, OnDestroy {
     private stripHTML: RTEStripHTMLService,
     private translate: TranslateService,
     private RTEService: RichTextEditorService,
+    private route: ActivatedRoute,
   ) { }
 
   public ngOnDestroy(): void {
@@ -51,7 +54,11 @@ export class CommentsComponent implements OnInit, OnDestroy {
     if (this.$createCommentSubscription) { this.$createCommentSubscription.unsubscribe(); }
   }
 
-  public ngOnInit(): void { }
+  public ngOnInit(): void {
+    this.route.fragment.subscribe(fragment => {
+      this.rteAutofocus = fragment === 'comment';
+    });
+  }
 
   public onCommentSubmit(replyData?): void {
     if (replyData) { this.isReplyInProgress = true; }

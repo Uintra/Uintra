@@ -43,6 +43,7 @@ export class RichTextEditorComponent implements ControlValueAccessor {
   @Input() isEventsOrNews: boolean = false;
   @Input() tags: ITagData[];
   @Input() availableTags: ITagData[];
+  @Input() needsAutoFocus: boolean = false;
   @Output() addAttachment = new EventEmitter();
   @Output() linkPreview = new EventEmitter();
   @Output() tagsChange = new EventEmitter();
@@ -96,7 +97,7 @@ export class RichTextEditorComponent implements ControlValueAccessor {
     if (this.value) {
       this.richTextEditorService.getLinkPreview(this.editor);
     }
-    if (!this.isEventsOrNews) {
+    if (this.needsAutoFocus) {
       editor.focus();
     }
     this.richTextEditorService.linkPreviewSource.subscribe(result => {
