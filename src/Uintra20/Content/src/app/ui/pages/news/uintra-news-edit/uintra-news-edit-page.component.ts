@@ -54,8 +54,8 @@ export class UintraNewsEditPage implements OnInit, OnDestroy {
         endPinDate: this.details.endPinDate,
         isPinned: this.details.isPinned,
         location: {
-          address: this.details.location.address,
-          shortAddress: this.details.location.shortAddress
+          address: this.details.location && this.details.location.address,
+          shortAddress: this.details.location && this.details.location.shortAddress
         },
         tags: this.details.tags as Array<any> || []
       };

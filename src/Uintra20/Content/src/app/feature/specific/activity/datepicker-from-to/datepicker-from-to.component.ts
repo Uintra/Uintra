@@ -101,7 +101,7 @@ export class DatepickerFromToComponent implements OnInit {
     };
   }
 
-  fromDateChange() {debugger
+  fromDateChange() {
       this.toDate && !this.fromDate
         ? {
             ...this.optTo,
@@ -115,7 +115,7 @@ export class DatepickerFromToComponent implements OnInit {
     this.handleChange.emit(this.buildDateObject());
   }
 
-  fromModelChanged(value) {debugger
+  fromModelChanged(value) {
     if (value) {
       if (this.eventPublishDate) {
         this.fromDate = moment(value.format()) < moment(this.eventPublishDate) ? moment(this.eventPublishDate) : moment(value.format());
@@ -132,11 +132,9 @@ export class DatepickerFromToComponent implements OnInit {
         }
       }
 
-      if (this.isNews) {
-        this.optTo = {
-          ...this.optTo,
-          minDate: this.fromDate.clone().hours(0).minutes(0).seconds(0)
-        }
+      this.optTo = {
+        ...this.optTo,
+        minDate: this.fromDate.clone().hours(0).minutes(0).seconds(0)
       }
     }
   }

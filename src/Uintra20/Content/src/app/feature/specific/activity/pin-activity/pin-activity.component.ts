@@ -75,7 +75,7 @@ export class PinActivityComponent implements OnInit {
       : moment();
   }
 
-  public onDateChange(): void {debugger
+  public onDateChange(): void {
     this.pinedDateValue.pinDate = this.pinDate ? this.pinDate.format() : "";
     if (this.publishDate && moment(this.pinedDateValue.pinDate) < moment(this.publishDate)) {
       this.pinDate = moment(this.publishDate);
