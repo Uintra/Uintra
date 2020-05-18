@@ -1,5 +1,109 @@
 @import "base.less";
 
-video-panel {
+:host {
+  display: block;
+}
+::ng-deep .video-panel {
+  padding: 30px 10px 29px;
+  font-size: 16px;
+  line-height: 1.5;
+  .theme(bg-color);
+  .theme(text-color);
 
+  @media @md-up{
+    font-size: 18px;
+    padding: 29px 20px 49px;
+  }
+
+  ::ng-deep .aside &{
+    font-size: 16px;
+    line-height: 1.5;
+    padding: 11px 10px 20px;
+  }
+
+  &__title {
+    font-weight: bold;
+    font-size: 28px;
+    line-height: 1.5;
+    .theme(title-color);
+    text-transform: none;
+    margin: 0 0 20px;
+
+    @media @md-up{
+      margin: 0 0 19px;
+    }
+
+    ::ng-deep .aside &{
+      font-size: 16px;
+      line-height: 1.5;
+      margin: 0 0 10px;
+    }
+  }
+
+  &__thumbnail{
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    position: relative;
+
+    &:hover{
+      .video-panel__play-btn{
+        opacity: .7;
+      }
+    }
+  }
+
+  &__play-btn{
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    z-index: 2;
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    line-height: 70px;
+    box-shadow: inset 0 0 0 6px rgba(255, 255, 255, .85);
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out;
+
+    @media @md-up{
+      width: 120px;
+      height: 120px;
+      line-height: 120px;
+      box-shadow: inset 0 0 0 10px rgba(255, 255, 255, .85);
+    }
+
+    &:before{
+      content: '';
+      display: inline-block;
+      vertical-align: middle;
+      transform: translateX(10%);
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 15px 0 15px 26px;
+      border-color: transparent transparent transparent rgba(255, 255, 255, .85);
+      opacity: 1;
+
+      @media @md-up{
+        border-width: 31px 0 31px 42px;
+      }
+    }
+  }
+
+  &__description{
+    padding: 17px 0 0;
+
+    @media @md-up{
+      padding: 14px 0 0;
+    }
+    @media @lg-up{
+      padding: 18px 0 0;
+    }
+  }
+
+  a{
+    .theme(link-color);
+  }
 }
