@@ -37,6 +37,10 @@ export class MqService {
     return width < config.minWidthLaptop;
   }
 
+  smDown (width: number): boolean {
+    return width < config.minWidthTablet;
+  }
+
   mqFactory(mediaQuery: string)
   {
     return (left: () => void, right: () => void): Subscription => {
