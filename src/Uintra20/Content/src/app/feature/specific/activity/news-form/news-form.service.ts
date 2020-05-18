@@ -23,7 +23,8 @@ export class NewsFormService {
       },
       endPinDate: data.endPinDate || null,
       isPinned: data.isPinned || false,
-      media: data.media || null
+      media: data.media || null,
+      groupId: data.groupId || null
     };
   }
   getTagsForResponse(selectedTags: ITagData[] = []): string[] {

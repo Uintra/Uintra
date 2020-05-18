@@ -35,6 +35,7 @@ export interface INewsCreateModel {
   };
   newMedia?: string;
   tags?: ITagData[];
+  groupId?: string;
 }
 
 export interface ISocialEdit {
@@ -145,4 +146,5 @@ export interface IActivityCreatePanel {
   links: any;
   pinAllowed: boolean;
   publishDate?: string;
+  groupId?: string;
 }
