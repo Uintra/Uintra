@@ -19,7 +19,7 @@
   </configSections>
   <appSettings xdt:Transform="InsertIfMissing">
     <add key="Umbraco.Core.ConfigurationStatus" xdt:Transform="Remove" />
-    <add key="Umbraco.Core.ConfigurationStatus" value="8.6.0" xdt:Locator="Condition(@key='Umbraco.Core.ConfigurationStatus')" xdt:Transform="InsertIfMissing"/>
+    <add key="Umbraco.Core.ConfigurationStatus" value="" xdt:Locator="Condition(@key='Umbraco.Core.ConfigurationStatus')" xdt:Transform="InsertIfMissing"/>
     <add key="Umbraco.Core.ReservedUrls" value="" xdt:Locator="Condition(@key='Umbraco.Core.ReservedUrls')" xdt:Transform="InsertIfMissing"/>
     <add key="Umbraco.Core.ReservedPaths" value="" xdt:Locator="Condition(@key='Umbraco.Core.ReservedPaths')" xdt:Transform="InsertIfMissing"/>
     <add key="umbracoTimeOutInMinutes" value="60" xdt:Locator="Condition(@key='umbracoTimeOutInMinutes')" xdt:Transform="InsertIfMissing" />
@@ -43,14 +43,14 @@
     <add key="elmah.mvc.allowedRoles" value="*" xdt:Locator="Condition(@key='elmah.mvc.allowedRoles')" xdt:Transform="InsertIfMissing" />
     <add key="elmah.mvc.allowedUsers" value="*" xdt:Locator="Condition(@key='elmah.mvc.allowedUsers')" xdt:Transform="InsertIfMissing" />
     <add key="elmah.mvc.route" value="elmah" xdt:Locator="Condition(@key='elmah.mvc.route')" xdt:Transform="InsertIfMissing" />
-    <add key="Search.Url" value="" xdt:Locator="Condition(@key='Search.Url')" xdt:Transform="InsertIfMissing" />
-    <add key="Search.IndexName" value="" xdt:Locator="Condition(@key='Search.IndexName')" xdt:Transform="InsertIfMissing"/>
-    <add key="Search.IndexingDocumentTypes" value="" xdt:Locator="Condition(@key='Search.IndexingDocumentTypes')" xdt:Transform="InsertIfMissing" />
-    <add key="Search.TitleScore" value="" xdt:Locator="Condition(@key='Search.TitleScore')" xdt:Transform="InsertIfMissing" />
-    <add key="Search.UserNameScore" value="" xdt:Locator="Condition(@key='Search.UserNameScore')" xdt:Transform="InsertIfMissing" />
-    <add key="Search.UserEmailScore" value="" xdt:Locator="Condition(@key='Search.UserEmailScore')" xdt:Transform="InsertIfMissing" />
-    <add key="Search.UserPhoneScore" value="" xdt:Locator="Condition(@key='Search.UserPhoneScore')" xdt:Transform="InsertIfMissing" />
-    <add key="Search.UserDepartmentScore" value="" xdt:Locator="Condition(@key='Search.UserDepartmentScore')" xdt:Transform="InsertIfMissing" />
+    <add key="Search.Url" value="http://localhost:9205" xdt:Locator="Condition(@key='Search.Url')" xdt:Transform="InsertIfMissing" />
+    <add key="Search.IndexName" value="uintra20" xdt:Locator="Condition(@key='Search.IndexName')" xdt:Transform="InsertIfMissing"/>
+    <add key="Search.IndexingDocumentTypes" value="doc,docx,pdf,ppt,pptx,odf" xdt:Locator="Condition(@key='Search.IndexingDocumentTypes')" xdt:Transform="InsertIfMissing" />
+    <add key="Search.TitleScore" value="1.5" xdt:Locator="Condition(@key='Search.TitleScore')" xdt:Transform="InsertIfMissing" />
+    <add key="Search.UserNameScore" value="3" xdt:Locator="Condition(@key='Search.UserNameScore')" xdt:Transform="InsertIfMissing" />
+    <add key="Search.UserEmailScore" value="3" xdt:Locator="Condition(@key='Search.UserEmailScore')" xdt:Transform="InsertIfMissing" />
+    <add key="Search.UserPhoneScore" value="3" xdt:Locator="Condition(@key='Search.UserPhoneScore')" xdt:Transform="InsertIfMissing" />
+    <add key="Search.UserDepartmentScore" value="1" xdt:Locator="Condition(@key='Search.UserDepartmentScore')" xdt:Transform="InsertIfMissing" />
     <add key="Application.Name" value="uintra20" xdt:Locator="Condition(@key='Application.Name')" xdt:Transform="InsertIfMissing" />
     <add key="UintraDocumentationLinkTemplate" value="https://docs.uintra.com/?ver={0}-{1}-{2}-{3}" xdt:Locator="Condition(@key='UintraDocumentationLinkTemplate')" xdt:Transform="InsertIfMissing" />
     <add key="linkPreviewServiceUri" value="" xdt:Locator="Condition(@key='linkPreviewServiceUri')" xdt:Transform="InsertIfMissing" />
@@ -91,13 +91,12 @@
 
     <rewrite xdt:Transform="InsertIfMissing">
       <rules xdt:Transform="InsertIfMissing">
-        <rule name="Uintra20 Https redirect rule" stopProcessing="true" xdt:Locator="Match(name)" xdt:Transform="InsertIfMissing">
-          <match url="(.*)" xdt:Transform="InsertIfMissing" />
+        <rule name="sitemap" xdt:Locator="Match(name)" xdt:Transform="InsertIfMissing">
+          <match url=".*"/>
           <conditions>
-            <add input="{HTTPS}" pattern="off" ignoreCase="true" xdt:Locator="Match(input)" xdt:Transform="InsertIfMissing" />
-            <add input="{HTTP_HOST}" pattern="localhost" negate="true" xdt:Locator="Match(input)" xdt:Transform="InsertIfMissing" />
+            <add input="{REQUEST_URI}" pattern="^/sitemap.xml"/>
           </conditions>
-          <action type="Redirect" url="https://{HTTP_HOST}/{R:1}" redirectType="Permanent" xdt:Locator="Match(type)" xdt:Transform="InsertIfMissing"/>
+          <action type="Rewrite" url="umbraco/surface/sitemap/siteMap"/>
         </rule>
       </rules>
     </rewrite>
