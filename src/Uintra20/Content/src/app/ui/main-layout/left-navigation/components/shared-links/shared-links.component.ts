@@ -14,7 +14,7 @@ export class SharedLinksComponent implements OnInit {
     private sharedLinksService: SharedLinksService,
   ) {}
 
-  ngOnInit() {debugger
+  ngOnInit() {
     this.sharedLinks.map((linkGroup: ISharedNavData) => linkGroup.links.map((link: ISharedLink) => ({
       ...link,
       innerlink: this.checkIfInnerLink(link)
@@ -26,7 +26,7 @@ export class SharedLinksComponent implements OnInit {
     this.isOpen = !this.isOpen;
     this.sharedLinksService.setOpenState(this.isOpen);
   }
-  checkIfInnerLink(link: ISharedLink) {debugger
+  checkIfInnerLink(link: ISharedLink) {
     return (link.url.originalUrl.startsWith(window.location.hostname)
       || link.url.originalUrl.startsWith(`http://${window.location.hostname}`)
       || link.url.originalUrl.startsWith(`https://${window.location.hostname}`)) && link.target !=='_blank';
