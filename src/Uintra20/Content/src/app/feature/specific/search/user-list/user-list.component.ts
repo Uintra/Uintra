@@ -43,7 +43,7 @@ export class UserListComponent implements OnInit, OnDestroy {
       this.currentPage = 1;
       this.data.details.members = [];
       this.canLoadMore = false;
-      if (value) this.getMembers();
+      if (!this.data.isInvitePopUp || (this.data.isInvitePopUp && value)) this.getMembers();
     });
   }
   public ngOnDestroy(): void {
