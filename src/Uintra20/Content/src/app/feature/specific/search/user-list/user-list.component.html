@@ -26,7 +26,7 @@
       <span class="icon icon-search-icon"></span>
     </div>
     <button
-      *ngIf="data?.details?.groupId && !data?.isInvitePopUp"
+      *ngIf="data?.details?.groupId && data?.details?.isCurrentMemberGroupAdmin && !data?.isInvitePopUp"
       type="button"
       class="user-list-panel__invite-btn"
       (click)="openInvitePopUp($event)">
@@ -63,7 +63,6 @@
             <select
               [ngModel]="member.isGroupAdmin ? '1' : '0'"
               class="user-list__item-group-select"
-              [disabled]="true"
               #select
               (ngModelChange)="changeMemberStatus(member.member.id, select)"
             >
