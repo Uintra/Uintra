@@ -23,8 +23,7 @@
     <add key="Umbraco.Core.ReservedUrls" value="" xdt:Locator="Condition(@key='Umbraco.Core.ReservedUrls')" xdt:Transform="InsertIfMissing"/>
     <add key="Umbraco.Core.ReservedPaths" value="" xdt:Locator="Condition(@key='Umbraco.Core.ReservedPaths')" xdt:Transform="InsertIfMissing"/>
     <add key="umbracoTimeOutInMinutes" value="60" xdt:Locator="Condition(@key='umbracoTimeOutInMinutes')" xdt:Transform="InsertIfMissing" />
-    <add key="owin:appStartup" xdt:Transform="Remove" />
-    <add key="owin:appStartup" value="UmbracoIdentityOwinStartup" xdt:Locator="Condition(@key='owin:appStartup')" xdt:Transform="InsertIfMissing" />
+    <add key="owin:appStartup" value="UmbracoIdentityOwinStartup" xdt:Locator="Condition(@key='owin:appStartup')" xdt:Transform="SetAttributes(value)" />
     <add key="Umbraco.ModelsBuilder.Enable" xdt:Transform="Remove" />
     <add key="Umbraco.ModelsBuilder.Enable" value="false" xdt:Locator="Condition(@key='Umbraco.ModelsBuilder.Enable')" xdt:Transform="InsertIfMissing" />
     <add key="mediaToolkit.application.name" value="uintra20" xdt:Locator="Condition(@key='mediaToolkit.application.name')" xdt:Transform="InsertIfMissing" />
