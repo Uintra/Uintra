@@ -14,6 +14,7 @@ export interface ISharedLink {
   name: string;
   url: IULink;
   target: "_self" | "_blank";
+  innerLink?: boolean;
 }
 
 @Injectable({
