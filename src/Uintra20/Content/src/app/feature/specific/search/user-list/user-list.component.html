@@ -51,9 +51,9 @@
           [routerLink]="member.profileUrl.originalUrl | ulink"
           class="user-list__item-info cells--{{data.details.selectedColumns.length}}"
         >
-          <p *ngIf="member.email">{{'userList.Table.Email.lbl' | translate}}{{member.email}}</p>
-          <p *ngIf="member.phone">{{'userList.Table.Phone.lbl' | translate}}{{member.phone}}</p>
-          <p *ngIf="member.department">{{'userList.Table.Department.lbl' | translate}}{{member.department}}</p>
+          <p *ngIf="member.email">{{'userList.Table.Email.lbl' | translate}} {{member.email}}</p>
+          <p *ngIf="member.phone">{{'userList.Table.Phone.lbl' | translate}} {{member.phone}}</p>
+          <p *ngIf="member.department">{{'userList.Table.Department.lbl' | translate}} {{member.department}}</p>
         </a>
         <div
           *ngIf="isGroupColumn"

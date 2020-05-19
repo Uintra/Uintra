@@ -125,11 +125,13 @@ export class UserListComponent implements OnInit, OnDestroy {
   }
 
   public deleteMember(userId: string) {
-    const requestData = { userId, groupId: this.data.details.groupId };
+    if (confirm(this.translate.instant('common.AreYouSure'))) {
+      const requestData = { userId, groupId: this.data.details.groupId };
 
-    this.$deleteMemberSubscription = this.searchService.deleteMember(requestData).subscribe(res => {
-      this.data.details.members = this.data.details.members.filter(member => member.member.id !== userId);
-    });
+      this.$deleteMemberSubscription = this.searchService.deleteMember(requestData).subscribe(res => {
+        this.data.details.members = this.data.details.members.filter(member => member.member.id !== userId);
+      });
+    }
   }
 
   public index = (index, item) => {
