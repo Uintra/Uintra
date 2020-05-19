@@ -41,7 +41,7 @@ export class LikeButtonComponent implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     this.defaultLike = this.translateService.instant('activity.Like.lnk');
-    this.likeCount = this.likeData.likes.length;
+    this.likeCount = this.likeData.likes && this.likeData.likes.length;
     this.userLikes = this.likeData.likes;
   }
 
