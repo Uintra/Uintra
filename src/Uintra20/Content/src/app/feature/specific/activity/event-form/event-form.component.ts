@@ -68,7 +68,8 @@ export class EventFormComponent implements OnInit, AfterViewInit {
       minDate: this.edit
         ? moment(this.initialDates.publishDate).hours(0).minutes(0).seconds(0)
         : moment().hours(0).minutes(0).seconds(0),
-      ignoreReadonly: true
+      ignoreReadonly: true,
+      debug: true
     };
 
     if (this.eventsData.isPinned) {

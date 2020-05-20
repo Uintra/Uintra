@@ -35,14 +35,16 @@ export class DatepickerFromToComponent implements OnInit {
     format: "DD/MM/YYYY HH:mm",
     useCurrent: false,
     showClose: true,
-    ignoreReadonly: true
+    ignoreReadonly: true,
+    debug: true
   };
   optTo: IDatePickerOptions = {
     format: "DD/MM/YYYY HH:mm",
     showClear: false,
     useCurrent: false,
     showClose: true,
-    ignoreReadonly: true
+    ignoreReadonly: true,
+    debug: true
   };
 
   minDate: any;

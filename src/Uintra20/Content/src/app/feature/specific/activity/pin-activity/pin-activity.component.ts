@@ -9,6 +9,7 @@ export interface IPinedData {
   isPinChecked: boolean;
   isAccepted: boolean;
   pinDate: string;
+  debug?: boolean;
 }
 @Component({
   selector: "app-pin-activity",
@@ -31,7 +32,8 @@ export class PinActivityComponent implements OnInit {
   pinedDateValue: IPinedData = {
     isPinChecked: false,
     isAccepted: false,
-    pinDate: ""
+    pinDate: "",
+    debug: true
   };
 
   constructor(
