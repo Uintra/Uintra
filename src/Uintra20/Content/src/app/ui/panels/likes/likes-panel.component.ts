@@ -23,10 +23,10 @@ export class LikesPanel implements OnInit {
       likedByCurrentUser: !!this.data.likedByCurrentUser,
       id: this.data.entityId,
       likes: this.data.likes,
-      activityType: this.data.activityType.toString()
+      activityType: this.data.activityType && this.data.activityType.toString()
     };
     this.isDisabled = this.data.isGroupMember;
-    this.isContentPage = this.data.activityType.toString() === '6';
+    this.isContentPage = this.data.activityType && this.data.activityType.toString() === '6';
     if (this.isContentPage) {
       this.hostClass = 'likes-panel--content';
     }

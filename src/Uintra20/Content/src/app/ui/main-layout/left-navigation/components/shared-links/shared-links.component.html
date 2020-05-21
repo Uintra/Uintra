@@ -37,7 +37,7 @@
 
 <ng-template #itemLink let-link>
   <a
-    *ngIf="link.url.params"
+    *ngIf="link.innerLink"
     class="left-nav__item-link left-nav__item-link--inside left-nav__item-link--with-hover"
     routerLinkActive="active"
     [routerLink]="link.url.originalUrl | ulink"
@@ -47,7 +47,7 @@
   </a>
 
   <a
-    *ngIf="!link.url.params"
+    *ngIf="!link.innerLink"
     class="left-nav__item-link left-nav__item-link--inside left-nav__item-link--with-hover"
     [href]="link.url.originalUrl"
     target="{{ link.target }}"

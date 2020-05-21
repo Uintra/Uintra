@@ -55,6 +55,7 @@ export interface IPublishDatepickerOptions {
   minDate?: any;
   maxDate?: any;
   ignoreReadonly?: boolean;
+  debug?: boolean;
 }
 
 export interface IEventForm {

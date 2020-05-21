@@ -72,7 +72,8 @@
         <app-like-button [likeData]="likeData"
                          [isDisabled]="!publication?.isGroupMember"></app-like-button>
         <a class="publication__comment publication__footer-item"
-           [routerLink]="publication.links?.details?.originalUrl | ulink">
+           [routerLink]="publication.links?.details?.originalUrl | ulink"
+           [fragment]="'comment'">
           <i class="icon-comment"></i>
           {{ publication?.isGroupMember ? commentsCount : '' }}
         </a>

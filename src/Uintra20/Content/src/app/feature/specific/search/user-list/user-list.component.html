@@ -26,7 +26,7 @@
       <span class="icon icon-search-icon"></span>
     </div>
     <button
-      *ngIf="data?.details?.groupId && !data?.isInvitePopUp"
+      *ngIf="data?.details?.groupId && data?.details?.isCurrentMemberGroupAdmin && !data?.isInvitePopUp"
       type="button"
       class="user-list-panel__invite-btn"
       (click)="openInvitePopUp($event)">
@@ -51,9 +51,9 @@
           [routerLink]="member.profileUrl.originalUrl | ulink"
           class="user-list__item-info cells--{{data.details.selectedColumns.length}}"
         >
-          <p *ngIf="member.email">{{'userList.Table.Email.lbl' | translate}}{{member.email}}</p>
-          <p *ngIf="member.phone">{{'userList.Table.Phone.lbl' | translate}}{{member.phone}}</p>
-          <p *ngIf="member.department">{{'userList.Table.Department.lbl' | translate}}{{member.department}}</p>
+          <p *ngIf="member.email">{{'userList.Table.Email.lbl' | translate}} {{member.email}}</p>
+          <p *ngIf="member.phone">{{'userList.Table.Phone.lbl' | translate}} {{member.phone}}</p>
+          <p *ngIf="member.department">{{'userList.Table.Department.lbl' | translate}} {{member.department}}</p>
         </a>
         <div
           *ngIf="isGroupColumn"
@@ -63,7 +63,6 @@
             <select
               [ngModel]="member.isGroupAdmin ? '1' : '0'"
               class="user-list__item-group-select"
-              [disabled]="true"
               #select
               (ngModelChange)="changeMemberStatus(member.member.id, select)"
             >
@@ -92,7 +91,8 @@
         </div>
         <div *ngIf="isManagementColumn" class="user-list__item-management cells--{{data.details.selectedColumns.length}}">
           <button
-            *ngIf="!member.isCreator && data.details.isCurrentMemberGroupAdmin && !data.isInvitePopUp"
+            *ngIf="(!member.isCreator && data?.details?.isCurrentMemberGroupAdmin && !data.isInvitePopUp)
+              || data?.details?.currentMember?.id === member.member.id"
             class="user-list__item-delete-btn"
             (click)="deleteMember(member.member.id)">
             X
