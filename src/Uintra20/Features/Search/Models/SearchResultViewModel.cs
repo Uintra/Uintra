@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Uintra20.Features.Links.Models;
 
 namespace Uintra20.Features.Search.Models
 {
@@ -14,7 +15,7 @@ namespace Uintra20.Features.Search.Models
 
         public IEnumerable<SearchPanelResultViewModel> Panels { get; set; } = Enumerable.Empty<SearchPanelResultViewModel>();
 
-        public string Url { get; set; }
+        public UintraLinkModel Url { get; set; }
 
         public string Type { get; set; }
 
