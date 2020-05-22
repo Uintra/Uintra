@@ -15,10 +15,7 @@ export interface IEventCreateModel {
   publishDate: string;
   startDate: string;
   endDate: string;
-  location: {
-    address: string;
-    shortAddress: string;
-  };
+  location: ILocation;
   pinAllowed: boolean;
   isPinned: boolean;
   tagIdsData?: string[];

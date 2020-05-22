@@ -13,6 +13,7 @@ import { IGoogleMapsModel, ICoordinates } from "./location-picker.interface";
 import { GoogleGeolocationService } from "./services/google-geolocation.service";
 import { GOOGLE_MAPS_CONFIG } from 'src/app/shared/constants/maps/google-maps.const';
 import { LOCATION_TITLE_MAX_LENGTH } from 'src/app/shared/constants/activity/activity-create.const';
+import {ILocation} from "../../../specific/activity/activity.interfaces";
 
 @Component({
   selector: "app-location-picker",
@@ -20,10 +21,10 @@ import { LOCATION_TITLE_MAX_LENGTH } from 'src/app/shared/constants/activity/act
   styleUrls: ["./location-picker.component.less"]
 })
 export class LocationPickerComponent implements OnInit {
-  @Input() initialValues: any;
+  @Input() initialValues: ILocation;
 
-  address: string;
-  @Output() handleChange = new EventEmitter<string>();
+  address: ILocation;
+  @Output() handleChange = new EventEmitter<ILocation>();
 
   @ViewChild("search", { static: false })
   public searchElementRef: ElementRef;
@@ -39,14 +40,17 @@ export class LocationPickerComponent implements OnInit {
   ) {}
 
   public ngOnInit(): void {
+    this.address={ address:"",shortAddress:""};
     this.onInit();
     this.setupInputListener();
   }
 
   mapReady() {
-    this.address = this.initialValues;
+    if (this.initialValues){
+      this.address = this.initialValues;
+    }
 
-    this.googleGeolocationService.getLatLng(this.initialValues, (results) => {
+    this.googleGeolocationService.getLatLng(this.address.address, (results) => {
       if (results.length && results[0].geometry) {
         const lat = results[0].geometry.location.lat();
         const lng = results[0].geometry.location.lng();
@@ -66,13 +70,12 @@ export class LocationPickerComponent implements OnInit {
     };
     this.updateDefaultCoordinates(latitude, longitude);
     this.googleGeolocationService.getAddress(latitude, longitude, result => {
-      this.address = result.address;
+      this.address = result;
       this.handleChange.emit(result);
     });
   }
 
   private onInit(): void {
-    this.address = "";
 
     this.googleMapsModel = {
       coordinates: GOOGLE_MAPS_CONFIG.DEFAULT_COORDINATES,
@@ -106,7 +109,7 @@ export class LocationPickerComponent implements OnInit {
           this.updateDefaultCoordinates(lat, lng);
 
           this.googleGeolocationService.getAddress(lat, lng, result => {
-            this.address = result.address;
+            this.address = result;
             this.handleChange.emit(this.address);
           });
         });
