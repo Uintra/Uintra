@@ -70,7 +70,10 @@ namespace Uintra20.Features.News.Converters
 
         private NewsCreateDataViewModel GetData(Guid? groupId)
         {
-            var model = new NewsCreateDataViewModel();
+            var model = new NewsCreateDataViewModel()
+            {
+                GroupId = groupId
+            };
 
             var currentMember = _memberService.GetCurrentMember();
 
@@ -89,7 +92,6 @@ namespace Uintra20.Features.News.Converters
             model.AllowedMediaExtensions = mediaSettings.AllowedMediaExtensions;
             model.Tags = _tagProvider.GetAll();
             model.Creator = currentMember.ToViewModel();
-            model.GroupId = groupId;
 
             model.PublishDate = DateTime.UtcNow;
 
