@@ -76,7 +76,7 @@ namespace Uintra20.Core.Authentication
                 return true;
             }
 
-            if (IsClientSideRequest(context.Request.Uri))
+            if (IsBackOfficeRequest(context.Request.Uri))
             {
                 return true;
             }
@@ -99,13 +99,20 @@ namespace Uintra20.Core.Authentication
             return context.Authentication.User?.Identity?.IsAuthenticated == true;
         }
 
-        private static bool IsClientSideRequest(Uri url)
+        //private static bool IsClientSideRequest(Uri url)
+        //{
+        //    var ext = Path.GetExtension(url.LocalPath);
+        //    if (ext.IsNullOrWhiteSpace()) return false;
+        //    var toInclude = new[] { ".aspx", ".ashx", ".asmx", ".axd", ".svc" };
+        //    return toInclude.Any(ext.InvariantEquals) == false;
+        //}
+
+        private static bool IsBackOfficeRequest(Uri url)
         {
             var ext = Path.GetExtension(url.LocalPath);
             if (ext.IsNullOrWhiteSpace()) return false;
-            var toInclude = new[] { ".aspx", ".ashx", ".asmx", ".axd", ".svc" };
-            return toInclude.Any(ext.InvariantEquals) == false;
-            //return toInclude.Any(ext.InvariantEquals);
+            var toInclude = new[] { ".aspx", ".ashx", ".asmx", ".axd", ".svc", ".html", ".css", ".woff2", ".js" };
+            return toInclude.Any(ext.InvariantEquals);
         }
 
         private static bool IsBackOfficeRequest(IOwinRequest request, IGlobalSettings globalSettings)
@@ -128,7 +135,8 @@ namespace Uintra20.Core.Authentication
                 "/ubaseline/api/node/getByUrl",
                 "/ubaseline/api/localization/getAll",
                 "/ubaseline/api/search/rebuildIndex",
-                "/ubaseline/api/CentralFeedApi/AvailableActivityTypes"
+                "/ubaseline/api/CentralFeedApi/AvailableActivityTypes",
+                "/signalr/connect"
             };
         }
 
