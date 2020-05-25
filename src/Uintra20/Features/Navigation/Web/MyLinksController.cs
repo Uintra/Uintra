@@ -78,7 +78,7 @@ namespace Uintra20.Features.Navigation.Web
 
             if (_myLinksHelper.IsGroupPage(contentId))
             {
-                model.ActivityId = GetActivityLinkFromQuery(queryString);
+                model.ActivityId = GetGroupLinkFromQuery(queryString);
             }
 
             return model;
@@ -89,6 +89,18 @@ namespace Uintra20.Features.Navigation.Web
             var activityIdMatch = HttpUtility.ParseQueryString(query).Get("id");
 
             if (Guid.TryParse(activityIdMatch, out Guid result))
+            {
+                return result;
+            }
+
+            return null;
+        }
+
+        protected Guid? GetGroupLinkFromQuery(string query)
+        {
+            var groupIdMatch = HttpUtility.ParseQueryString(query).Get("groupid");
+
+            if (Guid.TryParse(groupIdMatch, out Guid result))
             {
                 return result;
             }

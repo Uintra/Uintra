@@ -8,7 +8,7 @@
         public const string ProfileEditPage = "profileEditPage";
         public const string SearchResultPage = "searchResultPage";
 
-        public const string NewsOverviewPage = "newsOverviewPage";
+        public const string NewsOverviewPage = "uintraNewsOverviewPage";
         public const string NewsCreatePage = "uintraNewsCreatePage";
         public const string NewsEditPage = "uintraNewsEditPage";
         public const string NewsDetailsPage = "uintraNewsDetailsPage";
@@ -35,15 +35,15 @@
         public const string Heading = "heading";
         public const string SystemLink = "systemLink";
 
-        public const string GroupsCreatePage = "groupsCreatePage";
-        public const string GroupsDetailsPage = "groupsDetailsPage";
-        public const string GroupsEditPage = "groupsEditPage";
+        public const string GroupsOverviewPage = "uintraGroupsPage";
+        public const string GroupsCreatePage = "uintraGroupsCreatePage";
+        public const string GroupsRoomPage = "uintraGroupsRoomPage";            // Group details
+        public const string GroupsMyGroupsOverviewPage = "uintraMyGroupsPage";
+        public const string GroupsDocumentsPage = "uintraGroupsDocumentsPage";
+        public const string GroupsEditPage = "uintraGroupsEditPage";            // Group settings
+        public const string GroupsMembersPage = "uintraGroupsMembersPage";
 
-        public const string GroupsOverviewPage = "groupsOverviewPage";
-        public const string GroupsRoomPage = "groupsRoomPage";
-        public const string GroupsMyGroupsOverviewPage = "groupsMyGroupsOverviewPage";
-        public const string GroupsDocumentsPage = "groupsDocumentsPage";
-        public const string GroupsMembersPage = "groupsMembersPage";
+        //unused for now
         public const string GroupsDeactivatedGroupPage = "groupsDeactivatedGroupPage";
     }
 }

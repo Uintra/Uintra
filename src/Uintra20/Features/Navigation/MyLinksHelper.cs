@@ -10,6 +10,7 @@ using Uintra20.Core.Activity.Entities;
 using Uintra20.Core.Localization;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Services;
+using Uintra20.Features.Groups.Models;
 using Uintra20.Features.Groups.Services;
 using Uintra20.Features.Navigation.ApplicationSettings;
 using Uintra20.Features.Navigation.Models;
@@ -189,6 +190,14 @@ namespace Uintra20.Features.Navigation
                 if (navigationModel.Navigation.NavigationTitle.Value.HasValue())
                 {
                     return navigationModel.Navigation.NavigationTitle.Value;
+                }
+            }
+
+            if (content is IGroupNavigationComposition groupNavigationModel)
+            {
+                if (groupNavigationModel.GroupNavigation.NavigationTitle.Value.HasValue())
+                {
+                    return groupNavigationModel.GroupNavigation.NavigationTitle.Value;
                 }
             }
 
