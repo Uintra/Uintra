@@ -29,12 +29,10 @@ export interface INewsCreateModel {
   tagIdsData?: string[];
 
   isPinned?: boolean;
-  location?: {
-    address?: string;
-    shortAddress?: string;
-  };
+  location?: ILocation;
   newMedia?: string;
   tags?: ITagData[];
+  groupId?: string;
 }
 
 export interface ISocialEdit {
@@ -144,4 +142,6 @@ export interface IActivityCreatePanel {
   members: any;
   links: any;
   pinAllowed: boolean;
+  publishDate?: string;
+  groupId?: string;
 }

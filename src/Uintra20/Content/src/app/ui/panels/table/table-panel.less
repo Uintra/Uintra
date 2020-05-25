@@ -52,9 +52,8 @@
   &__table {
     width: 100%;
     tr{
-      border-bottom-width: 1px;
-      border-style: solid;
-      border-color:@grey;
+      border: 1px solid @grey;
+      border-width:0 0 1px;
 
       &:first-child{
         @media @sm-down{
@@ -140,7 +139,7 @@
 }
 
 // Adaptive
-@media @sm-down {
+@media @md-down {
   .table-panel {
     &__table{
       td{

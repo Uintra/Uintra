@@ -305,9 +305,17 @@ namespace Uintra20.Features.Media.Helpers
 
             if (isVideo) return VideoTypeAlias;
 
-            return _imageHelper.IsFileImage(file.FileBytes)
+            var imageTypeAlias =
+                _imageHelper.IsFileImage(file.FileBytes)
                 ? ImageTypeAlias
                 : FileTypeAlias;
+
+            if (imageTypeAlias == ImageTypeAlias && _imageHelper.ShouldBeAttachment(file.FileBytes))
+            {
+                return FileTypeAlias;
+            }
+
+            return imageTypeAlias;
         }
 
         private string GetAllowedMediaExtensions(FolderModel mediaFolderContent)

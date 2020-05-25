@@ -4,19 +4,19 @@ import { resolveThemeCssClass } from 'src/app/feature/reusable/ui-elements/ubl-u
 import { MqService, config } from 'src/app/shared/services/general/mq.service';
 import { ThumbnailBuilderService } from './service/thumbnail-builder.service';
 import { ModalService } from 'src/app/shared/services/general/modal.service';
-import { VideoPanelPopUpComponent } from './components/video-panel-pop-up/video-panel-pop-up.component';
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { Subscription } from 'rxjs';
+import { ModalVideoComponent } from 'src/app/feature/reusable/ui-elements/ubl-ui-kit/modal-video/modal-video.component';
 
 @Component({
   selector: 'video-panel',
   templateUrl: './video-panel.html',
-  styleUrls: ['./video-panel.less'],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./video-panel.less']//,
+  //encapsulation: ViewEncapsulation.None
 })
 export class VideoPanel {
   data: IVideoPanel;
-  @HostBinding('class') hostClasses;
+  @HostBinding('class') rootClasses;
 
   videoData: IVideoViewModel;
   isShow: boolean = false;
@@ -29,8 +29,12 @@ export class VideoPanel {
   ) { }
 
   ngOnInit() {
-    this.hostClasses = resolveThemeCssClass(this.data.panelSettings);
+      this.rootClasses = `
+      ${ this.data.panelSettings.theme.value.alias || 'default-theme' }
+    `;
+
     this.mobileDesktop(this.mobile.bind(this), this.desktop.bind(this));
+
   }
 
   mobile() {
@@ -41,7 +45,7 @@ export class VideoPanel {
   }
 
   open() {
-    this.modalService.appendComponentToBody(VideoPanelPopUpComponent, {data: this.videoData})
+    this.modalService.appendComponentToBody(ModalVideoComponent, {data: this.videoData})
   }
 
   private prepareVm(data: IVideoPickerVideoData): IVideoViewModel

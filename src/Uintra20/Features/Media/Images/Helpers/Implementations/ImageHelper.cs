@@ -3,7 +3,9 @@ using System.Collections;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using Uintra20.Features.Media.Images.Constants;
 using Uintra20.Features.Media.Images.Helpers.Contracts;
+using Uintra20.Infrastructure.Extensions;
 
 namespace Uintra20.Features.Media.Images.Helpers.Implementations
 {
@@ -40,7 +42,7 @@ namespace Uintra20.Features.Media.Images.Helpers.Implementations
         private void FixOrientation(Image img, bool removeExifOrientationTag = true)
         {
             var orientationTagId = 0x0112;
-            if (((IList) img.PropertyIdList).Contains(orientationTagId))
+            if (((IList)img.PropertyIdList).Contains(orientationTagId))
             {
                 var propertyItem = img.GetPropertyItem(orientationTagId);
                 var flipType = GetRotateFlipTypeByExifOrientationData(propertyItem.Value[0]);
@@ -125,6 +127,13 @@ namespace Uintra20.Features.Media.Images.Helpers.Implementations
         public string GetImageWithResize(string source, string resize)
         {
             return $"{source}?{resize}";
+        }
+
+        public bool ShouldBeAttachment(byte[] imageBytes)
+        {
+            var imageMegabytes = imageBytes.ToMegabytes();
+
+            return imageMegabytes > ImageConstants.ImageSizeThreshold;
         }
 
 

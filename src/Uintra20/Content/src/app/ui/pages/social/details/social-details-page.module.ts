@@ -11,6 +11,7 @@ import { GroupDetailsWrapperModule } from 'src/app/feature/specific/groups/group
 import { AttachmentsModule } from 'src/app/feature/specific/activity/details/attachments/attachments.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { LinkPreviewModule } from 'src/app/feature/specific/link-preview/link-preview.module';
+import { UlinkModule } from "src/app/shared/pipes/link/ulink.module";
 
 @NgModule({
   declarations: [SocialDetailsPanelComponent],
@@ -28,6 +29,7 @@ import { LinkPreviewModule } from 'src/app/feature/specific/link-preview/link-pr
     AttachmentsModule,
     TranslateModule,
     LinkPreviewModule,
+    UlinkModule
   ],
   providers: [
     { provide: AS_DYNAMIC_COMPONENT, useValue: SocialDetailsPanelComponent }

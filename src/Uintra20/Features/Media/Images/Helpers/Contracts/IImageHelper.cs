@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 
 namespace Uintra20.Features.Media.Images.Helpers.Contracts
 {
@@ -8,5 +9,6 @@ namespace Uintra20.Features.Media.Images.Helpers.Contracts
         bool IsFileImage(byte[] fileBytes);
         string GetImageWithPreset(string source, string preset);
         string GetImageWithResize(string source, string resize);
+        bool ShouldBeAttachment(byte[] imageBytes);
     }
 }

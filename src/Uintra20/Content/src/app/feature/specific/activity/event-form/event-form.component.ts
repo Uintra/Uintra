@@ -7,11 +7,11 @@ import { TranslateService } from '@ngx-translate/core';
 import { EventFormService } from './event-form.service';
 import { RTEStripHTMLService } from '../rich-text-editor/helpers/rte-strip-html.service';
 import { IDatepickerData } from '../datepicker-from-to/datepiker-from-to.interface';
-import { ILocationResult } from 'src/app/feature/reusable/ui-elements/location-picker/location-picker.interface';
 import { IPinedData } from '../pin-activity/pin-activity.component';
 import * as moment from 'moment';
 import { IEventCreateModel, IEventsInitialDates, IPublishDatepickerOptions, IEventForm } from './event-form.interface';
 import { ContentService } from 'src/app/shared/services/general/content.service';
+import {ILocation} from "../activity.interfaces";
 
 @Component({
   selector: 'app-event-form',
@@ -32,6 +32,9 @@ export class EventFormComponent implements OnInit, AfterViewInit {
   public cancel = new EventEmitter();
   @Output()
   public hide = new EventEmitter();
+  @HostListener('window:beforeunload') checkIfDataChanged() {
+    return !this.hasDataChangedService.hasDataChanged;
+  }
 
   public eventsData: IEventCreateModel;
   public selectedTags: ITagData[] = [];
@@ -39,7 +42,7 @@ export class EventFormComponent implements OnInit, AfterViewInit {
   public owners: ISelectItem[];
   public defaultOwner: ISelectItem;
   public initialDates: IEventsInitialDates;
-  public initialLocation: string;
+  public initialLocation: ILocation;
   public locationTitle = '';
   public publishDatepickerOptions: IPublishDatepickerOptions;
   public files: Array<any> = [];
@@ -63,9 +66,10 @@ export class EventFormComponent implements OnInit, AfterViewInit {
       showClose: true,
       format: 'DD/MM/YYYY HH:mm',
       minDate: this.edit
-        ? moment(this.initialDates.publishDate)
-        : moment().subtract(5, 'seconds').format(),
-      ignoreReadonly: true
+        ? moment(this.initialDates.publishDate).hours(0).minutes(0).seconds(0)
+        : moment().hours(0).minutes(0).seconds(0),
+      ignoreReadonly: true,
+      debug: true
     };
 
     if (this.eventsData.isPinned) {
@@ -75,10 +79,6 @@ export class EventFormComponent implements OnInit, AfterViewInit {
 
   public ngAfterViewInit(): void {
     this.contentService.makeReadonly('.udatepicker-input');
-  }
-
-  @HostListener('window:beforeunload') checkIfDataChanged() {
-    return !this.hasDataChangedService.hasDataChanged;
   }
 
   private setInitialData(): void {
@@ -99,7 +99,7 @@ export class EventFormComponent implements OnInit, AfterViewInit {
       to: this.data.endDate || undefined
     };
 
-    this.initialLocation = (this.data.location && this.data.location.address) || null;
+    this.initialLocation = this.data.location || null;
   }
 
   public changeOwner(owner: ISelectItem | string): void {
@@ -154,14 +154,14 @@ export class EventFormComponent implements OnInit, AfterViewInit {
     this.isAccepted = value.isAccepted;
   }
 
-  public setLocationValue(location: ILocationResult): void {
-    this.eventsData.location.address = location.address;
-    this.eventsData.location.shortAddress = location.shortAddress;
+  public setLocationValue(location: ILocation): void {
+    this.eventsData.location = location
     this.hasDataChangedService.onDataChanged();
   }
 
-  public onPublishDateChange(event: any): void {
-    if (event) {
+  public onPublishDateChange(e: any): void {
+    if (e) {
+      const event = this.initialDates.publishDate && e < moment(this.initialDates.publishDate) ? moment(this.initialDates.publishDate) : e;
       this.eventsData.publishDate = event.format();
       if (event > moment(this.eventsData.endPinDate)) {
         this.eventsData.endPinDate = this.eventsData.publishDate;

@@ -22,6 +22,9 @@ export class DatepickerFromToComponent implements OnInit {
   @Input() fromLabel: string;
   @Input() toLabel: string;
   @Input() isEvent: boolean;
+  @Input() isEventEdit: boolean;
+  @Input() eventPublishDate: string;
+  @Input() isNews: boolean;
   @Output() handleChange = new EventEmitter();
 
   fromDate = null;
@@ -32,14 +35,16 @@ export class DatepickerFromToComponent implements OnInit {
     format: "DD/MM/YYYY HH:mm",
     useCurrent: false,
     showClose: true,
-    ignoreReadonly: true
+    ignoreReadonly: true,
+    debug: true
   };
   optTo: IDatePickerOptions = {
     format: "DD/MM/YYYY HH:mm",
     showClear: false,
     useCurrent: false,
     showClose: true,
-    ignoreReadonly: true
+    ignoreReadonly: true,
+    debug: true
   };
 
   minDate: any;
@@ -68,7 +73,9 @@ export class DatepickerFromToComponent implements OnInit {
     if (this.isEvent) {
       this.eventSubscription = this.pinActivityService.publishDates$.subscribe((dates: IDatepickerData) => {
         if (dates.from) {
-          const minDate = moment(dates.from).clone();
+          const minDate = this.isEventEdit 
+            ? moment(dates.from).clone() < moment() ? moment() : moment(dates.from).clone()
+            : moment(dates.from).clone();
           this.optFrom = {
             ...this.optFrom,
             minDate: minDate.hours(0).minutes(0).seconds(0),
@@ -88,16 +95,15 @@ export class DatepickerFromToComponent implements OnInit {
   setOptionsInitialValues() {
     this.optFrom = {
       ...this.optFrom,
-      minDate: this.minDate
+      minDate: this.minDate.clone().hours(0).minutes(0).seconds(0)
     };
     this.optTo = {
       ...this.optTo,
-      minDate: this.minDate
+      minDate: this.minDate.clone().hours(0).minutes(0).seconds(0)
     };
   }
 
   fromDateChange() {
-    this.optTo =
       this.toDate && !this.fromDate
         ? {
             ...this.optTo,
@@ -105,7 +111,7 @@ export class DatepickerFromToComponent implements OnInit {
           }
         : {
             ...this.optTo,
-            minDate: this.fromDate
+            minDate: this.fromDate.clone().hours(0).minutes(0).seconds(0)
           };
 
     this.handleChange.emit(this.buildDateObject());
@@ -113,28 +119,38 @@ export class DatepickerFromToComponent implements OnInit {
 
   fromModelChanged(value) {
     if (value) {
-      this.fromDate = moment(value.format());
-      if (this.toDate < value && this.isEvent) {
-        this.toDate = value.add(8, "hours");
+      if (this.eventPublishDate) {
+        this.fromDate = moment(value.format()) < moment(this.eventPublishDate) ? moment(this.eventPublishDate) : moment(value.format());
+      } else {
+        this.fromDate = moment(value.format());
+      }
+
+      if (this.toDate < value) {
+        if (this.isEvent) {
+          this.toDate = value.add(8, "hours");
+        }
+        if (this.isNews) {
+          this.toDate = null;
+        }
+      }
+
+      this.optTo = {
+        ...this.optTo,
+        minDate: this.fromDate.clone().hours(0).minutes(0).seconds(0)
       }
     }
   }
   toModelChanged(value) {
     if (value) {
-      this.toDate = value;
+      this.toDate = moment(value) < moment(this.fromDate) ? moment(this.fromDate) : moment(value);
     }
   }
 
   toDateChange() {
-    this.optFrom = this.toDate && !this.isEvent
-      ? {
-          ...this.optFrom,
-          maxDate: this.toDate
-        }
-      : {
-          ...this.optFrom,
-          maxDate: false
-        };
+    this.optFrom = {
+      ...this.optFrom,
+      maxDate: false
+    };
 
     this.handleChange.emit(this.buildDateObject());
   }

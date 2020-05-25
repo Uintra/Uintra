@@ -43,7 +43,7 @@ export class UserListComponent implements OnInit, OnDestroy {
       this.currentPage = 1;
       this.data.details.members = [];
       this.canLoadMore = false;
-      if (value) this.getMembers();
+      if (!this.data.isInvitePopUp || (this.data.isInvitePopUp && value)) this.getMembers();
     });
   }
   public ngOnDestroy(): void {
@@ -125,11 +125,13 @@ export class UserListComponent implements OnInit, OnDestroy {
   }
 
   public deleteMember(userId: string) {
-    const requestData = { userId, groupId: this.data.details.groupId };
+    if (confirm(this.translate.instant('common.AreYouSure'))) {
+      const requestData = { userId, groupId: this.data.details.groupId };
 
-    this.$deleteMemberSubscription = this.searchService.deleteMember(requestData).subscribe(res => {
-      this.data.details.members = this.data.details.members.filter(member => member.member.id !== userId);
-    });
+      this.$deleteMemberSubscription = this.searchService.deleteMember(requestData).subscribe(res => {
+        this.data.details.members = this.data.details.members.filter(member => member.member.id !== userId);
+      });
+    }
   }
 
   public index = (index, item) => {

@@ -9,6 +9,7 @@ export interface IPinedData {
   isPinChecked: boolean;
   isAccepted: boolean;
   pinDate: string;
+  debug?: boolean;
 }
 @Component({
   selector: "app-pin-activity",
@@ -27,11 +28,12 @@ export class PinActivityComponent implements OnInit {
   @Input() unpublishDate: string = null;
 
   options: IDatePickerOptions;
-  pinDate = null;
+  pinDate: moment.Moment = null;
   pinedDateValue: IPinedData = {
     isPinChecked: false,
     isAccepted: false,
-    pinDate: ""
+    pinDate: "",
+    debug: true
   };
 
   constructor(
@@ -41,14 +43,17 @@ export class PinActivityComponent implements OnInit {
     this.pinActivityService.publishDates$.subscribe((dates: IDatepickerData) => {
       this.options = this.isEvent ? {
         ...this.options,
-        minDate: dates.from ? moment(dates.from) : false,
-        maxDate: dates.to && !this.noMaxDate ? moment(dates.to) : false,
+        minDate: dates.from ? moment(dates.from).hours(0).minutes(0).seconds(0) : false,
+        maxDate: dates.to && !this.noMaxDate ? moment(dates.to).hours(23).minutes(59).seconds(59) : false,
         format: "DD/MM/YYYY HH:mm"
       } : {
         ...this.options,
-        minDate: dates.from ? moment(dates.from).subtract(5, "minutes") : false,
-        maxDate: dates.to && !this.noMaxDate ? moment(dates.to).add(5, "minutes") : false,
+        minDate: dates.from ? moment(dates.from).hours(0).minutes(0).seconds(0) : false,
+        maxDate: dates.to && !this.noMaxDate ? moment(dates.to).hours(23).minutes(59).seconds(59) : false,
         format: "DD/MM/YYYY HH:mm"
+      }
+      if (dates.from && moment(dates.from) > moment(this.pinDate)) {
+        this.pinDate = moment(dates.from);
       }
     });
   }
@@ -74,6 +79,14 @@ export class PinActivityComponent implements OnInit {
 
   public onDateChange(): void {
     this.pinedDateValue.pinDate = this.pinDate ? this.pinDate.format() : "";
+    if (this.publishDate && moment(this.pinedDateValue.pinDate) < moment(this.publishDate)) {
+      this.pinDate = moment(this.publishDate);
+      this.pinedDateValue.pinDate = this.pinDate.format();
+    }
+    if (this.unpublishDate && moment(this.pinedDateValue.pinDate) > moment(this.unpublishDate)) {
+      this.pinDate = moment(this.unpublishDate);
+      this.pinedDateValue.pinDate = this.pinDate.format();
+    }
     this.handleChange.emit(this.pinedDateValue);
   }
 

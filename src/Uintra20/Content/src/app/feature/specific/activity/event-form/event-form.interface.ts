@@ -15,10 +15,7 @@ export interface IEventCreateModel {
   publishDate: string;
   startDate: string;
   endDate: string;
-  location: {
-    address: string;
-    shortAddress: string;
-  };
+  location: ILocation;
   pinAllowed: boolean;
   isPinned: boolean;
   tagIdsData?: string[];
@@ -55,6 +52,7 @@ export interface IPublishDatepickerOptions {
   minDate?: any;
   maxDate?: any;
   ignoreReadonly?: boolean;
+  debug?: boolean;
 }
 
 export interface IEventForm {
@@ -72,4 +70,5 @@ export interface IEventForm {
   location: any;
   endPinDate: any;
   availableTags: Array<ITagData>;
+  tags?: Array<ITagData>;
 }

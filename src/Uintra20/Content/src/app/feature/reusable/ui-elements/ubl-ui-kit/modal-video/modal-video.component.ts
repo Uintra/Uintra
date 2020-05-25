@@ -2,11 +2,11 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ModalService } from 'src/app/shared/services/general/modal.service';
 
 @Component({
-  selector: 'app-video-panel-pop-up',
-  templateUrl: './video-panel-pop-up.component.html',
-  styleUrls: ['./video-panel-pop-up.component.less']
+  selector: 'app-modal-video',
+  templateUrl: './modal-video.component.html',
+  styleUrls: ['./modal-video.component.less']
 })
-export class VideoPanelPopUpComponent implements OnInit {
+export class ModalVideoComponent implements OnInit {
   @Input() data: any;
   readonly UMEDIA_TYPE: number = 2;
 

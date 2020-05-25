@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { VideoPanelPopUpComponent } from './video-panel-pop-up.component';
+import { NoImageComponent } from './no-image.component';
 
-describe('VideoPanelPopUpComponent', () => {
-  let component: VideoPanelPopUpComponent;
-  let fixture: ComponentFixture<VideoPanelPopUpComponent>;
+describe('NoImageComponent', () => {
+  let component: NoImageComponent;
+  let fixture: ComponentFixture<NoImageComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ VideoPanelPopUpComponent ]
+      declarations: [ NoImageComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(VideoPanelPopUpComponent);
+    fixture = TestBed.createComponent(NoImageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

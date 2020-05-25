@@ -12,12 +12,14 @@
     <div class="feed-btns__other-activities">
       <a *ngIf="data.createEventsLink"
          class="button-default"
-         [routerLink]="data.createEventsLink.originalUrl | ulink">
+         [routerLink]="data.createEventsLink.baseUrl | ulink"
+         [queryParams]="data.createEventsLink.params | uparams">
         {{'centralFeed.CreateLink_Events.lnk' | translate}}
       </a>
       <a *ngIf="data.createNewsLink"
          class="button-default"
-         [routerLink]="data.createNewsLink.originalUrl | ulink">
+         [routerLink]="data.createNewsLink.baseUrl | ulink"
+         [queryParams]="data.createNewsLink.params | uparams" >
         {{'centralFeed.CreateLink_News.lnk' | translate}}
       </a>
     </div>
