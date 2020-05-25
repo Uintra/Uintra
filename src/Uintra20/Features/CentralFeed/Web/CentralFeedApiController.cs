@@ -60,7 +60,8 @@ namespace Uintra20.Features.CentralFeed.Web
         {
             var centralFeedType = _feedTypeProvider[model.TypeId];
 
-            var items = model.GroupId.HasValue ? _centralFeedHelper.GetGroupFeedItems(centralFeedType, model.GroupId.Value).ToList() : _centralFeedHelper.GetCentralFeedItems(centralFeedType).ToList();
+            var items = model.GroupId.HasValue ? _centralFeedHelper.GetGroupFeedItems(centralFeedType, model.GroupId.Value).ToList() :
+                _centralFeedHelper.GetCentralFeedItems(centralFeedType).ToList();
             if (!items.Any()) return new FeedListViewModel();
 
             var tabSettings = GetTabSettings(model.GroupId.HasValue, centralFeedType);
