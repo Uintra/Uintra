@@ -29,10 +29,7 @@ export interface INewsCreateModel {
   tagIdsData?: string[];
 
   isPinned?: boolean;
-  location?: {
-    address?: string;
-    shortAddress?: string;
-  };
+  location?: ILocation;
   newMedia?: string;
   tags?: ITagData[];
   groupId?: string;

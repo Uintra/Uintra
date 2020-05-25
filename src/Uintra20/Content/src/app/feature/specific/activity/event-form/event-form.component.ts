@@ -7,11 +7,11 @@ import { TranslateService } from '@ngx-translate/core';
 import { EventFormService } from './event-form.service';
 import { RTEStripHTMLService } from '../rich-text-editor/helpers/rte-strip-html.service';
 import { IDatepickerData } from '../datepicker-from-to/datepiker-from-to.interface';
-import { ILocationResult } from 'src/app/feature/reusable/ui-elements/location-picker/location-picker.interface';
 import { IPinedData } from '../pin-activity/pin-activity.component';
 import * as moment from 'moment';
 import { IEventCreateModel, IEventsInitialDates, IPublishDatepickerOptions, IEventForm } from './event-form.interface';
 import { ContentService } from 'src/app/shared/services/general/content.service';
+import {ILocation} from "../activity.interfaces";
 
 @Component({
   selector: 'app-event-form',
@@ -35,14 +35,14 @@ export class EventFormComponent implements OnInit, AfterViewInit {
   @HostListener('window:beforeunload') checkIfDataChanged() {
     return !this.hasDataChangedService.hasDataChanged;
   }
-  
+
   public eventsData: IEventCreateModel;
   public selectedTags: ITagData[] = [];
   public isAccepted: boolean;
   public owners: ISelectItem[];
   public defaultOwner: ISelectItem;
   public initialDates: IEventsInitialDates;
-  public initialLocation: string;
+  public initialLocation: ILocation;
   public locationTitle = '';
   public publishDatepickerOptions: IPublishDatepickerOptions;
   public files: Array<any> = [];
@@ -99,7 +99,7 @@ export class EventFormComponent implements OnInit, AfterViewInit {
       to: this.data.endDate || undefined
     };
 
-    this.initialLocation = (this.data.location && this.data.location.address) || null;
+    this.initialLocation = this.data.location || null;
   }
 
   public changeOwner(owner: ISelectItem | string): void {
@@ -154,9 +154,8 @@ export class EventFormComponent implements OnInit, AfterViewInit {
     this.isAccepted = value.isAccepted;
   }
 
-  public setLocationValue(location: ILocationResult): void {
-    this.eventsData.location.address = location.address;
-    this.eventsData.location.shortAddress = location.shortAddress;
+  public setLocationValue(location: ILocation): void {
+    this.eventsData.location = location
     this.hasDataChangedService.onDataChanged();
   }
 

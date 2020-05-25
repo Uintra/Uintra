@@ -20,7 +20,7 @@ export interface ISearchResult {
   title: string;
   description: string;
   panels: any[];
-  url: string;
+  url: any;
   type: string;
   publishedDate: string;
   startDate: string;

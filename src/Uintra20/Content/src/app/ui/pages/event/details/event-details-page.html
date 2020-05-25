@@ -17,12 +17,14 @@
       <div class="col-md-8">
         <div class="bulletin-details-content">
           <div class="feed-header">
-            <a [routerLink]="data.details.links.feed.originalUrl | ulink"
+            <a [routerLink]="data.details.links.feed?.baseUrl | ulink"
+               [queryParams]="data.details.links.feed?.params | uparams"
                class="feed-header__back-link">
               {{'detailsView.GoToList.lbl' | translate}}
             </a>
             <a *ngIf="data.details.canEdit"
-               [routerLink]="data.details.links.edit.originalUrl | ulink"
+               [routerLink]="data.details.links.edit?.baseUrl | ulink"
+               [queryParams]="data.details.links.edit?.params | uparams"
                class="feed-header__edit-link">
               {{'detailsView.Edit.lbl' | translate}}
             </a>

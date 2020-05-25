@@ -46,7 +46,8 @@
             <a *ngFor="let result of resultsList; trackBy: trackingIndex"
                target="_blank"
                class="search-results__item"
-               [routerLink]="result.url | ulink">
+               [routerLink]="result.url?.baseUrl | ulink"
+               [queryParams]="result.url?.params | uparams">
             <div class="search-results__item-info">
               <h3 *ngIf="result.title"
                   class="search-results__item-title"

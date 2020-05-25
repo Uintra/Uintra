@@ -24,7 +24,8 @@
       <a
         class="autocomplete-list__item-link"
         [ngClass]="{'autocomplete-list__item-link--active': item.isActive}"
-        [routerLink]="item.url.originalUrl | ulink">
+        [routerLink]="item.url.baseUrl | ulink"
+        [queryParams]="item.url.params | uparams">
         <div class="autocomplete-list__item-left">
           <app-user-avatar
             *ngIf="item.item.photo"
