@@ -6,7 +6,6 @@ using LightInject;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Extensions.Configuration;
 using System.Web;
-using UBaseline.Core.Composers;
 using UBaseline.Core.Startup;
 using Uintra20.Models.UmbracoIdentity;
 using Umbraco.Core;
@@ -39,10 +38,11 @@ namespace Uintra20
             var container = composition.Concrete as IServiceContainer;
 
             var builder = new JsonConfigurationBuilder(new ConfigurationBuilder());
-			var configuration = builder
-				.AddLogging(UBaselineConfiguration.EnvironmentName)
-				.AddUBaselineConfiguration()
+            var configuration = builder
+                .AddLogging(UBaselineConfiguration.EnvironmentName)
+                .AddUBaselineConfiguration()
                 .AddConfiguration()
+                .AddUintraConfiguration()
                 .Build();
 
 			var assembly = typeof(MigrationExecutor).Assembly;
@@ -62,6 +62,4 @@ namespace Uintra20
             MapperConfig.RegisterMappings(composition);
         }
     }
-
-
 }

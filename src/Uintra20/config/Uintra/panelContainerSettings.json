@@ -1,0 +1,5 @@
+{
+  "PanelContainerSettings": {
+    "HiddenPanelAliases": [ "basePanel", "mapPanel", "userListPanel" ]
+  }
+}

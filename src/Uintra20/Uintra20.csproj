@@ -936,6 +936,7 @@
     <Compile Include="App_Plugins\Utils\Search\SearchDashboard.cs" />
     <Compile Include="App_Start\UintraApplicationComponent.cs" />
     <Compile Include="App_Start\UintraComposer.cs" />
+    <Compile Include="App_Start\UintraConfiguration.cs" />
     <Compile Include="App_Start\UintraUmbracoEventComponent.cs" />
     <Compile Include="Core\Article\Events\ArticlePageEventService.cs" />
     <Compile Include="Core\Feed\Services\IFeedPresentationService.cs" />
@@ -2053,6 +2054,7 @@
     <Content Include="App_Plugins\ImagePickerExtended\package.manifest" />
     <Content Include="App_Plugins\ContentPreview\package.manifest" />
     <Content Include="App_Plugins\AnchorField\package.manifest" />
+    <Content Include="config\Uintra\panelContainerSettings.json" />
     <None Include="config\umbracoSettings.config" />
     <None Include="packages.config" />
     <Content Include="Views\Web.config" />
