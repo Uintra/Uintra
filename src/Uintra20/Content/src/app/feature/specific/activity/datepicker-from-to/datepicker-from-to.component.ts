@@ -1,45 +1,48 @@
-import {
-  Component,
-  OnInit,
-  Output,
-  EventEmitter,
-  Input,
-  ViewEncapsulation
-} from "@angular/core";
-import * as moment from "moment";
-import { IDatePickerOptions } from "src/app/shared/interfaces/DatePickerOptions";
-import { IDatepickerData } from "./datepiker-from-to.interface";
+import { Component, OnInit, Output, EventEmitter, Input, ViewEncapsulation, OnDestroy } from '@angular/core';
+import * as moment from 'moment';
+import { IDatePickerOptions } from 'src/app/shared/interfaces/DatePickerOptions';
+import { IDatepickerData } from './datepiker-from-to.interface';
 import { PinActivityService } from '../pin-activity/pin-activity.service';
+import { Subscription } from 'rxjs';
+import { DatepickerService } from './datepicker.service';
 
 @Component({
-  selector: "app-datepicker-from-to",
-  templateUrl: "./datepicker-from-to.component.html",
-  styleUrls: ["./datepicker-from-to.component.less"],
+  selector: 'app-datepicker-from-to',
+  templateUrl: './datepicker-from-to.component.html',
+  styleUrls: ['./datepicker-from-to.component.less'],
   encapsulation: ViewEncapsulation.None
 })
-export class DatepickerFromToComponent implements OnInit {
-  @Input() initialValues: { from: string; to: string } = null;
-  @Input() fromLabel: string;
-  @Input() toLabel: string;
-  @Input() isEvent: boolean;
-  @Input() isEventEdit: boolean;
-  @Input() eventPublishDate: string;
-  @Input() isNews: boolean;
-  @Output() handleChange = new EventEmitter();
+export class DatepickerFromToComponent implements OnInit, OnDestroy {
+  @Input()
+  public initialValues: { from: string; to: string } = null;
+  @Input()
+  public fromLabel: string;
+  @Input()
+  public toLabel: string;
+  @Input()
+  public isEvent: boolean;
+  @Input()
+  public isEventEdit: boolean;
+  @Input()
+  public eventPublishDate: string;
+  @Input()
+  public isNews: boolean;
+  @Output()
+  public handleChange = new EventEmitter();
 
-  fromDate = null;
-  toDate = null;
-  optFrom: IDatePickerOptions = {
+  public fromDate = null;
+  public toDate = null;
+  public optFrom: IDatePickerOptions = {
     // Set if it is create news
     // minDate: moment(),
-    format: "DD/MM/YYYY HH:mm",
+    format: 'DD/MM/YYYY HH:mm',
     useCurrent: false,
     showClose: true,
     ignoreReadonly: true,
     debug: true
   };
-  optTo: IDatePickerOptions = {
-    format: "DD/MM/YYYY HH:mm",
+  public optTo: IDatePickerOptions = {
+    format: 'DD/MM/YYYY HH:mm',
     showClear: false,
     useCurrent: false,
     showClose: true,
@@ -47,12 +50,15 @@ export class DatepickerFromToComponent implements OnInit {
     debug: true
   };
 
-  minDate: any;
-  eventSubscription: any;
+  public minDate: any;
+  public eventSubscription: Subscription;
+  public isPublishDateInvalid: boolean;
 
-  constructor(private pinActivityService: PinActivityService) {}
+  constructor(
+    private pinActivityService: PinActivityService,
+    private datepickerService: DatepickerService) { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.fromDate =
       this.initialValues && this.initialValues.from
         ? moment(this.initialValues.from)
@@ -73,7 +79,7 @@ export class DatepickerFromToComponent implements OnInit {
     if (this.isEvent) {
       this.eventSubscription = this.pinActivityService.publishDates$.subscribe((dates: IDatepickerData) => {
         if (dates.from) {
-          const minDate = this.isEventEdit 
+          const minDate = this.isEventEdit
             ? moment(dates.from).clone() < moment() ? moment() : moment(dates.from).clone()
             : moment(dates.from).clone();
           this.optFrom = {
@@ -92,7 +98,7 @@ export class DatepickerFromToComponent implements OnInit {
     }
   }
 
-  setOptionsInitialValues() {
+  public setOptionsInitialValues(): void {
     this.optFrom = {
       ...this.optFrom,
       minDate: this.minDate.clone().hours(0).minutes(0).seconds(0)
@@ -103,21 +109,23 @@ export class DatepickerFromToComponent implements OnInit {
     };
   }
 
-  fromDateChange() {
-      this.toDate && !this.fromDate
-        ? {
-            ...this.optTo,
-            minDate: false
-          }
-        : {
-            ...this.optTo,
-            minDate: this.fromDate.clone().hours(0).minutes(0).seconds(0)
-          };
+  public fromDateChange(): void {
+    this.toDate && !this.fromDate
+      ? {
+        ...this.optTo,
+        minDate: false
+      }
+      : {
+        ...this.optTo,
+        minDate: this.fromDate.clone().hours(0).minutes(0).seconds(0)
+      };
 
     this.handleChange.emit(this.buildDateObject());
   }
 
   fromModelChanged(value) {
+    this.isPublishDateInvalid = this.datepickerService.handlePublishDateState(value);
+
     if (value) {
       if (this.eventPublishDate) {
         this.fromDate = moment(value.format()) < moment(this.eventPublishDate) ? moment(this.eventPublishDate) : moment(value.format());
@@ -127,7 +135,7 @@ export class DatepickerFromToComponent implements OnInit {
 
       if (this.toDate < value) {
         if (this.isEvent) {
-          this.toDate = value.add(8, "hours");
+          this.toDate = value.add(8, 'hours');
         }
         if (this.isNews) {
           this.toDate = null;
@@ -137,7 +145,7 @@ export class DatepickerFromToComponent implements OnInit {
       this.optTo = {
         ...this.optTo,
         minDate: this.fromDate.clone().hours(0).minutes(0).seconds(0)
-      }
+      };
     }
   }
   toModelChanged(value) {
@@ -162,8 +170,8 @@ export class DatepickerFromToComponent implements OnInit {
     };
   }
 
-  ngOnDestroy() {
-    if (this.isEvent) {
+  public ngOnDestroy(): void {
+    if (this.isEvent || this.eventSubscription != null) {
       this.eventSubscription.unsubscribe();
     }
   }

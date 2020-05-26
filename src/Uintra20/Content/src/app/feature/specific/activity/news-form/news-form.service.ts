@@ -7,14 +7,13 @@ import { ISelectItem } from 'src/app/feature/reusable/inputs/select/select.compo
   providedIn: 'root'
 })
 export class NewsFormService {
-
   constructor() { }
 
   getNewsDataInitialValue(data: INewsCreateModel): INewsCreateModel {
     return {
       ownerId: data.ownerId,
-      title: data.title || "",
-      description: data.description || "",
+      title: data.title || '',
+      description: data.description || '',
       publishDate: undefined,
       location: {
         address: (data.location && data.location.address) || null,
@@ -31,7 +30,7 @@ export class NewsFormService {
     return selectedTags.map(tag => tag.id);
   }
   getMediaIdsForResponse(files: Array<any>): string {
-    return files.map(file => file[1]).join(",");
+    return files.map(file => file[1]).join(',');
   }
   getMembers(members = []): ISelectItem[] {
     return members.map(member => ({

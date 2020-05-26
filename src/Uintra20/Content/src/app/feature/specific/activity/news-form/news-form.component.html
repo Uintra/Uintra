@@ -109,6 +109,11 @@
         {{'newsEdit.PinValidation.lbl' | translate}}
     </div>
 
+    <div *ngIf="isInvalidPublishDate"
+        class="alert alert-danger">
+        {{'newsEdit.PublishDateRequired.lbl' | translate}}
+    </div>
+
   </div>
 
 
