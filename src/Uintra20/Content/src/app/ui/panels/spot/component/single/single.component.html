@@ -3,8 +3,8 @@
   <app-picture *ngIf="isImage(item)" [data]="item.media.image"></app-picture>
 
   <div class="text rte">
-    <h2 *ngIf="item.title" class="title">{{ item.title }}</h2>
+    <h3 *ngIf="item.title" class="title">{{ item.title }}</h3>
     <div *ngIf="item.description" class="description" [innerHTML]="item.description"></div>
-    <app-button *ngIf="item.link" class="link" [data]="item.link" [withArrow]="true"></app-button>
+    <app-button *ngIf="item.link" class="link" [data]="item.link" [withArrow]="false"></app-button>
   </div>
 </div>

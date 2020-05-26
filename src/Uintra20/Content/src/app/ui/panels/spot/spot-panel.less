@@ -1,18 +1,59 @@
 @import "base.less";
 
-spot-panel {
-  .spot-panel {
-    &__title {
-      &--default {
-        
-      }
+:host {
+  display: block;
+  //width: 1220px;
+}
+
+::ng-deep .spot-panel {
+  padding: 30px 10px 29px;
+  font: 25px/1.5 @font;
+  .theme(bg-color);
+  .theme(text-color);
+
+  @media @md-up{
+    font-size: 24px;
+    padding: 29px 20px 49px;
+  }
+  @media @lg-up{
+    font-size: 28px;
+    padding: 48px 20px 49px;
+  }
+
+  ::ng-deep .aside &{
+    font-size: 16px;
+    line-height: 1.5;
+    padding: 11px 10px 20px;
+  }
+
+
+  &__title {
+    font-weight: bold;
+    font-size: 28px;
+    line-height: 1.5;
+    .theme(title-color);
+    margin: 0 0 46px;
+
+    @media @md-up{
+      margin: 0 0 19px;
     }
-    &__content {
-      padding: 46px 0;
+
+    @media @lg-up{
+      margin: 0 0 43px;
     }
-  
-    & .app-single {
-      background-color: #dad8d8;
+
+    ::ng-deep .aside &{
+      font-size: 16px;
+      line-height: 1.5;
+      margin: 0 0 10px;
     }
+  }
+
+  a{
+    .theme(link-color);
+  }
+
+  .base-button__link{
+    .theme(link-color);
   }
 }
