@@ -30,7 +30,9 @@
               <span *ngIf="data?.groupInfo?.creator">
                 {{'groupInfo.OwnerName.lbl' | translate}}
                 <a class="right-column__info-owner-link"
-                   [routerLink]="data.groupInfo.creator.profileLink.originalUrl | ulink">
+                   [routerLink]="data.groupInfo.creator.profileLink.baseUrl | ulink"
+                   [queryParams]="data.groupInfo.creator.profileLink.params | uparams"
+                >
                   {{data.groupInfo.creator.displayedName}}
                 </a>
               </span>
