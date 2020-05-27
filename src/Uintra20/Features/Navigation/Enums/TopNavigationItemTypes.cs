@@ -1,4 +1,4 @@
-﻿namespace Uintra20.Features.Navigation
+﻿namespace Uintra20.Features.Navigation.Enums
 {
     public enum TopNavigationItemTypes
     {

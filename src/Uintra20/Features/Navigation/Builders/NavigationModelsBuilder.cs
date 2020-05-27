@@ -1,6 +1,6 @@
-﻿using Compent.Extensions;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using Compent.Extensions;
 using UBaseline.Core.Navigation;
 using UBaseline.Core.Node;
 using UBaseline.Core.RequestContext;
@@ -9,11 +9,12 @@ using Uintra20.Core.Localization;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Services;
 using Uintra20.Core.User;
+using Uintra20.Features.Navigation.Enums;
 using Uintra20.Features.Navigation.Models;
 using Uintra20.Infrastructure.Extensions;
 using Uintra20.Infrastructure.UintraInformation;
 
-namespace Uintra20.Features.Navigation
+namespace Uintra20.Features.Navigation.Builders
 {
     public class NavigationModelsBuilder : INavigationModelsBuilder
     {

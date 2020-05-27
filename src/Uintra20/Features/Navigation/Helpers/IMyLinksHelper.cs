@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Uintra20.Features.Navigation.Models.MyLinks;
 
-namespace Uintra20.Features.Navigation
+namespace Uintra20.Features.Navigation.Helpers
 {
     public interface IMyLinksHelper
     {

@@ -43,7 +43,7 @@
              [infiniteScrollDisabled]="isScrollDisabled"
 
              (scrolled)="onScroll()">
-            <a *ngFor="let result of resultsList; trackBy: trackingIndex"
+            <a *ngFor="let result of resultsList; trackBy: index"
                target="_blank"
                class="search-results__item"
                [routerLink]="result.url?.baseUrl | ulink"

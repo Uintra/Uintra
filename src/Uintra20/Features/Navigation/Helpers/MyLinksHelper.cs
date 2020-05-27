@@ -21,7 +21,7 @@ using Uintra20.Infrastructure.Extensions;
 using Uintra20.Infrastructure.Providers;
 using Uintra20.Infrastructure.TypeProviders;
 
-namespace Uintra20.Features.Navigation
+namespace Uintra20.Features.Navigation.Helpers
 {
     public class MyLinksHelper : IMyLinksHelper
     {
@@ -63,7 +63,7 @@ namespace Uintra20.Features.Navigation
                 .GetMany(_intranetMemberService.GetCurrentMember().Id)
                 .OrderByDescending(link => link.CreatedDate)
                 .ToList();
-            
+
             var contents = _nodeModelService.GetByIds(links.Select(el => el.ContentId));
 
             var models = links.Join(contents,
@@ -164,11 +164,13 @@ namespace Uintra20.Features.Navigation
             return activity.Title;
         }
 
-        private static string GetUrl(MyLink link, string content)
+        private static string GetUrl(MyLink link, string path)
         {
-            if (link.QueryString.IsNullOrEmpty()) return content;
-            
-            return $"{content.TrimLastCharacter()}?{link.QueryString}";
+            var trimmedPath = path.TrimLastCharacter();
+
+            return link.QueryString.IsNullOrEmpty()
+                ? trimmedPath
+                : $"{trimmedPath}?{link.QueryString}";
         }
 
         private string GetGroupLink(Guid entityId)

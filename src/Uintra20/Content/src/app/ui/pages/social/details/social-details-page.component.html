@@ -35,7 +35,7 @@
             <app-link-preview *ngIf="details?.linkPreview" [firstLinkPreview]="details.linkPreview"></app-link-preview>
             <div class="feed-item-tags" *ngIf="tags.length !== 0">
               <span class="feed-item-tags__text">{{'userTagsView.Title.lbl' | translate}}</span>
-              <a *ngFor="let tag of tags; trackBy: trackIndex"
+              <a *ngFor="let tag of tags; trackBy: index"
                  class="feed-item-tags__tag"
                  [routerLink]="['/search']"
                  [queryParams]="{ query: tag.text }"
@@ -46,7 +46,7 @@
               <ul *ngIf="medias.length !== 0"
                   class="feed-item-images">
                 <li class="feed-item-images__item"
-                    *ngFor="let image of medias; index as i; trackBy: trackIndex">
+                    *ngFor="let image of medias; index as i; trackBy: index">
                   <img class="feed-item-images__image"
                        [src]="image.previewUrl"
                        (click)="openGallery(i)" />
@@ -61,7 +61,7 @@
                 <app-attachments [documents]="documents"></app-attachments>
               </ng-container>
             </div>
-            <ubl-dynamic-component *ngFor="let panel of data.panels; trackBy: trackIndex"
+            <ubl-dynamic-component *ngFor="let panel of data.panels; trackBy: index"
                                    [data]="panel">
             </ubl-dynamic-component>
           </div>

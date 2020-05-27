@@ -1,9 +1,10 @@
 ﻿using Compent.Shared.DependencyInjection.Contract;
 using Uintra20.Features.Navigation.ApplicationSettings;
-using Uintra20.Infrastructure;
+using Uintra20.Features.Navigation.Builders;
+using Uintra20.Features.Navigation.Helpers;
 using Uintra20.Infrastructure.UintraInformation;
 
-namespace Uintra20.Features.Navigation
+namespace Uintra20.Features.Navigation.InjectModules
 {
     public class NavigationInjectModule: IInjectModule
     {
