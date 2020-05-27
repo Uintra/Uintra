@@ -2,21 +2,21 @@
 
 :host {
   display: block;
-  //width: 1220px;
 }
 
 ::ng-deep .spot-panel {
+  //width: 1200px;
   padding: 30px 10px 29px;
-  font: 25px/1.5 @font;
+  //font: 25px/1.5 @font;
   .theme(bg-color);
   .theme(text-color);
 
-  @media @md-up{
-    font-size: 24px;
+  @media @sm-up{
+    //font-size: 24px;
     padding: 29px 20px 49px;
   }
   @media @lg-up{
-    font-size: 28px;
+    //font-size: 28px;
     padding: 48px 20px 49px;
   }
 
@@ -26,7 +26,6 @@
     padding: 11px 10px 20px;
   }
 
-
   &__title {
     font-weight: bold;
     font-size: 28px;
@@ -34,7 +33,7 @@
     .theme(title-color);
     margin: 0 0 46px;
 
-    @media @md-up{
+    @media @sm-up{
       margin: 0 0 19px;
     }
 

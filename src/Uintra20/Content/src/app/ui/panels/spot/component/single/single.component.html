@@ -5,6 +5,7 @@
   <div class="text rte">
     <h3 *ngIf="item.title" class="title">{{ item.title }}</h3>
     <div *ngIf="item.description" class="description" [innerHTML]="item.description"></div>
+    <span class="date" *ngIf="item.date">{{ item.date }}</span>
     <app-button *ngIf="item.link" class="link" [data]="item.link" [withArrow]="false"></app-button>
   </div>
 </div>
