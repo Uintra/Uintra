@@ -123,17 +123,9 @@
         content: counters(newCounter, '.') '.';
         position: absolute;
         top: 0;
-        left:-33px;
+        left:-4px;
         font-weight: bold;
-
-        @media @md-up{
-          top: 0;
-          left:-43px;
-        }
-        @media @lg-up{
-          top: 1px;
-          left:-42px;
-        }
+        transform: translateX(-100%);
       }
     }
   }
@@ -150,5 +142,9 @@
     &:hover{
       text-decoration: none;
     }
+  }
+
+  p{
+    margin: 0;
   }
 }
