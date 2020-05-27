@@ -90,7 +90,7 @@ namespace Uintra20.Features.UserList.Controllers
         }
 
         [HttpDelete]
-        public IHttpActionResult ExcludeUserFromGroup(Guid groupId, Guid userId)
+        public async Task<IHttpActionResult> ExcludeUserFromGroup(Guid groupId, Guid userId)
         {
             var currentMember = _intranetMemberService.GetCurrentMember();
 
@@ -99,21 +99,15 @@ namespace Uintra20.Features.UserList.Controllers
                 return NotFound();
             }
 
+            var group = _groupService.Get(groupId);
             var isAdmin = _groupMemberService.IsMemberAdminOfGroup(currentMember.Id, groupId);
 
-            if (!isAdmin)
+            if (!isAdmin && currentMember.Id != userId && group.CreatorId != userId)
             {
                 return StatusCode(HttpStatusCode.Forbidden);
             }
 
-            var group = _groupService.Get(groupId);
-
-            if (userId == group.CreatorId)
-            {
-                return StatusCode(HttpStatusCode.Forbidden);
-            }
-
-            _groupMemberService.Remove(groupId, userId);
+            await _groupMemberService.RemoveAsync(groupId, userId);
             return Ok();
         }
 
