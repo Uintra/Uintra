@@ -94,9 +94,12 @@ namespace Uintra20.Features.Navigation.Web
         public virtual UintraLinkModel UserList()
         {
             var homeModel = (HomePageModel) _ubaselineRequestContext.HomeNode;
-            var userListPage = _nodeModelService.Get(homeModel.UserListPage.Value);
-
-            return userListPage.Url.ToLinkModel();
+            if (homeModel.UserListPage.Value.HasValue)
+            {
+                var userListPage = _nodeModelService.Get(homeModel.UserListPage.Value.Value);
+                return userListPage.Url.ToLinkModel();
+            }
+            return null;
         }
 
         [HttpGet]
