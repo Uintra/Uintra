@@ -1,15 +1,63 @@
-<div class="app-default spot-panel__list" *ngIf="data?.items">
+<ng-container *ngIf="data?.items">
+  <div class="app-default spot-panel__list spot-panel__list--for-desk">
+    <ng-container *ngTemplateOutlet="items"></ng-container>
+  </div>
+
+  <div
+    class="app-default spot-panel__list spot-panel__list--for-mobile spot-panel-carousel"
+  >
+    <div
+      class="spot-panel-carousel__content"
+      [ngStyle]="{
+        transform: 'translateX(' + currentItem * -ITEM_WIDTH + '%)'
+      }"
+      (touchstart)="handleTouchStart($event)"
+      (touchmove)="handleTouchMove($event)"
+    >
+      <ng-container *ngTemplateOutlet="items"></ng-container>
+    </div>
+
+    <div class="spot-panel-carousel__dots">
+      <div
+        class="spot-panel-carousel__dot"
+        *ngFor="let item of data.items; let i = index"
+        [ngClass]="{ active: i === currentItem }"
+      ></div>
+    </div>
+  </div>
+</ng-container>
+
+<ng-template #items>
   <div class="spot-panel__item" *ngFor="let item of data.items">
     <div class="spot-panel__image">
-      <app-video-element *ngIf="isVideo(item)" [data]="item"></app-video-element>
-      <app-picture *ngIf="isImage(item)" [data]="item.media.image"></app-picture>
+      <app-video-element
+        *ngIf="isVideo(item)"
+        [data]="item"
+      ></app-video-element>
+      <app-picture
+        *ngIf="isImage(item)"
+        [data]="item.media.image"
+      ></app-picture>
     </div>
 
     <div class="spot-panel__text rte">
-      <h3 class="spot-panel__item-title" *ngIf="item.title">{{ item.title }}</h3>
-      <div class="spot-panel__item-description" *ngIf="item.description" [innerHTML]="item.description"></div>
-      <span class="spot-panel__item-date" *ngIf="item.date">{{ item.date }}</span>
-      <app-button class="spot-panel__item-link" *ngIf="item.link" [withArrow]="false" [data]="item.link"></app-button>
+      <h3 class="spot-panel__item-title" *ngIf="item.title">
+        {{ item.title }}
+      </h3>
+      <div
+        class="spot-panel__item-description"
+        *ngIf="item.description"
+        [innerHTML]="item.description"
+      ></div>
+      <span class="spot-panel__item-date" *ngIf="item.date">{{
+        item.date
+      }}</span>
+      <app-button
+        class="spot-panel__item-link"
+        *ngIf="item.link"
+        [withArrow]="false"
+        [data]="item.link"
+      ></app-button>
     </div>
   </div>
-</div>
+</ng-template>
