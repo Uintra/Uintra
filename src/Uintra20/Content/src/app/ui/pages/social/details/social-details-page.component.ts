@@ -13,6 +13,7 @@ import { IGroupDetailsHeaderData } from 'src/app/feature/specific/groups/groups.
 import { TranslateService } from '@ngx-translate/core';
 import { ISocialDetailsPage } from 'src/app/shared/interfaces/pages/social/details/social-details-page.interface';
 import { ICommentData } from 'src/app/shared/interfaces/panels/comments/comments-panel.interface';
+import { Indexer } from '../../../../shared/abstractions/indexer';
 
 @Component({
   selector: 'social-details',
@@ -20,7 +21,7 @@ import { ICommentData } from 'src/app/shared/interfaces/panels/comments/comments
   styleUrls: ['./social-details-page.component.less'],
   encapsulation: ViewEncapsulation.None
 })
-export class SocialDetailsPanelComponent implements OnInit {
+export class SocialDetailsPanelComponent extends Indexer<number> implements OnInit {
 
   public data: ISocialDetailsPage;
   public details: ISocialDetails;
@@ -41,6 +42,7 @@ export class SocialDetailsPanelComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private translateService: TranslateService
   ) {
+    super();
     this.activatedRoute.data.subscribe((data: ISocialDetailsPage) => this.data = data);
   }
 
@@ -85,6 +87,4 @@ export class SocialDetailsPanelComponent implements OnInit {
 
     this.imageGalleryService.open(items, i);
   }
-
-  public trackIndex = (index: number, item) => index;
 }

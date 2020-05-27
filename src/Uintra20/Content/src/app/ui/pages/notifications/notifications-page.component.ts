@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { NavNotificationsService } from 'src/app/feature/specific/nav-notifications/nav-notifications.service';
 import { INotificationsPage, INotificationsData } from 'src/app/shared/interfaces/pages/notifications/notifications-page.interface';
 import { Subscription } from 'rxjs';
+import { Indexer } from '../../../shared/abstractions/indexer';
 
 @Component({
   selector: 'notifications-page',
@@ -10,7 +11,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./notifications-page.less'],
   encapsulation: ViewEncapsulation.None
 })
-export class NotificationsPage implements OnInit, OnDestroy {
+export class NotificationsPage extends Indexer<number> implements OnInit, OnDestroy {
 
   public data: INotificationsPage;
   public notifications: INotificationsData[] = [];
@@ -23,6 +24,7 @@ export class NotificationsPage implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private navNotificationsService: NavNotificationsService,
   ) {
+    super();
     this.route.data.subscribe((data: INotificationsPage) => {
       this.data = data;
     });
@@ -59,6 +61,4 @@ export class NotificationsPage implements OnInit, OnDestroy {
         this.addNotifications(response);
       });
   }
-
-  public trackIndex = (index, item): string => item.id;
 }
