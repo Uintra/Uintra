@@ -6,38 +6,87 @@
 
 ::ng-deep .spot-panel {
   .video-modal{display: none !important;}//todo
-
-	&__list {
-		@media @sm-up {
-			margin-right: -20px;
-			margin-left: -20px;
-			flex-wrap: wrap;
-			display: flex;
-		}
-	}
-
-	&__item {
-		margin: 20px;
-		&-title {
-			font-weight: bold;
-			color: @text-color;
-			margin-top: 16px;
-			font-size: 16px;
-		}
-
-		&-description {
-			margin-top: 10px;
-		}
-
-		&-date {
-			font-size: 13px;
-			color: @text-color;
-			margin-top: 10px;
-			display: block;
-		}
-	}
 }
 
+.app-default{
+  @media @sm-up {
+    margin:0 -20px;
+    // flex-wrap: wrap;
+    display: flex;
+    padding: 4px 0 0;
+  }
+
+  .spot-panel{
+    &__item {
+      @media @sm-up {
+        padding: 0 20px;
+      }
+    }
+
+    &__image{
+        position: relative;
+        margin:0 0 19px ;
+
+        @media @sm-up{
+          margin:0 0 19px ;
+        }
+
+        @media @lg-up{
+          margin:0 0 8px ;
+        }
+    }
+
+    &__item-title {
+      font-weight: bold;
+      margin: 0 0 14px;
+
+      @media @sm-up{
+        margin: 0 0 44px;
+      }
+      @media @lg-up{
+        margin: 0 0 14px;
+      }
+    }
+
+    &__text {
+      font-size: 20px;
+      line-height: 1.5;
+
+      @media @sm-up{
+        padding: 0 0 20px;
+        font-size: 22px;
+      }
+      @media @lg-up{
+        padding: 0 0 10px;
+      }
+
+      ::ng-deep .base-button__link{
+        font-size: 20px;
+        font-weight: normal;
+
+        @media @sm-up{
+          font-size: 22px;
+        }
+      }
+    }
+  }
+}
+
+// .loop(@count) when(@count > 0) {
+// 	.loop((@count - 1));
+// 	:host-context(.spot-panel__content--@{count}) {
+// 		.spot-panel {
+// 			&__item {
+// 				@media @sm-up {
+// 					@width: 100% / @count;
+// 					content: 'debug';
+// 					width: calc(~"@{width} - 40px");
+// 					flex: 0 0 calc(~"@{width} - 40px");
+// 				}
+// 			}
+// 		}
+// 	}
+// }
 .loop(@count) when(@count > 0) {
 	.loop((@count - 1));
 	:host-context(.spot-panel__content--@{count}) {
@@ -46,8 +95,8 @@
 				@media @sm-up {
 					@width: 100% / @count;
 					content: 'debug';
-					width: calc(~"@{width} - 40px");
-					flex: 0 0 calc(~"@{width} - 40px");
+					width: @width;
+					flex: 0 0 @width;
 				}
 			}
 		}

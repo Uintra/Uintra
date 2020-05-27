@@ -1,65 +1,74 @@
 @import 'base.less';
-.spot-panel {
-    .app-single {
-        display: flex;
 
-        @media @sm-down {
-            flex-wrap: wrap;
-        }
-        app-picture,
-        app-video-element {
-            position: relative;
-            margin:0 0 19px ;
+.app-single {
 
-            @media @md-up{
-              margin: 0;
-              padding: 3px 19px 0 0;
-              width: 50%;
-            }
+  @media @sm-up {
+    display: flex;
+  }
 
-            @media @lg-up{
-              padding: 3px 30px 0 0px;
-            }
-        }
-    }
+  app-picture,
+  app-video-element {
+      position: relative;
+      margin:0 0 19px ;
 
-    .title {
-        font-weight: bold;
-        margin: 0 0 14px;
+      @media @sm-up{
+        margin: 0;
+        padding: 3px 19px 0 0;
+        width: 50%;
+      }
 
-        @media @md-up{
-          margin: 0 0 44px;
-        }
-        @media @lg-up{
-          margin: 0 0 23px;
-        }
-    }
+      @media @lg-up{
+        padding: 3px 30px 0 0px;
+      }
+  }
 
-    .text {
+  app-video-element app-picture{
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .title {
+      font-weight: bold;
+      margin: 0 0 14px;
+
+      @media @sm-up{
+        margin: 0 0 44px;
+      }
+      @media @lg-up{
+        margin: 0 0 23px;
+      }
+  }
+
+  .text {
+      font-size: 20px;
+      line-height: 1.5;
+
+      @media @sm-up{
+        padding: 0 0 0 20px;
+        font-size: 22px;
+        width: 50%;
+      }
+      @media @lg-up{
+        padding: 0 0 0 10px;
+        font-size: 25px;
+        line-height: 1.52;
+      }
+
+      ::ng-deep .base-button__link{
         font-size: 20px;
-        line-height: 1.5;
+        font-weight: normal;
 
-        @media @md-up{
-          padding: 0 0 0 20px;
+        @media @sm-up{
           font-size: 22px;
-          width: 50%;
         }
         @media @lg-up{
-          padding: 0 0 0 10px;
           font-size: 25px;
-          line-height: 1.52;
         }
+      }
+  }
 
-        .base-button__link{
-          font-size: 20px;
-          font-weight: normal;
-
-          @media @md-up{
-            font-size: 22px;
-          }
-          @media @lg-up{
-            font-size: 25px;
-          }
-        }
-    }
+  .date{
+    display: block;
+  }
 }
