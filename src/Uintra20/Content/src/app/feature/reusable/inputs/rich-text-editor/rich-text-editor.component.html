@@ -8,7 +8,7 @@
   customToolbarPosition="bottom"
 >
   <div quill-editor-toolbar class="toolbar">
-    <app-tag-multiselect *ngIf="(tags?.length || availableTags?.length) && isShowMultiselect" 
+    <app-tag-multiselect *ngIf="(tags?.length || availableTags?.length) && isShowMultiselect"
                                 class="multiselect"
                                 [availableTags]="availableTags"
                                 [ngModel]="tags"
@@ -22,7 +22,7 @@
       </div>
       <div class="toolbar__second-row">
         <div class="ql-formats-wrapper">
-          <div class="ql-formats" *ngIf="isEventsOrNews; then eventsOrNewsCreate; else comments"></div>
+          <div class="ql-formats" *ngIf="isActivityFormats; then eventsOrNewsCreate; else comments"></div>
         </div>
 
         <div class="ql-submit-button">
@@ -47,7 +47,7 @@
       <div *ngIf="!isEditing" class="ql-counter" id="counter"></div>
 
       <div class="ql-formats-wrapper">
-        <div class="ql-formats" *ngIf="isEventsOrNews; then eventsOrNewsCreate; else comments"></div>
+        <div class="ql-formats" *ngIf="isActivityFormats; then eventsOrNewsCreate; else comments"></div>
       </div>
     </div>
   </quill-editor>
