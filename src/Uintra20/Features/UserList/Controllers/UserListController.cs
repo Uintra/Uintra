@@ -10,6 +10,7 @@ using Uintra20.Core.Member.Abstractions;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Services;
 using Uintra20.Core.Search.Entities;
+using Uintra20.Core.Search.Helpers;
 using Uintra20.Core.Search.Indexes;
 using Uintra20.Features.Groups.Models;
 using Uintra20.Features.Groups.Services;
@@ -172,7 +173,7 @@ namespace Uintra20.Features.UserList.Controllers
                 Text = query.Text,
                 Skip = skip,
                 Take = AmountPerRequest,
-                OrderingString = query.OrderingString,
+                OrderingString = ElasticHelpers.FullName,
                 SearchableTypeIds = ((int) UintraSearchableTypeEnum.Member).ToEnumerable(),
                 GroupId = query.GroupId,
                 MembersOfGroup = query.MembersOfGroup

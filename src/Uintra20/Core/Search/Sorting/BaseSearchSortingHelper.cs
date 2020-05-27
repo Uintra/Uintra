@@ -9,12 +9,12 @@ namespace Uintra20.Core.Search.Sorting
 	{
 		public virtual void Apply(SearchDescriptor<T> searchDescriptor, SearchTextQuery query)
 		{
-			SortByName(searchDescriptor);
+			SortByName(searchDescriptor, query.OrderingString);
 		}
 
 		protected virtual void SortByName(SearchDescriptor<T> searchDescriptor, string propertyName = "_score") 
 		{
-			if (propertyName.In("fullName"))
+			if (propertyName.In(ElasticHelpers.FullName))
 			{
 				propertyName += $".{ElasticHelpers.Normalizer.Sort}";
 				searchDescriptor.Sort(s => s.Ascending(propertyName));
