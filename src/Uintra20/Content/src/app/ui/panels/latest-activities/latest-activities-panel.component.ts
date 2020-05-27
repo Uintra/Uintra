@@ -6,6 +6,7 @@ import { ILatestActivitiesPanel } from 'src/app/shared/interfaces/panels/latest-
 import { Subscription } from 'rxjs';
 import { IPublicationsResponse } from 'src/app/shared/interfaces/panels/central-feed/central-feed-panel.interface';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { Indexer } from '../../../shared/abstractions/indexer';
 
 @Component({
   selector: 'latest-activities-panel',
@@ -13,7 +14,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
   styleUrls: ['./latest-activities-panel.component.less'],
   encapsulation: ViewEncapsulation.None
 })
-export class LatestActivitiesPanelComponent implements OnInit, OnDestroy {
+export class LatestActivitiesPanelComponent extends Indexer<number> implements OnInit, OnDestroy {
 
   constructor(
     private publicationsService: PublicationsService,
@@ -22,6 +23,7 @@ export class LatestActivitiesPanelComponent implements OnInit, OnDestroy {
     private CFFilterService: CentralFeedFiltersService,
     private sanitizer: DomSanitizer,
   ) {
+    super();
   }
 
   private $publications: Subscription;
@@ -64,8 +66,6 @@ export class LatestActivitiesPanelComponent implements OnInit, OnDestroy {
 
   private cleanLatestActivity = () =>
     this.data.feed = []
-
-  public index = (index): number => index;
 }
 
 

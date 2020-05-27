@@ -18,7 +18,7 @@
         class="left-nav__sub-item left-nav__sub-item--with-offset"
         [hidden]="!isOpen"
         [ngClass]="{ active: isOpen }">
-      <li *ngFor="let link of myLinks"
+      <li *ngFor="let link of myLinks; trackBy: index"
           class="left-nav__item">
 
         <a class="left-nav__item-link left-nav__item-link--inside left-nav__item-link--with-hover"
