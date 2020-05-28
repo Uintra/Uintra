@@ -117,7 +117,7 @@ namespace Uintra20.Core.Authentication
         {
             var ext = Path.GetExtension(url.LocalPath);
             if (ext.IsNullOrWhiteSpace()) return false;
-            var toInclude = new[] { ".aspx", ".ashx", ".asmx", ".axd", ".svc", ".html", ".css", ".woff2", ".js", ".ttf", ".woff", ".ico", ".svg", ".jpeg", ".png", ".jpg" };
+            var toInclude = new[] { ".aspx", ".ashx", ".asmx", ".axd", ".svc", ".html", ".css", ".woff2", ".js", ".ttf", ".woff", ".ico", ".svg", ".jpeg", ".png", ".jpg", ".gif" };
             return toInclude.Any(ext.InvariantEquals);
         }
 
