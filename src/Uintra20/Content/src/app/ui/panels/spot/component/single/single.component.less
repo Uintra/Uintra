@@ -1,9 +1,13 @@
 @import 'base.less';
 
-.app-single {
+::ng-deep .app-single {
 
   @media @sm-up {
     display: flex;
+  }
+
+  ::ng-deep .aside &{
+    display: block;
   }
 
   app-picture,
@@ -19,6 +23,12 @@
 
       @media @lg-up{
         padding: 3px 30px 0 0px;
+      }
+
+      ::ng-deep .aside &{
+        width: 100%;
+        padding: 0;
+        margin:0 0 10px ;
       }
   }
 
@@ -38,6 +48,10 @@
       @media @lg-up{
         margin: 0 0 23px;
       }
+
+      ::ng-deep .aside &{
+        margin: 0 0 10px;
+      }
   }
 
   .text {
@@ -55,6 +69,12 @@
         line-height: 1.52;
       }
 
+      ::ng-deep .aside &{
+        padding: 0;
+        width: 100%;
+        font-size: 16px;
+      }
+
       ::ng-deep .base-button__link{
         font-size: 20px;
         font-weight: normal;
@@ -64,6 +84,10 @@
         }
         @media @lg-up{
           font-size: 25px;
+        }
+
+        .aside &{
+          font-size: 16px;
         }
       }
   }
