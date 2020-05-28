@@ -1,68 +1,126 @@
 @import "base.less";
 
-contact-panel {
-  .contact-panel {
-    &__content {
-      margin-bottom: 20px;
+:host {
+  display: block;
+}
+
+::ng-deep .contact-panel {
+  padding: 29px 10px 51px;
+  font-size: 18px;
+  line-height: 1.5;
+  .theme(bg-color);
+  .theme(text-color);
+
+  @media @sm-up{
+    font-size: 20px;
+    padding: 50px 30px 36px;
+  }
+
+  @media @lg-up{
+    font-size: 22px;
+    padding: 49px 32px 49px;
+  }
+
+  ::ng-deep .aside &{
+    font-size: 16px;
+    line-height: 1.5;
+    padding: 11px 10px 20px;
+  }
+
+  &__title{
+    font-weight: bold;
+    font-size: 28px;
+    line-height: 1.5;
+    .theme(title-color);
+    text-transform: none;
+    margin: 0 0 47px;
+
+    @media @sm-up{
+      margin: 0 0 43px -10px;
     }
-  
-    &__title {
-      margin-bottom: 30px;
-  
-      @media @sm-up {
-        margin-bottom: 40px;
-      }
+    @media @lg-up{
+      margin: 0 0 44px -20px;
     }
-  
-  
-    &__items {
+
+    ::ng-deep .aside &{
+      font-size: 16px;
+      line-height: 1.5;
+      margin: 0 0 10px;
+    }
+  }
+
+  a{
+    .theme(link-color);
+  }
+
+  &__item{
+    padding: 30px 0 0;
+
+    @media @sm-up{
       display: flex;
-      flex-wrap: wrap;
-      flex-direction: column;
-      margin-left: -15px;
-      margin-right: -15px;
-  
-      @media @sm-up {
-        flex-direction: row;
+    }
+
+    ::ng-deep .aside &{
+      display: block;
+    }
+
+    &:first-child{
+      padding: 0;
+    }
+  }
+
+  &__image{
+    overflow: hidden;
+    border-radius: 50%;
+    width: 160px;
+    height: 160px;
+    margin: 0 0 25px;
+
+    @media @sm-up{
+      flex:0 0 160px;
+      margin: 2px 30px 13px 0;
+    }
+    @media @lg-up{
+      margin: 2px 28px 13px 0;
+    }
+
+    ::ng-deep .aside &{
+      width: 100px;
+      height: 100px;
+    }
+  }
+
+  &__heading{
+    font-size: 28px;
+    line-height: 1.5;
+    font-weight: bold;
+    margin: 0 0 12px;
+
+    ::ng-deep .aside &{
+      font-size: 16px;
+    }
+  }
+
+  &__row{
+    padding: 8px 0 0;
+
+    @media @sm-up{
+      padding: 11px 0 0;
+    }
+
+    ::ng-deep .aside &{
+      padding: 4px 0 0;
+    }
+
+    &:first-child{
+      padding: 0;
+      ::ng-deep .aside &{
+        padding: 00;
       }
     }
-  
-    &__item {
-      padding: 0 15px;
-      word-break: break-word;
-      flex: 0 0 100%;
-      margin-bottom: 40px;
-  
-      @media @sm-up {
-        flex: 0 0 33.33333333%;
-      }
-  
-      &-image {
-        margin-bottom: 14px;
-      }
-  
-      &-title {
-        font-size: 18px;
-        font-weight: 600;
-        line-height: 1.5;
-  
-        @media @sm-up {
-          font-size: 20px;
-        }
-      }
-  
-      &-text {
-        font-size: 16px;
-        line-height: 1.5;
-  
-        @media @sm-up {
-          font-size: 18px;
-        }
-  
-        a {
-          //styles for link
-        }
-      }
-    }
+  }
+
+  &__label{
+    margin: 0 6px 0 0;
   }
 }
