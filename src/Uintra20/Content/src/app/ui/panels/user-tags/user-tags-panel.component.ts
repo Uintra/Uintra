@@ -1,5 +1,6 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { IUserTagPanel } from 'src/app/shared/interfaces/panels/user-tag/user-tag-panel.interface';
+import { Indexer } from '../../../shared/abstractions/indexer';
 
 @Component({
   selector: 'user-tags-panel',
@@ -7,13 +8,13 @@ import { IUserTagPanel } from 'src/app/shared/interfaces/panels/user-tag/user-ta
   styleUrls: ['./user-tags-panel.less'],
   encapsulation: ViewEncapsulation.None
 })
-export class UserTagsPanel implements OnInit {
+export class UserTagsPanel extends Indexer<number> implements OnInit {
 
   public data: IUserTagPanel;
 
-  constructor() { }
+  constructor() {
+    super();
+  }
 
   public ngOnInit(): void { }
-
-  public index = (index): number => index;
 }

@@ -36,7 +36,8 @@
       <div *ngFor="let member of data?.details?.members" class="user-list__item">
         <a
           *ngIf="isNameColumn"
-          [routerLink]="member.profileUrl.originalUrl | ulink"
+          [routerLink]="member.profileUrl.baseUrl | ulink"
+          [queryParams]="member.profileUrl.params | uparams"
           class="user-list__item-member cells--{{data.details.selectedColumns.length}}"
         >
           <app-user-avatar
@@ -48,7 +49,8 @@
         </a>
         <a
           *ngIf="isInfoColumn"
-          [routerLink]="member.profileUrl.originalUrl | ulink"
+          [routerLink]="member.profileUrl.baseUrl | ulink"
+          [queryParams]="member.profileUrl.params | uparams"
           class="user-list__item-info cells--{{data.details.selectedColumns.length}}"
         >
           <p *ngIf="member.email">{{'userList.Table.Email.lbl' | translate}} {{member.email}}</p>

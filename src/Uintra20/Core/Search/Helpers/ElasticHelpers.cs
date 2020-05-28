@@ -15,6 +15,9 @@ namespace Uintra20.Core.Search.Helpers
         public const string Tag = "Tag";
         public const int MaxAggregationSize = 500;
 
+        //Fields
+        public const string FullName = "fullName";
+
         public static class Normalizer
         {
             public const string Sort = "sort_normalizer";

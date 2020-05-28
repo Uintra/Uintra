@@ -76,12 +76,12 @@ namespace Uintra20.Features.Events.Converters
 
             viewModel.Details = GetDetails(@event);
             viewModel.Links = _feedLinkService.GetLinks(@event.Id);
-            viewModel.CanEditOwner = _permissionsService.Check(PermissionResourceTypeEnum.News, PermissionActionEnum.EditOwner);
+            viewModel.CanEditOwner = _permissionsService.Check(PermissionResourceTypeEnum.Events, PermissionActionEnum.EditOwner);
             viewModel.AllowedMediaExtensions = _eventService.GetMediaSettings().AllowedMediaExtensions;
-            viewModel.PinAllowed = _permissionsService.Check(PermissionResourceTypeEnum.News, PermissionActionEnum.CanPin);
+            viewModel.PinAllowed = _permissionsService.Check(PermissionResourceTypeEnum.Events, PermissionActionEnum.CanPin);
 
             if (viewModel.CanEditOwner)
-                viewModel.Members = GetUsersWithAccess(new PermissionSettingIdentity(PermissionActionEnum.Create, PermissionResourceTypeEnum.News));
+                viewModel.Members = GetUsersWithAccess(new PermissionSettingIdentity(PermissionActionEnum.Create, PermissionResourceTypeEnum.Events));
 
             var requestGroupId = HttpContext.Current.Request["groupId"];
 

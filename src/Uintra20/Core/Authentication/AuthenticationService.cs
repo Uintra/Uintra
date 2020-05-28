@@ -1,5 +1,6 @@
 ﻿using Compent.Extensions;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using System;
@@ -35,7 +36,9 @@ namespace Uintra20.Core.Authentication
             IMemberService memberService, 
             IIntranetMemberService<IntranetMember> intranetMemberService)
         {
-            _userManager = Umbraco.Core.Composing.Current.Factory.GetInstance<UmbracoMembersUserManager<UmbracoApplicationMember>>();
+            //_userManager = Umbraco.Core.Composing.Current.Factory.GetInstance<UmbracoMembersUserManager<UmbracoApplicationMember>>();
+            //_userManager = OwinContext.Get<UmbracoMembersUserManager<UmbracoApplicationMember>>();
+            _userManager = OwinContext.GetUserManager<UmbracoMembersUserManager<UmbracoApplicationMember>>();
             _runtime = runtime ?? throw new ArgumentNullException(nameof(runtime));
             _globalSettings = globalSettings ?? throw new ArgumentNullException(nameof(globalSettings));
             _memberService = memberService;
@@ -50,12 +53,15 @@ namespace Uintra20.Core.Authentication
         public async Task LoginAsync(string login, string password)
         {
             var member = await _userManager.FindAsync(login, password);
-            var identity = await member.GenerateUserIdentityAsync(_userManager);
+            //var identity = await member.GenerateUserIdentityAsync(_userManager);
+            var identity = await _userManager.CreateIdentityAsync(member, DefaultAuthenticationTypes.ApplicationCookie);
             var id = _memberService.GetById(member.Id).Key;
 
             identity.AddClaim(new Claim("UserId", id.ToString()));
 
-            OwinContext.Authentication.SignOut(DefaultAuthenticationTypes.ExternalCookie);
+            //OwinContext.Authentication.SignOut(DefaultAuthenticationTypes.ExternalCookie);
+            //OwinContext.Authentication.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            
             OwinContext.Authentication.SignIn(new AuthenticationProperties() { IsPersistent = true }, identity);
         }
 
@@ -76,7 +82,7 @@ namespace Uintra20.Core.Authentication
                 return true;
             }
 
-            if (IsClientSideRequest(context.Request.Uri))
+            if (IsBackOfficeRequest(context.Request.Uri))
             {
                 return true;
             }
@@ -99,13 +105,20 @@ namespace Uintra20.Core.Authentication
             return context.Authentication.User?.Identity?.IsAuthenticated == true;
         }
 
-        private static bool IsClientSideRequest(Uri url)
+        //private static bool IsClientSideRequest(Uri url)
+        //{
+        //    var ext = Path.GetExtension(url.LocalPath);
+        //    if (ext.IsNullOrWhiteSpace()) return false;
+        //    var toInclude = new[] { ".aspx", ".ashx", ".asmx", ".axd", ".svc" };
+        //    return toInclude.Any(ext.InvariantEquals) == false;
+        //}
+
+        private static bool IsBackOfficeRequest(Uri url)
         {
             var ext = Path.GetExtension(url.LocalPath);
             if (ext.IsNullOrWhiteSpace()) return false;
-            var toInclude = new[] { ".aspx", ".ashx", ".asmx", ".axd", ".svc" };
-            return toInclude.Any(ext.InvariantEquals) == false;
-            //return toInclude.Any(ext.InvariantEquals);
+            var toInclude = new[] { ".aspx", ".ashx", ".asmx", ".axd", ".svc", ".html", ".css", ".woff2", ".js", ".ttf", ".woff", ".ico", ".svg", ".jpeg", ".png", ".jpg" };
+            return toInclude.Any(ext.InvariantEquals);
         }
 
         private static bool IsBackOfficeRequest(IOwinRequest request, IGlobalSettings globalSettings)
@@ -127,7 +140,9 @@ namespace Uintra20.Core.Authentication
                 "/api/auth/login",
                 "/ubaseline/api/node/getByUrl",
                 "/ubaseline/api/localization/getAll",
-                "/ubaseline/api/search/rebuildIndex"
+                "/ubaseline/api/search/rebuildIndex",
+                "/ubaseline/api/CentralFeedApi/AvailableActivityTypes",
+                "/signalr/connect"
             };
         }
 

@@ -5,6 +5,7 @@ import { HasDataChangedService } from 'src/app/shared/services/general/has-data-
 import { CanDeactivateGuard } from 'src/app/shared/services/general/can-deactivate.service';
 import { IHomePage } from 'src/app/shared/interfaces/pages/home/home-page.interface';
 import { ISocialCreate } from 'src/app/shared/interfaces/components/social/create/social-create.interface';
+import { Indexer } from '../../../shared/abstractions/indexer';
 
 @Component({
   selector: 'home-page',
@@ -12,7 +13,7 @@ import { ISocialCreate } from 'src/app/shared/interfaces/components/social/creat
   styleUrls: ['./home-page.less'],
   encapsulation: ViewEncapsulation.None
 })
-export class HomePage implements OnInit {
+export class HomePage extends Indexer<number> implements OnInit {
 
   public data: IHomePage;
   public latestActivities: any;
@@ -24,6 +25,7 @@ export class HomePage implements OnInit {
     private hasDataChangedService: HasDataChangedService,
     private canDeactivateService: CanDeactivateGuard,
   ) {
+    super();
     this.route.data.subscribe((data: IHomePage) => this.data = data);
   }
 
@@ -45,6 +47,4 @@ export class HomePage implements OnInit {
       ? this.canDeactivateService.canDeacrivateConfirm()
       : true;
   }
-
-  public index = (index): number => index;
 }

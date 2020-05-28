@@ -822,6 +822,7 @@
     <Content Include="App_Plugins\UintraGroupMember\backoffice\uintraMemberGroups\edit.controller.js" />
     <Content Include="App_Plugins\UintraGroupMember\backoffice\uintraMemberGroups\edit.html" />
     <Content Include="App_Plugins\UintraGroupMember\backoffice\uintraMemberGroups\memberGroupsService.js" />
+    <Content Include="App_Plugins\UintraGroupMember\backoffice\uintraMemberGroups\styles.css" />
     <Content Include="App_Plugins\UintraGroupMember\member-changes-watcher.controller.js" />
     <Content Include="App_Plugins\UintraGroupMember\member-changes-watcher.html" />
     <Content Include="App_Plugins\UintraGroupMember\member.service.js" />
@@ -935,6 +936,7 @@
     <Compile Include="App_Plugins\Utils\Search\SearchDashboard.cs" />
     <Compile Include="App_Start\UintraApplicationComponent.cs" />
     <Compile Include="App_Start\UintraComposer.cs" />
+    <Compile Include="App_Start\UintraConfiguration.cs" />
     <Compile Include="App_Start\UintraUmbracoEventComponent.cs" />
     <Compile Include="Core\Article\Events\ArticlePageEventService.cs" />
     <Compile Include="Core\Feed\Services\IFeedPresentationService.cs" />
@@ -1211,7 +1213,7 @@
     <Compile Include="Features\Mention\Models\MentionUserModel.cs" />
     <Compile Include="Features\Navigation\ApplicationSettings\INavigationApplicationSettings.cs" />
     <Compile Include="Features\Navigation\ApplicationSettings\NavigationApplicationSettings.cs" />
-    <Compile Include="Features\Navigation\IMyLinksHelper.cs" />
+    <Compile Include="Features\Navigation\Helpers\IMyLinksHelper.cs" />
     <Compile Include="Features\Navigation\Models\MyLinks\MyLinkItemModel.cs" />
     <Compile Include="Features\Navigation\Models\MyLinks\MyLinkItemViewModel.cs" />
     <Compile Include="Features\Navigation\Models\SharedLinkApiViewModel.cs" />
@@ -1224,17 +1226,17 @@
     <Compile Include="Core\Member\Profile\Edit\Models\ProfileEditPageViewModel.cs" />
     <Compile Include="Core\Member\Profile\Models\ProfilePageModel.cs" />
     <Compile Include="Core\Member\Profile\Models\ProfilePageViewModel.cs" />
-    <Compile Include="Features\Navigation\INavigationModelsBuilder.cs" />
+    <Compile Include="Features\Navigation\Builders\INavigationModelsBuilder.cs" />
     <Compile Include="Core\Article\ArticlePageModel.cs" />
     <Compile Include="Features\Navigation\Models\HeadingPageModel.cs" />
     <Compile Include="Features\Navigation\Models\IUintraNavigationComposition.cs" />
     <Compile Include="Core\LinksPicker\UintraLinksPickerViewModel.cs" />
     <Compile Include="Features\Navigation\Models\TopNavigationItem.cs" />
     <Compile Include="Features\Navigation\Models\TopNavigationItemViewModel.cs" />
-    <Compile Include="Features\Navigation\MyLinksHelper.cs" />
-    <Compile Include="Features\Navigation\NavigationInjectModule.cs" />
-    <Compile Include="Features\Navigation\NavigationModelsBuilder.cs" />
-    <Compile Include="Features\Navigation\TopNavigationItemTypes.cs" />
+    <Compile Include="Features\Navigation\Helpers\MyLinksHelper.cs" />
+    <Compile Include="Features\Navigation\InjectModules\NavigationInjectModule.cs" />
+    <Compile Include="Features\Navigation\Builders\NavigationModelsBuilder.cs" />
+    <Compile Include="Features\Navigation\Enums\TopNavigationItemTypes.cs" />
     <Compile Include="Features\Navigation\Web\IntranetNavigationController.cs" />
     <Compile Include="Features\Navigation\Web\MyLinksController.cs" />
     <Compile Include="Core\Configuration\ConfigurationProvider.cs" />
@@ -1268,7 +1270,7 @@
     <Compile Include="Features\News\Models\UintraNewsEditPageModel.cs" />
     <Compile Include="Features\News\Models\UintraNewsEditPageViewModel.cs" />
     <Compile Include="Features\Notification\Configuration\NotificationConfigurationProvider.cs" />
-    <Compile Include="Features\Navigation\NavigationPropertiesConstants.cs" />
+    <Compile Include="Features\Navigation\Constants\NavigationPropertiesConstants.cs" />
     <Compile Include="Features\Navigation\Models\MenuItemModel.cs" />
     <Compile Include="Features\Navigation\Models\MenuModel.cs" />
     <Compile Include="Features\Notification\Configuration\NotificationConfiguration.cs" />
@@ -2052,6 +2054,7 @@
     <Content Include="App_Plugins\ImagePickerExtended\package.manifest" />
     <Content Include="App_Plugins\ContentPreview\package.manifest" />
     <Content Include="App_Plugins\AnchorField\package.manifest" />
+    <Content Include="config\Uintra\panelContainerSettings.json" />
     <None Include="config\umbracoSettings.config" />
     <None Include="packages.config" />
     <Content Include="Views\Web.config" />

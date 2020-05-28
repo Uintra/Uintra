@@ -40,7 +40,8 @@ export class RichTextEditorComponent implements ControlValueAccessor {
   @Input() isUnderline: boolean = true;
   @Input() isEditing: boolean = false;
   @Input() isEmoji: boolean = true;
-  @Input() isEventsOrNews: boolean = false;
+  @Input() disableLinkPreview: boolean = false;
+  @Input() isActivityFormats: boolean = false;
   @Input() tags: ITagData[];
   @Input() availableTags: ITagData[];
   @Input() needsAutoFocus: boolean = false;
@@ -90,7 +91,7 @@ export class RichTextEditorComponent implements ControlValueAccessor {
   initEditor(editor) {
     this.editor = editor;
     this.editor.linksToSkip = [];
-    this.editor.showLinkPreview = !this.isEventsOrNews;
+    this.editor.showLinkPreview = !this.disableLinkPreview;
     this.richTextEditorService.addOnTextChangeCallback(editor);
     this.richTextEditorService.addStylesToImages(editor);
 

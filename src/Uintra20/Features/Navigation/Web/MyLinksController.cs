@@ -7,6 +7,7 @@ using UBaseline.Core.Controllers;
 using UBaseline.Core.RequestContext;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Services;
+using Uintra20.Features.Navigation.Helpers;
 using Uintra20.Features.Navigation.Models;
 using Uintra20.Features.Navigation.Models.MyLinks;
 using Uintra20.Features.Navigation.Services;
@@ -78,7 +79,7 @@ namespace Uintra20.Features.Navigation.Web
 
             if (_myLinksHelper.IsGroupPage(contentId))
             {
-                model.ActivityId = GetActivityLinkFromQuery(queryString);
+                model.ActivityId = GetGroupLinkFromQuery(queryString);
             }
 
             return model;
@@ -89,6 +90,18 @@ namespace Uintra20.Features.Navigation.Web
             var activityIdMatch = HttpUtility.ParseQueryString(query).Get("id");
 
             if (Guid.TryParse(activityIdMatch, out Guid result))
+            {
+                return result;
+            }
+
+            return null;
+        }
+
+        protected Guid? GetGroupLinkFromQuery(string query)
+        {
+            var groupIdMatch = HttpUtility.ParseQueryString(query).Get("groupid");
+
+            if (Guid.TryParse(groupIdMatch, out Guid result))
             {
                 return result;
             }

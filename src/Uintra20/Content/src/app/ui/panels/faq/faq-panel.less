@@ -10,7 +10,7 @@
   .theme(bg-color);
   .theme(text-color);
 
-  @media @md-up{
+  @media @sm-up{
     font-size: 20px;
     padding: 30px 20px 52px;
   }
@@ -46,14 +46,14 @@
     margin: 0 -10px;
     padding-top: 18px;
 
-    @media @md-up{
+    @media @sm-up{
       margin: 0 -20px;
     }
     @media @lg-up{
       margin: 0 -21px;
     }
 
-    & ::ng-deep{
+    ::ng-deep .aside &{
       margin: 0 -10px;
     }
   }
@@ -74,7 +74,7 @@
       font-weight: 600;
       .theme(text-color);
 
-      @media @md-up{
+      @media @sm-up{
         font-size: 22px;
         padding: 17px 47px 17px 20px;
       }
@@ -100,7 +100,7 @@
       border-width: 0 2px 2px 0;
       transform: rotate(45deg);
       transition: 0.2s;
-      @media @md-up{
+      @media @sm-up{
         right: 22px;
       }
 
@@ -129,7 +129,7 @@
         margin-top: -3px;
         font-size: 18px;
 
-        @media @md-up{
+        @media @sm-up{
           font-size: 22px;
         }
 
@@ -180,7 +180,7 @@
             transition-property: max-height, padding;
             transition-duration: .3s;
             transition-timing-function: cubic-bezier(1, 0, 1, 0), linear;
-            @media @md-up{
+            @media @sm-up{
               padding: 0 20px 28px;
             }
             @media @lg-up{

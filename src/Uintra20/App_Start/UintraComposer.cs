@@ -7,25 +7,13 @@ using Umbraco.Core.Composing;
 
 namespace Uintra20.App_Start
 {
-    [RuntimeLevel(MinLevel = RuntimeLevel.Run)]
+    //[RuntimeLevel(MinLevel = RuntimeLevel.Run)]
+    [ComposeAfter(typeof(uSync8.Core.uSyncCoreComposer))]
+    //[ComposeBefore(typeof(uSync8.ContentEdition.uSyncContentComposer))]
     public class UintraComposer : IUserComposer
     {
         public void Compose(Composition composition)
         {
-            //composition.Register<UmbracoMembersUserManager<UmbracoApplicationMember>>(x =>
-            //{
-            //    //needs to resolve from Owin
-            //    var owinCtx = x.GetInstance<IHttpContextAccessor>().HttpContext.GetOwinContext();
-            //    return owinCtx.GetUserManager<UmbracoMembersUserManager<UmbracoApplicationMember>>();
-            //}, Lifetime.Request);
-            //
-            //composition.Register<UmbracoMembersRoleManager<UmbracoApplicationRole>>(x =>
-            //{
-            //    //needs to resolve from Owin
-            //    var owinCtx = x.GetInstance<IHttpContextAccessor>().HttpContext.GetOwinContext();
-            //    return owinCtx.GetUserManager<UmbracoMembersRoleManager<UmbracoApplicationRole>>();
-            //}, Lifetime.Request);
-
             composition.Components().Append<UintraApplicationComponent>();
             composition.Components().Append<UintraUmbracoEventComponent>();
         }

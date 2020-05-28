@@ -21,6 +21,7 @@ namespace Uintra20.Features.CentralFeed.Services
         private readonly IGroupMemberService _groupMemberService;
         private readonly IGroupActivityService _groupActivityService;
         private readonly IPermissionsService _permissionsService;
+        private readonly IGroupService _groupService;
 
         public CentralFeedService(
             IEnumerable<IFeedItemService> feedItemServices,
@@ -28,7 +29,8 @@ namespace Uintra20.Features.CentralFeed.Services
             IIntranetMemberService<IntranetMember> intranetMemberService,
             IGroupMemberService groupMemberService,
             IGroupActivityService groupActivityService,
-            IPermissionsService permissionsService)
+            IPermissionsService permissionsService,
+            IGroupService groupService)
             : base(feedItemServices, cacheService)
         {
             _feedItemServices = feedItemServices;
@@ -36,6 +38,7 @@ namespace Uintra20.Features.CentralFeed.Services
             _groupMemberService = groupMemberService;
             _groupActivityService = groupActivityService;
             _permissionsService = permissionsService;
+            _groupService = groupService;
         }
 
         public IEnumerable<IFeedItem> GetFeed(Enum type)
@@ -69,7 +72,12 @@ namespace Uintra20.Features.CentralFeed.Services
         {
             var currentMember = _intranetMemberService.GetCurrentMember();
             return items.Where(x =>
-                !((IGroupActivity)x).GroupId.HasValue || currentMember.GroupIds.Any(g => g == ((IGroupActivity)x).GroupId.Value));
+            {
+                var groupFeedItem = (IGroupActivity)x;
+                return !groupFeedItem.GroupId.HasValue ||
+                    (!_groupService.Get(groupFeedItem.GroupId.Value).IsHidden &&
+                        currentMember.GroupIds.Any(g => g == ((IGroupActivity)x).GroupId.Value));
+            });
         }
 
         private bool IsCentralFeedActivity(IFeedItem item) =>

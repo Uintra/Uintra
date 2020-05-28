@@ -11,8 +11,7 @@ enum ViewMode {
 @Component({
   selector: 'spot-panel',
   templateUrl: './spot-panel.html',
-  styleUrls: ['./spot-panel.less'],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./spot-panel.less']
 })
 export class SpotPanel {
   data: ISpotPanel;
@@ -27,8 +26,8 @@ export class SpotPanel {
     this.viewMode = this.getTypeOfViewModel(this.data);
     this.vm = this.mapData2ViewMode(this.viewMode, this.data);
     this.rootClasses = `
-      ${ this.data.panelSettings.theme.alias || 'default-theme' }
-      ${ this.data.panelSettings.behaviour || 'full-content' }
+      ${ this.data.panelSettings.theme.value.alias || 'default-theme' }
+      ${ this.data.panelSettings.behaviour.value || 'full-content' }
     `;
   }
 
