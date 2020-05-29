@@ -214,14 +214,14 @@ namespace Uintra20.Features.Notification.Services
         {
             var hubContext = GlobalHost.ConnectionManager.GetHubContext<UintraHub>();
 
-            notifications
+            var groupedNotifications = notifications
                 .GroupBy(m => m.ReceiverId)
-                .ToList()
-                .ForEach(r =>
-                {
-                    var notificationViewModels = GetNotNotified(r.Key).Map<IEnumerable<NotificationViewModel>>();
-                    hubContext.Clients.User(r.Key.ToString()).updateNotifications(notificationViewModels);
-                });
+                .ToList();
+            foreach (var group in groupedNotifications)
+            {
+                var notificationViewModels = group.Map<IEnumerable<NotificationViewModel>>();
+                hubContext.Clients.User(group.Key.ToString()).updateNotifications(notificationViewModels);
+            }
         }
 
     }
