@@ -16,12 +16,14 @@ namespace Uintra20.Features.Groups.Converters
     public class UintraGroupsDocumentsPageViewModelConverter :
         UintraRestrictedNodeViewModelConverter<UintraGroupsDocumentsPageModel, UintraGroupsDocumentsPageViewModel>
     {
+        private readonly IGroupService _groupService;
         private readonly IMediaHelper _mediaHelper;
         private readonly IGroupDocumentsService _groupDocumentsService;
         private readonly IGroupHelper _groupHelper;
         private readonly IUBaselineRequestContext _context;
 
         public UintraGroupsDocumentsPageViewModelConverter(
+            IGroupService groupService,
             IMediaHelper mediaHelper,
             IGroupDocumentsService groupDocumentsService,
             IGroupHelper groupHelper,
@@ -29,6 +31,7 @@ namespace Uintra20.Features.Groups.Converters
             IUBaselineRequestContext context)
             : base(errorLinksService)
         {
+            _groupService = groupService;
             _mediaHelper = mediaHelper;
             _groupDocumentsService = groupDocumentsService;
             _groupHelper = groupHelper;
@@ -44,6 +47,10 @@ namespace Uintra20.Features.Groups.Converters
             var id = _context.ParseQueryString("groupId").TryParseGuid();
 
             if (!id.HasValue) return NotFoundResult();
+
+            var group = _groupService.Get(id.Value);
+
+            if (group == null || group.IsHidden) return NotFoundResult();
 
             viewModel.CanUpload = _groupDocumentsService.CanUpload(id.Value);
             viewModel.GroupHeader = _groupHelper.GetHeader(id.Value);
