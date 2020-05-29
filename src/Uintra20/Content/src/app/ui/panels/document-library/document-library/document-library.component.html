@@ -1,0 +1,27 @@
+<ng-container *ngIf="data">
+
+</ng-container>
+
+<ubl-link *ngIf="data?.linkForHeadline" class="document-library__title" [data]="data.linkForHeadline">
+    {{ data?.title }}
+</ubl-link>
+
+<div *ngIf="!data?.linkForHeadline" class="document-library__title">
+    {{ data?.title }}
+</div>
+
+<div class="document-library__rte rte" *ngIf="data?.richTextEditor" [innerHTML]="data.richTextEditor"></div>
+
+<div class="document-library__links" *ngIf="data.mediaLibrary?.length">
+    <ubl-link class="document-library__link" [download]="true" *ngFor="let link of data.mediaLibrary" [data]="link">
+      <span position="before" class="file-extension">{{link?.extension}}</span>
+      <span  class="document-library__link-text">{{ link?.label }}</span>
+    </ubl-link>
+</div>
+
+<ubl-link class="document-library__see-all"
+    *ngIf="data.seeAllLink"
+    [data]="data.seeAllLink">
+
+    {{ data.seeAllLink?.label }}
+</ubl-link>

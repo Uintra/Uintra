@@ -74,4 +74,9 @@ export const panels = [
     path: '__dynamic__',
     loadChildren: './ui/panels/contact/contact-panel.module#ContactPanelModule'
   },
+  {
+    id: 'documentLibraryPanel',
+    path: '__dynamic__',
+    loadChildren: './ui/panels/document-library/document-library-panel.module#DocumentLibraryPanelModule'
+  },
 ];

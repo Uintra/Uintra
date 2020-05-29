@@ -11,6 +11,7 @@ import { ButtonModule } from 'src/app/feature/reusable/ui-elements/ubl-ui-kit/bu
 import { VideoElementComponent } from './component/video-element/video-element.component';
 import { ModalVideoComponent } from 'src/app/feature/reusable/ui-elements/ubl-ui-kit/modal-video/modal-video.component';
 import { ModalVideoModule } from 'src/app/feature/reusable/ui-elements/ubl-ui-kit/modal-video/modal-video.module';
+import { ModalService } from 'src/app/shared/services/general/modal.service';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,7 @@ import { ModalVideoModule } from 'src/app/feature/reusable/ui-elements/ubl-ui-ki
     ButtonModule,
     ModalVideoModule,
   ],
-  providers: [{provide: AS_DYNAMIC_COMPONENT, useValue: SpotPanel}],
+  providers: [{provide: AS_DYNAMIC_COMPONENT, useValue: SpotPanel}, ModalService],
   entryComponents: [SpotPanel, ModalVideoComponent]
 })
 export class SpotPanelModule {}
