@@ -47,25 +47,27 @@ breadcrumb {
 .main {
   .centering;
   display: block;
-  padding: 70px 15px 0 0;
+  padding: 70px 0 0;
 
-  @media @md-down {
-    padding: 60px 0 0;
+  @media @md-up {
+    padding: 70px 20px 0;
   }
 }
 
 .content {
-  display: flex;
+  @media @md-up{
+    display: flex;
+  }
 
   // @media @sm-up {
   //   overflow: hidden;
   // }
 
-  &__wrap {
+ /* &__wrap {
     padding: 0;
     flex-grow: 1;
     width: 100%;
-  }
+  }*/
 }
 
 .page-wrapper {
@@ -76,11 +78,11 @@ breadcrumb {
   }
 
   @media @md-up {
-    padding: 15px 0 0 15px;
+    padding: 51px 0 0;
   }
 
   @media @lg-up {
-    padding: 47px 0 0 45px;
+    padding: 51px 0 0 39px;
   }
 }
 
