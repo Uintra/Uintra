@@ -4,10 +4,19 @@
   display: block;
   font-size: 11px;
   text-transform: uppercase;
-  margin-bottom: 15px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  padding: 30px 10px;
+
+  @media @md-up{
+    padding: 30px 20px;
+  }
+
+  @media @md-up{
+    padding: 0;
+    margin-bottom: 15px;
+  }
 
   &__item {
     display: inline;
