@@ -82,15 +82,20 @@ export class DocumentLibraryPanelComponent implements OnInit {
     }
 
     try {
-      extracted.linkForHeadline = Link.fromButtonData(
-        data.linkText
-      );
+      if (data.linkText) {
+        extracted.linkForHeadline = Link.fromButtonData(
+          data.linkText
+        );
+      }
+
     } catch (err) {
       console.log(err);
     }
 
     try {
-      extracted.seeAllLink = Link.fromButtonData(data.link);
+      if (data.link) {
+        extracted.seeAllLink = Link.fromButtonData(data.link);
+      }
     } catch (err) {
       console.log(err);
     }
