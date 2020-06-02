@@ -49,7 +49,7 @@ breadcrumb {
   display: block;
   padding: 70px 0 0;
 
-  @media @md-up {
+  @media @lg-up {
     padding: 70px 20px 0;
   }
 }
@@ -71,18 +71,46 @@ breadcrumb {
 }
 
 .page-wrapper {
-  padding: 0;
+  position: relative;
+  padding: 28px 0 0;
 
   @media @md-down {
     overflow: hidden;
   }
 
-  @media @md-up {
-    padding: 51px 0 0;
+  @media @lg-up {
+    padding: 28px 0 0 20px;
   }
 
-  @media @lg-up {
-    padding: 51px 0 0 39px;
+  home-page &{
+    padding: 0;
+
+    @media @md-up {
+      padding: 51px 20px 0;
+    }
+
+    @media @lg-up {
+      padding: 51px 0 0 39px;
+    }
+  }
+
+  &:before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: -9999px;
+    bottom: -9999px;
+    background: @white;
+    z-index: -1;
+
+    @media @lg-up {
+      left: 20px;
+    }
+
+    home-page &{
+      display: none;
+    }
   }
 }
 
