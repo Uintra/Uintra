@@ -1006,6 +1006,8 @@
     <Compile Include="Features\Tagging\UserTags\Models\UserTagPanelModel.cs" />
     <Compile Include="Features\Tagging\UserTags\Models\UserTagsPanelModel.cs" />
     <Compile Include="Features\Tagging\UserTags\Models\UserTagsPanelViewModel.cs" />
+    <Compile Include="Features\UintraPanels\ImagePanel\Models\ImagePanelModel.cs" />
+    <Compile Include="Features\UintraPanels\ImagePanel\Models\ImagePanelViewModel.cs" />
     <Compile Include="Infrastructure\CommandBus\Configurations\CommandBusConfiguration.cs" />
     <Compile Include="Attributes\EmptyHtmlAttribute.cs" />
     <Compile Include="Attributes\UIColumnAttribute.cs" />

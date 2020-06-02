@@ -2,8 +2,12 @@
 
 :host {
   display: flex;
-  align-items: center;
-  padding: 0 4px;
+  align-items: flex-end;
+  padding: 12px 10px 0;
+
+  @media @md-up {
+    padding: 0 5px;
+  }
 }
 
 .nav-notification {
@@ -11,7 +15,7 @@
 
   @media @md-up {
     position: relative;
-    top: 2px;
+    top: 3px;
   }
 
   &__button {

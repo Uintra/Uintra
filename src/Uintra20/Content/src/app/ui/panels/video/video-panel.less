@@ -46,48 +46,28 @@
     cursor: pointer;
     position: relative;
 
-    &:hover{
-      .video-panel__play-btn{
-        opacity: .7;
+    &:hover:after{
+      opacity: .8;
+    }
+
+    &:after {
+      content: "";
+      transition: opacity 0.3s linear;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 19%;
+      height: 100%; background-repeat: no-repeat;
+      background-size: contain;
+      background-position: center;
+      background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAiIGhlaWdodD0iMTIwIiB2aWV3Qm94PSIwIDAgMTIwIDEyMCI+CiAgICA8ZGVmcz4KICAgICAgICA8c3R5bGU+CiAgICAgICAgICAgIC5wcmVmaXhfX2Nscy0xe2ZpbGw6IzIzMWYyMH0KICAgICAgICA8L3N0eWxlPgogICAgPC9kZWZzPgogICAgPGcgaWQ9InByZWZpeF9fXy1lLXZpZGVvcGxheSIgZGF0YS1uYW1lPSItZS12aWRlb3BsYXkiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0uMDc4IC0uMjUpIj4KICAgICAgICA8cGF0aCBpZD0icHJlZml4X19QYXRoXzI4IiBkPSJNNjAuMDc4LjI1YTYwIDYwIDAgMTA2MCA2MCA2MCA2MCAwIDAwLTYwLTYwem0wIDEwOS40MTJBNDkuNDEyIDQ5LjQxMiAwIDExMTA5LjQ5IDYwLjI1YTQ5LjQxMiA0OS40MTIgMCAwMS00OS40MTIgNDkuNDEyeiIgY2xhc3M9InByZWZpeF9fY2xzLTEiIGRhdGEtbmFtZT0iUGF0aCAyOCIvPgogICAgICAgIDxwYXRoIGlkPSJwcmVmaXhfX1BhdGhfMjkiIGQ9Ik0xNCA3Mi45MTVsNDEuOTA4LTMxLjE4OUwxNCAxMC41Mzd6IiBjbGFzcz0icHJlZml4X19jbHMtMSIgZGF0YS1uYW1lPSJQYXRoIDI5IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgyOS41NjYgMTguNTI0KSIvPgogICAgPC9nPgo8L3N2Zz4K");
+
+      @media @sm-up{
+        width: 12.5%;
       }
-    }
-  }
-
-  &__play-btn{
-    position: absolute;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    left: 50%;
-    z-index: 2;
-    border-radius: 50%;
-    width: 70px;
-    height: 70px;
-    line-height: 70px;
-    box-shadow: inset 0 0 0 6px rgba(255, 255, 255, .85);
-    opacity: 1;
-    transition: opacity 0.3s ease-in-out;
-
-    @media @md-up{
-      width: 120px;
-      height: 120px;
-      line-height: 120px;
-      box-shadow: inset 0 0 0 10px rgba(255, 255, 255, .85);
-    }
-
-    &:before{
-      content: '';
-      display: inline-block;
-      vertical-align: middle;
-      transform: translateX(10%);
-      width: 0;
-      height: 0;
-      border-style: solid;
-      border-width: 15px 0 15px 26px;
-      border-color: transparent transparent transparent rgba(255, 255, 255, .85);
-      opacity: 1;
-
-      @media @md-up{
-        border-width: 31px 0 31px 42px;
+      @media @lg-up{
+        width: 10.5%;
       }
     }
   }

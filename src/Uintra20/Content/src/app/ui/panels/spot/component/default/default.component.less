@@ -23,12 +23,21 @@
   }
 }
 
-.app-default {
+::ng-deep .app-default {
   @media @sm-up {
     margin: 0 -20px;
-    // flex-wrap: wrap;
     display: flex;
+    padding: 28px 0 0;
+  }
+
+  @media @lg-up{
     padding: 4px 0 0;
+  }
+
+  ::ng-deep .aside &{
+    display: block;
+    margin: 0;
+    padding: 0;
   }
 
   .spot-panel {
@@ -36,92 +45,85 @@
       @media @sm-up {
         padding: 0 20px;
       }
+
+      ::ng-deep .aside &{
+        padding: 20px 0 0;
+
+        &:first-child{
+          padding: 0;
+        }
+      }
     }
 
     &__image {
       position: relative;
-      margin: 0 0 19px;
+      margin: 0 0 18px;
 
       @media @sm-up {
-        margin: 0 0 19px;
+        margin: 0 0 8px;
       }
 
       @media @lg-up {
         margin: 0 0 8px;
       }
+
+      ::ng-deep .aside &{
+        margin: 0 0 8px;
+      }
     }
 
     &__item-title {
-      font-weight: bold;
-      margin: 0 0 14px;
+      margin: 0 0 9px;
+      font-size: 22px;
 
       @media @sm-up {
-        margin: 0 0 44px;
+        margin: 0 0 4px;
       }
       @media @lg-up {
         margin: 0 0 14px;
+        font-size: 28px;
       }
     }
 
     &__text {
       font-size: 20px;
-      line-height: 1.5;
+      padding: 0 0 10px;
 
-      @media @sm-up {
-        padding: 0 0 20px;
+      @media @lg-up {
         font-size: 22px;
       }
-      @media @lg-up {
-        padding: 0 0 10px;
+
+      ::ng-deep .aside &{
+        font-size: 16px;
       }
 
       ::ng-deep .base-button__link {
-        font-size: 20px;
+        font-size: 18px;
         font-weight: normal;
 
         @media @sm-up {
+          font-size: 20px;
+        }
+
+        @media @lg-up {
           font-size: 22px;
         }
-      }
-    }
-  }
-}
 
-// .loop(@count) when(@count > 0) {
-// 	.loop((@count - 1));
-// 	:host-context(.spot-panel__content--@{count}) {
-// 		.spot-panel {
-// 			&__item {
-// 				@media @sm-up {
-// 					@width: 100% / @count;
-// 					content: 'debug';
-// 					width: calc(~"@{width} - 40px");
-// 					flex: 0 0 calc(~"@{width} - 40px");
-// 				}
-// 			}
-// 		}
-// 	}
-// }
-.loop(@count) when(@count > 0) {
-  .loop((@count - 1));
-  :host-context(.spot-panel__content--@{count}) {
-    .spot-panel {
-      &__item {
-        @media @sm-up {
-          @width: 100% / @count;
-          content: "debug";
-          width: @width;
-          flex: 0 0 @width;
+        ::ng-deep .aside &{
+          font-size: 16px;
         }
       }
     }
   }
+
+  .date{
+    display: block;
+  }
 }
 
-.loop(6);
-
 .spot-panel-carousel {
-  overflow: hidden;
+  padding: 0 0 48px;
+  position: relative;
 
   &__content {
     display: flex;
@@ -137,9 +139,12 @@
   }
 
   &__dots {
-    margin: 30px 0 50px;
     display: flex;
     justify-content: center;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
   }
 
   &__dot {
@@ -151,7 +156,29 @@
 
     &.active {
       background: #fff;
-      box-shadow: inset 0 0 0 1px #707070;
     }
   }
 }
+
+.loop(@count) when(@count > 0) {
+  .loop((@count - 1));
+  :host-context(.spot-panel__content--@{count}) {
+    .spot-panel {
+      &__item {
+        @media @sm-up {
+          @width: 100% / @count;
+          content: "debug";
+          width: @width;
+          flex: 0 0 @width;
+        }
+
+        .aside &{
+          width: 100%;
+
+        }
+      }
+    }
+  }
+}
+
+.loop(6);

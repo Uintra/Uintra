@@ -1,4 +1,4 @@
-import { Component, Input, HostBinding } from '@angular/core';
+import { Component, Input, HostBinding, SecurityContext } from '@angular/core';
 import { IAccordionPanel } from '../../../shared/interfaces/panels/faq/faq-panel.interface'
 import { DomSanitizer } from '@angular/platform-browser';
 
@@ -32,6 +32,6 @@ export class FaqPanel {
   }
 
   getSanitizedDescription(descr) {
-    return this.sanitizer.bypassSecurityTrustHtml(descr);
+    return this.sanitizer.sanitize(SecurityContext.HTML, descr);
   }
 }

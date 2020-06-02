@@ -1,3 +1,8 @@
-<h2 class="title">{{ data.title }}</h2>
-<div class="pre" [innerHTML]="data.description"></div>
-<app-button class="link" [data]="data.link" [withArrow]="true"></app-button>
+<div class="app-no-image">
+  <div class="text rte">
+    <h3 *ngIf="data.title" class="title">{{ data.title }}</h3>
+    <div *ngIf="data.description" class="description" [innerHTML]="data.description"></div>
+    <span class="date" *ngIf="data.date">{{ data.date }}</span>
+    <app-button *ngIf="data.link" class="link" [data]="data.link" [withArrow]="false"></app-button>
+  </div>
+</div>

@@ -40,6 +40,7 @@ ol li:before{
     transform: translateX(-100%);
 }
   
+
 /**umb_name:h2*/
 h2 {
 	font-size: 2.074em;
@@ -48,16 +49,6 @@ h2 {
 /**umb_name:h3*/
 h3 {
 	font-size: 1.728em;
-}
-
-/**umb_name:h4*/
-h4 {
-	font-size: 1.44em;
-}
-
-/**umb_name:h5*/
-h5 {
-	font-size: 1.2em;
 }
 
 /**umb_name:small*/
