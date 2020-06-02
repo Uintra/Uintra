@@ -53,7 +53,12 @@ export class PictureComponent implements OnInit {
 
   isSvg()
   {
-    return !!this.data.src.match(/\.svg$/);
+    if(this.data.src.match(/\.svg$/)){
+      return true;
+    } else {
+      return false;
+    }
+
   }
 
   checkIE11() : boolean {
