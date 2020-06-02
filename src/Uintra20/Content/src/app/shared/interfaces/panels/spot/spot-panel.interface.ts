@@ -30,6 +30,7 @@ export interface INoImageSpotData {
   title: string;
   description: string;
   link: ILink;
+  date?: string;
 }
 export interface ISingleSpotData {
   items: ISingleSpotItem[];

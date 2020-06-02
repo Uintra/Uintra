@@ -11,6 +11,10 @@
   margin: 0 26px 0 0;
   position: relative;
 
+  @media @lg-up {
+    margin: 0 25px 0 0;
+  }
+
   &__input {
     width: 100%;
     background-color: @main-color;
@@ -34,6 +38,7 @@
     right: 16px;
 
     &::before {
+      font-weight: bold;
       color: @black !important;
     }
   }
