@@ -1,24 +1,35 @@
 @import 'base.less';
 
 .groups-header-wrapper {
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  right: 0;
-  background-color: @main-color;
+  padding: 0 0 0 10px;
+
+  @media @md-up {
+    padding: 0 0 0 20px;
+  }
 }
 
 .groups-header {
-  max-width: 1552px;
-  margin: 0 auto;
-  padding: 15px 20px 20px;
-
-  @media @md-up {
-    padding: 15px 15px 20px 330px;
-  }
+  position: relative;
+  padding: 28px 0 0;
+  margin: 0 0 3px;
 
   @media @lg-up {
-    padding-left: 355px;
+    padding: 28px 20px 0;
+  }
+
+  &:before{
+    content: '';
+    position: absolute;
+    left:0;
+    top:0;
+    bottom: 0;
+    right: -9999px;
+    background: @white;
+    z-index: -1;
+
+    @media @lg-up {
+      left: 20px;
+    }
   }
 
   &__title {
@@ -29,7 +40,12 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    margin-bottom: 15px;
+    margin: 0 0 15px;
+    padding: 0 10px;
+
+    @media @md-up{
+      padding: 0 20px;
+    }
 
     &-link {
       .alt-link;
@@ -39,27 +55,30 @@
 
 .tabs {
   display: flex;
-  position: relative;
-  font-size: 13px;
-  line-height: 15px;
+  flex-wrap: wrap;
+  font-size: 20px;
+  line-height:1.1;
   font-weight: bold;
-  padding-left: 0;
+  margin: -2px 0 0 -10px;
 
-  @media @md-down {
-    padding-right: 0;
+  @media @md-up {
+    margin: 1px 20px 0;
+  }
+  @media @lg-up {
+    margin: 7px 20px 0;
+  }
+
+  &__item{
+    margin: 2px 0 0px;
+
+    @media @md-up {
+      margin: 0;
+    }
   }
 
   &__left-container {
     display: flex;
     flex-wrap: wrap;
-  }
-
-  &__item {
-    margin-right: 25px;
-
-    @media @sm-down {
-      margin-bottom: 5px;
-    }
   }
 
   &__item--settings {
@@ -68,11 +87,31 @@
 
   &__item-link {
     text-decoration: none;
-    color: @body-text-color--light;
+    color: #555;
+    padding: 13px 20px 18px;
+    position: relative;
+    display: block;
+
+    &:before{
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: @lighter-blue;
+      z-index: 2;
+      display: none;
+    }
 
     &.active {
       cursor: default;
-      color: @heading-bg;
+      color: @dark-blue;
+      background: @lighter-grey;
+
+      &:before{
+        display: block;
+      }
     }
   }
 }
