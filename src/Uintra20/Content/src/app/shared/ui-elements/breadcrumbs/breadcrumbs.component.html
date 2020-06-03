@@ -1,6 +1,6 @@
 <ul *ngIf="breadcrumbs" class="breadcrumbs">
   <li *ngFor="let item of breadcrumbs; index as i" class="breadcrumbs__item">
-    <span *ngIf="i !== 0" class="icon-linkarrow"></span>
+    <span *ngIf="i !== 0" class="breadcrumbs__separator">/</span>
     <a
       *ngIf="item.isClickable"
       [routerLink]="item.url"

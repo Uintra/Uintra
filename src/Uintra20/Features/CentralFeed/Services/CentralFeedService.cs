@@ -6,11 +6,9 @@ using Uintra20.Core.Feed.Services;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Services;
 using Uintra20.Features.Groups;
-using Uintra20.Features.Permissions;
 using Uintra20.Features.Permissions.Interfaces;
 using Uintra20.Features.Groups.Services;
 using Uintra20.Infrastructure.Caching;
-using Uintra20.Infrastructure.Extensions;
 
 namespace Uintra20.Features.CentralFeed.Services
 {
@@ -18,41 +16,31 @@ namespace Uintra20.Features.CentralFeed.Services
     {
         private readonly IEnumerable<IFeedItemService> _feedItemServices;
         private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
-        private readonly IGroupMemberService _groupMemberService;
-        private readonly IGroupActivityService _groupActivityService;
-        private readonly IPermissionsService _permissionsService;
         private readonly IGroupService _groupService;
 
         public CentralFeedService(
             IEnumerable<IFeedItemService> feedItemServices,
             ICacheService cacheService,
             IIntranetMemberService<IntranetMember> intranetMemberService,
-            IGroupMemberService groupMemberService,
-            IGroupActivityService groupActivityService,
             IPermissionsService permissionsService,
             IGroupService groupService)
-            : base(feedItemServices, cacheService)
+            : base(feedItemServices, cacheService, permissionsService)
         {
             _feedItemServices = feedItemServices;
             _intranetMemberService = intranetMemberService;
-            _groupMemberService = groupMemberService;
-            _groupActivityService = groupActivityService;
-            _permissionsService = permissionsService;
             _groupService = groupService;
         }
 
         public IEnumerable<IFeedItem> GetFeed(Enum type)
         {
-            if (!_permissionsService.Check((PermissionResourceTypeEnum)type.ToInt(), PermissionActionEnum.View))
+            if (!IsAllowView(type))
             {
                 return Enumerable.Empty<IFeedItem>();
             }
 
-            var service = _feedItemServices.SingleOrDefault(s => s.Type.ToInt() == type.ToInt());
-
-            var items = service == null
-                ? Enumerable.Empty<IFeedItem>()
-                : service.GetItems(); //.Where(IsCentralFeedActivity);
+            var items = 
+		            GetFeedItemService(type)
+		            .GetItems();
 
             return AdditionalFilters(items);
         }
@@ -60,7 +48,7 @@ namespace Uintra20.Features.CentralFeed.Services
         public IEnumerable<IFeedItem> GetFeed()
         {
             var items = _feedItemServices
-                .Where(service => _permissionsService.Check((PermissionResourceTypeEnum)service.Type.ToInt(), PermissionActionEnum.View))
+                .Where(service => IsAllowView(service.Type))
                 .SelectMany(service => service.GetItems());
 
             items = AdditionalFilters(items);
@@ -74,14 +62,8 @@ namespace Uintra20.Features.CentralFeed.Services
             return items.Where(x =>
             {
                 var groupFeedItem = (IGroupActivity)x;
-                return !groupFeedItem.GroupId.HasValue ||
-                    (!_groupService.Get(groupFeedItem.GroupId.Value).IsHidden &&
-                        currentMember.GroupIds.Any(g => g == ((IGroupActivity)x).GroupId.Value));
+                return !groupFeedItem.GroupId.HasValue || !_groupService.Get(groupFeedItem.GroupId.Value).IsHidden && currentMember.GroupIds.Any(g => g == groupFeedItem.GroupId.Value);
             });
         }
-
-        private bool IsCentralFeedActivity(IFeedItem item) =>
-            (item as IGroupActivity)?.GroupId == null;
-
     }
 }

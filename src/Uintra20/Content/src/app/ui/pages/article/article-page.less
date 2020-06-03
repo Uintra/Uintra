@@ -4,13 +4,17 @@ article-page {
   display: block;
 
   .main-column {
-    padding: 0 15px;
-    width: 100%;
+    -webkit-box-flex: 0;
+    flex: 1 0 100%;
+    padding: 0 10px;
 
     @media @md-up {
-      -webkit-box-flex: 0;
-      flex: 1 0 66.66666667%;
-      max-width: 66.66666667%;
+      flex-basis: 62%;
+      padding: 0 20px;
+    }
+
+    @media @lg-up {
+      flex-basis: 67.2%;
     }
 
     &--full-content {
@@ -19,13 +23,18 @@ article-page {
   }
 
   .right-column {
-    padding: 0 15px;
-    width: 100%;
+    -webkit-box-flex: 0;
+    flex: 1 0 100%;
+    padding: 0 10px;
 
     @media @md-up{
-      -webkit-box-flex: 0;
-      flex: 1 0 33.33333333%;
-      max-width: 33.33333333%;
+      flex-basis: 38%;
+      padding: 0 40px 0 20px;
+    }
+
+    @media @lg-up{
+      flex-basis: 32.8%;
+      padding: 0 20px;
     }
 
     ubl-dynamic-component{
