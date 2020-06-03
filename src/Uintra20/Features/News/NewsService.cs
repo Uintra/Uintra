@@ -124,6 +124,11 @@ namespace Uintra20.Features.News
             return items;
         }
 
+        public IEnumerable<IFeedItem> GetGroupItems(Guid groupId)
+        {
+	        return GetOrderedActualItems().Where(a => a.GroupId == groupId);
+        }
+
         public async Task<IEnumerable<IFeedItem>> GetItemsAsync()
         {
             var items = await GetOrderedActualItemsAsync();

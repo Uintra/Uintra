@@ -169,6 +169,10 @@ namespace Uintra20.Features.Events
             };
 
         public IEnumerable<IFeedItem> GetItems() => GetOrderedActualItems();
+        public IEnumerable<IFeedItem> GetGroupItems(Guid groupId)
+        {
+	        return GetOrderedActualItems().Where(a => a.GroupId == groupId);
+        }
 
         public async Task<IEnumerable<IFeedItem>> GetItemsAsync()
         {
