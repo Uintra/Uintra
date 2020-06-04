@@ -1,5 +1,11 @@
+<div class="page-header-wrapper">
+  <div class="row-flex">
+    <div class="page-header">
+      <app-breadcrumbs [breadcrumbs]="data?.breadcrumbs"></app-breadcrumbs>
+    </div>
+  </div>
+</div>
 <div class="page-wrapper">
-  <app-breadcrumbs [breadcrumbs]="data?.breadcrumbs"></app-breadcrumbs>
   <div class="row-flex">
     <div class="main-column" [ngClass]="{'main-column--full-content': !data?.rightColumnPanels?.length}">
       <ubl-dynamic-component
