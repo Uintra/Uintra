@@ -9,16 +9,22 @@ article-page {
     padding: 0 10px;
 
     @media @md-up {
-      flex-basis: 62%;
+      flex-basis: 62.5%;
       padding: 0 20px;
     }
 
     @media @lg-up {
-      flex-basis: 67.2%;
+      flex-basis: 66.6%;
     }
 
     &--full-content {
       max-width: 100%;
+    }
+
+    text-panel,
+    [class$="-panel"] {
+      display: block;
+      margin: 0 -20px;
     }
   }
 
@@ -28,12 +34,12 @@ article-page {
     padding: 0 10px;
 
     @media @md-up{
-      flex-basis: 38%;
+      flex-basis: 37.5%;
       padding: 0 40px 0 20px;
     }
 
     @media @lg-up{
-      flex-basis: 32.8%;
+      flex-basis: 33.4%;
       padding: 0 20px;
     }
 

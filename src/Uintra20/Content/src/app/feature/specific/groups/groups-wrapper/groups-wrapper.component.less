@@ -1,18 +1,17 @@
 @import 'base.less';
-.groups-header-wrapper{
-  padding: 0 0 0 10px;
-
-  @media @md-up {
+.groups-header-wrapper {
+  @media @lg-up {
     padding: 0 0 0 20px;
   }
 }
 
 .groups-header {
   position: relative;
-  padding: 28px 0 0;
+  width: 100%;
+  padding: 28px 10px 0;
   margin: 0 0 3px;
 
-  @media @lg-up {
+  @media @md-up {
     padding: 28px 20px 0;
   }
 
@@ -25,10 +24,6 @@
     right: -9999px;
     background: @white;
     z-index: -1;
-
-    @media @lg-up {
-      left: 20px;
-    }
   }
 }
 
@@ -41,10 +36,10 @@
   margin: -2px 0 0 -10px;
 
   @media @md-up {
-    margin: 1px 20px 0;
+    margin: 1px 0 0;
   }
   @media @lg-up {
-    margin: 7px 20px 0;
+    margin: 7px 0 0;
   }
 
   &__item{
