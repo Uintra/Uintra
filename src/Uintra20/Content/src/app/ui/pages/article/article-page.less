@@ -24,7 +24,11 @@ article-page {
     text-panel,
     [class$="-panel"] {
       display: block;
-      margin: 0 -20px;
+      margin: 0 -10px;
+
+      @media @md-up{
+        margin: 0 -20px;
+      }
     }
   }
 

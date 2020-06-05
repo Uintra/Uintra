@@ -2,8 +2,9 @@
   <app-group-details-wrapper *ngIf="data?.groupHeader"
                              [data]="data.groupHeader">
     <div class="group-details-padding">
-      <div class="page-wrapper col-md-8">
-        <app-news-form edit
+      <div class="page-wrapper">
+        <div class="col-md-8">
+          <app-news-form edit
                        [data]="newsData"
                        [members]="members"
                        [creator]="creator"
@@ -11,18 +12,21 @@
                        [pinAllowed]="data?.pinAllowed"
                        (handleSubmit)="onSubmit($event)"
                        (handleCancel)="onCancel()"></app-news-form>
+        </div>
       </div>
     </div>
   </app-group-details-wrapper>
   <div *ngIf="!data?.groupHeader"
        class="page-wrapper">
-    <app-news-form edit
-                   [data]="newsData"
-                   [members]="members"
-                   [creator]="creator"
-                   [tags]="tags"
-                   [pinAllowed]="data?.pinAllowed"
-                   (handleSubmit)="onSubmit($event)"
-                   (handleCancel)="onCancel()"></app-news-form>
+       <div class="col-md-12">
+         <app-news-form edit
+                        [data]="newsData"
+                        [members]="members"
+                        [creator]="creator"
+                        [tags]="tags"
+                        [pinAllowed]="data?.pinAllowed"
+                        (handleSubmit)="onSubmit($event)"
+                        (handleCancel)="onCancel()"></app-news-form>
+       </div>
   </div>
 </ng-container>
