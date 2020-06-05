@@ -42,10 +42,21 @@ section[class*="text-panel"]{
     }
 
     .content__link .base-button{
-      text-transform: uppercase;
       &__link{
         text-decoration: underline;
         .theme(link-color);
+        font: 18px/1.5 @body-font;
+
+        @media @md-up{
+          font-size: 20px;
+        }
+        @media @lg-up{
+          font-size: 22px;
+        }
+
+        ::ng-deep .aside &{
+          font-size: 18px;
+        }
 
         &:hover{
           text-decoration: none;
