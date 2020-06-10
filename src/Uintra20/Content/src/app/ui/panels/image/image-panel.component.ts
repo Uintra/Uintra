@@ -9,11 +9,11 @@ import { resolveThemeCssClass } from 'src/app/feature/reusable/ui-elements/ubl-u
 })
 export class ImagePanel {
   data: IImagePanel;
-  // @HostBinding('class') rootClasses;
+  @HostBinding('class') rootClasses;
 
-  // ngOnInit() {
-  //   this.rootClasses = `
-  //     ${ this.data.panelSettings.theme.value.alias || 'default-theme' }
-  //   `;
-  // }
+  ngOnInit() {
+    this.rootClasses = `
+      ${ this.data.panelSettings.theme.value.alias || 'default-theme' }
+    `;
+  }
 }
