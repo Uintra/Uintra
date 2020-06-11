@@ -32,6 +32,10 @@
 
   &__rte {
     max-width: 50%;
+
+    a {
+      .theme(link-color);
+    }
   }
 
   &__links,
@@ -74,6 +78,7 @@
         text-decoration: none !important;
       }
       &__text {
+        .theme(link-color);
         text-decoration: underline;
       }
     }
@@ -84,6 +89,15 @@
     .document-library {
       &__link {
         font-size: 18px;
+        .theme(link-color);
+
+        &-text {
+          text-decoration: underline;
+
+          &:hover {
+            text-decoration: none;
+          }
+        }
       }
     }
     .file-extension {
