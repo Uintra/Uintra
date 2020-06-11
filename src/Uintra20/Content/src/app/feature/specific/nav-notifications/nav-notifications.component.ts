@@ -42,21 +42,21 @@ export class NavNotificationsComponent implements OnInit, OnDestroy {
       });
 
 
-    //this.signalrService.startHub();
-    // this.signalrService
-    //   .getUpdateNotificationsSubjects()
-    //   .subscribe(notifications => {
-    //     this.getNewNotification(notifications);
-    //   });
+    this.signalrService.startHub();
+    this.signalrService
+      .getUpdateNotificationsSubjects()
+      .subscribe(notifications => {
+        this.getNewNotification(notifications);
+      });
 
-    // this.signalrService
-    //   .getShowPopup()
-    //   .subscribe(n => {
-    //     n.forEach((val, index, arr) => {
-    //       this.modalService.appendComponentToBody(PopUpComponent, {data: val}, null, index.toString(), index === arr.length - 1);
-    //     })
+    this.signalrService
+      .getShowPopup()
+      .subscribe(n => {
+        n.forEach((val, index, arr) => {
+          this.modalService.appendComponentToBody(PopUpComponent, {data: val}, null, index.toString(), index === arr.length - 1);
+        })
 
-    //   })
+      })
 
     if ("Notification" in window) {
       Notification.requestPermission(status => {
