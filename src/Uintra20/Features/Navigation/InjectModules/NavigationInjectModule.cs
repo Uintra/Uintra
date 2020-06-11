@@ -2,6 +2,7 @@
 using Uintra20.Features.Navigation.ApplicationSettings;
 using Uintra20.Features.Navigation.Builders;
 using Uintra20.Features.Navigation.Helpers;
+using Uintra20.Features.Navigation.Services;
 using Uintra20.Infrastructure.UintraInformation;
 
 namespace Uintra20.Features.Navigation.InjectModules
@@ -13,6 +14,8 @@ namespace Uintra20.Features.Navigation.InjectModules
             services.AddScoped<INavigationModelsBuilder, NavigationModelsBuilder>();
             services.AddScoped<IUintraInformationService, UintraInformationService>();
             services.AddScoped<IMyLinksHelper, MyLinksHelper>();
+            services.AddScoped<ISubNavigationModelBuilder, SubNavigationModelBuilder>();
+
             services.AddSingleton<INavigationApplicationSettings, NavigationApplicationSettings>();
 
             return services;

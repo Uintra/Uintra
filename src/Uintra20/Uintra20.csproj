@@ -991,6 +991,8 @@
     <Compile Include="Features\LinkPreview\Services\ActivityLinkPreviewService.cs" />
     <Compile Include="Features\LinkPreview\Services\IActivityLinkPreviewService.cs" />
     <Compile Include="Features\Media\Images\Constants\ImageConstants.cs" />
+    <Compile Include="Features\Navigation\Services\ISubNavigationModelBuilder.cs" />
+    <Compile Include="Features\Navigation\Services\SubNavigationModelBuilder.cs" />
     <Compile Include="Features\Notification\Models\UserMentionNotificationModel.cs" />
     <Compile Include="Features\Notification\Services\IUserMentionNotificationService.cs" />
     <Compile Include="Features\Notification\Services\UserMentionNotificationService.cs" />
@@ -1252,9 +1254,6 @@
     <Compile Include="Features\Navigation\Models\MenuItemViewModel.cs" />
     <Compile Include="Features\Navigation\Models\LeftNavigationViewModel.cs" />
     <Compile Include="Features\Navigation\Models\SubNavigationMenuItemModel.cs" />
-    <Compile Include="Features\Navigation\Models\SubNavigationMenuModel.cs" />
-    <Compile Include="Features\Navigation\Models\SubNavigationMenuRowModel.cs" />
-    <Compile Include="Features\Navigation\Models\SubNavigationMenuViewModel.cs" />
     <Compile Include="Features\Navigation\Models\SharedLinkItemViewModel.cs" />
     <Compile Include="Features\Navigation\Models\TopNavigationExtendedViewModel.cs" />
     <Compile Include="Features\Navigation\Models\TopNavigationModel.cs" />
