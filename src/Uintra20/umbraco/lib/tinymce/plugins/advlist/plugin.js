@@ -23,11 +23,11 @@ var advlist = (function () {
     var Commands = { register: register };
 
     var getNumberStyles = function (editor) {
-      var styles = editor.getParam('advlist_number_styles', 'default,lower-alpha,lower-greek,lower-roman,upper-alpha,upper-roman');
+      var styles = editor.getParam('advlist_number_styles', 'default');
       return styles ? styles.split(/[ ,]/) : [];
     };
     var getBulletStyles = function (editor) {
-      var styles = editor.getParam('advlist_bullet_styles', 'default,circle,disc,square');
+      var styles = editor.getParam('advlist_bullet_styles', 'default');
       return styles ? styles.split(/[ ,]/) : [];
     };
     var Settings = {
