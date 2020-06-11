@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Uintra20.Features.LinkPreview.Mappers;
+using Uintra20.Features.LinkPreview.Models;
 using Uintra20.Features.LinkPreview.Sql;
 using Uintra20.Persistence.Sql;
 
@@ -23,7 +24,7 @@ namespace Uintra20.Features.LinkPreview.Services
             _linkPreviewModelMapper = linkPreviewModelMapper;
         }
 
-        public async Task<Models.LinkPreview> GetActivityLinkPreviewAsync(Guid activityId)
+        public async Task<LinkPreviewModel> GetActivityLinkPreviewAsync(Guid activityId)
         {
             var previewIds = (await _previewRelationRepository.FindAllAsync(r => r.ActivityId == activityId)).Select(r => r.LinkPreviewId);
             var preview = (await _previewRepository.GetManyAsync(previewIds)).Select(_linkPreviewModelMapper.MapPreview).SingleOrDefault();
@@ -60,7 +61,7 @@ namespace Uintra20.Features.LinkPreview.Services
         }
 
 
-        public Models.LinkPreview GetActivityLinkPreview(Guid activityId)
+        public LinkPreviewModel GetActivityLinkPreview(Guid activityId)
         {
             var previewIds = _previewRelationRepository.FindAll(r => r.ActivityId == activityId).Select(r => r.LinkPreviewId);
             var preview = _previewRepository.GetMany(previewIds).Select(_linkPreviewModelMapper.MapPreview).SingleOrDefault();

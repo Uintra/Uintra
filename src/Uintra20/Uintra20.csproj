@@ -1716,8 +1716,7 @@
     <Compile Include="Features\Likes\Services\LikesService.cs" />
     <Compile Include="Features\Likes\Sql\Like.cs" />
     <Compile Include="Features\LinkPreview\AutoMapperProfiles\LinkPreviewAutoMapperProfile.cs" />
-    <Compile Include="Features\LinkPreview\Models\LinkPreview.cs" />
-    <Compile Include="Features\LinkPreview\Models\LinkPreviewViewModel.cs" />
+    <Compile Include="Features\LinkPreview\Models\LinkPreviewModel.cs" />
     <Compile Include="Features\LinkPreview\Sql\ActivityToLinkPreviewEntity.cs" />
     <Compile Include="Features\LinkPreview\Sql\LinkPreviewEntity.cs" />
     <Compile Include="Features\Links\ActivityLinkService.cs" />

@@ -1,4 +1,5 @@
 ﻿using System;
+using Uintra20.Features.LinkPreview.Models;
 
 namespace Uintra20.Features.Comments.Models
 {
@@ -18,6 +19,6 @@ namespace Uintra20.Features.Comments.Models
 
         public Guid? ParentId { get; set; }
 
-        public LinkPreview.Models.LinkPreview LinkPreview { get; set; }
+        public LinkPreviewModel LinkPreview { get; set; }
     }
 }

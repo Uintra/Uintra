@@ -20,7 +20,7 @@ namespace Uintra20.Features.Social.Models
 
         [RequiredIfAllEmpty(DependancyProperties = new[] { nameof(Description), nameof(Media) })]
         public string NewMedia { get; set; }
-        public LinkPreviewViewModel LinkPreview { get; set; }
+        public LinkPreviewModel LinkPreview { get; set; }
         public int? LinkPreviewId { get; set; }
         public bool CanDelete { get; set; }
         public IEnumerable<Guid> TagIdsData { get; set; }

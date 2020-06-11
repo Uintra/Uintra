@@ -3,6 +3,7 @@ using System;
 using Uintra20.Core.Activity.Entities;
 using Uintra20.Core.Member.Abstractions;
 using Uintra20.Features.LinkPreview.Contracts;
+using Uintra20.Features.LinkPreview.Models;
 
 namespace Uintra20.Features.Social
 {
@@ -14,7 +15,7 @@ namespace Uintra20.Features.Social
         public DateTime PublishDate { get; set; }
 
         [JsonIgnore]
-        public LinkPreview.Models.LinkPreview LinkPreview { get; set; }
+        public LinkPreviewModel LinkPreview { get; set; }
 
         public int? LinkPreviewId { get; set; }
     }
