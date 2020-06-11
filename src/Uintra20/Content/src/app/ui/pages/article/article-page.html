@@ -2,6 +2,19 @@
   <div class="row-flex">
     <div class="page-header">
       <app-breadcrumbs [breadcrumbs]="data?.breadcrumbs"></app-breadcrumbs>
+
+      <ul *ngIf="subNavigation?.length" class="tabs"><!-- class="tabs col-md-8" -->
+        <li *ngFor="let tab of subNavigation" class="tabs__item">
+          <a
+            [routerLink]="tab.url"
+            class="tabs__item-link"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }">
+            {{tab.name}}
+          </a>
+        </li>
+      </ul>
+
     </div>
   </div>
 </div>
