@@ -2,7 +2,7 @@ import { UrlType } from 'src/app/shared/enums/url-type';
 import { LinkTargetType } from 'src/app/feature/reusable/ui-elements/ubl-ui-kit/core/interface/link';
 
 export interface ITextPanelData {
-  description?: String,
+  description?: string;
   link?: IButtonData;
   panelSettings?: any;
   anchor: string;

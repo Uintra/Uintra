@@ -9,6 +9,7 @@ import { Link } from "src/app/feature/reusable/ui-elements/ubl-ui-kit/core/inter
 import { Html } from "src/app/feature/reusable/ui-elements/ubl-ui-kit/core/interface/types";
 import { IButtonData } from "src/app/feature/reusable/ui-elements/ubl-ui-kit/core/interface/button";
 import { IPanelSettings } from 'src/app/feature/reusable/ui-elements/ubl-ui-kit/core/interface/panel-settings';
+import { DomSanitizer } from '@angular/platform-browser';
 
 interface IDocumentLibraryPanelData {
   link: IButtonData;
@@ -47,6 +48,8 @@ export class DocumentLibraryPanelComponent implements OnInit {
 
   @HostBinding('class') rootClasses;
 
+  constructor(private sanitized: DomSanitizer) { }
+
   ngOnInit() {
     if (this.data) this.documentLibraryData = this.map(this.data);
 
@@ -68,6 +71,8 @@ export class DocumentLibraryPanelComponent implements OnInit {
       "maxCountOfDocuments",
       "linkForHeadline",
     ]);
+
+    extracted.richTextEditor = this.sanitized.bypassSecurityTrustHtml(extracted.richTextEditor as string);
 
     try {
       const maxCount = data.maxCountOfDocuments || 5;
