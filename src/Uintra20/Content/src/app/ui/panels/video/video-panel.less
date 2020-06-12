@@ -15,6 +15,10 @@
     padding: 29px 20px 49px;
   }
 
+  :host-context(.default-theme) &{
+    padding-top: 0;
+  }
+
   ::ng-deep .aside &{
     font-size: 16px;
     line-height: 1.5;
@@ -45,6 +49,8 @@
     padding: 0;
     cursor: pointer;
     position: relative;
+    display: block;
+    width: 100%;
 
     &:hover:after{
       opacity: .8;
@@ -70,6 +76,11 @@
         width: 10.5%;
       }
     }
+  }
+
+  &__thumbnail-ghost {
+    padding-bottom: 56%;
+    background: #999;
   }
 
   &__description{

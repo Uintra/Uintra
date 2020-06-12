@@ -21,9 +21,13 @@
     padding: 49px 32px 49px;
   }
 
+  :host-context(.default-theme) &{
+    padding-top: 0;
+  }
+
   ::ng-deep .aside &{
-    font-size: 16px;
-    line-height: 1.5;
+    font-size: 18px;
+    line-height: 1.94;
     padding: 11px 10px 20px;
   }
 
@@ -115,7 +119,7 @@
     &:first-child{
       padding: 0;
       ::ng-deep .aside &{
-        padding: 00;
+        padding: 0;
       }
     }
   }

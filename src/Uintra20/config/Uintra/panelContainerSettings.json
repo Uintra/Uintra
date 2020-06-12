@@ -1,5 +1,17 @@
 {
   "PanelContainerSettings": {
-    "HiddenPanelAliases": [ "basePanel", "mapPanel" ]
+    "HiddenPanelAliases": [
+      "basePanel",
+      "mapPanel",
+      "mailchimpPanel",
+      "messengerPanel",
+      "heroPanel",
+      "iconPanel",
+      "articleContinuedPanel",
+      "articleStartPanel",
+      "autoSuggest",
+      "svgPanel",
+      "newsPanel"
+    ]
   }
 }

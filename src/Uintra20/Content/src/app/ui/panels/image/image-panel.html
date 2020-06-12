@@ -5,5 +5,5 @@
     target="{{ data.link?.target || '_self' }}">
     <app-picture class="image-panel__image" *ngIf="data.image" [data]="data.image"></app-picture>
   </a>
-  <div *ngIf="data.description" class="image-panel__description" [innerHTML]="data.description"></div>
+  <div *ngIf="description" class="image-panel__description" [innerHTML]="description"></div>
 </section>

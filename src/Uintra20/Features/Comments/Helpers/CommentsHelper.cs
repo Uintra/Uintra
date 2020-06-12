@@ -106,7 +106,7 @@ namespace Uintra20.Features.Comments.Helpers
             model.ElementOverviewId = GetOverviewElementId(comment.ActivityId);
             model.CommentViewId = _commentsService.GetCommentViewId(comment.Id);
             model.CreatorProfileUrl = creator == null ? null : _profileLinkProvider.GetProfileLink(creator);
-            model.LinkPreview = comment.LinkPreview.Map<LinkPreviewViewModel>();
+            model.LinkPreview = comment.LinkPreview.Map<LinkPreviewModel>();
             model.LikedByCurrentUser = likes.Any(el => el.UserId == memberId);
             model.Likes = likes;
             model.LikeModel = GetLikesViewModel(comment.Id, memberId, likes);

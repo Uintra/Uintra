@@ -25,7 +25,7 @@ namespace Uintra20.Features.Comments.Models
         public string CommentViewId { get; set; }
         public IEnumerable<CommentViewModel> Replies { get; set; } = Enumerable.Empty<CommentViewModel>();
         public UintraLinkModel CreatorProfileUrl { get; set; }
-        public LinkPreviewViewModel LinkPreview { get; set; }
+        public LinkPreviewModel LinkPreview { get; set; }
         public LikesViewModel LikeModel { get; set; }
         public bool LikedByCurrentUser { get; set; }
         public IEnumerable<LikeModel> Likes { get; set; } = Enumerable.Empty<LikeModel>();

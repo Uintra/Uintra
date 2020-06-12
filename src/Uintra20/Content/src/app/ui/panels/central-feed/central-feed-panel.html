@@ -18,8 +18,8 @@
       [id]="publication.id"
     ></app-central-feed-publication>
 
-    <div class="central-feed__load-more-wrapper">
-      <button *ngIf="showLoadMore && !isFeedLoading" class="central-feed__load-more" (click)="onLoadMore()">
+    <div class="central-feed__load-more">
+      <button *ngIf="showLoadMore && !isFeedLoading" class="button-default" (click)="onLoadMore()">
         {{'loadMore.Label' | translate}}
       </button>
     </div>

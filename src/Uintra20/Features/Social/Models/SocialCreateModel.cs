@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Uintra20.Attributes;
 using Uintra20.Core.Activity.Models;
+using Uintra20.Features.LinkPreview.Models;
 using Uintra20.Features.Media.Contracts;
 
 namespace Uintra20.Features.Social.Models
@@ -18,7 +19,7 @@ namespace Uintra20.Features.Social.Models
         [RequiredIfEmpty(OtherProperty = nameof(Description))]
         public string NewMedia { get; set; }
         public int? LinkPreviewId { get; set; }
-        public LinkPreview.Models.LinkPreview LinkPreview { get; set; }
+        public LinkPreviewModel LinkPreview { get; set; }
         public Guid? GroupId { get; set; }
         public IEnumerable<Guid> TagIdsData { get; set; }
     }

@@ -35,6 +35,6 @@ namespace Uintra20.Core.Activity.Models
         public GroupInfo? GroupInfo { get; set; }
         public bool IsGroupMember { get; set; }
         public int? LinkPreviewId { get; set; }
-        public LinkPreview LinkPreview { get; set; }
+        public LinkPreviewModel LinkPreview { get; set; }
     }
 }

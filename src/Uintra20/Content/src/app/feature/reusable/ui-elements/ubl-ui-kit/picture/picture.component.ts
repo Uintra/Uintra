@@ -53,7 +53,7 @@ export class PictureComponent implements OnInit {
 
   isSvg()
   {
-    if(this.data.src.match(/\.svg$/)){
+    if(this.data && this.data.src && this.data.src.match(/\.svg$/)){
       return true;
     } else {
       return false;
