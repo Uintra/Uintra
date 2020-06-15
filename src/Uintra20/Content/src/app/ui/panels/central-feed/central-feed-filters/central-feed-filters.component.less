@@ -2,7 +2,7 @@
 
 .feed-filters {
   &__tabs {
-    margin-bottom: 20px;
+
   }
 
   &__bottom {
@@ -10,18 +10,27 @@
     justify-content: space-between;
     align-items: flex-start;
     margin-bottom: 20px;
+    flex-wrap: wrap;
   }
 
   &__filter {
-    margin-right: 30px;
+    &:not(:last-child) {
+      margin-right: 16px;
+
+      @media @sm-up {
+        margin-right: 30px;
+      }
+    }
   }
 
   &__button {
     .button-white;
     margin-left: auto;
+    margin-top: 20px;
   }
 
   &__wrapper {
     display: flex;
+    margin-top: 20px;
   }
 }

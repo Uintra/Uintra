@@ -1,12 +1,13 @@
 import { Component, Input, HostBinding } from "@angular/core";
 import { ILink } from "src/app/feature/reusable/ui-elements/ubl-ui-kit/core/interface/link";
 import { Html } from "src/app/feature/reusable/ui-elements/ubl-ui-kit/core/interface/types";
+import { SafeHtml } from '@angular/platform-browser';
 
 export interface IDocumentLibraryData {
   linkForHeadline: ILink;
   maxCountOfDocuments: number;
   listOrder: "Vertical" | "Horizontal";
-  richTextEditor: Html;
+  richTextEditor: SafeHtml;
   seeAllLink: ILink;
   title: string;
   mediaLibrary: Array<ILink & { extension: string }>;

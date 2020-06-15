@@ -31,7 +31,6 @@
   }
 
   &__rte {
-    max-width: 50%;
 
     a {
       .theme(link-color);
@@ -84,12 +83,34 @@
     }
   }
 
+  .file-extension {
+    text-decoration: none;
+    background: @body-text-color;
+    border-radius: 3px;
+    display: block;
+    font-size: 12px;
+    text-align: center;
+    line-height: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #fff;
+    margin: 0 0 5px;
+    width: 40px;
+    height: 19px;
+  }
+
   // Vertical layout
   &--vertical ::ng-deep {
     .document-library {
       &__link {
         font-size: 18px;
         .theme(link-color);
+
+        ::ng-deep .link {
+          &__link {
+            display: flex;
+          }
+        }
 
         &-text {
           text-decoration: underline;
@@ -98,10 +119,11 @@
             text-decoration: none;
           }
         }
+
+        .file-extension {
+          margin-right: 10px;
+        }
       }
-    }
-    .file-extension {
-      display: none;
     }
   }
 
@@ -111,22 +133,6 @@
       content: "";
       width: 40px;
       height: 40px;
-    }
-
-    .file-extension {
-      text-decoration: none;
-      background: @body-text-color;
-      border-radius: 3px;
-      display: block;
-      font-size: 12px;
-      text-align: center;
-      line-height: 20px;
-      font-weight: bold;
-      text-transform: uppercase;
-      color: #fff;
-      margin: 0 0 5px;
-      width: 40px;
-      height: 19px;
     }
 
     .document-library {
@@ -140,25 +146,25 @@
 
           ::ng-deep .link {
             &__link {
+              font-size: 18px;
               padding: 20px;
               border-radius: 5px;
               align-items: center;
               display: inline-flex;
-              border: 1px solid lightgray;
               width: 100%;
               flex-direction: column;
               text-decoration: none;
-              color: @body-text-color;
+              border: 1px solid lightgray;
             }
             &__text {
-              margin-top: 20px;
+              margin-top: 16px;
+              .theme(link-color);
             }
           }
         }
       }
       &__link-text {
-        font-size: 11px;
-        line-height: 13px;
+
         word-break: break-all;
         display: inline-block;
         overflow: visible;
@@ -166,3 +172,5 @@
     }
   }
 }
+
+

@@ -15,11 +15,12 @@
   h2 {
     font-size: 34px;
     line-height: 1.29;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 
     @media @sm-up{
       font-size: 40px;
       line-height: 1.3;
+      margin-bottom: 10px;
     }
 
     .aside &{
@@ -32,10 +33,11 @@
   h3 {
     font-size: 22px;
     line-height: 1.5;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 
     @media @md-up{
       font-size: 24px;
+      margin-bottom: 30px;
     }
     @media @lg-up{
       font-size: 24px;
@@ -44,6 +46,16 @@
     .aside &{
       font-size: 16px;
       line-height: 1.5;
+    }
+
+    & + ul,
+    & + ol {
+      @media @sm-up{
+       margin-top: 30px;
+      }
+      @media @md-up{
+        margin-top: 0;
+      }
     }
   }
 
@@ -57,13 +69,28 @@
     font-style: italic;
   }
 
+  ul, ol {
+    margin-bottom: 30px;
+
+    & + ul,
+    & + ol {
+      margin-top: -10px;
+
+      @media @sm-up{
+        margin-top: 0;
+      }
+
+      @media @md-up{
+        margin-top: 40px;
+      }
+    }
+  }
+
   ul {
     padding-left: 48px;
-    margin-bottom: 15px;
 
     @media @md-up{
       padding-left: 68px;
-      margin-bottom: 27px;
     }
 
     .aside &{
@@ -117,12 +144,10 @@
 
   ol {
     padding-left: 53px;
-    margin-bottom: 15px;
     counter-reset: newCounter;
 
     @media @md-up{
       padding-left: 73px;
-      margin-bottom: 27px;
     }
 
     .aside &{
@@ -191,14 +216,22 @@
   }
 
   p {
-    margin: 0 0 24px;
+    margin: 0 0 25px;
 
-    @media @md-up{
-      margin: 0 0 28px;
+    @media @sm-up{
+      margin: 0 0 30px;
     }
 
-    @media @lg-up{
-      margin: 0 0 33px;
+    @media @md-up{
+      margin: 0 0 35px;
+    }
+
+    & + h3 {
+      margin-top: 5px;
+
+      @media @md-up{
+        margin-top: -5px;
+      }
     }
   }
 
