@@ -10,15 +10,13 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class TextPanel {
   data: ITextPanelData;
+  description: any;
   @HostBinding('class') hostClasses;
 
   constructor(private sanitized: DomSanitizer) { }
 
-  get description() {
-    return this.sanitized.bypassSecurityTrustHtml(this.data.description);
-  }
-
   ngOnInit(){
     this.hostClasses = resolveThemeCssClass(this.data.panelSettings);
+    this.description = this.sanitized.bypassSecurityTrustHtml(this.data.description);
   }
 }
