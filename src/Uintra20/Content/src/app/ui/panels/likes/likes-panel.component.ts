@@ -1,12 +1,11 @@
-import { Component, ViewEncapsulation, HostBinding, OnInit } from '@angular/core';
+import { Component, HostBinding, OnInit } from '@angular/core';
 import { ILikeData } from 'src/app/feature/reusable/ui-elements/like-button/like-button.interface';
 import { ILikesPanel } from 'src/app/shared/interfaces/panels/likes/likes-panel.interface';
 
 @Component({
   selector: 'likes-panel',
   templateUrl: './likes-panel.html',
-  styleUrls: ['./likes-panel.less'],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./likes-panel.less']
 })
 export class LikesPanel implements OnInit {
   @HostBinding('class')

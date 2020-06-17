@@ -2,12 +2,17 @@
 
 .feed-item-tags {
     margin-bottom: 23px;
-  
+
+    ::ng-deep .aside &{
+      padding: 10px 10px 20px;
+      margin: 0;
+    }
+
     &__text {
       display: inline-block;
       margin-right: 20px;
     }
-  
+
     &__tag {
       display: inline-block;
       text-decoration: none;
@@ -16,7 +21,7 @@
       border-radius: 2px;
       color: @body-text-color;
       margin-bottom: 5px;
-  
+
       &:not(:last-child) {
         margin-right: 10px;
       }

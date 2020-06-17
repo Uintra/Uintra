@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation, NgZone, OnDestroy } from '@angular/core';
+import { Component, OnInit, NgZone, OnDestroy } from '@angular/core';
 import { PublicationsService, IFeedListRequest } from '../central-feed/helpers/publications.service';
 import { SignalrService } from 'src/app/shared/services/general/signalr.service';
 import { CentralFeedFiltersService } from '../central-feed/central-feed-filters/central-feed-filters.service';
@@ -11,8 +11,7 @@ import { Indexer } from '../../../shared/abstractions/indexer';
 @Component({
   selector: 'latest-activities-panel',
   templateUrl: './latest-activities-panel.component.html',
-  styleUrls: ['./latest-activities-panel.component.less'],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./latest-activities-panel.component.less']
 })
 export class LatestActivitiesPanelComponent extends Indexer<number> implements OnInit, OnDestroy {
 
