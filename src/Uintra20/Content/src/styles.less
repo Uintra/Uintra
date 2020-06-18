@@ -151,3 +151,33 @@ a{
     text-decoration: none;
   }
 }
+
+.accessibility-btn{
+  position:absolute;
+  left:-10000px;
+  top:0;
+  width:1px;
+  height:1px;
+  overflow:hidden;
+  z-index: 9999;
+  text-decoration: underline;
+  color: @text-reverse-color;
+  background: rgba(0,0, 0, 0.2);
+  padding: 0 7px;
+  font: bold 16px/2.5 @font;
+
+  &:hover {
+    text-decoration: none;
+  }
+
+  &:focus{
+    left:0;
+    width:auto;
+    height:auto;
+  }
+
+  &--bottom{
+    top:auto;
+    bottom:0;
+  }
+}
