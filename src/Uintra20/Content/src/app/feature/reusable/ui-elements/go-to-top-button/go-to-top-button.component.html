@@ -1,5 +1,5 @@
 <a href="#"
   class="go-to-top-button"
   [ngClass]="{ 'show-scrollTop': windowScrolled }"
-  (click)="scrollToTop()"
+  (click)="scrollToTop($event)"
 ><span>{{'goToTop.btn' | translate}}</span></a>

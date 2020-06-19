@@ -51,5 +51,14 @@ export class AppComponent implements OnInit {
   public closeLeftNav(): void {
     document.body.classList.remove('nav--open');
   }
+
+  scrollToBlock(event) {
+    event.preventDefault();
+    let targetElement = document.querySelectorAll(event.currentTarget.getAttribute('href'))[0];
+
+    window.scrollTo(0, targetElement.offsetTop);
+    targetElement.focus();
+  }
+
 }
 

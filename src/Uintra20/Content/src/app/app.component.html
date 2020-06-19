@@ -1,5 +1,5 @@
 <main class="main">
-  <a class="accessibility-btn accessibility-btn--top" href="#maincontent">Skip to main content</a>
+  <a class="accessibility-btn accessibility-btn--top" href="#maincontent" (click)="scrollToBlock($event)">{{'skipToContent.btn' | translate}}</a>
   <ng-container *ngIf="!isLoginPage && hasLeftLoginPage">
     <app-header></app-header>
   </ng-container>
@@ -22,7 +22,7 @@
       <router-outlet></router-outlet>
     </div>
   </div>
-  <a class="accessibility-btn accessibility-btn--bottom" href="#top">Back to top</a>
+  <a class="accessibility-btn accessibility-btn--bottom" href="#top" (click)="scrollToBlock($event)">{{'backToTop.btn' | translate}}</a>
 </main>
 
 <app-image-gallery></app-image-gallery>

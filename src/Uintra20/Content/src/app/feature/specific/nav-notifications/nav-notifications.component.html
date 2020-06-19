@@ -1,7 +1,9 @@
 <div class="nav-notification"
      (clickOutside)="hide()">
   <button (click)="onToggle()"
-          class="nav-notification__button">
+          class="nav-notification__button"
+          role="button"
+          aria-label="notification">
     <span class="icon-bell-icon"></span>
     <app-notification-count [count]="notificationCount"></app-notification-count>
   </button>

@@ -26,7 +26,9 @@ export class GoToTopButtonComponent {
       this.windowScrolled = false;
     }
   }
-  scrollToTop() {
+  scrollToTop(event) {
+    event.preventDefault();
+
     (function smoothscroll() {
       let currentScroll =
         document.documentElement.scrollTop || document.body.scrollTop;
