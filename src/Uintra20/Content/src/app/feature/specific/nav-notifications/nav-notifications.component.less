@@ -3,11 +3,6 @@
 :host {
   display: flex;
   align-items: flex-end;
-  padding: 12px 10px 0;
-
-  @media @md-up {
-    padding: 0 5px;
-  }
 }
 
 .nav-notification {
@@ -15,7 +10,6 @@
 
   @media @md-up {
     position: relative;
-    top: 3px;
   }
 
   &__button {
@@ -24,6 +18,11 @@
     color: @text-reverse-color;
     font-size: 24px;
     cursor: pointer;
+    padding: 10px 10px 0;
+
+    @media @md-up {
+      padding: 10px 5px 0;
+    }
   }
 
   &__count {
