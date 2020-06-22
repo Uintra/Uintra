@@ -3,6 +3,8 @@ import { ActivatedRoute, Router, ActivationStart, ChildActivationStart } from '@
 import { LoginPage } from './ui/pages/login/login-page.component';
 import { TranslateService } from '@ngx-translate/core';
 import { IApplication } from './shared/interfaces/components/application/iapplication.interface';
+import { HeaderService } from './shared/services/general/header.service';
+import { ViewportScroller } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -22,6 +24,8 @@ export class AppComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private translateService: TranslateService,
+    private headerService: HeaderService,
+    private viewportScroller: ViewportScroller
   ) {
     this.route.data.subscribe((data: IApplication) => {
       this.data = data;
@@ -50,14 +54,21 @@ export class AppComponent implements OnInit {
 
   public closeLeftNav(): void {
     document.body.classList.remove('nav--open');
+
   }
 
   scrollToBlock(event) {
     event.preventDefault();
     let targetElement = document.querySelectorAll(event.currentTarget.getAttribute('href'))[0];
 
-    window.scrollTo(0, targetElement.offsetTop);
+    if (this.headerService.height !== undefined)
+    {
+      this.viewportScroller.scrollToPosition([0, targetElement.offsetTop - this.headerService.height])
+    } else {
+      this.viewportScroller.scrollToPosition([0, targetElement.offsetTop])
+    }
     targetElement.focus();
+    targetElement.blur();
   }
 
 }
