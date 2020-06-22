@@ -103,7 +103,7 @@
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    font: @body-font;
+    font-family: @body-font;
     font-size: 16px;
     font-weight: bold;
     padding-right: 18px;
@@ -116,7 +116,11 @@
     display: flex;
     align-items: center;
     padding: 4px 1px 4px 17px;
-    cursor: pointer;
+    text-decoration: none;
+
+    &:hover{
+      text-decoration: underline;
+    }
   }
 
   &__avatar {
