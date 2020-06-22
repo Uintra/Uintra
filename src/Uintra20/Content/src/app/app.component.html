@@ -18,11 +18,10 @@
     </ng-container>
 
     <div class="content__wrap">
-      <app-go-to-top-button></app-go-to-top-button>
       <router-outlet></router-outlet>
+      <app-go-to-top-button></app-go-to-top-button>
     </div>
   </div>
-  <a class="accessibility-btn accessibility-btn--bottom" href="#top" (click)="scrollToBlock($event)">{{'backToTop.btn' | translate}}</a>
 </main>
 
 <app-image-gallery></app-image-gallery>
