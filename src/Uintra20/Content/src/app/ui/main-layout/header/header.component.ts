@@ -35,7 +35,8 @@ export class HeaderComponent implements OnInit {
     });
   }
 
-  openLeftNav() {
+  openLeftNav(event) {
+    event.preventDefault();
     document.body.classList.add("nav--open")
   }
 }
