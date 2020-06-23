@@ -1,7 +1,7 @@
 <div class="app-no-image">
   <div class="text rte">
     <h3 *ngIf="data.title" class="title">{{ data.title }}</h3>
-    <div *ngIf="data.description" class="description" [innerHTML]="data.description"></div>
+    <div *ngIf="data.description" class="description" [innerHTML]="data.description | trustHtml"></div>
     <span class="date" *ngIf="data.date">{{ data.date }}</span>
     <app-button *ngIf="data.link" class="link" [data]="data.link" [withArrow]="false"></app-button>
   </div>

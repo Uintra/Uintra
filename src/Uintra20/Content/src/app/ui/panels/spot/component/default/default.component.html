@@ -47,7 +47,7 @@
       <div
         class="spot-panel__item-description"
         *ngIf="item.description"
-        [innerHTML]="item.description"
+        [innerHTML]="item.description | trustHtml"
       ></div>
       <span class="spot-panel__item-date" *ngIf="item.date">{{
         item.date
