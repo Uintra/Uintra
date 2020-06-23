@@ -4,7 +4,7 @@
         [ngClass]="{'like-button--active': likeData?.likedByCurrentUser && !isDisabled}">
   <i class="icon-like"></i>
   <ng-container *ngIf="!isDisabled">
-    {{ likes }}
+    <span class="like-button__text">{{ likes }}</span>
     <span class="like-button-tooltip"
           *ngIf="userLikes?.length">
       <span *ngFor="let like of userLikes">{{ like.user }}</span>
