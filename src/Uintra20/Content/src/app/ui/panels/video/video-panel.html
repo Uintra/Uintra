@@ -8,7 +8,7 @@
       <div *ngIf="!videoData.thumbnail?.src" class="video-panel__thumbnail-ghost">
       </div>
     </button>
-    <div *ngIf="data.description" class="video-panel__description" [innerHTML]="data.description"></div>
+    <div *ngIf="data.description" class="video-panel__description rte" [innerHTML]="data.description | trustHtml" ></div>
 
   </div>
 </section>

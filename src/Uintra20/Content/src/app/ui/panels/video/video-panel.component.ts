@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, HostBinding } from '@angular/core';
+import { Component, ViewEncapsulation, HostBinding, Sanitizer } from '@angular/core';
 import { IVideoPanel, IVideoViewModel, IVideoPickerVideoData } from '../../../shared/interfaces/panels/video/video-panel.interface';
 import { resolveThemeCssClass } from 'src/app/feature/reusable/ui-elements/ubl-ui-kit/core/helpers/panel-settings';
 import { MqService, config } from 'src/app/shared/services/general/mq.service';
@@ -7,7 +7,7 @@ import { ModalService } from 'src/app/shared/services/general/modal.service';
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { Subscription } from 'rxjs';
 import { ModalVideoComponent } from 'src/app/feature/reusable/ui-elements/ubl-ui-kit/modal-video/modal-video.component';
-
+import { DomSanitizer } from '@angular/platform-browser'
 @Component({
   selector: 'video-panel',
   templateUrl: './video-panel.html',
@@ -25,7 +25,7 @@ export class VideoPanel {
     private thumbnailBuilder: ThumbnailBuilderService,
     private mq: MqService,
     private modalService: ModalService,
-    private bpObserver: BreakpointObserver,
+    private bpObserver: BreakpointObserver,    
   ) { }
 
   ngOnInit() {
