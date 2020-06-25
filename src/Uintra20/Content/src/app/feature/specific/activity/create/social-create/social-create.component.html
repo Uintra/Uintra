@@ -1,13 +1,15 @@
 <section class="create-bulletin"
          *ngIf="data && canCreatePosts()">
-  <div class="create-bulletin__input"
-       (click)="onShowPopUp()">
+  <a href="#" class="create-bulletin__input" (click)="onShowPopUp($event)">
     <app-user-avatar [photo]="userAvatar?.photo"
                      [name]="userAvatar?.name"></app-user-avatar>
-    <button class="create-bulletin__input-placeholder"
+    <span class="create-bulletin__input-placeholder">
+      {{getPlaceholder() | translate}}
+    </span>
+    <!-- <button class="create-bulletin__input-placeholder"
             (focus)="onShowPopUp()">{{getPlaceholder() | translate}}
-    </button>
-  </div>
+    </button> -->
+  </a>
   <div class="feed-btns">
     <div class="feed-btns__other-activities">
       <a *ngIf="data.createEventsLink"

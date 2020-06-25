@@ -41,10 +41,9 @@ export class SocialCreateComponent implements OnInit {
     };
   }
 
-  public onShowPopUp(): void {
-    if (this.data.canCreate) {
-      this.showPopUp();
-    }
+  public onShowPopUp(event): void {
+    event.preventDefault();
+    this.showPopUp();
   }
 
   public showPopUp(): void {
