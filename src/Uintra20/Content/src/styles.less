@@ -34,6 +34,7 @@ body {
     background-color: @main-body-bg;
     color: @body-text-color;
     font: 14px/1.3 @body-font;
+    padding: 70px 0 0;
 
     &.nav--open {
       overflow: hidden;
@@ -49,7 +50,6 @@ breadcrumb {
 }
 
 .main {
-  padding: 70px 0 0;
   .centering;
   display: block;
 }
@@ -58,10 +58,6 @@ breadcrumb {
   @media @md-up{
     display: flex;
   }
-}
-
-#maincontent{
-  outline: 0;
 }
 
 .page-header-wrapper{
@@ -163,7 +159,7 @@ a{
 .accessibility-btn{
   position:absolute;
   left:-10000px;
-  top:5px;
+  top:-65px;
   width:1px;
   height:1px;
   overflow:hidden;
