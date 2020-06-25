@@ -61,15 +61,11 @@ export class AppComponent implements OnInit {
     event.preventDefault();
     let targetElement = document.querySelectorAll(event.currentTarget.getAttribute('href'))[0];
 
-    if (this.headerService.height !== undefined)
-    {
-      this.viewportScroller.scrollToPosition([0, targetElement.offsetTop - this.headerService.height])
-    } else {
-      this.viewportScroller.scrollToPosition([0, targetElement.offsetTop])
-    }
+
     targetElement.focus();
     targetElement.blur();
-  }
 
+    this.viewportScroller.scrollToPosition([0, targetElement.offsetTop])
+  }
 }
 
