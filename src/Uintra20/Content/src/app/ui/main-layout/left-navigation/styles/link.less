@@ -101,10 +101,17 @@
     width: 18px;
     height: 18px;
     position: absolute;
-    background-repeat: no-repeat;
-    background-size: contain;
     top: 11px;
     right: 7px;
-    background-image: url("@{home-icon}");
+    
+    &:before{
+      content: '';
+      display: block;
+      background-image: url("@{home-icon}");
+      background-repeat: no-repeat;
+      background-size: contain;
+      width: 18px;
+      height: 18px;
+    }
   }
 }
