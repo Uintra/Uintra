@@ -60,21 +60,23 @@
 <app-link-preview *ngIf="editor?.firstLinkPreview && editor?.showLinkPreview" [firstLinkPreview]="editor.firstLinkPreview" [editor]="editor"></app-link-preview>
 
 <ng-template #default>
-  <button class="ql-bold" [title]="'Bold'"></button>
-  <button class="ql-italic" [title]="'Italic'"></button>
-  <button *ngIf="isUnderline" class="ql-underline" [title]="'Underline'"></button>
-  <button class="ql-link icon-link" [title]="'Link'"></button>
+  <button class="ql-bold" [title]="'Bold'" aria-label="bold" role="button"></button>
+  <button class="ql-italic" [title]="'Italic'" aria-label="italic" role="button"></button>
+  <button *ngIf="isUnderline" class="ql-underline" [title]="'Underline'" aria-label="underline" role="button"></button>
+  <button class="ql-link icon-link" [title]="'Link'" aria-label="link" role="button"></button>
   <button
     *ngIf="isDropzone"
     class="ql-dropzone icon-attachment"
     (click)="onShowDropdown()"
     [title]="'Attachments'"
+    aria-label="attachments"
+    role="button"
   ></button>
 </ng-template>
 
 <ng-template #comments>
   <div *ngIf="isEmoji" class="emoji-container" (clickOutside)="closeEmojiPalette()">
-    <button class="icon-smily" (click)="toggleEmojiPalette()" [title]="'Emoji'"></button>
+    <button class="icon-smily" (click)="toggleEmojiPalette()" [title]="'Emoji'" aria-label="emoji" role="button"></button>
     <app-rich-text-editor-emoji [ngClass]="{ 'hidden': !isEmojiPalette }" (emojiClick)="addEmoji($event)"></app-rich-text-editor-emoji>
   </div>
   <ng-container *ngTemplateOutlet="default"></ng-container>
@@ -91,7 +93,7 @@
   <button type="button" class="ql-list" value="ordered" [title]="'Ordered list'"></button>
   <button type="button" class="ql-list" value="bullet" [title]="'Bullet list'"></button>
   <div *ngIf="isEmoji" class="emoji-container" (clickOutside)="closeEmojiPalette()">
-    <button class="icon-smily" (click)="toggleEmojiPalette()" [title]="'Emoji'"></button>
+    <button class="icon-smily" (click)="toggleEmojiPalette()" [title]="'Emoji'" aria-label="emoji" role="button"></button>
     <app-rich-text-editor-emoji [ngClass]="{ 'hidden': !isEmojiPalette }" (emojiClick)="addEmoji($event)"></app-rich-text-editor-emoji>
   </div>
   <button type="button" class="ql-clean" [title]="'Clean'"></button>
