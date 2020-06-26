@@ -12,14 +12,15 @@
     <div class="search-holder">
       <input
         type="search"
-        ariaLabel="search"
         id="search"
         name="search"
         class="search-holder__input"
         placeholder="{{'userList.Search.Placeholder.lbl' | translate}}"
         autocomplete="off"
-        #query
+        aria-label="Search"
+        role="search"
 
+        #query
         [value]="inputValue"
         (keyup)="onQueryChange(query.value)"/>
 

@@ -25,6 +25,7 @@
               <button class="icon-close avatar-remove"
                       (click)="processAvatarDelete()"></button>
               <img [src]="data.profile.photo"
+                    [alt]="data.profile.lastName"
                    class="avatar">
             </div>
             <div *ngIf="!data.profile.photo">
