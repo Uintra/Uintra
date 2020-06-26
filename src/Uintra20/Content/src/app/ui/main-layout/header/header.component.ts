@@ -1,7 +1,8 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, ElementRef } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { MqService } from 'src/app/shared/services/general/mq.service';
 import { IULink } from "src/app/shared/interfaces/general.interface";
+import { HeaderService } from "src/app/shared/services/general/header.service";
 
 @Component({
   selector: 'app-header',
@@ -19,7 +20,12 @@ export class HeaderComponent implements OnInit {
   isDesktop: boolean;
   userListPage: IULink;
 
-  constructor(private http: HttpClient, private mq: MqService) { }
+  constructor(
+    private http: HttpClient,
+    private mq: MqService,
+    private headerService: HeaderService,
+    private elRef: ElementRef<HTMLElement>)
+  { }
 
   get isDesktopGeter() {
     return this.isDesktop;
@@ -33,9 +39,24 @@ export class HeaderComponent implements OnInit {
     .subscribe(res => {
       this.userListPage = res;
     });
+
+    this.mq.mobileDesktop(
+      () => {this.syncHeaderHeight()},
+      () => {this.syncHeaderHeight()}
+    );
+  }
+  ngAfterViewInit()
+  {
+    this.syncHeaderHeight();
   }
 
-  openLeftNav() {
+  openLeftNav(event) {
+    event.preventDefault();
     document.body.classList.add("nav--open")
+  }
+
+  private syncHeaderHeight()
+  {
+    this.headerService.height = this.elRef.nativeElement.offsetHeight;
   }
 }

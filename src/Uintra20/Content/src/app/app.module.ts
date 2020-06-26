@@ -23,6 +23,7 @@ import { NavNotificationsModule } from './feature/specific/nav-notifications/nav
 import { SearchModule } from './feature/reusable/inputs/search/search.module';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslationsLoader } from './shared/services/general/translations-loader';
+import { TrustHtmlPipe } from './shared/pipes/trust-html/trust-html.pipe';
 
 @NgModule({
   declarations: [

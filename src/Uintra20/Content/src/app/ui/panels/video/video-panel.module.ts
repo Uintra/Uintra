@@ -10,6 +10,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { LayoutModule } from '@angular/cdk/layout';
 import { ModalVideoModule } from 'src/app/feature/reusable/ui-elements/ubl-ui-kit/modal-video/modal-video.module';
 import { ModalVideoComponent } from 'src/app/feature/reusable/ui-elements/ubl-ui-kit/modal-video/modal-video.component';
+import { TrustHtmlModule } from 'src/app/shared/pipes/trust-html/trust-html.module';
 
 @NgModule({
   declarations: [VideoPanel],
@@ -20,6 +21,7 @@ import { ModalVideoComponent } from 'src/app/feature/reusable/ui-elements/ubl-ui
     TranslateModule,
     LayoutModule,
     ModalVideoModule,
+    TrustHtmlModule
   ],
   providers: [{provide: AS_DYNAMIC_COMPONENT, useValue: VideoPanel}, ModalService],
   entryComponents: [VideoPanel, ModalVideoComponent]

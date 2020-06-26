@@ -2,7 +2,7 @@
   <app-group-details-wrapper *ngIf="data?.groupHeader"
                              [data]="data.groupHeader">
     <div class="group-details-padding">
-      <div class="page-wrapper">
+      <div class="page-wrapper" id="maincontent">
         <div class="col-md-8">
           <app-news-form edit
                        [data]="newsData"
@@ -17,7 +17,7 @@
     </div>
   </app-group-details-wrapper>
   <div *ngIf="!data?.groupHeader"
-       class="page-wrapper">
+       class="page-wrapper" id="maincontent">
        <div class="col-md-8">
          <app-news-form edit
                         [data]="newsData"

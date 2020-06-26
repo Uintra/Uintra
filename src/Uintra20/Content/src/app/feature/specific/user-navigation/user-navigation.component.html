@@ -1,5 +1,5 @@
 <div *ngIf="data" class="user-navigation">
-  <div *ngIf="data.currentMember" class="user__opener" (click)="toggleUserNavigation($event)">
+  <a *ngIf="data.currentMember" href="#" class="user__opener" (click)="toggleUserNavigation($event)" role="button">
     <div *ngIf="data.currentMember.displayedName" class="user__name">{{data.currentMember.displayedName}}</div>
     <div class="user__avatar">
       <app-user-avatar
@@ -8,7 +8,7 @@
         [name]="data.currentMember.displayedName"></app-user-avatar>
     </div>
     <span class="user__opener-arrow"></span>
-  </div>
+  </a>
   <ul class="menu" [ngClass]="{'menu--expanded': isNavigationExpanded}" (clickOutside)="closeUserNavigation()">
     <li *ngFor="let item of data.items" class="menu__item">
       <button

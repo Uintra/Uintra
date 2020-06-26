@@ -45,8 +45,9 @@ export class UserNavigationComponent implements OnInit, OnDestroy {
     if (this.$redirect) { this.$redirect.unsubscribe(); }
   }
 
-  public toggleUserNavigation(e): void {
-    e.stopPropagation();
+  public toggleUserNavigation(event): void {
+    event.preventDefault();
+    event.stopPropagation();
     this.navigationExpanded = !this.navigationExpanded;
   }
 

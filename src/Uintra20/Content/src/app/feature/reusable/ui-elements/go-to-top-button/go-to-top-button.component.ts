@@ -26,14 +26,12 @@ export class GoToTopButtonComponent {
       this.windowScrolled = false;
     }
   }
-  scrollToTop() {
-    (function smoothscroll() {
-      let currentScroll =
-        document.documentElement.scrollTop || document.body.scrollTop;
-      if (currentScroll > 0) {
-        window.requestAnimationFrame(smoothscroll);
-        window.scrollTo(0, currentScroll - currentScroll / 8);
-      }
-    })();
+
+  scrollToBlock(event) {
+    event.preventDefault();
+    let targetElement = document.querySelectorAll(event.currentTarget.getAttribute('href'))[0];
+
+    window.scrollTo(0, targetElement.offsetTop);
+    targetElement.focus();
   }
 }

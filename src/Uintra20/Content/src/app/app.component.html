@@ -1,4 +1,5 @@
 <main class="main">
+  <a class="accessibility-btn accessibility-btn--top" href="#maincontent" (click)="scrollToBlock($event)">{{'skipToContent.btn' | translate}}</a>
   <ng-container *ngIf="!isLoginPage && hasLeftLoginPage">
     <app-header></app-header>
   </ng-container>
@@ -9,7 +10,7 @@
         <div class="nav__header">
           <!--TODO: mobile search-->
           <app-search></app-search>
-          <button class="nav__close" (click)="closeLeftNav()"></button>
+          <button class="nav__close" (click)="closeLeftNav()" role="button" aria-label="close"></button>
         </div>
 
         <app-left-navigation></app-left-navigation>
@@ -17,8 +18,8 @@
     </ng-container>
 
     <div class="content__wrap">
-      <app-go-to-top-button></app-go-to-top-button>
       <router-outlet></router-outlet>
+      <app-go-to-top-button></app-go-to-top-button>
     </div>
   </div>
 </main>
