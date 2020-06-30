@@ -13,7 +13,8 @@ import { ISocialCreateModel } from '../../../../activity.interfaces';
 import { finalize } from 'rxjs/operators';
 import ParseHelper from 'src/app/shared/utils/parse.helper';
 import { MAX_LENGTH } from 'src/app/shared/constants/activity/activity-create.const';
-import { NgxFocusTrapModule } from 'ngx-focus-trap';
+import { NgxFocusTrapDirective } from 'ngx-focus-trap';
+
 @Component({
   selector: 'app-social-pop-up',
   templateUrl: './social-pop-up.component.html',
@@ -24,7 +25,7 @@ export class SocialPopUpComponent implements OnInit
   public data: ISocialCreate;
 
   @ViewChild('dropdownRef', { static: false }) public dropdownRef: DropzoneComponent;
-  @ViewChild('ngxFocus', { static: false }) public modalWrap: NgxFocusTrapModule;
+  @ViewChild('ngxFocus', { static: false }) public modalWrap: NgxFocusTrapDirective;
 
   @HostListener('window:beforeunload') public doSomething() {
     return !this.hasDataChangedService.hasDataChanged;
@@ -133,19 +134,18 @@ export class SocialPopUpComponent implements OnInit
   public addLinkPreview(linkPreviewId: number) {
     this.linkPreviewId = linkPreviewId;
   }
-  
+
   public onHidePopUp(): void {
     if (this.description || this.files.length) {
       if (confirm(this.translate.instant('common.AreYouSure'))) {
         this.resetForm();
         this.hidePopUp();
-
-        //this.modalWrap.deactivateFocusTrap();
+        this.modalWrap.deactivateFocusTrap()
       }
     } else {
       this.resetForm();
       this.hidePopUp();
-
+      this.modalWrap.deactivateFocusTrap()
     }
   }
 
@@ -155,14 +155,14 @@ export class SocialPopUpComponent implements OnInit
     this.hasDataChangedService.reset();
     this.RTEService.linkPreviewSource.next(null);
   }
-  
+
   public resetForm(): void {
     this.files = [];
     this.tags = [];
     this.description = "";
     this.linkPreviewId = null;
   }
-  
+
   public ngOnDestroy(): void {
     if (this.$socialCreateSubscription) { this.$socialCreateSubscription.unsubscribe(); }
   }
