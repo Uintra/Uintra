@@ -17,8 +17,8 @@ export class LeftNavigationService {
     this.updateOpeningState();
   }
 
-  setOpeningState(item: INavigationItem) {
-    this.openingState = { ...this.openingState, [item.id]: !item.isSelected };
+  setOpeningState(item: INavigationItem, state: boolean) {
+    this.openingState = { ...this.openingState, [item.id]: state };
 
     this.cookieService.set(this.openingStateProperty, JSON.stringify(this.openingState));
     this.updateOpeningState();
