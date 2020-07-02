@@ -62,8 +62,12 @@ export class LeftNavigationComponent implements OnInit, AfterViewInit {
   }
 
   onToggleItem(item: INavigationItem) {
-    this.leftNavigationService.setOpeningState(item);
+    this.leftNavigationService.setOpeningState(item, !item.isSelected);
     item.isSelected = !item.isSelected;
+  }
+  onShowItem(item: INavigationItem) {
+    this.leftNavigationService.setOpeningState(item, true);
+    item.isSelected = true;
   }
 
   getNestingPadding(level: number) {

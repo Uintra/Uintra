@@ -19,7 +19,7 @@
       [hidden]="!isOpen"
       [ngClass]="{ active: sharedLinksItem.isSelected }"
     >
-      <li class="left-nav__item">
+      <li *ngIf="sharedLinksItem.linksGroupTitle" class="left-nav__item">
         <span class="left-nav__item-link">
           {{ sharedLinksItem.linksGroupTitle }}
         </span>

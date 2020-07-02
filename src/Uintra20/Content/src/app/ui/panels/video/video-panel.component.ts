@@ -44,7 +44,8 @@ export class VideoPanel {
     this.videoData = this.prepareVm(this.data && this.data.video && this.data.video.desktop);
   }
 
-  open() {
+  open(event) {
+    event.preventDefault();
     this.modalService.appendComponentToBody(ModalVideoComponent, {data: this.videoData})
   }
 

@@ -1,7 +1,7 @@
 <div *ngIf="firstLinkPreview" class="link-preview-wrapper">
   <div class="link-preview">
     <div class="link-preview__image-wrapper">
-      <img [src]="firstLinkPreview.imageUri" class="link-preview__image">
+      <img [src]="firstLinkPreview.imageUri" class="link-preview__image" [alt]="firstLinkPreview.title">
     </div>
     <div class="link-preview__info">
       <a

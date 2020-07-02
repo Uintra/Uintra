@@ -49,24 +49,26 @@
 </ng-template>
 
 <ng-template #itemLink let-item>
-  <span
+  <button
     *ngIf="item.isHeading"
     class="left-nav__item-link"
     [ngStyle]="getNestingPadding(item.level)"
+    (click)="onToggleItem(item)"
   >
     {{ item.name }}
-  </span>
+  </button>
 
   <a
     *ngIf="!item.isHeading"
     class="left-nav__item-link left-nav__item-link--with-hover"
+    (click)="onShowItem(item)"
     routerLinkActive="active"
     [routerLink]="item.url"
     [ngStyle]="getNestingPadding(item.level)"
     [routerLinkActiveOptions]="{ exact: true }"
   >
     {{ item.name }}
+    <span class="left-nav__home" *ngIf="item.isHomePage"></span>
   </a>
 
-  <span class="left-nav__home" *ngIf="item.isHomePage"></span>
 </ng-template>

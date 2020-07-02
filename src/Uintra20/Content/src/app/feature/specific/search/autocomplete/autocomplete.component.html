@@ -2,15 +2,16 @@
   <div class="autocomplete-holder">
     <input
       type="search"
-      ariaLabel="search"
       id="search"
       name="search"
       class="autocomplete-holder__input"
       placeholder="Search"
       autocomplete="off"
       accesskey="4"
-      #query
+      aria-label="Search"
+      role="search"
 
+      #query
       [ngModel]="inputValue"
       (ngModelChange)="onQueryChange($event)"
       (keyup)="onKeyClick($event.keyCode)"

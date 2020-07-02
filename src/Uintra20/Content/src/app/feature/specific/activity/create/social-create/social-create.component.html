@@ -15,13 +15,15 @@
       <a *ngIf="data.createEventsLink"
          class="button-default"
          [routerLink]="data.createEventsLink.baseUrl | ulink"
-         [queryParams]="data.createEventsLink.params | uparams">
+         [queryParams]="data.createEventsLink.params | uparams"
+         role="button">
         {{'centralFeed.CreateLink_Events.lnk' | translate}}
       </a>
       <a *ngIf="data.createNewsLink"
          class="button-default"
          [routerLink]="data.createNewsLink.baseUrl | ulink"
-         [queryParams]="data.createNewsLink.params | uparams" >
+         [queryParams]="data.createNewsLink.params | uparams" 
+         role="button">
         {{'centralFeed.CreateLink_News.lnk' | translate}}
       </a>
     </div>

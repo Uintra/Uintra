@@ -19,6 +19,7 @@
   }
 
   &__item-link {
+    .reset-button;
     display: block;
     width: 100%;
     white-space: nowrap;
@@ -30,6 +31,7 @@
     padding: 11px 32px 9px 19px;
     color: @heading-bg;
     text-decoration: none;
+    text-align: left;
 
     &--inside {
       padding-left: 30px;
@@ -101,10 +103,17 @@
     width: 18px;
     height: 18px;
     position: absolute;
-    background-repeat: no-repeat;
-    background-size: contain;
     top: 11px;
     right: 7px;
-    background-image: url("@{home-icon}");
+
+    &:before{
+      content: '';
+      display: block;
+      background-image: url("@{home-icon}");
+      background-repeat: no-repeat;
+      background-size: contain;
+      width: 18px;
+      height: 18px;
+    }
   }
 }
