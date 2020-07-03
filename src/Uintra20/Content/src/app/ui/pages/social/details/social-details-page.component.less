@@ -87,13 +87,13 @@
     padding: 1px;
     position: relative;
 
-    &:only-child {
-      max-width: 100%;
-    }
-
     @media @md-down {
       max-width: 33.3%;
       flex: 33.3%;
+
+      &:only-child {
+        max-width: 100%;
+      }
     }
 
     @media @sm-down {
