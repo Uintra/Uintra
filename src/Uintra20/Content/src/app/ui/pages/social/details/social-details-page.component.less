@@ -87,9 +87,18 @@
     padding: 1px;
     position: relative;
 
+    &:only-child {
+      max-width: 100%;
+    }
+
     @media @md-down {
       max-width: 33.3%;
       flex: 33.3%;
+    }
+
+    @media @sm-down {
+      max-width: 50%;
+      flex: 50%;
     }
 
     & .icon-video-play {
