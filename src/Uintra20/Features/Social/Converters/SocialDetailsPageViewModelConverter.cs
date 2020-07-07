@@ -9,6 +9,7 @@ using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Services;
 using Uintra20.Core.UbaselineModels.RestrictedNode;
 using Uintra20.Features.Groups.Helpers;
+using Uintra20.Features.Groups.Services;
 using Uintra20.Features.Links;
 using Uintra20.Features.Media;
 using Uintra20.Features.Media.Helpers;
@@ -32,6 +33,7 @@ namespace Uintra20.Features.Social.Converters
         private readonly IPermissionsService _permissionsService;
         private readonly IGroupHelper _groupHelper;
         private readonly IUBaselineRequestContext _context;
+        private readonly IGroupService _groupService;
         public SocialDetailsPageViewModelConverter(
             IFeedLinkService feedLinkService,
             IIntranetMemberService<IntranetMember> memberService,
@@ -41,7 +43,8 @@ namespace Uintra20.Features.Social.Converters
             IPermissionsService permissionsService,
             IGroupHelper groupHelper,
             IErrorLinksService errorLinksService, 
-            IUBaselineRequestContext context)
+            IUBaselineRequestContext context,
+            IGroupService groupService)
             : base(errorLinksService)
         {
             _feedLinkService = feedLinkService;
@@ -52,6 +55,7 @@ namespace Uintra20.Features.Social.Converters
             _permissionsService = permissionsService;
             _groupHelper = groupHelper;
             _context = context;
+            _groupService = groupService;
         }
 
         public override ConverterResponseModel MapViewModel(SocialDetailsPageModel node, SocialDetailsPageViewModel viewModel)
@@ -63,6 +67,13 @@ namespace Uintra20.Features.Social.Converters
             var social = _socialService.Get(id.Value);
 
             if (social == null) return NotFoundResult();
+
+            if (social.GroupId.HasValue)
+            {
+                var group = _groupService.Get(social.GroupId.Value);
+                if (group != null && group.IsHidden)
+                    return NotFoundResult();
+            }
 
             if (!_permissionsService.Check(PermissionResourceTypeEnum.Social, PermissionActionEnum.View))
             {

@@ -34,6 +34,7 @@ namespace Uintra20.Features.Social.Converters
         private readonly IGroupMemberService _groupMemberService;
         private readonly IGroupHelper _groupHelper;
         private readonly IUBaselineRequestContext _context;
+        private readonly IGroupService _groupService;
 
         public SocialCreatePageViewModelConverter(
             ISocialService<Entities.Social> socialService,
@@ -44,7 +45,8 @@ namespace Uintra20.Features.Social.Converters
             IGroupMemberService groupMemberService,
             IGroupHelper groupHelper,
             IErrorLinksService errorLinksService, 
-            IUBaselineRequestContext context)
+            IUBaselineRequestContext context,
+            IGroupService groupService)
             : base(errorLinksService)
         {
             _socialService = socialService;
@@ -55,11 +57,19 @@ namespace Uintra20.Features.Social.Converters
             _groupMemberService = groupMemberService;
             _groupHelper = groupHelper;
             _context = context;
+            _groupService = groupService;
         }
 
         public override ConverterResponseModel MapViewModel(SocialCreatePageModel node, SocialCreatePageViewModel viewModel)
         {
             var groupId = _context.ParseQueryString("groupId").TryParseGuid();
+
+            if (groupId.HasValue)
+            {
+                var group = _groupService.Get(groupId.Value);
+                if (group == null || group.IsHidden)
+                    return NotFoundResult();
+            }
 
             if (!HasPermission(groupId))
             {

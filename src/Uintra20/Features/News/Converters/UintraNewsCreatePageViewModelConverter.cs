@@ -33,6 +33,7 @@ namespace Uintra20.Features.News.Converters
         private readonly IGroupMemberService _groupMemberService;
         private readonly IGroupHelper _groupHelper;
         private readonly IUBaselineRequestContext _context;
+        private readonly IGroupService _groupService;
 
         public UintraNewsCreatePageViewModelConverter(
             INewsService<Entities.News> newsService,
@@ -43,7 +44,8 @@ namespace Uintra20.Features.News.Converters
             IGroupMemberService groupMemberService,
             IGroupHelper groupHelper,
             IErrorLinksService errorLinksService,
-            IUBaselineRequestContext context)
+            IUBaselineRequestContext context,
+            IGroupService groupService)
             : base(errorLinksService)
         {
             _memberService = memberService;
@@ -54,11 +56,19 @@ namespace Uintra20.Features.News.Converters
             _groupMemberService = groupMemberService;
             _groupHelper = groupHelper;
             _context = context;
+            _groupService = groupService;
         }
 
         public override ConverterResponseModel MapViewModel(UintraNewsCreatePageModel node, UintraNewsCreatePageViewModel viewModel)
         {
             var groupId = _context.ParseQueryString("groupId").TryParseGuid();
+
+            if (groupId.HasValue)
+            {
+                var group = _groupService.Get(groupId.Value);
+                if (group == null || group.IsHidden)
+                    return NotFoundResult();
+            }
 
             if (!HasPermission(groupId)) return ForbiddenResult();
 

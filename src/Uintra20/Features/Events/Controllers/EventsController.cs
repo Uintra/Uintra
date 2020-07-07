@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Http;
 using AutoMapper;
 using Microsoft.AspNet.SignalR;
@@ -65,8 +66,13 @@ namespace Uintra20.Features.Events.Controllers
         }
 
         [HttpPost]
-        public IHttpActionResult Create(EventCreateModel createModel)
+        public async Task<IHttpActionResult> Create(EventCreateModel createModel)
         {
+            if (!await _eventsService.CanCreateAsync(createModel.GroupId))
+            {
+                return StatusCode(System.Net.HttpStatusCode.Forbidden);
+            }
+
             var @event = MapToEvent(createModel);
             var activityId = _eventsService.Create(@event);
 
@@ -90,8 +96,13 @@ namespace Uintra20.Features.Events.Controllers
         }
 
         [HttpPut]
-        public IHttpActionResult Edit(EventEditModel editModel)
+        public async Task<IHttpActionResult> Edit(EventEditModel editModel)
         {
+            if (!await _eventsService.CanEditAsync(editModel.Id))
+            {
+                return StatusCode(System.Net.HttpStatusCode.Forbidden);   
+            }
+
             var cachedActivityMedias = _eventsService.Get(editModel.Id).MediaIds;
 
             var activity = MapToEvent(editModel);

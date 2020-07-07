@@ -32,5 +32,6 @@ namespace Uintra20.Core.Activity
         Task DeleteAsync(Guid id);
         Task<bool> CanEditAsync(Guid id);
         Task<bool> CanDeleteAsync(Guid id);
+        Task<bool> CanCreateAsync(Guid? groupId);
     }
 }

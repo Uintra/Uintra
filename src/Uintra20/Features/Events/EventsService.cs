@@ -98,7 +98,9 @@ namespace Uintra20.Features.Events
                 activityLocationService,
                 activityLinkPreviewService,
                 intranetMemberService,
-                permissionsService)
+                permissionsService,
+                groupActivityService,
+                groupService)
         {
             _commentsService = commentsService;
             _likesService = likesService;

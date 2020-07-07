@@ -1,6 +1,7 @@
 ﻿using Uintra20.Core.Activity;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Services;
+using Uintra20.Features.Groups.Services;
 using Uintra20.Features.LinkPreview.Services;
 using Uintra20.Features.Location.Services;
 using Uintra20.Features.Media.Intranet.Services.Contracts;
@@ -20,7 +21,9 @@ namespace Uintra20.Features.Social
             IActivityLocationService activityLocationService,
             IActivityLinkPreviewService activityLinkPreviewService,
             IIntranetMemberService<IntranetMember> intranetMemberService,
-            IPermissionsService permissionsService
+            IPermissionsService permissionsService,
+            IGroupActivityService groupActivityService,
+            IGroupService groupService
         )
             : base(
                 activityRepository, 
@@ -30,7 +33,9 @@ namespace Uintra20.Features.Social
                 activityLocationService,
                 activityLinkPreviewService,
                 intranetMemberService,
-                permissionsService)
+                permissionsService,
+                groupActivityService,
+                groupService)
         {
         }
     }

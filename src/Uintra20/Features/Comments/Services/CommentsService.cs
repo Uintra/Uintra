@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Uintra20.Features.Comments.Models;
 using Uintra20.Features.Comments.Sql;
+using Uintra20.Features.Groups.Services;
 using Uintra20.Infrastructure.Extensions;
 using Uintra20.Persistence.Sql;
 
@@ -13,11 +14,18 @@ namespace Uintra20.Features.Comments.Services
     {
         private readonly ISqlRepository<Guid, Comment> _commentsRepository;
         private readonly ICommentLinkPreviewService _commentLinkPreviewService;
+        private readonly IGroupActivityService _groupActivityService;
+        private readonly IGroupService _groupService;
 
-        public CommentsService(ICommentLinkPreviewService commentLinkPreviewService, ISqlRepository<Guid, Comment> commentsRepository)
+        public CommentsService(ICommentLinkPreviewService commentLinkPreviewService,
+            ISqlRepository<Guid, Comment> commentsRepository,
+            IGroupActivityService groupActivityService,
+            IGroupService groupService)
         {
             _commentLinkPreviewService = commentLinkPreviewService;
             _commentsRepository = commentsRepository;
+            _groupActivityService = groupActivityService;
+            _groupService = groupService;
         }
 
         #region async
@@ -151,12 +159,12 @@ namespace Uintra20.Features.Comments.Services
 
         public virtual bool CanEdit(CommentModel comment, Guid editorId)
         {
-            return comment.UserId == editorId;
+            return (comment.UserId == editorId) && !IsHiddenGroup(comment);
         }
 
         public virtual bool CanDelete(CommentModel comment, Guid editorId)
         {
-            return comment.UserId == editorId;
+            return (comment.UserId == editorId) && !IsHiddenGroup(comment);
         }
 
         public virtual bool WasChanged(CommentModel comment)
@@ -250,6 +258,18 @@ namespace Uintra20.Features.Comments.Services
 
         public bool IsExistsUserComment(Guid activityId, Guid userId) =>
             _commentsRepository.Exists(c => c.ActivityId == activityId && c.UserId == userId);
+
+        private bool IsHiddenGroup(CommentModel comment)
+        {
+            var groupId = _groupActivityService.GetGroupId(comment.ActivityId);
+            if (groupId.HasValue)
+            {
+                var group = _groupService.Get(groupId.Value);
+                if (group == null || group.IsHidden)
+                    return true;
+            }
+            return false;
+        }
 
         #endregion
     }

@@ -34,6 +34,7 @@ namespace Uintra20.Features.Likes.Controllers
         private readonly IGroupActivityService _groupActivityService;
         private readonly ICommentsService _commentsService;
         private readonly IActivityTypeHelper _activityTypeHelper;
+        private readonly IGroupService _groupService;
 
         public LikesController(
             IActivitiesServiceFactory activitiesServiceFactory,
@@ -42,7 +43,8 @@ namespace Uintra20.Features.Likes.Controllers
             ICommandPublisher commandPublisher,
             IGroupActivityService groupActivityService,
             ICommentsService commentsService,
-            IActivityTypeHelper activityTypeHelper)
+            IActivityTypeHelper activityTypeHelper,
+            IGroupService groupService)
         {
             _activitiesServiceFactory = activitiesServiceFactory;
             _intranetMemberService = intranetMemberService;
@@ -51,6 +53,7 @@ namespace Uintra20.Features.Likes.Controllers
             _groupActivityService = groupActivityService;
             _commentsService = commentsService;
             _activityTypeHelper = activityTypeHelper;
+            _groupService = groupService;
         }
 
         [HttpGet]
@@ -68,7 +71,7 @@ namespace Uintra20.Features.Likes.Controllers
         [HttpPost]
         public async Task<IHttpActionResult> AddLike([FromUri]Guid entityId, [FromUri]IntranetEntityTypeEnum entityType)
         {
-            if (!await CanAddLikeAsync(entityId, entityType))
+            if (!await CanAddRemoveLikeAsync(entityId, entityType))
             {
                 return StatusCode(HttpStatusCode.Forbidden);
             }
@@ -95,8 +98,11 @@ namespace Uintra20.Features.Likes.Controllers
         [HttpPost]
         public async Task<IEnumerable<LikeModel>> RemoveLike(Guid entityId, IntranetEntityTypeEnum entityType)
         {
-            var command = new RemoveLikeCommand(entityId, entityType, await _intranetMemberService.GetCurrentMemberIdAsync());
-            _commandPublisher.Publish(command);
+            if (await CanAddRemoveLikeAsync(entityId, entityType))
+            {
+                var command = new RemoveLikeCommand(entityId, entityType, await _intranetMemberService.GetCurrentMemberIdAsync());
+                _commandPublisher.Publish(command);
+            }
 
             switch (entityType)
             {
@@ -114,12 +120,19 @@ namespace Uintra20.Features.Likes.Controllers
             }
         }
 
-        private async Task<bool> CanAddLikeAsync(Guid entityId, IntranetEntityTypeEnum entityType)
+        private async Task<bool> CanAddRemoveLikeAsync(Guid entityId, IntranetEntityTypeEnum entityType)
         {
             if (entityType.Is(IntranetEntityTypeEnum.Social, IntranetEntityTypeEnum.News, IntranetEntityTypeEnum.Events))
             {
                 var member = await _intranetMemberService.GetCurrentMemberAsync();
                 var activityGroupId = _groupActivityService.GetGroupId(entityId);
+
+                if (activityGroupId.HasValue)
+                {
+                    var group = _groupService.Get(activityGroupId.Value);
+                    if (group == null || group.IsHidden)
+                        return false;
+                }
 
                 if (activityGroupId.HasValue && !member.GroupIds.Contains(activityGroupId.Value))
                 {
@@ -131,7 +144,7 @@ namespace Uintra20.Features.Likes.Controllers
                 var comment = await _commentsService.GetAsync(entityId);
                 var activityType = _activityTypeHelper.GetActivityType(comment.ActivityId);
 
-                return await CanAddLikeAsync(comment.ActivityId, (IntranetEntityTypeEnum)activityType);
+                return await CanAddRemoveLikeAsync(comment.ActivityId, (IntranetEntityTypeEnum)activityType);
             }
 
             return true;
