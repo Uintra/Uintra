@@ -43,7 +43,8 @@
                               [filesLength]="files.length"
                               [allowedExtensions]="allowedExtensions"
                               (success)="onUploadSuccess($event)"
-                              (removedFile)="onFileRemoved($event)">
+                              (removedFile)="onFileRemoved($event)"
+                              [customMessage]="'dropZone.GroupsForm.Label'">
         </app-dropzone-wrapper>
       </div>
       <ul *ngIf="isShowValidation"

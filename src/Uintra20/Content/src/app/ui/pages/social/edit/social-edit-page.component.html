@@ -50,7 +50,8 @@
               <app-dropzone-wrapper #dropdownRef
                                     [filesLength]="files.length"
                                     (success)="handleUpload($event)"
-                                    (removedFile)="handleFileRemove($event)">
+                                    (removedFile)="handleFileRemove($event)"
+                                    [customMessage]="'dropZone.SocialEdit.Label'">
               </app-dropzone-wrapper>
             </div>
             <div class="form__row-btns">

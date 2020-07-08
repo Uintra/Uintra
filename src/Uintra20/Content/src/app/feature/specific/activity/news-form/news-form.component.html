@@ -84,7 +84,8 @@
   <div class="form-row">
     <app-dropzone-wrapper #dropdownRef [filesLength]="files.length"
         (success)="onUploadSuccess($event)"
-        (removedFile)="onFileRemoved($event)">
+        (removedFile)="onFileRemoved($event)"
+        [customMessage]="'dropZone.NewsForm.Label'">
     </app-dropzone-wrapper>
   </div>
 

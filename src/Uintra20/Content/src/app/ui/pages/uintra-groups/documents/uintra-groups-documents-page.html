@@ -9,7 +9,8 @@
           <app-dropzone-wrapper #dropdownRef
                                 [filesLength]="files.length"
                                 (success)="onUploadSuccess($event)"
-                                (removedFile)="onFileRemoved($event)">
+                                (removedFile)="onFileRemoved($event)"
+                                [customMessage]="'dropZone.GroupsDocuments.Label'">
           </app-dropzone-wrapper>
           <button [disabled]="!isUploadPossible"
                   (click)="onUploadFiles()"
