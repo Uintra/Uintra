@@ -13,7 +13,7 @@ import { ISocialCreateModel } from '../../../../activity.interfaces';
 import { finalize } from 'rxjs/operators';
 import ParseHelper from 'src/app/shared/utils/parse.helper';
 import { MAX_LENGTH } from 'src/app/shared/constants/activity/activity-create.const';
-import { NgxFocusTrapDirective } from 'ngx-focus-trap';
+// import { NgxFocusTrapDirective } from 'ngx-focus-trap';
 
 @Component({
   selector: 'app-social-pop-up',
@@ -25,7 +25,7 @@ export class SocialPopUpComponent implements OnInit
   public data: ISocialCreate;
 
   @ViewChild('dropdownRef', { static: false }) public dropdownRef: DropzoneComponent;
-  @ViewChild('ngxFocus', { static: false }) public modalWrap: NgxFocusTrapDirective;
+  // @ViewChild('ngxFocus', { static: false }) public modalWrap: NgxFocusTrapDirective;
 
   @HostListener('window:beforeunload') public doSomething() {
     return !this.hasDataChangedService.hasDataChanged;
@@ -140,12 +140,12 @@ export class SocialPopUpComponent implements OnInit
       if (confirm(this.translate.instant('common.AreYouSure'))) {
         this.resetForm();
         this.hidePopUp();
-        this.modalWrap.deactivateFocusTrap()
+        // this.modalWrap.deactivateFocusTrap()
       }
     } else {
       this.resetForm();
       this.hidePopUp();
-      this.modalWrap.deactivateFocusTrap()
+      // this.modalWrap.deactivateFocusTrap()
     }
   }
 
