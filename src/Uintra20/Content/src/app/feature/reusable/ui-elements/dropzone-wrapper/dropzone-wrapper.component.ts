@@ -46,7 +46,7 @@ export class DropzoneWrapperComponent implements OnInit {
     this.config.acceptedFiles = this.allowedExtensions ? this.allowedExtensions : null;
     this.className = 'dropzone-wrapper';
     this.message = `<span class='custom-message'>${this.withImage ? '<span class="icon-upload"></span>' : ''}${
-      this.customMessage ? this.customMessage : this.translateService.instant('insertImage.lbl')
+      this.customMessage ? this.translateService.instant(this.customMessage) : this.translateService.instant('insertImage.lbl')
       }</span>`;
   }
 

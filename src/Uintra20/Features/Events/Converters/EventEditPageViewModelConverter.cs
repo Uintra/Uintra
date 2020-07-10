@@ -12,6 +12,7 @@ using Uintra20.Core.UbaselineModels.RestrictedNode;
 using Uintra20.Features.Events.Entities;
 using Uintra20.Features.Events.Models;
 using Uintra20.Features.Groups.Helpers;
+using Uintra20.Features.Groups.Services;
 using Uintra20.Features.Links;
 using Uintra20.Features.Media.Helpers;
 using Uintra20.Features.Media.Strategies.Preset;
@@ -34,6 +35,7 @@ namespace Uintra20.Features.Events.Converters
         private readonly ILightboxHelper _lightboxHelper;
         private readonly IGroupHelper _groupHelper;
         private readonly IUBaselineRequestContext _context;
+        private readonly IGroupService _groupService;
 
         public EventEditPageViewModelConverter(
             IPermissionsService permissionsService,
@@ -45,7 +47,8 @@ namespace Uintra20.Features.Events.Converters
             ILightboxHelper lightboxHelper,
             IGroupHelper groupHelper,
             IErrorLinksService errorLinksService,
-            IUBaselineRequestContext context)
+            IUBaselineRequestContext context,
+            IGroupService groupService)
             : base(errorLinksService)
         {
             _permissionsService = permissionsService;
@@ -70,6 +73,13 @@ namespace Uintra20.Features.Events.Converters
             if (@event == null || @event.IsHidden)
             {
                 return NotFoundResult();
+            }
+
+            if (@event.GroupId.HasValue)
+            {
+                var group = _groupService.Get(@event.GroupId.Value);
+                if (group != null && group.IsHidden)
+                    return NotFoundResult();
             }
 
             if (!_eventService.CanEdit(id.Value)) return ForbiddenResult();

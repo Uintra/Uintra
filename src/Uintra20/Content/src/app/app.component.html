@@ -19,7 +19,9 @@
 
     <div class="content__wrap">
       <router-outlet></router-outlet>
-      <app-go-to-top-button></app-go-to-top-button>
+      <ng-container *ngIf="!isLoginPage && hasLeftLoginPage">
+        <app-go-to-top-button></app-go-to-top-button>
+      </ng-container>
     </div>
   </div>
 </main>

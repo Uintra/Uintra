@@ -75,7 +75,8 @@ namespace Uintra20.Features.Social.Controllers
         [HttpPost]
         public async Task<IHttpActionResult> Create(SocialCreateModel social)
         {
-            if (!_permissionsService.Check(new PermissionSettingIdentity(PermissionActionEnum.Create, PermissionResourceTypeEnum.Social)))
+            //if (!_permissionsService.Check(new PermissionSettingIdentity(PermissionActionEnum.Create, PermissionResourceTypeEnum.Social)))
+            if (!await _socialService.CanCreateAsync(social.GroupId))
             {
                 return StatusCode(HttpStatusCode.Forbidden);
             }
@@ -98,7 +99,8 @@ namespace Uintra20.Features.Social.Controllers
         [HttpPut]
         public async Task<IHttpActionResult> Update(SocialEditModel socialEdit)
         {
-            if (!_permissionsService.Check(new PermissionSettingIdentity(PermissionActionEnum.Edit, PermissionResourceTypeEnum.Social)))
+            //if (!_permissionsService.Check(new PermissionSettingIdentity(PermissionActionEnum.Edit, PermissionResourceTypeEnum.Social)))
+            if (!await _socialService.CanEditAsync(socialEdit.Id))
             {
                 return Ok((await _activityLinkService.GetLinksAsync(socialEdit.Id)).Details);
             }

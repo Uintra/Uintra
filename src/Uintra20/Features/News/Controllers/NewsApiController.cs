@@ -67,8 +67,9 @@ namespace Uintra20.Features.News.Controllers
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            if (!_permissionsService.Check(new PermissionSettingIdentity(PermissionActionEnum.Create,
-                PermissionResourceTypeEnum.News)))
+            //if (!_permissionsService.Check(new PermissionSettingIdentity(PermissionActionEnum.Create,
+            //    PermissionResourceTypeEnum.News)))
+            if(!await _newsService.CanCreateAsync(createModel.GroupId))
             {
                 return StatusCode(HttpStatusCode.Forbidden);
             }
@@ -89,8 +90,9 @@ namespace Uintra20.Features.News.Controllers
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            if (!_permissionsService.Check(new PermissionSettingIdentity(PermissionActionEnum.Edit,
-                PermissionResourceTypeEnum.News)))
+            //if (!_permissionsService.Check(new PermissionSettingIdentity(PermissionActionEnum.Edit,
+            //    PermissionResourceTypeEnum.News)))
+            if(!await _newsService.CanEditAsync(editModel.Id))
             {
                 return Ok((await _activityLinkService.GetLinksAsync(editModel.Id)).Details);
             }

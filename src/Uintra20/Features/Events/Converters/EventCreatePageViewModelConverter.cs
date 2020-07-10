@@ -34,6 +34,7 @@ namespace Uintra20.Features.Events.Converters
         private readonly IGroupHelper _groupHelper;
         private readonly IUBaselineRequestContext _context;
         private readonly IEventsService<Event> _eventsService;
+        private readonly IGroupService _groupService;
 
         public EventCreatePageViewModelConverter(
             IIntranetMemberService<IntranetMember> memberService,
@@ -44,7 +45,8 @@ namespace Uintra20.Features.Events.Converters
             IGroupHelper groupHelper,
             IErrorLinksService errorLinksService, 
             IUBaselineRequestContext context,
-            IEventsService<Event> eventsService) 
+            IEventsService<Event> eventsService,
+            IGroupService groupService) 
             : base(errorLinksService)
         {
             _memberService = memberService;
@@ -55,11 +57,19 @@ namespace Uintra20.Features.Events.Converters
             _groupHelper = groupHelper;
             _context = context;
             _eventsService = eventsService;
+            _groupService = groupService;
         }
 
         public override ConverterResponseModel MapViewModel(EventCreatePageModel node, EventCreatePageViewModel viewModel)
         {
             var groupId = _context.ParseQueryString("groupId").TryParseGuid();
+
+            if (groupId.HasValue)
+            {
+                var group = _groupService.Get(groupId.Value);
+                if (group == null || group.IsHidden)
+                    return NotFoundResult();
+            }
 
             if (!HasPermission(groupId))
             {

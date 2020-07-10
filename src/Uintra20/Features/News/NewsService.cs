@@ -84,7 +84,7 @@ namespace Uintra20.Features.News
             IActivityLinkService activityLinkService, IIndexerDiagnosticService indexerDiagnosticService)
             : base(intranetActivityRepository, cacheService, intranetMemberService,
                 activityTypeProvider, intranetMediaService, activityLocationService, activityLinkPreviewService,
-                permissionsService)
+                permissionsService, groupActivityService, groupService)
         {
             _commentsService = commentsService;
             _likesService = likesService;

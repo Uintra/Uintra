@@ -33,7 +33,8 @@
                                     [maxFiles]="1"
                                     [withImage]="false"
                                     (success)="processAvatarUpload($event)"
-                                    (removedFile)="processAvatarDelete()">
+                                    (removedFile)="processAvatarDelete()"
+                                    [customMessage]="'dropZone.ProfileEdit.Label'">
               </app-dropzone-wrapper>
             </div>
           </div>

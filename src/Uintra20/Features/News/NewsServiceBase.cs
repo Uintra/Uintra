@@ -3,6 +3,7 @@ using Uintra20.Core.Activity;
 using Uintra20.Core.Activity.Entities;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Services;
+using Uintra20.Features.Groups.Services;
 using Uintra20.Features.LinkPreview.Services;
 using Uintra20.Features.Location.Services;
 using Uintra20.Features.Media.Intranet.Services.Contracts;
@@ -25,9 +26,11 @@ namespace Uintra20.Features.News
             IIntranetMediaService intranetMediaService,
             IActivityLocationService activityLocationService,
             IActivityLinkPreviewService activityLinkPreviewService,
-            IPermissionsService permissionsService)
+            IPermissionsService permissionsService,
+            IGroupActivityService groupActivityService,
+            IGroupService groupService)
             : base(activityRepository, cache, activityTypeProvider, intranetMediaService, activityLocationService, activityLinkPreviewService,
-                intranetMemberService, permissionsService)
+                intranetMemberService, permissionsService, groupActivityService, groupService)
         {
             _intranetMemberService = intranetMemberService;
         }

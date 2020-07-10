@@ -74,20 +74,6 @@ export class RichTextEditorComponent implements ControlValueAccessor {
     };
   }
 
-  suggestPeople(searchTerm) {
-    const allPeople = [
-      {
-        id: 1,
-        value: "Fredrik Sundqvist"
-      },
-      {
-        id: 2,
-        value: "Patrik Sjölin"
-      }
-    ];
-    return allPeople.filter(person => person.value.includes(searchTerm));
-  }
-
   initEditor(editor) {
     this.editor = editor;
     this.editor.linksToSkip = [];

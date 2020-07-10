@@ -39,6 +39,7 @@ namespace Uintra20.Features.Comments.Controllers
         private readonly ICommentLinkHelper _commentLinkHelper;
         private readonly INodeModelService _nodeModelService;
         private readonly IGroupActivityService _groupActivityService;
+        private readonly IGroupService _groupService;
 
         public CommentsController(
             ICommentsHelper commentsHelper,
@@ -49,7 +50,8 @@ namespace Uintra20.Features.Comments.Controllers
             IMentionService mentionService,
             ICommentLinkHelper commentLinkHelper,
             IGroupActivityService groupActivityService,
-            INodeModelService nodeModelService)
+            INodeModelService nodeModelService,
+            IGroupService groupService)
         {
             _commentsHelper = commentsHelper;
             _commentsService = commentsService;
@@ -60,6 +62,7 @@ namespace Uintra20.Features.Comments.Controllers
             _commentLinkHelper = commentLinkHelper;
             _groupActivityService = groupActivityService;
             _nodeModelService = nodeModelService;
+            _groupService = groupService;
         }
 
         [HttpPost]
@@ -69,6 +72,13 @@ namespace Uintra20.Features.Comments.Controllers
             {
                 var member = await _intranetMemberService.GetCurrentMemberAsync();
                 var activityGroupId = _groupActivityService.GetGroupId(model.EntityId);
+
+                if (activityGroupId.HasValue)
+                {
+                    var group = _groupService.Get(activityGroupId.Value);
+                    if (group == null || group.IsHidden)
+                        return StatusCode(HttpStatusCode.Forbidden);
+                }
 
                 if(activityGroupId.HasValue && !member.GroupIds.Contains(activityGroupId.Value))
                 {

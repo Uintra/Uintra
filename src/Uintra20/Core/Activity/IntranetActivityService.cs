@@ -8,6 +8,7 @@ using Uintra20.Core.Activity.Sql;
 using Uintra20.Core.Member.Abstractions;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Services;
+using Uintra20.Features.Groups.Services;
 using Uintra20.Features.LinkPreview.Contracts;
 using Uintra20.Features.LinkPreview.Services;
 using Uintra20.Features.Location.Services;
@@ -38,6 +39,8 @@ namespace Uintra20.Core.Activity
         private readonly IActivityLinkPreviewService _activityLinkPreviewService;
         private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
         private readonly IPermissionsService _permissionsService;
+        private readonly IGroupActivityService _groupActivityService;
+        private readonly IGroupService _groupService;
 
         protected IntranetActivityService(
             IIntranetActivityRepository activityRepository,
@@ -47,7 +50,9 @@ namespace Uintra20.Core.Activity
             IActivityLocationService activityLocationService,
             IActivityLinkPreviewService activityLinkPreviewService,
             IIntranetMemberService<IntranetMember> intranetMemberService,
-            IPermissionsService permissionsService)
+            IPermissionsService permissionsService,
+            IGroupActivityService groupActivityService,
+            IGroupService groupService)
         {
             _activityRepository = activityRepository;
             _cache = cache;
@@ -57,6 +62,8 @@ namespace Uintra20.Core.Activity
             _activityLinkPreviewService = activityLinkPreviewService;
             _intranetMemberService = intranetMemberService;
             _permissionsService = permissionsService;
+            _groupActivityService = groupActivityService;
+            _groupService = groupService;
         }
 
         #region async
@@ -102,15 +109,24 @@ namespace Uintra20.Core.Activity
             await UpdateActivityCacheAsync(id);
         }
 
+        public async Task<bool> CanCreateAsync(Guid? groupId)
+        {
+            if (IsGroupHidden(groupId))
+                return false;
+            return await _permissionsService.CheckAsync(new PermissionSettingIdentity(PermissionActionEnum.Create, PermissionActivityType));
+        }
+
         public async Task<bool> CanEditAsync(Guid id)
         {
             var cached = await GetAsync(id);
+            if (IsGroupHidden(_groupActivityService.GetGroupId(id))) return false;
             return await CanEditAsync(cached);
         }
 
         public async Task<bool> CanDeleteAsync(Guid id)
         {
             var cached = await GetAsync(id);
+            if (IsGroupHidden(_groupActivityService.GetGroupId(id))) return false;
             return await CanDeleteAsync(cached);
         }
 
@@ -462,6 +478,17 @@ namespace Uintra20.Core.Activity
             cachedActivity.MediaIds = await _intranetMediaService.GetEntityMediaAsync(cachedActivity.Id);
             cachedActivity.Location = await _activityLocationService.GetAsync(activity.Id);
             return cachedActivity;
+        }
+
+        private bool IsGroupHidden(Guid? groupId)
+        {
+            if (groupId.HasValue)
+            {
+                var group = _groupService.Get(groupId.Value);
+                if (group == null || group.IsHidden)
+                    return true;
+            }
+            return false;
         }
 
         protected abstract void MapBeforeCache(IList<TActivity> cached);

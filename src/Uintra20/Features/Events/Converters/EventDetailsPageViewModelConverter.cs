@@ -12,6 +12,7 @@ using Uintra20.Core.UbaselineModels.RestrictedNode;
 using Uintra20.Features.Events.Entities;
 using Uintra20.Features.Events.Models;
 using Uintra20.Features.Groups.Helpers;
+using Uintra20.Features.Groups.Services;
 using Uintra20.Features.Links;
 using Uintra20.Features.Media.Helpers;
 using Uintra20.Features.Media.Strategies.Preset;
@@ -33,6 +34,7 @@ namespace Uintra20.Features.Events.Converters
         private readonly IPermissionsService _permissionsService;
         private readonly IGroupHelper _groupHelper;
         private readonly IUBaselineRequestContext _baselineRequestContext;
+        private readonly IGroupService _groupService;
 
         public EventDetailsPageViewModelConverter(
             IUserTagService userTagService,
@@ -43,7 +45,8 @@ namespace Uintra20.Features.Events.Converters
             IPermissionsService permissionsService,
             IGroupHelper groupHelper,
             IErrorLinksService errorLinksService,
-            IUBaselineRequestContext baselineRequestContext)
+            IUBaselineRequestContext baselineRequestContext,
+            IGroupService groupService)
             : base(errorLinksService)
         {
             _userTagService = userTagService;
@@ -54,6 +57,7 @@ namespace Uintra20.Features.Events.Converters
             _permissionsService = permissionsService;
             _groupHelper = groupHelper;
             _baselineRequestContext = baselineRequestContext;
+            _groupService = groupService;
         }
 
         public override ConverterResponseModel MapViewModel(EventDetailsPageModel node,
@@ -70,6 +74,13 @@ namespace Uintra20.Features.Events.Converters
             if (@event == null || @event.IsHidden)
             {
                 return NotFoundResult();
+            }
+
+            if (@event.GroupId.HasValue)
+            {
+                var group = _groupService.Get(@event.GroupId.Value);
+                if (group != null && group.IsHidden)
+                    return NotFoundResult();
             }
 
             if (!_permissionsService.Check(PermissionResourceTypeEnum.Events, PermissionActionEnum.View))

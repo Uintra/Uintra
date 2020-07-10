@@ -84,7 +84,7 @@ namespace Uintra20.Features.Social
             IUserTagService userTagService,
             IActivityLinkService activityLinkService, IIndexerDiagnosticService indexerDiagnosticService)
             : base(intranetActivityRepository, cacheService, activityTypeProvider, intranetMediaService,
-                activityLocationService, activityLinkPreviewService, intranetMemberService, permissionsService)
+                activityLocationService, activityLinkPreviewService, intranetMemberService, permissionsService, groupActivityService, groupService)
         {
             _commentsService = commentsService;
             _likesService = likesService;

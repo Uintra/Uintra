@@ -31,7 +31,9 @@ export class GoToTopButtonComponent {
     event.preventDefault();
     let targetElement = document.querySelectorAll(event.currentTarget.getAttribute('href'))[0];
 
-    window.scrollTo(0, targetElement.offsetTop);
-    targetElement.focus();
+    if (targetElement) {
+      window.scrollTo(0, targetElement.offsetTop);
+      targetElement.focus();
+    }
   }
 }
