@@ -53,7 +53,7 @@ export class SearchPage extends Indexer<number> implements OnInit, OnDestroy {
       id: item.id,
       text: this.translate.instant(item.name)
     }));
-    this.resultsList = this.data.results || [];
+    this.resultsList = this.data.results.map(this.checkSocialTitle) || [];
     this.inputValue = this.data.query;
 
     const paramsSubscription = this.route.queryParams.subscribe(params => {
@@ -62,6 +62,16 @@ export class SearchPage extends Indexer<number> implements OnInit, OnDestroy {
     });
 
     paramsSubscription.unsubscribe();
+  }
+
+  private checkSocialTitle(item: ISearchResult): ISearchResult {
+    const SOCIAL_TYPE = 'Social';
+
+    if (item.type === SOCIAL_TYPE) {
+      item.title = '';
+    }
+
+    return item;
   }
 
   public ngOnDestroy(): void {
@@ -119,7 +129,7 @@ export class SearchPage extends Indexer<number> implements OnInit, OnDestroy {
       })
     ).subscribe((res: any) => {
       this.isScrollDisabled = res.results.length === res.resultsCount;
-      this.resultsList = res.results.map(result => ({
+      this.resultsList = res.results.map(this.checkSocialTitle).map(result => ({
         ...result,
         title: this.sanitizer.bypassSecurityTrustHtml(result.title),
         description: this.sanitizer.bypassSecurityTrustHtml(result.description),

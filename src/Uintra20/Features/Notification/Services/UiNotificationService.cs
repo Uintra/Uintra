@@ -63,7 +63,8 @@ namespace Uintra20.Features.Notification.Services
                 }).ToList();
 
             await _notificationRepository.AddAsync(notifications);
-            SendNewUiNotificationsArrived(notifications);
+            var notNotifiedNotifications = notifications.SelectMany(i => GetNotNotifiedNotifications(i.ReceiverId));
+            SendNewUiNotificationsArrived(notNotifiedNotifications);
         }
 
         public async Task<int> GetNotNotifiedCountAsync(Guid receiverId)
@@ -145,7 +146,8 @@ namespace Uintra20.Features.Notification.Services
                 }).ToList();
 
             _notificationRepository.Add(notifications);
-            SendNewUiNotificationsArrived(notifications);
+            var notNotifiedNotifications = notifications.SelectMany(i => GetNotNotifiedNotifications(i.ReceiverId));
+            SendNewUiNotificationsArrived(notNotifiedNotifications);
         }
 
         public int GetNotNotifiedCount(Guid receiverId)

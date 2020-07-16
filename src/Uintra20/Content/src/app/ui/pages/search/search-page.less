@@ -96,9 +96,15 @@ search-page {
       &-description {
         margin-bottom: 15px;
         width: 100%;
-        white-space: nowrap;
         text-overflow: ellipsis;
         overflow: hidden;
+        overflow-wrap: break-word;
+        max-height: 72px;
+        cursor: pointer;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        word-break: break-word;
       }
 
       &-type {
@@ -113,6 +119,7 @@ search-page {
         background: @label-bg;
         color: @text-reverse-color;
         text-transform: uppercase;
+        white-space: nowrap;
         height: 25px;
         border-radius: 15px;
         font-size: 11px;

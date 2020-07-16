@@ -1,5 +1,5 @@
 <a
-  [routerLink]="notification.value.url.baseUrl | ulink"
+  [routerLink]="notification.value.url.originalUrl | ulink"
   [queryParams]="notification.value.url.params | uparams"
   class="nav-notification__popup-item notification-item"
   *ngIf="notification"

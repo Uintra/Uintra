@@ -70,7 +70,12 @@ export class RichTextEditorComponent implements ControlValueAccessor {
   ) {
     config.modules = {
       ...config.modules,
-      mention: this.mentionsService.getMentionsModule()
+      mention: this.mentionsService.getMentionsModule(),
+      keyboard: {
+        bindings: {
+          tab: false,
+        }
+      }
     };
   }
 
