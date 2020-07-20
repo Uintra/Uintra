@@ -34,7 +34,7 @@ export class VideoElementComponent implements OnInit {
   }
 
   getThumbnail(item: IDefaultSpotData) {
-    return this.isMobile 
+    return this.isMobile
       ? item && item.media && item.media.video && ((item.media.video.mobile && item.media.video.mobile.thumbnail) || (item.media.video.desktop && item.media.video.desktop.thumbnail))
       : item && item.media && item.media.video && ((item.media.video.desktop && item.media.video.desktop.thumbnail) || (item.media.video.mobile && item.media.video.mobile.thumbnail));
   }
@@ -48,7 +48,7 @@ export class VideoElementComponent implements OnInit {
     return {
       title: item.title,
       description: item.description,
-      video: this.isMobile 
+      video: this.isMobile
         ? item && item.media && item.media.video && (item.media.video.mobile || item.media.video.desktop)
         : item && item.media && item.media.video && (item.media.video.desktop || item.media.video.mobile)
     };
@@ -63,16 +63,16 @@ export class VideoElementComponent implements OnInit {
       src: thumbnail,
       sources: [
         {
+          media: `(min-width: 900px)`,
+          srcSet: `${thumbnail}?center=0.5,0.5&mode=crop&width=560&height=373`
+        },
+        {
+          media: `(min-width: 600px)`,
+          srcSet: `${thumbnail}?center=0.5,0.5&mode=crop&width=472&height=314`
+        },
+        {
           media: ``,
-          srcSet: `${thumbnail}?center=0.5,0.5&mode=crop&width=570&height=300`
-        },
-        {
-          media: `(max-width: 1024px)`,
-          srcSet: `${thumbnail}?center=0.5,0.5&mode=crop&width=330&height=176`
-        },
-        {
-          media: `(max-width: 860px)`,
-          srcSet: `${thumbnail}?center=0.5,0.5&mode=crop&width=700&height=360`
+          srcSet: `${thumbnail}?center=0.5,0.5&mode=crop&width=355&height=223`
         }
       ]
     };
