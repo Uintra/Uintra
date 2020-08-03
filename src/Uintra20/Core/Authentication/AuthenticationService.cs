@@ -116,6 +116,10 @@ namespace Uintra20.Core.Authentication
         private static bool IsBackOfficeRequest(Uri url)
         {
             var ext = Path.GetExtension(url.LocalPath);
+
+            //TODO, will be replaced by correct authentication flow from uBaseline project.
+            return !ext.IsNullOrWhiteSpace();
+
             if (ext.IsNullOrWhiteSpace()) return false;
             var toInclude = new[] { ".aspx", ".ashx", ".asmx", ".axd", ".svc", ".html", ".css", ".woff2", ".js", ".ttf", ".woff", ".ico", ".svg", ".jpeg", ".png", ".jpg", ".gif",".mp4" };
             return toInclude.Any(ext.InvariantEquals);
