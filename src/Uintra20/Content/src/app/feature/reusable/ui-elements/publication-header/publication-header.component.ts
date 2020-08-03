@@ -10,7 +10,7 @@ export class PublicationHeaderComponent implements OnInit {
 
   @Input() avatar: string;
   @Input() title: string;
-  @Input() originalUrl?: string;
+  @Input() link: any;
   @Input() params?: Array<any>;
   @Input() groupInfo?: {title: string, url: IULink};
 

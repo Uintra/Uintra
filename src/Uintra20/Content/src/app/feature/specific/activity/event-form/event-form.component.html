@@ -35,13 +35,14 @@
                           class="description__rte"
                           [isEditing]="true"
                           [isDropzone]="false"
-                          [isEventsOrNews]="true"
+                          [disableLinkPreview]="true"
+                          [isActivityFormats]="true"
                           [placeholder]="''"></app-rich-text-editor>
   </div>
   <div class="tags form-row">
     <h3 class="tags__title subtitle">{{'userTagsPicker.AddTags.lbl' | translate}}</h3>
     <app-tag-multiselect class="tags__multiselect"
-                         [availableTags]="data.availableTags"
+                         [availableTags]="data.tags"
                          [(ngModel)]="selectedTags"></app-tag-multiselect>
   </div>
   <app-datepicker-from-to
@@ -49,6 +50,8 @@
     [fromLabel]="'eventsCreate.StartDate.lbl' | translate"
     [toLabel]="'eventsCreate.EndDate.lbl' | translate"
     [isEvent]="true"
+    [eventPublishDate]="eventsData.publishDate"
+    [isEventEdit]="edit"
     (handleChange)="setDatePickerValue($event)"
   ></app-datepicker-from-to>
   <h3 class="publish-date__title subtitle">
@@ -111,7 +114,8 @@
     <app-dropzone-wrapper #dropdownRef
                           [filesLength]="files.length"
                           (success)="onUploadSuccess($event)"
-                          (removedFile)="onFileRemoved($event)">
+                          (removedFile)="onFileRemoved($event)"
+                          [customMessage]="'dropZone.EventForm.Label'">
     </app-dropzone-wrapper>
   </div>
   <div class="form-row"

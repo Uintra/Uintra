@@ -5,9 +5,18 @@ home-page {
 
   .main-column {
     -webkit-box-flex: 0;
-    flex: 1 0 66.66666667%;
-    max-width: 66.66666667%;
-    padding: 0 15px;
+    flex: 1 0 100%;
+    padding: 0;
+    width: 100%;
+
+    @media @md-up {
+      flex-basis: 62.5%;
+      padding: 0 20px;
+    }
+
+    @media @lg-up {
+      flex-basis: 66.6%;
+    }
 
     &--full-content {
       max-width: 100%;
@@ -16,13 +25,26 @@ home-page {
 
   .right-column {
     -webkit-box-flex: 0;
-    flex: 0 0 33.33333333%;
-    max-width: 33.33333333%;
-    padding: 0 15px;
+    flex: 1 0 100%;
+    padding: 0 10px;
+    width: 100%;
+
+    @media @md-up{
+      flex-basis: 37.5%;
+      padding: 0 20px;
+    }
+
+    @media @lg-up{
+      flex-basis: 33.4%;
+    }
 
     ubl-dynamic-component{
       display: block;
-      margin-bottom: 63px;
+      margin-bottom: 0;
+
+      @media @md-up{
+        margin-bottom: 63px;
+      }
     }
   }
 }

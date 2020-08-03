@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Umbraco.Core;
+﻿using Umbraco.Core;
 using Umbraco.Core.Composing;
+using Umbraco.Web;
 
 namespace Uintra20.App_Start
 {
@@ -16,6 +13,15 @@ namespace Uintra20.App_Start
         {
             composition.Components().Append<UintraApplicationComponent>();
             composition.Components().Append<UintraUmbracoEventComponent>();
+        }
+    }
+
+    [ComposeAfter(typeof(UBaseline.Core.Composers.ContentAppsComposer))]
+    public class UintraContentAppsComposer : IUserComposer
+    {
+        public void Compose(Composition composition)
+        {
+            composition.ContentApps().Remove<UBaseline.Core.ContentApps.ContentPreviewApp>();
         }
     }
 }

@@ -1,7 +1,6 @@
 .reset-button() {
   background: none;
   border: 0;
-  outline: 0;
   padding: 0;
   font: inherit;
   color: inherit;
@@ -9,11 +8,13 @@
 }
 
 .button-default() {
+  display: inline-block;
   text-transform: uppercase;
-  padding: 6px 15px;
-  min-height: 30px;
+  padding: 0 17px;
+  min-height: 40px;
+  line-height: 40px;
   border-radius: 30px;
-  font-size: 12px;
+  font-size: 16px;
   font-weight: 600;
   width: auto;
 
@@ -41,9 +42,9 @@
 .button-white() {
   .reset-button;
   .button-default;
-  background: @main-color;
+  //background: @main-color;
   color: @body-text-color;
-  border: 1px solid @grey;
+  border: 1px solid #666;
 
   &:hover {
     border-color: @btn-bg;

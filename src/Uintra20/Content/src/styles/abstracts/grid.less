@@ -1,8 +1,10 @@
 .row-flex {
   display: flex;
   flex-wrap: wrap;
-  margin-right: -15px;
-  margin-left: -15px;
+
+  @media @md-up {
+    flex-wrap: nowrap;
+  }
 }
 
 .row {
@@ -10,9 +12,14 @@
   display: -ms-flexbox;
   display: flex;
   -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  margin-right: -15px;
-  margin-left: -15px;
+  flex-wrap: wrap;
+  margin-right: -10px;
+  margin-left: -10px;
+
+  @media @md-up {
+    margin-right: -20px;
+    margin-left: -20px;
+  }
 }
 
 .no-gutters {
@@ -33,8 +40,13 @@
 .col-xl-auto {
   position: relative;
   width: 100%;
-  padding-right: 15px;
-  padding-left: 15px;
+  padding-right: 10px;
+  padding-left: 10px;
+
+  @media @md-up {
+    padding-right: 20px;
+    padding-left: 20px;
+  }
 }
 
 .col {

@@ -33,7 +33,8 @@
       class="description__rte"
       [isEditing]="true"
       [isDropzone]="false"
-      [isEventsOrNews]="true"
+      [disableLinkPreview]="true"
+      [isActivityFormats]="true"
       [placeholder]="''"
     ></app-rich-text-editor>
   </div>
@@ -50,6 +51,7 @@
       [initialValues]="initialDates"
       [fromLabel]="'newsCreate.PublishDate.lbl' | translate"
       [toLabel]="'newsCreate.UnpublishDate.lbl' | translate"
+      [isNews]="true"
       (handleChange)="setDatePickerValue($event)"
     ></app-datepicker-from-to>
   </div>
@@ -82,7 +84,8 @@
   <div class="form-row">
     <app-dropzone-wrapper #dropdownRef [filesLength]="files.length"
         (success)="onUploadSuccess($event)"
-        (removedFile)="onFileRemoved($event)">
+        (removedFile)="onFileRemoved($event)"
+        [customMessage]="'dropZone.NewsForm.Label'">
     </app-dropzone-wrapper>
   </div>
 
@@ -106,6 +109,11 @@
     <div *ngIf="isInvalidEndPinDate"
         class="alert alert-danger">
         {{'newsEdit.PinValidation.lbl' | translate}}
+    </div>
+
+    <div *ngIf="isInvalidPublishDate"
+        class="alert alert-danger">
+        {{'newsEdit.PublishDateRequired.lbl' | translate}}
     </div>
 
   </div>

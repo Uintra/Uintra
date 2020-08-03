@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation, NgZone, OnDestroy } from '@angular/core';
+import { Component, OnInit, NgZone, OnDestroy } from '@angular/core';
 import { PublicationsService, IFeedListRequest } from '../central-feed/helpers/publications.service';
 import { SignalrService } from 'src/app/shared/services/general/signalr.service';
 import { CentralFeedFiltersService } from '../central-feed/central-feed-filters/central-feed-filters.service';
@@ -6,14 +6,14 @@ import { ILatestActivitiesPanel } from 'src/app/shared/interfaces/panels/latest-
 import { Subscription } from 'rxjs';
 import { IPublicationsResponse } from 'src/app/shared/interfaces/panels/central-feed/central-feed-panel.interface';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { Indexer } from '../../../shared/abstractions/indexer';
 
 @Component({
   selector: 'latest-activities-panel',
   templateUrl: './latest-activities-panel.component.html',
-  styleUrls: ['./latest-activities-panel.component.less'],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./latest-activities-panel.component.less']
 })
-export class LatestActivitiesPanelComponent implements OnInit, OnDestroy {
+export class LatestActivitiesPanelComponent extends Indexer<number> implements OnInit, OnDestroy {
 
   constructor(
     private publicationsService: PublicationsService,
@@ -22,6 +22,7 @@ export class LatestActivitiesPanelComponent implements OnInit, OnDestroy {
     private CFFilterService: CentralFeedFiltersService,
     private sanitizer: DomSanitizer,
   ) {
+    super();
   }
 
   private $publications: Subscription;
@@ -64,8 +65,6 @@ export class LatestActivitiesPanelComponent implements OnInit, OnDestroy {
 
   private cleanLatestActivity = () =>
     this.data.feed = []
-
-  public index = (index): number => index;
 }
 
 

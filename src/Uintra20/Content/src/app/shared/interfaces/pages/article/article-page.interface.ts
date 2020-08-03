@@ -14,10 +14,20 @@ export interface IArcticlePage {
   url?: string;
   utmConfiguration?: any;
   breadcrumbs: Array<IBreadcrumb>;
+  subNavigation: ISubNavigation;
 }
 
 export interface IBreadcrumb {
   name: string;
   url: string;
   isClickable: boolean;
+}
+
+export interface ISubNavigation {
+  active: boolean;
+  currentItem: boolean;
+  id: number;
+  name: string;
+  subItems: ISubNavigation[];
+  url: string;
 }

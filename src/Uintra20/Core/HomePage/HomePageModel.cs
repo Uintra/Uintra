@@ -9,6 +9,6 @@ namespace Uintra20.Core.HomePage
 {
     public class HomePageModel : UBaseline.Shared.HomePage.HomePageModel
     {
-        public PropertyModel<int> UserListPage { get; set; }
+        public PropertyModel<int?> UserListPage { get; set; }
     }
 }

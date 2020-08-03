@@ -3,15 +3,15 @@
   overflow: hidden;
   overflow-y: auto;
 
-  @media @md-up {
-    width: 312px;
+  @media @lg-up {
+    width: 280px;
     flex-shrink: 0;
     min-height: calc(100vh - 70px);
-    padding-left: 15px;
     background: @main-color;
+    padding: 0 20px;
   }
 
-  @media @md-down {
+  @media @lg-down {
     position: fixed;
     top: 0;
     left: 0;
@@ -28,11 +28,12 @@
   }
 
   &__header {
-    display: none;
+    .header-bar;
+    .flex-center;
+    justify-content: space-between;
 
-    @media @md-down {
-      .header-bar;
-      .flex-center;
+    @media @lg-up {
+      display: none;
     }
   }
 
@@ -55,7 +56,7 @@
 .nav-list {
   .list-reset();
 
-  @media @md-down {
+  @media @lg-down {
     background: @main-color;
     height: 100%;
   }

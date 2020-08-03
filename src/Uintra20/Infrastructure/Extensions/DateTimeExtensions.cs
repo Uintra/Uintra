@@ -26,28 +26,7 @@ namespace Uintra20.Infrastructure.Extensions
             date = date.WithUserOffset();
             return date.ToString(dateTimeFormatProvider.TimeFormat);
         }
-
-        public static string ToEventDetailsDateFormat(this DateTime date)
-        {
-            var dateTimeFormatProvider = HttpContext.Current.GetService<IDateTimeFormatProvider>();
-            date = date.WithUserOffset();
-            return date.ToString(dateTimeFormatProvider.EventDetailsDateFormat);
-        }
         
-        public static string ToEventDetailsDateTimeFormat(this DateTime date)
-        {
-            var dateTimeFormatProvider = HttpContext.Current.GetService<IDateTimeFormatProvider>();
-            date = date.WithUserOffset();
-            return date.ToString(dateTimeFormatProvider.EventDetailsDateTimeFormat);
-        }
-
-        public static string ToEventDetailsTimeFormat(this DateTime date)
-        {
-            var dateTimeFormatProvider = HttpContext.Current.GetService<IDateTimeFormatProvider>();
-            date = date.WithUserOffset();
-            return date.ToString(date.Minute > 0 ? dateTimeFormatProvider.EventDetailsTimeFormat : dateTimeFormatProvider.EventDetailsTimeWithoutMinutesFormat);
-        }
-
         public static string ToDateTimeFormat(this DateTime date)
         {
             var dateTimeFormatProvider = HttpContext.Current.GetService<IDateTimeFormatProvider>();

@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Uintra20.Features.Comments.Sql;
 using Uintra20.Features.LinkPreview.Mappers;
+using Uintra20.Features.LinkPreview.Models;
 using Uintra20.Features.LinkPreview.Sql;
 using Uintra20.Persistence.Sql;
 
@@ -25,7 +26,7 @@ namespace Uintra20.Features.Comments.Services
         }
 
         #region async
-        public async Task<LinkPreview.Models.LinkPreview> GetCommentsLinkPreviewAsync(Guid commentId)
+        public async Task<LinkPreviewModel> GetCommentsLinkPreviewAsync(Guid commentId)
         {
             //var previewIds = (await _previewRelationRepository.FindAllAsync(r => r.CommentId == commentId)).Select(r => r.LinkPreviewId);//TODO: Review bug
             var previewIds = _previewRelationRepository.FindAll(r => r.CommentId == commentId).Select(r => r.LinkPreviewId);
@@ -60,7 +61,7 @@ namespace Uintra20.Features.Comments.Services
 
         #region sync
 
-        public LinkPreview.Models.LinkPreview GetCommentsLinkPreview(Guid commentId)
+        public LinkPreviewModel GetCommentsLinkPreview(Guid commentId)
         {
             var previewIds = _previewRelationRepository.FindAll(r => r.CommentId == commentId).Select(r => r.LinkPreviewId);
             var preview = _previewRepository.GetMany(previewIds).Select(_linkPreviewModelMapper.MapPreview).SingleOrDefault();

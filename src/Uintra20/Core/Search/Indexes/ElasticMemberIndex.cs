@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Nest;
 using Uintra20.Core.Search.Entities;
+using Uintra20.Core.Search.Helpers;
 using Uintra20.Core.Search.Paging;
 using Uintra20.Core.Search.Repository;
 using Uintra20.Core.Search.Sorting;
@@ -142,7 +143,6 @@ namespace Uintra20.Core.Search.Indexes
 
         protected virtual void SortByMemberGroupRights(SearchDescriptor<T> searchDescriptor, MemberSearchQuery query)
         {
-            _searchSortingHelper.Apply(searchDescriptor, query);
             if (query.GroupId.HasValue)
             {
                 searchDescriptor.Sort(s => s
@@ -150,10 +150,12 @@ namespace Uintra20.Core.Search.Indexes
                         .Field(ff => ff.Groups.First().IsAdmin)
                         .NestedPath(np => np.Groups)
                         .NestedFilter(nf => nf.Term(t => t.Field(ff => ff.Groups.First().GroupId).Value(query.GroupId)))
-                        .Descending()
-                    ));
+                        .Descending())
+                    //.Field(f => $"{f.FullName}.{ElasticHelpers.Normalizer.Sort}", SortOrder.Ascending)); // i left it over here because it is not working case (for some reasons)
+                    .Field($"{ElasticHelpers.FullName}.{ElasticHelpers.Normalizer.Sort}", SortOrder.Ascending));
             }
-
+            else
+                _searchSortingHelper.Apply(searchDescriptor, query);
         }
     }
 }

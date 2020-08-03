@@ -84,7 +84,7 @@ namespace Uintra20.Features.Social
             IUserTagService userTagService,
             IActivityLinkService activityLinkService, IIndexerDiagnosticService indexerDiagnosticService)
             : base(intranetActivityRepository, cacheService, activityTypeProvider, intranetMediaService,
-                activityLocationService, activityLinkPreviewService, intranetMemberService, permissionsService)
+                activityLocationService, activityLinkPreviewService, intranetMemberService, permissionsService, groupActivityService, groupService)
         {
             _commentsService = commentsService;
             _likesService = likesService;
@@ -118,6 +118,10 @@ namespace Uintra20.Features.Social
             };
 
         public IEnumerable<IFeedItem> GetItems() => GetOrderedActualItems();
+        public IEnumerable<IFeedItem> GetGroupItems(Guid groupId)
+        {
+	        return GetOrderedActualItems().Where(a => a.GroupId == groupId);
+        }
 
         public async Task<IEnumerable<IFeedItem>> GetItemsAsync() => await GetOrderedActualItemsAsync();
 

@@ -1,28 +1,34 @@
 <section class="create-bulletin"
          *ngIf="data && canCreatePosts()">
-  <div class="create-bulletin__input"
-       (click)="onShowPopUp()">
+  <a href="#" class="create-bulletin__input" (click)="onShowPopUp($event)">
     <app-user-avatar [photo]="userAvatar?.photo"
                      [name]="userAvatar?.name"></app-user-avatar>
-    <button class="create-bulletin__input-placeholder"
+    <span class="create-bulletin__input-placeholder">
+      {{getPlaceholder() | translate}}
+    </span>
+    <!-- <button class="create-bulletin__input-placeholder"
             (focus)="onShowPopUp()">{{getPlaceholder() | translate}}
-    </button>
-  </div>
+    </button> -->
+  </a>
   <div class="feed-btns">
     <div class="feed-btns__other-activities">
       <a *ngIf="data.createEventsLink"
          class="button-default"
-         [routerLink]="data.createEventsLink.originalUrl | ulink">
+         [routerLink]="data.createEventsLink.baseUrl | ulink"
+         [queryParams]="data.createEventsLink.params | uparams"
+         role="button">
         {{'centralFeed.CreateLink_Events.lnk' | translate}}
       </a>
       <a *ngIf="data.createNewsLink"
          class="button-default"
-         [routerLink]="data.createNewsLink.originalUrl | ulink">
+         [routerLink]="data.createNewsLink.baseUrl | ulink"
+         [queryParams]="data.createNewsLink.params | uparams" 
+         role="button">
         {{'centralFeed.CreateLink_News.lnk' | translate}}
       </a>
     </div>
     <button class="button"
             [disabled]="!data.canCreate"
-            (click)="onShowPopUp()">{{'socialsCreate.ExpandSocial.lbl' | translate}}</button>
+            (click)="onShowPopUp($event)">{{'socialsCreate.ExpandSocial.lbl' | translate}}</button>
   </div>
 </section>

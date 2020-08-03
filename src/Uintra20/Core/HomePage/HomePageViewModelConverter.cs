@@ -43,8 +43,12 @@ namespace Uintra20.Core.HomePage
                     ? _feedLinkService.GetCreateLinks(IntranetActivityTypeEnum.News).Create
                     : null;
 
-            var userListPage = _nodeModelService.Get(node.UserListPage.Value);
-            viewModel.UserListPage = userListPage.Url.ToLinkModel();
+            if (node.UserListPage.Value.HasValue)
+            {
+                var userListPage = _nodeModelService.Get(node.UserListPage.Value.Value);
+                viewModel.UserListPage = userListPage.Url.ToLinkModel();
+            }
+
 
             if (groupId.HasValue)
             {

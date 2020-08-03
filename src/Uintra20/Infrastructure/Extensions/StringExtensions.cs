@@ -224,9 +224,13 @@ namespace Uintra20.Infrastructure.Extensions
             }
         }
 
-        public static string TrimLastCharacter(this string source) =>
-            source.IsNullOrEmpty()
-                ? source
-                : source.TrimEnd(source[source.Length - 1]);
+        public static string TrimLastCharacter(this string source)
+        {
+            if (source.IsNullOrEmpty()) return source;
+
+            return source.Length > 1 
+                ? source.TrimEnd(source[source.Length - 1]) 
+                : source;
+        }
     }
 }

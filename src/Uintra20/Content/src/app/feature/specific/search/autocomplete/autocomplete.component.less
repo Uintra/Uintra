@@ -8,12 +8,15 @@
 
 .autocomplete-holder {
   display: flex;
-  width: 100%;
+  margin: 0 26px 0 0;
   position: relative;
+
+  @media @lg-up {
+    margin: 0 25px 0 0;
+  }
 
   &__input {
     width: 100%;
-    margin-right: 10px;
     background-color: @main-color;
     border: none;
     font-size: 16px;
@@ -32,9 +35,10 @@
     line-height: 40px;
     font-size: 30px;
     position: absolute;
-    right: 20px;
+    right: 16px;
 
     &::before {
+      font-weight: bold;
       color: @black !important;
     }
   }

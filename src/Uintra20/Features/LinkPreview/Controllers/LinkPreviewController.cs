@@ -4,6 +4,7 @@ using System.Web.Http;
 using UBaseline.Core.Controllers;
 using Uintra20.Features.LinkPreview.Configurations;
 using Uintra20.Features.LinkPreview.Mappers;
+using Uintra20.Features.LinkPreview.Models;
 using Uintra20.Features.LinkPreview.Providers.Contracts;
 using Uintra20.Features.LinkPreview.Sql;
 using Uintra20.Features.OpenGraph.Models;
@@ -36,7 +37,7 @@ namespace Uintra20.Features.LinkPreview.Controllers
         }
 
         [HttpGet]
-        public virtual async Task<Models.LinkPreview> Preview(string url)
+        public virtual async Task<LinkPreviewModel> Preview(string url)
         {
             var openGraphObject = _openGraphService.GetOpenGraphObject(url);
 

@@ -7,6 +7,7 @@ import { ISearchRequestData, IMapedFilterData, ISearchResult } from 'src/app/fea
 import { TranslateService } from '@ngx-translate/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ISearchPage } from 'src/app/shared/interfaces/pages/search/search-page.interface';
+import { Indexer } from '../../../shared/abstractions/indexer';
 
 @Component({
   selector: 'search-page',
@@ -14,7 +15,7 @@ import { ISearchPage } from 'src/app/shared/interfaces/pages/search/search-page.
   styleUrls: ['./search-page.less'],
   encapsulation: ViewEncapsulation.None
 })
-export class SearchPage implements OnInit, OnDestroy {
+export class SearchPage extends Indexer<number> implements OnInit, OnDestroy {
 
   private $searchSubscription: Subscription;
   public data: ISearchPage;
@@ -37,6 +38,7 @@ export class SearchPage implements OnInit, OnDestroy {
     private translate: TranslateService,
     private sanitizer: DomSanitizer,
   ) {
+    super();
     this.route.data.subscribe((data: ISearchPage) => this.data = data);
     this._query.pipe(
       debounceTime(200),
@@ -51,7 +53,7 @@ export class SearchPage implements OnInit, OnDestroy {
       id: item.id,
       text: this.translate.instant(item.name)
     }));
-    this.resultsList = this.data.results || [];
+    this.resultsList = this.data.results.map(this.checkSocialTitle) || [];
     this.inputValue = this.data.query;
 
     const paramsSubscription = this.route.queryParams.subscribe(params => {
@@ -60,6 +62,16 @@ export class SearchPage implements OnInit, OnDestroy {
     });
 
     paramsSubscription.unsubscribe();
+  }
+
+  private checkSocialTitle(item: ISearchResult): ISearchResult {
+    const SOCIAL_TYPE = 'Social';
+
+    if (item.type === SOCIAL_TYPE) {
+      item.title = '';
+    }
+
+    return item;
   }
 
   public ngOnDestroy(): void {
@@ -117,7 +129,7 @@ export class SearchPage implements OnInit, OnDestroy {
       })
     ).subscribe((res: any) => {
       this.isScrollDisabled = res.results.length === res.resultsCount;
-      this.resultsList = res.results.map(result => ({
+      this.resultsList = res.results.map(this.checkSocialTitle).map(result => ({
         ...result,
         title: this.sanitizer.bypassSecurityTrustHtml(result.title),
         description: this.sanitizer.bypassSecurityTrustHtml(result.description),
@@ -137,6 +149,4 @@ export class SearchPage implements OnInit, OnDestroy {
   public onScroll(): void {
     this.onLoadMore();
   }
-
-  public trackingIndex = (index, item): string => item.id;
 }

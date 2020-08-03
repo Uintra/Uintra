@@ -2,7 +2,7 @@
      *ngIf="publication?.links?.owner?.originalUrl">
   <app-publication-header [avatar]="publication.owner?.photo"
                           [title]="publication.owner?.displayedName"
-                          [originalUrl]="publication.links?.owner?.originalUrl"
+                          [link]="publication.links?.owner"
                           [groupInfo]="publication.groupInfo"
                           class="publication__header">
     <div class="publication__subtitle"
@@ -67,24 +67,27 @@
         + {{ additionalImages }}
       </div>
     </div>
-    <div class="publication__footer">
-      <div class="publication__footer-left-block">
+    <div class="publication-footer">
+      <div class="publication-footer-left-block">
         <app-like-button [likeData]="likeData"
                          [isDisabled]="!publication?.isGroupMember"></app-like-button>
-        <a class="publication__comment publication__footer-item"
-           [routerLink]="publication.links?.details?.originalUrl | ulink">
+        <a class="publication-footer-item"
+           [routerLink]="publication.links?.details?.baseUrl | ulink"
+           [queryParams]="publication.links?.details?.params | uparams"
+           [fragment]="'comment'">
           <i class="icon-comment"></i>
-          {{ publication?.isGroupMember ? commentsCount : '' }}
+          <span class="publication-footer-item__text">{{ publication?.isGroupMember ? commentsCount : '' }}</span>
         </a>
-        <button class="publication__share publication__footer-item">
+        <!-- <button class="publication__share publication-footer-item">
           <i class="icon-share-icon"></i>
           {{'centralFeedPublication.Recomend.lbl' | translate}}
-        </button>
+        </button> -->
       </div>
 
-      <a class="publication__files publication__footer-item"
+      <a class="publication__files publication-footer-item"
          *ngIf="documentsCount"
-         [routerLink]="publication.links?.details?.originalUrl | ulink">
+         [routerLink]="publication.links?.details?.baseUrl | ulink"
+         [queryParams]="publication.links?.details?.params | uparams">
         <i class="icon-attachment"></i>
         {{ documentsCount }}
         {{getDocumentsText()}}

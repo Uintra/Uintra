@@ -40,9 +40,11 @@ export class RichTextEditorComponent implements ControlValueAccessor {
   @Input() isUnderline: boolean = true;
   @Input() isEditing: boolean = false;
   @Input() isEmoji: boolean = true;
-  @Input() isEventsOrNews: boolean = false;
+  @Input() disableLinkPreview: boolean = false;
+  @Input() isActivityFormats: boolean = false;
   @Input() tags: ITagData[];
   @Input() availableTags: ITagData[];
+  @Input() needsAutoFocus: boolean = false;
   @Output() addAttachment = new EventEmitter();
   @Output() linkPreview = new EventEmitter();
   @Output() tagsChange = new EventEmitter();
@@ -68,35 +70,26 @@ export class RichTextEditorComponent implements ControlValueAccessor {
   ) {
     config.modules = {
       ...config.modules,
-      mention: this.mentionsService.getMentionsModule()
-    };
-  }
-
-  suggestPeople(searchTerm) {
-    const allPeople = [
-      {
-        id: 1,
-        value: "Fredrik Sundqvist"
-      },
-      {
-        id: 2,
-        value: "Patrik Sjölin"
+      mention: this.mentionsService.getMentionsModule(),
+      keyboard: {
+        bindings: {
+          tab: false,
+        }
       }
-    ];
-    return allPeople.filter(person => person.value.includes(searchTerm));
+    };
   }
 
   initEditor(editor) {
     this.editor = editor;
     this.editor.linksToSkip = [];
-    this.editor.showLinkPreview = !this.isEventsOrNews;
+    this.editor.showLinkPreview = !this.disableLinkPreview;
     this.richTextEditorService.addOnTextChangeCallback(editor);
     this.richTextEditorService.addStylesToImages(editor);
 
     if (this.value) {
       this.richTextEditorService.getLinkPreview(this.editor);
     }
-    if (!this.isEventsOrNews) {
+    if (this.needsAutoFocus) {
       editor.focus();
     }
     this.richTextEditorService.linkPreviewSource.subscribe(result => {

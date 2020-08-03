@@ -6,7 +6,7 @@
     <div class="datepicker">
       <sq-datetimepicker
         [groupClass]="'udatepicker'"
-        [inputClass]="'udatepicker-input udatepicker-input--from'"
+        [inputClass]="isPublishDateInvalid ? 'udatepicker-input udatepicker-input--from invalid' : 'udatepicker-input udatepicker-input--from'"
         [options]="optFrom"
         [mode]="'input'"
         [ngModel]="fromDate"

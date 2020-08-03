@@ -1,0 +1,176 @@
+@import "base.less";
+
+:host {
+  display: block;
+}
+
+::ng-deep .document-library {
+  padding: 30px 10px 48px;
+  font-size: 18px;
+  line-height: 1.5;
+  .theme(bg-color);
+  .theme(text-color);
+
+  @media @sm-up{
+    font-size: 20px;
+    padding: 30px 20px 52px;
+  }
+
+  @media @lg-up{
+    font-size: 22px;
+    padding: 30px 41px 52px;
+  }
+
+  &__title {
+    font-weight: bold;
+    font-size: 28px;
+    line-height: 1.5;
+    text-transform: none;
+    margin: 0;
+    color: @text-color;
+  }
+
+  &__rte {
+
+    a {
+      .theme(link-color);
+    }
+  }
+
+  &__links,
+  &__rte,
+  &__see-all {
+    margin-top: 20px;
+  }
+
+  &__links ubl-link::ng-deep .link {
+    &__link {
+      &:hover .link__text {
+        text-decoration: underline;
+      }
+    }
+    &__text {
+      display: inline-block;
+    }
+  }
+
+  &__link {
+    color: @link-color;
+    line-height: 1.5;
+    padding: 7px 0;
+  }
+
+  &__see-all {
+    &:before {
+      content: "";
+      width: 12px;
+      height: 12px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' version='1.1' width='512' height='512' viewBox='0 0 512 512'%3E%3Ctitle/%3E%3Cg id='icomoon-ignore'%3E%3C/g%3E%3Cpath fill='%23000' d='M102.4 31.040l33.12-31.040 274.080 256-274.080 256-33.12-30.88 240.8-225.12z'/%3E%3C/svg%3E%0A");
+      background-position: center;
+      background-size: contain;
+      display: inline-block;
+      margin-right: 5px;
+    }
+
+    &::ng-deep .link {
+      &__link:hover .link__text {
+        text-decoration: none !important;
+      }
+      &__text {
+        .theme(link-color);
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .file-extension {
+    text-decoration: none;
+    background: @body-text-color;
+    border-radius: 3px;
+    display: block;
+    font-size: 12px;
+    text-align: center;
+    line-height: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #fff;
+    margin: 0 0 5px;
+    width: 40px;
+    height: 19px;
+  }
+
+  // Vertical layout
+  &--vertical ::ng-deep {
+    .document-library {
+      &__link {
+        font-size: 18px;
+        .theme(link-color);
+
+        ::ng-deep .link {
+          &__link {
+            display: flex;
+          }
+        }
+
+        &-text {
+          text-decoration: underline;
+
+          &:hover {
+            text-decoration: none;
+          }
+        }
+
+        .file-extension {
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+
+  // Horizontal layout
+  &--horizontal ::ng-deep {
+    .icon::before {
+      content: "";
+      width: 40px;
+      height: 40px;
+    }
+
+    .document-library {
+      &__links {
+        margin-left: -10px;
+        margin-right: -10px;
+        flex-wrap: wrap;
+
+        ubl-link {
+          padding: 10px;
+
+          ::ng-deep .link {
+            &__link {
+              font-size: 18px;
+              padding: 20px;
+              border-radius: 5px;
+              align-items: center;
+              display: inline-flex;
+              width: 100%;
+              flex-direction: column;
+              text-decoration: none;
+              border: 1px solid lightgray;
+            }
+            &__text {
+              margin-top: 16px;
+              .theme(link-color);
+            }
+          }
+        }
+      }
+      &__link-text {
+
+        word-break: break-all;
+        display: inline-block;
+        overflow: visible;
+      }
+    }
+  }
+}
+
+

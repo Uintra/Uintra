@@ -1,6 +1,6 @@
 <app-group-details-wrapper [data]="data?.groupHeader">
-  <div class="page-wrapper">
-    <div class="group-details-padding row-flex">
+  <div class="page-wrapper" id="maincontent">
+    <div class="row-flex"><!-- class="group-details-padding row-flex"-->
       <div class="col-md-8">
         <app-social-create *ngIf="socialCreateData?.canCreate"
                            [data]="socialCreateData"></app-social-create>
@@ -30,7 +30,9 @@
               <span *ngIf="data?.groupInfo?.creator">
                 {{'groupInfo.OwnerName.lbl' | translate}}
                 <a class="right-column__info-owner-link"
-                   [routerLink]="data.groupInfo.creator.profileLink.originalUrl | ulink">
+                   [routerLink]="data.groupInfo.creator.profileLink.baseUrl | ulink"
+                   [queryParams]="data.groupInfo.creator.profileLink.params | uparams"
+                >
                   {{data.groupInfo.creator.displayedName}}
                 </a>
               </span>

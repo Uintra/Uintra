@@ -2,16 +2,19 @@
   <div class="publication-header__avatar">
     <app-user-avatar [photo]="avatar"
                      [name]="title"
-                     [routerLink]='originalUrl'></app-user-avatar>
+                     [routerLink]='link?.baseUrl | ulink'
+                     [queryParams]="link?.params | uparams" tabindex="">
+    </app-user-avatar>
   </div>
   <div class="publication-header__content">
-    <ng-container *ngIf="title || originalUrl">
-      <a *ngIf="title && originalUrl"
+    <ng-container *ngIf="title || link?.originalUrl">
+      <a *ngIf="title && link?.originalUrl"
          class="publication-header__title publication-header__title--link"
-         [routerLink]='originalUrl | ulink'>
+         [routerLink]='link?.baseUrl | ulink'
+         [queryParams]="link?.params | uparams">
         {{ title }}
       </a>
-      <p *ngIf="title && !originalUrl"
+      <p *ngIf="title && !link?.originalUrl"
          class="publication-header__title">
         {{ title }}
       </p>

@@ -8,6 +8,6 @@ namespace Uintra20.Features.Comments.Models
         public string UpdateElementId { get; set; }
         public Guid Id { get; set; }
         public string Text { get; set; }
-        public LinkPreviewViewModel LinkPreview { get; set; }
+        public LinkPreviewModel LinkPreview { get; set; }
     }
 }

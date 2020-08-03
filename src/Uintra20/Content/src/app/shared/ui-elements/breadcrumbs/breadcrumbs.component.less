@@ -2,12 +2,23 @@
 
 .breadcrumbs {
   display: block;
-  font-size: 11px;
+  font-size: 16px;
+  line-height: 1.38;
+  font-weight: bold;
+
   text-transform: uppercase;
-  margin-bottom: 15px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  padding: 0 0 20px;
+
+  @media @md-up{
+    padding: 0 0 41px;
+  }
+
+  @media @lg-up{
+    padding: 0 0 35px;
+  }
 
   &__item {
     display: inline;
@@ -15,21 +26,12 @@
     &-text {
       display: inline;
       color: @body-text-color;
-
-      &--link {
-        text-decoration: none;
-
-        &:hover {
-          text-decoration: underline;
-        }
-      }
     }
   }
 
-}
-
-.icon-linkarrow {
-  font-size: 13px;
-  color: @border-color;
-  margin: 0 4px;
+  &__separator{
+    display: inline-block;
+    vertical-align: top;
+    margin: -1px 2px 0;
+  }
 }

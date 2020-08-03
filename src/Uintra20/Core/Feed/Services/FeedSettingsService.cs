@@ -4,6 +4,8 @@ using System.Linq;
 using Uintra20.Core.Feed.Settings;
 using Uintra20.Features.CentralFeed.Constants;
 using Uintra20.Features.CentralFeed.Enums;
+using Uintra20.Features.Permissions;
+using Uintra20.Features.Permissions.Interfaces;
 using Uintra20.Infrastructure.Caching;
 using Uintra20.Infrastructure.Extensions;
 
@@ -13,11 +15,16 @@ namespace Uintra20.Core.Feed.Services
     {
         private readonly IEnumerable<IFeedItemService> _feedItemServices;
         private readonly ICacheService _cacheService;
+        private readonly IPermissionsService _permissionsService;
 
-        protected FeedSettingsService(IEnumerable<IFeedItemService> feedItemServices, ICacheService cacheService)
+        protected FeedSettingsService(
+	        IEnumerable<IFeedItemService> feedItemServices, 
+	        ICacheService cacheService,
+	        IPermissionsService permissionsService)
         {
             _feedItemServices = feedItemServices;
             _cacheService = cacheService;
+            _permissionsService = permissionsService;
         }
 
         private IEnumerable<FeedSettings> GetFeedItemServicesSettings()
@@ -58,6 +65,16 @@ namespace Uintra20.Core.Feed.Services
         protected static DateTimeOffset GetCacheExpiration()
         {
             return DateTimeOffset.Now.AddDays(1);
+        }
+
+        protected IFeedItemService GetFeedItemService(Enum type)
+        {
+	        return _feedItemServices.Single(service => service.Type.ToInt() == type.ToInt());
+        }
+
+        protected bool IsAllowView(Enum type)
+        {
+	        return _permissionsService.Check((PermissionResourceTypeEnum)type.ToInt(), PermissionActionEnum.View);
         }
     }
 }

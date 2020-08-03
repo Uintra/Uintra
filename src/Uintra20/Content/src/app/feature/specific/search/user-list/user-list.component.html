@@ -12,21 +12,22 @@
     <div class="search-holder">
       <input
         type="search"
-        ariaLabel="search"
         id="search"
         name="search"
         class="search-holder__input"
         placeholder="{{'userList.Search.Placeholder.lbl' | translate}}"
         autocomplete="off"
-        #query
+        aria-label="Search"
+        role="search"
 
+        #query
         [value]="inputValue"
         (keyup)="onQueryChange(query.value)"/>
 
       <span class="icon icon-search-icon"></span>
     </div>
     <button
-      *ngIf="data?.details?.groupId && !data?.isInvitePopUp"
+      *ngIf="data?.details?.groupId && data?.details?.isCurrentMemberGroupAdmin && !data?.isInvitePopUp"
       type="button"
       class="user-list-panel__invite-btn"
       (click)="openInvitePopUp($event)">
@@ -36,7 +37,8 @@
       <div *ngFor="let member of data?.details?.members" class="user-list__item">
         <a
           *ngIf="isNameColumn"
-          [routerLink]="member.profileUrl.originalUrl | ulink"
+          [routerLink]="member.profileUrl.baseUrl | ulink"
+          [queryParams]="member.profileUrl.params | uparams"
           class="user-list__item-member cells--{{data.details.selectedColumns.length}}"
         >
           <app-user-avatar
@@ -48,12 +50,13 @@
         </a>
         <a
           *ngIf="isInfoColumn"
-          [routerLink]="member.profileUrl.originalUrl | ulink"
+          [routerLink]="member.profileUrl.baseUrl | ulink"
+          [queryParams]="member.profileUrl.params | uparams"
           class="user-list__item-info cells--{{data.details.selectedColumns.length}}"
         >
-          <p *ngIf="member.email">{{'userList.Table.Email.lbl' | translate}}{{member.email}}</p>
-          <p *ngIf="member.phone">{{'userList.Table.Phone.lbl' | translate}}{{member.phone}}</p>
-          <p *ngIf="member.department">{{'userList.Table.Department.lbl' | translate}}{{member.department}}</p>
+          <p *ngIf="member.email">{{'userList.Table.Email.lbl' | translate}} {{member.email}}</p>
+          <p *ngIf="member.phone">{{'userList.Table.Phone.lbl' | translate}} {{member.phone}}</p>
+          <p *ngIf="member.department">{{'userList.Table.Department.lbl' | translate}} {{member.department}}</p>
         </a>
         <div
           *ngIf="isGroupColumn"
@@ -63,7 +66,6 @@
             <select
               [ngModel]="member.isGroupAdmin ? '1' : '0'"
               class="user-list__item-group-select"
-              [disabled]="true"
               #select
               (ngModelChange)="changeMemberStatus(member.member.id, select)"
             >
@@ -75,14 +77,33 @@
             <!-- TODO remove it once we have this icon as a font -->
             <svg
               xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 52.31 64.69"
               class="user-list__item-group-admin-svg"
-              viewBox="0 0 24 24"
-              width="18px"
-              height="22px">
-              <path d="M12 22s8-4 8-10V4l-8-2-8 2v8c0 6 8 10 8 10z" class="st0"></path>
-              <text class="st1 st2" transform="translate(8.25 14)">
-                  A
-              </text>
+              width="16px"
+              height="20px"
+            >
+              <defs>
+                <style>
+                  .cls-1 {
+                    fill: none;
+                    stroke: #000;
+                    stroke-miterlimit: 10;
+                    stroke-width: 4px;
+                  }
+                  .cls-2 {
+                    isolation: isolate;
+                  }
+                </style>
+              </defs>
+              <path
+                class="cls-1"
+                d="M26.16,62.45S50.31,50.37,50.31,32.26V8.1l-24.15-6L2,8.1V32.26C2,50.37,26.16,62.45,26.16,62.45Z"
+              />
+              <g class="cls-2">
+                <path
+                  d="M39.07,39.32h-5.7l-2.26-5.89H20.74L18.6,39.32H13L23.15,13.38h5.53ZM29.43,29.06l-3.58-9.63-3.5,9.63Z"
+                />
+              </g>
             </svg>
             {{'userList.Table.GroupAdmin.lbl' | translate}}
           </p>
@@ -92,7 +113,8 @@
         </div>
         <div *ngIf="isManagementColumn" class="user-list__item-management cells--{{data.details.selectedColumns.length}}">
           <button
-            *ngIf="!member.isCreator && data.details.isCurrentMemberGroupAdmin && !data.isInvitePopUp"
+            *ngIf="(!member.isCreator && data?.details?.isCurrentMemberGroupAdmin && !data.isInvitePopUp)
+              || data?.details?.currentMember?.id === member.member.id"
             class="user-list__item-delete-btn"
             (click)="deleteMember(member.member.id)">
             X

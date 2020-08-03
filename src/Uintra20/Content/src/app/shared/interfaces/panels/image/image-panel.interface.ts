@@ -3,6 +3,7 @@ import { LinkTargetType } from 'src/app/feature/reusable/ui-elements/ubl-ui-kit/
 export interface IImagePanel {
   contentTypeAlias: string;
   image: IImage;
+  title?: string;
   description?: string;
   link?: IImagePanelLink;
   anchor?: string;

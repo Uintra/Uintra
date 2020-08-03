@@ -69,7 +69,6 @@
       display: block;
       text-decoration: none;
       color: inherit;
-      margin-bottom: 10px;
     }
 
     &__title {
@@ -92,13 +91,20 @@
         display: -webkit-box;
         -webkit-line-clamp: 3;
         -webkit-box-orient: vertical;
+        word-break: break-word;
+        padding-bottom: 10px;
+
+        ::ng-deep &.rte p{
+          margin: 0;
+        }
     }
 
-    &__footer {
+    &-footer {
         display: flex;
         justify-content: space-between;
         flex-wrap: wrap;
         align-items: center;
+        margin-top: 20px;
 
         &-item {
             .reset-button;
@@ -106,10 +112,15 @@
             display: flex;
             align-items: center;
             text-decoration: none;
-            margin-right: 20px;
+            margin-right: 19px;
+
+            &__text{
+              font-size: 13px;
+              color: #555;
+            }
 
             i {
-                margin-right: 5px;
+                margin: 0 9px -2px 0;
                 color: #b2b2b2;
             }
 

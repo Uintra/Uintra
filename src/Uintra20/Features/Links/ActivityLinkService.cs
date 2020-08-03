@@ -88,18 +88,7 @@ namespace Uintra20.Features.Links
             var activityModel = GetActivityCreateModel(activityType);
             return _centralFeedLinkProvider.GetCreateLinks(activityModel);
         }
-
-        //public async Task<IActivityCreateLinks> GetCreateLinksAsync(Enum activityType, Guid groupId)
-        //{
-        //    var activityModel = await GetActivityGroupCreateModelAsync(activityType, groupId);
-        //    return _groupFeedLinkProvider.GetCreateLinks(activityModel);
-        //}
-
-        //public async Task<IActivityCreateLinks> GetCreateLinksAsync(Enum activityType)
-        //{
-        //    var activityModel = await GetActivityCreateModelAsync(activityType);
-        //    return _centralFeedLinkProvider.GetCreateLinks(activityModel);
-        //}
+        
 
         private GroupActivityTransferCreateModel GetActivityGroupCreateModel(Enum activityType, Guid groupId)
         {

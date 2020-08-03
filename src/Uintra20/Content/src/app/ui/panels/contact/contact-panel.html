@@ -1,0 +1,34 @@
+<section class="contact-panel" *ngIf="data">
+  <h2 *ngIf="data.title" class="contact-panel__title">{{data.title}}</h2>
+
+  <div class="contact-panel__item-list" *ngIf="data.contacts">
+      <div class="contact-panel__item" *ngFor="let item of data.contacts; let i = index">
+        <div class="contact-panel__image" *ngIf="item.photo">
+          <app-picture [data]="item.photo"></app-picture>
+        </div>
+        <div class="contact-panel__text">
+          <div class="contact-panel__heading" *ngIf="item.firstName || item.lastName">
+            {{item.firstName}} {{item.lastName}}
+          </div>
+          <address class="contact-panel__info">
+            <div *ngIf="item.position" class="contact-panel__row">
+                <span class="contact-panel__label">{{'contact.Panel.Position.lbl' | translate}}</span>
+                <span>{{ item.position }}</span>
+            </div>
+            <div *ngIf="item.location" class="contact-panel__row">
+                <span class="contact-panel__label">{{'contact.Panel.Location.lbl' | translate}}</span>
+                <span>{{ item.location }}</span>
+            </div>
+            <div *ngIf="item.email" class="contact-panel__row">
+              <span class="contact-panel__label">{{'contact.Panel.Email.lbl' | translate}}</span>
+              <a href="mailto:{{item.email}}">{{item.email}}</a>
+            </div>
+            <div *ngIf="item.phone" class="contact-panel__row">
+              <span class="contact-panel__label">{{'contact.Panel.Phone.lbl' | translate}}</span>
+              <a href="tel:{{item.phone}}">{{ item.phone }}</a>
+            </div>
+          </address>
+        </div>
+      </div>
+  </div>
+</section>

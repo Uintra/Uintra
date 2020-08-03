@@ -1,4 +1,4 @@
-<div class="page-wrapper"
+<div class="page-wrapper" id="maincontent"
      *ngIf="data">
   <div class="row-flex">
     <div class="col-md-8">
@@ -8,11 +8,13 @@
           <h3 class="search__title subtitle">{{'searchResult.Search.lbl' | translate}}</h3>
           <div class="search">
             <input type="search"
-                   ariaLabel="search"
                    id="search"
                    name="search"
                    class="search__input"
                    autocomplete="off"
+                   aria-label="Search"
+                   role="search"
+                   
                    #query
                    [value]="inputValue"
                    (keyup)="onQueryChange(query.value)" />
@@ -43,10 +45,11 @@
              [infiniteScrollDisabled]="isScrollDisabled"
 
              (scrolled)="onScroll()">
-            <a *ngFor="let result of resultsList; trackBy: trackingIndex"
+            <a *ngFor="let result of resultsList; trackBy: index"
                target="_blank"
                class="search-results__item"
-               [routerLink]="result.url | ulink">
+               [routerLink]="result.url?.baseUrl | ulink"
+               [queryParams]="result.url?.params | uparams">
             <div class="search-results__item-info">
               <h3 *ngIf="result.title"
                   class="search-results__item-title"

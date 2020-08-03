@@ -16,6 +16,10 @@
     padding: 29px 20px 49px;
   }
 
+  :host-context(.default-theme) &{
+    padding-top: 0;
+  }
+
   ::ng-deep .aside &{
     font-size: 16px;
     line-height: 1.5;
@@ -52,9 +56,8 @@
   &__table {
     width: 100%;
     tr{
-      border-bottom-width: 1px;
-      border-style: solid;
-      border-color:@grey;
+      border: 1px solid @grey;
+      border-width:0 0 1px;
 
       &:first-child{
         @media @sm-down{
@@ -90,6 +93,7 @@
         content: attr(data-label);
         padding-right: 3px;
         text-align: left;
+        flex: 1 0 50%;
       }
     }
   }
@@ -107,6 +111,8 @@
 
     th,
     td {
+      word-break: break-word;
+
       @media @md-up{
         padding: 19px 3px;
       }
@@ -118,6 +124,7 @@
         padding: 0;
         display: flex;
         justify-content: space-between;
+        word-break: break-all;
       }
 
       &:first-child{
@@ -140,7 +147,7 @@
 }
 
 // Adaptive
-@media @sm-down {
+@media @md-down {
   .table-panel {
     &__table{
       td{
@@ -163,6 +170,7 @@
         padding: 0;
         display: flex;
         justify-content: space-between;
+        word-break: break-all;
 
         &:first-child{
           width:auto;
@@ -176,6 +184,7 @@
           content: attr(data-label);
           padding-right: 3px;
           text-align: left;
+          flex: 1 0 50%;
         }
       }
     }

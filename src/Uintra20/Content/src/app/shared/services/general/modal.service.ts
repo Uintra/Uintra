@@ -4,10 +4,11 @@ import {
   ComponentFactoryResolver,
   ApplicationRef,
   Injector,
-  EmbeddedViewRef
+  EmbeddedViewRef,
+  ElementRef
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { Subject } from 'rxjs';
+import { Subject, from } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,8 @@ export class ModalService {
     @Inject(DOCUMENT) private document: Document,
     private componentFactoryResolver: ComponentFactoryResolver,
     private appRef: ApplicationRef,
-    private injector: Injector
+    private injector: Injector,
+    
     ) { }
 
   addClassToRoot(className: string): void {
@@ -55,6 +57,7 @@ export class ModalService {
       .rootNodes[0] as HTMLElement;
 
     document.body.appendChild(domElem);
+
     this.addClassToRoot('disable-scroll');
   }
 

@@ -1,0 +1,187 @@
+@import "base.less";
+
+:host {
+  display: block;
+}
+
+::ng-deep .spot-panel {
+  .video-modal {
+    display: none !important;
+  } //todo
+}
+
+.spot-panel__list {
+  &--for-desk {
+    @media @sm-down {
+      display: none !important;
+    }
+  }
+  &--for-mobile {
+    @media @sm-up {
+      display: none !important;
+    }
+  }
+}
+
+::ng-deep .app-default {
+  @media @sm-up {
+    margin: 0 -20px;
+    display: flex;
+    padding: 28px 0 0;
+  }
+
+  @media @lg-up{
+    padding: 4px 0 0;
+  }
+
+  ::ng-deep .aside &{
+    display: block;
+    margin: 0;
+    padding: 0;
+  }
+
+  .spot-panel {
+    &__item {
+      @media @sm-up {
+        padding: 0 20px;
+      }
+
+      ::ng-deep .aside &{
+        padding: 20px 0 0;
+
+        &:first-child{
+          padding: 0;
+        }
+      }
+    }
+
+    &__image {
+      position: relative;
+      margin: 0 0 18px;
+
+      @media @sm-up {
+        margin: 0 0 8px;
+      }
+
+      @media @lg-up {
+        margin: 0 0 8px;
+      }
+
+      ::ng-deep .aside &{
+        margin: 0 0 8px;
+      }
+
+      ::ng-deep img {
+        width: 100% !important;
+      }
+    }
+
+    &__item-title {
+      margin: 0 0 9px;
+      font-size: 22px;
+
+      @media @sm-up {
+        margin: 0 0 4px;
+      }
+      @media @lg-up {
+        margin: 0 0 14px;
+        font-size: 28px;
+      }
+    }
+
+    &__text {
+      font-size: 20px;
+      padding: 0 0 10px;
+
+      @media @lg-up {
+        font-size: 22px;
+      }
+
+      ::ng-deep .aside &{
+        font-size: 16px;
+      }
+
+      ::ng-deep .base-button__link {
+        font-size: 18px;
+        font-weight: normal;
+
+        @media @sm-up {
+          font-size: 20px;
+        }
+
+        @media @lg-up {
+          font-size: 22px;
+        }
+
+        ::ng-deep .aside &{
+          font-size: 16px;
+        }
+      }
+    }
+  }
+
+  .date{
+    display: block;
+  }
+}
+
+.spot-panel-carousel {
+  padding: 0 0 48px;
+  position: relative;
+
+  &__content {
+    display: flex;
+    transform: translateX(-100%);
+    transition: 0.5s ease-out;
+    will-change: transform;
+  }
+
+  .spot-panel__item {
+    flex: 1 0 80%;
+    max-width: 80%;
+    margin-right: 9%;
+  }
+
+  &__dots {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  &__dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #707070;
+    margin: 0 5px;
+
+    &.active {
+      background: #fff;
+    }
+  }
+}
+
+.loop(@count) when(@count > 0) {
+  .loop((@count - 1));
+  :host-context(.spot-panel__content--@{count}) {
+    .spot-panel {
+      &__item {
+        @media @sm-up {
+          @width: 100% / @count;
+          content: "debug";
+          width: @width;
+          flex: 0 0 @width;
+        }
+
+        .aside &{
+          width: 100% !important;
+        }
+      }
+    }
+  }
+}
+
+.loop(6);

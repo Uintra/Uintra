@@ -1,5 +1,6 @@
-<div
+<a href="#top"
   class="go-to-top-button"
   [ngClass]="{ 'show-scrollTop': windowScrolled }"
-  (click)="scrollToTop()"
-></div>
+  (click)="scrollToBlock($event)">
+  <span>{{ 'general.GoToTop.Button' | translate }}</span>
+</a>

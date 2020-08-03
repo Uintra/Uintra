@@ -57,14 +57,14 @@
     &:focus {
       color: @link-color;
       text-decoration: underline;
-      outline: none;
+      //outline: none;
     }
 
     &--btn {
       width: 100%;
       background-color: transparent;
       border: none;
-      outline: none;
+      //outline: none;
     }
   }
 }
@@ -103,7 +103,7 @@
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    font: @body-font;
+    font-family: @body-font;
     font-size: 16px;
     font-weight: bold;
     padding-right: 18px;
@@ -115,14 +115,17 @@
     color: @main-color;
     display: flex;
     align-items: center;
-    padding: 4px 2px 4px 17px;
-    cursor: pointer;
-    margin-right: 3px;
+    padding: 4px 1px 4px 17px;
+    text-decoration: none;
+
+    &:hover{
+      text-decoration: underline;
+    }
   }
 
   &__avatar {
     display: inline-block;
-    margin-right: 13px;
+    margin-right: 12px;
   }
 
   &__opener-arrow {
@@ -131,6 +134,7 @@
     border: solid @main-color;
     border-width: 0 1px 1px 0;
     transform: rotate(45deg);
+    margin: 0 0 3px;
   }
 
   &__menu-item {

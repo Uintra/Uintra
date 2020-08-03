@@ -11,7 +11,7 @@ namespace Uintra20.Features.Social.Models
     {
         public string Description { get; set; }
         public DateTime PublishDate { get; set; }
-        public LinkPreviewViewModel LinkPreview { get; set; }
+        public LinkPreviewModel LinkPreview { get; set; }
         public IEnumerable<string> Media { get; set; } = Enumerable.Empty<string>();
         public LightboxPreviewModel LightboxPreviewModel { get; set; }
     }

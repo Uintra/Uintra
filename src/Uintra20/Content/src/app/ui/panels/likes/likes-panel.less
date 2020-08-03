@@ -1,10 +1,14 @@
 @import "base.less";
 
-likes-panel {
+::ng-deep likes-panel {
   &.likes-panel--content {
     .white-block;
     display: block;
     padding: 20px;
+
+    ::ng-deep .aside &{
+      margin: 10px 10px 20px;
+    }
   }
 
   .likes-title {

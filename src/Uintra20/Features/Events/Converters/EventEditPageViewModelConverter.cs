@@ -12,6 +12,7 @@ using Uintra20.Core.UbaselineModels.RestrictedNode;
 using Uintra20.Features.Events.Entities;
 using Uintra20.Features.Events.Models;
 using Uintra20.Features.Groups.Helpers;
+using Uintra20.Features.Groups.Services;
 using Uintra20.Features.Links;
 using Uintra20.Features.Media.Helpers;
 using Uintra20.Features.Media.Strategies.Preset;
@@ -34,6 +35,7 @@ namespace Uintra20.Features.Events.Converters
         private readonly ILightboxHelper _lightboxHelper;
         private readonly IGroupHelper _groupHelper;
         private readonly IUBaselineRequestContext _context;
+        private readonly IGroupService _groupService;
 
         public EventEditPageViewModelConverter(
             IPermissionsService permissionsService,
@@ -45,7 +47,8 @@ namespace Uintra20.Features.Events.Converters
             ILightboxHelper lightboxHelper,
             IGroupHelper groupHelper,
             IErrorLinksService errorLinksService,
-            IUBaselineRequestContext context)
+            IUBaselineRequestContext context,
+            IGroupService groupService)
             : base(errorLinksService)
         {
             _permissionsService = permissionsService;
@@ -72,16 +75,23 @@ namespace Uintra20.Features.Events.Converters
                 return NotFoundResult();
             }
 
+            if (@event.GroupId.HasValue)
+            {
+                var group = _groupService.Get(@event.GroupId.Value);
+                if (group != null && group.IsHidden)
+                    return NotFoundResult();
+            }
+
             if (!_eventService.CanEdit(id.Value)) return ForbiddenResult();
 
             viewModel.Details = GetDetails(@event);
             viewModel.Links = _feedLinkService.GetLinks(@event.Id);
-            viewModel.CanEditOwner = _permissionsService.Check(PermissionResourceTypeEnum.News, PermissionActionEnum.EditOwner);
+            viewModel.CanEditOwner = _permissionsService.Check(PermissionResourceTypeEnum.Events, PermissionActionEnum.EditOwner);
             viewModel.AllowedMediaExtensions = _eventService.GetMediaSettings().AllowedMediaExtensions;
-            viewModel.PinAllowed = _permissionsService.Check(PermissionResourceTypeEnum.News, PermissionActionEnum.CanPin);
+            viewModel.PinAllowed = _permissionsService.Check(PermissionResourceTypeEnum.Events, PermissionActionEnum.CanPin);
 
             if (viewModel.CanEditOwner)
-                viewModel.Members = GetUsersWithAccess(new PermissionSettingIdentity(PermissionActionEnum.Create, PermissionResourceTypeEnum.News));
+                viewModel.Members = GetUsersWithAccess(new PermissionSettingIdentity(PermissionActionEnum.Create, PermissionResourceTypeEnum.Events));
 
             var requestGroupId = HttpContext.Current.Request["groupId"];
 

@@ -21,4 +21,9 @@ export class GroupsComponent implements OnInit {
     this.isOpen = !this.isOpen;
     this.groupsService.setOpenState(this.isOpen);
   }
+
+  onOpen() {
+    this.isOpen = true;
+    this.groupsService.setOpenState(this.isOpen);
+  }
 }

@@ -11,6 +11,7 @@ using Uintra20.Features.Social.Models;
 using Uintra20.Features.Media.Strategies.Preset;
 using Uintra20.Features.Tagging.UserTags.Services;
 using Uintra20.Infrastructure.Extensions;
+using Uintra20.Features.Groups.Services;
 
 namespace Uintra20.Features.Social.Converters
 {
@@ -25,6 +26,7 @@ namespace Uintra20.Features.Social.Converters
         private readonly IFeedLinkService _feedLinkService;
         private readonly IGroupHelper _groupHelper;
         private readonly IUBaselineRequestContext _context;
+        private readonly IGroupService _groupService;
 
         public SocialEditPageViewModelConverter(
             ILocalizationModelService localizationModelService,
@@ -35,7 +37,8 @@ namespace Uintra20.Features.Social.Converters
             IFeedLinkService feedLinkService,
             IGroupHelper groupHelper,
             IErrorLinksService errorLinksService,
-            IUBaselineRequestContext context)
+            IUBaselineRequestContext context,
+            IGroupService groupService)
             : base(errorLinksService)
         {
             _localizationModelService = localizationModelService;
@@ -46,6 +49,7 @@ namespace Uintra20.Features.Social.Converters
             _feedLinkService = feedLinkService;
             _groupHelper = groupHelper;
             _context = context;
+            _groupService = groupService;
         }
 
         public override ConverterResponseModel MapViewModel(SocialEditPageModel node, SocialEditPageViewModel viewModel)
@@ -59,6 +63,13 @@ namespace Uintra20.Features.Social.Converters
             if (social == null)
             {
                 return NotFoundResult();
+            }
+
+            if (social.GroupId.HasValue)
+            {
+                var group = _groupService.Get(social.GroupId.Value);
+                if (group != null && group.IsHidden)
+                    return NotFoundResult();
             }
 
             if (!_socialService.CanEdit(id.Value))

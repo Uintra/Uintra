@@ -12,7 +12,7 @@ export class UProperty {
         extract.forEach((key: keyof R) => {
             if (data.hasOwnProperty(key))
             {
-                res[key as string] = data[key as string] && data[key as string].value;
+                res[key as string] = data[key as string];
             }
         });
 

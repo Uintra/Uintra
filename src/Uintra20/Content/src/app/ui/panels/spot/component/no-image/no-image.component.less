@@ -1,0 +1,57 @@
+@import 'base.less';
+
+::ng-deep .app-no-image {
+
+  .title {
+      font-weight: bold;
+      margin: 0 0 14px;
+
+      @media @sm-up{
+        margin: 0 0 44px;
+      }
+      @media @lg-up{
+        margin: 0 0 23px;
+      }
+
+      ::ng-deep .aside &{
+        margin: 0 0 10px;
+      }
+  }
+
+  .text {
+      font-size: 20px;
+      line-height: 1.5;
+
+      @media @sm-up{
+        font-size: 22px;
+      }
+      @media @lg-up{
+        font-size: 25px;
+        line-height: 1.52;
+      }
+
+      ::ng-deep .aside &{
+        font-size: 16px;
+      }
+
+      ::ng-deep .base-button__link{
+        font-size: 20px;
+        font-weight: normal;
+
+        @media @sm-up{
+          font-size: 22px;
+        }
+        @media @lg-up{
+          font-size: 25px;
+        }
+
+        ::ng-deep .aside &{
+          font-size: 16px;
+        }
+      }
+  }
+
+  .date{
+    display: block;
+  }
+}

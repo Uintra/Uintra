@@ -4,8 +4,7 @@
     (selectFilters)="selectFilters($event)"
   ></app-central-feed-filters>
 
-  <div
-    class="search-results"
+  <div class="search-results" id="maincontent" tabindex="-1"
     infiniteScroll
     [infiniteScrollDistance]="2"
     [infiniteScrollThrottle]="250"
@@ -17,6 +16,12 @@
       [publication]="publication"
       [id]="publication.id"
     ></app-central-feed-publication>
+
+    <div class="central-feed__load-more">
+      <button *ngIf="showLoadMore && !isFeedLoading" class="button-default" (click)="onLoadMore()">
+        {{'loadMore.Label' | translate}}
+      </button>
+    </div>
 
     <div *ngIf="isFeedLoading" class="central-feed__loader-wrapper">
       <div class="central-feed__loader"></div>

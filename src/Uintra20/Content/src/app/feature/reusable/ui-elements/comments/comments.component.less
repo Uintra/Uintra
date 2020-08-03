@@ -5,6 +5,10 @@
   padding-top: 24px;
   border-top: 1px solid @border-color;
 
+  ::ng-deep .aside &{
+    padding: 24px 10px 20px;
+  }
+
   &__title {
     margin: 0 0 36px;
     font-weight: normal;
@@ -76,5 +80,9 @@
     top: -200px !important;
     right: 0 !important;
     left: unset !important;
+  }
+
+  & ::ng-deep quill-editor .ql-toolbar.ql-snow .toolbar-actions {
+    border-top: none;
   }
 }

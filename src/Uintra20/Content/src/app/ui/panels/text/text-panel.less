@@ -11,11 +11,15 @@ section[class*="text-panel"]{
     .theme(text-color);
     padding: 40px 10px 30px;
 
-    @media @md-up{
+    @media @sm-up{
       padding: 46px 20px 30px;
     }
     @media @lg-up{
       padding: 48px 20px 30px;
+    }
+
+    :host-context(.default-theme) &{
+      padding-top: 0;
     }
 
     & + .text-panel__content{
@@ -38,10 +42,21 @@ section[class*="text-panel"]{
     }
 
     .content__link .base-button{
-      text-transform: uppercase;
       &__link{
         text-decoration: underline;
         .theme(link-color);
+        font: 18px/1.5 @body-font;
+
+        @media @md-up{
+          font-size: 20px;
+        }
+        @media @lg-up{
+          font-size: 22px;
+        }
+
+        ::ng-deep .aside &{
+          font-size: 18px;
+        }
 
         &:hover{
           text-decoration: none;

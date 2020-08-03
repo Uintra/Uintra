@@ -1,10 +1,9 @@
 <section class="image-panel" *ngIf="data">
-  <!-- <app-heading>{{data.title}}</app-heading> -->
-  <h1 class="heading__title">Panel title</h1>
+  <h2 *ngIf="data.title" class="image-panel__title">{{data.title}}</h2>
   <a class="image-panel__content"
     [attr.href]="data.link ? data.link.url : null"
     target="{{ data.link?.target || '_self' }}">
     <app-picture class="image-panel__image" *ngIf="data.image" [data]="data.image"></app-picture>
   </a>
-  <p *ngIf="data.description" class="image-panel__description">{{data.description}}</p>
+  <div *ngIf="description" class="image-panel__description" [innerHTML]="description"></div>
 </section>

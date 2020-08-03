@@ -211,34 +211,25 @@ namespace Uintra20.Features.Events.AutoMapperProfiles
                 .ForMember(dst => dst.Media, o => o.MapFrom(el => el.MediaIds.JoinToString(",")))
                 .AfterMap((src, dst) =>
                 {
-                    var startDate = src.StartDate.ToEventDetailsDateTimeFormat();
+                    var startDate = src.StartDate.ToDateTimeFormat();
+                    string endDate;
 
-                    if (src.StartDate.Date == src.EndDate.Date)
+                    if (src.StartDate.Date == @src.EndDate.Date)
                     {
-                        var endDate = src.EndDate.ToEventDetailsTimeFormat();
-
-                        dst.FullEventTime = new[] {$"{startDate} - {endDate}"};
+                        endDate = src.EndDate.ToTimeFormat();
                     }
                     else
                     {
-                        var endDate = src.EndDate.ToEventDetailsDateTimeFormat();
-
-                        dst.FullEventTime = new[] { startDate, endDate };
+                        endDate = src.EndDate.ToDateTimeFormat();
                     }
 
+                    dst.FullEventTime = new[] { startDate, endDate };
+                    
                     dst.StartDateString = startDate;
-                    dst.EndDateString = src.EndDate.ToEventDetailsDateTimeFormat();
                     dst.EventDate = src.StartDate.WithUserOffset().Day;
                     dst.EventMonth = src.StartDate.WithUserOffset().ToString("MMM");
                 }); ;
 
-            //Mapper.CreateMap<EventBase, EventBackofficeViewModel>()
-            //    .ForMember(dst => dst.StartDate, o => o.MapFrom(s => s.StartDate.ToIsoUtcString()))
-            //    .ForMember(dst => dst.EndDate, o => o.MapFrom(s => s.EndDate.ToIsoUtcString()))
-            //    .ForMember(dst => dst.PublishDate, o => o.MapFrom(s => s.PublishDate.ToIsoUtcString()))
-            //    .ForMember(dst => dst.CreatedDate, o => o.MapFrom(s => s.CreatedDate.ToIsoUtcString()))
-            //    .ForMember(dst => dst.ModifyDate, o => o.MapFrom(s => s.ModifyDate.ToIsoUtcString()))
-            //    .ForMember(dst => dst.Media, o => o.MapFrom(s => s.MediaIds.JoinToString(",")));
 
             CreateMap<EventBase, IntranetActivityDetailsHeaderViewModel>()
                 .ForMember(dst => dst.Links, o => o.Ignore())
@@ -249,6 +240,15 @@ namespace Uintra20.Features.Events.AutoMapperProfiles
                 .IncludeBase<EventBase, IntranetActivityDetailsHeaderViewModel>()
                 .ForMember(dst => dst.ActivityId, o => o.MapFrom(el => el.Id))
                 .ForMember(dst => dst.Dates, o => o.MapFrom(el => new List<string> { el.StartDate.GetEventDateTimeString(el.EndDate) }));
+            
+            
+            //Mapper.CreateMap<EventBase, EventBackofficeViewModel>()
+            //    .ForMember(dst => dst.StartDate, o => o.MapFrom(s => s.StartDate.ToIsoUtcString()))
+            //    .ForMember(dst => dst.EndDate, o => o.MapFrom(s => s.EndDate.ToIsoUtcString()))
+            //    .ForMember(dst => dst.PublishDate, o => o.MapFrom(s => s.PublishDate.ToIsoUtcString()))
+            //    .ForMember(dst => dst.CreatedDate, o => o.MapFrom(s => s.CreatedDate.ToIsoUtcString()))
+            //    .ForMember(dst => dst.ModifyDate, o => o.MapFrom(s => s.ModifyDate.ToIsoUtcString()))
+            //    .ForMember(dst => dst.Media, o => o.MapFrom(s => s.MediaIds.JoinToString(",")));
 
             //Mapper.CreateMap<EventBackofficeCreateModel, EventBase>()
             //   .ForMember(dst => dst.MediaIds, o => o.Ignore())

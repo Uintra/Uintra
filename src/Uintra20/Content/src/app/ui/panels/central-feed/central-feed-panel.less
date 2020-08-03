@@ -2,7 +2,12 @@
 
 app-spoiler-section {
   display: block;
-  margin-bottom: 20px;
+  margin-bottom: 4px;
+
+
+  @media @sm-up {
+    margin-bottom: 20px;
+  }
 }
 
 .central-feed {
@@ -21,5 +26,10 @@ app-spoiler-section {
     .white-block;
     font-size: 16px;
     padding: 20px;
+  }
+
+  &__load-more{
+    padding: 25px 0 50px;
+    text-align: center;
   }
 }

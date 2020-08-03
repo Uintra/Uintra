@@ -9,6 +9,7 @@ using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Services;
 using Uintra20.Core.UbaselineModels.RestrictedNode;
 using Uintra20.Features.Groups.Helpers;
+using Uintra20.Features.Groups.Services;
 using Uintra20.Features.Links;
 using Uintra20.Features.Media.Helpers;
 using Uintra20.Features.Media.Strategies.Preset;
@@ -31,6 +32,7 @@ namespace Uintra20.Features.News.Converters
         private readonly IPermissionsService _permissionsService;
         private readonly IGroupHelper _groupHelper;
         private readonly IUBaselineRequestContext _context;
+        private readonly IGroupService _groupService;
 
         public UintraNewsDetailsPageViewModelConverter(
             IUserTagService userTagService,
@@ -41,7 +43,8 @@ namespace Uintra20.Features.News.Converters
             IPermissionsService permissionsService,
             IGroupHelper groupHelper,
             IErrorLinksService errorLinksService, 
-            IUBaselineRequestContext context)
+            IUBaselineRequestContext context,
+            IGroupService groupService)
             : base(errorLinksService)
         {
             _userTagService = userTagService;
@@ -52,6 +55,7 @@ namespace Uintra20.Features.News.Converters
             _permissionsService = permissionsService;
             _groupHelper = groupHelper;
             _context = context;
+            _groupService = groupService;
         }
 
         public override ConverterResponseModel MapViewModel(UintraNewsDetailsPageModel node, UintraNewsDetailsPageViewModel viewModel)
@@ -63,6 +67,13 @@ namespace Uintra20.Features.News.Converters
             var news = _newsService.Get(id.Value);
 
             if (news == null || news.IsHidden) return NotFoundResult();
+
+            if (news.GroupId.HasValue)
+            {
+                var group = _groupService.Get(news.GroupId.Value);
+                if (group != null && group.IsHidden)
+                    return NotFoundResult();
+            }
 
             if (!_permissionsService.Check(PermissionResourceTypeEnum.News, PermissionActionEnum.View))
             {

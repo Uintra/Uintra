@@ -8,6 +8,7 @@ using Uintra20.Core.Activity;
 using Uintra20.Core.Member.Entities;
 using Uintra20.Core.Member.Services;
 using Uintra20.Core.UbaselineModels.RestrictedNode;
+using Uintra20.Features.Events.Entities;
 using Uintra20.Features.Events.Models;
 using Uintra20.Features.Groups.Helpers;
 using Uintra20.Features.Groups.Services;
@@ -32,6 +33,8 @@ namespace Uintra20.Features.Events.Converters
         private readonly IGroupMemberService _groupMemberService;
         private readonly IGroupHelper _groupHelper;
         private readonly IUBaselineRequestContext _context;
+        private readonly IEventsService<Event> _eventsService;
+        private readonly IGroupService _groupService;
 
         public EventCreatePageViewModelConverter(
             IIntranetMemberService<IntranetMember> memberService,
@@ -41,7 +44,9 @@ namespace Uintra20.Features.Events.Converters
             IGroupMemberService groupMemberService,
             IGroupHelper groupHelper,
             IErrorLinksService errorLinksService, 
-            IUBaselineRequestContext context) 
+            IUBaselineRequestContext context,
+            IEventsService<Event> eventsService,
+            IGroupService groupService) 
             : base(errorLinksService)
         {
             _memberService = memberService;
@@ -51,11 +56,20 @@ namespace Uintra20.Features.Events.Converters
             _groupMemberService = groupMemberService;
             _groupHelper = groupHelper;
             _context = context;
+            _eventsService = eventsService;
+            _groupService = groupService;
         }
 
         public override ConverterResponseModel MapViewModel(EventCreatePageModel node, EventCreatePageViewModel viewModel)
         {
             var groupId = _context.ParseQueryString("groupId").TryParseGuid();
+
+            if (groupId.HasValue)
+            {
+                var group = _groupService.Get(groupId.Value);
+                if (group == null || group.IsHidden)
+                    return NotFoundResult();
+            }
 
             if (!HasPermission(groupId))
             {
@@ -70,7 +84,7 @@ namespace Uintra20.Features.Events.Converters
 
         private EventCreateDataViewModel GetData(Guid? groupId)
         {
-            var model = new EventCreateDataViewModel();
+            var model = new EventCreateDataViewModel {GroupId = groupId};
 
             var currentMember = _memberService.GetCurrentMember();
 
@@ -83,14 +97,12 @@ namespace Uintra20.Features.Events.Converters
             model.Links = model.GroupId.HasValue ?
                 _feedLinkService.GetCreateLinks(ActivityType, model.GroupId.Value)
                 : _feedLinkService.GetCreateLinks(ActivityType);
+            
+            var mediaSettings = _eventsService.GetMediaSettings();
 
-            //TODO: Uncomment when eventService is ready
-            //var mediaSettings = "";_eventsService.GetMediaSettings();
-
-            model.AllowedMediaExtensions = "";//mediaSettings.AllowedMediaExtensions;
+            model.AllowedMediaExtensions = mediaSettings.AllowedMediaExtensions;
             model.Tags = _tagProvider.GetAll();
             model.Creator = currentMember.ToViewModel();
-            model.GroupId = groupId;
 
             var now = DateTime.UtcNow;
 

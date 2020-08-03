@@ -84,7 +84,7 @@ namespace Uintra20.Features.News
             IActivityLinkService activityLinkService, IIndexerDiagnosticService indexerDiagnosticService)
             : base(intranetActivityRepository, cacheService, intranetMemberService,
                 activityTypeProvider, intranetMediaService, activityLocationService, activityLinkPreviewService,
-                permissionsService)
+                permissionsService, groupActivityService, groupService)
         {
             _commentsService = commentsService;
             _likesService = likesService;
@@ -122,6 +122,11 @@ namespace Uintra20.Features.News
         {
             var items = GetOrderedActualItems();
             return items;
+        }
+
+        public IEnumerable<IFeedItem> GetGroupItems(Guid groupId)
+        {
+	        return GetOrderedActualItems().Where(a => a.GroupId == groupId);
         }
 
         public async Task<IEnumerable<IFeedItem>> GetItemsAsync()

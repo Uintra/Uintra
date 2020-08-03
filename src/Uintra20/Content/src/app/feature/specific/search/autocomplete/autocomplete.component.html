@@ -2,14 +2,16 @@
   <div class="autocomplete-holder">
     <input
       type="search"
-      ariaLabel="search"
       id="search"
       name="search"
       class="autocomplete-holder__input"
       placeholder="Search"
       autocomplete="off"
-      #query
+      accesskey="4"
+      aria-label="Search"
+      role="search"
 
+      #query
       [ngModel]="inputValue"
       (ngModelChange)="onQueryChange($event)"
       (keyup)="onKeyClick($event.keyCode)"
@@ -24,7 +26,8 @@
       <a
         class="autocomplete-list__item-link"
         [ngClass]="{'autocomplete-list__item-link--active': item.isActive}"
-        [routerLink]="item.url.originalUrl | ulink">
+        [routerLink]="item.url.baseUrl | ulink"
+        [queryParams]="item.url.params | uparams">
         <div class="autocomplete-list__item-left">
           <app-user-avatar
             *ngIf="item.item.photo"

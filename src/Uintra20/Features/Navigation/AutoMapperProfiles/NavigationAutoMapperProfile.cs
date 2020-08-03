@@ -31,7 +31,6 @@ namespace Uintra20.Features.Navigation.AutoMapperProfiles
                 .ForMember(dst => dst.GroupItems, o => o.Ignore())
                 .ForMember(dst => dst.SharedLinks, o => o.Ignore())
                 .ForMember(dst => dst.MyLinks, o => o.Ignore());
-            CreateMap<SubNavigationMenuModel, SubNavigationMenuViewModel>();
             //CreateMap<TopNavigationModel, TopNavigationViewModel>();
 
             CreateMap<MyLinkItemModel, MyLinkItemViewModel>();

@@ -15,6 +15,8 @@ using Uintra20.Features.Breadcrumbs.Models;
 using Uintra20.Features.Breadcrumbs.Services.Contracts;
 using Uintra20.Features.Groups.Helpers;
 using Uintra20.Features.Links.Models;
+using Uintra20.Features.Navigation.Builders;
+using Uintra20.Features.Navigation.Helpers;
 using Uintra20.Features.Navigation.Models;
 using Uintra20.Features.Navigation.Models.MyLinks;
 using Uintra20.Features.Notification;
@@ -94,9 +96,12 @@ namespace Uintra20.Features.Navigation.Web
         public virtual UintraLinkModel UserList()
         {
             var homeModel = (HomePageModel) _ubaselineRequestContext.HomeNode;
-            var userListPage = _nodeModelService.Get(homeModel.UserListPage.Value);
-
-            return userListPage.Url.ToLinkModel();
+            if (homeModel.UserListPage.Value.HasValue)
+            {
+                var userListPage = _nodeModelService.Get(homeModel.UserListPage.Value.Value);
+                return userListPage.Url.ToLinkModel();
+            }
+            return null;
         }
 
         [HttpGet]

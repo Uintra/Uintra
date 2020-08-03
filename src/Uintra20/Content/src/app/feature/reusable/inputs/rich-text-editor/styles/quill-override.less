@@ -2,6 +2,14 @@
 
 @editor-height: 24px * 5;
 
+.icon-centered() {
+  display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
 quill-editor {
   display: block;
   position: relative;
@@ -15,14 +23,14 @@ quill-editor {
       align-items: center;
     }*/
 
-    &__first-row{
+    &__first-row {
       flex-grow: 1;
       justify-content: space-between;
       display: flex;
-      margin:0 10px 7px 0;
+      margin: 0 10px 7px 0;
 
       @media @sm-down {
-        margin:0 0 5px;
+        margin: 0 0 5px;
       }
     }
     &__second-row {
@@ -30,7 +38,7 @@ quill-editor {
       align-items: center;
     }
 
-    &-actions{
+    &-actions {
       width: 100%;
       border-top: 1px solid #ddd;
 
@@ -40,16 +48,15 @@ quill-editor {
       }
     }
 
-    &__link{
+    &__link {
       color: @black;
       font: 11px/2 @font;
 
-      &:hover{
+      &:hover {
         text-decoration: none;
       }
     }
   }
-
 
   // Disable default icon in toolbar
   .ql-link,
@@ -73,16 +80,14 @@ quill-editor {
   // Customize toolbar icons
   .ql-bold:before {
     content: "B";
-    width: 20px;
-    height: 20px;
+    .icon-centered;
     background-image: none;
     font-weight: 600;
     line-height: 20px;
   }
   .ql-italic:before {
     content: "i";
-    width: 20px;
-    height: 20px;
+    .icon-centered;
     background-image: none;
     font-style: italic;
     font-weight: 600;
@@ -91,6 +96,8 @@ quill-editor {
   .ql-dropzone.icon-attachment:before {
     font-size: 25px;
     line-height: 20px;
+    .icon-centered;
+    height: 95%;
   }
 
   // Reset editor styles
@@ -145,7 +152,7 @@ quill-editor {
       border: 1px solid #ccc !important;
     }
 
-    .toolbar-actions{
+    .toolbar-actions {
       padding: 10px 15px 6px;
       border: 0;
       border-top: 1px solid #ccc;
@@ -166,7 +173,7 @@ quill-editor {
     }
   }
 
-  .ql-formats-wrapper{
+  .ql-formats-wrapper {
     @media @sm-up {
       margin-right: 10px;
     }
@@ -178,7 +185,10 @@ quill-editor {
 
   // Customize buttons
   .ql-snow.ql-toolbar .toolbar-actions button:not(.toolbar__toggle-multiselect),
-  .ql-snow .ql-toolbar .toolbar-actions button:not(.toolbar__toggle-multiselect) {
+  .ql-snow
+    .ql-toolbar
+    .toolbar-actions
+    button:not(.toolbar__toggle-multiselect) {
     display: flex;
     padding: 5px;
     width: 30px;
@@ -187,10 +197,15 @@ quill-editor {
     border: 1px solid #d6d6d6;
     justify-content: center;
   }
-  .ql-snow.ql-toolbar .ql-submit-button button:not(.toolbar__toggle-multiselect),
-  .ql-snow .ql-toolbar .ql-submit-button button:not(.toolbar__toggle-multiselect) {
+  .ql-snow.ql-toolbar
+    .ql-submit-button
+    button:not(.toolbar__toggle-multiselect),
+  .ql-snow
+    .ql-toolbar
+    .ql-submit-button
+    button:not(.toolbar__toggle-multiselect) {
     .button-blue;
-    padding: 6px 17px;
+    padding: 0 17px;
   }
 
   .ql-snow.ql-toolbar.top-mode button {
@@ -213,9 +228,22 @@ quill-editor {
   .icon-smily {
     font-size: 14px;
     margin-right: 8px;
+
+    &:before {
+      .icon-centered;
+      height: 95%;
+    }
   }
 
-  .ql-container .ql-tooltip.ql-editing, .ql-container .ql-tooltip.ql-flip,
+  .icon-link {
+    &:before {
+      .icon-centered;
+      height: 95%;
+    }
+  }
+
+  .ql-container .ql-tooltip.ql-editing,
+  .ql-container .ql-tooltip.ql-flip,
   .ql-container .ql-tooltip {
     margin: 0 !important;
     top: 50% !important;
@@ -250,25 +278,25 @@ quill-editor {
 }
 
 //multiselect
-@import '../../tag-multiselect/tag-multiselect.component.less';
+@import "../../tag-multiselect/tag-multiselect.component.less";
 
 .multiselect {
-  & .open .tag-multiselect{
-    border-color:#ddd !important;
+  & .open .tag-multiselect {
+    border-color: #ddd !important;
   }
 
-  & .tag-multiselect{
-    border-width:1px 0 0;
+  & .tag-multiselect {
+    border-width: 1px 0 0;
 
-    &__input-field{
+    &__input-field {
       padding: 5px 9px 5px 15px;
 
-      @media @sm-up{
+      @media @sm-up {
         padding: 5px 9px 5px 20px;
       }
     }
 
-    &__open-btn{
+    &__open-btn {
       background: none !important;
       border: 0 !important;
       outline: 0 !important;
@@ -280,16 +308,16 @@ quill-editor {
       padding: 0 17px !important;
       width: auto !important;
 
-      &:focus{
-        outline: none;
-      }
+      // &:focus {
+      //   outline: none;
+      // }
 
-      .icon:before{
+      .icon:before {
         font-weight: bold;
       }
     }
 
-    &__clear-btn{
+    &__clear-btn {
       background: none !important;
       border: 0 !important;
       outline: 0 !important;
@@ -303,10 +331,10 @@ quill-editor {
       width: auto !important;
     }
 
-    &-dropdown{
+    &-dropdown {
       margin-top: -1px;
 
-      &-row{
+      &-row {
         float: none !important;
         height: auto !important;
         background: none !important;
@@ -322,7 +350,7 @@ quill-editor {
         font: 13px/22px @font !important;
         cursor: pointer !important;
 
-        @media @sm-up{
+        @media @sm-up {
           padding-left: 20px !important;
         }
 
@@ -337,30 +365,30 @@ quill-editor {
     }
   }
 
-  & .input-wrapper .tag{
+  & .input-wrapper .tag {
     background: @white;
     flex-direction: row;
     border-radius: 22px;
-    border:1px solid  #b2b2b2;
+    border: 1px solid #b2b2b2;
     padding: 0 9px;
     margin-right: 9px;
     margin-bottom: 5px;
     margin-top: 5px;
 
-    &__text{
+    &__text {
       font-size: 11px;
       line-height: 2;
-      color:#333;
+      color: #333;
     }
 
-    &__remove{
+    &__remove {
       margin: 0 0 0 5px;
       color: #000;
       font-size: 1em;
       height: auto;
       padding: 0;
       width: auto;
-      float:none;
+      float: none;
     }
   }
 }
@@ -369,13 +397,13 @@ quill-editor {
   width: auto !important;
   color: @text-color !important;
   margin-bottom: 0 !important;
-  text-decoration: underline;
+  text-decoration: underline!important;
   border: none;
 
   &:hover,
   &:active,
   &:focus {
     text-decoration: none;
-    outline: none;
+    //outline: none;
   }
 }

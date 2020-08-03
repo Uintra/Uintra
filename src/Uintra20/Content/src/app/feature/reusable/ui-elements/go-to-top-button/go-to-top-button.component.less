@@ -4,33 +4,54 @@
   position: fixed;
   z-index: 2;
   bottom: 0;
-  left: 19px;
-  background: #555;
-  border-radius: 5px 5px 0 0;
-  text-indent: -9999px;
-  overflow: hidden;
-  width: 41px;
-  height: 41px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: @lighter-blue;
+  color:@white;
   opacity: 0;
   cursor: pointer;
   transition: opacity 0.3s ease;
+  text-transform: uppercase;
+  font-size: 16px;
+  line-height: 24px;
+  padding: 13px 48px 13px 20px;
+  text-decoration: underline;
+  white-space: nowrap;
+
+  @media @lg-up {
+    text-indent: -9999px;
+    overflow: hidden;
+    width: 41px;
+    height: 41px;
+    left: 229px;
+    padding: 0;
+  }
+
+  &:hover{
+    background: @blue;
+    text-decoration: none;
+  }
 
   &:after {
     position: absolute;
+    content: "";
     top: 50%;
-    left: 50%;
-    width: 14px;
-    height: 14px;
+    right: 22px;
+    width: 11px;
+    height: 11px;
     border: solid @text-reverse-color;
     border-width: 0 2px 2px 0;
     transform: rotate(-135deg);
-    margin: -2px 0 0 -7px;
-    content: "";
+    margin: -2px 0 0;
+
+    @media @lg-up {
+      width: 14px;
+      height: 14px;
+      right: 50%;
+      margin: -2px -7px 0 0;
+    }
   }
 
-  @media @md-up {
-    left: 229px;
-  }
 
   &.show-scrollTop {
     opacity: 1;

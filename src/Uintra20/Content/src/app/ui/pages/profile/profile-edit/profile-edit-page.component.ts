@@ -8,6 +8,7 @@ import { Observable, Subscription } from 'rxjs';
 import { CanDeactivateGuard } from 'src/app/shared/services/general/can-deactivate.service';
 import { IProfileEditPage } from 'src/app/shared/interfaces/pages/profile/profile-edit-page.interface';
 import { TranslateService } from '@ngx-translate/core';
+import { DownloadedPhotoWatcherService } from 'src/app/feature/specific/user-navigation/services/downloaded-photo-watcher.service';
 
 @Component({
   selector: 'profile-edit-page',
@@ -25,6 +26,8 @@ export class ProfileEditPage implements OnInit, OnDestroy {
   public inProgress = false;
   public isUploaded = false;
 
+  private hasAvatarChangePossible: boolean = true;
+
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -32,6 +35,7 @@ export class ProfileEditPage implements OnInit, OnDestroy {
     private hasDataChangedService: HasDataChangedService,
     private canDeactivateService: CanDeactivateGuard,
     private translate: TranslateService,
+    private downloadedPhotoWatcherService: DownloadedPhotoWatcherService
   ) {
     this.activatedRoute.data.subscribe((data: IProfileEditPage) => this.data = data);
   }
@@ -82,6 +86,7 @@ export class ProfileEditPage implements OnInit, OnDestroy {
     this.$updateSubscription = this.profileService.update(profile)
       .subscribe(
         (next: any) => {
+          this.hasAvatarChangePossible = false;
           this.hasDataChangedService.reset();
           this.resetDataChecker();
           this.router.navigate([next.originalUrl]);
@@ -108,6 +113,7 @@ export class ProfileEditPage implements OnInit, OnDestroy {
   }
 
   public processAvatarUpload(fileArray: Array<any> = []): void {
+    this.downloadedPhotoWatcherService.updateAvatar(fileArray[0].dataURL);
     this.isUploaded = true;
     this.data.profile.newMedia = fileArray[1];
     this.hasDataChangedService.onDataChanged();
@@ -116,10 +122,14 @@ export class ProfileEditPage implements OnInit, OnDestroy {
   public processAvatarDelete(): void {
     if (this.data.profile.newMedia) {
       this.data.profile.newMedia = null;
+      if (this.hasAvatarChangePossible) {
+        this.downloadedPhotoWatcherService.updateAvatar(null);
+      }
     } else {
       if (confirm(this.translate.instant('profile.DeletePhotoConfirm.lbl'))) {
         const currentPhoto = this.data.profile.photo;
         this.data.profile.photo = null;
+        this.downloadedPhotoWatcherService.updateAvatar(null);
         this.profileService.deletePhoto(this.data.profile.photoId).subscribe(
           (res) => {
             this.hasDataChangedService.onDataChanged();
@@ -133,7 +143,7 @@ export class ProfileEditPage implements OnInit, OnDestroy {
   }
 
   public onTagsChange(e) {
-    if (this.data.profile.tags !== e) {
+    if (this.data.tags !== e) {
       this.hasDataChangedService.onDataChanged();
     }
     this.data.profile.tags = e;

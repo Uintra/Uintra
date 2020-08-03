@@ -98,7 +98,9 @@ namespace Uintra20.Features.Events
                 activityLocationService,
                 activityLinkPreviewService,
                 intranetMemberService,
-                permissionsService)
+                permissionsService,
+                groupActivityService,
+                groupService)
         {
             _commentsService = commentsService;
             _likesService = likesService;
@@ -169,6 +171,10 @@ namespace Uintra20.Features.Events
             };
 
         public IEnumerable<IFeedItem> GetItems() => GetOrderedActualItems();
+        public IEnumerable<IFeedItem> GetGroupItems(Guid groupId)
+        {
+	        return GetOrderedActualItems().Where(a => a.GroupId == groupId);
+        }
 
         public async Task<IEnumerable<IFeedItem>> GetItemsAsync()
         {

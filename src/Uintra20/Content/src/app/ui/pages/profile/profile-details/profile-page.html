@@ -1,60 +1,62 @@
-<section class="page-wrapper">
-  <div class="profile">
-    <div class="profile__header">
-      <h2 class="profile__title">{{data.profile.title}}</h2>
-      <a *ngIf="data.editProfileLink"
-         [routerLink]="data.editProfileLink.originalUrl | ulink"
-         class="button button-default">
-        {{'detailsView.Edit.lbl' | translate}}
-      </a>
-    </div>
-    <div class="user-block">
-      <div class="user-block__col _avatar">
-        <app-user-avatar [photo]="data.profile.photo"
-                         [name]="data.profile.firstName">
-        </app-user-avatar>
+<section class="page-wrapper" id="maincontent">
+  <div class="col-md-8">
+    <div class="profile">
+      <div class="profile__header">
+        <h2 class="profile__title">{{data.profile.title}}</h2>
+        <a *ngIf="data.editProfileLink"
+           [routerLink]="data.editProfileLink.originalUrl | ulink"
+           class="button button-default">
+          {{'detailsView.Edit.lbl' | translate}}
+        </a>
       </div>
-      <div class="user-block__col form">
-        <div class="form__col">
-          <div class="form__row">
-            <h2>{{data.profile.firstName}} {{data.profile.lastName}}</h2>
-          </div>
+      <div class="user-block">
+        <div class="user-block__col _avatar">
+          <app-user-avatar [photo]="data.profile.photo"
+                           [name]="data.profile.firstName">
+          </app-user-avatar>
         </div>
-        <div class="form__col">
-          <div class="form__row">
-            <label>{{'profile.Overview.Email.lbl' | translate}} </label>
-            <a href="mailto:{{data.profile.email}}">{{data.profile.email}}</a>
+        <div class="user-block__col form">
+          <div class="form__col">
+            <div class="form__row">
+              <h2>{{data.profile.firstName}} {{data.profile.lastName}}</h2>
+            </div>
           </div>
-          <div class="form__row">
-            <label>{{'profile.Overview.Phone.lbl' | translate}}</label>
-            <a *ngIf="data.profile.phone"
-               href="tel:+{{data.profile.phone}}">{{data.profile.phone}}</a>
-          </div>
-          <div class="form__row">
-            <label>{{'profile.Overview.Department.lbl' | translate}} </label>
-            <span *ngIf="data.profile.department">{{data.profile.department}}</span>
+          <div class="form__col">
+            <div class="form__row">
+              <label>{{'profile.Overview.Email.lbl' | translate}} </label>
+              <a href="mailto:{{data.profile.email}}">{{data.profile.email}}</a>
+            </div>
+            <div class="form__row">
+              <label>{{'profile.Overview.Phone.lbl' | translate}}</label>
+              <a *ngIf="data.profile.phone"
+                 href="tel:+{{data.profile.phone}}">{{data.profile.phone}}</a>
+            </div>
+            <div class="form__row">
+              <label>{{'profile.Overview.Department.lbl' | translate}} </label>
+              <span *ngIf="data.profile.department">{{data.profile.department}}</span>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="profile__row">
-    </div>
-    <div class="user-info">
-      <div class="row-flex m-b">
-        <div class="col-md-3">
-          <label>{{'userList.DetailsPopup.Tags.lbl' | translate}}</label>
-        </div>
-        <div class="col-md-9">
-          <ul class="tags">
-            <li class="tags__item"
-                *ngFor="let tag of data.tags; trackBy: trackIndex">
-              <a class="tag"
-                 [routerLink]="['/search']"
-                 [queryParams]="{query: tag.text}"
-                 [innerHTML]="tag.text">
-              </a>
-            </li>
-          </ul>
+      <div class="profile__row">
+      </div>
+      <div class="user-info">
+        <div class="row-flex m-b">
+          <div class="col-md-3">
+            <label>{{'userList.DetailsPopup.Tags.lbl' | translate}}</label>
+          </div>
+          <div class="col-md-9">
+            <ul class="tags">
+              <li class="tags__item"
+                  *ngFor="let tag of data.tags; trackBy: index">
+                <a class="tag"
+                   [routerLink]="['/search']"
+                   [queryParams]="{query: tag.text}"
+                   [innerHTML]="tag.text">
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>

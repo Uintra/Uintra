@@ -11,13 +11,17 @@
   .theme(bg-color);
   .theme(text-color);
 
-  @media @md-up{
+  @media @sm-up{
     font-size: 20px;
     padding: 39px 41px 34px;
   }
 
   @media @lg-up{
     font-size: 22px;
+  }
+
+  :host-context(.default-theme) &{
+    padding-top: 0;
   }
 
   ::ng-deep .aside &{
@@ -53,6 +57,10 @@
     ::ng-deep .aside &{
       margin-left: 0;
     }
+  }
+
+  ::ng-deep .link__link{
+    .theme(link-color);
   }
 
   ubl-link{

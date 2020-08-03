@@ -3,14 +3,14 @@
     class="subcomment__avatar"
     [photo]="data.creator.photo"
     [name]="data.creator.displayedName"
-    [routerLink]="data.creatorProfileUrl.baseUrl"
-    [queryParams]="data.creatorProfileUrl.params"></app-user-avatar>
+    [routerLink]="data.creatorProfileUrl?.baseUrl|ulink"
+    [queryParams]="data.creatorProfileUrl?.params|uparams"></app-user-avatar>
   <div class="subcomment__container">
     <app-comment-header
       [data]="data"
       (toggleEditingMode)="toggleEditingMode()"
       (commentDelete)="onCommentDelete()"></app-comment-header>
-    <div *ngIf="!isEditing" class="comment__content rte" [innerHTML]="data.text"></div>
+    <div *ngIf="!isEditing" class="subcomment__content rte" [innerHTML]="data.text"></div>
     <app-link-preview *ngIf="linkPreview && !isEditing" [firstLinkPreview]="linkPreview"></app-link-preview>
     <app-like-button [likeData]="likeModel"></app-like-button>
     <app-rich-text-editor

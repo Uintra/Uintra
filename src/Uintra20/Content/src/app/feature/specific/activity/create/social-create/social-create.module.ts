@@ -16,7 +16,7 @@ import { MAX_LENGTH } from 'src/app/shared/constants/activity/activity-create.co
 import { SocialCreateComponent } from './social-create.component';
 import { SocialPopUpComponent } from './components/social-pop-up/social-pop-up.component';
 import { ModalService } from 'src/app/shared/services/general/modal.service';
-
+import { NgxFocusTrapModule } from 'ngx-focus-trap';
 
 
 @NgModule({
@@ -40,6 +40,7 @@ import { ModalService } from 'src/app/shared/services/general/modal.service';
         }
       }
     }),
+    NgxFocusTrapModule,
   ],
   providers: [
     {

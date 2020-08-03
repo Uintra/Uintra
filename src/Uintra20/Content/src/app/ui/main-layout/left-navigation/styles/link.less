@@ -19,6 +19,7 @@
   }
 
   &__item-link {
+    .reset-button;
     display: block;
     width: 100%;
     white-space: nowrap;
@@ -27,12 +28,11 @@
     text-overflow: ellipsis;
     word-break: break-all;
     word-wrap: break-word;
-
-    padding: 11px 48px 9px 19px;
+    padding: 11px 32px 9px 19px;
     color: @heading-bg;
-    margin: 0 0 -2px;
-
     text-decoration: none;
+    text-align: left;
+    cursor: pointer;
 
     &--inside {
       padding-left: 30px;
@@ -78,7 +78,7 @@
     position: absolute;
     top: 0;
     height: 42px;
-    width: 30px;
+    width: 32px;
     right: 0;
     cursor: pointer;
 
@@ -86,7 +86,7 @@
       content: "";
       position: absolute;
       top: 15px;
-      right: 21px;
+      right: 11px;
       width: 9px;
       height: 9px;
       border: solid @body-text-color;
@@ -104,10 +104,17 @@
     width: 18px;
     height: 18px;
     position: absolute;
-    background-repeat: no-repeat;
-    background-size: contain;
-    top: 12px;
-    right: 14px;
-    background-image: url("@{home-icon}");
+    top: 11px;
+    right: 7px;
+
+    &:before{
+      content: '';
+      display: block;
+      background-image: url("@{home-icon}");
+      background-repeat: no-repeat;
+      background-size: contain;
+      width: 18px;
+      height: 18px;
+    }
   }
 }

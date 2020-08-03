@@ -1,4 +1,4 @@
-<div class="groups-create-wrapper page-wrapper row-flex">
+<div class="groups-create-wrapper page-wrapper"><!--row-flex-->
   <div class="col-md-8">
     <div class="groups-create">
       <h2 class="groups-create__row groups-create__title">
@@ -24,6 +24,8 @@
                               [isDropzone]="false"
                               [isUnderline]="false"
                               [isEmoji]="false"
+                              [disableLinkPreview]="true"
+                              [isActivityFormats]="false"
                               placeholder=""
                               [ngClass]="{'invalid': isShowValidation && !description}"
                               [ngModel]="description"
@@ -41,7 +43,8 @@
                               [filesLength]="files.length"
                               [allowedExtensions]="allowedExtensions"
                               (success)="onUploadSuccess($event)"
-                              (removedFile)="onFileRemoved($event)">
+                              (removedFile)="onFileRemoved($event)"
+                              [customMessage]="'dropZone.GroupsForm.Label'">
         </app-dropzone-wrapper>
       </div>
       <ul *ngIf="isShowValidation"

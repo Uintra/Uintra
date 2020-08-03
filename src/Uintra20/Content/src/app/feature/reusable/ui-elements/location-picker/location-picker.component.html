@@ -7,7 +7,7 @@
        #search
        [maxLength]="locationTitleMaxLength"
        [placeholder]="'locationInputPlaceholder' | translate"
-       [(ngModel)]="address" />
+       [(ngModel)]="address.address" />
 <agm-map [latitude]="defaultCoordinates.latitude"
          [longitude]="defaultCoordinates.longitude"
          [zoom]="googleMapsModel.zoom"

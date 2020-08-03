@@ -1,5 +1,104 @@
 @import "base.less";
 
-video-panel {
+:host {
+  display: block;
+}
+::ng-deep .video-panel {
+  padding: 30px 10px 29px;
+  font-size: 16px;
+  line-height: 1.5;
+  .theme(bg-color);
+  .theme(text-color);
 
+  @media @md-up{
+    font-size: 18px;
+    padding: 29px 20px 49px;
+  }
+
+  :host-context(.default-theme) &{
+    padding-top: 0;
+  }
+
+  ::ng-deep .aside &{
+    font-size: 16px;
+    line-height: 1.5;
+    padding: 11px 10px 20px;
+  }
+
+  &__title {
+    font-weight: bold;
+    font-size: 28px;
+    line-height: 1.5;
+    .theme(title-color);
+    text-transform: none;
+    margin: 0 0 20px;
+
+    @media @md-up{
+      margin: 0 0 19px;
+    }
+
+    ::ng-deep .aside &{
+      font-size: 16px;
+      line-height: 1.5;
+      margin: 0 0 10px;
+    }
+  }
+
+  &__thumbnail{
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    position: relative;
+    display: block;
+    width: 100%;
+
+    &:hover:after{
+      opacity: .8;
+    }
+
+    &:after {
+      content: "";
+      transition: opacity 0.3s linear;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 19%;
+      height: 100%; background-repeat: no-repeat;
+      background-size: contain;
+      background-position: center;
+      background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAiIGhlaWdodD0iMTIwIiB2aWV3Qm94PSIwIDAgMTIwIDEyMCI+CiAgICA8ZGVmcz4KICAgICAgICA8c3R5bGU+CiAgICAgICAgICAgIC5wcmVmaXhfX2Nscy0xe2ZpbGw6IzIzMWYyMH0KICAgICAgICA8L3N0eWxlPgogICAgPC9kZWZzPgogICAgPGcgaWQ9InByZWZpeF9fXy1lLXZpZGVvcGxheSIgZGF0YS1uYW1lPSItZS12aWRlb3BsYXkiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0uMDc4IC0uMjUpIj4KICAgICAgICA8cGF0aCBpZD0icHJlZml4X19QYXRoXzI4IiBkPSJNNjAuMDc4LjI1YTYwIDYwIDAgMTA2MCA2MCA2MCA2MCAwIDAwLTYwLTYwem0wIDEwOS40MTJBNDkuNDEyIDQ5LjQxMiAwIDExMTA5LjQ5IDYwLjI1YTQ5LjQxMiA0OS40MTIgMCAwMS00OS40MTIgNDkuNDEyeiIgY2xhc3M9InByZWZpeF9fY2xzLTEiIGRhdGEtbmFtZT0iUGF0aCAyOCIvPgogICAgICAgIDxwYXRoIGlkPSJwcmVmaXhfX1BhdGhfMjkiIGQ9Ik0xNCA3Mi45MTVsNDEuOTA4LTMxLjE4OUwxNCAxMC41Mzd6IiBjbGFzcz0icHJlZml4X19jbHMtMSIgZGF0YS1uYW1lPSJQYXRoIDI5IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgyOS41NjYgMTguNTI0KSIvPgogICAgPC9nPgo8L3N2Zz4K");
+
+      @media @sm-up{
+        width: 12.5%;
+      }
+      @media @lg-up{
+        width: 10.5%;
+      }
+    }
+
+    ::ng-deep img {
+      width: 100% !important;
+    }
+  }
+
+  &__thumbnail-ghost {
+    padding-bottom: 56%;
+    background: #999;
+  }
+
+  &__description{
+    padding: 17px 0 0;
+
+    @media @md-up{
+      padding: 14px 0 0;
+    }
+    @media @lg-up{
+      padding: 18px 0 0;
+    }
+  }
+
+  a{
+    .theme(link-color);
+  }
 }

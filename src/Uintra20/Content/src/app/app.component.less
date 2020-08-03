@@ -7,10 +7,9 @@
 
   &__close {
     border: none;
-    outline: none;
     background: transparent;
-    width: 20px;
-    height: 20px;
+    width: 40px;
+    height: 40px;
     color: @main-color;
     font-size: 26px;
     cursor: pointer;
@@ -26,6 +25,7 @@
       height: 2px;
       background-color: @main-color;
       position: absolute;
+      top: 50%;
     }
 
     &::before {
@@ -36,4 +36,8 @@
       transform: rotate(-45deg);
     }
   }
+}
+
+.content__wrap{
+  flex-grow: 1;
 }

@@ -1,4 +1,4 @@
-<div class="page-wrapper">
+<div class="page-wrapper" id="maincontent">
   <ul
     class="groups-list"
     infiniteScroll
@@ -7,7 +7,10 @@
     [infiniteScrollDisabled]="isScrollDisabled"
     (scrolled)="onScroll()">
     <li *ngFor="let group of groups" class="groups-list-item">
-      <a class="groups-list-item__link" [routerLink]="group.groupUrl.originalUrl | ulink">
+      <a class="groups-list-item__link"
+         [routerLink]="group.groupUrl.baseUrl | ulink"
+         [queryParams]="group.groupUrl.params | uparams"
+      >
         <div class="groups-list-item__image-wrapper">
           <img *ngIf="group.groupImageUrl" class="groups-list-item__image" [src]="group.groupImageUrl">
           <app-user-avatar

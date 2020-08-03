@@ -2,8 +2,7 @@
 
 :host {
   display: flex;
-  align-items: center;
-  padding: 0 4px;
+  align-items: flex-end;
 }
 
 .nav-notification {
@@ -11,7 +10,6 @@
 
   @media @md-up {
     position: relative;
-    top: 2px;
   }
 
   &__button {
@@ -20,14 +18,19 @@
     color: @text-reverse-color;
     font-size: 24px;
     cursor: pointer;
+    padding: 2px 10px 0;
+
+    @media @md-up {
+      padding: 0 5px;
+    }
   }
 
   &__count {
     .pinned-button;
     position: absolute;
     top: -5px;
-    right: -6px;
-    padding: 1px 5px 1px;
+    right: -5px;
+    padding: 2px 6px;
     min-width: 18px;
   }
 

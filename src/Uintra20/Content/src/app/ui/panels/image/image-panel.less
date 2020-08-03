@@ -11,11 +11,13 @@
   .theme(bg-color);
   .theme(text-color);
 
-  // background-color: #fadddc;
-
   @media @md-up{
     font-size: 18px;
     padding: 29px 20px 49px;
+  }
+
+  :host-context(.default-theme) &{
+    padding-top: 0;
   }
 
   ::ng-deep .aside &{
@@ -24,8 +26,7 @@
     padding: 11px 10px 20px;
   }
 
-  // app-heading .heading__title
-  .heading__title {
+  &__title {
     font-weight: bold;
     font-size: 28px;
     line-height: 1.5;

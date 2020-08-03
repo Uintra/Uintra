@@ -51,7 +51,7 @@ namespace Uintra20.Features.Groups.Converters
 
             var group = _groupService.Get(groupId.Value);
 
-            if (group == null) return NotFoundResult();
+            if (group == null || group.IsHidden) return NotFoundResult();
 
             viewModel.GroupId = groupId.Value;
             viewModel.GroupInfo = _groupHelper.GetGroupViewModel(groupId.Value);

@@ -1,6 +1,6 @@
 <ul class="left-nav">
   <li class="left-nav__item">
-    <span class="left-nav__item-link">
+    <span class="left-nav__item-link" (click)="onToggle()">
       <span class="icon-link left-nav__shared-icon"></span>
       {{'systemLinks.Menu.lbl' | translate}}
     </span>
@@ -19,7 +19,7 @@
       [hidden]="!isOpen"
       [ngClass]="{ active: sharedLinksItem.isSelected }"
     >
-      <li class="left-nav__item">
+      <li *ngIf="sharedLinksItem.linksGroupTitle" class="left-nav__item">
         <span class="left-nav__item-link">
           {{ sharedLinksItem.linksGroupTitle }}
         </span>
@@ -37,7 +37,7 @@
 
 <ng-template #itemLink let-link>
   <a
-    *ngIf="link.url.params"
+    *ngIf="link.innerLink"
     class="left-nav__item-link left-nav__item-link--inside left-nav__item-link--with-hover"
     routerLinkActive="active"
     [routerLink]="link.url.originalUrl | ulink"
@@ -47,7 +47,7 @@
   </a>
 
   <a
-    *ngIf="!link.url.params"
+    *ngIf="!link.innerLink"
     class="left-nav__item-link left-nav__item-link--inside left-nav__item-link--with-hover"
     [href]="link.url.originalUrl"
     target="{{ link.target }}"

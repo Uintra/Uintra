@@ -26,7 +26,7 @@ namespace Uintra20.Features.Social.Models
 
         public IActivityLinks Links { get; set; }
 
-        public LinkPreviewViewModel LinkPreview { get; set; }
+        public LinkPreviewModel LinkPreview { get; set; }
 
         public bool IsReadOnly { get; set; }
     }

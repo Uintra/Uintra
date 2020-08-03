@@ -4,6 +4,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { LayoutModule } from '@angular/cdk/layout';
 
 import { DYNAMIC_COMPONENTS, UmbracoSupportModule, UbaselineCoreModule } from 'ubaseline-next-for-uintra';
 import { pages } from './ui/pages/pages';
@@ -22,6 +23,7 @@ import { NavNotificationsModule } from './feature/specific/nav-notifications/nav
 import { SearchModule } from './feature/reusable/inputs/search/search.module';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslationsLoader } from './shared/services/general/translations-loader';
+import { TrustHtmlPipe } from './shared/pipes/trust-html/trust-html.pipe';
 
 @NgModule({
   declarations: [
@@ -44,6 +46,7 @@ import { TranslationsLoader } from './shared/services/general/translations-loade
     LeftNavigationModule,
     SearchModule,
     UbaselineCoreModule,
+    LayoutModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

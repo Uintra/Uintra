@@ -1,0 +1,25 @@
+@import "base.less";
+
+.base-button {
+    display: inline-flex;
+    align-items: center;
+     transition:opacity linear 0.3s;
+
+    &__link {
+        font-size: 16px;
+        font-weight: 600;
+        color: @link-color;
+        text-decoration: none;
+    }
+
+    &__arrow {
+        fill: @link-color;
+        width: 15px;
+        transform: rotate(180deg);
+        margin-left: 8px;
+
+        & > svg {
+            display: block;
+        }
+    }
+}
