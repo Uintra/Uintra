@@ -912,7 +912,7 @@
   <ItemGroup>
     <Compile Include="App_Plugins\Utils\Search\SearchDashboard.cs" />
     <Compile Include="App_Start\UintraApplicationComponent.cs" />
-    <Content Include="App_Start\UintraComposer.cs" />
+    <Compile Include="App_Start\UintraComposer.cs" />
     <Compile Include="App_Start\UintraUmbracoEventComponent.cs" />
     <Compile Include="Core\Article\Events\ArticlePageEventService.cs" />
     <Compile Include="Core\Feed\Services\IFeedPresentationService.cs" />
