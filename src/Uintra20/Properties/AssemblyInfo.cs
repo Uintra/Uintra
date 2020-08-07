@@ -4,11 +4,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Uintra20")]
+[assembly: AssemblyTitle("Uintra")]
 [assembly: AssemblyDescription("This package contain the NuGet packages for Uintra 2.0. All the different packages can be accessed here and possibly changed by a developer.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Compent")]
-[assembly: AssemblyProduct("Uintra20")]
+[assembly: AssemblyProduct("Uintra")]
 [assembly: AssemblyCopyright("Copyright ©  2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

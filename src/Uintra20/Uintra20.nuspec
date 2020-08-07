@@ -1,16 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
   <metadata>
-    <id>Uintra20</id>
-    <version>2.0.0</version>
-    <title>Uintra20</title>
+    <id>Uintra</id>
+    <version>2.0.0-beta</version>
+    <title>Uintra</title>
     <authors>Compent</authors>
     <owners>Compent</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>This package contain the NuGet packages for Uintra 2.0. All the different packages can be accessed here and possibly changed by a developer.</description>
     <copyright>Copyright ©  2020</copyright>
     <dependencies>
-      <dependency id="Compent.UBaseline.UI" version="0.2.15" />
       <dependency id="Compent.Shared.Repository.EntityFramework" version="0.7.1" />
       <dependency id="Compent.CommandBus" version="1.2.1" />
       <dependency id="Compent.LinkPreview.HttpClient" version="1.2.6" />
@@ -23,5 +22,21 @@
     <file src="uSync\**" target="content/uSync" />
     <file src="install.ps1" target="tools" />
     <file src="wwwroot\**" target="content/wwwroot" />
+
+    <file src="bin\UBaseline.UI.dll" target="lib\net472" />
+    <file src="bin\UBaseline.Core.dll" target="lib\net472" />
+    <file src="bin\UBaseline.Shared.dll" target="lib\net472" />
+    
+    <!--<file src="bin\Release\Compent.Shared.ConfigurationProvider.Contract.dll" target="lib\net472" />
+    <file src="bin\Release\Compent.Shared.ConfigurationProvider.Json.dll" target="lib\net472" />
+    <file src="bin\Release\Compent.Shared.DependencyInjection.Contract.dll" target="lib\net472" />
+    <file src="bin\Release\Compent.Shared.DependencyInjection.LightInject.dll" target="lib\net472" />
+    <file src="bin\Release\Compent.Shared.Extensions.Bcl.dll" target="lib\net472" />
+    <file src="bin\Release\Compent.Shared.Repository.Contract.dll" target="lib\net472" />
+    <file src="bin\Release\Compent.Shared.Repository.EntityFramework.dll" target="lib\net472" />
+    
+    <file src="bin\Release\Compent.Shared.Logging.Contract.dll" target="lib\net472" />
+    <file src="bin\Release\Compent.Shared.Logging.Serilog.dll" target="lib\net472" />-->
+    
   </files>
 </package>
