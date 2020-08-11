@@ -16,6 +16,7 @@ namespace Uintra20.Core.Updater._2._0
                 yield return new SetupDefaultMemberGroupsPermissionsStep();
                 yield return new CreateDefaultMemberStep();
                 yield return new SetupDefaultMediaFoldersStep();
+                yield return new ExtendDefaultAdminRightsStep();
             }
         }
     }
