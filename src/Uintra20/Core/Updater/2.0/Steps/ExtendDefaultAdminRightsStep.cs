@@ -35,6 +35,8 @@ namespace Uintra20.Core.Updater._2._0.Steps
             adminGroup.AddAllowedSection(_sentMailsSectionAlias);
             _logger.Info<ExtendDefaultAdminRightsStep>("Section [Sent Mails] has been added.");
 
+            _userService.Save(adminGroup);
+
             return ExecutionResult.Success;
         }
 
