@@ -16,7 +16,8 @@
     padding: 48px 20px 49px;
   }
 
-  :host-context(.default-theme) &{
+  .main-column ubl-dynamic-component:first-child :host-context(.default-theme) &,
+  .right-column :host-context(.default-theme) &{
     padding-top: 0;
   }
 
