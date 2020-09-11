@@ -82,7 +82,7 @@ namespace Uintra20.Core.Authentication
                 return true;
             }
 
-            if (IsBackOfficeRequest(context.Request.Uri))
+            if (IsFileRequest(context.Request.Uri))
             {
                 return true;
             }
@@ -113,8 +113,10 @@ namespace Uintra20.Core.Authentication
         //    return toInclude.Any(ext.InvariantEquals) == false;
         //}
 
-        private static bool IsBackOfficeRequest(Uri url)
+        private static bool IsFileRequest(Uri url)
         {
+            if (url.LocalPath.Contains("media")) return false;
+
             var ext = Path.GetExtension(url.LocalPath);
 
             //TODO, will be replaced by correct authentication flow from uBaseline project.

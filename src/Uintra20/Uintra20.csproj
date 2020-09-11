@@ -116,8 +116,8 @@
     <Reference Include="EmailWorker.Data, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EmailWorker.Data.1.0.0\lib\net472\EmailWorker.Data.dll</HintPath>
     </Reference>
-    <Reference Include="EmailWorker.Web, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EmailWorker.Web.1.0.0\lib\net472\EmailWorker.Web.dll</HintPath>
+    <Reference Include="EmailWorker.Web, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EmailWorker.Web.1.0.1\lib\net472\EmailWorker.Web.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.dll</HintPath>
@@ -960,6 +960,7 @@
     <Compile Include="Core\UbaselineModels\PageNotFoundPageModel.cs" />
     <Compile Include="Core\Updater\2.0\Migration.cs" />
     <Compile Include="Core\Updater\2.0\Steps\CreateDefaultMemberStep.cs" />
+    <Compile Include="Core\Updater\2.0\Steps\ExtendDefaultAdminRightsStep.cs" />
     <Compile Include="Core\Updater\2.0\Steps\SetupDefaultMediaFoldersStep.cs" />
     <Compile Include="Core\Updater\2.0\Steps\SetupDefaultMemberGroupsPermissionsStep.cs" />
     <Compile Include="Core\Updater\2.0\Steps\SetupDefaultMemberGroupsStep.cs" />

@@ -51,7 +51,7 @@ namespace Uintra20.Core.Updater._2._0.Steps
             member.SetValue(UsersInstallationConstants.DataTypePropertyAliases.ProfileFirstName, DefaultName);
             member.SetValue(UsersInstallationConstants.DataTypePropertyAliases.ProfileLastName, DefaultName);
             member.SetValue(UsersInstallationConstants.DataTypePropertyAliases.ProfileRelatedUser, UmbracoAdminUserId);
-            member.RawPasswordValue =(Membership.Providers["UmbracoMembershipProvider"] as MembersMembershipProvider).HashPasswordForStorage(DefaultPassword); ;
+            member.RawPasswordValue =(Membership.Providers["UmbracoMembershipProvider"] as MembersMembershipProvider).HashPasswordForStorage(DefaultPassword);
             
             _memberService.Save(member, raiseEvents: false);
 
