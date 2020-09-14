@@ -115,7 +115,7 @@ namespace Uintra20.Core.Authentication
 
         private static bool IsFileRequest(Uri url)
         {
-            if (url.LocalPath.Contains("media")) return false;
+            //if (url.LocalPath.Contains("media")) return false;
 
             var ext = Path.GetExtension(url.LocalPath);
 
