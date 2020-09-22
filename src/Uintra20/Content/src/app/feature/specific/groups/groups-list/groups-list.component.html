@@ -12,7 +12,7 @@
          [queryParams]="group.groupUrl.params | uparams"
       >
         <div class="groups-list-item__image-wrapper">
-          <img *ngIf="group.groupImageUrl" class="groups-list-item__image" [src]="group.groupImageUrl">
+          <img *ngIf="group.groupImageUrl" class="groups-list-item__image" [src]="group.groupImageUrl" [alt]="group.title">
           <app-user-avatar
             *ngIf="!group.groupImageUrl"
             class="groups-list-item__avatar"

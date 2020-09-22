@@ -8,13 +8,13 @@
           <h3 class="search__title subtitle">{{'searchResult.Search.lbl' | translate}}</h3>
           <div class="search">
             <input type="search"
-                   id="search"
+                   id="search-page-search"
                    name="search"
                    class="search__input"
                    autocomplete="off"
                    aria-label="Search"
                    role="search"
-                   
+
                    #query
                    [value]="inputValue"
                    (keyup)="onQueryChange(query.value)" />
