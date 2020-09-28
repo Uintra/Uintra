@@ -82,7 +82,7 @@ namespace Uintra20.Core.Authentication
                 return true;
             }
 
-            if (IsFileRequest(context.Request.Uri))
+            if (IsFileRequest(context))
             {
                 return true;
             }
@@ -113,11 +113,13 @@ namespace Uintra20.Core.Authentication
         //    return toInclude.Any(ext.InvariantEquals) == false;
         //}
 
-        private static bool IsFileRequest(Uri url)
+        private static bool IsFileRequest(IOwinContext context)
         {
-            //if (url.LocalPath.Contains("media")) return false;
+            var localPath = context.Request.Uri.LocalPath;
+            if (localPath.Contains("media") &&
+                !context.Request.Cookies.HasValue(i => i.Key.InvariantEquals(".UintraAuth"))) return false;
 
-            var ext = Path.GetExtension(url.LocalPath);
+            var ext = Path.GetExtension(localPath);
 
             //TODO, will be replaced by correct authentication flow from uBaseline project.
             return !ext.IsNullOrWhiteSpace();
