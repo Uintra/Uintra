@@ -1,0 +1,152 @@
+@import "base.less";
+
+:host {
+  display: block;
+}
+
+::ng-deep .coming-events-panel {
+  position: relative;
+  padding: 98px 10px 47px;
+  font: 22px/1.5 @font;
+
+  @media @sm-up {
+    font-size: 20px;
+    padding: 39px 41px 34px;
+  }
+
+  @media @lg-up {
+    font-size: 22px;
+  }
+
+  .title {
+    font-weight: bold;
+    font-size: 28px;
+    line-height: 1.5;
+    .theme(title-color);
+    text-transform: none;
+    margin: 0 0 32px;
+
+    @media @md-up {
+      margin: 0 0 28px;
+    }
+
+    ::ng-deep .aside & {
+      font-size: 16px;
+      line-height: 1.5;
+      margin: 0 0 10px;
+    }
+  }
+}
+
+.event-details {
+  display: flex;
+  margin: 0 0 20px;
+  line-height: 22px;
+
+  @media @md-down {
+    flex-wrap: wrap;
+  }
+
+  .feed__item-title + & {
+    margin: 23px 0 25px;
+  }
+
+  &__text {
+    flex-grow: 1;
+    flex-basis: 0;
+    margin: -3px 0 0;
+
+    p {
+      margin: 0;
+      & + p {
+        margin: 10px 0 0;
+      }
+    }
+  }
+
+  &__date {
+    display: flex;
+    padding-bottom: 11px;
+    line-height: 25px;
+
+    @media @md-down {
+      line-height: 22px;
+    }
+  }
+
+  &__day {
+    padding: 0 24px 0 29px;
+    position: relative;
+    line-height: 25px;
+
+    &:first-child {
+      padding-left: 0;
+
+      &::before {
+        display: none;
+      }
+    }
+
+    &::before {
+      content: "-";
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+  }
+
+  &__subscribe {
+    flex-grow: 1;
+    flex-basis: 0;
+    text-align: center;
+    font-size: 13px;
+
+    @media @md-down {
+      flex-wrap: wrap;
+      flex-basis: 100%;
+      text-align: left;
+      padding: 0 0 10px 79px;
+    }
+
+    .subscribe {
+      display: block;
+
+      &__label {
+        display: block;
+        text-align: left;
+        color: @text-color;
+        margin-top: 10px;
+      }
+    }
+  }
+}
+
+.date {
+  width: 60px;
+  height: 60px;
+  background: #f6f6f6;
+  font-size: 16px;
+  line-height: 1.12;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-transform: uppercase;
+  padding: 0 0 1px;
+
+  &--event-details {
+    margin: 0 19px 6px 0;
+  }
+
+  &__day {
+    font-weight: 700;
+    font-size: 25px;
+    line-height: 1.1;
+    display: block;
+    margin: 0 0 2px;
+  }
+}
+
+.owner {
+  display: block;
+}
