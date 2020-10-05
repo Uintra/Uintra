@@ -13,6 +13,19 @@ namespace Uintra20.Infrastructure.Extensions
             return date.ToUniversalTime().ToString("o");
         }
 
+        public static string ToDayFormat(this DateTime date)
+        {
+            var dateTimeFormatProvider = HttpContext.Current.GetService<IDateTimeFormatProvider>();
+            date = date.WithUserOffset();
+            return date.ToString("dd");
+        }
+        public static string ToMonthFormat(this DateTime date)
+        {
+            var dateTimeFormatProvider = HttpContext.Current.GetService<IDateTimeFormatProvider>();
+            date = date.WithUserOffset();
+            return date.ToString("MMM");
+        }
+
         public static string ToDateFormat(this DateTime date)
         {
             var dateTimeFormatProvider = HttpContext.Current.GetService<IDateTimeFormatProvider>();

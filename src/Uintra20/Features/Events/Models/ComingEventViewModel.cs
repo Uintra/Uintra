@@ -14,5 +14,7 @@ namespace Uintra20.Features.Events.Models
         public IEnumerable<string> Dates { get; set; } = Enumerable.Empty<string>();
         public MemberViewModel Owner { get; set; }
         public IActivityLinks Links { get; set; }
+        public string EventDate { get; set; }
+        public string EventMonth { get; set; }
     }
 }

@@ -35,7 +35,7 @@ export class ComingEventsPanel implements OnInit {
 
   ngOnInit() {
     this.rootClasses = `
-      ${this.data.panelSettings.theme.value.alias || "default-theme"}
+      ${(this.data.panelSettings ? this.data.panelSettings.theme.value.alias : null) || "default-theme"}
     `;
   }
 }
