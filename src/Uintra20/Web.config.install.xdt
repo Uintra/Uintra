@@ -26,6 +26,7 @@
     <add key="owin:appStartup" value="UmbracoIdentityOwinStartup" xdt:Locator="Condition(@key='owin:appStartup')" xdt:Transform="SetAttributes(value)" />
     <add key="Umbraco.ModelsBuilder.Enable" xdt:Transform="Remove" />
     <add key="Umbraco.ModelsBuilder.Enable" value="false" xdt:Locator="Condition(@key='Umbraco.ModelsBuilder.Enable')" xdt:Transform="InsertIfMissing" />
+    <add key="Umbraco.ModelsBuilder.Enable" value="false" xdt:Locator="Condition(@key='Umbraco.ModelsBuilder.Enable')" xdt:Transform="SetAttributes(value)" />
     <add key="mediaToolkit.application.name" value="uintra20" xdt:Locator="Condition(@key='mediaToolkit.application.name')" xdt:Transform="InsertIfMissing" />
     <add key="MyLinks.ActivityTitleLength" value="30" xdt:Locator="Condition(@key='MyLinks.ActivityTitleLength')" xdt:Transform="InsertIfMissing" />
     <add key="UintraSuperUsers" value="" xdt:Locator="Condition(@key='UintraSuperUsers')" xdt:Transform="InsertIfMissing" />
