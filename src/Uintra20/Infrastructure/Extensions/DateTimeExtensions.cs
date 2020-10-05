@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using Uintra20.Infrastructure.ApplicationSettings;
 using Uintra20.Infrastructure.Providers;
+using Umbraco.Web;
 
 namespace Uintra20.Infrastructure.Extensions
 {
@@ -21,9 +23,10 @@ namespace Uintra20.Infrastructure.Extensions
         }
         public static string ToMonthFormat(this DateTime date)
         {
-            var dateTimeFormatProvider = HttpContext.Current.GetService<IDateTimeFormatProvider>();
+            //var dateTimeFormatProvider = HttpContext.Current.GetService<IDateTimeFormatProvider>();
+            var umbContext = HttpContext.Current.GetService<IUmbracoContextFactory>().EnsureUmbracoContext();
             date = date.WithUserOffset();
-            return date.ToString("MMM");
+            return date.ToString("MMM",CultureInfo.GetCultureInfoByIetfLanguageTag(umbContext.UmbracoContext.VariationContextAccessor.VariationContext.Culture));
         }
 
         public static string ToDateFormat(this DateTime date)
