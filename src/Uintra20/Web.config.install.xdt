@@ -43,7 +43,7 @@
     <add key="elmah.mvc.allowedRoles" value="*" xdt:Locator="Condition(@key='elmah.mvc.allowedRoles')" xdt:Transform="InsertIfMissing" />
     <add key="elmah.mvc.allowedUsers" value="*" xdt:Locator="Condition(@key='elmah.mvc.allowedUsers')" xdt:Transform="InsertIfMissing" />
     <add key="elmah.mvc.route" value="elmah" xdt:Locator="Condition(@key='elmah.mvc.route')" xdt:Transform="InsertIfMissing" />
-    <add key="Search.Url" value="http://localhost:9205" xdt:Locator="Condition(@key='Search.Url')" xdt:Transform="InsertIfMissing" />
+    <add key="Search.Url" value="http://40.114.193.79:9222" xdt:Locator="Condition(@key='Search.Url')" xdt:Transform="InsertIfMissing" />
     <add key="Search.IndexName" value="uintra20" xdt:Locator="Condition(@key='Search.IndexName')" xdt:Transform="InsertIfMissing"/>
     <add key="Search.IndexingDocumentTypes" value="doc,docx,pdf,ppt,pptx,odf" xdt:Locator="Condition(@key='Search.IndexingDocumentTypes')" xdt:Transform="InsertIfMissing" />
     <add key="Search.TitleScore" value="1.5" xdt:Locator="Condition(@key='Search.TitleScore')" xdt:Transform="InsertIfMissing" />
@@ -53,7 +53,7 @@
     <add key="Search.UserDepartmentScore" value="1" xdt:Locator="Condition(@key='Search.UserDepartmentScore')" xdt:Transform="InsertIfMissing" />
     <add key="Application.Name" value="uintra20" xdt:Locator="Condition(@key='Application.Name')" xdt:Transform="InsertIfMissing" />
     <add key="UintraDocumentationLinkTemplate" value="https://docs.uintra.com/?ver={0}-{1}-{2}-{3}" xdt:Locator="Condition(@key='UintraDocumentationLinkTemplate')" xdt:Transform="InsertIfMissing" />
-    <add key="linkPreviewServiceUri" value="" xdt:Locator="Condition(@key='linkPreviewServiceUri')" xdt:Transform="InsertIfMissing" />
+    <add key="linkPreviewServiceUri" value="linkpreview.uintra.com" xdt:Locator="Condition(@key='linkPreviewServiceUri')" xdt:Transform="InsertIfMissing" />
   </appSettings>
   <system.web xdt:Transform="InsertIfMissing">
     <httpModules xdt:Transform="InsertIfMissing">
