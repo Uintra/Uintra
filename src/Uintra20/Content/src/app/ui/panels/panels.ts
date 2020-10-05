@@ -79,4 +79,9 @@ export const panels = [
     path: '__dynamic__',
     loadChildren: './ui/panels/document-library/document-library-panel.module#DocumentLibraryPanelModule'
   },
+  {
+    id: 'comingEventsPanel',
+    path: '__dynamic__',
+    loadChildren: './ui/panels/coming-events/coming-events-panel.module#ComingEventsPanelModule'
+  }
 ];

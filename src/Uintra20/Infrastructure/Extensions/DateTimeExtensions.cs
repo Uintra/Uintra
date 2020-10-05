@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using Uintra20.Infrastructure.ApplicationSettings;
 using Uintra20.Infrastructure.Providers;
+using Umbraco.Web;
 
 namespace Uintra20.Infrastructure.Extensions
 {
@@ -11,6 +13,20 @@ namespace Uintra20.Infrastructure.Extensions
         public static string ToIsoUtcString(this DateTime date)
         {
             return date.ToUniversalTime().ToString("o");
+        }
+
+        public static string ToDayFormat(this DateTime date)
+        {
+            var dateTimeFormatProvider = HttpContext.Current.GetService<IDateTimeFormatProvider>();
+            date = date.WithUserOffset();
+            return date.ToString("dd");
+        }
+        public static string ToMonthFormat(this DateTime date)
+        {
+            //var dateTimeFormatProvider = HttpContext.Current.GetService<IDateTimeFormatProvider>();
+            var umbContext = HttpContext.Current.GetService<IUmbracoContextFactory>().EnsureUmbracoContext();
+            date = date.WithUserOffset();
+            return date.ToString("MMM",CultureInfo.GetCultureInfoByIetfLanguageTag(umbContext.UmbracoContext.VariationContextAccessor.VariationContext.Culture));
         }
 
         public static string ToDateFormat(this DateTime date)

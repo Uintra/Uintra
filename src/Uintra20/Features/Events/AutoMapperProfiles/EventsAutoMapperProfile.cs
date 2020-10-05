@@ -120,7 +120,9 @@ namespace Uintra20.Features.Events.AutoMapperProfiles
             CreateMap<Event, ComingEventViewModel>()
                 .ForMember(dst => dst.Links, o => o.Ignore())
                 .ForMember(dst => dst.Owner, o => o.Ignore())
-                .ForMember(dst => dst.Dates, o => o.MapFrom(el => new List<string> { el.StartDate.GetEventDateTimeString(el.EndDate) }));
+                .ForMember(dst => dst.Dates, o => o.MapFrom(el => new List<string> { el.StartDate.GetEventDateTimeString(el.EndDate) }))
+                .ForMember(dst => dst.EventDate, o => o.MapFrom(i => i.StartDate.ToDayFormat()))
+                .ForMember(dst => dst.EventMonth, o => o.MapFrom(i => i.StartDate.ToMonthFormat()));
 
             //CreateMap<EventBase, EventItemViewModel>()
             //    .ForMember(dst => dst.Links, o => o.Ignore())
