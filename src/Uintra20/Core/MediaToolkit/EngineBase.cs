@@ -77,8 +77,8 @@ namespace Uintra20.Core.MediaToolkit
 
 		private static void UnpackFFmpegExecutable(string path)
 		{
-			Stream compressedFFmpegStream = Assembly.GetExecutingAssembly()
-													.GetManifestResourceStream("Uintra20.Core.MediaToolkit.Resources.FFmpeg.exe.gz");
+			Stream compressedFFmpegStream = typeof(EngineBase).Assembly
+													.GetManifestResourceStream("Uintra20.Core.MediaToolkit.ffmpeg.exe.gz");
 
 			if (compressedFFmpegStream == null)
 			{
