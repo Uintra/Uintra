@@ -6,9 +6,16 @@
     <title>Uintra</title>
     <authors>Compent</authors>
     <owners>Compent</owners>
+    <description>Uintra - An open source and lightweight framework for making an Extranet, Intranet or client portal based on Umbraco.</description>
+    <summary>Installs Uintra + Umbrac CMS in your Visual Studio ASP.NET project</summary>
+    <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>This package contain the NuGet packages for Uintra 2.0. All the different packages can be accessed here and possibly changed by a developer.</description>
+    <!--<iconUrl>https://uintra.com/сontent/images/logo.svg</iconUrl>-->
+    <projectUrl>https://uintra.com/releases/</projectUrl>
+    <repository type="git" url="https://github.com/Uintra/Uintra"/>
     <copyright>Copyright ©  2020</copyright>
+    <language>en-US</language>
+    <tags>uintra</tags>
     <dependencies>
       <dependency id="Compent.Shared.Repository.EntityFramework" version="0.7.1" />
       <dependency id="Compent.CommandBus" version="1.2.1" />
