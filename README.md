@@ -65,7 +65,7 @@ Installing Uintra
 Open Visual Studio 2017 that you installed earlier
 1.	Create a new project ![ScreenShot](Img/installation/12.png)
 
-      Choose “WEB” -> “ASP.NET Web Application(.NET Framework)”. Then choose “NET Framework 4.7.1” and add “Name”, “Location” 
+      Choose “WEB” -> “ASP.NET Web Application(.NET Framework)”. Then choose “NET Framework 4.7.2” and add “Name”, “Location” 
       (data 
       storage on local machine), “Solution name”: ![ScreenShot](Img/installation/13.png)
 
