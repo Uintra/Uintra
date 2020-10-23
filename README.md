@@ -29,7 +29,7 @@ Before installing Uintra you will have to make certain preparations.
 While installing Visual Studio 2017 you need to choose “ASP.NET and web development” on the Workloads tab: ![ScreenShot](Img/installation/1.png)
 
    and fill in checkboxes “.NET Framework 4.7 SDK”, “.NET Framework 4.7  targeting pack” on the Individual components tab:        
-   ![ScreenShot](Img/installation/2.png) 
+   ![ScreenShot](Img/installation/shot_201023_123516.jpg) 
 
 That is it for the prerequisites now we need to setup the server.
 
