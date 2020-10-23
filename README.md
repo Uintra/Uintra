@@ -145,7 +145,29 @@ Using the Internet Information Services (IIS) Manager, we are going to add the n
 
 Now Umbraco is installed.
 
-4.	To administrate your new site, open it in a new tab ![ScreenShot](Img/installation/32.png)
+4.	Configure Your Umbraco before start working with Uintra:
+
+a. Specify a valid domain in "Culture and Hostnames" (Content section -> Home node), such as "mysite.local" and deploy through IIS, not through IISExpress
+
+ ![ScreenShot](Img/installation/shot_200805_155409.jpg)
+
+
+b. Start the uSync import (Settings section -> uSync node) and wait until everything is restored, it may take several minutes.
+
+ ![ScreenShot](Img/installation/shot_201023_112114.jpg)
+
+
+Success import will look like: 
+
+ ![ScreenShot](Img/installation/shot_201023_112714.jpg)
+
+
+c. In some cases for correct Search working need to Rebuild index (Settings section -> Search tab):
+
+ ![ScreenShot](Img/installation/shot_201023_113738.jpg)
+
+
+5. To administrate your new site, open it in a new tab ![ScreenShot](Img/installation/32.png)
 
       The first login uses the following data:
       Login - admin, password - qwerty1234
