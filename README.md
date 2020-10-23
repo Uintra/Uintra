@@ -74,12 +74,39 @@ Open Visual Studio 2017 that you installed earlier
 2.	Right click on the new project in the "Solution explorer" block then click on "Manage NuGet packages" ![ScreenShot](Img/installation/15.png)
 
 3.	Press "Browse and search for "Uintra" ![ScreenShot](Img/installation/16.png)
+      NB! "Microsoft.CodeDom.Providers.DotNetCompilerPlatform" package should be version 2.0.1 (its compatible with UmbracoCMS 8.8.0)
 
       Install the latest package version: ![ScreenShot](Img/installation/17.png)
 
 4.	Press "OK", "Accept" and “yes to all” in the next popups accept proposals ![ScreenShot](Img/installation/18.png) ![ScreenShot](Img/installation/19.png) ![ScreenShot](Img/installation/20.png)
 
 5.	You should receive a message about 0 errors/warnings ![ScreenShot](Img/installation/21.png)
+   
+   Remove redundant items from Solution: 
+          
+       - App_Start folder
+       - Controllers folder
+       - Models folder
+       - In Views folder:
+           - UmbracoIdentityAccount folder
+           - Account.cshtml file
+           - AccountLayout.cshtml file
+            
+   ![ScreenShot](Img/installation/shot_200804_184205.jpg)
+
+   Open Web.config file and make several corrections:
+      
+         1. The index name should be rewritten  <add key="Search.IndexName" value="[your index name]" /> for the correct work of the Elastic search     
+         2. Replace row <add key="linkPreviewServiceUri" value="linkpreview.uintra.com" /> with <add key="linkPreviewServiceUri" value="https://linkpreview.uintra.com" /> for the correct work of the LinkPreview 
+ 
+ 
+![ScreenShot](Img/installation/shot_201023_125322.jpg)
+
+
+         3. Comment out the block for sitemap (unnecessary in some cases) 
+
+![ScreenShot](Img/installation/shot_200804_185729.jpg)
+
 
 6.	Right click on the new project in the “Solution explorer” block and press “Build” ![ScreenShot](Img/installation/22.png)
 
@@ -109,7 +136,7 @@ Using the Internet Information Services (IIS) Manager, we are going to add the n
       database. Use the credentials for the new user that was created earlier and press "Continue": 
       ![ScreenShot](Img/installation/28.png)
 
-      Press "Continue": ![ScreenShot](Img/installation/29.png)
+      Press "I don't want a custom Machine Key": ![ScreenShot](Img/installation/shot_201023_130617.jpg)
 
       Press the "No thanks, I do not want ...": ![ScreenShot](Img/installation/30.png)
 
