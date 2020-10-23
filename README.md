@@ -14,7 +14,7 @@ Note: Currently Uintra will not function properly out of the box as a Web applic
 ## 1. Prerequisites
 Before installing Uintra you will have to make certain preparations.
 
-1. Install MS NET Framework .NET 4.7.1, can be found [here](https://www.microsoft.com/en-us/download/details.aspx?id=56115).
+1. Install MS NET Framework .NET 4.7.2, can be found [here](https://dotnet.microsoft.com/download/dotnet-framework/net472).
 
 2. Install IIS with advanced settings (as seen in the screenshot below)
 ![ScreenShot](Img/IIS_settings.png)
@@ -29,7 +29,7 @@ Before installing Uintra you will have to make certain preparations.
 While installing Visual Studio 2017 you need to choose “ASP.NET and web development” on the Workloads tab: ![ScreenShot](Img/installation/1.png)
 
    and fill in checkboxes “.NET Framework 4.7 SDK”, “.NET Framework 4.7  targeting pack” on the Individual components tab:        
-   ![ScreenShot](Img/installation/2.png)
+   ![ScreenShot](Img/installation/2.png) 
 
 That is it for the prerequisites now we need to setup the server.
 
