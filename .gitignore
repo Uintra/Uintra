@@ -73,8 +73,7 @@ src/Compent.uIntra/Web.config
 **/Content/workspace/
 **/UBaseline/*
 **/wwwroot/**
-src/Uintra20/Media/
-src/Uintra20/umbraco/
+src/Uintra/Media/
 src/Uintra/umbraco/
 src/Compent.uIntra/umbraco/
 *.log
