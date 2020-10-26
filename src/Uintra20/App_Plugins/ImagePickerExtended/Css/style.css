@@ -1,0 +1,161 @@
+﻿.image-picker-extended {
+    position: relative;
+    display: flex;
+    min-width: 200px;
+    /* min-height: 200px; */
+    padding: 3px;
+}
+
+    .image-picker-extended:not(._allow-select) .upload-new {
+        display: none;
+    }
+
+.image-picker-extended__warning {
+    color: #f00;
+}
+
+.image-picker-extended .upload-new {
+    flex: 0 0 50px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    border: 2px dashed rgba(113, 136, 160, .6);
+    margin: 0 5px 5px 0;
+    font-family: icomoon;
+}
+
+    .image-picker-extended .upload-new:hover {
+        cursor: pointer;
+        background: #f8f8f8;
+        background: rgba(248, 248, 248, .8);
+    }
+
+    .image-picker-extended .upload-new:before {
+        content: "\e20e";
+        color: #008000;
+        color: rgba(0, 128, 0, .8);
+        font-size: 25px;
+        font-weight: 100;
+    }
+
+.image-picker-extended .holder {
+    position: relative;
+}
+
+.image-picker-extended .controls {
+    position: relative;
+    top: 7px;
+    height: 20px;
+    font-size: 25px;
+}
+
+.image-picker-extended .controls .__delete {
+    float: right;
+    font-size: 20px;
+    color: rgb(255, 0, 0);
+}
+
+    .image-picker-extended .controls .__delete:hover {
+        color: #ff0000;
+        color: rgba(255, 0, 0, .6);
+        cursor: pointer;
+    }
+
+.image-picker-extended .crops-list {
+    list-style-type: none;
+    padding: 10px;
+    margin: 0;
+    border: 1px solid #7188a0;
+    border: 1px solid rgba(113, 136, 160, .6);
+    overflow: hidden;
+    display: inline-block;
+}
+
+    .image-picker-extended .crops-list:hover {
+        cursor: pointer;
+        background: #f8f8f8;
+        background: rgba(248, 248, 248, .8);
+    }
+
+    .image-picker-extended .crops-list li {
+        display: flex;
+        margin: 10px 0 0;
+    }
+
+        .image-picker-extended .crops-list li:first-child {
+            margin: 0;
+        }
+
+    .image-picker-extended .crops-list .crop-information {
+        margin-left: 10px;
+    }
+
+        .image-picker-extended .crops-list .crop-information .crop-name {
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+.image-picker-extended .edit-crop-overlay .crop-item {
+    margin: 20px 0;
+    border-bottom: 1px solid #7188a0;
+    border-bottom: 1px solid rgba(113, 136, 160, .6);
+    text-align: center;
+}
+
+.image-picker-extendedr .edit-crop-overlay .crop-item:last-of-type {
+    border: none;
+}
+
+.image-picker-extended .edit-crop-overlay .crop-item .crop-information {
+    margin-bottom: 10px;
+}
+
+    .image-picker-extended .edit-crop-overlay .crop-item .crop-information .name {
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+.image-picker-extended .edit-crop-overlay .crop-item .overlay {
+    z-index: 9999;
+}
+
+.image-picker-extended .umb-crop-thumbnail-container img {
+    max-width: initial;
+}
+
+.image-picker-extended__pre-value  .txt-80 {
+    width: 80px;
+}
+
+.image-picker-extended__pre-value .txt-150 {
+    width: 150px;
+}
+
+.image-picker-extended__default-image {
+    width: 120px;
+    height: 100px;
+    overflow: hidden;
+    flex-direction: column;
+    display: flex;
+    position: relative;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    padding: 5px;
+    margin: 5px;
+    background: #fff;
+    border: 1px solid #f3f3f5;
+    max-width: 100%;
+
+    background: url(../../../umbraco/assets/img/checkered-background.png) repeat;
+}
+
+.image-picker-extended__default-image img {
+    height: 100%;
+}

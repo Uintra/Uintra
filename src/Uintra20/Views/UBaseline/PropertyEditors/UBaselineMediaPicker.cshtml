@@ -1,0 +1,20 @@
+﻿@using UBaseline.Shared.MediaPicker
+@model UBaseline.Core.IndexPage.PropertyEditorContentModel
+
+@{
+    var value = Model.Value<MediaPickerViewModel>();
+}
+
+@if (value != null)
+{
+    <div>
+        @if (value.Image != null)
+        {
+            @Html.Partial("UBaselineImage", value.Image)
+        }
+        else if (value.Video != null)
+        {
+            @Html.Partial("UBaselineVideo", value.Video)
+        }
+    </div>
+}

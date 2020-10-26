@@ -1,0 +1,56 @@
+<app-group-details-wrapper [data]="data?.groupHeader">
+  <div class="page-wrapper" id="maincontent">
+    <div class="row-flex"><!-- class="group-details-padding row-flex"-->
+      <div class="col-md-8">
+        <app-social-create *ngIf="socialCreateData?.canCreate"
+                           [data]="socialCreateData"></app-social-create>
+        <ubl-dynamic-component *ngFor="let panel of data.panels"
+                               [data]="panel"></ubl-dynamic-component>
+      </div>
+      <div *ngIf="data"
+           class="col-md-4">
+        <div *ngIf="data?.groupInfo"
+             class="right-column">
+          <h2 *ngIf="data?.groupInfo?.title"
+              class="right-column__title">
+            {{data.groupInfo.title}}
+          </h2>
+          <img *ngIf="data?.groupInfo?.hasImage"
+               class="right-column__image"
+               [src]="data.groupInfo.groupImageUrl">
+          <div class="right-column__info">
+            <div *ngIf="data?.groupInfo?.description"
+                 class="right-column__info-description"
+                 [innerHTML]="data.groupInfo?.description">
+            </div>
+            <div class="right-column__info-members">
+              <span *ngIf="data?.groupInfo?.membersCount">
+                {{data.groupInfo.membersCount}} {{getMembersText()}} -
+              </span>
+              <span *ngIf="data?.groupInfo?.creator">
+                {{'groupInfo.OwnerName.lbl' | translate}}
+                <a class="right-column__info-owner-link"
+                   [routerLink]="data.groupInfo.creator.profileLink.baseUrl | ulink"
+                   [queryParams]="data.groupInfo.creator.profileLink.params | uparams"
+                >
+                  {{data.groupInfo.creator.displayedName}}
+                </a>
+              </span>
+            </div>
+            <ng-container *ngIf="!data?.groupInfo?.isCreator">
+              <p *ngIf="data?.groupInfo?.isMember"
+                 class="right-column__info-unsubscribe-text">
+                {{'groupInfo.IsSubscribed.lbl' | translate}}
+              </p>
+              <button class="right-column__info-subscribe"
+                      [disabled]="isLoading"
+                      (click)="toggleSubscribe()">
+                {{getSubscribeBtn()}}
+              </button>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-group-details-wrapper>

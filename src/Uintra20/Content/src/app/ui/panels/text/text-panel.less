@@ -1,0 +1,68 @@
+@import "base.less";
+
+section[class*="text-panel"]{
+  flex-direction: column;
+}
+
+::ng-deep .text-panel{
+
+  &__content{
+    .theme(bg-color);
+    .theme(text-color);
+    padding: 40px 10px 30px;
+
+    @media @sm-up{
+      padding: 46px 20px 30px;
+    }
+    @media @lg-up{
+      padding: 48px 20px 30px;
+    }
+
+    .main-column ubl-dynamic-component:first-child :host-context(.default-theme) &,
+    .right-column :host-context(.default-theme) &{
+      padding-top: 0;
+    }
+
+    & + .text-panel__content{
+      padding-top: 0;
+    }
+
+    ::ng-deep .aside &{
+      padding: 11px 10px 20px;
+
+      & + .text-panel__content{
+        padding-top: 0;
+      }
+    }
+
+    h2, h3{
+      .theme(title-color);
+    }
+    a{
+      .theme(link-color);
+    }
+
+    .content__link .base-button{
+      &__link{
+        text-decoration: underline;
+        .theme(link-color);
+        font: 18px/1.5 @body-font;
+
+        @media @md-up{
+          font-size: 20px;
+        }
+        @media @lg-up{
+          font-size: 22px;
+        }
+
+        ::ng-deep .aside &{
+          font-size: 18px;
+        }
+
+        &:hover{
+          text-decoration: none;
+        }
+      }
+    }
+  }
+}

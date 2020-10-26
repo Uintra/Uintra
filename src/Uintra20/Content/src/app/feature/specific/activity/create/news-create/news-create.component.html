@@ -1,0 +1,10 @@
+<app-news-form
+  [data]="newsData"
+  [members]="members"
+  [creator]="creator"
+  [tags]="tags"
+  [pinAllowed]="data?.pinAllowed"
+  [isSubmitLoading]="isSubmitLoading"
+  (handleSubmit)="onSubmit($event)"
+  (handleCancel)="onCancel()"
+></app-news-form>

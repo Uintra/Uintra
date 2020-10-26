@@ -1,0 +1,116 @@
+@import 'base.less';
+@dropdown-height: 41px * 3;
+
+:host {
+  display: block;
+}
+
+.input-wrapper {
+  position: relative;
+}
+.tag-multiselect {
+  display: flex;
+  widtH: 100%;
+  font-size: 13px;
+  border: 1px solid #ddd;
+  background: #fff;
+
+  .open & {
+    border-color: @black;
+  }
+
+  &__input-field {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    flex: 1;
+    padding: 6px 9px;
+    min-height: 42px;
+    background: none;
+    border: 0;
+    outline: 0;
+    text-align: left;
+
+    &:focus {
+      background: #eee;
+    }
+  }
+
+  &__clear-btn {
+    .reset-button;
+    font-size: 1.5em;
+    padding: 0px 16px;
+
+    &:focus {
+      outline: 1px dotted #666;
+    }
+  }
+
+  &__open-btn {
+    .reset-button;
+    padding: 0px 16px;
+    border-left: 1px solid #ddd;
+
+    &:focus {
+      outline: 1px dotted #666;
+    }
+
+    .icon:before {
+      font-size: 1.5em;
+      position: relative;
+      top: 3px;
+    }
+
+    .icon {
+      .open & {
+        transform: rotate(-180deg);
+        display: inline-block;
+        margin: 6px 0 0;
+      }
+    }
+  }
+}
+
+.tag-multiselect-dropdown {
+  position: absolute;
+  z-index: 100;
+  left: 0;
+  top: 100%;
+  width: 100%;
+  border: 1px solid #ddd;
+  background: #fff;
+  max-height: @dropdown-height;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.tag-multiselect-dropdown-row {
+  .reset-button;
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 9px 13px;
+  border-bottom: 1px solid #ddd;
+  font: 13px/22px Arial, Helvetica, sans-serif;
+
+  &:hover {
+    background: @body-text-color;
+    color: @main-color;
+    cursor: pointer;
+  }
+
+  &.selected {
+    color: #ccc;
+
+    &:hover {
+      cursor: default;
+      background: @main-color;
+      color: #ccc;
+    }
+  }
+
+  &:focus {
+    outline: 1px dotted #666;
+  }
+}

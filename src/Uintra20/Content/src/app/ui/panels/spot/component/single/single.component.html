@@ -1,0 +1,11 @@
+<div *ngFor="let item of data.items" class="app-single">
+  <app-video-element *ngIf="isVideo(item)" [data]="item"></app-video-element>
+  <app-picture *ngIf="isImage(item)" [data]="item.media.image"></app-picture>
+
+  <div class="text rte">
+    <h3 *ngIf="item.title" class="title">{{ item.title }}</h3>
+    <div *ngIf="item.description" class="description" [innerHTML]="item.description | trustHtml"></div>
+    <span class="date" *ngIf="item.date">{{ item.date }}</span>
+    <app-button *ngIf="item.link" class="link" [data]="item.link" [withArrow]="false"></app-button>
+  </div>
+</div>

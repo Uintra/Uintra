@@ -1,0 +1,78 @@
+<div class="groups-create-wrapper page-wrapper"><!--row-flex-->
+  <div class="col-md-8">
+    <div class="groups-create">
+      <h2 class="groups-create__row groups-create__title">
+        {{translate.instant(edit ? 'groupEdit.PageTitle.lbl' : 'groupCreate.FormTitle.lbl')}}
+      </h2>
+      <div class="groups-create__row">
+        <h3 class="subtitle required">
+          {{translate.instant(edit ? 'groupEdit.Title.lbl' : 'groupCreate.GroupTitle.lbl')}}
+        </h3>
+        <text-input type="text"
+                    aria-label="Title"
+                    [maxLength]="TITLE_MAX_LENGTH"
+                    class="groups-create__title-input"
+                    [ngClass]="{'invalid': getTitleValidationState()}"
+                    [ngModel]="title"
+                    (ngModelChange)="onTitleChange($event)"></text-input>
+      </div>
+      <div class="groups-create__row">
+        <h3 class="subtitle required">
+          {{translate.instant(edit ? 'groupEdit.Description.lbl' : 'groupCreate.Description.lbl')}}
+        </h3>
+        <app-rich-text-editor [isEditing]="true"
+                              [isDropzone]="false"
+                              [isUnderline]="false"
+                              [isEmoji]="false"
+                              [disableLinkPreview]="true"
+                              [isActivityFormats]="false"
+                              placeholder=""
+                              [ngClass]="{'invalid': isShowValidation && !description}"
+                              [ngModel]="description"
+                              (ngModelChange)="onDescriptionChange($event)">
+        </app-rich-text-editor>
+      </div>
+      <div class="groups-create__row">
+        <h3 class="subtitle">
+          {{translate.instant(edit ? 'groupEdit.GroupImage.lbl' : 'groupCreate.GroupImage.lbl')}}
+        </h3>
+        <app-dropzone-existing-images [medias]="mediasPreview"
+                                      (removeImage)="onImageRemove()"></app-dropzone-existing-images>
+        <app-dropzone-wrapper [maxFiles]="1"
+                              [disabled]="medias.length > 0 || files.length > 0"
+                              [filesLength]="files.length"
+                              [allowedExtensions]="allowedExtensions"
+                              (success)="onUploadSuccess($event)"
+                              (removedFile)="onFileRemoved($event)"
+                              [customMessage]="'dropZone.GroupsForm.Label'">
+        </app-dropzone-wrapper>
+      </div>
+      <ul *ngIf="isShowValidation"
+          class="validation-errors">
+        <li *ngIf="!title"
+            class="validation-errors__title">
+          {{'groupEdit.TitleRequired.lbl' | translate}}
+        </li>
+        <li *ngIf="title.length > TITLE_MAX_LENGTH"
+            class="validation-errors__title">
+          {{getTitleLengthValidationMessage()}}
+        </li>
+        <li *ngIf="!description"
+            class="validation-errors__description">
+          {{'groupEdit.DescriptionRequired.lbl' | translate}}
+        </li>
+      </ul>
+      <button class="groups-create__row--top groups-create__row button"
+              [disabled]="isSubmitDisabled"
+              (click)="onSubmit()">
+        {{translate.instant(edit ? 'groupEdit.Update.btn' : 'groupCreate.Create.btn')}}
+      </button>
+      <button *ngIf="edit && data.canHide"
+              class="button-default"
+              [disabled]="hidingInProgress"
+              (click)="onHide()">
+        {{'groupEdit.Hide.btn' | translate}}
+      </button>
+    </div>
+  </div>
+</div>

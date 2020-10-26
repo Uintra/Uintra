@@ -1,0 +1,19 @@
+﻿@using Compent.Shared.Extensions.Bcl
+@model UBaseline.Core.IndexPage.PageContentModel
+
+@if (Model != null)
+{
+    try
+    {
+        <div style="width:500px;">
+            @foreach (var property in Model.Properties)
+            {
+                if (property.ViewPath.HasValue())
+                {
+                    @Html.Partial(property.ViewPath, property)
+                }
+            }
+        </div>
+    }
+    catch (Exception ex) { Umbraco.Core.Composing.Current.Logger.Error(this.GetType(), ex); }
+}

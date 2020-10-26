@@ -1,0 +1,7 @@
+﻿{
+  "label": "This is an email notification that is sent to the creator of the social post when someone adds a comment to it.<br>You can insert the following dynamic values:<br><br>##ActivityTitle## - Head description of social <br>##FullName## - Name of the user who added a comment<br>",
+  "template": {
+    "subject": "Social - comment added",
+    "body": "##FullName## has added a comment to your news post: ##ActivityTitle##"
+  }
+}

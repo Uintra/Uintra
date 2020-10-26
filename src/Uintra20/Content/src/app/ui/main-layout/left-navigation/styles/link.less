@@ -1,0 +1,120 @@
+@import "base.less";
+
+.left-nav {
+  &__item {
+    position: relative;
+    font-weight: 600;
+  }
+
+  &__sub-item {
+    .left-nav__item {
+      font-weight: 400;
+    }
+  }
+
+  &__sub-item--with-offset {
+    .left-nav__item-link {
+      padding-left: 50px;
+    }
+  }
+
+  &__item-link {
+    .reset-button;
+    display: block;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    position: relative;
+    text-overflow: ellipsis;
+    word-break: break-all;
+    word-wrap: break-word;
+    padding: 11px 32px 9px 19px;
+    color: @heading-bg;
+    text-decoration: none;
+    text-align: left;
+    cursor: pointer;
+
+    &--inside {
+      padding-left: 30px;
+    }
+
+    &--with-hover {
+      &::before {
+        content: "";
+        position: absolute;
+        background: @header-bg;
+        width: 5px;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        display: none;
+
+        @media @sm-up {
+          width: 2px;
+        }
+      }
+
+      &:hover,
+      &.active {
+        background: @body-bg;
+        text-decoration: none;
+        color: @heading-bg;
+
+        &:before {
+          display:block;
+        }
+      }
+    }
+
+    &.active {
+      cursor: default;
+    }
+  }
+
+  &__arrow {
+    .reset-button;
+    font-size: 0;
+    display: block;
+    position: absolute;
+    top: 0;
+    height: 42px;
+    width: 32px;
+    right: 0;
+    cursor: pointer;
+
+    &:after {
+      content: "";
+      position: absolute;
+      top: 15px;
+      right: 11px;
+      width: 9px;
+      height: 9px;
+      border: solid @body-text-color;
+      border-width: 1px 0 0 1px;
+      transform: rotate(225deg);
+    }
+
+    &.active:after {
+      transform: rotate(45deg);
+      top: 20px;
+    }
+  }
+
+  &__home {
+    width: 18px;
+    height: 18px;
+    position: absolute;
+    top: 11px;
+    right: 7px;
+
+    &:before{
+      content: '';
+      display: block;
+      background-image: url("@{home-icon}");
+      background-repeat: no-repeat;
+      background-size: contain;
+      width: 18px;
+      height: 18px;
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "Configurations": [
+    {
+      "Type": "OneDayBefore",
+      "NotificationTypes": [ "BeforeStart" ],
+      "Time": 1440
+    }
+  ]
+}

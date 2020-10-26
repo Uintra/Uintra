@@ -1,0 +1,9 @@
+﻿<div ng-controller="keyValueRadioButtonListController as vm">
+    <ul class="unstyled">
+        <li ng-repeat="item in model.config.values.items">
+            <label class="checkbox">
+                <input type="radio" name="radio-item-{{$id}}" ng-model="model.value" value="{{item.key}}"  /> {{item.value}}
+            </label>
+        </li>
+    </ul>
+</div>

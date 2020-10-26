@@ -1,0 +1,18 @@
+﻿{
+  "javascript": [
+    "~/App_Plugins/SentMails/backoffice/settings/column/column-settings.js",
+    "~/App_Plugins/SentMails/backoffice/mails/mails.js",
+    "~/App_Plugins/SentMails/backoffice/settings/smtp/smtp-settings.js",
+    "~/App_Plugins/SentMails/backoffice/services/mails.service.js"
+  ],
+  "css": [
+    "~/App_Plugins/SentMails/backoffice/css/umb-styles.css",
+    "~/App_Plugins/SentMails/backoffice/settings/general/general-settings.css"
+  ],
+  "sections": [
+    {
+      "alias": "sentMails",
+      "name": "Sent Mails"
+    }
+  ]
+}

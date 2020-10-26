@@ -1,0 +1,31 @@
+@import 'base.less';
+
+.checkbox-input {
+  display: flex;
+  align-items: center;
+  font-weight: 400;
+
+  &__input-hidden {
+    display: none;
+  }
+  &__input {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 25px;
+    height: 25px;
+    border: 1px solid #c7c7c7;
+    margin-right: 10px;
+
+    &.checked {
+      &:after {
+        position: absolute;
+        content: "\e90b";
+        font-family: 'icomoon';
+        font-size: 16px;
+        color: @btn-bg;
+      }
+    }
+  }
+}

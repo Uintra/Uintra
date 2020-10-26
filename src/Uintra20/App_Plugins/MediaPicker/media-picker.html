@@ -1,0 +1,32 @@
+<div class="ubl-media-picker" ng-controller="UBaseline.MediaPickerController as vm">
+    <div class="ubl-media-picker__header">
+        <label class="ubl-media-picker__header-label">
+            Media
+            <small>Choose a media...</small>
+        </label>
+        <div class="ubl-media-picker__select">
+            <umb-button
+                type="button"
+                label="{{ vm.selectedPickerLabel }}"
+                action="vm.dropdownOpen = !vm.dropdownOpen"
+                icon="icon icon-chevron-down"
+            >
+            </umb-button>
+        
+            <umb-dropdown ng-if="vm.dropdownOpen" on-close="vm.dropdownOpen = false" umb-keyboard-list>
+                <umb-dropdown-item
+                    ng-repeat="item in vm.items">
+                    <a href="" ng-click="vm.select(item); vm.dropdownOpen = false">{{ item.name }}</a>
+                </umb-dropdown-item>
+            </umb-dropdown>
+        </div>
+    </div>
+
+    <div class="ubl-media-picker__section" ng-if="vm.showImagePicker">
+        <ubl-image-picker></ubl-image-picker>
+    </div>
+
+    <div class="ubl-media-picker__section" ng-if="vm.showVideoPicker">
+        <ubl-video-picker class="ubl-media-picker__video"></video-picker>
+    </div>
+</div>

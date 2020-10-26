@@ -1,0 +1,34 @@
+﻿{
+  "propertyEditors": [
+    {
+      "alias": "UBaseline.PanelThemePicker",
+      "name": "UBaseline - Panel Theme Picker",
+      "icon": "icon-colorpicker",
+      "group": "Color pickers",
+      "editor": {
+        "view": "~/App_Plugins/PanelThemePicker/panel-theme-picker.html",
+        "valueType": "JSON"
+      },
+      "prevalues": {
+        "fields": [
+          {
+            "label": "Panel theme",
+            "description": "Choose panel theme",
+            "key": "settings",
+            "view": "~/App_Plugins/PanelThemePicker/prevalue-editor/panel-theme-picker-prevalue.html"
+          }
+        ]
+      }
+    }
+  ],
+
+  "javascript": [
+    "/App_Plugins/PanelThemePicker/prevalue-editor/theme-selector.directive.js",
+    "~/App_Plugins/PanelThemePicker/panel-theme-picker.controller.js",
+    "~/App_Plugins/PanelThemePicker/prevalue-editor/panel-theme-picker-prevalue.controller.js"
+  ],
+
+  "css": [
+    "~/App_Plugins/PanelThemePicker/Css/style.css"
+  ]
+}

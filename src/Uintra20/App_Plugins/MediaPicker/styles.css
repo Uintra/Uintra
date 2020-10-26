@@ -1,0 +1,25 @@
+.ubl-media-picker {}
+
+.ubl-media-picker {
+    position: relative;
+}
+.ubl-media-picker__header {
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+}
+.ubl-media-picker__header-label {
+    width: 25%;
+    display: inline-block;
+}
+.ubl-media-picker__select {
+    display: inline-block;
+    position: relative;
+}
+
+.ubl-media-picker__section {
+    margin-top: 15px;
+    padding: 15px 0;
+    border-top: 1px dashed #d8d7d9;
+    position: relative;
+}

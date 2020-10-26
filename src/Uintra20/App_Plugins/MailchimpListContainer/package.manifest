@@ -1,0 +1,20 @@
+﻿{
+  "propertyEditors": [
+    {
+      "alias": "UBaseline.MailchimpListContainer",
+      "name": "UBaseline - Mailchimp List Container",
+      "icon": "icon-window-sizes",
+      "editor": {
+        "view": "~/App_Plugins/MailchimpListContainer/mailchimp-list-container.html",
+        "valueType": "JSON"
+      }
+    }
+  ],
+  "javascript": [
+    "~/App_Plugins/MailchimpListContainer/mailchimp-list-container.service.js",
+    "~/App_Plugins/MailchimpListContainer/mailchimp-list-container.controller.js"
+  ],
+  "css": [
+    "~/App_Plugins/MailchimpListContainer/styles.css"
+  ]
+}

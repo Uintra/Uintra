@@ -1,0 +1,50 @@
+@import "base.less";
+
+home-page {
+  display: block;
+
+  .main-column {
+    -webkit-box-flex: 0;
+    flex: 1 0 100%;
+    padding: 0;
+    width: 100%;
+
+    @media @md-up {
+      flex-basis: 62.5%;
+      padding: 0 20px;
+    }
+
+    @media @lg-up {
+      flex-basis: 66.6%;
+    }
+
+    &--full-content {
+      max-width: 100%;
+    }
+  }
+
+  .right-column {
+    -webkit-box-flex: 0;
+    flex: 1 0 100%;
+    padding: 0 10px;
+    width: 100%;
+
+    @media @md-up{
+      flex-basis: 37.5%;
+      padding: 0 20px;
+    }
+
+    @media @lg-up{
+      flex-basis: 33.4%;
+    }
+
+    ubl-dynamic-component{
+      display: block;
+      margin-bottom: 0;
+
+      @media @md-up{
+        margin-bottom: 63px;
+      }
+    }
+  }
+}

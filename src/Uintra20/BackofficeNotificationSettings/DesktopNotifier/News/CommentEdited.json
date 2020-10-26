@@ -1,0 +1,7 @@
+﻿{
+  "label": "This is a desktop notification that is sent to the creator of the news post when a user edits a comment that has been posted on the original news post.<br>You can insert the following dynamic values:<br><br>##ActivityTitle## - Head description of news<br>##FullName## - Name of the user who added a comment",
+  "template": {
+    "message": "##FullName## has edited a comment on your post: ##ActivityTitle##",
+    "title": "##NotificationType##"
+  }
+}

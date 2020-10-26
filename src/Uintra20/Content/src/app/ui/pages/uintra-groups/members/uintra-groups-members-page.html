@@ -1,0 +1,8 @@
+<app-group-details-wrapper [data]="data?.groupHeader">
+  <div class="page-wrapper row-flex" id="maincontent">
+    <div class="group-details-padding col-md-8">
+      <ubl-dynamic-component *ngFor="let panel of data.panels"
+                             [data]="panel"></ubl-dynamic-component>
+    </div>
+  </div>
+</app-group-details-wrapper>

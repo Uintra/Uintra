@@ -1,0 +1,78 @@
+﻿<div>
+    <umb-editor-view>
+
+        <umb-editor-header name="model.title"
+                           name-locked="true"
+                           hide-alias="true"
+                           hide-icon="true"
+                           hide-description="true">
+        </umb-editor-header>
+
+        <umb-editor-container>
+
+            <umb-box>
+                <umb-box-content>
+
+                    <div class="content-type-editor-dialog edit-property-settings ng-scope">
+                        <div class="umb-control-group control-group">
+                            <textarea class="editor-label" placeholder="Enter a key..." style="height: 40px;"
+                                      maxlength="1000"
+                                      ng-model="model.dialogData.resource.key"
+                                      ng-change="model.dialogData.checkKey(model.dialogData.resource)"
+                                      ng-class="{'_invalid': model.dialogData.resource.invalid}"></textarea>
+                            <small ng-if="model.dialogData.resource.invalid">Key already exists</small>
+                        </div>
+
+                        <div class="umb-control-group control-group" ng-repeat="(isoCode, name) in model.dialogData.languages">
+                            {{name}}
+                            <textarea class="editor-description" placeholder="Enter a translation..." style="height: 60px;"
+                                      maxlength="1000"
+                                      ng-model="model.dialogData.resource.translations[isoCode]"></textarea>
+                        </div>
+
+                        <div class="umb-control-group control-group" ng-if="model.dialogData.isShowDescription">
+                            <textarea class="editor-description" placeholder="Enter a description..." style="height: 30px;"
+                                      maxlength="1000"
+                                      ng-model="model.dialogData.resource.description"></textarea>
+                        </div>
+
+                        <!--TODO: tree -->
+                        <input type="search" placeholder="Choose parent..." class="search-box"
+                               ng-model="searchText" />
+                        <ul class="unstyled search-result">
+                            <li ng-click="model.dialogData.chooseParent('', model.dialogData.resource)"
+                                ng-class="{'_active': storedKey == model.dialogData.resource.parentKey}">---Empty---</li>
+                            <li ng-repeat="storedKey in model.dialogData.storedKeys | filter:searchText"
+                                ng-click="model.dialogData.chooseParent(storedKey, model.dialogData.resource)"
+                                ng-class="{'_active': storedKey == model.dialogData.resource.parentKey}">
+                                {{storedKey}}
+                            </li>
+                        </ul>
+                        Parent: {{model.dialogData.resource.parentKey}}
+                    </div>
+
+                </umb-box-content>
+            </umb-box>
+        </umb-editor-container>
+
+        <umb-editor-footer>
+            <umb-editor-footer-content-right>
+                <umb-button type="button"
+                            button-style="link"
+                            label-key="general_close"
+                            shortcut="esc"
+                            action="model.close()">
+                </umb-button>
+                <umb-button type="button"
+                            button-style="success"
+                            label-key="general_submit"
+                            action="model.submit(model.dialogData.resource)"
+                            disabled="model.dialogData.resource.invalid || model.dialogData.resource.disabled">
+                </umb-button>
+
+            </umb-editor-footer-content-right>
+        </umb-editor-footer>
+
+    </umb-editor-view>
+
+</div>

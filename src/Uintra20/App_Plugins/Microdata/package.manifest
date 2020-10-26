@@ -1,0 +1,19 @@
+﻿{
+  "propertyEditors": [
+    {
+      "alias": "UBaseline.Microdata",
+      "name": "UBaseline - Microdata",
+      "icon": "icon-window-sizes",
+      "editor": {
+        "view": "~/App_Plugins/Microdata/microdata.html",
+        "valueType": "TEXT"
+      }
+    }
+  ],
+  "javascript": [
+    "~/App_Plugins/Microdata/microdata.controller.js"
+  ],
+  "css": [
+    "~/App_Plugins/Microdata/styles.css"
+  ]
+}

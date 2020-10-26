@@ -1,0 +1,54 @@
+@import 'base.less';
+
+:host(.pop-up) {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-y: auto;
+}
+
+.pop-up {
+  &__background {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+}
+
+.pop-up-content {
+  .white-block;
+  padding: 35px 20px 20px;
+  margin-top: 15px;
+  position: relative;
+
+  &-wrapper {
+    width: 800px;
+    max-width: 90%;
+    margin: auto 0;
+  }
+
+  &__close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    font-size: 20px;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    color: @body-text-color;
+    border: none;
+    background: transparent;
+    margin-left: auto;
+  }
+}

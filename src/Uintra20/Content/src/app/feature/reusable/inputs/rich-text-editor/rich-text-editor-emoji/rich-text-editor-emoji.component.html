@@ -1,0 +1,14 @@
+<div class="js-emoji emoji">
+  <ul class="emoji__list">
+    <li *ngFor="let emoji of emojiList" class="emoji__list-item">
+      <img
+        [src]="emoji.src"
+        [title]="emoji.title"
+        [width]="emoji.width"
+        [height]="emoji.height"
+        [alt]="emoji.shortcut"
+        [class]="emoji.class"
+        (click)="onEmojiClick($event.target)">
+    </li>
+  </ul>
+</div>

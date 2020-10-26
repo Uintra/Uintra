@@ -1,0 +1,17 @@
+<button class="like-button"
+        [disabled]="isDisabled"
+        (click)="onClickLike()"
+        [ngClass]="{'like-button--active': likeData?.likedByCurrentUser && !isDisabled}">
+  <i class="icon-like"></i>
+  <ng-container *ngIf="!isDisabled">
+    <span class="like-button__text">{{ likes }}</span>
+    <span class="like-button-tooltip"
+          *ngIf="userLikes?.length">
+      <span *ngFor="let like of userLikes">{{ like.user }}</span>
+    </span>
+  </ng-container>
+  <span *ngIf="isDisabled"
+        class="like-button-tooltip">
+    {{'likes.ReadonlyClick.Message.lbl' | translate}} 
+  </span>
+</button>

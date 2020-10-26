@@ -1,0 +1,57 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Uintra20.Core.Updater.Sql;
+using Uintra20.Persistence.Sql;
+
+namespace Uintra20.Core.Updater
+{
+    public class MigrationHistoryService : IMigrationHistoryService
+    {
+
+        private readonly ISqlRepository<int, MigrationHistory> _migrationHistoryRepository;
+
+        public MigrationHistoryService(ISqlRepository<int, MigrationHistory> migrationHistoryRepository)
+        {
+            _migrationHistoryRepository = migrationHistoryRepository;
+        }
+
+        public MigrationHistory GetLast() => _migrationHistoryRepository
+            .GetAll()
+            .OrderByDescending(m => m.CreateDate)
+            .FirstOrDefault();
+
+        public List<MigrationHistory> GetAll() => _migrationHistoryRepository
+            .GetAll()
+            .ToList();
+
+        public bool Exists(string name, Version version)
+        {
+            var versionString = version.ToString();
+            return _migrationHistoryRepository.Exists(h => h.Name == name && h.Version == versionString);
+        }
+
+        public void Create(string name, Version version)
+        {
+            var migrationHistory = new MigrationHistory
+            {
+                Name = name,
+                Version = version.ToString(),
+                CreateDate = DateTime.UtcNow
+            };
+
+            _migrationHistoryRepository.Add(migrationHistory);
+        }
+
+        public void Create(IEnumerable<(string name, Version version)> history)
+        {
+            var migrationHistory = history.Select(h => new MigrationHistory
+            {
+                Name = h.name,
+                Version = h.version.ToString(),
+                CreateDate = DateTime.UtcNow
+            });
+            _migrationHistoryRepository.Add(migrationHistory);
+        }
+    }
+}

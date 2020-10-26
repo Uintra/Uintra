@@ -1,0 +1,31 @@
+@import "base.less";
+
+forbidden-page {
+  .forbidden {
+    .white-block;
+
+    &__title {
+      font-size: 16px;
+      line-height: 20px;
+      font-weight: bold;
+      padding: 15px 19px 12px;
+      text-transform: uppercase;
+      border-bottom: 1px solid @border-color;
+      color: @heading-bg;
+    }
+
+    &__info {
+      padding: 15px 19px 25px;
+      color: @body-text-color;
+
+      &-description {
+        margin-bottom: 10px;
+      }
+    }
+  }
+
+  .col-md-8 {
+    padding-right: 0;
+    padding-left: 0;
+  }
+}

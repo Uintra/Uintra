@@ -1,0 +1,31 @@
+﻿@model UBaseline.Core.SimpleLoginPage.SimpleLoginPageModel
+
+@{
+    Layout = null;
+}
+
+@using (Html.BeginUmbracoForm("Index", "SimpleLoginPage", FormMethod.Post))
+{
+    <fieldset>
+        <legend>Login Form</legend>
+
+        @Html.AntiForgeryToken()
+        <table>
+            <tr>
+                <td>@Html.LabelFor(a => a.UserName)</td>
+                <td>@Html.TextBoxFor(a => a.UserName)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(a => a.Password)</td>
+                <td>@Html.PasswordFor(a => a.Password)</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <input type="submit" value="Login" />
+                </td>
+                <td></td>
+            </tr>
+        </table>
+    </fieldset>
+}

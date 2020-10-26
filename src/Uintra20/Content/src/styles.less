@@ -1,0 +1,189 @@
+@import "./styles/reset/_index.less";
+
+@import "base.less";
+
+@import "./styles/abstracts/_index.less";
+@import "./styles/temp/_index.less";
+@import "./styles/typography/_index.less";
+
+
+@import "./styles/libs/datepicker/bootstrap-datetimepicker-build.less";
+@import "./styles/libs/simple-scroll/styles.less";
+
+
+@debug: true;
+
+* {
+  box-sizing: border-box;
+}
+
+head {
+  display: none;
+
+  &::after {
+    .ubl-debug();
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    background-color: @main-body-bg;
+    color: @body-text-color;
+    font: 14px/1.3 @body-font;
+    padding: 70px 0 0;
+
+    &.nav--open {
+      overflow: hidden;
+    }
+}
+
+/* apply to correct element */
+
+breadcrumb {
+  font: bold 13px/22px @font;
+  color: #261d43;
+  margin: 0 0 20px;
+}
+
+.main {
+  .centering;
+  display: block;
+}
+
+.content {
+  overflow: hidden;
+  
+  @media @md-up{
+    display: flex;
+  }
+}
+
+.page-header-wrapper{
+  @media @lg-up {
+    padding: 0 0 0 20px;
+  }
+}
+
+.page-header{
+  position: relative;
+  width: 100%;
+  padding: 28px 10px 0;
+  margin: 0 0 3px;
+
+  @media @md-up {
+    padding: 28px 20px 0;
+  }
+
+  &:before{
+    content: '';
+    position: absolute;
+    left:0;
+    top:0;
+    bottom: 0;
+    right: -9999px;
+    background: @white;
+    z-index: -1;
+  }
+}
+
+.page-wrapper {
+  position: relative;
+  padding: 28px 0 113px;
+
+  @media @md-up{
+    padding: 28px 0 50px;
+  }
+
+  @media @lg-up {
+    padding: 49px 0 40px 20px;
+  }
+
+  home-page &{
+    padding: 0 0 113px;
+
+    @media @md-up {
+      padding: 51px 0 50px 20px;
+    }
+
+    @media @lg-up {
+      padding: 51px 0 40px 20px;
+    }
+  }
+
+  &:before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: -9999px;
+    bottom: -9999px;
+    background: @white;
+    z-index: -1;
+
+    @media @lg-up {
+      left: 20px;
+    }
+
+    home-page &{
+      display: none;
+    }
+  }
+}
+
+comments-panel {
+  .comments-panel {
+    @media @md-down {
+      padding: 0 15px;
+    }
+  }
+}
+.disable-scroll,
+.disable-scroll body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+img{
+  vertical-align: top;
+}
+a{
+  text-decoration: underline;
+  &:hover{
+    text-decoration: none;
+  }
+}
+
+.accessibility-btn{
+  position:absolute;
+  left:-10000px;
+  top:-65px;
+  width:1px;
+  height:1px;
+  overflow:hidden;
+  z-index: 9999;
+  text-decoration: underline;
+  color: @text-reverse-color;
+  background: rgba(0,0, 0, 0.2);
+  padding: 0 7px;
+  font: bold 16px/2.5 @font;
+
+  &:hover {
+    text-decoration: none;
+  }
+
+  &:focus{
+    left:0;
+    width:auto;
+    height:auto;
+  }
+
+  &--bottom{
+    top:auto;
+    bottom:5px;
+  }
+}

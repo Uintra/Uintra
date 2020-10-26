@@ -1,0 +1,51 @@
+@import 'base.less';
+
+:host {
+  display: block;
+}
+
+.publication-header {
+  display: flex;
+  align-items: center;
+
+  &__content {
+    padding: 0 0 13px;
+  }
+
+  &__avatar {
+    margin-right: 10px;
+  }
+
+  &__title {
+    .h3;
+    color: @text-color;
+    text-decoration: none;
+    margin-bottom: 5px;
+
+    &--link {
+      &:hover {
+        color: @link-color;
+      }
+    }
+  }
+
+  &__subtitle-container {
+    .small;
+    color: @text-color--light;
+  }
+
+  &__label {
+    margin-left: auto;
+  }
+
+  &__group {
+    &-link {
+      .link;
+    }
+  }
+}
+
+.icon-group {
+  font-size: 13px;
+  color: @body-text-color;
+}

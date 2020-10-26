@@ -1,0 +1,8 @@
+<div class="umb-editor umb-edtitor--list" ng-controller="Umbraco.PropertyEditors.RadioButtonsController">
+    <ul class="unstyled">
+
+        <li ng-repeat="item in model.config.items" class="umb-editor__item">
+            <umb-radiobutton name="{{model.alias}}" value="{{item.id}}" model="model.value" text="{{item.value}}"></umb-radiobutton>
+        </li>
+    </ul>
+</div>

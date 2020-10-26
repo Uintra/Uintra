@@ -1,0 +1,31 @@
+<div ng-controller="imagePickerExtendedPreValueController as ip" class="image-picker-extended__pre-value">
+    <div class="control-group">
+        <input type="checkbox" ng-model="model.value.showAlt" /> Show alt
+    </div>
+    <div class="control-group">
+        <input type="text" placeholder="Name:" ng-model="ip.newItem.name" val-highlight="{{ip.hasError}}"
+            class="txt-150" />
+        <input type="text" placeholder="Alias:" ng-model="ip.newItem.alias" val-highlight="{{ip.hasError}}"
+            class="txt-150" />
+        <input type="number" placeholder="Width:" ng-model="ip.newItem.width" val-highlight="{{ip.hasError}}"
+            class="txt-80" />
+        &times;
+        <input type="number" placeholder="Height:" ng-model="ip.newItem.height" val-highlight="{{ip.hasError}}"
+            class="txt-80" />
+        <input type="text" placeholder="Media:" ng-model="ip.newItem.media" />
+        <button type="button" class="btn" ng-click="ip.add()">Add</button>
+    </div>
+
+    <div ui-sortable="sortableOptions">
+        <div class="control-group" ng-repeat="crop in model.value.crops">
+            <i class="icon icon-navigation handle"></i>
+            <input type="text" placeholder="Name:" ng-model="crop.name" required class="txt-150" />
+            <input type="text" placeholder="Alias:" ng-model="crop.alias" required class="txt-150" />
+            <input type="number" placeholder="Width:" ng-model="crop.width" required class="txt-80" />
+            &times;
+            <input type="number" placeholder="Height:" ng-model="crop.height" required class="txt-80" />
+            <input type="text" placeholder="Media:" ng-model="crop.media" />
+            <button type="button" class="btn btn-danger" ng-click="ip.remove(crop)">Remove</button>
+        </div>
+    </div>
+</div>

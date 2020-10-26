@@ -1,0 +1,33 @@
+<div class="row">
+  <div class="col-6">
+    <h3 class="subtitle">
+      {{fromLabel}}
+    </h3>
+    <div class="datepicker">
+      <sq-datetimepicker
+        [groupClass]="'udatepicker'"
+        [inputClass]="isPublishDateInvalid ? 'udatepicker-input udatepicker-input--from invalid' : 'udatepicker-input udatepicker-input--from'"
+        [options]="optFrom"
+        [mode]="'input'"
+        [ngModel]="fromDate"
+        (ngModelChange)="fromModelChanged($event)"
+        (dpChange)="fromDateChange()"
+      ></sq-datetimepicker>
+    </div>
+  </div>
+  <div class="col-6">
+    <h3 class="subtitle">{{toLabel}}</h3>
+    <div class="datepicker">
+      <sq-datetimepicker
+        [groupClass]="'udatepicker'"
+        [inputClass]="'udatepicker-input udatepicker-input--to'"
+        [options]="optTo"
+        [mode]="'input'"
+        [ngModel]="toDate"
+        (ngModelChange)="toModelChanged($event)"
+        (dpChange)="toDateChange()"
+
+      ></sq-datetimepicker>
+    </div>
+  </div>
+</div>

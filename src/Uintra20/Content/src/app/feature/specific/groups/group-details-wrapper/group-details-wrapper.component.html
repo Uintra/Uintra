@@ -1,0 +1,40 @@
+<div class="groups">
+  <div *ngIf="mapedData" class="page-header-wrapper">
+    <div class="row-flex">
+      <div class="page-header">
+        <app-breadcrumbs [breadcrumbs]="breadcrumbs"></app-breadcrumbs>
+        <h2 class="groups-header__title">
+          <a
+            [routerLink]="mapedData.title.link.baseUrl | ulink"
+            [queryParams]="mapedData.title.link.params | uparams"
+            class="groups-header__title-link">
+            {{mapedData.title.title}}
+          </a>
+        </h2>
+        <ul *ngIf="mapedData.groupLinks" class="tabs"><!-- class="tabs col-md-8" -->
+          <li *ngFor="let tab of mapedData.groupLinks" class="tabs__item">
+            <a
+              [routerLink]="tab.link.baseUrl | ulink"
+              [queryParams]="tab.link.params | uparams"
+              class="tabs__item-link"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }">
+              {{tab.title}}
+            </a>
+          </li>
+          <li *ngIf="mapedData.groupEditPageLink" class="tabs__item tabs__item--settings">
+            <a
+              [routerLink]="mapedData.groupEditPageLink.link.baseUrl | ulink"
+              [queryParams]="mapedData.groupEditPageLink.link.params | uparams"
+              class="tabs__item-link tabs__item-link--settings"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }">
+              {{mapedData.groupEditPageLink.title}}
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <ng-content></ng-content>
+</div>

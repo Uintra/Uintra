@@ -1,0 +1,7 @@
+﻿{
+  "label": "This is an desktop notification that is sent to the subscribers of an event post if the event was updated.<br><br> You can insert the following dynamic values:<br><br>##ActivityTitle## - Title of event<br>##NotifierFullName## - Name of the subscriber receiving the notification<br>##FullName## - Name of the creator of the event",
+  "template": {
+    "message": "Dear ##NotifierFullName##, the event you subscribed to: ##ActivityTitle## has been updated, please check the event page for further information",
+    "title": "##NotificationType##"
+  }
+}

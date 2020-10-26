@@ -1,0 +1,45 @@
+@import 'base.less';
+
+.subcomment {
+  display: flex;
+
+  &__avatar {
+    margin-right: 9px;
+  }
+
+  &__container {
+    width: 100%;
+  }
+
+  &__content {
+    word-break: break-word;
+  }
+}
+
+.submit-container {
+  display: flex;
+}
+
+.rte {
+  margin-bottom: 5px;
+
+  &__submit-button,
+  &__cancel-button {
+    margin-bottom: 15px;
+    margin-top: 10px;
+  }
+
+  &__submit-button {
+    .button-blue;
+    margin-right: 5px;
+  }
+
+  &__cancel-button {
+    .button-white;
+  }
+}
+
+app-link-preview {
+  display: block;
+  margin-bottom: 5px;
+}

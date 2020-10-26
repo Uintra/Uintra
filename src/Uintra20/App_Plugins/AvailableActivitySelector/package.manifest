@@ -1,0 +1,18 @@
+﻿{
+  "propertyEditors": [
+    {
+      "alias": "availableActivitySelector",
+      "name": "UIntra - Available Activity Selector",
+      "icon": "icon-traffic",
+      "editor": {
+        "view": "~/App_Plugins/AvailableActivitySelector/available-activity-selector.html",
+        "valueType": "JSON"
+      }
+    }
+  ],
+
+  "javascript": [
+    "~/App_Plugins/AvailableActivitySelector/available-activity-selector.controller.js",
+    "~/App_Plugins/AvailableActivitySelector/available-activity-selector.service.js"
+  ]
+}

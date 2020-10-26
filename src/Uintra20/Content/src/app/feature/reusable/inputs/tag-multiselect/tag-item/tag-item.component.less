@@ -1,0 +1,26 @@
+@import 'base.less';
+
+.tag {
+  display: inline-flex;
+  flex-direction: row-reverse;
+  align-items: baseline;
+  background: #ddd;
+  padding: 3px 10px;
+  border-radius: 3px;
+  margin-right: 5px;
+  margin-bottom: 3px;
+  margin-top: 3px;
+
+  &__remove {
+    .reset-button;
+    margin-right: 5px;
+    font-size: 1.4em;
+    line-height: 13px;
+    color: #999;
+    cursor: pointer;
+
+    &:focus {
+      outline: 1px dotted #666;
+    }
+  }
+}

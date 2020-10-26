@@ -1,0 +1,74 @@
+{
+    "loginPage": [
+        {
+            "loginInput": "//input[@formcontrolname=\"login\"]",
+            "passwordInput": "//input[@formcontrolname=\"password\"]",
+            "loginButton": "//button[text()]",
+            "validationMessage": ".error-list>li"
+        }
+    ],
+    "newsCreateEditPage": [
+        {
+            "ownerSelector": "span.select2-selection__rendered",
+            "titleInput": "//*[@aria-label=\"Title\"]/input",
+            "newsDescriptionRTE": "div.ql-editor",
+            "tagsSelector": "div.tag-multiselect__placeholder",
+            "PublishDate": "",
+            "unpublishDate": "",
+            "locationInput": "//app-location-picker/input",
+            "pinCheckBox": "//*[contains(text(),\"Pin post\")]",
+            "fileDnD": "",
+            "createButton": "button.buttons__submit",
+            "titleValidation": "//*[@class=\"alert alert-danger\"][1]",
+            "descriptionValidation": "//*[@class=\"alert alert-danger\"][2]",
+            "acceptPinValidation": "//*[@class=\"alert alert-danger\"][3]"
+        }
+    ],
+    "activityDetailsPage": [
+        {
+            "ownerName": ".details-item__name>span",
+            "publishDate": ".details-item__date",
+            "activityName": ".details-item__category",
+            "title": ".feed-item__title",
+            "description": ".feed-item__text.rte>p",
+            "eventDetailsDate": ".event-details__day"
+            ,"fileAttach":".feed-item-images__image"
+            ,"docIcon":".documents-list__icon.file-extension"
+            ,"docTitle":".documents-list__title"
+        }
+    ],
+    "centralFeedPage": [
+        {
+            "createNewsButton": "//*[contains(@href,\"/news/news-create\")]",
+            "createEventButton": "//*[contains(@href,\"/events/create-event\")]",
+            "createSocialInput": ".create-bulletin__input"
+            ,"activityLink":"'.publication__clickable-aria"
+        }
+    ],
+    "sosialPopup":[{
+        "popup":".bulletin-popup"
+        ,"textInput":".ql-editor > p"
+        ,"emojiSelector":".icon-smily"
+        ,"emojiList":".emoji__list"
+        ,"emojiIcon":":nth-child(15) > .emoji-icon"
+        ,"attachInput":".dz-hidden-input"
+        ,"submitButton":".bulletin-popup__submit-button"
+        
+    }],
+    "header": [
+        {
+            "userName": ".user__name"
+        }
+    ],
+    "eventCreateEditPage": [
+        {
+            "ownerSelector": "span.select2-selection__rendered",
+            "titleInput": "//*[@aria-label=\"Title\"]/input",
+            "descriptionRTE": "div.ql-editor",
+            "createButton": "button.buttons__submit",
+            "titleValidation": "//*[@class=\"alert alert-danger\"][1]",
+            "descriptionValidation": "//*[@class=\"alert alert-danger\"][2]",
+            "acceptPinValidation": "//*[@class=\"alert alert-danger\"][3]"
+        }
+    ]
+}

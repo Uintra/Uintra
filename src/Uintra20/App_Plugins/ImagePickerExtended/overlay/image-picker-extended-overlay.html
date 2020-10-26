@@ -1,0 +1,13 @@
+﻿<div class="edit-crop-overlay">
+    <div ng-repeat="crop in model.image.crops" class="crop-item">
+        <div class="crop-information">
+            <span><strong>{{crop.name}}</strong>({{crop.width}}px&nbsp;&times;&nbsp;{{crop.height}}px)</span>
+        </div>
+        <umb-image-crop height="{{crop.height}}"
+                        width="{{crop.width}}"
+                        crop="crop.coordinates"
+                        max-size="450"
+                        src="model.imageSrc">
+        </umb-image-crop>
+    </div>
+</div>

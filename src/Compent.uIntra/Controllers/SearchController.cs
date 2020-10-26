@@ -63,13 +63,6 @@ namespace Compent.Uintra.Controllers
             return PartialView(SearchResultViewPath, resultModel);
         }
 
-        protected override Lst<Enum> GetAutoCompleteSearchableTypes() => 
-            GetUintraSearchableTypes().Add(UintraSearchableTypeEnum.Tag);
-
-        protected override IEnumerable<Enum> GetFilterItemTypes() => GetSearchableTypes();
-
-        protected override IEnumerable<Enum> GetSearchableTypes() => GetUintraSearchableTypes();
-
         private UintraSearchResultsOverviewViewModel GetUintraSearchResultsOverviewModel(SearchResult<SearchableBase> searchResult)
         {
             var searchResultViewModels = searchResult.Documents.Select(d =>
@@ -131,15 +124,7 @@ namespace Compent.Uintra.Controllers
             return result;
         }
 
-        private static Lst<Enum> GetUintraSearchableTypes() =>
-            List<Enum>(
-                UintraSearchableTypeEnum.News,
-                UintraSearchableTypeEnum.Events,
-                UintraSearchableTypeEnum.Bulletins,
-                UintraSearchableTypeEnum.Content,
-                UintraSearchableTypeEnum.Document,
-                UintraSearchableTypeEnum.Member
-            );
+        
 
         protected override SearchBoxAutocompleteItemViewModel GetSeeAllSearchAutocompleteItemModel(string title)
         {

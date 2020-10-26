@@ -1,0 +1,87 @@
+@import "base.less";
+
+:host {
+  display: block;
+}
+
+::ng-deep .links-panel {
+  padding: 40px 10px 35px;
+  font-size: 18px;
+  line-height: 1.5;
+  .theme(bg-color);
+  .theme(text-color);
+
+  @media @sm-up{
+    font-size: 20px;
+    padding: 39px 41px 34px;
+  }
+
+  @media @lg-up{
+    font-size: 22px;
+  }
+
+  .main-column ubl-dynamic-component:first-child :host-context(.default-theme) &,
+  .right-column :host-context(.default-theme) &{
+    padding-top: 0;
+  }
+
+  ::ng-deep .aside &{
+    font-size: 16px;
+    line-height: 1.5;
+    padding: 11px 10px 20px;
+  }
+
+  .title{
+    font-weight: bold;
+    font-size: 28px;
+    line-height: 1.5;
+    .theme(title-color);
+    text-transform: none;
+    margin: 0 0 32px;
+
+    @media @md-up{
+      margin: 0 0 28px;
+    }
+
+    ::ng-deep .aside &{
+      font-size: 16px;
+      line-height: 1.5;
+      margin: 0 0 10px;
+    }
+  }
+
+  .links{
+    @media @sm-down{
+      margin-left: 11px;
+    }
+
+    ::ng-deep .aside &{
+      margin-left: 0;
+    }
+  }
+
+  ::ng-deep .link__link{
+    .theme(link-color);
+  }
+
+  ubl-link{
+    display: block;
+    margin-top: 28px;
+
+    @media @lg-up{
+      margin-top: 22px;
+    }
+
+    &:first-child{
+      margin-top: 0;
+
+      ::ng-deep .aside &{
+        margin-top: 0;
+      }
+    }
+
+    ::ng-deep .aside &{
+      margin-top: 16px;
+    }
+  }
+}

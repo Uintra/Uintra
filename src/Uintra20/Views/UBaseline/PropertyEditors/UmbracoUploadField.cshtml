@@ -1,0 +1,13 @@
+﻿@using Compent.Shared.Extensions.Bcl
+@model UBaseline.Core.IndexPage.PropertyEditorContentModel
+
+@{
+    var value = Model.Value<string>();
+}
+
+@if (value != null && value.HasValue())
+{
+    <div>
+            @value
+    </div>
+}

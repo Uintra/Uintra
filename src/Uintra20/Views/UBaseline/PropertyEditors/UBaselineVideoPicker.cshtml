@@ -1,0 +1,11 @@
+﻿@using UBaseline.Shared.VideoPicker
+@model UBaseline.Core.IndexPage.PropertyEditorContentModel
+
+@{
+    var value = Model.Value<VideoPickerViewModel>();
+}
+
+@if (value != null)
+{
+    @Html.Partial("UBaselineVideo", value)
+}

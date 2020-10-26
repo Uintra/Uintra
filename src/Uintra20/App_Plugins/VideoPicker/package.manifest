@@ -1,0 +1,33 @@
+﻿{
+  "propertyEditors": [
+    {
+      "alias": "UBaseline.VideoPicker",
+      "name": "UBaseline - Video Picker",
+      "icon": "icon-window-sizes",
+      "editor": {
+        "view": "~/App_Plugins/VideoPicker/video-picker.html",
+        "valueType": "JSON"
+      },
+      "prevalues": {
+        "fields": [
+          {
+            "label": "Settings",
+            "description": "",
+            "key": "videoSettings",
+            "view": "~/App_Plugins/VideoPicker/prevalue-editor/video-picker-prevalue.html"
+          }
+        ]
+      }
+    }
+  ],
+
+  "javascript": [
+    "~/App_Plugins/VideoPicker/video-picker.service.js",
+    "~/App_Plugins/VideoPicker/video-picker.controller.js",
+    "~/App_Plugins/VideoPicker/prevalue-editor/video-picker-prevalue.controller.js"
+  ],
+  "css": [
+    "~/App_Plugins/VideoPicker/prevalue-editor/styles.css",
+    "~/App_Plugins/VideoPicker/styles.css"
+  ]
+}

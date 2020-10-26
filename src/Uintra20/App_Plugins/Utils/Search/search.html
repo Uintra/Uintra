@@ -1,0 +1,24 @@
+﻿<div ng-controller="searchController">
+    <h5 class="bold">To rebuild search index, please press the button</h5>
+    <button type="button"
+            class="btn btn-danger"
+            ng-click="rebuild()"
+            ng-disabled="inProgress">
+        Rebuild Index
+    </button>
+    <br />
+    <br />
+    <div ng-if="showResult"
+         ng-class="class"
+         class="alert alert-dismissible"
+         role="alert">
+        <ul ng-repeat="d in data">
+            <li>{{d}}</li>
+        </ul>
+        <button type="button"
+                class="close"
+                ng-click="hideAlert()">
+            <span>&times;</span>
+        </button>
+    </div>
+</div>

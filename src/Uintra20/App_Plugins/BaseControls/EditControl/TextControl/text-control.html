@@ -1,0 +1,10 @@
+﻿<div>
+    <edit-control config="editControlConfig">
+        <div data-ng-if="isEditableMode()" data-ng-class="isConfigValueValid() ? '' : '_error'">
+            <input type="{{config.inputType}}" data-ng-model="config.value" c-blur="setValue()" class="form-control" />
+            <label class="error-label" data-ng-show="isTextRequiredButEmpty()">{{config.requiredValidationMessage ? config.requiredValidationMessage : 'Field is required'}}</label>
+            <label class="error-label" data-ng-show="isTextLengthNotValid">{{config.maxLengthValidationMessage ? config.maxLengthValidationMessage : 'Allowed size has been exceeded'}}</label>
+        </div>
+        <span data-ng-if="!isEditableMode()" class="text-control__text">{{config.value}}</span>
+    </edit-control>
+</div>

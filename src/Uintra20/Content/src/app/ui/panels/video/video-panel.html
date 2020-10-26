@@ -1,0 +1,14 @@
+<section class="video-panel" *ngIf="videoData">
+  <div class="video-panel__content">
+    <h2 *ngIf="data.title" class="video-panel__title">{{data.title}}</h2>
+    <a href="#" title="This link will open a lightbox with video" (click)="open($event)" class="video-panel__thumbnail" *ngIf="videoData">
+      <div *ngIf="videoData.thumbnail?.src" class="video-panel__thumbnail-img">
+        <app-picture [data]="videoData.thumbnail"></app-picture>
+      </div>
+      <div *ngIf="!videoData.thumbnail?.src" class="video-panel__thumbnail-ghost">
+      </div>
+    </a> 
+    <div *ngIf="data.description" class="video-panel__description rte" [innerHTML]="data.description | trustHtml" ></div>
+
+  </div>
+</section>

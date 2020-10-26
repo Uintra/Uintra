@@ -1,0 +1,21 @@
+﻿<div>
+    <div data-ng-if="isActiveEditMode" class="edit-control__bg" data-ng-click="save()"></div>
+    <div class="edit-control"
+         ng-class="{'_active-edit-control js-active-edit-control' : isActiveEditMode, '_disabled' : isActiveDisadledMode, '_create': isActiveCreateMode}"
+         c-click-outside="save(true)"
+         outside-if-not="js-edit-pencil, js-edit-fieldset, mce-menu-item">
+
+        <div class="edit-control__content" ng-click="activateEditMode()">
+            <fieldset data-ng-disabled="isActiveDisadledMode" class="edit-control__fieldset js-edit-fieldset">
+                <div data-ng-transclude>
+                    <!--content-->
+                </div>
+            </fieldset>
+            <button type="button" class="btn btn-default fa fa-pencil edit-control__btn-edit js-edit-pencil" ng-if="isActiveViewMode"></button>
+        </div>
+        <div class="edit-control__btns" ng-if="isActiveEditMode">
+            <button type="submit" class="btn btn-primary fa fa-check" ng-click="save(true)"></button>
+            <button type="submit" class="btn btn-default fa fa-times" ng-click="cancel()"></button>
+        </div>
+    </div>
+</div>

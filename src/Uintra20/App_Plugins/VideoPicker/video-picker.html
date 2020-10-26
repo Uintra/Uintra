@@ -1,0 +1,27 @@
+﻿<div class="ubl-video-picker" ng-controller="videoPickerController as vm">
+    <div class="ubl-video-picker__row">
+        <label class="ubl-video-picker__label">
+            Desktop
+        </label>
+        <div class="ubl-video-picker__control">
+            <ubl-video-section 
+                model="model.value.video.desktop" 
+                settings="model.config.videoSettings" 
+                mandatory="model.validation.mandatory">
+            </ubl-video-section>
+        </div>
+    </div>
+    
+    <div class="ubl-video-picker__row">
+        <label class="ubl-video-picker__label">
+            Mobile
+        </label>
+        <div class="ubl-video-picker__control">
+            <ubl-video-section 
+                ng-if="model.config.videoSettings.useMobileVideo" 
+                model="model.value.video.mobile" settings="model.config.videoSettings" 
+                mandatory="false">
+            </ubl-video-section>
+        </div>
+    </div>
+</div>

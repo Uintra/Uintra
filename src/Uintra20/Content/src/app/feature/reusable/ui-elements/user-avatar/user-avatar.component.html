@@ -1,0 +1,24 @@
+<ng-container *ngIf="routerLink">
+  <a [routerLink]="routerLink" [queryParams]="queryParams" class="link">
+    <ng-container *ngTemplateOutlet="insideContent"></ng-container>
+  </a>
+</ng-container>
+
+<ng-container *ngIf="!routerLink">
+  <ng-container *ngTemplateOutlet="insideContent"></ng-container>
+</ng-container>
+
+<ng-template #insideContent>
+  <img
+  *ngIf="photo"
+  class="avatar"
+  src="{{ photo }}"
+  [ngClass]="{ big: big, small: small }"
+  alt="{{name}} image" />
+<div
+  *ngIf="!photo"
+  class="avatar letter"
+  [innerHtml]="firstChar"
+  [ngClass]="{ big: big }"
+></div>
+</ng-template>

@@ -1,0 +1,18 @@
+<div *ngIf="firstLinkPreview" class="link-preview-wrapper">
+  <div class="link-preview">
+    <div class="link-preview__image-wrapper">
+      <img [src]="firstLinkPreview.imageUri" class="link-preview__image" [alt]="firstLinkPreview.title">
+    </div>
+    <div class="link-preview__info">
+      <a
+        *ngIf="firstLinkPreview.title"
+        [href]="firstLinkPreview.uri"
+        target="_blank"
+        class="link-preview__info-title">
+        {{firstLinkPreview.title}}
+      </a>
+      <p *ngIf="firstLinkPreview.description" class="link-preview__info-description">{{firstLinkPreview.description}}</p>
+    </div>
+    <button *ngIf="editor" type="button" class="link-preview__remove-btn" (click)="closeLinkPreview()">X</button>
+  </div>
+</div>

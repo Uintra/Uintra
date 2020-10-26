@@ -1,0 +1,41 @@
+﻿@using Compent.Shared.Extensions.Bcl @model UBaseline.Core.IndexPage.IndexPageModel
+<!doctype html>
+<html lang="en">
+<head>
+  @Html.Raw(Model.HeaderScript)
+  @Html.Raw(Model.HeaderLocalScript)
+  <meta charset="utf-8">
+  <base href="/">
+  <title>@Model.Title</title>
+  
+            @if (Model.MetaData != null)
+            {
+              <meta name="title" content="@Model.MetaData.MetaTitle">
+              <meta name="description" content="@Model.MetaData.MetaDescription">
+              <meta property="og:title" content="@Model.MetaData.SocialTitle">
+              <meta property="og:description" content="@Model.MetaData.SocialDescription">
+              if (Model.MetaData.SocialImageUrl.HasValue())
+              {
+                <meta property="og:image" content="@Model.MetaData.SocialImageUrl">
+              }
+              <link rel="canonical" href="@Model.MetaData.CanonicalUrl" />
+            }
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="wwwroot/favicon.ico">
+<link rel="stylesheet" href="/wwwroot/styles.e1a7de0aecaaad24ca28.css"></head>
+<body id="top" tabindex="-1">
+  @Html.Raw(Model.BodyScript)
+  @Html.Raw(Model.BodyLocalScript)
+  <app-root></app-root>
+  
+              <div id="page-content" style="position:absolute;">
+                  
+                  @Html.Action("Navigation", "PageContent", new { node = Model.Node })
+                  @Html.Action("Index", "PageContent", new { node = Model.Node })
+              </div>
+              @Html.Raw(Model.FooterScript)
+              @Html.Partial("Microdata", Model.MetaData?.Microdata ?? string.Empty)
+            
+  @Html.Raw(Model.FooterLocalScript)
+<script src="/wwwroot/runtime.004f7d9c126a8d63e55e.js" defer></script><script src="/wwwroot/polyfills-es5.0e5c3fb05c4f2fa2cbb4.js" nomodule defer></script><script src="/wwwroot/polyfills.4ad4b9ce0d6fb295c1fd.js" defer></script><script src="/wwwroot/scripts.755336941a50856dad23.js" defer></script><script src="/wwwroot/main.71df8ad3b4079fce55a7.js" defer></script></body>
+</html>

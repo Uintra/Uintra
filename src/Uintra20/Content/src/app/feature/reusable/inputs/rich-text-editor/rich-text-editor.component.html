@@ -1,0 +1,100 @@
+<quill-editor
+  *ngIf="!isEditing"
+  theme="snow"
+  [modules]="config"
+  [(ngModel)]="value"
+  [placeholder]="placeholder"
+  (onEditorCreated)="initEditor($event)"
+  customToolbarPosition="bottom"
+>
+  <div quill-editor-toolbar class="toolbar">
+    <app-tag-multiselect *ngIf="(tags?.length || availableTags?.length) && isShowMultiselect"
+                                class="multiselect"
+                                [availableTags]="availableTags"
+                                [ngModel]="tags"
+                                (ngModelChange)="onTagsChange($event)"></app-tag-multiselect>
+    <div class="toolbar-actions">
+      <div class="toolbar__first-row">
+        <div class="ql-counter" id="counter"></div>
+        <button *ngIf="tags?.length || availableTags?.length" class="toolbar__toggle-multiselect" (click)="toggleMultiselect()">
+          {{(isShowMultiselect ? 'socialCreate.HideTags.btn' : 'socialCreate.ShowTags.btn') | translate}}
+        </button>
+      </div>
+      <div class="toolbar__second-row">
+        <div class="ql-formats-wrapper">
+          <div class="ql-formats" *ngIf="isActivityFormats; then eventsOrNewsCreate; else comments"></div>
+        </div>
+
+        <div class="ql-submit-button">
+          <ng-content select="[submit]"></ng-content>
+        </div>
+      </div>
+    </div>
+
+    <ng-content select="[reply-close]"></ng-content>
+  </div>
+</quill-editor>
+
+<div class="reply-mode" *ngIf="isEditing">
+  <quill-editor
+    theme="snow"
+    [modules]="config"
+    [(ngModel)]="value"
+    [placeholder]="placeholder"
+    (onEditorCreated)="initEditor($event)"
+  >
+    <div quill-editor-toolbar class="toolbar" [ngClass]="getToolbarClass()">
+      <div *ngIf="!isEditing" class="ql-counter" id="counter"></div>
+
+      <div class="ql-formats-wrapper">
+        <div class="ql-formats" *ngIf="isActivityFormats; then eventsOrNewsCreate; else comments"></div>
+      </div>
+    </div>
+  </quill-editor>
+
+  <div class="ql-edit-buttons">
+    <ng-content select="[edit]"></ng-content>
+  </div>
+</div>
+
+<app-link-preview *ngIf="editor?.firstLinkPreview && editor?.showLinkPreview" [firstLinkPreview]="editor.firstLinkPreview" [editor]="editor"></app-link-preview>
+
+<ng-template #default>
+  <button class="ql-bold" [title]="'Bold'" aria-label="Bold" role="button"></button>
+  <button class="ql-italic" [title]="'Italic'" aria-label="Italic" role="button"></button>
+  <button *ngIf="isUnderline" class="ql-underline" [title]="'Underline'" aria-label="Underline" role="button"></button>
+  <button class="ql-link icon-link" [title]="'Link'" aria-label="Link" role="button"></button>
+  <button
+    *ngIf="isDropzone"
+    class="ql-dropzone icon-attachment"
+    (click)="onShowDropdown()"
+    [title]="'Attachments'"
+    aria-label="Attachments"
+    role="button"
+  ></button>
+</ng-template>
+
+<ng-template #comments>
+  <div *ngIf="isEmoji" class="emoji-container" (clickOutside)="closeEmojiPalette()">
+    <button class="icon-smily" (click)="toggleEmojiPalette()" [title]="'Emoji'" aria-label="Emoji" role="button"></button>
+    <app-rich-text-editor-emoji [ngClass]="{ 'hidden': !isEmojiPalette }" (emojiClick)="addEmoji($event)"></app-rich-text-editor-emoji>
+  </div>
+  <ng-container *ngTemplateOutlet="default"></ng-container>
+</ng-template>
+
+<ng-template #eventsOrNewsCreate>
+  <select class="ql-header" [title]="'Font size'">
+    <option value="1">Heading 1</option>
+    <option value="2">Heading 2</option>
+    <option value="3">Heading 3</option>
+    <option value="" selected>Normal</option>
+  </select>
+  <ng-container *ngTemplateOutlet="default"></ng-container>
+  <button type="button" class="ql-list" value="ordered" [title]="'Ordered list'"></button>
+  <button type="button" class="ql-list" value="bullet" [title]="'Bullet list'"></button>
+  <div *ngIf="isEmoji" class="emoji-container" (clickOutside)="closeEmojiPalette()">
+    <button class="icon-smily" (click)="toggleEmojiPalette()" [title]="'Emoji'" aria-label="Emoji" role="button"></button>
+    <app-rich-text-editor-emoji [ngClass]="{ 'hidden': !isEmojiPalette }" (emojiClick)="addEmoji($event)"></app-rich-text-editor-emoji>
+  </div>
+  <button type="button" class="ql-clean" [title]="'Clean'"></button>
+</ng-template>

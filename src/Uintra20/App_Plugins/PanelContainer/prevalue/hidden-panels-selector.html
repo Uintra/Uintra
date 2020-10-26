@@ -1,0 +1,13 @@
+﻿<div ng-controller="UBaseline.HiddenPanelsSelectorController as vm">
+
+    <umb-load-indicator ng-show="vm.loading"></umb-load-indicator>
+
+    <div ng-if="vm.allPanels">
+        <div ng-repeat="panel in vm.allPanels">
+            <label for="{{panel.alias}}">
+                <input type="checkbox" id="{{panel.alias}}" name="{{panel.alias}}" ng-checked="vm.isChecked(panel.alias)" ng-click="vm.toggleCheck(panel.alias)" />
+                {{ panel.name }} ({{panel.alias}})
+            </label>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,114 @@
+﻿<div>
+    <umb-box>
+        <div class="umb-box-header flex justify-between items-center">
+            <div style="display: flex; align-items: center; width: 100%; justify-content: space-between;">
+                <div class="umb-box-header-description">{{vm.countChanges()}} changes across {{vm.countVisibleTypes()}} items</div>
+                <div ng-show="vm.countChanges(vm.typeChanges) > 0">
+                    <umb-button type="button"
+                                button-style="success"
+                                label-key="umbracoStructureManagement_applyAllLocal"
+                                action="vm.applyChangeTypeToAll(vm.changeToApply.local)">
+                    </umb-button>
+                    <umb-button type="button"
+                                button-style="success"
+                                label-key="umbracoStructureManagement_applyAllExternal"
+                                action="vm.applyChangeTypeToAll(vm.changeToApply.external)">
+                    </umb-button>
+                    <input type="checkbox"
+                           ng-model="vm.changesAreIgnored"
+                           ng-change="vm.ignoreAllChanges()">
+                    <label>Ignore all changes</label>
+                </div>
+            </div>
+        </div>
+        <umb-box-content>
+            <div class="umb-table" ng-show="vm.countChanges(vm.typeChanges) > 0">
+                <div class="umb-table-head">
+                    <div class="umb-table-row">
+                        <div class="umb-table-cell"></div>
+                        <div class="umb-table-cell umb-table__name">
+                            Type
+                        </div>
+                        <div class="umb-table-cell">
+                            Name
+                        </div>
+                        <div class="umb-table-cell"></div>
+                        <div class="umb-table-cell">
+                            Change
+                        </div>
+                        <div class="umb-table-cell"></div>
+                        <div class="umb-table-cell">
+                            Current Value
+                        </div>
+                        <div class="umb-table-cell"></div>
+                        <div class="umb-table-cell">
+                            UBaseline Value
+                        </div>
+                        <div class="umb-table-cell"></div>
+                        <div class="umb-table-cell">
+                            Never show again
+                        </div>
+                        <div class="umb-table-cell"></div>
+                    </div>
+                </div>
+                <div class="umb-table-body">
+                    <div ng-repeat="type in vm.typeChanges" ng-init="typeIndex = $index">
+                        <div ng-if="vm.isTypeVisible(type)">
+                            <div class="umb-table-row">
+                                <div class="umb-table-cell"></div>
+
+                                <div class="umb-table-cell umb-table__name">
+                                    {{vm.getTypeName(type)}}
+                                </div>
+                            </div>
+                            <div ng-repeat="result in type.changes" ng-init="changeIndex = $index">
+                                <div class="umb-table-row">
+                                    <div class="umb-table-cell"></div>
+                                    <div class="umb-table-cell umb-table__name"></div>
+                                    <div class="umb-table-cell">
+                                        {{vm.getChangeName(result.name)}}
+                                    </div>
+                                    <div class="umb-table-cell" ng-class="vm.getChangeClass(result.change)">
+                                        {{result.change}}
+                                    </div>
+                                    <div class="umb-table-cell">
+                                        <input type="radio"
+                                               id="local-{{typeIndex}}-{{changeIndex}}"
+                                               ng-if="type.change != 'Deleted'"
+                                               ng-change='vm.onChangeToApplySelect(result)'
+                                               ng-model="result.changeToApply"
+                                               ng-value="vm.changeToApply.local"
+                                               ng-disabled="result.changeDisabled">
+                                        <label for="local-{{typeIndex}}-{{changeIndex}}" style="white-space: normal !important;">&nbsp;{{result.oldValue}}</label>
+
+                                    </div>
+                                    <div class="umb-table-cell">
+                                        <input type="radio"
+                                               id="external-{{typeIndex}}-{{changeIndex}}"
+                                               ng-if="type.change != 'Deleted'"
+                                               ng-change='vm.onChangeToApplySelect(result)'
+                                               ng-model="result.changeToApply"
+                                               ng-value="vm.changeToApply.external"
+                                               ng-disabled="result.changeDisabled">
+                                        <label for="external-{{typeIndex}}-{{changeIndex}}" style="white-space: normal !important;">&nbsp;{{result.newValue}}</label>
+
+                                    </div>
+                                    <div class="umb-table-cell">
+                                        <input type="checkbox"
+                                               ng-disabled="result.ignoreDisabled"
+                                               ng-model="result.neverShowAgain"
+                                               ng-value="result.neverShowAgain"
+                                               ng-change="vm.onNeverShowAgainCheck(result)">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex justify-center items-center" ng-if="vm.countChanges(vm.typeChanges) == 0">
+                <h4>No Changes</h4>
+            </div>
+        </umb-box-content>
+    </umb-box>
+</div>

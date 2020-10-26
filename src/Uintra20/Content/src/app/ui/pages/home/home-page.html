@@ -1,0 +1,17 @@
+<div class="page-wrapper">
+  <div class="row-flex">
+    <div class="main-column" [ngClass]="{'main-column--full-content': !data?.rightColumnPanels?.length}">
+      <app-social-create
+        *ngIf='socialCreateData'
+        [data]='socialCreateData'>
+      </app-social-create>
+      <ubl-dynamic-component
+        *ngFor="let panel of data.panels; trackBy: index"
+        [data]="panel"
+      ></ubl-dynamic-component>
+    </div>
+    <div class="right-column aside" role="complementary" *ngIf="data?.rightColumnPanels?.length">
+      <ubl-dynamic-component *ngFor="let panel of data.rightColumnPanels;" [data]="panel"></ubl-dynamic-component>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,25 @@
+<div class="ubl-video-configurator__code" ng-if="vm.umbraco.value !== model.type">
+    <label>
+        <span ng-if="model.type != vm.twentyThree.value">Video code:</span>
+        <span ng-if="model.type == vm.twentyThree.value">Absolute video url:</span>
+        <strong ng-if="vm.videoRequired || model.type !== undefined" class="umb-control-required">*</strong>
+    </label>
+
+    <div>
+        <input ng-model="model.video.code" type="text" ng-required="vm.videoRequired || model.type !== undefined" />
+        <div class="ubl-video-configurator__code-tip">{{ vm.getTipByType(model.type) }}</div>
+    </div>
+</div>
+
+<!--umbraco-->
+<div class="ubl-video-configurator__actions" ng-if="vm.umbraco.value === model.type">   
+    <umb-button ng-if="vm.isMediaSelected()" action="vm.removeVideo()" type="button" button-style="action"label="Remove"></umb-button>
+    <umb-button ng-if="vm.isMediaSelected()" action="vm.editMedia(model.video.id)" type="button" button-style="action" label="Edit"></umb-button>
+    
+    <div ng-if="vm.isMediaSelected()" class="ubl-video-loop-switch" ng-if="vm.settings.showLoop">
+        <label>Loop: </label>
+        <umb-toggle checked="model.loop" on-click="model.loop = !model.loop">
+        </umb-toggle>
+    </div>
+</div>
+<div ng-if="vm.isMediaSelected()" class="ubl-video-configurator__details">{{ model.video.name }}.mp4 (id: {{ model.video.id }})</div>

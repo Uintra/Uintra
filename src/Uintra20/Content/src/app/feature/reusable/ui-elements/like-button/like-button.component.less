@@ -1,0 +1,50 @@
+@import "base.less";
+
+.like-button {
+  .reset-button;
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  margin-right: 19px;
+
+  &__text{
+    font-size: 13px;
+    color: #555;
+  }
+
+  i {
+    margin: -0.25em 9px 0 0;
+    color: #b2b2b2;
+  }
+  &--active {
+    i {
+      color: #555;
+    }
+  }
+
+  &-tooltip {
+    display: none;
+  }
+
+  &:hover {
+    color: @link-color;
+
+    .like-button-tooltip {
+      display: block;
+      position: absolute;
+      background: #333;
+      color: #fff;
+      top: 125%;
+      left: 0;
+      padding: 4px 6px;
+      z-index: 1;
+
+      span {
+        display: block;
+        white-space: nowrap;
+        text-align: left;
+      }
+    }
+  }
+}

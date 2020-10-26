@@ -1,0 +1,27 @@
+{
+  "name": "uintra2.0",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/compent/automatedtests.git"
+  },
+  "author": "Anastasiia",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/compent/automatedtests/issues"
+  },
+  "homepage": "https://gitlab.com/compent/automatedtests#readme",
+  "devDependencies": {
+    "cypress": "^4.3.0",
+    "cypress-wait-until": "^1.6.1",
+    "cypress-xpath": "^1.4.0"
+  },
+  "dependencies": {
+    "lorem-ipsum": "^2.0.3"
+  }
+}

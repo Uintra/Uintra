@@ -1,0 +1,43 @@
+﻿<div class="multimedia-picker" ng-class="getGlobalClassModel()" stop-propagation="click">
+    <div class="media-item-holder">
+        <div class="select-media-btn" ng-click="pickMedia()">
+            <i class="icon-add"></i>
+        </div>
+        <div class="media-item" ng-repeat="media in getRepeatableModel()" ng-class="{'__image': isImage(media.src), '__svg': isSvgImage(media.src)}">
+            <div class="item-controls">
+                <div class="button __delete icon-delete" ng-click="removeItem($index)"></div>
+            </div>
+            <img ng-src="{{media.src}}" class="svg-image-preview"/>
+            <umb-image-gravity src="media.src"
+                               center="media.focalPoint"
+                               on-image-loaded="noop"
+                               class="focal-point-editor">
+            </umb-image-gravity>
+            <ul class="crops-list" ng-click="editCrop(media, $index)" ng-if="media.crops">
+                <li ng-repeat="crop in media.crops | orderByObject:'width':true">
+                    <umb-image-thumbnail center="media.focalPoint"
+                                         crop="crop.coordinates"
+                                         src="media.src"
+                                         height="{{crop.height}}"
+                                         width="{{crop.width}}"
+                                         max-size="75">
+                    </umb-image-thumbnail>
+                    <div class="crop-information">
+                        <div class="crop-size">
+                            <b>{{crop.width}}px</b>&nbsp;&times;&nbsp;<b>{{crop.height}}px</b>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <div class="document-placeholder">
+                <i class="icon-document"></i>
+                <span class="document-name">{{media.name}}</span>
+            </div>
+        </div>
+    </div>
+    <umb-overlay ng-if="editCropOverlay.show"
+                 model="editCropOverlay"
+                 view="editCropOverlay.view"
+                 position="right">
+    </umb-overlay>
+</div>

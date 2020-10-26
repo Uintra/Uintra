@@ -1,0 +1,37 @@
+{
+  "propertyEditors": [
+    {
+      "alias": "UBaseline.MediaPicker",
+      "name": "UBaseline - Media Picker",
+      "icon": "icon-code",
+      "group": "Pickers",
+      "editor": {
+        "view": "~/App_Plugins/MediaPicker/media-picker.html",
+        "valueType": "JSON"
+      },
+      "prevalues": {
+        "fields": [
+          {
+            "label": "Image settings",
+            "description": "Add crop size",
+            "key": "imageSettings",
+            "view": "~/App_Plugins/MediaPicker/prevalue-editor/image-picker.prevalue.html"
+          },
+          {
+            "label": "Video settings",
+            "description": "",
+            "key": "videoSettings",
+            "view": "~/App_Plugins/VideoPicker/prevalue-editor/video-picker-prevalue.html"
+          }
+        ]
+      }
+    }
+  ],
+  "javascript": [
+    "~/App_Plugins/MediaPicker/media-picker.js",
+    "~/App_Plugins/MediaPicker/prevalue-editor/media.prevalue.js"
+  ],
+  "css": [
+    "~/App_Plugins/MediaPicker/styles.css"
+  ]
+}

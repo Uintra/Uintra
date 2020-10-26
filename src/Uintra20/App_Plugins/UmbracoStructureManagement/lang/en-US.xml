@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<language alias="en" intName="English (US)" localName="English (US)" lcid="" culture="en-US">
+  <creator>
+    <name>Compent</name>
+  </creator>
+  <area alias="umbracoStructureManagement">
+    <key alias="apply">Apply changes</key>
+    <key alias="applyAllLocal">Take all local</key>
+    <key alias="applyAllExternal">Take all external</key>
+    <key alias="ignoreAll">Ignore all</key>
+  </area>
+  <area alias="treeHeaders">
+    <key alias="umbracoStructureManagement">Umbraco Structure Management</key>
+  </area>
+  <area alias="dashboardTabs">
+    <key alias="umbracoStructureManagement">Umbraco Structure Management</key>
+  </area>
+</language>

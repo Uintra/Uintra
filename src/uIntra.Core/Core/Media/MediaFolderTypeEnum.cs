@@ -13,9 +13,6 @@ namespace Uintra.Core.Media
         [Display(Name = "Events Content")]
         EventsContent,
 
-        [Display(Name = "Ideas Content")]
-        IdeasContent,
-
         [Display(Name = "Members Content")]
         MembersContent,
 

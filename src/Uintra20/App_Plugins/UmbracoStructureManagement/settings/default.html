@@ -1,0 +1,29 @@
+﻿<div ng-controller="umbracoStructureManagementController as vm">
+
+    <umb-editor-sub-header>
+        <umb-editor-sub-header-content-left>
+            <div>
+                <umb-button type="button"
+                            button-style="success"
+                            label-key="umbracoStructureManagement_apply"
+                            action="vm.manage()"
+                            disabled="vm.working"
+                            ng-if="vm.changes.isEnabled">
+                </umb-button>
+            </div>
+        </umb-editor-sub-header-content-left>
+    </umb-editor-sub-header>
+    
+    <umb-load-indicator ng-show="vm.working"></umb-load-indicator>
+
+    <div ng-if="vm.changes.isEnabled && !vm.working">
+        <h4>Content types</h4>
+        <umbraco-structure-management-report-view type-changes="vm.changes.contentTypes" depending-type-changes="vm.changes.dataTypes" />
+        <h4>Data types</h4>
+        <umbraco-structure-management-report-view type-changes="vm.changes.dataTypes" />
+    </div>
+
+    <div ng-if="!vm.changes.isEnabled && !vm.working">
+        <h1>Disabled for current environment. Check UBaseline settings.</h1>
+    </div>
+</div>

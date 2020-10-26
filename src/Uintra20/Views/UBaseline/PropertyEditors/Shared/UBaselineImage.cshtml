@@ -1,0 +1,14 @@
+﻿@model UBaseline.Shared.ImagePicker.PictureViewModel
+
+@if (Model != null)
+{
+    var width = Model.Width == default(int) ? 200 : Model.Width;
+    var height = Model.Height == default(int) ? 200 : Model.Height;
+    <picture>
+        @foreach (var source in Model.Sources)
+        {
+            <source srcset="@source.SrcSet" media="@source.Media">
+        }
+        <img src="@Model.Src" width="@width" height="@height" alt="@Model.Alt" title="@Model.Alt" />
+    </picture>
+}

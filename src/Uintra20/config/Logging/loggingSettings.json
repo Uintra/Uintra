@@ -1,0 +1,23 @@
+﻿{
+  //Auto-generated, default config. Create new file if need to be overridden
+  //https://github.com/serilog/serilog-settings-configuration
+  "SerilogSettings": {
+    "Using": {
+      "File": "Serilog.Sinks.File"
+    },
+    "MinimumLevel": "Debug",
+    "WriteTo": [
+      {
+        "Name": "File",
+        "Args": {
+          "path": "%BASEDIR%\\Logs\\log..json",
+          "formatter": "Serilog.Formatting.Compact.CompactJsonFormatter, Serilog.Formatting.Compact",
+          "shared": "true",
+          "restrictedToMinimumLevel": "Debug",
+          "retainedFileCountLimit": "",
+          "rollingInterval": "Day"
+        }
+      }
+    ]
+  }
+}

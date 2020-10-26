@@ -1,0 +1,12 @@
+<label class="checkbox-input">
+  <input
+    class="checkbox-input__input-hidden"
+    type="checkbox"
+    (change)="onChangeInput()"
+    [(ngModel)]="isChecked"
+  />
+  <span class="checkbox-input__input" [ngClass]="{ checked: isChecked }"></span>
+  <div>
+    <ng-content></ng-content>
+  </div>
+</label>

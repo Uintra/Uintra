@@ -1,0 +1,16 @@
+﻿<div ng-controller="keyValueRadioButtonListPreValueController as vm">
+    <div class="control-group">
+        <input type="text" placeholder="Value:" ng-model="vm.newItem.value" val-highlight="{{vm.hasError}}" />
+        <input type="text" placeholder="Key:" ng-model="vm.newItem.key" val-highlight="{{vm.hasError}}" />
+        <button type="button" class="btn" ng-click="vm.add()">Add</button>
+    </div>
+    <div ui-sortable="sortableOptions">
+        <div class="control-group" ng-repeat="item in model.value.items">
+            <i class="icon icon-navigation handle"></i>
+            <input type="text" placeholder="Key:" ng-model="item.value" required />
+            <input type="text" placeholder="Value:" ng-model="item.key" required />
+            <input type="radio" name="default-value" ng-model="model.value.default" ng-value="item.key" /> Is default
+            <button type="button" class="btn btn-danger" ng-click="vm.remove(item)">Remove</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,35 @@
+@import "base.less";
+
+app-spoiler-section {
+  display: block;
+  margin-bottom: 4px;
+
+
+  @media @sm-up {
+    margin-bottom: 20px;
+  }
+}
+
+.central-feed {
+  &__loader {
+    .spinner;
+    color: #444;
+
+    &-wrapper {
+      display: flex;
+      justify-content: center;
+      margin: 30px auto 60px;
+    }
+  }
+
+  &__empty-feed {
+    .white-block;
+    font-size: 16px;
+    padding: 20px;
+  }
+
+  &__load-more{
+    padding: 25px 0 50px;
+    text-align: center;
+  }
+}

@@ -1,0 +1,6 @@
+﻿{
+  "label": "This is an desktop notification that is sent to the creator of the comment when someone replied it.<br>You can insert the following dynamic values:<br><br>##FullName## - Name of the user who liked the comment",
+  "template": {
+    "message": "##FullName## reply to your comment"
+  }
+}

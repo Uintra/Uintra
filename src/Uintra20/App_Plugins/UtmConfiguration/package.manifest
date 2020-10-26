@@ -1,0 +1,40 @@
+﻿{
+  "propertyEditors": [
+    {
+      "alias": "UBaseline.UtmConfiguration.Panel",
+      "name": "UBaseline - UTM Configuration (Panel)",
+      "icon": "icon-hammer",
+      "editor": {
+        "view": "~/App_Plugins/UtmConfiguration/panel/utm-configuration-panel.html",
+        "valueType": "JSON"
+      }
+    },
+    {
+      "alias": "UBaseline.UtmConfiguration.Page",
+      "name": "UBaseline - UTM Configuration (Page)",
+      "icon": "icon-hammer",
+      "editor": {
+        "view": "~/App_Plugins/UtmConfiguration/page/utm-configuration-page.html",
+        "valueType": "JSON"
+      },
+      "prevalues": {
+        "fields": [
+          {
+            "label": "Default source",
+            "description": "Default value for the utm_source parameter",
+            "key": "utmSource",
+            "view": "textstring"
+          }
+        ]
+      }
+    }
+  ],
+  "javascript": [
+    "~/App_Plugins/UtmConfiguration/utm-configuration.service.js",
+    "~/App_Plugins/UtmConfiguration/panel/utm-configuration-panel.controller.js",
+    "~/App_Plugins/UtmConfiguration/page/utm-configuration-page.controller.js"
+  ],
+  "css": [
+    "~/App_Plugins/UtmConfiguration/page/utm-configuration-page.css"
+  ]
+}

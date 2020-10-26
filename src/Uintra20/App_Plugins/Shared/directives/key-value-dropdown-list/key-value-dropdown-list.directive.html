@@ -1,0 +1,15 @@
+﻿<div>
+    <div class="control-group">
+        <input type="text" placeholder="Value:" ng-model="newItem.value" val-highlight="{{hasError}}" />
+        <input type="text" placeholder="Key:" ng-model="newItem.key" val-highlight="{{hasError}}" />
+        <button type="button" class="btn" ng-click="add()">Add</button>
+    </div>
+    <div ui-sortable="sortableOptions">
+        <div class="control-group" ng-repeat="item in items">
+            <i class="icon icon-navigation handle"></i>
+            <input type="text" placeholder="Key:" ng-model="item.value" required />
+            <input type="text" placeholder="Value:" ng-model="item.key" required />
+            <button type="button" class="btn btn-danger" ng-click="remove(item)">Remove</button>
+        </div>
+    </div>
+</div>

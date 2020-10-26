@@ -1,0 +1,21 @@
+<div class="header">
+  <a class="burger-menu" href="#" (click)="openLeftNav($event)" aria-label="Burger menu">
+    <span class="burger-menu__item"></span>
+  </a>
+
+  <a [routerLink]="['/']" class="site-logo">
+    <img src="wwwroot/assets/img/logo.svg" width="21" height="33" alt="uintra">
+  </a>
+
+  <div class="header__content">
+    <div class="header-center">
+      <app-autocomplete class="header__search"></app-autocomplete>
+      <a *ngIf="userListPage" [routerLink]="userListPage?.originalUrl" class="groups" aria-label="Contact">
+        <span class="icon icon-group"></span>
+      </a>
+      <app-nav-notifications></app-nav-notifications>
+    </div>
+
+    <user-navigation *ngIf="isDesktopGeter"></user-navigation>
+  </div>
+</div>

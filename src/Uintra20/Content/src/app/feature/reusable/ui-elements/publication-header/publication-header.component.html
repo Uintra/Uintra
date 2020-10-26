@@ -1,0 +1,39 @@
+<div class="publication-header">
+  <div class="publication-header__avatar">
+    <app-user-avatar [photo]="avatar"
+                     [name]="title"
+                     [routerLink]='link?.baseUrl | ulink'
+                     [queryParams]="link?.params | uparams" tabindex="">
+    </app-user-avatar>
+  </div>
+  <div class="publication-header__content">
+    <ng-container *ngIf="title || link?.originalUrl">
+      <a *ngIf="title && link?.originalUrl"
+         class="publication-header__title publication-header__title--link"
+         [routerLink]='link?.baseUrl | ulink'
+         [queryParams]="link?.params | uparams">
+        {{ title }}
+      </a>
+      <p *ngIf="title && !link?.originalUrl"
+         class="publication-header__title">
+        {{ title }}
+      </p>
+    </ng-container>
+    <div class="publication-header__subtitle-container">
+      <ng-content select="[subtitle]"></ng-content>
+      <span *ngIf="groupInfo"
+            class="publication-header__group">
+        >
+        <a [routerLink]="groupInfo.url?.originalUrl | ulink"
+           class="publication-header__group-link">
+          <span class="icon-group"></span>
+          {{groupInfo.title}}
+        </a>
+      </span>
+    </div>
+  </div>
+
+  <div class="publication-header__label">
+    <ng-content select="[label]"></ng-content>
+  </div>
+</div>

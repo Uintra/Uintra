@@ -1,0 +1,9 @@
+<div class="spoiler-section" [ngClass]="{ showed: isSpoilerShowed }">
+  <div class="spoiler-section__header" (click)="onToggleSpoiler()">
+    <span class="spoiler-section__icon icon-arrow-down"></span>
+    {{ title }}
+  </div>
+  <div class="spoiler-section__content">
+    <ng-content></ng-content>
+  </div>
+</div>

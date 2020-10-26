@@ -1,0 +1,26 @@
+﻿{
+  "propertyEditors": [
+    {
+      "alias": "UBaseline.KeyValueRadioButtonList",
+      "name": "UBaseline - Key Value Radio Button List",
+      "editor": {
+        "view": "~/App_Plugins/KeyValueRadioButtonList/key-value-radio-button-list.html",
+        "valueType": "TEXT"
+      },
+      "prevalues": {
+        "fields": [
+          {
+            "label": "Values",
+            "description": "",
+            "key": "values",
+            "view": "~/App_Plugins/KeyValueRadioButtonList/prevalue-editor/key-value-radio-button-list.prevalue.html"
+          }
+        ]
+      }
+    }
+  ],
+  "javascript": [
+    "~/App_Plugins/KeyValueRadioButtonList/prevalue-editor/key-value-radio-button-list.prevalue.controller.js",
+    "~/App_Plugins/KeyValueRadioButtonList/key-value-radio-button-list.controller.js"
+  ]
+}

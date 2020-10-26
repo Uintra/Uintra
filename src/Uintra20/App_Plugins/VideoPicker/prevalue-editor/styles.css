@@ -1,0 +1,13 @@
+.video-picker-prevalue {
+    max-width: 600px;   
+}
+.video-picker-prevalue .umb-property .control-group.umb-control-group {
+    border-bottom: 1px solid #f6f6f7;
+    padding-bottom: 20px;
+    margin-bottom: 15px!important;
+}
+.video-picker-prevalue .umb-property:last-child .control-group.umb-control-group {
+    border: none;
+    margin-bottom: 0!important;
+    padding-bottom: 0;
+}

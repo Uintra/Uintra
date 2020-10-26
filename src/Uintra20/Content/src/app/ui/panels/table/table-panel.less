@@ -1,0 +1,194 @@
+@import "base.less";
+
+:host {
+  display: block;
+}
+
+::ng-deep .table-panel {
+  padding: 40px 10px 45px;
+  font-size: 18px;
+  line-height: 1.5;
+  .theme(bg-color);
+  .theme(text-color);
+
+  @media @md-up{
+    font-size: 20px;
+    padding: 29px 20px 49px;
+  }
+
+  .main-column ubl-dynamic-component:first-child :host-context(.default-theme) &,
+  .right-column :host-context(.default-theme) &{
+    padding-top: 0;
+  }
+
+  ::ng-deep .aside &{
+    font-size: 16px;
+    line-height: 1.5;
+    padding: 11px 10px 20px;
+  }
+
+  app-heading .heading__title {
+    font-weight: bold;
+    font-size: 28px;
+    line-height: 1.5;
+    .theme(title-color);
+    text-transform: none;
+    margin: 0 0 26px;
+
+    @media @md-up{
+      margin: 0 0 7px;
+    }
+
+    ::ng-deep .aside &{
+      font-size: 16px;
+      line-height: 1.5;
+      margin: 0 0 10px;
+    }
+  }
+
+  thead tr {
+    ::ng-deep .aside &{
+      position: absolute;
+      top: -9999px;
+      left: -9999px;
+    }
+  }
+
+  &__table {
+    width: 100%;
+    tr{
+      border: 1px solid @grey;
+      border-width:0 0 1px;
+
+      &:first-child{
+        @media @sm-down{
+          border-top:1px solid @grey;
+        }
+      }
+    }
+
+    th,
+    td {
+      &:first-child{
+        width: 23.5%;
+
+        @media @md-up{
+          padding: 19px 3px;
+        }
+        @media @lg-up{
+          padding: 18px 3px 17px;
+        }
+
+        ::ng-deep .aside &{
+          width:45%;
+        }
+      }
+
+      ::ng-deep .aside &{
+        padding: 20px 3px;
+      }
+    }
+
+    td[data-label]:before {
+      ::ng-deep .aside &{
+        content: attr(data-label);
+        padding-right: 3px;
+        text-align: left;
+        flex: 1 0 50%;
+      }
+    }
+  }
+
+  &__inner-table{
+    width: 100%;
+    table-layout: fixed;
+
+    tr{
+      border: 0;
+      &:first-child{
+        border: 0;
+      }
+    }
+
+    th,
+    td {
+      word-break: break-word;
+
+      @media @md-up{
+        padding: 19px 3px;
+      }
+      @media @lg-up{
+        padding: 18px 3px 17px;
+      }
+
+      ::ng-deep .aside &{
+        padding: 0;
+        display: flex;
+        justify-content: space-between;
+        word-break: break-all;
+      }
+
+      &:first-child{
+        width: auto;
+
+        ::ng-deep .aside &{
+          width: auto;
+        }
+      }
+      &:last-child{
+        @media @lg-up{
+          width: 15%;
+        }
+        ::ng-deep .aside &{
+          width: auto;
+        }
+      }
+    }
+  }
+}
+
+// Adaptive
+@media @md-down {
+  .table-panel {
+    &__table{
+      td{
+        padding: 20px 3px;
+
+        &:first-child{
+          width:45%;
+        }
+      }
+    }
+
+    thead tr {
+      position: absolute;
+      top: -9999px;
+      left: -9999px;
+    }
+
+    &__inner-table{
+      td {
+        padding: 0;
+        display: flex;
+        justify-content: space-between;
+        word-break: break-all;
+
+        &:first-child{
+          width:auto;
+        }
+      }
+    }
+
+    td {
+      &[data-label] {
+        &:before {
+          content: attr(data-label);
+          padding-right: 3px;
+          text-align: left;
+          flex: 1 0 50%;
+        }
+      }
+    }
+  }
+}
+
