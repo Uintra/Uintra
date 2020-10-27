@@ -17,6 +17,8 @@ import { CanDeactivateGuard } from 'src/app/shared/services/general/can-deactiva
 import { IEventDetailsPage } from 'src/app/shared/interfaces/pages/event/details/event-details-page.interface';
 import { ICommentData } from 'src/app/shared/interfaces/panels/comments/comments-panel.interface';
 import {TranslateService} from "@ngx-translate/core";
+import {map} from 'rxjs/operators';
+import {BreakpointObserver, BreakpointState} from '@angular/cdk/layout';
 
 @Component({
   selector: 'event-details-page',
@@ -40,6 +42,12 @@ export class EventDetailsPage implements OnInit, OnDestroy {
   subscribers: string[] = [];
   $eventSubscription: Subscription;
 
+  get isPhone$(): Observable<boolean> {
+    return this.breakpointObserver
+      .observe('(max-width: 600px)')
+      .pipe(map(({matches}: BreakpointState): boolean => matches));
+  }
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private imageGalleryService: ImageGalleryService,
@@ -47,7 +55,8 @@ export class EventDetailsPage implements OnInit, OnDestroy {
     private eventSubscription: EventSubscriptionService,
     private hasDataChangedService: HasDataChangedService,
     private canDeactivateService: CanDeactivateGuard,
-    private translateService: TranslateService
+    private translateService: TranslateService,
+    private breakpointObserver: BreakpointObserver
   ) {
     this.activatedRoute.data.subscribe((data: IEventDetailsPage) => {
       this.data = data;

@@ -20,7 +20,7 @@
                class="feed-header__back-link">
               {{'detailsView.GoToList.lbl' | translate}}
             </a>
-            <a *ngIf="data.details.canEdit"
+            <a *ngIf="data.details.canEdit && !((isPhone$ | async) && data?.details?.activityType !== 4)"
                [routerLink]="data.details.links.edit?.baseUrl | ulink"
                [queryParams]="data.details.links.edit?.params | uparams"
                class="feed-header__edit-link">
