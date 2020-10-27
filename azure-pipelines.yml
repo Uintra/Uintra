@@ -10,7 +10,7 @@ pool:
   vmImage: 'windows-latest'
 
 variables:
-  solution: 'src/Uintra20/Uintra20.csproj'
+  solution: 'src/Uintra/Uintra.csproj'
   buildPlatform: 'AnyCPU'
   buildConfiguration: 'QA'
 
@@ -38,13 +38,13 @@ steps:
 - task: Npm@1
   inputs:
     command: 'custom'
-    workingDir: 'src/Uintra20/Content'
+    workingDir: 'src/Uintra/Content'
     customCommand: 'install'
 
 - task: Npm@1
   inputs:
     command: 'custom'
-    workingDir: 'src/Uintra20/Content'
+    workingDir: 'src/Uintra/Content'
     customCommand: 'run build'
 
 - task: UseNode@1
