@@ -1,0 +1,28 @@
+<section class="coming-events-panel" *ngIf="data">
+  <div class="title">{{ data.title }}</div>
+
+  <div class="event-list">
+    <div *ngFor="let event of data.events">
+      <div class="event-details">
+        <div class="date date--event-details">
+          <span class="date__day"> {{ event.eventDate || 2 }} </span>
+          {{ event.eventMonth || 'MAR' }}
+        </div>
+        <div class="event-details__text">
+          <div class="event-details__date">
+            <div
+              *ngFor="let day of event.dates; index as i"
+              class="event-details__day"
+            >
+              {{ day }}
+            </div>
+          </div>
+
+          <div *ngIf="event.owner" class="owner">
+            {{ event.owner.displayedName }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

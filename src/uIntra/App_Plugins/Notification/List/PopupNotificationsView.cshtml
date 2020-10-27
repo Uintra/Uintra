@@ -1,9 +1,0 @@
-﻿@using Uintra.Core.Extensions
-@model IEnumerable<Uintra.Notification.PopupNotificationViewModel>
-
-<div class="js-popups-holder" data-view-popup-url="@Url.Action("ViewPopup","Notification")" data-ok-btn-text="@Html.Localize("PopupNotification.OkBtn.Text")">
-    @foreach (var notification in Model)
-    {
-        <div class="js-popup" data-id="@notification.Id" data-message="@notification.Value.message"></div>
-    }
-</div>

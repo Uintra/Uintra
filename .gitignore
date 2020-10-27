@@ -71,10 +71,9 @@ src/Compent.uIntra/Web.config
 
 #========================================================================================> FRONTEND
 **/Content/workspace/
-**/UBaseline/*
+src/Uintra/UBaseline/
 **/wwwroot/**
-src/Uintra20/Media/
-src/Uintra20/umbraco/
+src/Uintra/Media/
 src/Uintra/umbraco/
 src/Compent.uIntra/umbraco/
 *.log

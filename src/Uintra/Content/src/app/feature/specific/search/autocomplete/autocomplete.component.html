@@ -1,0 +1,52 @@
+<div (clickOutside)="closeAutocomplete()" (mouseenter)="clearActiveLink()">
+  <div class="autocomplete-holder">
+    <input
+      type="search"
+      id="autocomplete-search"
+      name="autocomplete-search"
+      class="autocomplete-holder__input"
+      placeholder="Search"
+      autocomplete="off"
+      accesskey="4"
+      aria-label="Autocomplete Search"
+      role="search"
+
+      #query
+      [ngModel]="inputValue"
+      (ngModelChange)="onQueryChange($event)"
+      (keyup)="onKeyClick($event.keyCode)"
+      (focus)="openAutocomplete()"/>
+
+    <span class="icon icon-search-icon"></span>
+  </div>
+  <ul *ngIf="isFocused && inputValue.length > 1" class="autocomplete-list">
+    <li
+      *ngFor="let item of autocompleteList; index as i"
+      class="autocomplete-list__item">
+      <a
+        class="autocomplete-list__item-link"
+        [ngClass]="{'autocomplete-list__item-link--active': item.isActive}"
+        [routerLink]="item.url.baseUrl | ulink"
+        [queryParams]="item.url.params | uparams">
+        <div class="autocomplete-list__item-left">
+          <app-user-avatar
+            *ngIf="item.item.photo"
+            [photo]="item.item.photo"
+            class="autocomplete-list__item-avatar"
+            small>
+          </app-user-avatar>
+          <span class="autocomplete-list__item-title">{{item.item.title}}</span>
+        </div>
+        <span *ngIf="i !== autocompleteList.length - 1" class="autocomplete-list__item-type">
+          {{item.item.type | translate}}
+        </span>
+        <span *ngIf="i == autocompleteList.length - 1" class="icon-arrow-right"></span>
+      </a>
+    </li>
+    <li
+      *ngIf="!hasResults && inputValue.length > 1"
+      class="autocomplete-list__item--empty">
+      {{'searchBox.Empty.lbl' | translate}}
+    </li>
+  </ul>
+</div>
