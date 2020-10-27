@@ -1,0 +1,20 @@
+﻿@using Compent.Shared.Extensions.Bcl
+@model UBaseline.Core.IndexPage.PropertyEditorContentModel
+
+@{
+    var value = Model.Value<UBaseline.Shared.Link.LinkViewModel[]>();
+}
+
+@if (value.HasValue())
+{
+    <div>
+        <ul>
+            @foreach (var link in value)
+            {
+                <li>
+                    @Html.Partial("UBaselineLink", link)
+                </li>
+            }
+        </ul>
+    </div>
+}

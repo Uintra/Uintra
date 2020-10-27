@@ -1,0 +1,13 @@
+﻿@using UBaseline.Shared.Media
+@model UBaseline.Core.IndexPage.PropertyEditorContentModel
+
+@{
+    var value = Model.Value<IMediaViewModel>();
+}
+
+@if (value != null)
+{
+    <div>
+        @Html.Partial("UmbracoMediaPicker", value)
+    </div>
+}

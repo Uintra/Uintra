@@ -1,0 +1,26 @@
+﻿@using UBaseline.Shared.Node
+@using Compent.Shared.Extensions.Bcl
+@model UBaseline.Core.IndexPage.PropertyEditorContentModel
+
+@{
+    var value = Model.Value<string>();
+}
+
+@if (value.HasValue())
+{
+    if (Model.Property.Alias.InvariantEquals("title"))
+    {
+        if (Model.Node.NodeType == NodeType.Page)
+        {
+            <h1>@value</h1>
+        }
+        else
+        {
+            <h2>@value</h2>
+        }
+    }
+    else
+    {
+        <div>@value</div>
+    }
+}

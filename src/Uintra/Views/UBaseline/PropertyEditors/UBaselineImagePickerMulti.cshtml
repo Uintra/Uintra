@@ -1,0 +1,17 @@
+﻿@using UBaseline.Shared.ImagePicker
+@using Compent.Shared.Extensions.Bcl
+@model UBaseline.Core.IndexPage.PropertyEditorContentModel
+
+@{
+    var value = Model.Value<PictureViewModel[]>();
+}
+
+@if (value.HasValue())
+{
+    <div>
+        @foreach (var image in value)
+        {
+            @Html.Partial("UBaselineImage", image)
+        }
+    </div>
+}
