@@ -114,13 +114,8 @@ export class CentralFeedPanel implements OnInit, OnDestroy {
       .pipe(finalize(() => this.isFeedLoading = false))
       .subscribe(
         (next: IPublicationsResponse) => {
-          if (this.mq.smDown(this.deviceWidth)) {
-            this.isScrollDisabled = true;
-            this.showLoadMore = next.feed.length !== 0;
-          } else {
-            this.isScrollDisabled = next.feed.length === 0;
-            this.showLoadMore = false;
-          }
+          this.isScrollDisabled = next.feed.length === 0;
+          this.showLoadMore = false;
           this.concatWithCurrentFeed(next.feed);
           this.isResponseFailed = false;
         },
