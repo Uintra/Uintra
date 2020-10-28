@@ -13,7 +13,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 
 interface IDocumentLibraryPanelData {
   link: IButtonData;
-  maxCountOfDocuments: number;
+  pageSize: number;
   listOrder: "Vertical" | "Horizontal";
   richTextEditor: Html;
   linkText: IButtonData;
@@ -68,14 +68,14 @@ export class DocumentLibraryPanelComponent implements OnInit {
       "richTextEditor",
       "listOrder",
       "mediaLibrary",
-      "maxCountOfDocuments",
+      "pageSize",
       "linkForHeadline",
     ]);
 
     extracted.richTextEditor = this.sanitized.bypassSecurityTrustHtml(extracted.richTextEditor as string);
 
     try {
-      const maxCount = data.maxCountOfDocuments || 5;
+      const maxCount = data.pageSize || 5;
 
       extracted.mediaLibrary = data.mediaLibrary.slice(0, maxCount).map((i) => {
         let link = new Link(i.url, i.name, false, "_self");
