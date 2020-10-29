@@ -8,7 +8,7 @@
     .shadow;
     margin-bottom: 30px;
     background: @publication-bg;
-    padding: 20px 20px 10px;
+    padding: 20px;
 
     &--important {
         background: linear-gradient(to top, rgba(255, 255, 255, 0.75), #fff);
@@ -28,11 +28,12 @@
     }
 
     &__header {
-        margin-bottom: 25px;
+        margin-bottom: 20px;
     }
 
     &__subtitle {
       display: inline-block;
+      font-size: 16px;
     }
 
     &__activity-type {
@@ -62,7 +63,6 @@
     }
 
     &__content {
-        margin-bottom: 25px;
         font-size: 16px;
     }
 
@@ -74,9 +74,10 @@
     }
 
     &__title {
-      font-size: 18px;
-      margin-bottom: 5px;
-      color: @heading-bg;
+      font-size: 20px;
+      margin-bottom: 11px;
+      color: @blue;
+      font-weight: 600;
 
       @media @sm-up {
         font-size: 20px;
@@ -107,7 +108,7 @@
         justify-content: space-between;
         flex-wrap: wrap;
         align-items: center;
-        margin-top: 20px;
+        margin-top: 10px;
 
         &-item {
             .reset-button;
@@ -152,7 +153,7 @@
     &__subscribed {
       display: flex;
       justify-content: flex-end;
-      padding: 0 0 11px;
+      margin-bottom: 10px;
 
       &-label {
         .button-white;

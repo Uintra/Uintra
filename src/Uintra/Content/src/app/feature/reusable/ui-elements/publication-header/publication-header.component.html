@@ -14,6 +14,7 @@
          [queryParams]="link?.params | uparams">
         {{ title }}
       </a>
+      <p class="publication-header__separator"> - </p>
       <p *ngIf="title && !link?.originalUrl"
          class="publication-header__title">
         {{ title }}
