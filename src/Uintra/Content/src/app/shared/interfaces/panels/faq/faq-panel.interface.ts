@@ -16,4 +16,5 @@ export interface IAccordionItem {
   name?: string;
   nodeType?: number;
   url?: string;
+  isChecked?: boolean;
 }
