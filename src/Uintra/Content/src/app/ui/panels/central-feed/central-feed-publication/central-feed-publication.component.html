@@ -8,7 +8,7 @@
     <div class="publication__subtitle"
          subtitle>
       {{ getPublicationDate() }} -
-      <a class="publication__-type"
+      <a class="publication__type"
          [routerLink]="publication.links?.details?.baseUrl | ulink"
          [queryParams]="publication.links?.details?.params | uparams">{{ publication.type }}
       </a>
