@@ -42,12 +42,6 @@ export class EventDetailsPage implements OnInit, OnDestroy {
   subscribers: string[] = [];
   $eventSubscription: Subscription;
 
-  get isPhone$(): Observable<boolean> {
-    return this.breakpointObserver
-      .observe('(max-width: 600px)')
-      .pipe(map(({matches}: BreakpointState): boolean => matches));
-  }
-
   constructor(
     private activatedRoute: ActivatedRoute,
     private imageGalleryService: ImageGalleryService,
@@ -55,8 +49,7 @@ export class EventDetailsPage implements OnInit, OnDestroy {
     private eventSubscription: EventSubscriptionService,
     private hasDataChangedService: HasDataChangedService,
     private canDeactivateService: CanDeactivateGuard,
-    private translateService: TranslateService,
-    private breakpointObserver: BreakpointObserver
+    private translateService: TranslateService
   ) {
     this.activatedRoute.data.subscribe((data: IEventDetailsPage) => {
       this.data = data;

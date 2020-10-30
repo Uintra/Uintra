@@ -7,9 +7,6 @@ import { ILikeData } from 'src/app/feature/reusable/ui-elements/like-button/like
 import { TranslateService } from '@ngx-translate/core';
 import { IUintraNewsDetailsPage } from 'src/app/shared/interfaces/pages/news/details/uintra-news-details-page.interface';
 import { ICommentData } from 'src/app/shared/interfaces/panels/comments/comments-panel.interface';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
-import {BreakpointObserver, BreakpointState} from '@angular/cdk/layout';
 
 @Component({
   selector: 'uintra-news-details-page',
@@ -30,18 +27,11 @@ export class UintraNewsDetailsPage implements OnInit {
   detailsDescription: SafeHtml;
   detailsTitle: SafeHtml;
 
-  get isPhone$(): Observable<boolean> {
-    return this.breakpointObserver
-      .observe('(max-width: 600px)')
-      .pipe(map(({matches}: BreakpointState): boolean => matches));
-  }
-
   constructor(
     private activatedRoute: ActivatedRoute,
     private imageGalleryService: ImageGalleryService,
     private sanitizer: DomSanitizer,
-    private translateService: TranslateService,
-    private breakpointObserver: BreakpointObserver
+    private translateService: TranslateService
   ) {
     this.activatedRoute.data.subscribe((data: IUintraNewsDetailsPage) => this.data = data);
   }

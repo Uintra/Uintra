@@ -32,7 +32,8 @@
     }
 
     &__subtitle {
-      display: inline-block;
+      display: flex;
+      align-items: center;
       font-size: 16px;
     }
 
@@ -46,16 +47,20 @@
         }
     }
 
+  &__location-container {
+    display: flex;
+    align-items: center;
+
+    &::before {
+      font-family: 'icomoon';
+      color: @body-text-color;
+    }
+  }
+
     &__location-link {
       font-size: 13px;
       font-family: @font !important;
       color: @body-text-color;
-      text-decoration: none;
-
-      &::before {
-        font-family: 'icomoon';
-        color: @body-text-color;
-      }
 
       &:hover {
         color: @link-color;

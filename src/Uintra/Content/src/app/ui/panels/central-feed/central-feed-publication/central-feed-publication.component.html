@@ -12,15 +12,19 @@
          [routerLink]="publication.links?.details?.baseUrl | ulink"
          [queryParams]="publication.links?.details?.params | uparams">{{ publication.type }}
       </a>
-      <a *ngIf="publication.location?.address && publication.location?.shortAddress"
-         [href]="
+      <div
+        class="icon-pin-icon publication__location-container"
+        *ngIf="publication.location?.address && publication.location?.shortAddress"
+      >
+        <a  [href]="
           'https://www.google.co.uk/maps?q=' +
           publication.location.address
         "
-         class="icon-pin-icon publication__location-link"
-         target="_blank">
-        {{ publication.location.shortAddress }}
-      </a>
+            class="publication__location-link"
+            target="_blank">
+          {{ publication.location.shortAddress }}
+        </a>
+      </div>
     </div>
     <div *ngIf="publication.isPinned"
          label
