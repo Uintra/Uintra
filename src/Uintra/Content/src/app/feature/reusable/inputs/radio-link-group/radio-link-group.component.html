@@ -9,8 +9,12 @@
            [checked]="selectedLink === link.type"
            (change)="onRadioChange()"
            class="radio-link-group__input" />
-    <span class="radio-link-group__text"
-          [ngClass]="{ active: selectedLink === link.type }">{{ link.title }}
+    <span
+      class="radio-link-group__text"
+      [ngClass]="{ active: selectedLink === link.type }"
+      tabindex="0"
+      (keyup.enter)="selectLink(link)"
+    >{{ link.title }}
     </span>
   </label>
 </div>
