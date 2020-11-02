@@ -5,16 +5,37 @@
 
       <ul *ngIf="subNavigation?.length" class="tabs"><!-- class="tabs col-md-8" -->
         <li *ngFor="let tab of subNavigation" class="tabs__item">
-          <a
-            [routerLink]="tab.url"
-            class="tabs__item-link"
-            routerLinkActive="active"
-            [routerLinkActiveOptions]="{ exact: true }">
-            {{tab.name}}
-          </a>
+          <div *ngIf="tab.subItems.length > 0; then subItemsBlock else emptyBlock"></div>
+          <ng-template #subItemsBlock>
+            <a
+              [routerLink]="tab.url"
+              class="tabs__item-link"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }">
+              {{tab.name}}
+            </a>
+            <ul class="tabs">
+              <li *ngFor="let subTab of tab.subItems" class="tabs__item">
+                <a [routerLink]="subTab.url"
+                   class="tabs__item-link"
+                   routerLinkActive="active"
+                   [routerLinkActiveOptions]="{ exact: true }">
+                  {{subTab.name}}
+                </a>
+              </li>
+            </ul>
+          </ng-template>
+          <ng-template #emptyBlock>
+            <a
+              [routerLink]="tab.url"
+              class="tabs__item-link"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }">
+              {{tab.name}}
+            </a>
+          </ng-template>
         </li>
       </ul>
-
     </div>
   </div>
 </div>
