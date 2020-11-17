@@ -11,6 +11,7 @@ import { NewsFormModule } from 'src/app/feature/specific/activity/news-form/news
 import { RichTextEditorModule } from 'src/app/feature/reusable/inputs/rich-text-editor/rich-text-editor.module';
 import { GroupDetailsWrapperModule } from 'src/app/feature/specific/groups/group-details-wrapper/group-details-wrapper.module';
 import { DEFAULT_DROPZONE_CONFIG } from 'src/app/shared/constants/dropzone/drop-zone.const';
+import { AuthenticatedLayoutModule } from 'src/app/ui/main-layout/authenticated-layout/authenticated-layout.module';
 
 @NgModule({
   declarations: [UintraNewsEditPage],
@@ -28,6 +29,7 @@ import { DEFAULT_DROPZONE_CONFIG } from 'src/app/shared/constants/dropzone/drop-
       }
     }),
     GroupDetailsWrapperModule,
+    AuthenticatedLayoutModule
   ],
   entryComponents: [UintraNewsEditPage],
   providers: [{

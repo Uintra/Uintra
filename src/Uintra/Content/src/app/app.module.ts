@@ -27,7 +27,7 @@ import { TrustHtmlPipe } from './shared/pipes/trust-html/trust-html.pipe';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     HeaderModule,

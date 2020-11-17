@@ -12,6 +12,7 @@ import { UserAvatarModule } from 'src/app/feature/reusable/ui-elements/user-avat
 import { SpoilerSectionModule } from 'src/app/feature/reusable/ui-elements/spoiler-section/spoiler-section.module';
 import { PublicationHeaderModule } from 'src/app/feature/reusable/ui-elements/publication-header/publication-header.module';
 import { DocumentTableModule } from 'src/app/feature/specific/groups/document-table/document-table.module';
+import { AuthenticatedLayoutModule } from '../../main-layout/authenticated-layout/authenticated-layout.module';
 
 @NgModule({
   declarations: [DeveloperUIKitPage],
@@ -26,7 +27,8 @@ import { DocumentTableModule } from 'src/app/feature/specific/groups/document-ta
     SpoilerSectionModule,
     PublicationHeaderModule,
     SqDatetimepickerModule,
-    DocumentTableModule
+    DocumentTableModule,
+    AuthenticatedLayoutModule
   ],
   exports: [
     DeveloperUIKitPage

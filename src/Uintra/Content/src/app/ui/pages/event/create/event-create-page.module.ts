@@ -7,6 +7,7 @@ import { EventCreatePage } from './event-create-page.component';
 import { GroupDetailsWrapperModule } from 'src/app/feature/specific/groups/group-details-wrapper/group-details-wrapper.module';
 import { EventFormModule } from '../../../../feature/specific/activity/event-form/event-form.module';
 import { CanDeactivateGuard } from 'src/app/shared/services/general/can-deactivate.service';
+import { AuthenticatedLayoutModule } from 'src/app/ui/main-layout/authenticated-layout/authenticated-layout.module';
 
 @NgModule({
   declarations: [EventCreatePage],
@@ -16,6 +17,7 @@ import { CanDeactivateGuard } from 'src/app/shared/services/general/can-deactiva
     UbaselineCoreModule,
     GroupDetailsWrapperModule,
     EventFormModule,
+    AuthenticatedLayoutModule
   ],
   entryComponents: [EventCreatePage]
 })

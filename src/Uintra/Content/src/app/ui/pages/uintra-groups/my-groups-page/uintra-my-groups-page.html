@@ -1,4 +1,5 @@
-<app-groups-wrapper *ngIf="data"
-                    [data]="data?.navigation">
-  <groups-list myGroups></groups-list>
-</app-groups-wrapper>
+<app-authenticated-layout>
+  <app-groups-wrapper *ngIf="data" [data]="data?.navigation">
+    <groups-list myGroups></groups-list>
+  </app-groups-wrapper>
+</app-authenticated-layout>

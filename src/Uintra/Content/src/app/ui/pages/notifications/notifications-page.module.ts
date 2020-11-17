@@ -7,6 +7,7 @@ import { NotificationsPage } from './notifications-page.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { NavNotificationsModule } from 'src/app/feature/specific/nav-notifications/nav-notifications.module';
 import { TranslateModule } from '@ngx-translate/core';
+import { AuthenticatedLayoutModule } from '../../main-layout/authenticated-layout/authenticated-layout.module';
 
 @NgModule({
   declarations: [NotificationsPage],
@@ -17,6 +18,7 @@ import { TranslateModule } from '@ngx-translate/core';
     NavNotificationsModule,
     InfiniteScrollModule,
     TranslateModule,
+    AuthenticatedLayoutModule
   ],
   entryComponents: [NotificationsPage]
 })

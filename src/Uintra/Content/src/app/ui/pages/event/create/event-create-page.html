@@ -1,25 +1,32 @@
-<ng-container *ngIf="data">
-  <app-group-details-wrapper *ngIf="data?.groupHeader"
-                             [data]="data.groupHeader">
-    <div class="group-details-padding">
-      <div class="page-wrapper" id="maincontent">
-        <div class="col-md-8">
-          <app-event-form [data]="data.data"
-                          (submit)="onSubmit($event)"
-                          (cancel)="onCancel()">
-          </app-event-form>
+<app-authenticated-layout>
+  <ng-container *ngIf="data">
+    <app-group-details-wrapper
+      *ngIf="data?.groupHeader"
+      [data]="data.groupHeader"
+    >
+      <div class="group-details-padding">
+        <div class="page-wrapper" id="maincontent">
+          <div class="col-md-8">
+            <app-event-form
+              [data]="data.data"
+              (submit)="onSubmit($event)"
+              (cancel)="onCancel()"
+            >
+            </app-event-form>
+          </div>
         </div>
       </div>
+    </app-group-details-wrapper>
+    <div class="page-wrapper" id="maincontent" *ngIf="!data?.groupHeader">
+      <div class="col-md-8">
+        <app-event-form
+          [data]="data.data"
+          (submit)="onSubmit($event)"
+          (cancel)="onCancel()"
+          [(inProgress)]="inProgress"
+        >
+        </app-event-form>
+      </div>
     </div>
-  </app-group-details-wrapper>
-  <div class="page-wrapper" id="maincontent"
-       *ngIf="!data?.groupHeader">
-       <div class="col-md-8">
-         <app-event-form [data]="data.data"
-                         (submit)="onSubmit($event)"
-                         (cancel)="onCancel()"
-                         [(inProgress)]="inProgress">
-         </app-event-form>
-       </div>
-  </div>
-</ng-container>
+  </ng-container>
+</app-authenticated-layout>

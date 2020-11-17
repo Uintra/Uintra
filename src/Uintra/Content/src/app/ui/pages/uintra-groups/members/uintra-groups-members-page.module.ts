@@ -7,6 +7,7 @@ import { UintraGroupsMembersPage } from './uintra-groups-members-page.component'
 import { GroupDetailsWrapperModule } from 'src/app/feature/specific/groups/group-details-wrapper/group-details-wrapper.module';
 import { TextInputModule } from 'src/app/feature/reusable/inputs/fields/text-input/text-input.module';
 import { UserAvatarModule } from 'src/app/feature/reusable/ui-elements/user-avatar/user-avatar.module';
+import { AuthenticatedLayoutModule } from 'src/app/ui/main-layout/authenticated-layout/authenticated-layout.module';
 
 @NgModule({
   declarations: [UintraGroupsMembersPage],
@@ -16,7 +17,8 @@ import { UserAvatarModule } from 'src/app/feature/reusable/ui-elements/user-avat
     UbaselineCoreModule,
     GroupDetailsWrapperModule,
     TextInputModule,
-    UserAvatarModule
+    UserAvatarModule,
+    AuthenticatedLayoutModule
   ],
   entryComponents: [UintraGroupsMembersPage]
 })

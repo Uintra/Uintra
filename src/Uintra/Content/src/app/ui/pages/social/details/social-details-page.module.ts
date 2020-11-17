@@ -12,6 +12,7 @@ import { AttachmentsModule } from 'src/app/feature/specific/activity/details/att
 import { TranslateModule } from '@ngx-translate/core';
 import { LinkPreviewModule } from 'src/app/feature/specific/link-preview/link-preview.module';
 import { UlinkModule } from "src/app/shared/pipes/link/ulink.module";
+import { AuthenticatedLayoutModule } from 'src/app/ui/main-layout/authenticated-layout/authenticated-layout.module';
 
 @NgModule({
   declarations: [SocialDetailsPanelComponent],
@@ -29,7 +30,8 @@ import { UlinkModule } from "src/app/shared/pipes/link/ulink.module";
     AttachmentsModule,
     TranslateModule,
     LinkPreviewModule,
-    UlinkModule
+    UlinkModule,
+    AuthenticatedLayoutModule
   ],
   providers: [
     { provide: AS_DYNAMIC_COMPONENT, useValue: SocialDetailsPanelComponent }

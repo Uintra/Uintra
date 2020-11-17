@@ -1,16 +1,24 @@
-<ng-container *ngIf="data">
-  <app-group-details-wrapper *ngIf="data?.groupHeader"
-                             [data]="data.groupHeader">
-    <div class="group-details-padding">
-      <div class="page-wrapper col-md-8" id="maincontent">
-        <app-news-create *ngIf='data.data'
-                         [data]='data.data'></app-news-create>
+<app-authenticated-layout>
+  <ng-container *ngIf="data">
+    <app-group-details-wrapper
+      *ngIf="data?.groupHeader"
+      [data]="data.groupHeader"
+    >
+      <div class="group-details-padding">
+        <div class="page-wrapper col-md-8" id="maincontent">
+          <app-news-create
+            *ngIf="data.data"
+            [data]="data.data"
+          ></app-news-create>
+        </div>
       </div>
+    </app-group-details-wrapper>
+    <div
+      class="page-wrapper col-md-8"
+      id="maincontent"
+      *ngIf="!data?.groupHeader"
+    >
+      <app-news-create *ngIf="data.data" [data]="data.data"></app-news-create>
     </div>
-  </app-group-details-wrapper>
-  <div class="page-wrapper col-md-8" id="maincontent"
-       *ngIf="!data?.groupHeader">
-    <app-news-create *ngIf='data.data'
-                     [data]='data.data'></app-news-create>
-  </div>
-</ng-container>
+  </ng-container>
+</app-authenticated-layout>

@@ -1,102 +1,132 @@
-<section class="page-wrapper" id="maincontent">
-  <div class="col-md-8">
-
-    <div class="profile profile--edit">
-      <div class="profile__header">
-        <h2 class="profile__title">{{data.title}}</h2>
-        <div class="profile__btns">
-          <button (click)="handleSave()"
-                  [disabled]="profileEditForm.invalid"
-                  class="button">
-            {{'profile.Save.btn' | translate}}
-          </button>
-          <a [routerLink]="['/profile']"
-             [queryParams]="{id: data.profile.id}"
-             class="button button-default">
-            {{'common.Cancel.lnk' | translate}}
-          </a>
+<app-authenticated-layout>
+  <section class="page-wrapper" id="maincontent">
+    <div class="col-md-8">
+      <div class="profile profile--edit">
+        <div class="profile__header">
+          <h2 class="profile__title">{{data.title}}</h2>
+          <div class="profile__btns">
+            <button
+              (click)="handleSave()"
+              [disabled]="profileEditForm.invalid"
+              class="button"
+            >
+              {{'profile.Save.btn' | translate}}
+            </button>
+            <a
+              [routerLink]="['/profile']"
+              [queryParams]="{id: data.profile.id}"
+              class="button button-default"
+            >
+              {{'common.Cancel.lnk' | translate}}
+            </a>
+          </div>
         </div>
+        <form [formGroup]="profileEditForm">
+          <div class="user-block">
+            <div class="user-block__col _avatar">
+              <div *ngIf="data.profile.photo">
+                <button
+                  class="icon-close avatar-remove"
+                  (click)="processAvatarDelete()"
+                ></button>
+                <img
+                  [src]="data.profile.photo"
+                  [alt]="data.profile.lastName"
+                  class="avatar"
+                />
+              </div>
+              <div *ngIf="!data.profile.photo">
+                <app-dropzone-wrapper
+                  #dropdownRef
+                  [maxFiles]="1"
+                  [withImage]="false"
+                  (success)="processAvatarUpload($event)"
+                  (removedFile)="processAvatarDelete()"
+                  [customMessage]="'dropZone.ProfileEdit.Label'"
+                >
+                </app-dropzone-wrapper>
+              </div>
+            </div>
+            <div class="user-block__col form">
+              <div class="form__row">
+                <label for="firstName"
+                  >{{'profile.FirstName.lbl' | translate}}
+                </label>
+                <input
+                  formControlName="firstName"
+                  type="text"
+                  name="firstName"
+                  id="firstName"
+                  class="input"
+                  [placeholder]="'profile.FirstName.Placeholder' | translate"
+                />
+              </div>
+              <div class="form__row">
+                <label for="lastName"
+                  >{{'profile.LastName.lbl' | translate}}
+                </label>
+                <input
+                  formControlName="lastName"
+                  type="text"
+                  name="lastName"
+                  id="lastName"
+                  class="input"
+                  [placeholder]="'profile.LastName.Placeholder' | translate"
+                />
+              </div>
+              <div class="form__row">
+                <label for="email">{{'profile.Email.lbl' | translate}} </label>
+                <div>{{data.profile.email}}</div>
+              </div>
+              <div class="form__row">
+                <label for="phone">{{'profile.Phone.lbl' | translate}} </label>
+                <input
+                  formControlName="phone"
+                  type="text"
+                  name="phone"
+                  id="phone"
+                  class="input"
+                  [placeholder]="'profile.Phone.Placeholder' | translate"
+                />
+              </div>
+              <div class="form__row">
+                <label for="department"
+                  >{{'profile.Department.lbl' | translate}}
+                </label>
+                <input
+                  formControlName="department"
+                  type="text"
+                  name="department"
+                  id="department"
+                  class="input"
+                  [placeholder]="'profile.Department.Placeholder' | translate"
+                />
+              </div>
+              <div class="form__row">
+                <label>{{'userTagsPicker.AddTags.lbl' | translate}}</label>
+                <app-tag-multiselect
+                  [availableTags]="data.availableTags"
+                  [ngModel]="data.tags"
+                  [ngModelOptions]="{standalone: true}"
+                  (ngModelChange)="onTagsChange($event)"
+                >
+                </app-tag-multiselect>
+              </div>
+              <div class="form__row">
+                <label for=""
+                  >{{'profile.EmailNotifications.Title.lbl' | translate}}</label
+                >
+                <checkbox-input
+                  [isChecked]="data.profile.memberNotifierSettings.emailNotifier"
+                  (change)="handleUpdateNotificationSettings($event)"
+                >
+                  {{'profile.EmailNotifications.lbl' | translate}}
+                </checkbox-input>
+              </div>
+            </div>
+          </div>
+        </form>
       </div>
-      <form [formGroup]="profileEditForm">
-        <div class="user-block">
-          <div class="user-block__col _avatar">
-
-            <div *ngIf="data.profile.photo">
-              <button class="icon-close avatar-remove"
-                      (click)="processAvatarDelete()"></button>
-              <img [src]="data.profile.photo"
-                    [alt]="data.profile.lastName"
-                   class="avatar">
-            </div>
-            <div *ngIf="!data.profile.photo">
-              <app-dropzone-wrapper #dropdownRef
-                                    [maxFiles]="1"
-                                    [withImage]="false"
-                                    (success)="processAvatarUpload($event)"
-                                    (removedFile)="processAvatarDelete()"
-                                    [customMessage]="'dropZone.ProfileEdit.Label'">
-              </app-dropzone-wrapper>
-            </div>
-          </div>
-          <div class="user-block__col form">
-            <div class="form__row">
-              <label for="firstName">{{'profile.FirstName.lbl' | translate}} </label>
-              <input formControlName="firstName"
-                     type="text"
-                     name="firstName"
-                     id="firstName"
-                     class="input"
-                     [placeholder]="'profile.FirstName.Placeholder' | translate" />
-            </div>
-            <div class="form__row">
-              <label for="lastName">{{'profile.LastName.lbl' | translate}} </label>
-              <input formControlName="lastName"
-                     type="text"
-                     name="lastName"
-                     id="lastName"
-                     class="input"
-                     [placeholder]="'profile.LastName.Placeholder' | translate" />
-            </div>
-            <div class="form__row">
-              <label for="email">{{'profile.Email.lbl' | translate}} </label>
-              <div>{{data.profile.email}}</div>
-            </div>
-            <div class="form__row">
-              <label for="phone">{{'profile.Phone.lbl' | translate}} </label>
-              <input formControlName="phone"
-                     type="text"
-                     name="phone"
-                     id="phone"
-                     class="input"
-                     [placeholder]="'profile.Phone.Placeholder' | translate" />
-            </div>
-            <div class="form__row">
-              <label for="department">{{'profile.Department.lbl' | translate}} </label>
-              <input formControlName="department"
-                     type="text"
-                     name="department"
-                     id="department"
-                     class="input"
-                     [placeholder]="'profile.Department.Placeholder' | translate" />
-            </div>
-            <div class="form__row">
-              <label>{{'userTagsPicker.AddTags.lbl' | translate}}</label>
-              <app-tag-multiselect [availableTags]="data.availableTags"
-                                   [ngModel]="data.tags"
-                                   [ngModelOptions]="{standalone: true}"
-                                   (ngModelChange)="onTagsChange($event)">
-              </app-tag-multiselect>
-            </div>
-            <div class="form__row">
-              <label for="">{{'profile.EmailNotifications.Title.lbl' | translate}}</label>
-              <checkbox-input [isChecked]="data.profile.memberNotifierSettings.emailNotifier"
-                              (change)="handleUpdateNotificationSettings($event)">
-                {{'profile.EmailNotifications.lbl' | translate}}
-              </checkbox-input>
-            </div>
-          </div>
-        </div>
-      </form>
     </div>
-  </div>
-</section>
+  </section>
+</app-authenticated-layout>

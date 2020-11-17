@@ -6,6 +6,7 @@ import { UbaselineCoreModule, NotImplementedModule } from 'ubaseline-next-for-ui
 import { HomePage } from './home-page.component';
 import { CanDeactivateGuard } from 'src/app/shared/services/general/can-deactivate.service';
 import { SocialCreateModule } from '../../../feature/specific/activity/create/social-create/social-create.module';
+import { AuthenticatedLayoutModule } from '../../main-layout/authenticated-layout/authenticated-layout.module';
 
 @NgModule({
   declarations: [HomePage],
@@ -14,7 +15,8 @@ import { SocialCreateModule } from '../../../feature/specific/activity/create/so
       RouterModule.forChild([{ path: '', component: HomePage, canDeactivate: [CanDeactivateGuard]}]),
       UbaselineCoreModule,
       NotImplementedModule,
-      SocialCreateModule,
+    SocialCreateModule,
+    AuthenticatedLayoutModule
   ],
   entryComponents: [HomePage]
 })

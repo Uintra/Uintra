@@ -1,0 +1,35 @@
+<a
+  class="accessibility-btn accessibility-btn--top"
+  href="#maincontent"
+  (click)="scrollToBlock($event)"
+  >{{ "skipToContent.btn" | translate }}</a
+>
+
+<ng-container>
+  <app-header></app-header>
+</ng-container>
+
+<div class="content">
+  <ng-container>
+    <nav class="nav" role="navigation">
+      <div class="nav__header">
+        <app-search></app-search>
+        <button
+          class="nav__close"
+          (click)="closeLeftNav()"
+          role="button"
+          aria-label="close"
+        ></button>
+      </div>
+
+      <app-left-navigation></app-left-navigation>
+    </nav>
+  </ng-container>
+
+  <div class="content__wrap">
+    <ng-content></ng-content>
+    <ng-container>
+      <app-go-to-top-button></app-go-to-top-button>
+    </ng-container>
+  </div>
+</div>

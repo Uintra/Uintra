@@ -9,6 +9,7 @@ import { TagMultiselectModule } from 'src/app/feature/reusable/inputs/tag-multis
 import { DropzoneWrapperModule } from 'src/app/feature/reusable/ui-elements/dropzone-wrapper/dropzone-wrapper.module';
 import { CheckboxInputModule } from 'src/app/feature/reusable/inputs/checkbox-input/checkbox-input.module';
 import { TranslateModule } from '@ngx-translate/core';
+import { AuthenticatedLayoutModule } from 'src/app/ui/main-layout/authenticated-layout/authenticated-layout.module';
 
 @NgModule({
   declarations: [ProfileEditPage],
@@ -22,6 +23,7 @@ import { TranslateModule } from '@ngx-translate/core';
     DropzoneWrapperModule,
     CheckboxInputModule,
     TranslateModule,
+    AuthenticatedLayoutModule
   ],
   entryComponents: [ProfileEditPage]
 })

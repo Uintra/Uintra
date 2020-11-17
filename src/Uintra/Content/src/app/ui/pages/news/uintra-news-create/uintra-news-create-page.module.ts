@@ -7,6 +7,7 @@ import { UintraNewsCreatePage } from './uintra-news-create-page.component';
 import { NewsCreateModule } from 'src/app/feature/specific/activity/create/news-create/news-create.module';
 import { GroupDetailsWrapperModule } from 'src/app/feature/specific/groups/group-details-wrapper/group-details-wrapper.module';
 import { CanDeactivateGuard } from 'src/app/shared/services/general/can-deactivate.service';
+import { AuthenticatedLayoutModule } from 'src/app/ui/main-layout/authenticated-layout/authenticated-layout.module';
 
 @NgModule({
   declarations: [UintraNewsCreatePage],
@@ -16,6 +17,7 @@ import { CanDeactivateGuard } from 'src/app/shared/services/general/can-deactiva
     UbaselineCoreModule,
     NewsCreateModule,
     GroupDetailsWrapperModule,
+    AuthenticatedLayoutModule
   ],
   entryComponents: [UintraNewsCreatePage]
 })

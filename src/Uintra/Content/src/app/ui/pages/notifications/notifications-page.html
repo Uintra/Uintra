@@ -1,24 +1,29 @@
-<div class="page-wrapper" id="maincontent">
-  <div class="row-flex">
-    <div class="col-md-8">
-      <div class="notifications-page"
-           *ngIf="data">
-        <h1 class="notifications-page__title">{{ data.title }}</h1>
-        <div class="notifications-page__content"
-             infiniteScroll
-             [infiniteScrollDistance]="1"
-             [infiniteScrollThrottle]="300"
-             [infiniteScrollDisabled]="isScrollDisabled"
-             (scrolled)="onScroll()"
-             *ngIf="notifications?.length !== 0; else emptyNotifications">
-          <app-notifications-item [notification]="notification"
-                                  *ngFor="let notification of notifications; trackBy: index">
-          </app-notifications-item>
+<app-authenticated-layout>
+  <div class="page-wrapper" id="maincontent">
+    <div class="row-flex">
+      <div class="col-md-8">
+        <div class="notifications-page" *ngIf="data">
+          <h1 class="notifications-page__title">{{ data.title }}</h1>
+          <div
+            class="notifications-page__content"
+            infiniteScroll
+            [infiniteScrollDistance]="1"
+            [infiniteScrollThrottle]="300"
+            [infiniteScrollDisabled]="isScrollDisabled"
+            (scrolled)="onScroll()"
+            *ngIf="notifications?.length !== 0; else emptyNotifications"
+          >
+            <app-notifications-item
+              [notification]="notification"
+              *ngFor="let notification of notifications; trackBy: index"
+            >
+            </app-notifications-item>
+          </div>
+          <ng-template #emptyNotifications>
+            {{'notifications.EmptyNotificationList.lbl' | translate}}
+          </ng-template>
         </div>
-        <ng-template #emptyNotifications>
-          {{'notifications.EmptyNotificationList.lbl' | translate}}
-        </ng-template>
       </div>
     </div>
   </div>
-</div>
+</app-authenticated-layout>

@@ -156,6 +156,7 @@ namespace Uintra.Core.Authentication
                 "/api/auth/pages/anonymous",
                 "/ubaseline/api/node/getByUrl",
                 "/ubaseline/api/localization/getAll",
+                "/ubaseline/api/siteSettings/get",
                 "/ubaseline/api/search/rebuildIndex",
                 "/ubaseline/api/CentralFeedApi/AvailableActivityTypes",
                 "/signalr/connect"
