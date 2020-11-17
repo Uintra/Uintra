@@ -13,5 +13,7 @@ namespace Uintra.Core.Article
         public Guid? GroupId { get; set; }
         public IEnumerable<BreadcrumbViewModel> Breadcrumbs { get; set; } = Enumerable.Empty<BreadcrumbViewModel>();
         public SubNavigationMenuItemModel SubNavigation { get; set; }
+
+        public PropertyModel<bool> AllowAccess { get; set; }
     }
 }

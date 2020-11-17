@@ -18,4 +18,8 @@ export class AuthService {
   public logout(): Observable<any> {
     return this.httpClient.post(`${this.apiRoute}logout`, null);
   }
+
+  public anonymousPage(): Observable<any> {
+    return this.httpClient.get(`${this.apiRoute}pages/anonymous`);
+  }
 }

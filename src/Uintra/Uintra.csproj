@@ -2029,8 +2029,9 @@
     <Content Include="config\serilog.config" />
     <Content Include="config\HealthChecks.config" />
     <Content Include="config\BackOfficeTours\getting-started.json" />
-    <Content Include="config\UBaseline\videoPickerSettings.json" />
     <Content Include="config\UBaseline\ubaselineSettings.json" />
+    <Content Include="config\Uintra\panelContainerSettings.json" />
+    <Content Include="config\UBaseline\videoPickerSettings.json" />
     <Content Include="config\UBaseline\ubaselineLoggingSettings.json" />
     <Content Include="config\UBaseline\panelContainerSettings.json" />
     <Content Include="config\Logging\loggingSettings.json" />
@@ -2052,7 +2053,6 @@
     <Content Include="App_Plugins\ImagePickerExtended\package.manifest" />
     <Content Include="App_Plugins\ContentPreview\package.manifest" />
     <Content Include="App_Plugins\AnchorField\package.manifest" />
-    <Content Include="config\Uintra\panelContainerSettings.json" />
     <None Include="config\umbracoSettings.config" />
     <EmbeddedResource Include="Core\MediaToolkit\ffmpeg.exe.gz" />
     <None Include="packages.config" />
@@ -2140,7 +2140,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Content\" />
+    <Folder Include="Content\src\app\" />
     <Folder Include="Core\Feed\Web\" />
     <Folder Include="Core\Member\Events\" />
     <Folder Include="Core\Search\Indexers\Diagnostics\Services\" />

@@ -1,9 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Security;
+using UBaseline.Core.Node;
+using UBaseline.Shared.Node;
+using UBaseline.Shared.Title;
+using Uintra.Core.Article;
 using Uintra.Core.Authentication;
 using Uintra.Core.Authentication.Models;
 using Uintra.Core.Localization;
@@ -36,6 +41,7 @@ namespace Uintra.Controllers
         private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
         private readonly UmbracoContext _umbracoContext;
         private readonly IIntranetLocalizationService _intranetLocalizationService;
+        private readonly INodeModelService _nodeModelService;
 
         public AuthController(
             UmbracoMembersUserManager<UmbracoApplicationMember> userManager,
@@ -46,7 +52,8 @@ namespace Uintra.Controllers
             INotificationsService notificationsService,
             IIntranetMemberService<IntranetMember> intranetMemberService,
             UmbracoContext umbracoContext,
-            IIntranetLocalizationService intranetLocalizationService)
+            IIntranetLocalizationService intranetLocalizationService,
+            INodeModelService nodeModelService)
         {
             _userManager = userManager;
             _authenticationService = authenticationService;
@@ -56,7 +63,8 @@ namespace Uintra.Controllers
             _notificationsService = notificationsService;
             _intranetMemberService = intranetMemberService;
             _umbracoContext = umbracoContext;
-            _intranetLocalizationService = intranetLocalizationService; 
+            _intranetLocalizationService = intranetLocalizationService;
+            _nodeModelService = nodeModelService;
         }
 
         [HttpPost]
@@ -106,16 +114,54 @@ namespace Uintra.Controllers
             return Ok();
         }
 
+        [HttpGet]
+        [Route("pages/anonymous")]
+        public IEnumerable<AnonymousPageModel> AnonymousPages()
+        {
+            var pages =
+                _nodeModelService
+                    .AsEnumerable()
+                    .Where(n => (n as IAnonymousAccessComposition)?.AllowAccess)
+                    .Select(n => new AnonymousPageModel()
+                    {
+                        Path = n.Url.Trim('/'),
+                        Title = GetTitle(n)
+                    })
+                    .ToList();
+            pages.Add(new AnonymousPageModel()
+            {
+                Path = "login",
+                Title = "Login | Uintra"
+            });
+            return pages;
+        }
+
+        private string GetTitle(INodeModel nodeModel)
+        {
+            if (nodeModel is ITitleContainer titleContainer)
+            {
+                return titleContainer.Title;
+            }
+
+            return nodeModel.Name;
+        }
+
         private void GreetNewMember(IMember member)
         {
             _notificationsService.ProcessNotification(new NotifierData
             {
                 NotificationType = NotificationTypeEnum.Welcome,
-                ReceiverIds = new List<Guid> {member.Key},
+                ReceiverIds = new List<Guid> { member.Key },
                 ActivityType = CommunicationTypeEnum.Member
             });
 
             _memberServiceHelper.SetFirstLoginPerformed(member);
         }
+    }
+
+    public class AnonymousPageModel
+    {
+        public string Path { get; set; }
+        public string Title { get; set; }
     }
 }

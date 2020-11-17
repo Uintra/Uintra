@@ -10,6 +10,10 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Security;
+using UBaseline.Core.Node;
+using UBaseline.Shared.Node;
+using UBaseline.Shared.Property;
+using UBaseline.Shared.Title;
 using Uintra.Core.Member.Entities;
 using Uintra.Core.Member.Services;
 using Uintra.Models.UmbracoIdentity;
@@ -27,14 +31,16 @@ namespace Uintra.Core.Authentication
         private readonly IGlobalSettings _globalSettings;
         private readonly IMemberService _memberService;
         private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
+        private readonly INodeModelService _nodeModelService;
 
         protected IOwinContext OwinContext => HttpContext.Current.GetOwinContext();
 
         public AuthenticationService(
             IRuntimeState runtime,
             IGlobalSettings globalSettings,
-            IMemberService memberService, 
-            IIntranetMemberService<IntranetMember> intranetMemberService)
+            IMemberService memberService,
+            IIntranetMemberService<IntranetMember> intranetMemberService,
+            INodeModelService nodeModelService)
         {
             //_userManager = Umbraco.Core.Composing.Current.Factory.GetInstance<UmbracoMembersUserManager<UmbracoApplicationMember>>();
             //_userManager = OwinContext.Get<UmbracoMembersUserManager<UmbracoApplicationMember>>();
@@ -43,6 +49,7 @@ namespace Uintra.Core.Authentication
             _globalSettings = globalSettings ?? throw new ArgumentNullException(nameof(globalSettings));
             _memberService = memberService;
             _intranetMemberService = intranetMemberService;
+            _nodeModelService = nodeModelService;
         }
 
         public bool Validate(string login, string password)
@@ -61,7 +68,7 @@ namespace Uintra.Core.Authentication
 
             //OwinContext.Authentication.SignOut(DefaultAuthenticationTypes.ExternalCookie);
             //OwinContext.Authentication.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            
+
             OwinContext.Authentication.SignIn(new AuthenticationProperties() { IsPersistent = true }, identity);
         }
 
@@ -77,7 +84,7 @@ namespace Uintra.Core.Authentication
         public bool IsAuthenticatedRequest(IOwinContext context)
         {
 
-            if (context.Request.Path.Value.In(AnonymousRoutes()))
+            if (context.Request.Path.Value.In(AnonymousRoutes()) || IsAnonymousPage(context.Request.Uri))
             {
                 return true;
             }
@@ -125,7 +132,7 @@ namespace Uintra.Core.Authentication
             return !ext.IsNullOrWhiteSpace();
 
             if (ext.IsNullOrWhiteSpace()) return false;
-            var toInclude = new[] { ".aspx", ".ashx", ".asmx", ".axd", ".svc", ".html", ".css", ".woff2", ".js", ".ttf", ".woff", ".ico", ".svg", ".jpeg", ".png", ".jpg", ".gif",".mp4" };
+            var toInclude = new[] { ".aspx", ".ashx", ".asmx", ".axd", ".svc", ".html", ".css", ".woff2", ".js", ".ttf", ".woff", ".ico", ".svg", ".jpeg", ".png", ".jpg", ".gif", ".mp4" };
             return toInclude.Any(ext.InvariantEquals);
         }
 
@@ -146,12 +153,23 @@ namespace Uintra.Core.Authentication
                 "/login",
                 "/login/",
                 "/api/auth/login",
+                "/api/auth/pages/anonymous",
                 "/ubaseline/api/node/getByUrl",
                 "/ubaseline/api/localization/getAll",
                 "/ubaseline/api/search/rebuildIndex",
                 "/ubaseline/api/CentralFeedApi/AvailableActivityTypes",
                 "/signalr/connect"
             };
+        }
+
+        private bool IsAnonymousPage(Uri uri)
+        {
+            var node = _nodeModelService.Get(uri);
+            if (node is IAnonymousAccessComposition anonymous)
+            {
+                return anonymous.AllowAccess;
+            }
+            return false;
         }
 
         private bool ShouldAuthForBackOfficeRequest(IOwinContext ctx)
@@ -171,4 +189,26 @@ namespace Uintra.Core.Authentication
             return false;
         }
     }
+
+    public interface IAnonymousAccessComposition
+    {
+        PropertyModel<bool> AllowAccess { get; set; }
+    }
+
+    public class MyPageModel : NodeModel, ITitleContainer, IAnonymousAccessComposition
+    {
+        public PropertyModel<bool> MyCustomToggle { get; set; }
+        public PropertyModel<string> MyCustomTextArea { get; set; }
+        public PropertyModel<string> Title { get; set; }
+        public PropertyModel<bool> AllowAccess { get; set; }
+    }
+
+    public class MyPageViewModel : NodeViewModel
+    {
+        public PropertyViewModel<bool> MyCustomToggle { get; set; }
+        public PropertyViewModel<string> MyCustomTextArea { get; set; }
+        public PropertyViewModel<string> Title { get; set; }
+        public PropertyViewModel<bool> AllowAccess { get; set; }
+    }
+
 }

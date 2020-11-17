@@ -12,6 +12,12 @@ export const pages = [
     cache: false
   },
   {
+    id: 'myPage',
+    path: '__dynamic__',
+    loadChildren: './ui/pages/my/my-page.module#MyPageModule',
+    cache: false
+  },
+  {
     id: 'notificationsPage',
     path: '__dynamic__',
     loadChildren:
