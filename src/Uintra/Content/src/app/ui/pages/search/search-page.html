@@ -1,99 +1,95 @@
-<app-authenticated-layout>
-  <div class="page-wrapper" id="maincontent" *ngIf="data">
-    <div class="row-flex">
-      <div class="col-md-8">
-        <div class="search-page">
-          <h2 class="search-page__title">
-            {{'searchResult.Title' | translate}}
-          </h2>
-          <div class="search-holder">
-            <h3 class="search__title subtitle">
-              {{'searchResult.Search.lbl' | translate}}
-            </h3>
-            <div class="search">
-              <input
-                type="search"
-                id="search-page-search"
-                name="search"
-                class="search__input"
-                autocomplete="off"
-                aria-label="Search"
-                role="search"
-                #query
-                [value]="inputValue"
-                (keyup)="onQueryChange(query.value)"
-              />
+<div class="page-wrapper" id="maincontent" *ngIf="data">
+  <div class="row-flex">
+    <div class="col-md-8">
+      <div class="search-page">
+        <h2 class="search-page__title">{{'searchResult.Title' | translate}}</h2>
+        <div class="search-holder">
+          <h3 class="search__title subtitle">
+            {{'searchResult.Search.lbl' | translate}}
+          </h3>
+          <div class="search">
+            <input
+              type="search"
+              id="search-page-search"
+              name="search"
+              class="search__input"
+              autocomplete="off"
+              aria-label="Search"
+              role="search"
+              #query
+              [value]="inputValue"
+              (keyup)="onQueryChange(query.value)"
+            />
 
-              <span class="icon icon-search-icon"></span>
-            </div>
-          </div>
-          <div class="search-filters">
-            <h3 class="search-filters__title subtitle">
-              {{'searchResult.Filter.Title' | translate}}
-            </h3>
-            <app-tag-multiselect
-              [availableTags]="availableFilters"
-              [ngModel]="selectedFilters"
-              [placeholder]="data.allTypesPlaceholder"
-              (ngModelChange)="onTagsChange($event)"
-            >
-            </app-tag-multiselect>
-          </div>
-          <checkbox-input
-            [(ngModel)]="isOnlyPinned"
-            (ngModelChange)="onCbxChange($event)"
-          >
-            {{'search.Filter.OnlyPinned.chkbx' | translate}}
-          </checkbox-input>
-          <h2 class="search-results__title">{{getResultsTitle()}}</h2>
-          <div
-            *ngIf="resultsList.length"
-            class="search-results"
-            infiniteScroll
-            [infiniteScrollDistance]="2"
-            [infiniteScrollThrottle]="250"
-            [infiniteScrollDisabled]="isScrollDisabled"
-            (scrolled)="onScroll()"
-          >
-            <a
-              *ngFor="let result of resultsList; trackBy: index"
-              target="_blank"
-              class="search-results__item"
-              [routerLink]="result.url?.baseUrl | ulink"
-              [queryParams]="result.url?.params | uparams"
-            >
-              <div class="search-results__item-info">
-                <h3
-                  *ngIf="result.title"
-                  class="search-results__item-title"
-                  [innerHTML]="result.title"
-                ></h3>
-                <div
-                  *ngIf="result.description"
-                  class="search-results__item-description"
-                  [innerHTML]="result.description"
-                ></div>
-                <p *ngIf="result.type" class="search-results__item-type">
-                  {{getType(result)}}
-                </p>
-              </div>
-              <div
-                *ngIf="result.isPinned"
-                class="search-results__item-pinned-label"
-                [ngClass]="{
-                'search-results__item-pinned-label--no-actual': !result.isPinActual
-              }"
-              >
-                {{'activity.Pinned.lbl' | translate}}
-              </div>
-            </a>
-          </div>
-          <div *ngIf="isResultsLoading" class="search-results__loader-wrapper">
-            <div class="search-results__loader"></div>
+            <span class="icon icon-search-icon"></span>
           </div>
         </div>
+        <div class="search-filters">
+          <h3 class="search-filters__title subtitle">
+            {{'searchResult.Filter.Title' | translate}}
+          </h3>
+          <app-tag-multiselect
+            [availableTags]="availableFilters"
+            [ngModel]="selectedFilters"
+            [placeholder]="data.allTypesPlaceholder"
+            (ngModelChange)="onTagsChange($event)"
+          >
+          </app-tag-multiselect>
+        </div>
+        <checkbox-input
+          [(ngModel)]="isOnlyPinned"
+          (ngModelChange)="onCbxChange($event)"
+        >
+          {{'search.Filter.OnlyPinned.chkbx' | translate}}
+        </checkbox-input>
+        <h2 class="search-results__title">{{getResultsTitle()}}</h2>
+        <div
+          *ngIf="resultsList.length"
+          class="search-results"
+          infiniteScroll
+          [infiniteScrollDistance]="2"
+          [infiniteScrollThrottle]="250"
+          [infiniteScrollDisabled]="isScrollDisabled"
+          (scrolled)="onScroll()"
+        >
+          <a
+            *ngFor="let result of resultsList; trackBy: index"
+            target="_blank"
+            class="search-results__item"
+            [routerLink]="result.url?.baseUrl | ulink"
+            [queryParams]="result.url?.params | uparams"
+          >
+            <div class="search-results__item-info">
+              <h3
+                *ngIf="result.title"
+                class="search-results__item-title"
+                [innerHTML]="result.title"
+              ></h3>
+              <div
+                *ngIf="result.description"
+                class="search-results__item-description"
+                [innerHTML]="result.description"
+              ></div>
+              <p *ngIf="result.type" class="search-results__item-type">
+                {{getType(result)}}
+              </p>
+            </div>
+            <div
+              *ngIf="result.isPinned"
+              class="search-results__item-pinned-label"
+              [ngClass]="{
+                'search-results__item-pinned-label--no-actual': !result.isPinActual
+              }"
+            >
+              {{'activity.Pinned.lbl' | translate}}
+            </div>
+          </a>
+        </div>
+        <div *ngIf="isResultsLoading" class="search-results__loader-wrapper">
+          <div class="search-results__loader"></div>
+        </div>
       </div>
-      <div class="col-md-4"></div>
     </div>
+    <div class="col-md-4"></div>
   </div>
-</app-authenticated-layout>
+</div>

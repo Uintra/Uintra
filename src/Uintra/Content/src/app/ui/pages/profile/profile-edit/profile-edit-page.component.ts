@@ -9,6 +9,7 @@ import { CanDeactivateGuard } from 'src/app/shared/services/general/can-deactiva
 import { IProfileEditPage } from 'src/app/shared/interfaces/pages/profile/profile-edit-page.interface';
 import { TranslateService } from '@ngx-translate/core';
 import { DownloadedPhotoWatcherService } from 'src/app/feature/specific/user-navigation/services/downloaded-photo-watcher.service';
+import { AppService } from 'src/app/app.service';
 
 @Component({
   selector: 'profile-edit-page',
@@ -35,9 +36,13 @@ export class ProfileEditPage implements OnInit, OnDestroy {
     private hasDataChangedService: HasDataChangedService,
     private canDeactivateService: CanDeactivateGuard,
     private translate: TranslateService,
-    private downloadedPhotoWatcherService: DownloadedPhotoWatcherService
+    private downloadedPhotoWatcherService: DownloadedPhotoWatcherService,
+    private appService: AppService
   ) {
-    this.activatedRoute.data.subscribe((data: IProfileEditPage) => this.data = data);
+    this.activatedRoute.data.subscribe((data: IProfileEditPage) => {
+      this.data = data;
+      this.appService.setPageAccess(data.allowAccess);
+    });
   }
 
   @HostListener('window:beforeunload') checkIfDataChanged() {

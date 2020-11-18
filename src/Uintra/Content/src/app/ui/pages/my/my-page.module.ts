@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { UbaselineCoreModule } from 'ubaseline-next-for-uintra';
 import { MyPage } from 'src/app/ui/pages/my/my-page.component';
 import { CanDeactivateGuard } from 'src/app/shared/services/general/can-deactivate.service';
-import { AnonymousLayoutModule } from '../../main-layout/anonymous-layout/anonymous-layout.module';
+
 
 @NgModule({
   declarations: [MyPage],
@@ -12,7 +12,6 @@ import { AnonymousLayoutModule } from '../../main-layout/anonymous-layout/anonym
     CommonModule,
     RouterModule.forChild([{ path: '', component: MyPage, canDeactivate: [CanDeactivateGuard] }]),
     UbaselineCoreModule,
-    AnonymousLayoutModule
   ],
   exports: [
     MyPage

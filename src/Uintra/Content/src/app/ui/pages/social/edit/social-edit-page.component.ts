@@ -9,6 +9,7 @@ import { ActivityService } from 'src/app/feature/specific/activity/activity.serv
 import { ISocialEdit } from 'src/app/feature/specific/activity/activity.interfaces';
 import { TranslateService } from '@ngx-translate/core';
 import { ISocialEditPage } from 'src/app/shared/interfaces/pages/social/edit/social-edit-page.interface';
+import { AppService } from 'src/app/app.service';
 
 @Component({
   selector: 'social-edit',
@@ -35,10 +36,12 @@ export class SocialEditPageComponent implements OnDestroy {
     private routerResolverService: RouterResolverService,
     private hasDataChangedService: HasDataChangedService,
     private canDeactivateService: CanDeactivateGuard,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private appService: AppService
   ) {
     this.activatedRoute.data.subscribe((data: ISocialEditPage) => {
       this.data = data;
+      this.appService.setPageAccess(data.allowAccess);
       this.onParse();
       this.initSocialEditForm();
     });

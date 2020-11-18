@@ -1,5 +1,46 @@
-<main class="main" role="main">
-  <router-outlet></router-outlet>
-</main>
+<ng-container *ngIf="!onlyAuthenticated">
+  <main class="anonymous-main" role="main">
+    <router-outlet></router-outlet>
+  </main>
+</ng-container>
+
+<ng-container *ngIf="onlyAuthenticated">
+  <main class="main" role="main">
+    <a
+      class="accessibility-btn accessibility-btn--top"
+      href="#maincontent"
+      (click)="scrollToBlock($event)"
+      >{{ "skipToContent.btn" | translate }}</a
+    >
+    <ng-container>
+      <app-header></app-header>
+    </ng-container>
+
+    <div class="content">
+      <ng-container>
+        <nav class="nav" role="navigation">
+          <div class="nav__header">
+            <app-search></app-search>
+            <button
+              class="nav__close"
+              (click)="closeLeftNav()"
+              role="button"
+              aria-label="close"
+            ></button>
+          </div>
+
+          <app-left-navigation></app-left-navigation>
+        </nav>
+      </ng-container>
+
+      <div class="content__wrap">
+        <router-outlet></router-outlet>
+        <ng-container>
+          <app-go-to-top-button></app-go-to-top-button>
+        </ng-container>
+      </div>
+    </div>
+  </main>
+</ng-container>
 
 <app-image-gallery></app-image-gallery>

@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { UintraGroupsService } from "./uintra-groups-documents-page.service";
 import { DropzoneWrapperComponent } from 'src/app/feature/reusable/ui-elements/dropzone-wrapper/dropzone-wrapper.component';
 import { UintraGroupsDocuments } from 'src/app/shared/interfaces/pages/uintra-groups/documents/uintra-groups-documents.interface';
+import { AppService } from 'src/app/app.service';
 
 @Component({
   selector: "uintra-groups-documents-page",
@@ -22,10 +23,12 @@ export class UintraGroupsDocumentsPage {
     private route: ActivatedRoute,
     private uintraGroupsService: UintraGroupsService,
     private router: Router,
+    private appService: AppService
   ) {
     this.route.data.subscribe((data: UintraGroupsDocuments) => {
       if (!data.requiresRedirect) {
         this.data = data;
+        this.appService.setPageAccess(data.allowAccess);
       } else {
         this.router.navigate([data.errorLink.originalUrl]);
       }

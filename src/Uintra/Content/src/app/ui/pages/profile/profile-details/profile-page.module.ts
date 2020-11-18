@@ -6,7 +6,7 @@ import { ProfilePage } from './profile-page.component';
 import { UlinkModule } from 'src/app/shared/pipes/link/ulink.module';
 import { UserAvatarModule } from 'src/app/feature/reusable/ui-elements/user-avatar/user-avatar.module';
 import { TranslateModule } from '@ngx-translate/core';
-import { AuthenticatedLayoutModule } from 'src/app/ui/main-layout/authenticated-layout/authenticated-layout.module';
+
 
 @NgModule({
   declarations: [ProfilePage],
@@ -17,7 +17,7 @@ import { AuthenticatedLayoutModule } from 'src/app/ui/main-layout/authenticated-
     UserAvatarModule,
     UlinkModule,
     TranslateModule,
-    AuthenticatedLayoutModule
+
   ],
   entryComponents: [ProfilePage]
 })

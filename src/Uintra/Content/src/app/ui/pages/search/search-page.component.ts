@@ -8,6 +8,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ISearchPage } from 'src/app/shared/interfaces/pages/search/search-page.interface';
 import { Indexer } from '../../../shared/abstractions/indexer';
+import { AppService } from 'src/app/app.service';
 
 @Component({
   selector: 'search-page',
@@ -37,9 +38,13 @@ export class SearchPage extends Indexer<number> implements OnInit, OnDestroy {
     private searchService: SearchService,
     private translate: TranslateService,
     private sanitizer: DomSanitizer,
+    private appService: AppService
   ) {
     super();
-    this.route.data.subscribe((data: ISearchPage) => this.data = data);
+    this.route.data.subscribe((data: ISearchPage) => {
+      this.data = data;
+      this.appService.setPageAccess(data.allowAccess);
+    });
     this._query.pipe(
       debounceTime(200),
       distinctUntilChanged(),

@@ -4,6 +4,7 @@ import { UintraGroupsMembers } from '../../../../shared/interfaces/pages/uintra-
 import { SearchService } from 'src/app/feature/specific/search/search.service';
 import { ResolveService } from 'ubaseline-next-for-uintra';
 import { Subscription } from 'rxjs';
+import { AppService } from 'src/app/app.service';
 
 @Component({
   selector: 'uintra-groups-members-page',
@@ -20,9 +21,11 @@ export class UintraGroupsMembersPage {
     private router: Router,
     private searchService: SearchService,
     private resolveService: ResolveService,
+    private appService: AppService
   ) {
     this.activatedRoute.data.subscribe((data: UintraGroupsMembers) => {
       this.data = data;
+      this.appService.setPageAccess(data.allowAccess);
     });
   }
 

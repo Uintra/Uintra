@@ -13,6 +13,7 @@ export interface IProfileEditPage {
   panels: any;
   tags: Array<ITagData>;
   url: string;
+  allowAccess?: boolean;
 }
 
 export interface IProfile {

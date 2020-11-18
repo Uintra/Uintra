@@ -4,6 +4,7 @@ import { NavNotificationsService } from 'src/app/feature/specific/nav-notificati
 import { INotificationsPage, INotificationsData } from 'src/app/shared/interfaces/pages/notifications/notifications-page.interface';
 import { Subscription } from 'rxjs';
 import { Indexer } from '../../../shared/abstractions/indexer';
+import { AppService } from 'src/app/app.service';
 
 @Component({
   selector: 'notifications-page',
@@ -23,10 +24,12 @@ export class NotificationsPage extends Indexer<number> implements OnInit, OnDest
   constructor(
     private route: ActivatedRoute,
     private navNotificationsService: NavNotificationsService,
+    private appService: AppService
   ) {
     super();
     this.route.data.subscribe((data: INotificationsPage) => {
       this.data = data;
+      this.appService.setPageAccess(data.allowAccess);
     });
   }
 

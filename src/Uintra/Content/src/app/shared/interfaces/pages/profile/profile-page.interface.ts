@@ -15,6 +15,7 @@ export interface IProfilePage {
   statusCode: number;
   tags: any;
   url: string;
+  allowAccess?: boolean;
 }
 
 export interface IMember {

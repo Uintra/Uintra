@@ -1,39 +1,37 @@
-<app-authenticated-layout>
-  <ng-container *ngIf="data">
-    <app-group-details-wrapper
-      *ngIf="data?.groupHeader"
-      [data]="data.groupHeader"
-    >
-      <div class="group-details-padding">
-        <div class="page-wrapper" id="maincontent">
-          <div class="col-md-8">
-            <app-news-form
-              edit
-              [data]="newsData"
-              [members]="members"
-              [creator]="creator"
-              [tags]="tags"
-              [pinAllowed]="data?.pinAllowed"
-              (handleSubmit)="onSubmit($event)"
-              (handleCancel)="onCancel()"
-            ></app-news-form>
-          </div>
+<ng-container *ngIf="data">
+  <app-group-details-wrapper
+    *ngIf="data?.groupHeader"
+    [data]="data.groupHeader"
+  >
+    <div class="group-details-padding">
+      <div class="page-wrapper" id="maincontent">
+        <div class="col-md-8">
+          <app-news-form
+            edit
+            [data]="newsData"
+            [members]="members"
+            [creator]="creator"
+            [tags]="tags"
+            [pinAllowed]="data?.pinAllowed"
+            (handleSubmit)="onSubmit($event)"
+            (handleCancel)="onCancel()"
+          ></app-news-form>
         </div>
       </div>
-    </app-group-details-wrapper>
-    <div *ngIf="!data?.groupHeader" class="page-wrapper" id="maincontent">
-      <div class="col-md-8">
-        <app-news-form
-          edit
-          [data]="newsData"
-          [members]="members"
-          [creator]="creator"
-          [tags]="tags"
-          [pinAllowed]="data?.pinAllowed"
-          (handleSubmit)="onSubmit($event)"
-          (handleCancel)="onCancel()"
-        ></app-news-form>
-      </div>
     </div>
-  </ng-container>
-</app-authenticated-layout>
+  </app-group-details-wrapper>
+  <div *ngIf="!data?.groupHeader" class="page-wrapper" id="maincontent">
+    <div class="col-md-8">
+      <app-news-form
+        edit
+        [data]="newsData"
+        [members]="members"
+        [creator]="creator"
+        [tags]="tags"
+        [pinAllowed]="data?.pinAllowed"
+        (handleSubmit)="onSubmit($event)"
+        (handleCancel)="onCancel()"
+      ></app-news-form>
+    </div>
+  </div>
+</ng-container>

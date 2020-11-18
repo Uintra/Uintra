@@ -6,6 +6,7 @@ import { HasDataChangedService } from 'src/app/shared/services/general/has-data-
 import { Observable, Subscription } from 'rxjs';
 import { CanDeactivateGuard } from 'src/app/shared/services/general/can-deactivate.service';
 import { IEventCreatePage } from 'src/app/shared/interfaces/pages/event/create/event-create-page';
+import { AppService } from 'src/app/app.service';
 
 @Component({
   selector: 'event-create-page',
@@ -25,8 +26,12 @@ export class EventCreatePage implements OnDestroy {
     private activityService: ActivityService,
     private hasDataChangedService: HasDataChangedService,
     private canDeactivateService: CanDeactivateGuard,
+    private appService: AppService
   ) {
-    this.activatedRoute.data.subscribe((data: IEventCreatePage) => this.data = data);
+    this.activatedRoute.data.subscribe((data: IEventCreatePage) => {
+      this.data = data;
+      this.appService.setPageAccess(data.allowAccess);
+    });
   }
 
   public ngOnDestroy(): void {

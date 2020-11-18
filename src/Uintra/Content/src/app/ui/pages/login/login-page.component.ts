@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, OnDestroy } from '@angular/core';
+import { Component, ViewEncapsulation, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
@@ -7,6 +7,7 @@ import { ILoginPage } from './login-page.interface';
 import * as moment from "moment-timezone";
 import { ModalService } from 'src/app/shared/services/general/modal.service';
 import { PopUpComponent } from 'src/app/shared/ui-elements/pop-up/pop-up.component';
+import { AppService } from 'src/app/app.service';
 
 @Component({
   selector: 'login-page',
@@ -14,7 +15,7 @@ import { PopUpComponent } from 'src/app/shared/ui-elements/pop-up/pop-up.compone
   styleUrls: ['./login-page.less'],
   encapsulation: ViewEncapsulation.None
 })
-export class LoginPage implements OnDestroy {
+export class LoginPage implements OnDestroy, OnInit {
   private $loginSubscription: Subscription;
   public inProgress = false;
   public errors = [];
@@ -28,7 +29,12 @@ export class LoginPage implements OnDestroy {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private modalService: ModalService) {
+    private modalService: ModalService,
+    private appService: AppService) {
+  }
+
+  ngOnInit(): void {
+    this.appService.setPageAccess(true);
   }
 
   public ngOnDestroy(): void {

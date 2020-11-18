@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { CookieService } from "ngx-cookie-service";
+import { CookieService } from 'ngx-cookie-service';
 import { map } from "rxjs/operators";
 import { INavigationItem, INavigationData } from "./left-navigation.interface";
 
@@ -19,8 +19,7 @@ export class LeftNavigationService {
 
   setOpeningState(item: INavigationItem, state: boolean) {
     this.openingState = { ...this.openingState, [item.id]: state };
-
-    this.cookieService.set(this.openingStateProperty, JSON.stringify(this.openingState));
+    this.cookieService.set(this.openingStateProperty, JSON.stringify(this.openingState), null, null, null, null, 'Lax');
     this.updateOpeningState();
   }
 

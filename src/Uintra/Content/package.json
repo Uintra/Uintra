@@ -32,7 +32,7 @@
     "moment-timezone": "^0.5.27",
     "ng-select2": "^1.2.2",
     "ng2-dragula": "^2.1.1",
-    "ngx-cookie-service": "^2.3.0",
+    "ngx-cookie-service": "^2.4.0",
     "ngx-dropzone": "^2.2.2",
     "ngx-dropzone-wrapper": "^8.0.0",
     "ngx-eonasdan-datetimepicker": "^1.0.6",

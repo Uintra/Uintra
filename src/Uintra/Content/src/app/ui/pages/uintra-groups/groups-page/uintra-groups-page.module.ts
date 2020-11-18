@@ -5,7 +5,7 @@ import { UbaselineCoreModule } from 'ubaseline-next-for-uintra';
 import { UintraGroupsPage } from './uintra-groups-page.component';
 import { GroupsWrapperModule } from 'src/app/feature/specific/groups/groups-wrapper/groups-wrapper.module';
 import { GroupsListModule } from 'src/app/feature/specific/groups/groups-list/groups-list.module';
-import { AuthenticatedLayoutModule } from 'src/app/ui/main-layout/authenticated-layout/authenticated-layout.module';
+
 
 @NgModule({
   declarations: [UintraGroupsPage],
@@ -15,7 +15,7 @@ import { AuthenticatedLayoutModule } from 'src/app/ui/main-layout/authenticated-
     UbaselineCoreModule,
     GroupsWrapperModule,
     GroupsListModule,
-    AuthenticatedLayoutModule
+
   ],
   entryComponents: [UintraGroupsPage]
 })

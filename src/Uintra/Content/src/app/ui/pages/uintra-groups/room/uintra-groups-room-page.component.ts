@@ -10,6 +10,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { ResolveService } from 'ubaseline-next-for-uintra';
 import { IUintraGroupsRoomPage } from 'src/app/shared/interfaces/pages/uintra-groups/room/uintra-groups-room-page.interface';
 import { ISocialCreate } from 'src/app/shared/interfaces/components/social/create/social-create.interface';
+import { AppService } from 'src/app/app.service';
 
 @Component({
   selector: 'uintra-groups-room-page',
@@ -31,9 +32,11 @@ export class UintraGroupsRoomPage implements OnInit {
     private canDeactivateService: CanDeactivateGuard,
     private translate: TranslateService,
     private resolveService: ResolveService,
+    private appService: AppService
   ) {
     this.route.data.subscribe((data: IUintraGroupsRoomPage) => {
       this.data = data;
+      this.appService.setPageAccess(data.allowAccess);
     });
   }
 

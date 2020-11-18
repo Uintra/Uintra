@@ -13,7 +13,7 @@ import { GroupDetailsWrapperModule } from "src/app/feature/specific/groups/group
 import { RichTextEditorModule } from "src/app/feature/reusable/inputs/rich-text-editor/rich-text-editor.module";
 import { DropzoneExistingImagesModule } from 'src/app/feature/reusable/ui-elements/dropzone-existing-images/dropzone-existing-images.module';
 import { TranslateModule } from '@ngx-translate/core';
-import { AuthenticatedLayoutModule } from 'src/app/ui/main-layout/authenticated-layout/authenticated-layout.module';
+
 
 @NgModule({
   declarations: [SocialEditPageComponent],
@@ -42,7 +42,7 @@ import { AuthenticatedLayoutModule } from 'src/app/ui/main-layout/authenticated-
       }
     }),
     TranslateModule,
-    AuthenticatedLayoutModule
+
   ],
   providers: [
     { provide: AS_DYNAMIC_COMPONENT, useValue: SocialEditPageComponent }

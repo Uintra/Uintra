@@ -14,6 +14,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { ISocialDetailsPage } from 'src/app/shared/interfaces/pages/social/details/social-details-page.interface';
 import { ICommentData } from 'src/app/shared/interfaces/panels/comments/comments-panel.interface';
 import { Indexer } from '../../../../shared/abstractions/indexer';
+import { AppService } from 'src/app/app.service';
 
 @Component({
   selector: 'social-details',
@@ -40,10 +41,14 @@ export class SocialDetailsPanelComponent extends Indexer<number> implements OnIn
     private activatedRoute: ActivatedRoute,
     private imageGalleryService: ImageGalleryService,
     private sanitizer: DomSanitizer,
-    private translateService: TranslateService
+    private translateService: TranslateService,
+    private appService: AppService
   ) {
     super();
-    this.activatedRoute.data.subscribe((data: ISocialDetailsPage) => this.data = data);
+    this.activatedRoute.data.subscribe((data: ISocialDetailsPage) => {
+      this.data = data;
+      this.appService.setPageAccess(data.allowAccess);
+    });
   }
 
   public ngOnInit(): void {

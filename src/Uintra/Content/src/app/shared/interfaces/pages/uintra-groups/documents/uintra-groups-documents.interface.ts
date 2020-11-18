@@ -1,18 +1,19 @@
 export interface UintraGroupsDocuments {
-    addToSitemap?: boolean;
-    allowedMediaExtensions?: string;
-    canUpload?: boolean;
-    contentTypeAlias?: string;
-    errorLink?: any;
-    groupHeader?: any;
-    groupId?: string;
-    groupNavigation?: any;
-    id?: number;
-    name?: string;
-    nodeType?: number;
-    pageSettings?: any;
-    panels?: any;
-    requiresRedirect?: boolean;
-    statusCode?: number;
-    url?: string;
+  addToSitemap?: boolean;
+  allowedMediaExtensions?: string;
+  canUpload?: boolean;
+  contentTypeAlias?: string;
+  errorLink?: any;
+  groupHeader?: any;
+  groupId?: string;
+  groupNavigation?: any;
+  id?: number;
+  name?: string;
+  nodeType?: number;
+  pageSettings?: any;
+  panels?: any;
+  requiresRedirect?: boolean;
+  statusCode?: number;
+  url?: string;
+  allowAccess?: boolean;
 }

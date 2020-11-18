@@ -13,4 +13,5 @@ export interface IMyPage {
   title?: string;
   url?: string;
   utmConfiguration?: any;
+  allowAccess?: boolean;
 }

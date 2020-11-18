@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { HasDataChangedService } from 'src/app/shared/services/general/has-data-changed.service';
 import { CanDeactivateGuard } from 'src/app/shared/services/general/can-deactivate.service';
 import { IEventEditPage } from 'src/app/shared/interfaces/pages/event/edit/event-edit-page.interface';
+import { AppService } from 'src/app/app.service';
 
 @Component({
   selector: 'event-edit-page',
@@ -25,15 +26,18 @@ export class EventEditPage {
     private translate: TranslateService,
     private hasDataChangedService: HasDataChangedService,
     private canDeactivateService: CanDeactivateGuard,
+    private appService: AppService
   ) {
     this.route.data.subscribe((data: IEventEditPage) => {
       this.data = data;
+      this.appService.setPageAccess(data.allowAccess);
+
       //TODO move data mapping to back-end...
       this.data.details.title = this.data.details.headerInfo.title;
       this.data.details.creator = { id: this.data.details.headerInfo.owner.id };
       this.data.details.pinAllowed = this.data.pinAllowed;
       this.data.details.members = this.data.members;
-      
+
       this.data.details.selectedTags = this.data.details.tags;
       this.data.details.lightboxPreviewModel.medias = this.data.details.lightboxPreviewModel.medias || [];
       this.data.details.lightboxPreviewModel.otherFiles = this.data.details.lightboxPreviewModel.otherFiles || [];

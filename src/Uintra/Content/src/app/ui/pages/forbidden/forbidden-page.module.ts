@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 
 import { UbaselineCoreModule } from 'ubaseline-next-for-uintra';
 import { ForbiddenPage } from './forbidden-page.component';
-import { AuthenticatedLayoutModule } from '../../main-layout/authenticated-layout/authenticated-layout.module';
+
 
 @NgModule({
   declarations: [ForbiddenPage],
@@ -12,7 +12,7 @@ import { AuthenticatedLayoutModule } from '../../main-layout/authenticated-layou
     CommonModule,
     RouterModule.forChild([{path: "", component: ForbiddenPage}]),
     UbaselineCoreModule,
-    AuthenticatedLayoutModule
+
   ],
   entryComponents: [ForbiddenPage]
 })

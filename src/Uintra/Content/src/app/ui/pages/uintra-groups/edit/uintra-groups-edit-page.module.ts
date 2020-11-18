@@ -7,7 +7,7 @@ import { UintraGroupsEditPage } from './uintra-groups-edit-page.component';
 import { CanDeactivateGuard } from 'src/app/shared/services/general/can-deactivate.service';
 import { GroupsFormModule } from 'src/app/feature/specific/groups/groups-form/groups-form.module';
 import { GroupDetailsWrapperModule } from 'src/app/feature/specific/groups/group-details-wrapper/group-details-wrapper.module';
-import { AuthenticatedLayoutModule } from 'src/app/ui/main-layout/authenticated-layout/authenticated-layout.module';
+
 
 @NgModule({
   declarations: [UintraGroupsEditPage],
@@ -17,7 +17,7 @@ import { AuthenticatedLayoutModule } from 'src/app/ui/main-layout/authenticated-
     UbaselineCoreModule,
     GroupsFormModule,
     GroupDetailsWrapperModule,
-    AuthenticatedLayoutModule
+
   ],
   entryComponents: [UintraGroupsEditPage]
 })

@@ -4,6 +4,7 @@ import { CanDeactivateGuard } from 'src/app/shared/services/general/can-deactiva
 import { HasDataChangedService } from 'src/app/shared/services/general/has-data-changed.service';
 import { Observable } from 'rxjs';
 import { IMyPage} from 'src/app/shared/interfaces/pages/my/my-page.interface';
+import { AppService } from 'src/app/app.service';
 
 @Component({
   selector: 'my-page',
@@ -15,16 +16,18 @@ export class MyPage implements OnInit {
 
   public data: IMyPage;
 
-  public ngOnInit(): void {   
+  public ngOnInit(): void {
   }
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private hasDataChangedService: HasDataChangedService,
     private canDeactivateService: CanDeactivateGuard,
+    private appService: AppService
   ) {
     this.activatedRoute.data.subscribe((data: IMyPage) => {
       this.data = data;
+      this.appService.setPageAccess(data.allowAccess);
     });
   }
 
@@ -34,5 +37,5 @@ export class MyPage implements OnInit {
     }
 
     return true;
-  } 
+  }
 }

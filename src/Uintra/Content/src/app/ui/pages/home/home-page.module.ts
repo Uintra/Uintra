@@ -6,7 +6,7 @@ import { UbaselineCoreModule, NotImplementedModule } from 'ubaseline-next-for-ui
 import { HomePage } from './home-page.component';
 import { CanDeactivateGuard } from 'src/app/shared/services/general/can-deactivate.service';
 import { SocialCreateModule } from '../../../feature/specific/activity/create/social-create/social-create.module';
-import { AuthenticatedLayoutModule } from '../../main-layout/authenticated-layout/authenticated-layout.module';
+
 
 @NgModule({
   declarations: [HomePage],
@@ -16,7 +16,7 @@ import { AuthenticatedLayoutModule } from '../../main-layout/authenticated-layou
       UbaselineCoreModule,
       NotImplementedModule,
     SocialCreateModule,
-    AuthenticatedLayoutModule
+
   ],
   entryComponents: [HomePage]
 })

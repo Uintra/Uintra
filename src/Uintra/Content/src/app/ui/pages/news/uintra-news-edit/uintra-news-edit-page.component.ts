@@ -7,6 +7,7 @@ import { INewsCreateModel, IOwner } from 'src/app/feature/specific/activity/acti
 import { ITagData } from 'src/app/feature/reusable/inputs/tag-multiselect/tag-multiselect.interface';
 import { ActivityService } from 'src/app/feature/specific/activity/activity.service';
 import { IUintraNewsEditPage } from 'src/app/shared/interfaces/pages/news/edit/uintra-news-edit-page.interface';
+import { AppService } from 'src/app/app.service';
 
 @Component({
   selector: 'uintra-news-edit-page',
@@ -31,8 +32,12 @@ export class UintraNewsEditPage implements OnInit, OnDestroy {
     private router: Router,
     private hasDataChangedService: HasDataChangedService,
     private canDeactivateService: CanDeactivateGuard,
+    private appService: AppService
   ) {
-    this.route.data.subscribe((data: IUintraNewsEditPage) => this.data = data);
+    this.route.data.subscribe((data: IUintraNewsEditPage) => {
+      this.data = data;
+      this.appService.setPageAccess(data.allowAccess);
+    });
   }
 
   public ngOnInit(): void {

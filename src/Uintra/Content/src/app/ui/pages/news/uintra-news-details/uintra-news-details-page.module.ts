@@ -12,7 +12,7 @@ import { DetailasHeaderModule } from 'src/app/feature/specific/activity/details/
 import { GroupDetailsWrapperModule } from 'src/app/feature/specific/groups/group-details-wrapper/group-details-wrapper.module';
 import { AttachmentsModule } from 'src/app/feature/specific/activity/details/attachments/attachments.module';
 import { TranslateModule } from '@ngx-translate/core';
-import { AuthenticatedLayoutModule } from 'src/app/ui/main-layout/authenticated-layout/authenticated-layout.module';
+
 
 @NgModule({
   declarations: [UintraNewsDetailsPage],
@@ -28,7 +28,7 @@ import { AuthenticatedLayoutModule } from 'src/app/ui/main-layout/authenticated-
     GroupDetailsWrapperModule,
     AttachmentsModule,
     TranslateModule,
-    AuthenticatedLayoutModule
+
   ],
   providers: [],
   entryComponents: [UintraNewsDetailsPage]

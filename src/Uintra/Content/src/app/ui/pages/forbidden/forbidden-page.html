@@ -1,15 +1,13 @@
-<app-authenticated-layout>
-  <div class="page-wrapper" id="maincontent">
-    <div class="col-md-8">
-      <div class="forbidden">
-        <h2 class="forbidden__title">403</h2>
-        <div class="forbidden__info">
-          <p class="forbidden__info-description">403 - Access Denied</p>
-          <h3 class="forbidden__info-text">Contact with Administrator</h3>
-        </div>
+<div class="page-wrapper" id="maincontent">
+  <div class="col-md-8">
+    <div class="forbidden">
+      <h2 class="forbidden__title">403</h2>
+      <div class="forbidden__info">
+        <p class="forbidden__info-description">403 - Access Denied</p>
+        <h3 class="forbidden__info-text">Contact with Administrator</h3>
       </div>
-      <ubl-dynamic-component *ngFor="let panel of data.panels" [data]="panel">
-      </ubl-dynamic-component>
     </div>
+    <ubl-dynamic-component *ngFor="let panel of data.panels" [data]="panel">
+    </ubl-dynamic-component>
   </div>
-</app-authenticated-layout>
+</div>

@@ -19,6 +19,7 @@ import { ICommentData } from 'src/app/shared/interfaces/panels/comments/comments
 import {TranslateService} from "@ngx-translate/core";
 import {map} from 'rxjs/operators';
 import {BreakpointObserver, BreakpointState} from '@angular/cdk/layout';
+import { AppService } from 'src/app/app.service';
 
 @Component({
   selector: 'event-details-page',
@@ -49,10 +50,13 @@ export class EventDetailsPage implements OnInit, OnDestroy {
     private eventSubscription: EventSubscriptionService,
     private hasDataChangedService: HasDataChangedService,
     private canDeactivateService: CanDeactivateGuard,
-    private translateService: TranslateService
+    private translateService: TranslateService,
+    private appService: AppService
+
   ) {
     this.activatedRoute.data.subscribe((data: IEventDetailsPage) => {
       this.data = data;
+      this.appService.setPageAccess(data.allowAccess);
     });
   }
 

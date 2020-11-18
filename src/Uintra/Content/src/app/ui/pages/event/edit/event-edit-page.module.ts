@@ -7,7 +7,7 @@ import { EventEditPage } from './event-edit-page.component';
 import { GroupDetailsWrapperModule } from 'src/app/feature/specific/groups/group-details-wrapper/group-details-wrapper.module';
 import { EventFormModule } from '../../../../feature/specific/activity/event-form/event-form.module';
 import { CanDeactivateGuard } from 'src/app/shared/services/general/can-deactivate.service';
-import { AuthenticatedLayoutModule } from 'src/app/ui/main-layout/authenticated-layout/authenticated-layout.module';
+
 
 @NgModule({
   declarations: [EventEditPage],
@@ -17,7 +17,7 @@ import { AuthenticatedLayoutModule } from 'src/app/ui/main-layout/authenticated-
     UbaselineCoreModule,
     GroupDetailsWrapperModule,
     EventFormModule,
-    AuthenticatedLayoutModule
+
   ],
   entryComponents: [EventEditPage]
 })

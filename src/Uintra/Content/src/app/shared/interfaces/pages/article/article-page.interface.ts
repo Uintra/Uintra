@@ -15,6 +15,7 @@ export interface IArcticlePage {
   utmConfiguration?: any;
   breadcrumbs: Array<IBreadcrumb>;
   subNavigation: ISubNavigation;
+  allowAccess?: boolean;
 }
 
 export interface IBreadcrumb {

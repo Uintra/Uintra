@@ -8,7 +8,7 @@ import { GroupDetailsWrapperModule } from 'src/app/feature/specific/groups/group
 import { DropzoneWrapperModule } from 'src/app/feature/reusable/ui-elements/dropzone-wrapper/dropzone-wrapper.module';
 import { DocumentTableModule } from 'src/app/feature/specific/groups/document-table/document-table.module';
 import { TranslateModule } from '@ngx-translate/core';
-import { AuthenticatedLayoutModule } from 'src/app/ui/main-layout/authenticated-layout/authenticated-layout.module';
+
 
 @NgModule({
   declarations: [UintraGroupsDocumentsPage],
@@ -20,7 +20,7 @@ import { AuthenticatedLayoutModule } from 'src/app/ui/main-layout/authenticated-
     DropzoneWrapperModule,
     DocumentTableModule,
     TranslateModule,
-    AuthenticatedLayoutModule
+
   ],
   entryComponents: [UintraGroupsDocumentsPage]
 })

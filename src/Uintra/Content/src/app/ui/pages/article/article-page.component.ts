@@ -4,6 +4,7 @@ import { CanDeactivateGuard } from 'src/app/shared/services/general/can-deactiva
 import { HasDataChangedService } from 'src/app/shared/services/general/has-data-changed.service';
 import { Observable } from 'rxjs';
 import { IArcticlePage, ISubNavigation } from 'src/app/shared/interfaces/pages/article/article-page.interface';
+import { AppService } from 'src/app/app.service';
 
 @Component({
   selector: 'article-page',
@@ -20,9 +21,11 @@ export class ArticlePage implements OnInit {
     private activatedRoute: ActivatedRoute,
     private hasDataChangedService: HasDataChangedService,
     private canDeactivateService: CanDeactivateGuard,
+    private appService: AppService
   ) {
     this.activatedRoute.data.subscribe((data: IArcticlePage) => {
       this.data = data;
+      this.appService.setPageAccess(data.allowAccess);
     });
   }
 

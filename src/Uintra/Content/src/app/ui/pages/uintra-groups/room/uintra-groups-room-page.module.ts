@@ -9,7 +9,7 @@ import { CanDeactivateGuard } from 'src/app/shared/services/general/can-deactiva
 import { GroupDetailsWrapperModule } from 'src/app/feature/specific/groups/group-details-wrapper/group-details-wrapper.module';
 import { SocialCreateModule } from 'src/app/feature/specific/activity/create/social-create/social-create.module';
 import { TranslateModule } from '@ngx-translate/core';
-import { AuthenticatedLayoutModule } from 'src/app/ui/main-layout/authenticated-layout/authenticated-layout.module';
+
 
 @NgModule({
   declarations: [UintraGroupsRoomPage],
@@ -21,7 +21,7 @@ import { AuthenticatedLayoutModule } from 'src/app/ui/main-layout/authenticated-
     SocialCreateModule,
     UlinkModule,
     TranslateModule,
-    AuthenticatedLayoutModule
+
   ],
   entryComponents: [UintraGroupsRoomPage]
 })

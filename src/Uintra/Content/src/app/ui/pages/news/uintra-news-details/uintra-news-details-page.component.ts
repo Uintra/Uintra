@@ -7,6 +7,7 @@ import { ILikeData } from 'src/app/feature/reusable/ui-elements/like-button/like
 import { TranslateService } from '@ngx-translate/core';
 import { IUintraNewsDetailsPage } from 'src/app/shared/interfaces/pages/news/details/uintra-news-details-page.interface';
 import { ICommentData } from 'src/app/shared/interfaces/panels/comments/comments-panel.interface';
+import { AppService } from 'src/app/app.service';
 
 @Component({
   selector: 'uintra-news-details-page',
@@ -31,9 +32,13 @@ export class UintraNewsDetailsPage implements OnInit {
     private activatedRoute: ActivatedRoute,
     private imageGalleryService: ImageGalleryService,
     private sanitizer: DomSanitizer,
-    private translateService: TranslateService
+    private translateService: TranslateService,
+    private appService: AppService
   ) {
-    this.activatedRoute.data.subscribe((data: IUintraNewsDetailsPage) => this.data = data);
+    this.activatedRoute.data.subscribe((data: IUintraNewsDetailsPage) => {
+      this.data = data;
+      this.appService.setPageAccess(data.allowAccess);
+    });
   }
 
   public ngOnInit(): void {

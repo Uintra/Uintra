@@ -14,7 +14,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { EventDetailsPage } from './event-details-page.component';
 import { EventSubscriptionModule } from "../../../../feature/specific/activity/event-subscription/event-subscription.module";
 import { CanDeactivateGuard } from 'src/app/shared/services/general/can-deactivate.service';
-import { AuthenticatedLayoutModule } from 'src/app/ui/main-layout/authenticated-layout/authenticated-layout.module';
+
 
 @NgModule({
   declarations: [EventDetailsPage],
@@ -31,7 +31,7 @@ import { AuthenticatedLayoutModule } from 'src/app/ui/main-layout/authenticated-
     AttachmentsModule,
     TranslateModule,
     EventSubscriptionModule,
-    AuthenticatedLayoutModule
+
   ],
   providers: [],
   entryComponents: [EventDetailsPage]
