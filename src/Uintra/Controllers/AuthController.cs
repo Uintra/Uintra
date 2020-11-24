@@ -158,10 +158,4 @@ namespace Uintra.Controllers
             _memberServiceHelper.SetFirstLoginPerformed(member);
         }
     }
-
-    public class AnonymousPageModel
-    {
-        public string Path { get; set; }
-        public string Title { get; set; }
-    }
 }

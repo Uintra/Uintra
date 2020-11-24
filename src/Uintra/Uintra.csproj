@@ -935,7 +935,11 @@
     <Compile Include="App_Start\UintraComposer.cs" />
     <Compile Include="App_Start\UintraConfiguration.cs" />
     <Compile Include="App_Start\UintraUmbracoEventComponent.cs" />
+    <Compile Include="Core\Authentication\Models\AnonymousPageModel.cs" />
     <Compile Include="Core\Article\Events\ArticlePageEventService.cs" />
+    <Compile Include="Core\Authentication\Models\IAnonymousAccessComposition.cs" />
+    <Compile Include="Core\MyPage\MyPageModel.cs" />
+    <Compile Include="Core\MyPage\MyPageViewModel.cs" />
     <Compile Include="Core\Feed\Services\IFeedPresentationService.cs" />
     <Compile Include="Core\MediaToolkit\CommandBuilder.cs" />
     <Compile Include="Core\MediaToolkit\ConversionCompleteEventArgs.cs" />

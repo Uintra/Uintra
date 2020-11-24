@@ -1,5 +1,6 @@
 ﻿using UBaseline.Shared.Property;
 using Uintra.Core.Authentication;
+using Uintra.Core.Authentication.Models;
 using Uintra.Features.Navigation.Models;
 
 namespace Uintra.Core.Article

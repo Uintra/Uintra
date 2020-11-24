@@ -11,9 +11,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Security;
 using UBaseline.Core.Node;
-using UBaseline.Shared.Node;
-using UBaseline.Shared.Property;
-using UBaseline.Shared.Title;
+using Uintra.Core.Authentication.Models;
 using Uintra.Core.Member.Entities;
 using Uintra.Core.Member.Services;
 using Uintra.Models.UmbracoIdentity;
@@ -190,26 +188,4 @@ namespace Uintra.Core.Authentication
             return false;
         }
     }
-
-    public interface IAnonymousAccessComposition
-    {
-        PropertyModel<bool> AllowAccess { get; set; }
-    }
-
-    public class MyPageModel : NodeModel, ITitleContainer, IAnonymousAccessComposition
-    {
-        public PropertyModel<bool> MyCustomToggle { get; set; }
-        public PropertyModel<string> MyCustomTextArea { get; set; }
-        public PropertyModel<string> Title { get; set; }
-        public PropertyModel<bool> AllowAccess { get; set; }
-    }
-
-    public class MyPageViewModel : NodeViewModel
-    {
-        public PropertyViewModel<bool> MyCustomToggle { get; set; }
-        public PropertyViewModel<string> MyCustomTextArea { get; set; }
-        public PropertyViewModel<string> Title { get; set; }
-        public PropertyViewModel<bool> AllowAccess { get; set; }
-    }
-
 }
