@@ -113,39 +113,6 @@ namespace Uintra.Controllers
 
             return Ok();
         }
-
-        [HttpGet]
-        [Route("pages/anonymous")]
-        public IEnumerable<AnonymousPageModel> AnonymousPages()
-        {
-            var pages =
-                _nodeModelService
-                    .AsEnumerable()
-                    .Where(n => (n as IAnonymousAccessComposition)?.AllowAccess)
-                    .Select(n => new AnonymousPageModel()
-                    {
-                        Path = n.Url.Trim('/'),
-                        Title = GetTitle(n)
-                    })
-                    .ToList();
-            pages.Add(new AnonymousPageModel()
-            {
-                Path = "login",
-                Title = "Login | Uintra"
-            });
-            return pages;
-        }
-
-        private string GetTitle(INodeModel nodeModel)
-        {
-            if (nodeModel is ITitleContainer titleContainer)
-            {
-                return titleContainer.Title;
-            }
-
-            return nodeModel.Name;
-        }
-
         private void GreetNewMember(IMember member)
         {
             _notificationsService.ProcessNotification(new NotifierData
