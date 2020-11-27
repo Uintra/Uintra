@@ -15,6 +15,7 @@ namespace Uintra.Features.Search.AutoMapperProfile
                 .ForMember(dst => dst.EndDate, o => o.Ignore())
                 .ForMember(dst => dst.PublishedDate, o => o.Ignore())
                 .ForMember(dst => dst.Type, o => o.Ignore())
+                .ForMember(dst => dst.Culture, o => o.Ignore())
                 .ForMember(dst => dst.Description, o => o.MapFrom(el => el.Description))
                 .AfterMap((src, dst) =>
                 {

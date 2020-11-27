@@ -17,26 +17,26 @@ namespace Uintra.Features.Tagging.UserTags
         IUmbracoContentTrashedEventService
     {
         private readonly IUserTagProvider _userTagProvider;
-        private readonly IUserTagsSearchIndexer _userTagsSearchIndexer;
         private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
         private readonly IUserTagRelationService _userTagRelationService;
-        private readonly IActivityUserTagIndex _activityUserTagIndex;
+        private readonly IActivityUserTagSearchRepository _activityUserTagSearchRepository;
         private readonly IUserTagProvider _tagProvider;
+        private readonly IUserTagIndexer _userTagIndexer;
 
         public UserTagsEventService(
             IUserTagProvider userTagProvider, 
-            IUserTagsSearchIndexer userTagsSearchIndexer,
             IDocumentTypeAliasProvider documentTypeAliasProvider,
             IUserTagRelationService userTagRelationService,
-            IActivityUserTagIndex activityUserTagIndex,
-            IUserTagProvider tagProvider)
+            IActivityUserTagSearchRepository activityUserTagSearchRepository,
+            IUserTagProvider tagProvider,
+            IUserTagIndexer userTagIndexer)
         {
             _userTagProvider = userTagProvider;
-            _userTagsSearchIndexer = userTagsSearchIndexer;
             _documentTypeAliasProvider = documentTypeAliasProvider;
             _userTagRelationService = userTagRelationService;
-            _activityUserTagIndex = activityUserTagIndex;
+            _activityUserTagSearchRepository = activityUserTagSearchRepository;
             _tagProvider = tagProvider;
+            _userTagIndexer = userTagIndexer;
         }
 
         public void ProcessContentPublished(IContentService sender, PublishEventArgs<IContent> args)
@@ -46,7 +46,7 @@ namespace Uintra.Features.Tagging.UserTags
                 if (IsUserTag(pe))
                 {
                     var userTag = _userTagProvider.Get(pe.Key);
-                    _userTagsSearchIndexer.FillIndex(userTag);
+                    AsyncHelpers.RunSync(() =>_userTagIndexer.Index(userTag));
                     Associate(pe);
                 }
             }
@@ -59,7 +59,8 @@ namespace Uintra.Features.Tagging.UserTags
                 if (IsUserTag(pe))
                 {
                     Disassociate(pe);
-                    _userTagsSearchIndexer.Delete(pe.Key);
+
+                    AsyncHelpers.RunSync(() => _userTagIndexer.Delete(pe.Key));
                 }
             }
         }
@@ -75,7 +76,7 @@ namespace Uintra.Features.Tagging.UserTags
             Disassociate(ids);
             foreach (var id in ids)
             {
-                _userTagsSearchIndexer.Delete(id);    
+                AsyncHelpers.RunSync(() => _userTagIndexer.Delete(id));
             }
             _userTagRelationService.RemoveForTags(ids);
 
@@ -92,7 +93,7 @@ namespace Uintra.Features.Tagging.UserTags
             var entityIds = relations.Select(r => r.EntityId).Distinct();
             foreach (var entityId in entityIds)
             {
-                _activityUserTagIndex.Remove(entityId,tagNames);
+                _activityUserTagSearchRepository.Remove(entityId,tagNames);
             }
         }
         private void Disassociate(IContent pe)
@@ -106,7 +107,7 @@ namespace Uintra.Features.Tagging.UserTags
             var entityIds = relations.Select(r => r.EntityId);
             foreach (var entityId in entityIds)
             {
-                _activityUserTagIndex.Remove(entityId, tagName.ToEnumerable());
+                _activityUserTagSearchRepository.Remove(entityId, tagName.ToEnumerable());
             }
         }
         
@@ -121,7 +122,7 @@ namespace Uintra.Features.Tagging.UserTags
             var entityIds = relations.Select(r => r.EntityId);
             foreach (var entityId in entityIds)
             {
-                _activityUserTagIndex.Add(entityId, tagName);
+                _activityUserTagSearchRepository.Add(entityId, tagName);
             }
         }
 

@@ -1,15 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using UBaseline.Core.Node;
-using UBaseline.Shared.Node;
-using UBaseline.Shared.PanelContainer;
+using System.Threading.Tasks;
+using System.Web;
+using Compent.Shared.Search.Contract;
+using UBaseline.Search.Core;
 using Uintra.Core.Search.Entities;
 using Uintra.Core.Search.Helpers;
 using Uintra.Core.Search.Indexers.Diagnostics;
-using Uintra.Core.Search.Indexers.Diagnostics.Models;
-using Uintra.Core.Search.Indexes;
-using Uintra.Features.Search.Web;
-using Uintra.Infrastructure.Extensions;
 using Uintra.Infrastructure.Providers;
 using Umbraco.Core.Models;
 using Umbraco.Core.Models.PublishedContent;
@@ -18,78 +16,103 @@ using Umbraco.Web;
 
 namespace Uintra.Core.Search.Indexers
 {
-    public class ContentIndexer : IIndexer, IContentIndexer
+    public class ContentIndexer : IContentIndexer
     {
-        private readonly ISearchUmbracoHelper _searchUmbracoHelper;
-        private readonly IElasticContentIndex _contentIndex;
+        public Type Type { get; } = typeof(SearchableContent);
+
         private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
+        private readonly ISearchUmbracoHelper _searchUmbracoHelper;
+        private readonly IIndexContext<SearchableContent> _indexContext;
+        private readonly ISearchRepository<SearchableContent> _searchRepository;
         private readonly IIndexerDiagnosticService _indexerDiagnosticService;
         private readonly IContentService _contentService;
 
         public ContentIndexer(
-            ISearchUmbracoHelper searchUmbracoHelper,
-            IElasticContentIndex contentIndex,
             IDocumentTypeAliasProvider documentTypeAliasProvider,
-            IIndexerDiagnosticService indexerDiagnosticService,
+            ISearchUmbracoHelper searchUmbracoHelper, 
+            IIndexContext<SearchableContent> indexContext, 
+            ISearchRepository<SearchableContent> searchRepository, 
+            IIndexerDiagnosticService indexerDiagnosticService, 
             IContentService contentService)
         {
-            _searchUmbracoHelper = searchUmbracoHelper;
-            _contentIndex = contentIndex;
             _documentTypeAliasProvider = documentTypeAliasProvider;
+            _searchUmbracoHelper = searchUmbracoHelper;
+            _indexContext = indexContext;
+            _searchRepository = searchRepository;
             _indexerDiagnosticService = indexerDiagnosticService;
             _contentService = contentService;
         }
 
-        public IndexedModelResult FillIndex()
+
+        public async Task<bool> RebuildIndex()
         {
             try
             {
-                var homePage = Umbraco.Web.Composing.Current.UmbracoHelper .ContentAtRoot().First(pc =>
+                var homePage = Umbraco.Web.Composing.Current.UmbracoHelper.ContentAtRoot().First(pc =>
                     pc.ContentType.Alias.Equals(_documentTypeAliasProvider.GetHomePage()));
                 var contentPages = homePage.DescendantsOfType(_documentTypeAliasProvider.GetArticlePage());
 
                 var searchableContents = contentPages
                     .Where(pc => _searchUmbracoHelper.IsSearchable(pc))
                     .Select(_searchUmbracoHelper.GetContent);
-                _contentIndex.Index(searchableContents);
 
-                return _indexerDiagnosticService.GetSuccessResult(typeof(ContentIndexer).Name, searchableContents);
+                await _indexContext.RecreateIndex();
+                await _searchRepository.IndexAsync(searchableContents);
+                //_contentIndex.Index(searchableContents);
+
+                return true;
+
+                //return _indexerDiagnosticService.GetSuccessResult(typeof(ContentIndexer).Name, searchableContents);
             }
             catch (Exception e)
             {
-                return _indexerDiagnosticService.GetFailedResult(e.Message + e.StackTrace, typeof(ContentIndexer).Name);
+                return false;
+
+                //return _indexerDiagnosticService.GetFailedResult(e.Message + e.StackTrace, typeof(ContentIndexer).Name);
             }
         }
 
-        public void FillIndex(int id)
+        public async Task Index(int id)
         {
             var publishedContent = Umbraco.Web.Composing.Current.UmbracoHelper.Content(id);
             if (!IsArticlePage(publishedContent))
             {
                 return;
             }
-            
+
             var isSearchable = _searchUmbracoHelper.IsSearchable(publishedContent);
             if (isSearchable)
             {
-                _contentIndex.Delete(publishedContent.Id);
-                _contentIndex.Index(_searchUmbracoHelper.GetContent(publishedContent));
+                await _searchRepository.DeleteAsync(publishedContent.Id.ToString());
+                await _searchRepository.IndexAsync(_searchUmbracoHelper.GetContent(publishedContent));
             }
             else
             {
-                _contentIndex.Delete(publishedContent.Id);
+                await _searchRepository.DeleteAsync(publishedContent.Id.ToString());
             }
         }
 
-        public void DeleteFromIndex(int id)
+        public Task<bool> Delete(IEnumerable<string> nodeIds)
+        {
+            //TODO: Search. Check ids type. Add methods by type
+            var ids = nodeIds.Select(int.Parse);
+            var content = _contentService.GetByIds(ids);
+
+            var contentIdsToDelete = content
+                .Where(IsArticlePage)
+                .Select(c => c.Id.ToString());
+            
+            return _searchRepository.DeleteAsync(contentIdsToDelete);
+        }
+
+        public Task Delete(int id)
         {
             var content = _contentService.GetById(id);
-            if (!IsArticlePage(content))
-            {
-                return;
-            }
 
-            _contentIndex.Delete(id);
+            if(IsArticlePage(content))
+                return _searchRepository.DeleteAsync(id.ToString());
+
+            return Task.CompletedTask;
         }
 
         private bool IsArticlePage(IPublishedContent publishedContent)
@@ -97,7 +120,7 @@ namespace Uintra.Core.Search.Indexers
             if (publishedContent == null) return false;
             return CheckArticlePageType(publishedContent.ContentType.Alias);
         }
-        
+
         private bool IsArticlePage(IContent content)
         {
             if (content == null) return false;

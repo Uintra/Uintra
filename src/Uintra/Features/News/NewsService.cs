@@ -1,9 +1,14 @@
 ﻿using Compent.CommandBus;
-using Compent.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Compent.Shared.Extensions.Bcl;
+using Compent.Shared.Search.Contract;
+using UBaseline.Search.Core;
+using Uintra.Core.Search.Entities;
+using Uintra.Core.Search.Indexers;
+using Uintra.Core.Search.Indexers.Diagnostics;
 using Uintra.Core.Activity;
 using Uintra.Core.Activity.Entities;
 using Uintra.Core.Feed.Models;
@@ -11,11 +16,7 @@ using Uintra.Core.Feed.Services;
 using Uintra.Core.Feed.Settings;
 using Uintra.Core.Member.Entities;
 using Uintra.Core.Member.Services;
-using Uintra.Core.Search.Entities;
-using Uintra.Core.Search.Indexers;
-using Uintra.Core.Search.Indexers.Diagnostics;
-using Uintra.Core.Search.Indexers.Diagnostics.Models;
-using Uintra.Core.Search.Indexes;
+using Uintra.Core.Search.Repository;
 using Uintra.Features.CentralFeed.Enums;
 using Uintra.Features.Comments.Services;
 using Uintra.Features.Groups.Services;
@@ -28,6 +29,7 @@ using Uintra.Features.Media.Helpers;
 using Uintra.Features.Media.Intranet.Services.Contracts;
 using Uintra.Features.Media.Models;
 using Uintra.Features.Media.Video.Commands;
+using Uintra.Features.News.Extensions;
 using Uintra.Features.Notification;
 using Uintra.Features.Notification.Entities.Base;
 using Uintra.Features.Notification.Services;
@@ -38,6 +40,7 @@ using Uintra.Infrastructure.Caching;
 using Uintra.Infrastructure.Extensions;
 using Uintra.Infrastructure.TypeProviders;
 using static Uintra.Features.Notification.Configuration.NotificationTypeEnum;
+using ObjectExtensions = Compent.Extensions.ObjectExtensions;
 
 namespace Uintra.Features.News
 {
@@ -45,14 +48,13 @@ namespace Uintra.Features.News
         INewsService<Entities.News>,
         IFeedItemService,
         INotifyableService,
-        IIndexer,
+        ISearchDocumentIndexer,
         IHandle<VideoConvertedCommand>
     {
         private readonly ICommentsService _commentsService;
         private readonly ILikesService _likesService;
         private readonly INotificationsService _notificationService;
         private readonly IMediaHelper _mediaHelper;
-        private readonly IElasticUintraActivityIndex _activityIndex;
         private readonly IDocumentIndexer _documentIndexer;
         private readonly IIntranetMediaService _intranetMediaService;
         private readonly IGroupActivityService _groupActivityService;
@@ -62,6 +64,8 @@ namespace Uintra.Features.News
         private readonly IActivityLocationService _activityLocationService;
         private readonly IGroupService _groupService;
         private readonly IIndexerDiagnosticService _indexerDiagnosticService;
+        private readonly IUintraSearchRepository<SearchableActivity> _uintraSearchRepository;
+        private readonly IIndexContext<SearchableContent> _indexContext;
 
         public NewsService(IIntranetActivityRepository intranetActivityRepository,
             ICacheService cacheService,
@@ -71,7 +75,6 @@ namespace Uintra.Features.News
             IPermissionsService permissionsService,
             INotificationsService notificationService,
             IMediaHelper mediaHelper,
-            IElasticUintraActivityIndex activityIndex,
             IDocumentIndexer documentIndexer,
             IActivityTypeProvider activityTypeProvider,
             IIntranetMediaService intranetMediaService,
@@ -81,7 +84,10 @@ namespace Uintra.Features.News
             IGroupService groupService,
             INotifierDataBuilder notifierDataBuilder,
             IUserTagService userTagService,
-            IActivityLinkService activityLinkService, IIndexerDiagnosticService indexerDiagnosticService)
+            IActivityLinkService activityLinkService, 
+            IIndexerDiagnosticService indexerDiagnosticService,
+            IUintraSearchRepository<SearchableActivity> uintraSearchRepository, 
+            IIndexContext<SearchableContent> indexContext)
             : base(intranetActivityRepository, cacheService, intranetMemberService,
                 activityTypeProvider, intranetMediaService, activityLocationService, activityLinkPreviewService,
                 permissionsService, groupActivityService, groupService)
@@ -90,7 +96,6 @@ namespace Uintra.Features.News
             _likesService = likesService;
             _notificationService = notificationService;
             _mediaHelper = mediaHelper;
-            _activityIndex = activityIndex;
             _documentIndexer = documentIndexer;
             _intranetMediaService = intranetMediaService;
             _groupActivityService = groupActivityService;
@@ -99,8 +104,14 @@ namespace Uintra.Features.News
             _userTagService = userTagService;
             _activityLinkService = activityLinkService;
             _indexerDiagnosticService = indexerDiagnosticService;
+            _uintraSearchRepository = uintraSearchRepository;
+            _indexContext = indexContext;
             _activityLocationService = activityLocationService;
         }
+
+
+
+        Type ISearchDocumentIndexer.Type => typeof(SearchableUintraActivity);
 
         public override Enum Type => IntranetActivityTypeEnum.News;
 
@@ -133,6 +144,35 @@ namespace Uintra.Features.News
         {
             var items = await GetOrderedActualItemsAsync();
             return items;
+        }
+
+        public async Task<bool> RebuildIndex()
+        {
+            try
+            {
+                var activities = GetAll().Where(a => a.IsInCache());
+                var searchableActivities = activities.Select(Map).ToList();
+
+                await _indexContext.EnsureIndex();
+                await _uintraSearchRepository.DeleteByType(UintraSearchableTypeEnum.News);
+                await _uintraSearchRepository.IndexAsync(searchableActivities);
+
+                return true;
+
+                // TODO: Extend to return diagnostics?
+                //return _indexerDiagnosticService.GetSuccessResult(typeof(NewsService).Name, searchableActivities);
+            }
+            catch (Exception e)
+            {
+                return false;
+
+                //return _indexerDiagnosticService.GetFailedResult(e.Message + e.StackTrace, typeof(NewsService).Name);
+            }
+        }
+
+        public Task<bool> Delete(IEnumerable<string> nodeIds)
+        {
+            return Task.FromResult(true);
         }
 
         private IOrderedEnumerable<Entities.News> GetOrderedActualItems()
@@ -174,7 +214,7 @@ namespace Uintra.Features.News
         protected override void UpdateCache()
         {
             base.UpdateCache();
-            FillIndex();
+            AsyncHelpers.RunSync(RebuildIndex);
         }
 
         public override bool IsActual(IIntranetActivity activity)
@@ -199,18 +239,19 @@ namespace Uintra.Features.News
         {
             var cachedNews = Get(id);
             var news = base.UpdateActivityCache(id);
-            if (IsInCache(news) && (news.GroupId is null || _groupService.IsActivityFromActiveGroup(news)))
+            if (news.IsInCache() && (news.GroupId is null || _groupService.IsActivityFromActiveGroup(news)))
             {
-                _activityIndex.Index(Map(news));
-                _documentIndexer.Index(news.MediaIds);
+                AsyncHelpers.RunSync(() => _uintraSearchRepository.IndexAsync(Map(news)));
+                AsyncHelpers.RunSync(() =>_documentIndexer.Index(news.MediaIds));
                 return news;
             }
 
             if (cachedNews == null) return null;
 
-            _activityIndex.Delete(id);
-            _documentIndexer.DeleteFromIndex(cachedNews.MediaIds);
+            AsyncHelpers.RunSync(() => _uintraSearchRepository.DeleteAsync(id.ToString()));
+            AsyncHelpers.RunSync(() => _documentIndexer.DeleteFromIndex(cachedNews.MediaIds));
             _mediaHelper.DeleteMedia(cachedNews.MediaIds);
+
             return null;
         }
         
@@ -218,17 +259,17 @@ namespace Uintra.Features.News
         {
             var cachedNews = await GetAsync(id);
             var news = await base.UpdateActivityCacheAsync(id);
-            if (IsInCache(news) && (news.GroupId is null || _groupService.IsActivityFromActiveGroup(news)))
+            if (news.IsInCache() && (news.GroupId is null || _groupService.IsActivityFromActiveGroup(news)))
             {
-                _activityIndex.Index(Map(news));
-                _documentIndexer.Index(news.MediaIds);
+                await _uintraSearchRepository.IndexAsync(Map(news));
+                await _documentIndexer.Index(news.MediaIds);
                 return news;
             }
 
             if (cachedNews == null) return null;
 
-            _activityIndex.Delete(id);
-            _documentIndexer.DeleteFromIndex(cachedNews.MediaIds);
+            await _uintraSearchRepository.DeleteAsync(id.ToString());
+            await _documentIndexer.DeleteFromIndex(cachedNews.MediaIds);
             _mediaHelper.DeleteMedia(cachedNews.MediaIds);
             return null;
         }
@@ -237,7 +278,7 @@ namespace Uintra.Features.News
         {
             NotifierData notifierData;
 
-            if (notificationType.In(CommentAdded, CommentEdited, CommentLikeAdded, CommentReplied))
+            if (ObjectExtensions.In(notificationType, CommentAdded, CommentEdited, CommentLikeAdded, CommentReplied))
             {
                 var comment = _commentsService.Get(entityId);
                 var parentActivity = Get(comment.ActivityId);
@@ -256,7 +297,7 @@ namespace Uintra.Features.News
         {
             NotifierData notifierData;
 
-            if (notificationType.In(CommentAdded, CommentEdited, CommentLikeAdded, CommentReplied))
+            if (ObjectExtensions.In(notificationType, CommentAdded, CommentEdited, CommentLikeAdded, CommentReplied))
             {
                 var comment = await _commentsService.GetAsync(entityId);
                 var parentActivity = await GetAsync(comment.ActivityId);
@@ -270,34 +311,6 @@ namespace Uintra.Features.News
 
             await _notificationService.ProcessNotificationAsync(notifierData);
         }
-
-        public IndexedModelResult FillIndex()
-        {
-            try
-            {
-                var activities = GetAll().Where(IsInCache);
-                var searchableActivities = activities.Select(Map).ToList();
-                _activityIndex.DeleteByType(UintraSearchableTypeEnum.News);
-                _activityIndex.Index(searchableActivities);
-
-                return _indexerDiagnosticService.GetSuccessResult(typeof(NewsService).Name, searchableActivities);
-            }
-            catch (Exception e)
-            {
-                return _indexerDiagnosticService.GetFailedResult(e.Message + e.StackTrace, typeof(NewsService).Name);
-            }
-        }
-
-        private static bool IsInCache(Entities.News news)
-        {
-            return !IsNewsHidden(news) && IsActualPublishDate(news);
-        }
-
-        private static bool IsNewsHidden(IIntranetActivity news) =>
-            news == null || news.IsHidden;
-
-        private static bool IsActualPublishDate(INewsBase news) =>
-            DateTime.Compare(news.PublishDate, DateTime.UtcNow) <= 0;
 
         private SearchableUintraActivity Map(Entities.News news)
         {

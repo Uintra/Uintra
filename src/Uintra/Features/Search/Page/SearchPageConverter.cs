@@ -8,11 +8,12 @@ using UBaseline.Core.RequestContext;
 using UBaseline.Shared.SearchPage;
 using Uintra.Core.Localization;
 using Uintra.Core.Search.Entities;
-using Uintra.Core.Search.Indexes;
 using Uintra.Core.Search.Providers;
+using Uintra.Core.Search.Queries.SearchByText;
+using Uintra.Core.Search.Repository;
 using Uintra.Features.Search.Models;
-using Uintra.Features.Search.Queries;
 using Uintra.Infrastructure.Extensions;
+using SearchableBase = Uintra.Core.Search.Entities.SearchableBase;
 using SearchPageViewModel = Uintra.Features.Search.Models.SearchPageViewModel;
 
 namespace Uintra.Features.Search.Page
@@ -23,47 +24,47 @@ namespace Uintra.Features.Search.Page
         private string SearchTranslationPrefix { get; } = "Search.";
         private readonly IIntranetLocalizationService _intranetLocalizationService;
         private readonly ISearchableTypeProvider _searchableTypeProvider;
-        private readonly IElasticIndex _elasticIndex;
         private readonly IUBaselineRequestContext _requestContext;
+        private readonly IUintraSearchRepository _searchRepository;
 
         public SearchPageConverter(
             IIntranetLocalizationService intranetLocalizationService,
             ISearchableTypeProvider searchableTypeProvider,
-            IElasticIndex elasticIndex,
-            IUBaselineRequestContext requestContext)
+            IUBaselineRequestContext requestContext,
+            IUintraSearchRepository searchRepository)
         {
             _intranetLocalizationService = intranetLocalizationService;
             _searchableTypeProvider = searchableTypeProvider;
-            _elasticIndex = elasticIndex;
             _requestContext = requestContext;
+            _searchRepository = searchRepository;
         }
 
         public void Map(SearchPageModel node, SearchPageViewModel viewModel)
         {
             var query = System.Web.HttpUtility.ParseQueryString(_requestContext.NodeRequestParams.NodeUrl.Query).TryGetQueryValue<string>("query");
-            var searchResult = _elasticIndex.Search(new SearchTextQuery
+            var searchBytTextQuery = new SearchByTextQuery
             {
                 Text = query,
                 Take = ResultsPerPage * 1,
                 SearchableTypeIds = GetSearchableTypes().Select(t => t.ToInt()),
                 OnlyPinned = false,
                 ApplyHighlights = true
-            });
+            };
+            var searchResult = AsyncHelpers.RunSync(() =>_searchRepository.SearchAsyncTyped(searchBytTextQuery));
 
             var resultModel = ExtendSearchPage(searchResult,viewModel);
             resultModel.Query = query;
         }
         
 
-        protected virtual SearchPageViewModel ExtendSearchPage(
-            SearchResult<SearchableBase> searchResult,SearchPageViewModel viewModel)
+        protected virtual SearchPageViewModel ExtendSearchPage(Core.Search.Entities.SearchResult<SearchableBase> searchResult,SearchPageViewModel viewModel)
         {
             var searchResultViewModels = searchResult.Documents.Select(d =>
             {
                 var resultItem = d.Map<SearchResultViewModel>();
                 resultItem.Type =
                     _intranetLocalizationService.Translate(
-                        $"{SearchTranslationPrefix}{_searchableTypeProvider[d.Type].ToString()}");
+                        $"{SearchTranslationPrefix}{_searchableTypeProvider[d.Type]}");
                 return resultItem;
             }).ToList();
 
@@ -83,10 +84,10 @@ namespace Uintra.Features.Search.Page
                 });
 
             viewModel.Results = searchResultViewModels;
-            viewModel.ResultsCount = (int) searchResult.TotalHits;
+            viewModel.ResultsCount = searchResult.TotalCount;
             viewModel.FilterItems = filterItems;
-            viewModel.AllTypesPlaceholder = GetLabelWithCount("Search.Filter.All.lbl", (int) searchResult.TotalHits);
-            viewModel.BlockScrolling = searchResult.TotalHits <= searchResultViewModels.Count;
+            viewModel.AllTypesPlaceholder = GetLabelWithCount("Search.Filter.All.lbl", searchResult.TotalCount);
+            viewModel.BlockScrolling = searchResult.TotalCount <= searchResultViewModels.Count;
         
             return viewModel;
         }

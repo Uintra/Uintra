@@ -15,6 +15,7 @@ namespace Uintra.Features.Search.AutoMapperProfile
         {
             CreateMap<UserTag, SearchableTag>()
                 .ForMember(dst => dst.Url, src => src.Ignore())
+                .ForMember(dst => dst.Culture, src => src.Ignore())
                 .ForMember(dst => dst.Title, src => src.MapFrom(s => s.Text))
                 .ForMember(dst => dst.Type, src => src.MapFrom(s => UintraSearchableTypeEnum.Tag.ToInt()));
 
@@ -30,7 +31,8 @@ namespace Uintra.Features.Search.AutoMapperProfile
                 .ForMember(dst => dst.UserTagNames, o => o.Ignore())
                 .ForMember(dst => dst.TagsHighlighted, o => o.Ignore())
                 .ForMember(dst => dst.Url, o => o.Ignore())
-                .ForMember(dst => dst.Title, o => o.Ignore());
+                .ForMember(dst => dst.Title, o => o.Ignore())
+                .ForMember(dst => dst.Culture, o => o.Ignore());
 
             CreateMap<SearchableUintraActivity, UintraSearchResultViewModel>()
                 .IncludeBase<SearchableActivity, UintraSearchResultViewModel>()
@@ -113,6 +115,7 @@ namespace Uintra.Features.Search.AutoMapperProfile
                 .ForMember(dst => dst.PublishedDate, src => src.Ignore())
                 .ForMember(dst => dst.TagsHighlighted, src => src.Ignore())
                 .ForMember(dst => dst.Type, src => src.Ignore())
+                .ForMember(dst => dst.Culture, src => src.Ignore())
                 .ForMember(dst => dst.UserTagNames, src => src.Ignore())
                 .AfterMap((src, dst) => { dst.Type = src.Type.ToInt(); });
 

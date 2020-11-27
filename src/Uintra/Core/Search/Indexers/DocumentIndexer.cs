@@ -1,13 +1,13 @@
-﻿using Compent.Extensions;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
+using System.Web;
 using System.Web.Hosting;
+using Compent.Extensions;
+using Compent.Shared.Search.Contract;
 using Uintra.Core.Search.Entities;
-using Uintra.Core.Search.Indexers.Diagnostics;
-using Uintra.Core.Search.Indexers.Diagnostics.Models;
-using Uintra.Core.Search.Indexes;
 using Uintra.Features.Media.Helpers;
 using Uintra.Features.Search.Configuration;
 using Uintra.Infrastructure.Constants;
@@ -21,49 +21,112 @@ using File = System.IO.File;
 
 namespace Uintra.Core.Search.Indexers
 {
-    public class DocumentIndexer : IIndexer, IDocumentIndexer
+    public class DocumentIndexer : IDocumentIndexer
     {
-        private readonly IElasticDocumentIndex _documentIndex;
-        private readonly ISearchApplicationSettings _settings;
+        public Type Type { get; } = typeof(SearchableDocument);
+
+        private readonly IIndexContext<SearchableDocument> _indexContext;
+        private readonly ISearchRepository<SearchableDocument> _searchRepository;
         private readonly IMediaHelper _mediaHelper;
         private readonly IMediaService _mediaService;
+        private readonly ISearchApplicationSettings _settings;
         private readonly ILogger _logger;
-        private readonly IIndexerDiagnosticService _indexerDiagnosticService;
 
-        public DocumentIndexer(IElasticDocumentIndex documentIndex,
-            ISearchApplicationSettings settings,
-            IMediaHelper mediaHelper,
+        public DocumentIndexer(
+            IIndexContext<SearchableDocument> indexContext, 
+            ISearchRepository<SearchableDocument> searchRepository, 
+            IMediaHelper mediaHelper, 
             IMediaService mediaService, 
-            ILogger logger,
-            IIndexerDiagnosticService indexerDiagnosticService)
+            ISearchApplicationSettings settings, 
+            ILogger logger)
         {
-            _documentIndex = documentIndex;
-            _settings = settings;
+            _indexContext = indexContext;
+            _searchRepository = searchRepository;
             _mediaHelper = mediaHelper;
             _mediaService = mediaService;
+            _settings = settings;
             _logger = logger;
-            _indexerDiagnosticService = indexerDiagnosticService;
         }
 
-        public IndexedModelResult FillIndex()
+        public async Task<bool> RebuildIndex()
         {
             try
             {
                 var documentsToIndex = GetDocumentsForIndexing().ToList();
-                Index(documentsToIndex);
+                await _indexContext.RecreateIndex();
+                await Index(documentsToIndex);
 
-                return _indexerDiagnosticService.GetSuccessResult(typeof(DocumentIndexer).Name, documentsToIndex);
+                return true;
+                //return _indexerDiagnosticService.GetSuccessResult(typeof(DocumentIndexer).Name, documentsToIndex);
 
             }
             catch (Exception e)
             {
-                return _indexerDiagnosticService.GetFailedResult(e.Message + e.StackTrace, typeof(DocumentIndexer).Name);
+                return false;
+
+                //return _indexerDiagnosticService.GetFailedResult(e.Message + e.StackTrace, typeof(DocumentIndexer).Name);
             }
         }
 
+        public Task<bool> Delete(IEnumerable<string> nodeIds)
+        {
+            throw new NotImplementedException();
+        }
+        
+        public Task<int> Index(int id)
+        {
+            return Index(id.ToEnumerable());
+        }
+
+        public Task<int> Index(IEnumerable<int> ids)
+        {
+            var medias = _mediaService.GetByIds(ids);
+            var documents = new List<SearchableDocument>();
+
+            foreach (var media in medias)
+            {
+                var document = GetSearchableDocument(media.Id);
+                if (!document.Any()) continue;
+
+                if (!IsAllowedForIndexing(media))
+                {
+                    media.SetValue(UmbracoAliases.Media.UseInSearchPropertyAlias, true);
+                    _mediaService.Save(media);
+                }
+
+                documents.AddRange(document);
+            }
+
+            return _searchRepository.IndexAsync(documents);
+
+            //_documentIndex.Index(documents);
+        }
+
+        public Task<bool> DeleteFromIndex(int id)
+        {
+            return DeleteFromIndex(id.ToEnumerable());
+        }
+
+        public Task<bool> DeleteFromIndex(IEnumerable<int> ids)
+        {
+            var medias = _mediaService.GetByIds(ids);
+            foreach (var media in medias)
+            {
+                if (IsAllowedForIndexing(media))
+                {
+                    media.SetValue(UmbracoAliases.Media.UseInSearchPropertyAlias, false);
+                    _mediaService.Save(media);
+                }
+                
+                //_documentIndex.Delete(media.Id);
+            }
+
+            var idsToDelete = ids.Select(id => id.ToString());
+            return _searchRepository.DeleteAsync(idsToDelete);
+        }
         private IEnumerable<int> GetDocumentsForIndexing()
         {
-            var medias = Umbraco.Web.Composing.Current.UmbracoHelper 
+            var medias = Umbraco.Web.Composing.Current.UmbracoHelper
                 .MediaAtRoot()
                 .SelectMany(m => m.DescendantsOrSelf());
 
@@ -84,54 +147,9 @@ namespace Uintra.Core.Search.Indexers
             return media.HasProperty(UmbracoAliases.Media.UseInSearchPropertyAlias) && media.GetValue<bool>(UmbracoAliases.Media.UseInSearchPropertyAlias);
         }
 
-        public void Index(int id)
-        {
-            Index(id.ToEnumerable());
-        }
-
-        public void Index(IEnumerable<int> ids)
-        {
-            var medias = _mediaService.GetByIds(ids);
-            var documents = new List<SearchableDocument>();
-
-            foreach (var media in medias)
-            {
-                var document = GetSearchableDocument(media.Id);
-                if (!document.Any()) continue;
-
-                if (!IsAllowedForIndexing(media))
-                {
-                    media.SetValue(UmbracoAliases.Media.UseInSearchPropertyAlias, true);
-                    _mediaService.Save(media);
-                }
-
-                documents.AddRange(document);
-            }
-            _documentIndex.Index(documents);
-        }
-
-        public void DeleteFromIndex(int id)
-        {
-            DeleteFromIndex(id.ToEnumerable());
-        }
-
-        public void DeleteFromIndex(IEnumerable<int> ids)
-        {
-            var medias = _mediaService.GetByIds(ids);
-            foreach (var media in medias)
-            {
-                if (IsAllowedForIndexing(media))
-                {
-                    media.SetValue(UmbracoAliases.Media.UseInSearchPropertyAlias, false);
-                    _mediaService.Save(media);
-                }
-                _documentIndex.Delete(media.Id);
-            }
-        }
-
         private IEnumerable<SearchableDocument> GetSearchableDocument(int id)
         {
-            var content =  Umbraco.Web.Composing.Current.UmbracoHelper.Media(id);
+            var content = Umbraco.Web.Composing.Current.UmbracoHelper.Media(id);
             if (content == null)
             {
                 return Enumerable.Empty<SearchableDocument>();
@@ -145,9 +163,8 @@ namespace Uintra.Core.Search.Indexers
             var fileName = Path.GetFileName(content.Url);
             var extension = Path.GetExtension(fileName)?.Trim('.');
 
-            bool isFileExtensionAllowedForIndex = _settings.IndexingDocumentTypesKey.Contains(extension, StringComparison.OrdinalIgnoreCase);
-
-
+            var isFileExtensionAllowedForIndex = _settings.IndexingDocumentTypesKey.Contains(extension, StringComparison.OrdinalIgnoreCase);
+            
             if (!content.Url.IsNullOrEmpty())
             {
                 var physicalPath = HostingEnvironment.MapPath(content.Url);
@@ -155,19 +172,21 @@ namespace Uintra.Core.Search.Indexers
                 if (!File.Exists(physicalPath))
                 {
                     _logger.Error<DocumentIndexer>(new FileNotFoundException($"Could not find file \"{physicalPath}\""));
-                   return Enumerable.Empty<SearchableDocument>();
+                    return Enumerable.Empty<SearchableDocument>();
                 }
+
                 var base64File = isFileExtensionAllowedForIndex ? Convert.ToBase64String(File.ReadAllBytes(physicalPath)) : string.Empty;
                 var result = new SearchableDocument
                 {
-                    Id = content.Id,
+                    Id = content.Id.ToString(),
                     Title = fileName,
                     Url = content.Url.ToLinkModel(),
                     Data = base64File,
                     Type = SearchableTypeEnum.Document.ToInt()
                 };
-                 return result.ToEnumerable();
+                return result.ToEnumerable();
             }
+
             return Enumerable.Empty<SearchableDocument>();
         }
     }

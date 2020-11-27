@@ -6,6 +6,7 @@ using LightInject;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Extensions.Configuration;
 using System.Web;
+using Compent.Shared.Search.Elasticsearch;
 using UBaseline.Core.Startup;
 using Uintra.Models.UmbracoIdentity;
 using Umbraco.Core;

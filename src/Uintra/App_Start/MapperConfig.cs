@@ -7,6 +7,7 @@ using Uintra.Core.Controls.LightboxGallery;
 using Uintra.Core.Jobs.AutoMapperProfiles;
 using Uintra.Core.Member.AutoMapperProfiles;
 using Uintra.Core.Member.Profile.Edit.Mappers;
+using Uintra.Core.Search;
 using Uintra.Features.CentralFeed.AutoMapperProfiles;
 using Uintra.Features.Comments.AutoMapperProfiles;
 using Uintra.Features.Events.AutoMapperProfiles;

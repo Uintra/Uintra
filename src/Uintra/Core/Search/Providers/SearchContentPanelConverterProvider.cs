@@ -34,6 +34,7 @@ namespace Uintra.Core.Search.Providers
                 var psdm = converter?.Convert(pvm);
                 return psdm;
             }).WhereNotNull();
+
             return panelsToSearch;
         }
     }

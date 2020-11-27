@@ -1,8 +1,8 @@
-﻿﻿using UBaseline.Shared.VideoPanel;
- using Uintra.Core.Search.Converters.SearchDocumentPanelConverter;
- using Uintra.Core.Search.Entities;
+﻿using UBaseline.Shared.VideoPanel;
+using Uintra.Core.Search.Converters.SearchDocumentPanelConverter;
+using Uintra.Core.Search.Entities;
 
- namespace Uintra.Features.Search.Converters.Panel
+namespace Uintra.Features.Search.Converters.Panel
 {
     public class VideoPanelSearchConverter : SearchDocumentPanelConverter<VideoPanelViewModel>
     {

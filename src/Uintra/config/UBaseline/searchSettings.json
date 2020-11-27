@@ -1,0 +1,18 @@
+{
+  "SearchSettings": {
+    "Host": "136.243.176.173",
+    "Port": "9220",
+    "IndexPrefix": "ubaseline-search_local",
+    "IndexingDocumentTypes": [ "doc", "docx", "pdf", "ppt", "pptx", "odf" ],
+    "HighlightedFragmentSize": 300,
+    "SearchResultDescriptionSize": 300,
+    "SearchDocumentPriorities": {
+      "PageSearchDocument": 1,
+      "NewsSearchDocument": 2,
+      "FileSearchDocument": 3
+    },
+    "DefaultResultsCount": 5,
+    "DefaultAutoSuggestionCount": 5,
+    "HiddenSearchDocumentTypes": []
+  }
+}
