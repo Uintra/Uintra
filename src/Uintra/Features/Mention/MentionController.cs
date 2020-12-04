@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using UBaseline.Core.Controllers;
 using Uintra.Core.Search.Entities;
-using Uintra.Core.Search.Queries.SearchByText;
+using Uintra.Core.Search.Queries;
 using Uintra.Core.Search.Repository;
 using Uintra.Features.Links;
 using Uintra.Features.Mention.Models;

@@ -1,5 +1,5 @@
 ﻿using Nest;
-using Uintra.Core.Search.Queries.SearchByText;
+using Uintra.Core.Search.Queries;
 
 namespace Uintra.Core.Search.Paging
 {

@@ -63,7 +63,6 @@ namespace Uintra.Features.Social
         private readonly INotifierDataBuilder _notifierDataBuilder;
         private readonly IUserTagService _userTagService;
         private readonly IActivityLinkService _activityLinkService;
-        private readonly IIndexerDiagnosticService _indexerDiagnosticService;
         private readonly IUintraSearchRepository<SearchableActivity> _uintraSearchRepository;
         private readonly IIndexContext<SearchableContent> _indexContext;
 
@@ -85,8 +84,7 @@ namespace Uintra.Features.Social
             IGroupService groupService,
             INotifierDataBuilder notifierDataBuilder,
             IUserTagService userTagService,
-            IActivityLinkService activityLinkService, 
-            IIndexerDiagnosticService indexerDiagnosticService, 
+            IActivityLinkService activityLinkService,
             IUintraSearchRepository<SearchableActivity> uintraSearchRepository,
             IIndexContext<SearchableContent> indexContext)
             : base(intranetActivityRepository, cacheService, activityTypeProvider, intranetMediaService,
@@ -104,7 +102,6 @@ namespace Uintra.Features.Social
             _notifierDataBuilder = notifierDataBuilder;
             _userTagService = userTagService;
             _activityLinkService = activityLinkService;
-            _indexerDiagnosticService = indexerDiagnosticService;
             _uintraSearchRepository = uintraSearchRepository;
             _indexContext = indexContext;
         }
@@ -131,7 +128,6 @@ namespace Uintra.Features.Social
 
         public Task<bool> Delete(IEnumerable<string> nodeIds)
         {
-            //TODO: Search. ???
             return Task.FromResult(true);
         }
 

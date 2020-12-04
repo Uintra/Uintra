@@ -63,7 +63,6 @@ namespace Uintra.Features.News
         private readonly IActivityLinkService _activityLinkService;
         private readonly IActivityLocationService _activityLocationService;
         private readonly IGroupService _groupService;
-        private readonly IIndexerDiagnosticService _indexerDiagnosticService;
         private readonly IUintraSearchRepository<SearchableActivity> _uintraSearchRepository;
         private readonly IIndexContext<SearchableContent> _indexContext;
 
@@ -85,7 +84,6 @@ namespace Uintra.Features.News
             INotifierDataBuilder notifierDataBuilder,
             IUserTagService userTagService,
             IActivityLinkService activityLinkService, 
-            IIndexerDiagnosticService indexerDiagnosticService,
             IUintraSearchRepository<SearchableActivity> uintraSearchRepository, 
             IIndexContext<SearchableContent> indexContext)
             : base(intranetActivityRepository, cacheService, intranetMemberService,
@@ -103,7 +101,6 @@ namespace Uintra.Features.News
             _notifierDataBuilder = notifierDataBuilder;
             _userTagService = userTagService;
             _activityLinkService = activityLinkService;
-            _indexerDiagnosticService = indexerDiagnosticService;
             _uintraSearchRepository = uintraSearchRepository;
             _indexContext = indexContext;
             _activityLocationService = activityLocationService;

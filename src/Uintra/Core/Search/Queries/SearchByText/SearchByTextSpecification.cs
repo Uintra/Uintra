@@ -8,7 +8,7 @@ using Uintra.Core.Search.Helpers;
 using Uintra.Features.Search;
 using Uintra.Features.Search.Member;
 
-namespace Uintra.Core.Search.Queries.SearchByText
+namespace Uintra.Core.Search.Queries
 {
     public class SearchByTextSpecification : UBaseline.Search.Elasticsearch.SearchByTextSpecification//: SearchQuerySpecification<SearchableBase>
     {

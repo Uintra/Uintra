@@ -56,8 +56,6 @@ namespace Uintra.Core.Search.Indexers
 
         public Task<bool> Delete(IEnumerable<string> nodeIds)
         {
-            //TODO: Search. ??
-
             return Task.FromResult(true);
         }
 

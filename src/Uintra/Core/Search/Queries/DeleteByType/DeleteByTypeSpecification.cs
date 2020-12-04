@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Compent.Shared.Search.Contract;
-using Compent.Shared.Search.Elasticsearch;
+﻿using Compent.Shared.Search.Elasticsearch;
 using Nest;
 using Uintra.Core.Search.Entities;
 using Uintra.Infrastructure.Extensions;
 
-namespace Uintra.Core.Search.Queries
+namespace Uintra.Core.Search.Queries.DeleteByType
 {
     public class DeleteByTypeSpecification : DeleteQuerySpecification<SearchableBase>
     {
-        public DeleteByTypeSpecification(DeleteByTypeQuery<SearchableBase> query)
+        public DeleteByTypeSpecification(DeleteByTypeQuery query)
         {
             Descriptor = new DeleteByQueryDescriptor<SearchableBase>()
                 //.AllIndices()

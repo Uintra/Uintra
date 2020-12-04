@@ -70,7 +70,6 @@ namespace Uintra.Features.Events
         private readonly IGroupService _groupService;
         private readonly INotifierDataBuilder _notifierDataBuilder;
         private readonly IActivityLinkService _activityLinkService;
-        private readonly IIndexerDiagnosticService _indexerDiagnosticService;
         private readonly IUserTagService _userTagService;
         private readonly IIndexContext<SearchableUintraActivity> _indexContext;
         private readonly IUintraSearchRepository<SearchableUintraActivity> _searchRepository;
@@ -95,7 +94,6 @@ namespace Uintra.Features.Events
             IGroupService groupService,
             INotifierDataBuilder notifierDataBuilder,
             IActivityLinkService activityLinkService,
-            IIndexerDiagnosticService indexerDiagnosticService,
             IUserTagService userTagService,
             IIndexContext<SearchableUintraActivity> indexContext,
             IUintraSearchRepository<SearchableUintraActivity> searchRepository)
@@ -122,7 +120,6 @@ namespace Uintra.Features.Events
             _groupService = groupService;
             _notifierDataBuilder = notifierDataBuilder;
             _activityLinkService = activityLinkService;
-            _indexerDiagnosticService = indexerDiagnosticService;
             _userTagService = userTagService;
             _indexContext = indexContext;
             _searchRepository = searchRepository;

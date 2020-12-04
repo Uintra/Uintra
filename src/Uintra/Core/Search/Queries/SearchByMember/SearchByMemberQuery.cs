@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using Compent.Shared.Search.Contract;
 using Uintra.Core.Search.Entities;
-using Uintra.Core.Search.Queries.SearchByText;
 
-namespace Uintra.Core.Search.Queries.SearchByMember
+namespace Uintra.Core.Search.Queries
 {
     public class SearchByMemberQuery : SearchByTextQuery, ISearchQuery<SearchableMember>
     {

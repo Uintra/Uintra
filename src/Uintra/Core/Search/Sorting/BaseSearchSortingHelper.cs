@@ -1,7 +1,7 @@
 ﻿using Compent.Extensions;
 using Nest;
 using Uintra.Core.Search.Helpers;
-using Uintra.Core.Search.Queries.SearchByText;
+using Uintra.Core.Search.Queries;
 
 namespace Uintra.Core.Search.Sorting
 {

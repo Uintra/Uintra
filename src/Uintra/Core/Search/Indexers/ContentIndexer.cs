@@ -24,7 +24,6 @@ namespace Uintra.Core.Search.Indexers
         private readonly ISearchUmbracoHelper _searchUmbracoHelper;
         private readonly IIndexContext<SearchableContent> _indexContext;
         private readonly ISearchRepository<SearchableContent> _searchRepository;
-        private readonly IIndexerDiagnosticService _indexerDiagnosticService;
         private readonly IContentService _contentService;
 
         public ContentIndexer(
@@ -32,14 +31,12 @@ namespace Uintra.Core.Search.Indexers
             ISearchUmbracoHelper searchUmbracoHelper, 
             IIndexContext<SearchableContent> indexContext, 
             ISearchRepository<SearchableContent> searchRepository, 
-            IIndexerDiagnosticService indexerDiagnosticService, 
             IContentService contentService)
         {
             _documentTypeAliasProvider = documentTypeAliasProvider;
             _searchUmbracoHelper = searchUmbracoHelper;
             _indexContext = indexContext;
             _searchRepository = searchRepository;
-            _indexerDiagnosticService = indexerDiagnosticService;
             _contentService = contentService;
         }
 

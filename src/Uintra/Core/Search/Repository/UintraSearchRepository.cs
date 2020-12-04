@@ -13,6 +13,7 @@ using Newtonsoft.Json.Linq;
 using Uintra.Core.Search.Entities;
 using Uintra.Core.Search.Extensions;
 using Uintra.Core.Search.Queries;
+using Uintra.Core.Search.Queries.DeleteByType;
 using Uintra.Features.Search;
 
 namespace Uintra.Core.Search.Repository
@@ -31,10 +32,11 @@ namespace Uintra.Core.Search.Repository
 
         public Task<bool> DeleteByType(UintraSearchableTypeEnum type)
         {
-            var query = new DeleteByTypeQuery<T>
+            var query = new DeleteByTypeQuery
             {
                 Type = type
-            };
+            } as ISearchQuery<T>;
+            // TODO: Check this in runtime. Technically it has to be the same type
 
             return DeleteByQuery(query, string.Empty);
         }
@@ -58,7 +60,7 @@ namespace Uintra.Core.Search.Repository
             var baseResult = base.MapToResult(response);
             var result = new Entities.SearchResult<ISearchDocument>()
             {
-                Documents = baseResult.Documents.OfType<SearchableBase>(), // TODO: Search. Check OfType
+                Documents = baseResult.Documents.OfType<SearchableBase>(), 
                 TotalCount = baseResult.TotalCount,
                 TypeFacets = response.Aggregations.GetGlobalFacets(SearchConstants.SearchFacetNames.Types)
             };

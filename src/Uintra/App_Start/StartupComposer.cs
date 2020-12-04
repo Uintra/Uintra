@@ -8,6 +8,8 @@ using Microsoft.Extensions.Configuration;
 using System.Web;
 using Compent.Shared.Search.Elasticsearch;
 using UBaseline.Core.Startup;
+using UBaseline.Search.Core;
+using UBaseline.Search.Elasticsearch;
 using Uintra.Models.UmbracoIdentity;
 using Umbraco.Core;
 using Umbraco.Core.Composing;
@@ -42,6 +44,7 @@ namespace Uintra
             var configuration = builder
                 .AddLogging(UBaselineConfiguration.EnvironmentName)
                 .AddUBaselineConfiguration()
+                .AddUBaselineSearchConfiguration()
                 .AddConfiguration()
                 .AddUintraConfiguration()
                 .Build();
@@ -52,6 +55,9 @@ namespace Uintra
 			dependencyCollection
                 .AddLogging()
                 .AddUBaseline()
+                .AddSearch()
+                .AddUBaselineSearch()
+                .AddUBaselineElasticsearchSearch()
                 .RegisterInjectModules(assembly)
                 .RegisterMvcControllers(assembly)
                 .RegisterApiControllers(assembly)
@@ -59,6 +65,7 @@ namespace Uintra
 
 			//composition.Components().Append<UintraApplicationComponent>();
             //composition.Components().Append<UintraUmbracoEventComponent>();
+
 
             MapperConfig.RegisterMappings(composition);
         }

@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Web;
+﻿using System.Linq;
 using Compent.Shared.DependencyInjection.Contract;
-using Compent.Shared.Search.Contract;
 using Compent.Shared.Search.Elasticsearch;
 using Nest;
 using Uintra.Core.Search.Entities;
@@ -13,7 +8,7 @@ using Uintra.Core.Search.Paging;
 using Uintra.Core.Search.Sorting;
 using Uintra.Features.Search.Member;
 
-namespace Uintra.Core.Search.Queries.SearchByMember
+namespace Uintra.Core.Search.Queries
 {
     public class SearchByMemberSpecification : SearchQuerySpecification<SearchableMember>
     {

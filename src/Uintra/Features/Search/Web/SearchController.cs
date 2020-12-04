@@ -8,23 +8,21 @@ using Compent.Shared.Search.Contract;
 using UBaseline.Core.Controllers;
 using UBaseline.Search.Core;
 using Uintra.Core.Localization;
-using Uintra.Core.Search.Indexes;
 using Uintra.Core.Search.Entities;
 using Uintra.Core.Search.Helpers;
 using Uintra.Core.Search.Indexers.Diagnostics.Models;
 using Uintra.Core.Search.Repository;
-using Uintra.Features.Search;
 using Uintra.Features.Search.Models;
 using Uintra.Infrastructure.Extensions;
 using ISearchableTypeProvider = Uintra.Core.Search.Providers.ISearchableTypeProvider;
 using SearchAutocompleteResultViewModel = Uintra.Features.Search.Models.SearchAutocompleteResultViewModel;
-using SearchByTextQuery = Uintra.Core.Search.Queries.SearchByText.SearchByTextQuery;
+using SearchByTextQuery = Uintra.Core.Search.Queries.SearchByTextQuery;
 using SearchFilterModel = Uintra.Features.Search.Models.SearchFilterModel;
 using SearchResultViewModel = Uintra.Features.Search.Models.SearchResultViewModel;
 
 namespace Uintra.Features.Search.Web
 {
-    //todo refactor duplicated code in SearchPageConverter
+    //todo refactor duplicated code in SearchPageConverter|
     //todo after refactor remove unused models and methods
     public class SearchController : UBaselineApiController
     {
@@ -37,19 +35,17 @@ namespace Uintra.Features.Search.Web
         private readonly ISearchableTypeProvider _searchableTypeProvider;
         private readonly IEnumerable<ISearchDocumentIndexer> indexers;
         private readonly IUintraSearchRepository _searchRepository;
-
+        
         public SearchController(
             IIntranetLocalizationService localizationService,
             ISearchUmbracoHelper searchUmbracoHelper,
             ISearchableTypeProvider searchableTypeProvider,
-            IEnumerable<ISearchDocumentIndexer> indexers,
-            IUintraSearchRepository searchRepository)
+            IEnumerable<ISearchDocumentIndexer> indexers)
         {
             _localizationService = localizationService;
             _searchUmbracoHelper = searchUmbracoHelper;
             _searchableTypeProvider = searchableTypeProvider;
             this.indexers = indexers;
-            _searchRepository = searchRepository;
         }
 
         [HttpPost]
@@ -66,8 +62,7 @@ namespace Uintra.Features.Search.Web
             };
 
             var searchResult = await _searchRepository.SearchAsyncTyped(searchByTextQuery);
-
-
+            
             var resultModel = GetSearchPage(searchResult);
             resultModel.Query = model.Query;
 

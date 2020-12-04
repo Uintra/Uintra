@@ -24,28 +24,28 @@ namespace Uintra.Core.Jobs
 
 		public void SetupJobs()
 		{
-			var types = Current.Factory.EnsureScope(s => (IEnumerable<IJob>)s.GetAllInstances(typeof(UintraBaseIntranetJob)));
+			//var types = Current.Factory.EnsureScope(s => (IEnumerable<IJob>)s.GetAllInstances(typeof(UintraBaseIntranetJob)));
 
-			foreach (var type in types)
-			{
-				var jobConfiguration = GetConfiguration(type.GetType().Name);
+			//foreach (var type in types)
+			//{
+			//	var jobConfiguration = GetConfiguration(type.GetType().Name);
 
-				ValidateConfiguration(jobConfiguration);
+			//	ValidateConfiguration(jobConfiguration);
 
-				if (jobConfiguration.Enabled)
-				{
-					var schedule = AddJob(type);
+			//	if (jobConfiguration.Enabled)
+			//	{
+			//		var schedule = AddJob(type);
 
-					if (jobConfiguration.RunType == JobRunTypeEnum.RunOnceAtDate)
-					{
-						schedule.ToRunOnceAt(jobConfiguration.Date.GetValueOrDefault());
-						continue;
-					}
+			//		if (jobConfiguration.RunType == JobRunTypeEnum.RunOnceAtDate)
+			//		{
+			//			schedule.ToRunOnceAt(jobConfiguration.Date.GetValueOrDefault());
+			//			continue;
+			//		}
 
-					var timeUnit = ResolveRunType(schedule, jobConfiguration);
-					ResolveTimeType(timeUnit, jobConfiguration);
-				}
-			}
+			//		var timeUnit = ResolveRunType(schedule, jobConfiguration);
+			//		ResolveTimeType(timeUnit, jobConfiguration);
+			//	}
+			//}
 		}
 
 		private Schedule AddJob<T>(T job) where T : IJob

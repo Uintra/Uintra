@@ -7,7 +7,7 @@ using Umbraco.Core.Services;
 
 namespace Uintra.Core.Article.Events
 {
-    public class ArticlePageEventService: IUmbracoContentPublishedEventService, IUmbracoContentUnPublishedEventService, IUmbracoContentTrashedEventService
+    public class ArticlePageEventService : IUmbracoContentPublishedEventService, IUmbracoContentUnPublishedEventService, IUmbracoContentTrashedEventService
     {
         private readonly IContentIndexer _contentIndexer;
 

@@ -1,1 +1,2 @@
-start powershell -noexit "ng serve --host=uintra20.local.compent.dk -o"
+start powershell -noexit "& gulp dev"
+start powershell -noexit "& cd .\workspace; ng serve --port=4200 -o"

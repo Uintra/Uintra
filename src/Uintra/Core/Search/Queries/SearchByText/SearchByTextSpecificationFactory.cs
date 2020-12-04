@@ -1,18 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Compent.Shared.DependencyInjection.Contract;
+﻿using Compent.Shared.DependencyInjection.Contract;
+using Compent.Shared.Search.Contract;
 using Compent.Shared.Search.Elasticsearch;
-using UBaseline.Search.Elasticsearch;
 using Uintra.Core.Search.Entities;
 
-namespace Uintra.Core.Search.Queries.SearchByText
+namespace Uintra.Core.Search.Queries
 {
-    public class SearchByTextSpecificationFactor : SearchByTextSpecificationFactory
+    public class SearchByTextSpecificationFactory : ISearchSpecificationFactory<SearchDocument, SearchByTextQuery>
     {
-        public SearchByTextSpecificationFactor(IDependencyProvider dependencyProvider) : base(dependencyProvider)
+        private readonly IDependencyProvider dependencyProvider;
+
+        public SearchByTextSpecificationFactory(IDependencyProvider dependencyProvider)
         {
+            this.dependencyProvider = dependencyProvider;
+        }
+
+        public SearchQuerySpecification<SearchDocument> Create(SearchByTextQuery query, string culture)
+        {
+            var spec = new SearchByTextSpecification(query, dependencyProvider, culture);
+            return spec;
         }
     }
 }

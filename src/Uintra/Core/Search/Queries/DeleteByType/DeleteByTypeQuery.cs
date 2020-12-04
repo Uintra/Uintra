@@ -1,10 +1,10 @@
 ﻿using Compent.Shared.Search.Contract;
 using Uintra.Core.Search.Entities;
+using Umbraco.Core.Migrations.Expressions.Update;
 
-namespace Uintra.Core.Search.Queries
+namespace Uintra.Core.Search.Queries.DeleteByType
 {
-    // TODO: Search. Get rid of generic, move DeleteByTYpe to general repository
-    public class DeleteByTypeQuery<T> : ISearchQuery<T> where T : class, ISearchDocument
+    public class DeleteByTypeQuery : ISearchQuery<SearchableBase>
     {
         public UintraSearchableTypeEnum Type { get; set; }
     }

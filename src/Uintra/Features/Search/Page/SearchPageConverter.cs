@@ -9,7 +9,7 @@ using UBaseline.Shared.SearchPage;
 using Uintra.Core.Localization;
 using Uintra.Core.Search.Entities;
 using Uintra.Core.Search.Providers;
-using Uintra.Core.Search.Queries.SearchByText;
+using Uintra.Core.Search.Queries;
 using Uintra.Core.Search.Repository;
 using Uintra.Features.Search.Models;
 using Uintra.Infrastructure.Extensions;
