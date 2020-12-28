@@ -114,7 +114,7 @@
         <div *ngIf="isManagementColumn" class="user-list__item-management cells--{{data.details.selectedColumns.length}}">
           <button
             *ngIf="(!member.isCreator && data?.details?.isCurrentMemberGroupAdmin && !data.isInvitePopUp)
-              || data?.details?.currentMember?.id === member.member.id"
+              || (data?.details?.currentMember?.id === member.member.id && !member.isGroupAdmin)"
             class="user-list__item-delete-btn"
             (click)="deleteMember(member.member.id)">
             X
