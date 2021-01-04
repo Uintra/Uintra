@@ -47,7 +47,7 @@ export class RichTextEditorService {
           editor.deleteText(linkIndex, link.length);
           editor.insertEmbed(linkIndex, 'link', link);
         });
-
+        
         this.replaceLink(editor, delta);
 
         this.getLinkPreview(editor);
@@ -151,7 +151,7 @@ export class RichTextEditorService {
 
           editor.updateContents({
             ops: ops
-          });
+          }, "user");
         }
       }
   }
