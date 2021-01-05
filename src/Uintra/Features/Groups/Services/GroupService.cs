@@ -20,6 +20,7 @@ namespace Uintra.Features.Groups.Services
     {
         private const string GroupCacheKey = "Groups";
         private readonly ISqlRepository<Group> _groupRepository;
+        private readonly ISqlRepository<GroupMember> _groupMemberRepository;
         private readonly ICacheService _memoryCacheService;
         private readonly IPermissionsService _permissionsService;
         private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
@@ -29,6 +30,7 @@ namespace Uintra.Features.Groups.Services
 
         public GroupService(
             ISqlRepository<Group> groupRepository,
+            ISqlRepository<GroupMember> groupMemberRepository,
             ICacheService memoryCacheService,
             IPermissionsService permissionsService,
             IIntranetMemberService<IntranetMember> intranetMemberService)
@@ -37,6 +39,7 @@ namespace Uintra.Features.Groups.Services
             _memoryCacheService = memoryCacheService;
             _permissionsService = permissionsService;
             _intranetMemberService = intranetMemberService;
+            _groupMemberRepository = groupMemberRepository;
         }
 
         #region async
@@ -203,8 +206,11 @@ namespace Uintra.Features.Groups.Services
             var currentMember = _intranetMemberService.GetCurrentMember();
 
             var isOwner = group.CreatorId == currentMember.Id;
+
+            var isAdmin = _groupMemberRepository.Find(x => x.GroupId == group.Id && x.MemberId == currentMember.Id)?
+                .IsAdmin ?? false;
             
-            return isOwner || _permissionsService.Check(PermissionResourceTypeEnum.Groups, otherAction);
+            return isOwner || isAdmin || _permissionsService.Check(PermissionResourceTypeEnum.Groups, otherAction);
         }
         
         public bool ValidatePermission(IPublishedContent content)
