@@ -54,7 +54,10 @@ namespace Uintra.Features.Navigation.Services
 
 		private void CollectSubItems(SubNavigationMenuItemModel item)
 		{
-			item.SubItems = GetChildren(item.Id).Reverse().Select(Map).ToList();
+			item.SubItems = GetChildren(item.Id).Reverse()
+				.Select(Map)
+				.Where(x => x.ShowInMenu)
+				.ToList();
 
 			var activeItem = item.SubItems.SingleOrDefault(i => i.Active);
 			if (activeItem == null)
@@ -81,6 +84,7 @@ namespace Uintra.Features.Navigation.Services
 				Name = nodeModel.Name,
 				Url = nodeModel.Url,
 				Active = IsActive(nodeModel.Id),
+				ShowInMenu = ((IUintraNavigationComposition) nodeModel)?.ShowInMenu ?? false,
 				CurrentItem = IsCurrentItem(nodeModel.Id)
 			};
 

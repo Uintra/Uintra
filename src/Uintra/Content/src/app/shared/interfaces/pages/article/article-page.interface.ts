@@ -9,7 +9,7 @@ export interface IArcticlePage {
   nodeType?: number;
   panels?: any;
   rightColumnPanels?: any;
-  showInSubMenu?: any;
+  showInMenu?: any;
   title?: string;
   url?: string;
   utmConfiguration?: any;
@@ -28,6 +28,7 @@ export interface ISubNavigation {
   currentItem: boolean;
   id: number;
   name: string;
+  showInMenu?: boolean;
   subItems: ISubNavigation[];
   url: string;
 }

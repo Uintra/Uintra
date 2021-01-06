@@ -10,6 +10,7 @@ namespace Uintra.Features.Navigation.Models
         public string Url { get; set; }
         public bool Active { get; set; }
         public bool CurrentItem { get; set; }
+        public bool ShowInMenu { get; set; }
         public IEnumerable<SubNavigationMenuItemModel> SubItems { get; set; }=Enumerable.Empty<SubNavigationMenuItemModel>();
     }
 }

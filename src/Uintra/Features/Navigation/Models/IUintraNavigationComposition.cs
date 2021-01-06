@@ -5,6 +5,6 @@ namespace Uintra.Features.Navigation.Models
 {
     public interface IUintraNavigationComposition : INavigationComposition
     {
-        PropertyModel<bool> ShowInSubMenu { get; set; }
+        PropertyModel<bool> ShowInMenu { get; set; }
     }
 }

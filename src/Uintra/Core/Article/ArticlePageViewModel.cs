@@ -9,7 +9,7 @@ namespace Uintra.Core.Article
 {
     public class ArticlePageViewModel : UBaseline.Shared.ArticlePage.ArticlePageViewModel
     {
-        public PropertyViewModel<bool> ShowInSubMenu { get; set; }
+        public PropertyViewModel<bool> ShowInMenu { get; set; }
         public Guid? GroupId { get; set; }
         public IEnumerable<BreadcrumbViewModel> Breadcrumbs { get; set; } = Enumerable.Empty<BreadcrumbViewModel>();
         public SubNavigationMenuItemModel SubNavigation { get; set; }

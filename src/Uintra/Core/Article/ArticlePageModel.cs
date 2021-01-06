@@ -5,6 +5,6 @@ namespace Uintra.Core.Article
 {
     public class ArticlePageModel:UBaseline.Shared.ArticlePage.ArticlePageModel, IUintraNavigationComposition
     {
-        public PropertyModel<bool> ShowInSubMenu { get; set; }
+        public PropertyModel<bool> ShowInMenu { get; set; }
     }
 }
