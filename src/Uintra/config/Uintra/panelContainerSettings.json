@@ -12,6 +12,15 @@
       "autoSuggest",
       "svgPanel",
       "newsPanel"
+    ],
+    "PanelItemSettings": [
+      {
+        "Alias": "comingEventsPanel",
+        "IsGlobal": false,
+        "IsLocal": true,
+        "RequiredForDocTypes": [],
+        "IncludedForDocTypes": []
+      }
     ]
   }
 }
