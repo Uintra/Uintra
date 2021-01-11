@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http.Filters;
 using System.Web.Mvc;
 using LightInject;
 using Uintra.Core.UmbracoEvents.Services.Contracts;
 using Uintra.Infrastructure.Extensions;
+using Uintra.Infrastructure.Providers;
 using Umbraco.Core.Composing;
 using Umbraco.Core.Dashboards;
 using Umbraco.Core.Events;
@@ -193,8 +195,12 @@ namespace Uintra
         
         private static void EditorModelEventManagerOnSendingContentModel(HttpActionExecutedContext sender, EditorModelEventArgs<ContentItemDisplay> e)
         {
+            var services = DependencyResolver.Current.GetServices<IDocumentTypeAliasProvider>().First();
+            
+            if (services.CanShowPreviewButton(e.Model.ContentTypeAlias)) return;
+            
             e.Model.AllowPreview = false;
             e.Model.Urls = null;
-        }
+        } 
     }
 }
