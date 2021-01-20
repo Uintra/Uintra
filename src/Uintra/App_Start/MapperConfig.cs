@@ -54,7 +54,6 @@ namespace Uintra
             cfg.AddProfile<ProfileEditProfile>();
             cfg.AddProfile<JobAutoMapperProfile>();
             cfg.AddProfile<SearchAutoMapperProfile>();
-            cfg.AddProfile<SearchableActivityAutoMapperProfile>();
             cfg.AddProfile<SearchResultAutoMapperProfile>();
 
             Mapper.Initialize(cfg);

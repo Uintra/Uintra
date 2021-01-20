@@ -55,7 +55,7 @@ namespace Uintra.Features.Events
         //IIndexer
         ISearchDocumentIndexer // TODO: Search. It would be cool to extract all indexers into separate files, but regarding services it involves to much hussle. Discuss
     {
-        Type ISearchDocumentIndexer.Type => typeof(SearchableUintraActivity);
+        Type ISearchDocumentIndexer.Type => typeof(SearchableActivity);
         public override Enum Type => IntranetActivityTypeEnum.Events;
         public override Enum PermissionActivityType => PermissionResourceTypeEnum.Events;
 
@@ -71,8 +71,8 @@ namespace Uintra.Features.Events
         private readonly INotifierDataBuilder _notifierDataBuilder;
         private readonly IActivityLinkService _activityLinkService;
         private readonly IUserTagService _userTagService;
-        private readonly IIndexContext<SearchableUintraActivity> _indexContext;
-        private readonly IUintraSearchRepository<SearchableUintraActivity> _searchRepository;
+        private readonly IIndexContext<SearchableActivity> _indexContext;
+        private readonly IUintraSearchRepository<SearchableActivity> _searchRepository;
 
         public EventsService(
             IIntranetActivityRepository intranetActivityRepository,
@@ -95,8 +95,8 @@ namespace Uintra.Features.Events
             INotifierDataBuilder notifierDataBuilder,
             IActivityLinkService activityLinkService,
             IUserTagService userTagService,
-            IIndexContext<SearchableUintraActivity> indexContext,
-            IUintraSearchRepository<SearchableUintraActivity> searchRepository)
+            IIndexContext<SearchableActivity> indexContext,
+            IUintraSearchRepository<SearchableActivity> searchRepository)
             : base(
                 intranetActivityRepository,
                 cacheService,
@@ -381,9 +381,9 @@ namespace Uintra.Features.Events
             throw new NotImplementedException();
         }
 
-        private SearchableUintraActivity Map(Event @event)
+        private SearchableActivity Map(Event @event)
         {
-            var searchableActivity = @event.Map<SearchableUintraActivity>();
+            var searchableActivity = @event.Map<SearchableActivity>();
             searchableActivity.Url = _activityLinkService.GetLinks(@event.Id).Details;
             searchableActivity.UserTagNames = _userTagService.Get(@event.Id).Select(t => t.Text);
             return searchableActivity;

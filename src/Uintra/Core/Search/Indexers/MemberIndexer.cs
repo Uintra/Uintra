@@ -8,6 +8,7 @@ using Uintra.Core.Member.Entities;
 using Uintra.Core.Member.Services;
 using Uintra.Core.Search.Entities;
 using Uintra.Core.Search.Entities.Mappers;
+using Uintra.Core.Search.Repository;
 
 namespace Uintra.Core.Search.Indexers
 {
@@ -18,11 +19,11 @@ namespace Uintra.Core.Search.Indexers
         private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
         private readonly ISearchableMemberMapper<SearchableMember> _searchableMemberMapper;
         private readonly IIndexContext<SearchableMember> _indexContext;
-        private readonly ISearchRepository<SearchableMember> _searchRepository;
+        private readonly IUintraSearchRepository<SearchableMember> _searchRepository;
 
         public MemberIndexer(
-            IIndexContext<SearchableMember> indexContext, 
-            ISearchRepository<SearchableMember> searchRepository,
+            IIndexContext<SearchableMember> indexContext,
+            IUintraSearchRepository<SearchableMember> searchRepository,
             ISearchableMemberMapper<SearchableMember> searchableMemberMapper, 
             IIntranetMemberService<IntranetMember> intranetMemberService)
         {
@@ -39,8 +40,8 @@ namespace Uintra.Core.Search.Indexers
             {
                 var actualUsers = _intranetMemberService.GetAll().Where(u => !u.Inactive);
                 var searchableUsers = actualUsers.Select(_searchableMemberMapper.Map).ToList();
-                await _indexContext.RecreateIndex();
-                await _searchRepository.IndexAsync(searchableUsers);
+                var rc = await _indexContext.RecreateIndex();
+                var i =await _searchRepository.IndexAsync(searchableUsers);
 
                 return true;
 

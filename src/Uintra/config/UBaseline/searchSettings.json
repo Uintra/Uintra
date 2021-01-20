@@ -1,8 +1,8 @@
 {
   "SearchSettings": {
-    "Host": "136.243.176.173",
-    "Port": "9220",
-    "IndexPrefix": "ubaseline-search_local",
+    "Host": "127.0.0.1",
+    "Port": "9200",
+    "IndexPrefix": "uintra20",
     "IndexingDocumentTypes": [ "doc", "docx", "pdf", "ppt", "pptx", "odf" ],
     "HighlightedFragmentSize": 300,
     "SearchResultDescriptionSize": 300,

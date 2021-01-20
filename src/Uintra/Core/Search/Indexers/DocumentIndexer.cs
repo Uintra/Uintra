@@ -8,6 +8,7 @@ using System.Web.Hosting;
 using Compent.Extensions;
 using Compent.Shared.Search.Contract;
 using Uintra.Core.Search.Entities;
+using Uintra.Core.Search.Repository;
 using Uintra.Features.Media.Helpers;
 using Uintra.Features.Search.Configuration;
 using Uintra.Infrastructure.Constants;
@@ -26,15 +27,15 @@ namespace Uintra.Core.Search.Indexers
         public Type Type { get; } = typeof(SearchableDocument);
 
         private readonly IIndexContext<SearchableDocument> _indexContext;
-        private readonly ISearchRepository<SearchableDocument> _searchRepository;
+        private readonly IUintraSearchRepository<SearchableDocument> _searchRepository;
         private readonly IMediaHelper _mediaHelper;
         private readonly IMediaService _mediaService;
         private readonly ISearchApplicationSettings _settings;
         private readonly ILogger _logger;
 
         public DocumentIndexer(
-            IIndexContext<SearchableDocument> indexContext, 
-            ISearchRepository<SearchableDocument> searchRepository, 
+            IIndexContext<SearchableDocument> indexContext,
+            IUintraSearchRepository<SearchableDocument> searchRepository, 
             IMediaHelper mediaHelper, 
             IMediaService mediaService, 
             ISearchApplicationSettings settings, 
@@ -53,8 +54,8 @@ namespace Uintra.Core.Search.Indexers
             try
             {
                 var documentsToIndex = GetDocumentsForIndexing().ToList();
-                await _indexContext.RecreateIndex();
-                await Index(documentsToIndex);
+                var rc = await _indexContext.RecreateIndex();
+                var r = await Index(documentsToIndex);
 
                 return true;
                 //return _indexerDiagnosticService.GetSuccessResult(typeof(DocumentIndexer).Name, documentsToIndex);

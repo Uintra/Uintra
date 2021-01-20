@@ -1,6 +1,7 @@
 ﻿using Compent.Shared.DependencyInjection.Contract;
 using Compent.Shared.Search.Contract;
 using Compent.Shared.Search.Elasticsearch;
+using Compent.Shared.Search.Elasticsearch.Providers;
 using Compent.Shared.Search.Elasticsearch.SearchHighlighting;
 using UBaseline.Search.Core;
 using Uintra.Core.Search.Entities;
@@ -32,13 +33,13 @@ namespace Uintra.Core.Search
             services.AddSingleton<IUintraSearchRepository, UintraSearchRepository>();
             services.AddSingleton<ISearchHighlightingHelper, UintraSearchHighlightingHelper>();
 
-            services.AddScopedToCollection<ISearchDocumentIndexer, NewsService>();
-            services.AddScopedToCollection<ISearchDocumentIndexer, ContentIndexer>();
-            services.AddScopedToCollection<ISearchDocumentIndexer, EventsService>();
-            services.AddScopedToCollection<ISearchDocumentIndexer, SocialService<Features.Social.Entities.Social>>();
-            services.AddScopedToCollection<ISearchDocumentIndexer, DocumentIndexer>();
-            services.AddScopedToCollection<ISearchDocumentIndexer, MemberIndexer>();
-            services.AddScopedToCollection<ISearchDocumentIndexer, UserTagIndexer>();
+            //services.AddScopedToCollection<ISearchDocumentIndexer, NewsService>();
+            //services.AddScopedToCollection<ISearchDocumentIndexer, ContentIndexer>();
+            //services.AddScopedToCollection<ISearchDocumentIndexer, EventsService>();
+            //services.AddScopedToCollection<ISearchDocumentIndexer, SocialService<Features.Social.Entities.Social>>();
+            //services.AddScopedToCollection<ISearchDocumentIndexer, DocumentIndexer>();
+            //services.AddScopedToCollection<ISearchDocumentIndexer, MemberIndexer>();
+            //services.AddScopedToCollection<ISearchDocumentIndexer, UserTagIndexer>();
 
             services.AddScoped<NewsService>();
             services.AddScoped<ContentIndexer>();
@@ -51,12 +52,16 @@ namespace Uintra.Core.Search
 
             services.AddScoped<ISearchSpecificationFactory<SearchDocument, Queries.SearchByTextQuery>, SearchByTextSpecificationFactory>();
             services.AddScoped<ISearchSpecificationFactory<SearchableMember, SearchByMemberQuery>, SearchByMemberSpecificationFactory>();
-            services.AddScoped<IDeleteSpecificationFactory<SearchableBase, DeleteByTypeQuery>, DeleteByTypeSpecificationFactory>();
+            //services.AddScoped<IDeleteSpecificationFactory<SearchableActivity, DeleteSearchableActivityByTypeQuery>, DeleteSearchableActivityByTypeSpecificationFactory>();
 
             services.AddScopedToCollection<IDocumentIndexer, DocumentIndexer>();
             services.AddScoped<IContentIndexer, ContentIndexer>();
             services.AddScoped<IUserTagIndexer, UserTagIndexer>();
             services.AddScoped<IActivityUserTagSearchRepository, ActivityUserTagSearchRepository>();
+            services.AddScoped<IAnalyzerProvider, UintraAnalyzerProvider>();
+            services.AddScoped<ICharFiltersProvider, UintraCharFiltersProvider>();
+            services.AddScoped<IFiltersProvider, UintraFiltersProvider>();
+            services.AddScoped<ITokenizerProvider, UintraTokenizerProvider>();
 
             services.AddScoped<ISearchUmbracoHelper, SearchUmbracoHelper>();
             services.AddSingleton<ISearchableTypeProvider>(d => new Providers.SearchableTypeProvider(typeof(UintraSearchableTypeEnum)));
@@ -69,6 +74,9 @@ namespace Uintra.Core.Search
             services.AddScoped(typeof(ISearchableMemberMapper<SearchableMember>), typeof(SearchableMemberMapper<SearchableMember>));
 
             services.AddScoped(typeof(ISearchSortingHelper<>), typeof(BaseSearchSortingHelper<>));
+
+
+            services.AddSingleton(typeof(IIndexContext<>), typeof(UintraIndexContext<>));
 
 
             return services;

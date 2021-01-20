@@ -9,9 +9,9 @@ namespace Uintra.Core.Search.Indexes
 {
     public class ActivityUserTagSearchRepository : IActivityUserTagSearchRepository
     {
-        private readonly IUintraSearchRepository<SearchableUintraActivity> _uintraSearchRepository;
+        private readonly IUintraSearchRepository<SearchableActivity> _uintraSearchRepository;
         
-        public ActivityUserTagSearchRepository(IUintraSearchRepository<SearchableUintraActivity> uintraSearchRepository)
+        public ActivityUserTagSearchRepository(IUintraSearchRepository<SearchableActivity> uintraSearchRepository)
         {
             _uintraSearchRepository = uintraSearchRepository;
         }

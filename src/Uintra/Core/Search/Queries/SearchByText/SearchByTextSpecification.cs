@@ -66,7 +66,7 @@ namespace Uintra.Core.Search.Queries
             containers.AddRange(GetContentDescriptors(query));
             containers.AddRange(GetActivityDescriptor(query).ToEnumerable());
             containers.AddRange(GetDocumentsDescriptor(query).ToEnumerable());
-            containers.Add(GetTagNames<SearchableUintraActivity>(query));
+            containers.Add(GetTagNames<SearchableActivity>(query));
             containers.Add(GetTagNames<SearchableMember>(query));
             containers.Add(GetTagsDescriptor(query));
             containers.AddRange(_memberSearchDescriptorBuilder.GetMemberDescriptors(query));

@@ -3,8 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Compent.Shared.DependencyInjection.Contract;
 using Compent.Shared.Extensions.Bcl;
 using Compent.Shared.Search.Contract;
+using Compent.Shared.Search.Elasticsearch;
 using UBaseline.Search.Core;
 using Uintra.Core.Search.Entities;
 using Uintra.Core.Search.Indexers;
@@ -16,6 +18,7 @@ using Uintra.Core.Feed.Services;
 using Uintra.Core.Feed.Settings;
 using Uintra.Core.Member.Entities;
 using Uintra.Core.Member.Services;
+using Uintra.Core.Search.Queries.DeleteByType;
 using Uintra.Core.Search.Repository;
 using Uintra.Features.CentralFeed.Enums;
 using Uintra.Features.Comments.Services;
@@ -66,6 +69,9 @@ namespace Uintra.Features.News
         private readonly IUintraSearchRepository<SearchableActivity> _uintraSearchRepository;
         private readonly IIndexContext<SearchableContent> _indexContext;
 
+        // TODO: delete after test
+        private readonly IDependencyProvider dependencyProvider;
+
         public NewsService(IIntranetActivityRepository intranetActivityRepository,
             ICacheService cacheService,
             IIntranetMemberService<IntranetMember> intranetMemberService,
@@ -85,7 +91,7 @@ namespace Uintra.Features.News
             IUserTagService userTagService,
             IActivityLinkService activityLinkService, 
             IUintraSearchRepository<SearchableActivity> uintraSearchRepository, 
-            IIndexContext<SearchableContent> indexContext)
+            IIndexContext<SearchableContent> indexContext, IDependencyProvider dependencyProvider)
             : base(intranetActivityRepository, cacheService, intranetMemberService,
                 activityTypeProvider, intranetMediaService, activityLocationService, activityLinkPreviewService,
                 permissionsService, groupActivityService, groupService)
@@ -103,12 +109,13 @@ namespace Uintra.Features.News
             _activityLinkService = activityLinkService;
             _uintraSearchRepository = uintraSearchRepository;
             _indexContext = indexContext;
+            this.dependencyProvider = dependencyProvider;
             _activityLocationService = activityLocationService;
         }
 
 
 
-        Type ISearchDocumentIndexer.Type => typeof(SearchableUintraActivity);
+        Type ISearchDocumentIndexer.Type => typeof(SearchableActivity);
 
         public override Enum Type => IntranetActivityTypeEnum.News;
 
@@ -150,8 +157,10 @@ namespace Uintra.Features.News
                 var activities = GetAll().Where(a => a.IsInCache());
                 var searchableActivities = activities.Select(Map).ToList();
 
-                await _indexContext.EnsureIndex();
-                await _uintraSearchRepository.DeleteByType(UintraSearchableTypeEnum.News);
+                var ensure = await _indexContext.EnsureIndex();
+
+                var deleteFactory = dependencyProvider.GetService<IDeleteSpecificationFactory<SearchableActivity, DeleteSearchableActivityByTypeQuery>>();
+                var delete = await _uintraSearchRepository.DeleteByType(UintraSearchableTypeEnum.News);
                 await _uintraSearchRepository.IndexAsync(searchableActivities);
 
                 return true;
@@ -309,9 +318,9 @@ namespace Uintra.Features.News
             await _notificationService.ProcessNotificationAsync(notifierData);
         }
 
-        private SearchableUintraActivity Map(Entities.News news)
+        private SearchableActivity Map(Entities.News news)
         {
-            var searchableActivity = news.Map<SearchableUintraActivity>();
+            var searchableActivity = news.Map<SearchableActivity>();
             searchableActivity.Url = _activityLinkService.GetLinks(news.Id).Details;
             searchableActivity.UserTagNames = _userTagService.Get(news.Id).Select(t => t.Text);
             return searchableActivity;

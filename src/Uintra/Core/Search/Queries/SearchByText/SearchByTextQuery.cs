@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Compent.Shared.Search.Contract;
-using Uintra.Core.Search.Entities;
 
 namespace Uintra.Core.Search.Queries
 {

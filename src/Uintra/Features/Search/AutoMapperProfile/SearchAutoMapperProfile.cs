@@ -34,8 +34,13 @@ namespace Uintra.Features.Search.AutoMapperProfile
                 .ForMember(dst => dst.Title, o => o.Ignore())
                 .ForMember(dst => dst.Culture, o => o.Ignore());
 
-            CreateMap<SearchableUintraActivity, UintraSearchResultViewModel>()
-                .IncludeBase<SearchableActivity, UintraSearchResultViewModel>()
+            CreateMap<SearchableActivity, UintraSearchResultViewModel>()
+                .IncludeBase<SearchableActivity, SearchResultViewModel>()
+                .ForMember(dst => dst.TagsHighlighted, src => src.MapFrom(s => false))
+                .ForMember(dst => dst.IsPinned, o => o.Ignore())
+                .ForMember(dst => dst.Email, o => o.Ignore())
+                .ForMember(dst => dst.Photo, o => o.Ignore())
+                .ForMember(dst => dst.UserTagNames, src => src.Ignore())
                 .ForMember(dst => dst.TagsHighlighted, src => src.MapFrom(s => s.TagsHighlighted))
                 .ForMember(dst => dst.UserTagNames, src => src.MapFrom(s => s.UserTagNames))
                 .ForMember(dst => dst.IsPinned, o => o.MapFrom(s => s.IsPinned))
@@ -64,13 +69,6 @@ namespace Uintra.Features.Search.AutoMapperProfile
                 .ForMember(dst => dst.Email, o => o.MapFrom(s => s.Email))
                 .ForMember(dst => dst.Photo, o => o.MapFrom(s => s.Photo));
 
-            CreateMap<SearchableActivity, UintraSearchResultViewModel>()
-                .IncludeBase<SearchableActivity, SearchResultViewModel>()
-                .ForMember(dst => dst.TagsHighlighted, src => src.MapFrom(s => false))
-                .ForMember(dst => dst.IsPinned, o => o.Ignore())
-                .ForMember(dst => dst.Email, o => o.Ignore())
-                .ForMember(dst => dst.Photo, o => o.Ignore())
-                .ForMember(dst => dst.UserTagNames, src => src.Ignore());
 
             CreateMap<SearchableDocument, UintraSearchResultViewModel>()
                 .IncludeBase<SearchableDocument, SearchResultViewModel>()
@@ -107,7 +105,7 @@ namespace Uintra.Features.Search.AutoMapperProfile
                 .ForMember(dst => dst.IsPinned, o => o.Ignore())
                 .ForMember(dst => dst.IsPinActual, o => o.Ignore());
 
-            CreateMap<IntranetActivity, SearchableUintraActivity>()
+            CreateMap<IntranetActivity, SearchableActivity>()
                 .ForMember(dst => dst.Description, src => src.MapFrom(el => el.Description))
                 .ForMember(dst => dst.Url, src => src.Ignore())
                 .ForMember(dst => dst.StartDate, src => src.Ignore())
@@ -126,51 +124,29 @@ namespace Uintra.Features.Search.AutoMapperProfile
                 .ForMember(dst => dst.EndDate, o => o.Ignore())
                 .ForMember(dst => dst.Url, o => o.Ignore())
                 .ForMember(dst => dst.Type, o => o.Ignore())
-                .AfterMap((src, dst) => { dst.Title = src.Description?.StripHtml().TrimByWordEnd(50); });
-
-            CreateMap<Social.Entities.Social, SearchableUintraActivity>()
-                .IncludeBase<Social.Entities.Social, SearchableActivity>()
-                .ForMember(dst => dst.StartDate, o => o.Ignore())
-                .ForMember(dst => dst.EndDate, o => o.Ignore())
-                .ForMember(dst => dst.Url, o => o.Ignore())
-                .ForMember(dst => dst.Type, o => o.Ignore())
                 .ForMember(dst => dst.UserTagNames, src => src.Ignore())
-                .ForMember(dst => dst.TagsHighlighted, src => src.Ignore());
-
+                .ForMember(dst => dst.TagsHighlighted, src => src.Ignore())
+                .AfterMap((src, dst) => { dst.Title = src.Description?.StripHtml().TrimByWordEnd(50); });
+            
             CreateMap<News.Entities.News, SearchableActivity>()
                 .IncludeBase<IntranetActivity, SearchableActivity>()
                 .ForMember(dst => dst.PublishedDate, o => o.MapFrom(s => s.PublishDate))
                 .ForMember(dst => dst.StartDate, o => o.Ignore())
                 .ForMember(dst => dst.EndDate, o => o.Ignore())
                 .ForMember(dst => dst.Url, o => o.Ignore())
-                .ForMember(dst => dst.Type, o => o.Ignore());
-
-            CreateMap<News.Entities.News, SearchableUintraActivity>()
-                .IncludeBase<News.Entities.News, SearchableActivity>()
-                .ForMember(dst => dst.StartDate, o => o.Ignore())
-                .ForMember(dst => dst.EndDate, o => o.Ignore())
-                .ForMember(dst => dst.Url, o => o.Ignore())
                 .ForMember(dst => dst.Type, o => o.Ignore())
                 .ForMember(dst => dst.UserTagNames, src => src.Ignore())
                 .ForMember(dst => dst.TagsHighlighted, src => src.Ignore());
-
+            
             CreateMap<Event, SearchableActivity>()
                 .IncludeBase<IntranetActivity, SearchableActivity>()
                 .ForMember(dst => dst.EndDate, o => o.MapFrom(s => s.EndDate))
                 .ForMember(dst => dst.StartDate, o => o.MapFrom(s => s.StartDate))
                 .ForMember(dst => dst.Url, o => o.Ignore())
                 .ForMember(dst => dst.PublishedDate, o => o.Ignore())
-                .ForMember(dst => dst.Type, o => o.Ignore());
-
-            CreateMap<Event, SearchableUintraActivity>()
-                .IncludeBase<Event, SearchableActivity>()
-                .ForMember(dst => dst.Url, o => o.Ignore())
-                .ForMember(dst => dst.PublishedDate, o => o.Ignore())
-                .ForMember(dst => dst.Type, o => o.Ignore())
                 .ForMember(dst => dst.UserTagNames, src => src.Ignore())
-                .ForMember(dst => dst.TagsHighlighted, src => src.Ignore());
-
-
+                .ForMember(dst => dst.TagsHighlighted, src => src.Ignore())
+                .ForMember(dst => dst.Type, o => o.Ignore());
         }
     }
 }

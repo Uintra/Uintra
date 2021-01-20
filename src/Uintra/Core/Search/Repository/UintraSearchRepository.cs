@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using Compent.Extensions;
 using Compent.Shared.Logging.Contract;
 using Compent.Shared.Search.Contract;
 using Compent.Shared.Search.Contract.Helpers;
 using Compent.Shared.Search.Elasticsearch;
 using Compent.Shared.Search.Elasticsearch.SearchHighlighting;
+using Elasticsearch.Net;
 using Nest;
 using Newtonsoft.Json.Linq;
 using Uintra.Core.Search.Entities;
@@ -20,6 +22,12 @@ namespace Uintra.Core.Search.Repository
 {
     public class UintraSearchRepository<T> : SearchRepository<T>, IUintraSearchRepository<T> where T : class, ISearchDocument
     {
+
+        private readonly IIndexContext<T> indexContext;
+        private readonly IElasticClientWrapper client;
+
+        protected override string PipelineId => nameof(T);
+
         public UintraSearchRepository(
             IElasticClientWrapper client,
             IIndexContext<T> indexContext,
@@ -28,17 +36,44 @@ namespace Uintra.Core.Search.Repository
             ISearchHighlightingHelper searchHighlightingHelper)
             : base(client, indexContext, searchSpecificationFactory, log, searchHighlightingHelper)
         {
+            this.client = client;
+            this.indexContext = indexContext;
         }
 
         public Task<bool> DeleteByType(UintraSearchableTypeEnum type)
         {
-            var query = new DeleteByTypeQuery
+            var query = new DeleteSearchableActivityByTypeQuery
             {
                 Type = type
             } as ISearchQuery<T>;
             // TODO: Check this in runtime. Technically it has to be the same type
 
             return DeleteByQuery(query, string.Empty);
+        }
+
+        public override async Task<int> IndexAsync(IEnumerable<T> items)
+        {
+            var itemsList = items.AsList();
+
+            if (itemsList.IsEmpty()) return default(int);
+
+            var descriptor = new BulkDescriptor();
+
+            foreach (var entity in itemsList)
+            {
+                descriptor.Index<T>(x => x
+                    .Id(entity.Id)
+                    .Index(indexContext.IndexName.Name)
+                    .Document(entity)
+                );
+            }
+
+            descriptor.Refresh(Refresh.WaitFor);//.Pipeline(PipelineId);
+
+
+            var response = await client.BulkAsync(descriptor).ConfigureAwait(false);
+
+            return response.IsValid && response.Items.HasValue() ? response.Items.Count : default(int);
         }
     }
 

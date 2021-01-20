@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Compent.Shared.Search.Contract;
 using Uintra.Core.Search.Entities;
 using Uintra.Core.Search.Helpers;
+using Uintra.Core.Search.Repository;
 using Uintra.Features.Tagging.UserTags.Models;
 using Uintra.Features.Tagging.UserTags.Services;
 using Uintra.Infrastructure.Extensions;
@@ -18,13 +19,13 @@ namespace Uintra.Core.Search.Indexers
         private readonly IUserTagProvider _userTagProvider;
         private readonly ISearchUmbracoHelper _searchUmbracoHelper;
         private readonly IIndexContext<SearchableTag> _indexContext;
-        private readonly ISearchRepository<SearchableTag> _searchRepository;
+        private readonly IUintraSearchRepository<SearchableTag> _searchRepository;
 
         public UserTagIndexer(
             IUserTagProvider userTagProvider, 
             ISearchUmbracoHelper searchUmbracoHelper,
-            IIndexContext<SearchableTag> indexContext, 
-            ISearchRepository<SearchableTag> searchRepository)
+            IIndexContext<SearchableTag> indexContext,
+            IUintraSearchRepository<SearchableTag> searchRepository)
         {
             _userTagProvider = userTagProvider;
             _searchUmbracoHelper = searchUmbracoHelper;
@@ -38,8 +39,17 @@ namespace Uintra.Core.Search.Indexers
             {
                 var tags = _userTagProvider.GetAll();
                 var searchableTags = tags.Select(Map).ToList();
-                await _indexContext.RecreateIndex();
-                await _searchRepository.IndexAsync(searchableTags);
+                try
+                {
+
+                    var rc = await _indexContext.RecreateIndex().ConfigureAwait(false);
+                    var ia = await _searchRepository.IndexAsync(searchableTags).ConfigureAwait(false);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    throw;
+                }
 
                 return true;
 

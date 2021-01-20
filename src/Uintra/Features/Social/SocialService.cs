@@ -131,7 +131,7 @@ namespace Uintra.Features.Social
             return Task.FromResult(true);
         }
 
-        Type ISearchDocumentIndexer.Type => typeof(SearchableUintraActivity);
+        Type ISearchDocumentIndexer.Type => typeof(SearchableActivity);
 
         public override Enum Type => IntranetActivityTypeEnum.Social;
 
@@ -288,9 +288,9 @@ namespace Uintra.Features.Social
         private static bool IsActualPublishDate(Entities.Social social) =>
             DateTime.Compare(social.PublishDate, DateTime.UtcNow) <= 0;
 
-        private SearchableUintraActivity Map(Entities.Social social)
+        private SearchableActivity Map(Entities.Social social)
         {
-            var searchableActivity = social.Map<SearchableUintraActivity>();
+            var searchableActivity = social.Map<SearchableActivity>();
             searchableActivity.Url = _activityLinkService.GetLinks(social.Id).Details;
             searchableActivity.UserTagNames = _userTagService.Get(social.Id).Select(t => t.Text);
             return searchableActivity;

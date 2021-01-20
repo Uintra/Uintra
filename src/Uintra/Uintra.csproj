@@ -102,7 +102,7 @@
       <HintPath>..\..\packages\Compent.Shared.Repository.EntityFramework.0.7.1\lib\net472\Compent.Shared.Repository.EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="Compent.Shared.Search.Contract, Version=0.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Compent.Shared.Search.Contract.0.2.0\lib\net472\Compent.Shared.Search.Contract.dll</HintPath>
+      <HintPath>..\..\packages\Compent.Shared.Search.Contract.0.2.0-UintraSearchUpdate\lib\net472\Compent.Shared.Search.Contract.dll</HintPath>
     </Reference>
     <Reference Include="Compent.Shared.Search.Elasticsearch, Version=0.3.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Compent.Shared.Search.Elasticsearch.0.3.0-UintraSearchUpdate\lib\net472\Compent.Shared.Search.Elasticsearch.dll</HintPath>
@@ -970,13 +970,19 @@
     <Compile Include="Core\Member\Controllers\MemberGroupController.cs" />
     <Compile Include="Core\Search\Extensions\SearchExtensions.cs" />
     <Compile Include="Core\Search\Helpers\UintraSearchHighlightingHelper.cs" />
+    <Compile Include="Core\Search\IndexContext\UintraIndexContext.cs" />
     <Compile Include="Core\Search\Indexers\IUserTagIndexer.cs" />
     <Compile Include="Core\Search\Indexers\MemberIndexer.cs" />
     <Compile Include="Core\Search\Indexers\UserTagIndexer.cs" />
     <Compile Include="Core\Search\InjectModules\ElasticSearchInjectModule.cs" />
-    <Compile Include="Core\Search\Queries\DeleteByType\DeleteByTypeQuery.cs" />
-    <Compile Include="Core\Search\Queries\DeleteByType\DeleteByTypeSpecification.cs" />
-    <Compile Include="Core\Search\Queries\DeleteByType\DeleteByTypeSpecificationFactory.cs" />
+    <Compile Include="Core\Search\Providers\ITokenizerProvider.cs" />
+    <Compile Include="Core\Search\Providers\UintraAnalyzerProvider.cs" />
+    <Compile Include="Core\Search\Providers\UintraCharFiltersProvider.cs" />
+    <Compile Include="Core\Search\Providers\UintraFiltersProvider.cs" />
+    <Compile Include="Core\Search\Providers\UintraTokenizerProvider.cs" />
+    <Compile Include="Core\Search\Queries\DeleteByType\DeleteSearchableActivityByTypeQuery.cs" />
+    <Compile Include="Core\Search\Queries\DeleteByType\DeleteSearchableActivityByTypeSpecification.cs" />
+    <Compile Include="Core\Search\Queries\DeleteByType\DeleteSearchableActivityByTypeSpecificationFactory.cs" />
     <Compile Include="Core\Search\Queries\SearchByMember\SearchByMemberQuery.cs" />
     <Compile Include="Core\Search\Queries\SearchByMember\SearchByMemberSpecification.cs" />
     <Compile Include="Core\Search\Queries\SearchByMember\SearchByMemberSpecificationFactory.cs" />
@@ -1071,9 +1077,7 @@
     <Compile Include="Core\Search\Entities\Mappings\SearchableContentMap.cs" />
     <Compile Include="Core\Search\Entities\Mappings\SearchableDocumentMap.cs" />
     <Compile Include="Core\Search\Entities\Mappings\SearchableTagMap.cs" />
-    <Compile Include="Core\Search\Entities\Mappings\SearchableUintraActivityMap.cs" />
     <Compile Include="Core\Search\Entities\Mappings\SearchableUserMap.cs" />
-    <Compile Include="Core\Search\Entities\SearchableActivity.cs" />
     <Compile Include="Core\Search\Entities\SearchableBase.cs" />
     <Compile Include="Core\Search\Entities\SearchableContent.cs" />
     <Compile Include="Core\Search\Entities\SearchableDocument.cs" />
@@ -1081,7 +1085,7 @@
     <Compile Include="Core\Search\Entities\SearchablePanel.cs" />
     <Compile Include="Core\Search\Entities\SearchableTag.cs" />
     <Compile Include="Core\Search\Entities\SearchableTypeEnum.cs" />
-    <Compile Include="Core\Search\Entities\SearchableUintraActivity.cs" />
+    <Compile Include="Core\Search\Entities\SearchableActivity.cs" />
     <Compile Include="Core\Search\Entities\SearchableUserGroupInfo.cs" />
     <Compile Include="Core\Search\Entities\SearchResult.cs" />
     <Compile Include="Core\Search\Entities\UintraSearchableTypeEnum.cs" />
@@ -1325,7 +1329,6 @@
     <Compile Include="Features\Search\Models\SearchPageViewModel.cs" />
     <Compile Include="Features\Search\Models\UintraSearchResultViewModel.cs" />
     <Compile Include="Features\Search\Page\SearchPageConverter.cs" />
-    <Compile Include="Features\Search\AutoMapperProfile\SearchableActivityAutoMapperProfile.cs" />
     <Compile Include="Features\Search\AutoMapperProfile\SearchAutoMapperProfile.cs" />
     <Compile Include="Features\Search\AutoMapperProfile\SearchResultAutoMapperProfile.cs" />
     <Compile Include="Features\Search\SearchConstants.cs" />

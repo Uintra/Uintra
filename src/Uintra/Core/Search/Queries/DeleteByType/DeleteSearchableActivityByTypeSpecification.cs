@@ -5,11 +5,11 @@ using Uintra.Infrastructure.Extensions;
 
 namespace Uintra.Core.Search.Queries.DeleteByType
 {
-    public class DeleteByTypeSpecification : DeleteQuerySpecification<SearchableBase>
+    public class DeleteSearchableActivityByTypeSpecification : DeleteQuerySpecification<SearchableActivity>
     {
-        public DeleteByTypeSpecification(DeleteByTypeQuery query)
+        public DeleteSearchableActivityByTypeSpecification(DeleteSearchableActivityByTypeQuery query)
         {
-            Descriptor = new DeleteByQueryDescriptor<SearchableBase>()
+            Descriptor = new DeleteByQueryDescriptor<SearchableActivity>()
                 //.AllIndices()
                 .Query(q =>
                     q.Term(t =>

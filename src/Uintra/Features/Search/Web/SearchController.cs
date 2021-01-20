@@ -181,22 +181,36 @@ namespace Uintra.Features.Search.Web
         {
             // TODO: Search. Add wrapper with detailed result?
             // TODO: Search. Adjust FE
-            var indexRebuildResults = indexers.Select(i =>
-                (IndexType: i.Type, Task: i.RebuildIndex()))
-                .AsList();
+            //var indexRebuildResults = indexers.Select(i =>
+            //    (IndexType: i.Type, Task: i.RebuildIndex()))
+            //    .AsList();
 
-            await Task.WhenAll(indexRebuildResults.Select(i => i.Task));
-            var res = indexRebuildResults.Select(i => new IndexedModelResult()
+            //await Task.WhenAll(indexRebuildResults.Select(i => i.Task));
+            //var res = indexRebuildResults.Select(i => new IndexedModelResult()
+            //{
+            //    IndexedName = i.IndexType.ToString(),
+            //    Success = i.Task.Result
+            //});
+
+            var results = new List<IndexedModelResult>();
+
+            foreach (var indexer in indexers)
             {
-                IndexedName = i.IndexType.ToString(),
-                Success = i.Task.Result
-            });
+                var result = await indexer.RebuildIndex();
+                results.Add(new IndexedModelResult()
+                {
+                    IndexedName =  indexer.Type.ToString(),
+                    Success = result
+                });
+
+
+            }
 
             var status = new RebuildIndexStatusModel
             {
-                Success = indexRebuildResults.All(i => i.Task.Result),
+                Success = results.All(i => i.Success),
                 //Message = error,
-                Index = res
+                Index = results
             };
 
             return status;

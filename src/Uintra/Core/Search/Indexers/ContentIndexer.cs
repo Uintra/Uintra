@@ -8,6 +8,7 @@ using UBaseline.Search.Core;
 using Uintra.Core.Search.Entities;
 using Uintra.Core.Search.Helpers;
 using Uintra.Core.Search.Indexers.Diagnostics;
+using Uintra.Core.Search.Repository;
 using Uintra.Infrastructure.Providers;
 using Umbraco.Core.Models;
 using Umbraco.Core.Models.PublishedContent;
@@ -23,14 +24,14 @@ namespace Uintra.Core.Search.Indexers
         private readonly IDocumentTypeAliasProvider _documentTypeAliasProvider;
         private readonly ISearchUmbracoHelper _searchUmbracoHelper;
         private readonly IIndexContext<SearchableContent> _indexContext;
-        private readonly ISearchRepository<SearchableContent> _searchRepository;
+        private readonly IUintraSearchRepository<SearchableContent> _searchRepository;
         private readonly IContentService _contentService;
 
         public ContentIndexer(
             IDocumentTypeAliasProvider documentTypeAliasProvider,
             ISearchUmbracoHelper searchUmbracoHelper, 
-            IIndexContext<SearchableContent> indexContext, 
-            ISearchRepository<SearchableContent> searchRepository, 
+            IIndexContext<SearchableContent> indexContext,
+            IUintraSearchRepository<SearchableContent> searchRepository, 
             IContentService contentService)
         {
             _documentTypeAliasProvider = documentTypeAliasProvider;
