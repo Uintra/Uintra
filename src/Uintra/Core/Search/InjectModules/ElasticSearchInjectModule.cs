@@ -42,19 +42,15 @@ namespace Uintra.Core.Search
             //services.AddScopedToCollection<ISearchDocumentIndexer, UserTagIndexer>();
 
             services.AddScoped<NewsService>();
-            services.AddScoped<ContentIndexer>();
             services.AddScoped<EventsService>();
             services.AddScoped<SocialService<Features.Social.Entities.Social>>();
-            services.AddScoped<DocumentIndexer>();
             services.AddScoped<MemberIndexer>();
-            services.AddScoped<UserTagIndexer>();
-
 
             services.AddScoped<ISearchSpecificationFactory<SearchDocument, Queries.SearchByTextQuery>, SearchByTextSpecificationFactory>();
             services.AddScoped<ISearchSpecificationFactory<SearchableMember, SearchByMemberQuery>, SearchByMemberSpecificationFactory>();
             //services.AddScoped<IDeleteSpecificationFactory<SearchableActivity, DeleteSearchableActivityByTypeQuery>, DeleteSearchableActivityByTypeSpecificationFactory>();
 
-            services.AddScopedToCollection<IDocumentIndexer, DocumentIndexer>();
+            services.AddScoped<IDocumentIndexer, DocumentIndexer>();
             services.AddScoped<IContentIndexer, ContentIndexer>();
             services.AddScoped<IUserTagIndexer, UserTagIndexer>();
             services.AddScoped<IActivityUserTagSearchRepository, ActivityUserTagSearchRepository>();
