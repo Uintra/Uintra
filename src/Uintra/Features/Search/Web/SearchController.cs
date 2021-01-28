@@ -40,12 +40,14 @@ namespace Uintra.Features.Search.Web
             IIntranetLocalizationService localizationService,
             ISearchUmbracoHelper searchUmbracoHelper,
             ISearchableTypeProvider searchableTypeProvider,
-            IEnumerable<ISearchDocumentIndexer> indexers)
+            IEnumerable<ISearchDocumentIndexer> indexers,
+            IUintraSearchRepository searchRepository)
         {
             _localizationService = localizationService;
             _searchUmbracoHelper = searchUmbracoHelper;
             _searchableTypeProvider = searchableTypeProvider;
             this.indexers = indexers;
+            _searchRepository = searchRepository;
         }
 
         [HttpPost]

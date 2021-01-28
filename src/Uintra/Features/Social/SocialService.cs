@@ -39,6 +39,7 @@ using Uintra.Infrastructure.Extensions;
 using Uintra.Infrastructure.TypeProviders;
 using static Uintra.Features.Notification.Configuration.NotificationTypeEnum;
 using ObjectExtensions = Compent.Extensions.ObjectExtensions;
+using Uintra.Core.Search.Queries.DeleteByType;
 
 namespace Uintra.Features.Social
 {
@@ -113,7 +114,11 @@ namespace Uintra.Features.Social
                 var activities = GetAll().Where(IsCacheable);
                 var searchableActivities = activities.Select(Map).ToList();
                 await _indexContext.EnsureIndex();
-                await _uintraSearchRepository.DeleteByType(UintraSearchableTypeEnum.Socials);
+                var query = new DeleteSearchableActivityByTypeQuery
+                {
+                    Type = UintraSearchableTypeEnum.Socials
+                };
+                await _uintraSearchRepository.DeleteByQuery(query, string.Empty);
                 await _uintraSearchRepository.IndexAsync(searchableActivities);
 
                 return true;

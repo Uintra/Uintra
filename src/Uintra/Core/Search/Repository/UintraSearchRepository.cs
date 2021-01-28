@@ -38,16 +38,16 @@ namespace Uintra.Core.Search.Repository
             this.indexContext = indexContext;
         }
 
-        public Task<bool> DeleteByType(UintraSearchableTypeEnum type)
-        {
-            var query = new DeleteSearchableActivityByTypeQuery
-            {
-                Type = type
-            } as ISearchQuery<T>;
-            // TODO: Check this in runtime. Technically it has to be the same type
-
-            return DeleteByQuery(query, string.Empty);
-        }
+        //public Task<bool> DeleteByType(UintraSearchableTypeEnum type)
+        //{
+        //    var query = new DeleteSearchableActivityByTypeQuery
+        //    {
+        //        Type = type
+        //    } as ISearchQuery<T>;
+        //    // TODO: Check this in runtime. Technically it has to be the same type
+        //
+        //    return DeleteByQuery(query, string.Empty);
+        //}
 
         public override async Task<string> IndexAsync(T item)
         {

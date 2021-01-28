@@ -43,6 +43,7 @@ using Uintra.Infrastructure.Extensions;
 using Uintra.Infrastructure.TypeProviders;
 using static Uintra.Features.Notification.Configuration.NotificationTypeEnum;
 using ObjectExtensions = Compent.Extensions.ObjectExtensions;
+using Uintra.Core.Search.Queries.DeleteByType;
 
 namespace Uintra.Features.Events
 {
@@ -361,7 +362,11 @@ namespace Uintra.Features.Events
                 var activities = GetAll().Where(a => a.IsCacheable());
                 var searchableActivities = activities.Select(Map);
                 await _indexContext.EnsureIndex();
-                await _searchRepository.DeleteByType(UintraSearchableTypeEnum.Events);
+                var query = new DeleteSearchableActivityByTypeQuery
+                {
+                    Type = UintraSearchableTypeEnum.Events
+                };
+                await _searchRepository.DeleteByQuery(query, string.Empty);
                 await _searchRepository.IndexAsync(searchableActivities);
 
                 return true;

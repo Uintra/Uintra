@@ -159,8 +159,11 @@ namespace Uintra.Features.News
 
                 var ensure = await _indexContext.EnsureIndex();
 
-                var deleteFactory = dependencyProvider.GetService<IDeleteSpecificationFactory<SearchableActivity, DeleteSearchableActivityByTypeQuery>>();
-                var delete = await _uintraSearchRepository.DeleteByType(UintraSearchableTypeEnum.News);
+                var query = new DeleteSearchableActivityByTypeQuery
+                {
+                    Type = UintraSearchableTypeEnum.News
+                };
+                await _uintraSearchRepository.DeleteByQuery(query, string.Empty);
                 await _uintraSearchRepository.IndexAsync(searchableActivities);
 
                 return true;

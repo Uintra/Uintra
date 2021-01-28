@@ -6,7 +6,7 @@ namespace Uintra.Core.Search.Repository
 {
     public interface IUintraSearchRepository<T> : ISearchRepository<T> where T : ISearchDocument
     {
-        Task<bool> DeleteByType(UintraSearchableTypeEnum type);
+        //Task<bool> DeleteByType(UintraSearchableTypeEnum type);
     }
     public interface IUintraSearchRepository : ISearchRepository
     {

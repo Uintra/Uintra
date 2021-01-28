@@ -49,7 +49,7 @@ namespace Uintra.Core.Search
 
             services.AddScoped<ISearchSpecificationFactory<SearchDocument, Queries.SearchByTextQuery>, SearchByTextSpecificationFactory>();
             services.AddScoped<ISearchSpecificationFactory<SearchableMember, SearchByMemberQuery>, SearchByMemberSpecificationFactory>();
-            //services.AddScoped<IDeleteSpecificationFactory<SearchableActivity, DeleteSearchableActivityByTypeQuery>, DeleteSearchableActivityByTypeSpecificationFactory>();
+            services.AddScoped<IDeleteSpecificationFactory<SearchableActivity, DeleteSearchableActivityByTypeQuery>, DeleteSearchableActivityByTypeSpecificationFactory>();
 
             services.AddScoped<IDocumentIndexer, DocumentIndexer>();
             services.AddScoped<IContentIndexer, ContentIndexer>();
