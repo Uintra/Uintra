@@ -21,6 +21,7 @@ using Uintra.Features.Search.Configuration;
 using Uintra.Features.Search.Member;
 using Uintra.Features.Search.Web;
 using Uintra.Features.Social;
+using Uintra.Features.Social.Entities;
 using ISearchableTypeProvider = Uintra.Core.Search.Providers.ISearchableTypeProvider;
 
 namespace Uintra.Core.Search
@@ -41,10 +42,10 @@ namespace Uintra.Core.Search
             //services.AddScopedToCollection<ISearchDocumentIndexer, MemberIndexer>();
             //services.AddScopedToCollection<ISearchDocumentIndexer, UserTagIndexer>();
 
-            services.AddScoped<NewsService>();
-            services.AddScoped<EventsService>();
-            services.AddScoped<SocialService<Features.Social.Entities.Social>>();
-            services.AddScoped<MemberIndexer>();
+            services.AddScoped<ISearchDocumentIndexer, NewsService>();
+            services.AddScoped<ISearchDocumentIndexer, EventsService>();
+            services.AddScoped<ISearchDocumentIndexer, SocialService<Social>>();
+            services.AddScoped<ISearchDocumentIndexer, MemberIndexer>();
 
             services.AddScoped<ISearchSpecificationFactory<SearchDocument, Queries.SearchByTextQuery>, SearchByTextSpecificationFactory>();
             services.AddScoped<ISearchSpecificationFactory<SearchableMember, SearchByMemberQuery>, SearchByMemberSpecificationFactory>();

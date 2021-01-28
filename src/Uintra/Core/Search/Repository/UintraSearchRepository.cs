@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using Compent.Extensions;
 using Compent.Shared.Logging.Contract;
 using Compent.Shared.Search.Contract;
@@ -14,7 +13,6 @@ using Nest;
 using Newtonsoft.Json.Linq;
 using Uintra.Core.Search.Entities;
 using Uintra.Core.Search.Extensions;
-using Uintra.Core.Search.Queries;
 using Uintra.Core.Search.Queries.DeleteByType;
 using Uintra.Features.Search;
 
@@ -49,6 +47,17 @@ namespace Uintra.Core.Search.Repository
             // TODO: Check this in runtime. Technically it has to be the same type
 
             return DeleteByQuery(query, string.Empty);
+        }
+
+        public override async Task<string> IndexAsync(T item)
+        {
+            if (item == null) return default;
+            
+            var response = await client
+                .IndexAsync<T>(item, x => x.Index(indexContext.IndexName.Name).Refresh(Refresh.False))
+                .ConfigureAwait(false);
+            
+            return !response.IsFail() && !response.Id.IsEmpty() ? response.Id : default;
         }
 
         public override async Task<int> IndexAsync(IEnumerable<T> items)
