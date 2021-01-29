@@ -42,10 +42,10 @@ namespace Uintra.Core.Search
             //services.AddScopedToCollection<ISearchDocumentIndexer, MemberIndexer>();
             //services.AddScopedToCollection<ISearchDocumentIndexer, UserTagIndexer>();
 
-            services.AddScoped<ISearchDocumentIndexer, NewsService>();
-            services.AddScoped<ISearchDocumentIndexer, EventsService>();
-            services.AddScoped<ISearchDocumentIndexer, SocialService<Social>>();
-            services.AddScoped<ISearchDocumentIndexer, MemberIndexer>();
+            services.AddScopedToCollection<ISearchDocumentIndexer, NewsService>();
+            services.AddScopedToCollection<ISearchDocumentIndexer, EventsService>();
+            services.AddScopedToCollection<ISearchDocumentIndexer, SocialService<Social>>();
+            services.AddScopedToCollection<ISearchDocumentIndexer, MemberIndexer>();
 
             services.AddScoped<ISearchSpecificationFactory<SearchDocument, Queries.SearchByTextQuery>, SearchByTextSpecificationFactory>();
             services.AddScoped<ISearchSpecificationFactory<SearchableMember, SearchByMemberQuery>, SearchByMemberSpecificationFactory>();
