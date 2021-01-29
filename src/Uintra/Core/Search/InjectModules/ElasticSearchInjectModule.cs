@@ -4,6 +4,7 @@ using Compent.Shared.Search.Elasticsearch;
 using Compent.Shared.Search.Elasticsearch.Providers;
 using Compent.Shared.Search.Elasticsearch.SearchHighlighting;
 using UBaseline.Search.Core;
+using UBaseline.Shared.PanelContainer;
 using Uintra.Core.Search.Entities;
 using Uintra.Core.Search.Entities.Mappers;
 using Uintra.Core.Search.Helpers;
@@ -34,6 +35,22 @@ namespace Uintra.Core.Search
             services.AddSingleton<IUintraSearchRepository, UintraSearchRepository>();
             services.AddSingleton<ISearchHighlightingHelper, UintraSearchHighlightingHelper>();
 
+            services.AddScopedToCollection<Converters.SearchDocumentPanelConverter.ISearchDocumentPanelConverter, Uintra.Features.Search.Converters.Panel.TextPanelSearchConverter>();
+            services.AddScopedToCollection<Converters.SearchDocumentPanelConverter.ISearchDocumentPanelConverter, Uintra.Features.Search.Converters.Panel.FAQPanelSearchConverter>();
+            services.AddScopedToCollection<Converters.SearchDocumentPanelConverter.ISearchDocumentPanelConverter, Uintra.Features.Search.Converters.Panel.ContactPanelSearchConverter>();
+            services.AddScopedToCollection<Converters.SearchDocumentPanelConverter.ISearchDocumentPanelConverter, Uintra.Features.Search.Converters.Panel.ImagePanelSearchConverter>();
+            services.AddScopedToCollection<Converters.SearchDocumentPanelConverter.ISearchDocumentPanelConverter, Uintra.Features.Search.Converters.Panel.DocumentLibraryPanelSearchConverter>();
+            services.AddScopedToCollection<Converters.SearchDocumentPanelConverter.ISearchDocumentPanelConverter, Uintra.Features.Search.Converters.Panel.ArticleContinuedPanelSearchConverter>();
+            services.AddScopedToCollection<Converters.SearchDocumentPanelConverter.ISearchDocumentPanelConverter, Uintra.Features.Search.Converters.Panel.ArticleStartPanelSearchConverter>();
+            services.AddScopedToCollection<Converters.SearchDocumentPanelConverter.ISearchDocumentPanelConverter, Uintra.Features.Search.Converters.Panel.HeroPanelSearchConverter>();
+            services.AddScopedToCollection<Converters.SearchDocumentPanelConverter.ISearchDocumentPanelConverter, Uintra.Features.Search.Converters.Panel.MailchimpPanelSearchConverter>();
+            services.AddScopedToCollection<Converters.SearchDocumentPanelConverter.ISearchDocumentPanelConverter, Uintra.Features.Search.Converters.Panel.NewsPanelSearchConverter>();
+            services.AddScopedToCollection<Converters.SearchDocumentPanelConverter.ISearchDocumentPanelConverter, Uintra.Features.Search.Converters.Panel.QuotePanelSearchConverter>();
+            services.AddScopedToCollection<Converters.SearchDocumentPanelConverter.ISearchDocumentPanelConverter, Uintra.Features.Search.Converters.Panel.SvgPanelSearchConverter>();
+            services.AddScopedToCollection<Converters.SearchDocumentPanelConverter.ISearchDocumentPanelConverter, Uintra.Features.Search.Converters.Panel.UserTagsPanelSearchConverter>();
+            services.AddScopedToCollection<Converters.SearchDocumentPanelConverter.ISearchDocumentPanelConverter, Uintra.Features.Search.Converters.Panel.VideoPanelSearchConverter>();
+
+            
             //services.AddScopedToCollection<ISearchDocumentIndexer, NewsService>();
             //services.AddScopedToCollection<ISearchDocumentIndexer, ContentIndexer>();
             //services.AddScopedToCollection<ISearchDocumentIndexer, EventsService>();

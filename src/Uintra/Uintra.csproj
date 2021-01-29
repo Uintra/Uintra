@@ -1042,6 +1042,9 @@
     <Compile Include="Features\OpenGraph\Services\Contracts\IOpenGraphService.cs" />
     <Compile Include="Features\OpenGraph\Services\Implementations\OpenGraphService.cs" />
     <Compile Include="Features\Permissions\Models\MemberGroupDeleteModel.cs" />
+    <Compile Include="Features\Search\Converters\Panel\ContactPanelSearchConverter.cs" />
+    <Compile Include="Features\Search\Converters\Panel\ImagePanelSearchConverter.cs" />
+    <Compile Include="Features\Search\Converters\Panel\TextPanelSearchConverter.cs" />
     <Compile Include="Features\Search\Converters\Panel\UserTagsPanelSearchConverter.cs" />
     <Compile Include="Features\Tagging\UserTags\Converters\TagsPropertyEditorConverter.cs" />
     <Compile Include="Features\Tagging\UserTags\Converters\UserTagsPanelViewModelConverter.cs" />
