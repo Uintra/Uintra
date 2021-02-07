@@ -2,6 +2,9 @@
 using System.Linq;
 using Compent.Shared.DependencyInjection.Contract;
 using Compent.Shared.Extensions.Bcl;
+using Compent.Shared.Search.Contract;
+using Compent.Shared.Search.Elasticsearch;
+using Compent.Shared.Search.Elasticsearch.SearchHighlighting;
 using Nest;
 using Uintra.Core.Search.Entities;
 using Uintra.Core.Search.Helpers;
@@ -10,52 +13,81 @@ using Uintra.Features.Search.Member;
 
 namespace Uintra.Core.Search.Queries
 {
-    public class SearchByTextSpecification : UBaseline.Search.Elasticsearch.SearchByTextSpecification//: SearchQuerySpecification<SearchableBase>
+    public class SearchByTextSpecification : SearchQuerySpecification<SearchDocument>
     {
         protected const int MinimumShouldMatches = 1;
         private readonly IMemberSearchDescriptorBuilder _memberSearchDescriptorBuilder;
+        private readonly ISearchHighlightingHelper _searchHighlightingHelper;
+        private readonly IElasticsearchSettings _elasticsearchSettings;
 
-        public SearchByTextSpecification(UBaseline.Search.Core.SearchByTextQuery query, IDependencyProvider dependencyProvider, string culture) : base(query, dependencyProvider, culture)
+        public SearchByTextSpecification(SearchByTextQuery query, IDependencyProvider dependencyProvider, string culture): base(dependencyProvider, culture)
         {
-            // TODO: Search. Discuss this
             _memberSearchDescriptorBuilder = dependencyProvider.GetService<IMemberSearchDescriptorBuilder>();
-            ApplyAggregations(Descriptor, query as SearchByTextQuery);
+            _searchHighlightingHelper = dependencyProvider.GetService<ISearchHighlightingHelper>();
+            _elasticsearchSettings = dependencyProvider.GetService<IElasticsearchSettings>();
+            Descriptor = CreateDescriptor(query);
+            ApplyAggregations(Descriptor);
         }
 
-        protected override QueryContainer GetSearchByTextQuery(string text)
+        private SearchDescriptor<SearchDocument> GetSearchDescriptor()
         {
-            // TODO: Search. Check trackScores
-            var result  = Query<SearchableBase>.Bool(b => b
-                .Should(GetQueryContainers(text))
-                .MinimumShouldMatch(MinimumShouldMatch.Fixed(MinimumShouldMatches)));
-            
-            return result;
+            return new SearchDescriptor<SearchDocument>()
+                .TrackScores()
+                .AllIndices();
+        }
+        private SearchDescriptor<SearchDocument> CreateDescriptor<TSearchByTextQuery>(TSearchByTextQuery query) where TSearchByTextQuery : SearchByTextQuery
+        {
+            var descriptor = GetSearchDescriptor()
+                .Query(q => q
+                    .Bool(b => b
+                        .Should(GetQueryContainers(query.Text))
+                        //.Must(GetPostFilterQuery(query))
+                        .MinimumShouldMatch(MinimumShouldMatch.Fixed(MinimumShouldMatches))))
+                //.PostFilter(pf => pf.Bool(b => b.Must(GetSearchPostFilters(query))));
+                .PostFilter(p => GetPostFilterQuery(query))
+                .Sort(GetSortDescriptor)
+                .SetPaging(query.Skip, query.Take)
+                
+                ;
+            if (query.ApplyHighlights)
+            {
+                descriptor = ApplyHighlight(descriptor);
+            }
+
+            return descriptor;
         }
 
-        private void ApplyAggregations<T>(SearchDescriptor<T> searchDescriptor, SearchByTextQuery query)
-            where T : class
+        protected override SearchDescriptor<SearchDocument> ApplyHighlight(SearchDescriptor<SearchDocument> descriptor)
         {
-            searchDescriptor.Aggregations(agg => agg
-                .Global(SearchConstants.SearchFacetNames.Types, g => g
-                    .Aggregations(a => a
-                        .Filter(SearchConstants.SearchFacetNames.GlobalFilter, ss => ss
-                            .Filter(fi => fi
-                                .Bool(b => b
-                                    .Should(GetQueryContainers(query.Text))
-                                    .Must(GetSearchableTypeQueryContainers(query.SearchableTypeIds))
-                                    .Must(GetOnlyPinnedQueryContainer(query.OnlyPinned))
-                                ))
-                            .Aggregations(
-                                ia =>
-                                    ia.Terms(SearchConstants.SearchFacetNames.Types,
-                                        f => f.Field("type").Size(ElasticHelpers.MaxAggregationSize)))))));
+            return descriptor.Highlight(h => h
+                .PreTags(_searchHighlightingHelper.HighlightPreTag)
+                .PostTags(_searchHighlightingHelper.HighlightPostTag)
+                .Encoder(HighlighterEncoder.Default)
+                .FragmentSize(_elasticsearchSettings.HighlightedFragmentSize)
+                .Fields(f => f.Field("*"))
+            );
         }
 
-        protected override QueryContainer GetPostFilterQuery(UBaseline.Search.Core.SearchByTextQuery query)
-        {
-            var extendedQuery = query as SearchByTextQuery;
-            var result = Query<SearchableBase>.Bool(b => b.Must(GetSearchPostFilters(extendedQuery)));
+        //private QueryContainer GetSearchByTextQuery(string text)
+        //{
+        //    var result  = Query<SearchableBase>.Bool(b => b
+        //        .Should(GetQueryContainers(text))
+        //        .MinimumShouldMatch(MinimumShouldMatch.Fixed(MinimumShouldMatches)));
+        //    
+        //    return result;
+        //}
 
+        private void ApplyAggregations(SearchDescriptor<SearchDocument> searchDescriptor)
+        {
+            searchDescriptor.Aggregations(ia => ia
+                .Terms(SearchConstants.SearchFacetNames.Types, f => f
+                    .Field("type").Size(ElasticHelpers.MaxAggregationSize)));
+        }
+
+        private QueryContainer GetPostFilterQuery(SearchByTextQuery query)
+        {
+            var result = Query<SearchableBase>.Bool(b => b.Must(GetSearchPostFilters(query)));
+        
             return result;
         }
 
@@ -68,7 +100,7 @@ namespace Uintra.Core.Search.Queries
             containers.AddRange(GetDocumentsDescriptor(query).ToEnumerable());
             containers.Add(GetTagNames<SearchableActivity>(query));
             containers.Add(GetTagNames<SearchableMember>(query));
-            containers.Add(GetTagsDescriptor(query));
+            //containers.Add(GetTagsDescriptor(query));
             containers.AddRange(_memberSearchDescriptorBuilder.GetMemberDescriptors(query));
 
             return containers.ToArray();
@@ -88,7 +120,7 @@ namespace Uintra.Core.Search.Queries
             var desc = new List<QueryContainer>
             {
                 new QueryContainerDescriptor<SearchableContent>().Nested(nes => nes
-                    .Path(p => p.Panels)
+                    //.Path(p => p.Panels)
                     .Query(q => q
                         .Match(m => m
                             .Query(query)
@@ -96,7 +128,7 @@ namespace Uintra.Core.Search.Queries
 
                 new QueryContainerDescriptor<SearchableContent>()
                     .Nested(nes => nes
-                        .Path(p => p.Panels)
+                        //.Path(p => p.Panels)
                         .Query(q => q
                             .Match(m => m
                                 .Query(query)

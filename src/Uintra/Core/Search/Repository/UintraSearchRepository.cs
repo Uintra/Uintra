@@ -38,17 +38,6 @@ namespace Uintra.Core.Search.Repository
             this.indexContext = indexContext;
         }
 
-        //public Task<bool> DeleteByType(UintraSearchableTypeEnum type)
-        //{
-        //    var query = new DeleteSearchableActivityByTypeQuery
-        //    {
-        //        Type = type
-        //    } as ISearchQuery<T>;
-        //    // TODO: Check this in runtime. Technically it has to be the same type
-        //
-        //    return DeleteByQuery(query, string.Empty);
-        //}
-
         public override async Task<string> IndexAsync(T item)
         {
             if (item == null) return default;
@@ -88,6 +77,12 @@ namespace Uintra.Core.Search.Repository
 
     public class UintraSearchRepository : SearchRepository, IUintraSearchRepository
     {
+        private readonly SpecificationAbstractFactory<SearchDocument> searchSpecificationFactory;
+        private readonly IElasticClientWrapper client;
+        private readonly ILog<SearchRepository> log;
+        private readonly IndexHelper indexHelper;
+        private readonly ISearchHighlightingHelper searchHighlightingHelper;
+        private readonly ISearchDocumentTypeHelper searchDocumentTypeHelper;
         public UintraSearchRepository(
             SpecificationAbstractFactory<SearchDocument> searchSpecificationFactory,
             IElasticClientWrapper client,
@@ -97,15 +92,56 @@ namespace Uintra.Core.Search.Repository
             ISearchDocumentTypeHelper searchDocumentTypeHelper)
             : base(searchSpecificationFactory, client, log, indexHelper, searchHighlightingHelper, searchDocumentTypeHelper)
         {
+            this.searchSpecificationFactory = searchSpecificationFactory;
+            this.client = client;
+            this.log = log;
+            this.indexHelper = indexHelper;
+            this.searchHighlightingHelper = searchHighlightingHelper;
+            this.searchDocumentTypeHelper = searchDocumentTypeHelper;
         }
+
+        //public override async Task<ISearchResult<ISearchDocument>> SearchAsync<TQuery>(TQuery query, string culture)
+        //{
+        //    var specification = searchSpecificationFactory.CreateSearchSpecification(query, culture);
+        //    var searchDescriptor = specification.Descriptor.AllIndices();
+        //
+        //    //searchDescriptor.RequestConfiguration(r => r.DisableDirectStreaming());
+        //
+        //    var response = await client.SearchAsync<JObject>(searchDescriptor).ConfigureAwait(false);
+        //
+        //    var res = response.DebugInformation;
+        //
+        //    if (response.IsFail())
+        //    {
+        //        LogError(response);
+        //        return new Compent.Shared.Search.Contract.SearchResult<ISearchDocument>();
+        //    }
+        //
+        //    return MapToResult(response);
+        //}
+
+        //protected override Type GetSearchType(string indexName)
+        //{
+        //    var clearIndexName = indexHelper.TrimPrefix(indexName);
+        //    var type = searchDocumentTypeHelper.Get(clearIndexName);
+        //    return type;
+        //}
 
         protected override ISearchResult<ISearchDocument> MapToResult(ISearchResponse<JObject> response)
         {
-            var baseResult = base.MapToResult(response);
-            var result = new Entities.SearchResult<ISearchDocument>()
+            var highlightedResponse = searchHighlightingHelper.HighlightResponse(response);
+
+            var documents = highlightedResponse.Hits
+                .Select(hit =>
+                {
+                    var searchType = GetSearchType(hit.Index);
+                    return (SearchableBase)hit.Source.ToObject(searchType);
+                });
+
+            var result = new Entities.SearchResult<SearchableBase>()
             {
-                Documents = baseResult.Documents.OfType<SearchableBase>(), 
-                TotalCount = baseResult.TotalCount,
+                Documents = documents,
+                TotalCount = (int)response.Total,
                 TypeFacets = response.Aggregations.GetGlobalFacets(SearchConstants.SearchFacetNames.Types)
             };
 
@@ -116,7 +152,6 @@ namespace Uintra.Core.Search.Repository
         {
             // TODO: Search. Localization?
             var result = (await base.SearchAsync(query, String.Empty)) as Entities.SearchResult<SearchableBase>;
-
             return result;
         }
     }

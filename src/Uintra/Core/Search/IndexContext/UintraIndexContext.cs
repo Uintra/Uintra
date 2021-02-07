@@ -3,6 +3,7 @@ using Compent.Shared.Search.Contract;
 using Compent.Shared.Search.Elasticsearch;
 using Compent.Shared.Search.Elasticsearch.Providers;
 using Nest;
+using Uintra.Core.Search.Helpers;
 using Uintra.Core.Search.Providers;
 
 namespace Uintra.Core.Search
@@ -88,12 +89,14 @@ namespace Uintra.Core.Search
 
         private AnalysisDescriptor AggregateAnalysis(AnalysisDescriptor analysisDescriptor)
         {
+            //return ElasticHelpers.SetAnalysis(analysisDescriptor);
+
             analyzerProvider.Apply(analysisDescriptor);
             normalizerProvider.Apply(analysisDescriptor);
             filterProvider.Apply(analysisDescriptor);
             charFiltersProvider.Apply(analysisDescriptor);
             tokenizerProvider.Apply(analysisDescriptor);
-
+            
             return analysisDescriptor;
         }
     }

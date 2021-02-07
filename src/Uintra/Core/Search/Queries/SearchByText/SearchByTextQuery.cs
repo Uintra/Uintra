@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using Compent.Shared.Search.Contract;
+using System.Collections.Generic;
 using System.Linq;
+using Uintra.Core.Search.Entities;
 
 namespace Uintra.Core.Search.Queries
 {
-    public class SearchByTextQuery : UBaseline.Search.Core.SearchByTextQuery
+    public class SearchByTextQuery : UBaseline.Search.Core.SearchByTextQuery//, ISearchQuery<SearchDocument>
     {
         public string OrderingString { get; set; }
 

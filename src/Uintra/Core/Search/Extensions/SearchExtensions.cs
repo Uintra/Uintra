@@ -9,10 +9,9 @@ namespace Uintra.Core.Search.Extensions
     {
         public static IEnumerable<BaseFacet> GetGlobalFacets(this AggregateDictionary facets, string facetName)
         {
-            var globalFilter = facets.Global(facetName);
-            var items = globalFilter.Terms(facetName).Buckets.Select(bucket => new BaseFacet
+            var items = facets.Terms(facetName).Buckets.Select(bucket => new BaseFacet
                 { Name = bucket.Key, Count = bucket.DocCount ?? default(long) });
-            return items;
+            return items.ToList();
         }
     }
 }

@@ -6,6 +6,8 @@ namespace Uintra.Core.Search.Helpers
 {
     public class UintraSearchHighlightingHelper : SearchHighlightingHelper
     {
+        public override string HighlightPreTag => "<em style='background:#ffffc0'>";
+        public override string HighlightPostTag => "</em>";
         public override ISearchResponse<JObject> HighlightResponse(ISearchResponse<JObject> response)
         {
             var baseResult =  base.HighlightResponse(response);
