@@ -65,7 +65,7 @@ namespace Uintra.Features.Social
         private readonly IUserTagService _userTagService;
         private readonly IActivityLinkService _activityLinkService;
         private readonly IUintraSearchRepository<SearchableActivity> _uintraSearchRepository;
-        private readonly IIndexContext<SearchableContent> _indexContext;
+        private readonly IIndexContext<SearchableActivity> _indexContext;
 
         public SocialService(
             IIntranetActivityRepository intranetActivityRepository,
@@ -87,7 +87,7 @@ namespace Uintra.Features.Social
             IUserTagService userTagService,
             IActivityLinkService activityLinkService,
             IUintraSearchRepository<SearchableActivity> uintraSearchRepository,
-            IIndexContext<SearchableContent> indexContext)
+            IIndexContext<SearchableActivity> indexContext)
             : base(intranetActivityRepository, cacheService, activityTypeProvider, intranetMediaService,
                 activityLocationService, activityLinkPreviewService, intranetMemberService, permissionsService, groupActivityService, groupService)
         {

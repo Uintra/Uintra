@@ -67,7 +67,7 @@ namespace Uintra.Features.News
         private readonly IActivityLocationService _activityLocationService;
         private readonly IGroupService _groupService;
         private readonly IUintraSearchRepository<SearchableActivity> _uintraSearchRepository;
-        private readonly IIndexContext<SearchableContent> _indexContext;
+        private readonly IIndexContext<SearchableActivity> _indexContext;
 
         // TODO: delete after test
         private readonly IDependencyProvider dependencyProvider;
@@ -91,7 +91,8 @@ namespace Uintra.Features.News
             IUserTagService userTagService,
             IActivityLinkService activityLinkService, 
             IUintraSearchRepository<SearchableActivity> uintraSearchRepository, 
-            IIndexContext<SearchableContent> indexContext, IDependencyProvider dependencyProvider)
+            IIndexContext<SearchableActivity> indexContext,
+            IDependencyProvider dependencyProvider)
             : base(intranetActivityRepository, cacheService, intranetMemberService,
                 activityTypeProvider, intranetMediaService, activityLocationService, activityLinkPreviewService,
                 permissionsService, groupActivityService, groupService)
