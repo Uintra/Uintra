@@ -125,6 +125,15 @@ namespace Uintra.Features.UserList.Controllers
         [HttpPost]
         public async Task<IHttpActionResult> InviteMember(MemberGroupInviteModel invite)
         {
+            var currentMemberId = await _intranetMemberService.GetCurrentMemberIdAsync();
+
+            var isAdmin = await _groupMemberService.IsMemberAdminOfGroupAsync(currentMemberId, invite.GroupId);
+
+            if (!isAdmin)
+            {
+                return StatusCode(HttpStatusCode.Forbidden);
+            }
+            
             await InviteUser(invite);
             SendInvitationToUser(invite);
 
