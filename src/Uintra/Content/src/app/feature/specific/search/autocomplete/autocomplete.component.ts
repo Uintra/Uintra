@@ -71,6 +71,7 @@ export class AutocompleteComponent implements OnInit, OnDestroy {
   }
 
   public onQueryChange(val: string): void {
+    this.isFocused = true;
     this.inputValue = val;
     this.inputValueToRestore = val;
     const trimedVal = val.replace(/\s+/g, ' ');

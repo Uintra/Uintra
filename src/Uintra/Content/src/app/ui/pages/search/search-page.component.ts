@@ -39,7 +39,10 @@ export class SearchPage extends Indexer<number> implements OnInit, OnDestroy {
     private sanitizer: DomSanitizer,
   ) {
     super();
-    this.route.data.subscribe((data: ISearchPage) => this.data = data);
+    this.route.data.subscribe((data: ISearchPage) =>  { 
+      return this.data = data 
+    });
+
     this._query.pipe(
       debounceTime(200),
       distinctUntilChanged(),
@@ -49,11 +52,16 @@ export class SearchPage extends Indexer<number> implements OnInit, OnDestroy {
   }
 
   public ngOnInit(): void {
-    this.availableFilters = this.data.filterItems.map((item: any) => ({
-      id: item.id,
-      text: this.translate.instant(item.name)
-    }));
-    this.resultsList = this.data.results.map(this.checkSocialTitle) || [];
+    if(this.data.filterItems) {
+      this.availableFilters = this.data.filterItems.map((item: any) => ({
+        id: item.id,
+        text: this.translate.instant(item.name)
+      }));
+    }
+    
+    if(this.data.results) {
+      this.resultsList = this.data.results.map(this.checkSocialTitle);
+    }
     this.inputValue = this.data.query;
 
     const paramsSubscription = this.route.queryParams.subscribe(params => {
@@ -135,7 +143,9 @@ export class SearchPage extends Indexer<number> implements OnInit, OnDestroy {
         description: this.sanitizer.bypassSecurityTrustHtml(result.description),
       }));
       this.query = res.query;
-      this.availableFilters = res.filterItems.map((item: any) => ({ id: item.id, text: item.name }));
+      if(res.filterItems) {
+        this.availableFilters = res.filterItems.map((item: any) => ({ id: item.id, text: item.name }));
+      }
       this.data.allTypesPlaceholder = res.allTypesPlaceholder;
       this.resultsCount = res.resultsCount;
     });
