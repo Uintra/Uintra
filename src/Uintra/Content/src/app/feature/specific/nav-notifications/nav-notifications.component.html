@@ -15,7 +15,7 @@
     </div>
     <div class="nav-notification__spinner-wrapper"
          *ngIf="!isLoading && notifications && notifications.length === 0">
-      {{'notifications.EmptyNotificationList.lbl'}}
+      {{'notifications.EmptyNotificationList.lbl' | translate}}
     </div>
     <ng-container *ngIf="notifications">
       <app-notifications-item (handleClick)="handleClick()"

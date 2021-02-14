@@ -4,14 +4,15 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
-using Compent.Extensions;
+using Compent.Shared.Extensions.Bcl;
 using UBaseline.Core.Controllers;
+using Uintra.Core.Search.Entities;
+using Uintra.Core.Search.Helpers;
 using Uintra.Core.Member.Abstractions;
 using Uintra.Core.Member.Entities;
 using Uintra.Core.Member.Services;
-using Uintra.Core.Search.Entities;
-using Uintra.Core.Search.Helpers;
-using Uintra.Core.Search.Indexes;
+using Uintra.Core.Search.Queries;
+using Uintra.Core.Search.Repository;
 using Uintra.Features.Groups.Models;
 using Uintra.Features.Groups.Services;
 using Uintra.Features.Links;
@@ -19,11 +20,11 @@ using Uintra.Features.Notification;
 using Uintra.Features.Notification.Configuration;
 using Uintra.Features.Notification.Entities.Base;
 using Uintra.Features.Notification.Services;
-using Uintra.Features.Search.Queries;
 using Uintra.Features.UserList.Helpers;
 using Uintra.Features.UserList.Models;
 using Uintra.Infrastructure.Extensions;
 using Uintra.Infrastructure.Helpers;
+using EnumerableExtensions = Compent.Extensions.EnumerableExtensions;
 
 namespace Uintra.Features.UserList.Controllers
 {
@@ -31,30 +32,30 @@ namespace Uintra.Features.UserList.Controllers
     {
         private const int AmountPerRequest = 10;
 
-        private readonly IElasticMemberIndex<SearchableMember> _elasticIndex;
         private readonly IProfileLinkProvider _profileLinkProvider;
         private readonly IGroupService _groupService;
         private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
         private readonly IGroupMemberService _groupMemberService;
         private readonly INotificationsService _notificationsService;
         private readonly INotifierDataHelper _notifierDataHelper;
+        private readonly IUintraSearchRepository<SearchableMember> _uintraSearchRepository;
 
         public UserListController(
             IIntranetMemberService<IntranetMember> intranetMemberService,
-            IElasticMemberIndex<SearchableMember> elasticIndex,
             IProfileLinkProvider profileLinkProvider,
             IGroupService groupService,
             IGroupMemberService groupMemberService,
             INotificationsService notificationsService,
-            INotifierDataHelper notifierDataHelper)
+            INotifierDataHelper notifierDataHelper, 
+            IUintraSearchRepository<SearchableMember> uintraSearchRepository)
         {
-            _elasticIndex = elasticIndex;
             _profileLinkProvider = profileLinkProvider;
             _groupService = groupService;
             _intranetMemberService = intranetMemberService;
             _groupMemberService = groupMemberService;
             _notificationsService = notificationsService;
             _notifierDataHelper = notifierDataHelper;
+            _uintraSearchRepository = uintraSearchRepository;
         }
 
         [HttpPost]
@@ -124,6 +125,15 @@ namespace Uintra.Features.UserList.Controllers
         [HttpPost]
         public async Task<IHttpActionResult> InviteMember(MemberGroupInviteModel invite)
         {
+            var currentMemberId = await _intranetMemberService.GetCurrentMemberIdAsync();
+
+            var isAdmin = await _groupMemberService.IsMemberAdminOfGroupAsync(currentMemberId, invite.GroupId);
+
+            if (!isAdmin)
+            {
+                return StatusCode(HttpStatusCode.Forbidden);
+            }
+            
             await InviteUser(invite);
             SendInvitationToUser(invite);
 
@@ -140,7 +150,7 @@ namespace Uintra.Features.UserList.Controllers
             _notificationsService.ProcessNotification(new NotifierData
             {
                 NotificationType = NotificationTypeEnum.GroupInvitation,
-                ReceiverIds = invite.MemberId.ToEnumerable(),
+                ReceiverIds = EnumerableExtensions.ToEnumerable(invite.MemberId),
                 ActivityType = CommunicationTypeEnum.CommunicationSettings,
                 Value = _notifierDataHelper.GetGroupInvitationDataModel(NotificationTypeEnum.GroupInvitation,
                     invite.GroupId, invite.MemberId,
@@ -168,21 +178,22 @@ namespace Uintra.Features.UserList.Controllers
         {
             var skip = (query.Page - 1) * AmountPerRequest;
 
-            var searchQuery = new MemberSearchQuery
+            var searchQuery = new SearchByMemberQuery()//MemberSearchQuery
             {
                 Text = query.Text,
                 Skip = skip,
                 Take = AmountPerRequest,
                 OrderingString = ElasticHelpers.FullName,
-                SearchableTypeIds = ((int) UintraSearchableTypeEnum.Member).ToEnumerable(),
+                SearchableTypeIds = EnumerableExtensions.ToEnumerable(((int) UintraSearchableTypeEnum.Member)),
                 GroupId = query.GroupId,
                 MembersOfGroup = query.MembersOfGroup
             };
 
-            var searchResult = _elasticIndex.Search(searchQuery);
+            //var searchResult = _elasticIndex.Search(searchQuery);
+            var searchResult = AsyncHelpers.RunSync(() => _uintraSearchRepository.SearchAsync(searchQuery, String.Empty));
             var result = searchResult.Documents.Select(r => Guid.Parse(r.Id.ToString()));
 
-            return (result, searchResult.TotalHits);
+            return (result, searchResult.TotalCount);
         }
 
         private MembersRowsViewModel GetUsersRowsViewModel(Guid? groupId)

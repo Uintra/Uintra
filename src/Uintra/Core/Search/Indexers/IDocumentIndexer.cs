@@ -1,13 +1,15 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using UBaseline.Search.Core;
 
 namespace Uintra.Core.Search.Indexers
 {
-    public interface IDocumentIndexer
+    public interface IDocumentIndexer : ISearchDocumentIndexer
     {
-        void Index(int id);
-        void Index(IEnumerable<int> ids);
+        Task<int> Index(int id);
+        Task<int> Index(IEnumerable<int> ids);
 
-        void DeleteFromIndex(int id);
-        void DeleteFromIndex(IEnumerable<int> ids);
+        Task<bool> DeleteFromIndex(int id);
+        Task<bool> DeleteFromIndex(IEnumerable<int> ids);
     }
 }

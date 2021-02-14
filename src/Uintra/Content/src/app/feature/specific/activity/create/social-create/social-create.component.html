@@ -4,7 +4,7 @@
     <app-user-avatar [photo]="userAvatar?.photo"
                      [name]="userAvatar?.name"></app-user-avatar>
     <span class="create-bulletin__input-placeholder">
-      {{getPlaceholder() | translate}}
+      {{"socialsCreate.PopupPlaceholder.lbl"| translate}}
     </span>
     <!-- <button class="create-bulletin__input-placeholder"
             (focus)="onShowPopUp()">{{getPlaceholder() | translate}}
@@ -22,7 +22,7 @@
       <a *ngIf="data.createNewsLink"
          class="button-default"
          [routerLink]="data.createNewsLink.baseUrl | ulink"
-         [queryParams]="data.createNewsLink.params | uparams" 
+         [queryParams]="data.createNewsLink.params | uparams"
          role="button">
         {{'centralFeed.CreateLink_News.lnk' | translate}}
       </a>

@@ -5,7 +5,7 @@ import { SafeHtml } from '@angular/platform-browser';
 
 export interface IDocumentLibraryData {
   linkForHeadline: ILink;
-  maxCountOfDocuments: number;
+  pageSize: number;
   listOrder: "Vertical" | "Horizontal";
   richTextEditor: SafeHtml;
   seeAllLink: ILink;

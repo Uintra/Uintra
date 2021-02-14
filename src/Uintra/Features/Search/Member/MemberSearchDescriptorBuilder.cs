@@ -14,7 +14,7 @@ namespace Uintra.Features.Search.Member
 		private readonly SearchScoreModel _scores;
 
 		public MemberSearchDescriptorBuilder(ISearchScoreProvider searchScoreProvider)
-		{
+		{ 
 			_scores = searchScoreProvider.GetScores();
 		}
 		public virtual QueryContainer[] GetMemberDescriptors(string query)

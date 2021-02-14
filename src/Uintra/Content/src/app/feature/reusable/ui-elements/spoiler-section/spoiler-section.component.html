@@ -1,5 +1,10 @@
 <div class="spoiler-section" [ngClass]="{ showed: isSpoilerShowed }">
-  <div class="spoiler-section__header" (click)="onToggleSpoiler()">
+  <div
+    class="spoiler-section__header"
+    (click)="onToggleSpoiler()"
+    (keyup.enter)="onToggleSpoiler()"
+    tabindex="0"
+  >
     <span class="spoiler-section__icon icon-arrow-down"></span>
     {{ title }}
   </div>

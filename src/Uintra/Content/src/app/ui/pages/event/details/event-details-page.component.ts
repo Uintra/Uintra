@@ -17,6 +17,8 @@ import { CanDeactivateGuard } from 'src/app/shared/services/general/can-deactiva
 import { IEventDetailsPage } from 'src/app/shared/interfaces/pages/event/details/event-details-page.interface';
 import { ICommentData } from 'src/app/shared/interfaces/panels/comments/comments-panel.interface';
 import {TranslateService} from "@ngx-translate/core";
+import {map} from 'rxjs/operators';
+import {BreakpointObserver, BreakpointState} from '@angular/cdk/layout';
 
 @Component({
   selector: 'event-details-page',

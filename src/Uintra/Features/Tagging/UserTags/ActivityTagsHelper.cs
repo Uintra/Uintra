@@ -11,13 +11,13 @@ namespace Uintra.Features.Tagging.UserTags
     public class ActivityTagsHelper : IActivityTagsHelper
     {
         private readonly IUserTagService _userTagService;
-        private readonly IActivityUserTagIndex _userTagIndex;
+        private readonly IActivityUserTagSearchRepository _userTagSearchRepository;
         private readonly IUserTagProvider _userTagProvider;
 
-        public ActivityTagsHelper(IUserTagService userTagService, IActivityUserTagIndex userTagIndex, IUserTagProvider userTagProvider)
+        public ActivityTagsHelper(IUserTagService userTagService, IActivityUserTagSearchRepository userTagSearchRepository, IUserTagProvider userTagProvider)
         {
             _userTagService = userTagService;
-            _userTagIndex = userTagIndex;
+            _userTagSearchRepository = userTagSearchRepository;
             _userTagProvider = userTagProvider;
         }
 
@@ -27,14 +27,14 @@ namespace Uintra.Features.Tagging.UserTags
             var tags = _userTagProvider.Get(tagIds);
 
             _userTagService.Replace(entityId, tagIds);
-            _userTagIndex.Update(entityId, tags.Select(t => t.Text));
+            _userTagSearchRepository.Update(entityId, tags.Select(t => t.Text));
         }
 
         public void ReplaceTags(Guid entityId, IEnumerable<Guid> collection)
         {
             var tags = _userTagProvider.Get(collection);
             _userTagService.Replace(entityId, collection);
-            _userTagIndex.Update(entityId, tags.Select(t => t.Text));
+            _userTagSearchRepository.Update(entityId, tags.Select(t => t.Text));
         }
 
         public async Task ReplaceTagsAsync(Guid entityId, string collectionString)
@@ -43,14 +43,14 @@ namespace Uintra.Features.Tagging.UserTags
             var tags = _userTagProvider.Get(tagIds);
 
             await _userTagService.ReplaceAsync(entityId, tagIds);
-            _userTagIndex.Update(entityId, tags.Select(t => t.Text));
+            _userTagSearchRepository.Update(entityId, tags.Select(t => t.Text));
         }
 
         public async Task ReplaceTagsAsync(Guid entityId, IEnumerable<Guid> collection)
         {
             var tags = _userTagProvider.Get(collection);
             await _userTagService.ReplaceAsync(entityId, collection);
-            _userTagIndex.Update(entityId, tags.Select(t => t.Text));
+            _userTagSearchRepository.Update(entityId, tags.Select(t => t.Text));
         }
     }
 }

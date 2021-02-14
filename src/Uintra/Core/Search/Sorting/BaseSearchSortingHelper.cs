@@ -1,13 +1,13 @@
 ﻿using Compent.Extensions;
 using Nest;
 using Uintra.Core.Search.Helpers;
-using Uintra.Features.Search.Queries;
+using Uintra.Core.Search.Queries;
 
 namespace Uintra.Core.Search.Sorting
 {
 	public class BaseSearchSortingHelper<T> : ISearchSortingHelper<T> where T : class
 	{
-		public virtual void Apply(SearchDescriptor<T> searchDescriptor, SearchTextQuery query)
+		public virtual void Apply(SearchDescriptor<T> searchDescriptor, SearchByTextQuery query)
 		{
 			SortByName(searchDescriptor, query.OrderingString);
 		}

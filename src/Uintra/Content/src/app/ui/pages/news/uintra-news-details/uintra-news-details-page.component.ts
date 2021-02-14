@@ -26,6 +26,7 @@ export class UintraNewsDetailsPage implements OnInit {
   commentDetails: ICommentData;
   detailsDescription: SafeHtml;
   detailsTitle: SafeHtml;
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private imageGalleryService: ImageGalleryService,

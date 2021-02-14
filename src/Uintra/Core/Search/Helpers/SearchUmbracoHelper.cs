@@ -56,7 +56,7 @@ namespace Uintra.Core.Search.Helpers
             var panelsComposition = _nodeModelService.Get<NodeModel>(publishedContent.Id) as IPanelsComposition;
             return new SearchableContent
             {
-                Id = publishedContent.Id,
+                Id = publishedContent.Id.ToString(),
                 Type = SearchableTypeEnum.Content.ToInt(),
                 Url = publishedContent.Url.ToLinkModel(),
                 Title = publishedContent.Name,

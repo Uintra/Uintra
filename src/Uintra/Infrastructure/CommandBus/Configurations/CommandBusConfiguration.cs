@@ -1,25 +1,19 @@
 ﻿using Compent.CommandBus;
+using Uintra.Core.Search.Entities;
 using Uintra.Core.Commands;
 using Uintra.Core.Member.CommandBus;
 using Uintra.Core.Member.Commands;
-using Uintra.Core.Search.Entities;
 using Uintra.Features.Comments.CommandBus;
 using Uintra.Features.Comments.CommandBus.Commands;
-using Uintra.Features.Events;
 using Uintra.Features.Events.Handlers;
 using Uintra.Features.Groups.CommandBus;
 using Uintra.Features.Groups.CommandBus.Commands;
 using Uintra.Features.Likes.CommandBus;
 using Uintra.Features.Likes.CommandBus.Commands;
-using Uintra.Features.Media;
-using Uintra.Features.Media.Helpers;
 using Uintra.Features.Media.Video.Commands;
 using Uintra.Features.Media.Video.Handlers;
-using Uintra.Features.News;
 using Uintra.Features.News.Handlers;
 using Uintra.Features.Search.CommandBus;
-using Uintra.Features.Social;
-using Uintra.Features.Social.Entities;
 using Uintra.Features.Social.Handlers;
 
 namespace Uintra

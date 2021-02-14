@@ -25,6 +25,11 @@ export class CheckboxInputComponent implements OnInit {
   ngOnInit() {
   }
 
+  toggle(): void {
+    this.isChecked = !this.isChecked;
+    this.propagateChange(this.isChecked);
+  }
+
   onTouched(): any { }
   onChange(): any {}
   propagateChange: any = () => { };

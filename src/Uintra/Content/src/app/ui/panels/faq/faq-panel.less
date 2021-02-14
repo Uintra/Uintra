@@ -125,12 +125,10 @@
 
       .tab-content {
         position: relative;
-        max-height: 1px;
         overflow: hidden;
         transition-property: max-height, padding;
         transition-duration: .3s;
         transition-timing-function: cubic-bezier(0, 1, 0, 1), linear;
-        display: none;
         margin-top: -3px;
         font-size: 18px;
 
@@ -142,61 +140,33 @@
           font-size: 16px;
         }
       }
+    }
+  }
 
-      .input {
-        position: absolute;
-        z-index: -1;
-        opacity: 0;
-        margin: 0;
-        width: 100%;
-        height: 100%;
-        opacity: 0;
 
-        &:focus {
-          & ~ label {
-            &:after {
-              content: "";
-              position: absolute;
-              top: 0;
-              bottom: 0;
-              left: 0;
-              right: 0;
-              width: 100%;
-              height: 100%;
-              display: block;
-              border: 1px dotted @grey;
-            }
-          }
-        }
+  &__item-active {
+    .accordion__arrow{
+      margin-top: -5px;
+      transform: rotate(-135deg);
+    }
 
-        &:checked {
-          & ~ .accordion__label {
-            .accordion__arrow{
-              margin-top: -5px;
-              transform: rotate(-135deg);
-            }
-          }
+    .tab-content {
+      display: block;
+      max-height: 500vh;
+      padding: 0 10px 28px;
+      margin-top: -3px;
+      transition-property: max-height, padding;
+      transition-duration: .3s;
+      transition-timing-function: cubic-bezier(1, 0, 1, 0), linear;
+      @media @sm-up{
+        padding: 0 20px 28px;
+      }
+      @media @lg-up{
+        padding: 0 23px 27px;
+      }
 
-          & ~ .tab-content {
-            display: block;
-            max-height: 500vh;
-            padding: 0 10px 28px;
-            margin-top: -3px;
-            transition-property: max-height, padding;
-            transition-duration: .3s;
-            transition-timing-function: cubic-bezier(1, 0, 1, 0), linear;
-            @media @sm-up{
-              padding: 0 20px 28px;
-            }
-            @media @lg-up{
-              padding: 0 23px 27px;
-            }
-
-            ::ng-deep .aside &{
-              padding: 0 10px 28px;
-            }
-          }
-        }
+      ::ng-deep .aside &{
+        padding: 0 10px 28px;
       }
     }
   }

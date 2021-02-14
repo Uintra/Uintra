@@ -1,20 +1,21 @@
 ﻿using Compent.CommandBus;
-using Compent.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Compent.Shared.Extensions.Bcl;
+using Compent.Shared.Search.Contract;
+using UBaseline.Search.Core;
+using Uintra.Core.Search.Entities;
+using Uintra.Core.Search.Indexers;
+using Uintra.Core.Search.Indexers.Diagnostics;
 using Uintra.Core.Activity;
 using Uintra.Core.Feed.Models;
 using Uintra.Core.Feed.Services;
 using Uintra.Core.Feed.Settings;
 using Uintra.Core.Member.Entities;
 using Uintra.Core.Member.Services;
-using Uintra.Core.Search.Entities;
-using Uintra.Core.Search.Indexers;
-using Uintra.Core.Search.Indexers.Diagnostics;
-using Uintra.Core.Search.Indexers.Diagnostics.Models;
-using Uintra.Core.Search.Indexes;
+using Uintra.Core.Search.Repository;
 using Uintra.Features.CentralFeed.Enums;
 using Uintra.Features.Comments.Services;
 using Uintra.Features.Groups.Services;
@@ -37,6 +38,8 @@ using Uintra.Infrastructure.Caching;
 using Uintra.Infrastructure.Extensions;
 using Uintra.Infrastructure.TypeProviders;
 using static Uintra.Features.Notification.Configuration.NotificationTypeEnum;
+using ObjectExtensions = Compent.Extensions.ObjectExtensions;
+using Uintra.Core.Search.Queries.DeleteByType;
 
 namespace Uintra.Features.Social
 {
@@ -44,14 +47,14 @@ namespace Uintra.Features.Social
         ISocialService<T>,
         IFeedItemService,
         INotifyableService,
-        IIndexer,
+        //IIndexer,
+        ISearchDocumentIndexer,
         IHandle<VideoConvertedCommand> 
         where T : Entities.Social
     {
         private readonly ICommentsService _commentsService;
         private readonly ILikesService _likesService;
         private readonly INotificationsService _notificationService;
-        private readonly IElasticUintraActivityIndex _activityIndex;
         private readonly IDocumentIndexer _documentIndexer;
         private readonly IMediaHelper _mediaHelper;
         private readonly IIntranetMediaService _intranetMediaService;
@@ -61,7 +64,8 @@ namespace Uintra.Features.Social
         private readonly INotifierDataBuilder _notifierDataBuilder;
         private readonly IUserTagService _userTagService;
         private readonly IActivityLinkService _activityLinkService;
-        private readonly IIndexerDiagnosticService _indexerDiagnosticService;
+        private readonly IUintraSearchRepository<SearchableActivity> _uintraSearchRepository;
+        private readonly IIndexContext<SearchableActivity> _indexContext;
 
         public SocialService(
             IIntranetActivityRepository intranetActivityRepository,
@@ -72,7 +76,6 @@ namespace Uintra.Features.Social
             IPermissionsService permissionsService,
             INotificationsService notificationService,
             IActivityTypeProvider activityTypeProvider,
-            IElasticUintraActivityIndex activityIndex,
             IDocumentIndexer documentIndexer,
             IMediaHelper mediaHelper,
             IIntranetMediaService intranetMediaService,
@@ -82,14 +85,15 @@ namespace Uintra.Features.Social
             IGroupService groupService,
             INotifierDataBuilder notifierDataBuilder,
             IUserTagService userTagService,
-            IActivityLinkService activityLinkService, IIndexerDiagnosticService indexerDiagnosticService)
+            IActivityLinkService activityLinkService,
+            IUintraSearchRepository<SearchableActivity> uintraSearchRepository,
+            IIndexContext<SearchableActivity> indexContext)
             : base(intranetActivityRepository, cacheService, activityTypeProvider, intranetMediaService,
                 activityLocationService, activityLinkPreviewService, intranetMemberService, permissionsService, groupActivityService, groupService)
         {
             _commentsService = commentsService;
             _likesService = likesService;
             _notificationService = notificationService;
-            _activityIndex = activityIndex;
             _documentIndexer = documentIndexer;
             _mediaHelper = mediaHelper;
             _intranetMediaService = intranetMediaService;
@@ -99,8 +103,40 @@ namespace Uintra.Features.Social
             _notifierDataBuilder = notifierDataBuilder;
             _userTagService = userTagService;
             _activityLinkService = activityLinkService;
-            _indexerDiagnosticService = indexerDiagnosticService;
+            _uintraSearchRepository = uintraSearchRepository;
+            _indexContext = indexContext;
         }
+
+        public async Task<bool> RebuildIndex()
+        {
+            try
+            {
+                var activities = GetAll().Where(IsCacheable);
+                var searchableActivities = activities.Select(Map).ToList();
+                await _indexContext.EnsureIndex();
+                var query = new DeleteSearchableActivityByTypeQuery
+                {
+                    Type = UintraSearchableTypeEnum.Socials
+                };
+                await _uintraSearchRepository.DeleteByQuery(query, string.Empty);
+                await _uintraSearchRepository.IndexAsync(searchableActivities);
+
+                return true;
+                //return _indexerDiagnosticService.GetSuccessResult(typeof(SocialService<T>).Name, searchableActivities);
+            }
+            catch (Exception e)
+            {
+                return false;
+                //return _indexerDiagnosticService.GetFailedResult(e.Message + e.StackTrace, typeof(SocialService<T>).Name);
+            }
+        }
+
+        public Task<bool> Delete(IEnumerable<string> nodeIds)
+        {
+            return Task.FromResult(true);
+        }
+
+        Type ISearchDocumentIndexer.Type => typeof(SearchableActivity);
 
         public override Enum Type => IntranetActivityTypeEnum.Social;
 
@@ -162,34 +198,37 @@ namespace Uintra.Features.Social
             var bulletin = await base.UpdateActivityCacheAsync(id);
             if (IsCacheable(bulletin) && (bulletin.GroupId is null || _groupService.IsActivityFromActiveGroup(bulletin)))
             {
-                _activityIndex.Index(Map(bulletin));
-                _documentIndexer.Index(bulletin.MediaIds);
+                await _uintraSearchRepository.IndexAsync(Map(bulletin));
+                await _documentIndexer.Index(bulletin.MediaIds);
                 return bulletin;
             }
 
             if (cachedBulletin == null) return null;
 
-            _activityIndex.Delete(id);
-            _documentIndexer.DeleteFromIndex(cachedBulletin.MediaIds);
+            await _uintraSearchRepository.DeleteAsync(id.ToString());
+            await _documentIndexer.DeleteFromIndex(cachedBulletin.MediaIds);
             _mediaHelper.DeleteMedia(cachedBulletin.MediaIds);
+
             return null;
         }
+
         public override T UpdateActivityCache(Guid id)
         {
             var cachedBulletin = Get(id);
             var bulletin = base.UpdateActivityCache(id);
             if (IsCacheable(bulletin) && (bulletin.GroupId is null || _groupService.IsActivityFromActiveGroup(bulletin)))
             {
-                _activityIndex.Index(Map(bulletin));
-                _documentIndexer.Index(bulletin.MediaIds);
+                AsyncHelpers.RunSync(() => _uintraSearchRepository.IndexAsync(Map(bulletin)));
+                AsyncHelpers.RunSync(() =>_documentIndexer.Index(bulletin.MediaIds));
                 return bulletin;
             }
 
             if (cachedBulletin == null) return null;
 
-            _activityIndex.Delete(id);
-            _documentIndexer.DeleteFromIndex(cachedBulletin.MediaIds);
+            AsyncHelpers.RunSync(() => _uintraSearchRepository.DeleteAsync(id.ToString()));
+            AsyncHelpers.RunSync(() => _documentIndexer.DeleteFromIndex(cachedBulletin.MediaIds));
             _mediaHelper.DeleteMedia(cachedBulletin.MediaIds);
+
             return null;
         }
 
@@ -197,7 +236,7 @@ namespace Uintra.Features.Social
         {
             NotifierData notifierData;
 
-            if (notificationType.In(CommentAdded, CommentEdited, CommentLikeAdded, CommentReplied))
+            if (ObjectExtensions.In(notificationType, CommentAdded, CommentEdited, CommentLikeAdded, CommentReplied))
             {
                 var comment = _commentsService.Get(entityId);
                 var parentActivity = Get(comment.ActivityId);
@@ -216,7 +255,7 @@ namespace Uintra.Features.Social
         {
             NotifierData notifierData;
 
-            if (notificationType.In(CommentAdded, CommentEdited, CommentLikeAdded, CommentReplied))
+            if (ObjectExtensions.In(notificationType, CommentAdded, CommentEdited, CommentLikeAdded, CommentReplied))
             {
                 var comment = await _commentsService.GetAsync(entityId);
                 var parentActivity = await GetAsync(comment.ActivityId);
@@ -231,22 +270,6 @@ namespace Uintra.Features.Social
             await _notificationService.ProcessNotificationAsync(notifierData);
         }
 
-        public IndexedModelResult FillIndex()
-        {
-            try
-            {
-                var activities = GetAll().Where(IsCacheable);
-                var searchableActivities = activities.Select(Map).ToList();
-                _activityIndex.DeleteByType(UintraSearchableTypeEnum.Socials);
-                _activityIndex.Index(searchableActivities);
-
-                return _indexerDiagnosticService.GetSuccessResult(typeof(SocialService<T>).Name, searchableActivities);
-            }
-            catch (Exception e)
-            {
-                return _indexerDiagnosticService.GetFailedResult(e.Message + e.StackTrace, typeof(SocialService<T>).Name);
-            }
-        }
 
         private void FillLinkPreview(Entities.Social social)
         {
@@ -270,9 +293,9 @@ namespace Uintra.Features.Social
         private static bool IsActualPublishDate(Entities.Social social) =>
             DateTime.Compare(social.PublishDate, DateTime.UtcNow) <= 0;
 
-        private SearchableUintraActivity Map(Entities.Social social)
+        private SearchableActivity Map(Entities.Social social)
         {
-            var searchableActivity = social.Map<SearchableUintraActivity>();
+            var searchableActivity = social.Map<SearchableActivity>();
             searchableActivity.Url = _activityLinkService.GetLinks(social.Id).Details;
             searchableActivity.UserTagNames = _userTagService.Get(social.Id).Select(t => t.Text);
             return searchableActivity;

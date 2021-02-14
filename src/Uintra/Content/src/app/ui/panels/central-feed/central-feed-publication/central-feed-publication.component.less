@@ -8,7 +8,7 @@
     .shadow;
     margin-bottom: 30px;
     background: @publication-bg;
-    padding: 20px 20px 10px;
+    padding: 20px;
 
     &--important {
         background: linear-gradient(to top, rgba(255, 255, 255, 0.75), #fff);
@@ -28,12 +28,20 @@
     }
 
     &__header {
-        margin-bottom: 25px;
+        margin-bottom: 20px;
     }
 
     &__subtitle {
-      display: inline-block;
+      display: flex;
+      align-items: center;
+      font-size: 16px;
+      margin-right: 10px;
+      flex-wrap: wrap;
     }
+
+  &__type {
+    margin-left: 5px;
+  }
 
     &__activity-type {
         cursor: pointer;
@@ -45,16 +53,21 @@
         }
     }
 
+  &__location-container {
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+
+    &::before {
+      font-family: 'icomoon';
+      color: @body-text-color;
+    }
+  }
+
     &__location-link {
       font-size: 13px;
       font-family: @font !important;
       color: @body-text-color;
-      text-decoration: none;
-
-      &::before {
-        font-family: 'icomoon';
-        color: @body-text-color;
-      }
 
       &:hover {
         color: @link-color;
@@ -62,7 +75,6 @@
     }
 
     &__content {
-        margin-bottom: 25px;
         font-size: 16px;
     }
 
@@ -70,12 +82,14 @@
       display: block;
       text-decoration: none;
       color: inherit;
+      margin-bottom: 10px;
     }
 
     &__title {
-      font-size: 18px;
-      margin-bottom: 5px;
-      color: @heading-bg;
+      font-size: 20px;
+      margin-bottom: 11px;
+      color: @blue;
+      font-weight: 600;
 
       @media @sm-up {
         font-size: 20px;
@@ -106,7 +120,7 @@
         justify-content: space-between;
         flex-wrap: wrap;
         align-items: center;
-        margin-top: 20px;
+        margin-top: 10px;
 
         &-item {
             .reset-button;
@@ -151,7 +165,7 @@
     &__subscribed {
       display: flex;
       justify-content: flex-end;
-      padding: 0 0 11px;
+      margin-bottom: 10px;
 
       &-label {
         .button-white;

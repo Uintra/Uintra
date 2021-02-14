@@ -25,7 +25,7 @@ namespace Uintra.Core.Search.Entities.Mappers
 			_userTagService = userTagService;
 			_groupService = groupService;
 			_groupMemberService = groupMemberService;
-		}
+		} 
 		public virtual T Map(IGroupMember member)
 		{
 			var searchableUser = member.Map<T>();

@@ -9,7 +9,12 @@
   align-items: center;
 
   &__content {
-    padding: 0 0 13px;
+    display: flex;
+    align-items: center;
+  }
+
+  &__separator {
+    margin: 0 5px;
   }
 
   &__avatar {
@@ -20,7 +25,7 @@
     .h3;
     color: @text-color;
     text-decoration: none;
-    margin-bottom: 5px;
+    font-size: 16px;
 
     &--link {
       &:hover {
@@ -32,20 +37,22 @@
   &__subtitle-container {
     .small;
     color: @text-color--light;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
   }
 
   &__label {
     margin-left: auto;
   }
 
-  &__group {
-    &-link {
-      .link;
-    }
+  &__group-link {
+    font-size: 16px;
   }
 }
 
 .icon-group {
   font-size: 13px;
+  margin: 0 9px 0 5px;
   color: @body-text-color;
 }

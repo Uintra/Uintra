@@ -1,17 +1,25 @@
-﻿using System.Web.Mvc;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Web.Http.Filters;
+using System.Web.Mvc;
 using LightInject;
 using Uintra.Core.UmbracoEvents.Services.Contracts;
 using Uintra.Infrastructure.Extensions;
+using Uintra.Infrastructure.Providers;
 using Umbraco.Core.Composing;
+using Umbraco.Core.Dashboards;
 using Umbraco.Core.Events;
 using Umbraco.Core.Models;
 using Umbraco.Core.Models.Entities;
 using Umbraco.Core.Services;
 using Umbraco.Core.Services.Implement;
+using Umbraco.Web.Editors;
+using Umbraco.Web.Models.ContentEditing;
+using Umbraco.Web.Routing;
 
 namespace Uintra
-{     
-    public class UintraUmbracoEventComponent:  IComponent
+{
+    public class UintraUmbracoEventComponent : IComponent
 
     {
         public void Initialize()
@@ -22,8 +30,8 @@ namespace Uintra
         public void Terminate()
         {
         }
-        
-         private static void RegisterEvents()
+
+        private static void RegisterEvents()
         {
             MemberService.AssignedRoles += AssignedRolesHandler;
             MemberService.RemovedRoles += MemberRemovedRolesHandler;
@@ -40,13 +48,15 @@ namespace Uintra
             ContentService.Published += ProcessContentPublished;
             ContentService.Unpublished += ProcessContentUnPublished;
             ContentService.Trashed += ProcessContentTrashed;
+            
+            EditorModelEventManager.SendingContentModel += EditorModelEventManagerOnSendingContentModel;
         }
 
         private static void MemberCreateHandler(IMemberService sender, SaveEventArgs<IMember> e)
         {
             foreach (var entity in e.SavedEntities)
             {
-                var dirty = (IRememberBeingDirty)entity;
+                var dirty = (IRememberBeingDirty) entity;
                 var isNew = dirty.WasPropertyDirty("Id");
                 if (isNew)
                 {
@@ -54,7 +64,7 @@ namespace Uintra
                     foreach (var service in services)
                     {
                         service.MemberCreateHandler(sender, e);
-                    }       
+                    }
                 }
             }
         }
@@ -164,23 +174,33 @@ namespace Uintra
             var services = DependencyResolver.Current.GetServices<IUmbracoMemberDeletingEventService>();
             foreach (var service in services) service.MemberDeleteHandler(sender, e);
         }
-        
+
         private static void ProcessContentTrashed(IContentService sender, MoveEventArgs<IContent> e)
         {
             var services = DependencyResolver.Current.GetServices<IUmbracoContentTrashedEventService>();
             foreach (var service in services) service.ProcessContentTrashed(sender, e);
         }
+
         private static void ProcessContentPublished(IContentService sender, ContentPublishedEventArgs e)
         {
             var services = DependencyResolver.Current.GetServices<IUmbracoContentPublishedEventService>();
             foreach (var service in services) service.ProcessContentPublished(sender, e);
         }
 
-        private static void ProcessContentUnPublished(IContentService sender, PublishEventArgs<IContent>  e)
+        private static void ProcessContentUnPublished(IContentService sender, PublishEventArgs<IContent> e)
         {
             var services = DependencyResolver.Current.GetServices<IUmbracoContentUnPublishedEventService>();
             foreach (var service in services) service.ProcessContentUnPublished(sender, e);
         }
         
+        private static void EditorModelEventManagerOnSendingContentModel(HttpActionExecutedContext sender, EditorModelEventArgs<ContentItemDisplay> e)
+        {
+            var services = DependencyResolver.Current.GetServices<IDocumentTypeAliasProvider>().First();
+            
+            if (services.CanShowPreviewButton(e.Model.ContentTypeAlias)) return;
+            
+            e.Model.AllowPreview = false;
+            e.Model.Urls = null;
+        } 
     }
 }

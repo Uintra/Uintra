@@ -2,23 +2,23 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using Compent.Extensions;
+using Compent.Shared.Extensions.Bcl;
 using UBaseline.Core.Extensions;
 using UBaseline.Core.Node;
 using UBaseline.Core.RequestContext;
-using Uintra.Core.Member.Abstractions;
-using Uintra.Core.Member.Entities;
-using Uintra.Core.Member.Models;
-using Uintra.Core.Member.Services;
 using Uintra.Core.Search.Entities;
 using Uintra.Core.Search.Helpers;
-using Uintra.Core.Search.Indexes;
+using Uintra.Core.Member.Abstractions;
+using Uintra.Core.Member.Entities;
+using Uintra.Core.Member.Services;
+using Uintra.Core.Search.Queries;
+using Uintra.Core.Search.Repository;
 using Uintra.Features.Groups.Services;
 using Uintra.Features.Links;
-using Uintra.Features.Search.Queries;
 using Uintra.Features.UserList.Helpers;
 using Uintra.Features.UserList.Models;
 using Uintra.Infrastructure.Extensions;
+using EnumerableExtensions = Compent.Extensions.EnumerableExtensions;
 
 namespace Uintra.Features.UserList.Converters
 {
@@ -26,27 +26,27 @@ namespace Uintra.Features.UserList.Converters
     {
         private const int AmountPerRequest = 10;
 
-        private readonly IElasticMemberIndex<SearchableMember> _elasticIndex;
         private readonly IProfileLinkProvider _profileLinkProvider;
         private readonly IGroupService _groupService;
         private readonly IIntranetMemberService<IntranetMember> _intranetMemberService;
         private readonly IGroupMemberService _groupMemberService;
         private readonly IUBaselineRequestContext _baselineRequestContext;
+        private readonly IUintraSearchRepository<SearchableMember> _uintraSearchRepository;
 
         public UserListPanelViewModelConverter(
             IIntranetMemberService<IntranetMember> intranetMemberService,
-            IElasticMemberIndex<SearchableMember> elasticIndex,
             IProfileLinkProvider profileLinkProvider,
             IGroupService groupService,
             IGroupMemberService groupMemberService,
-            IUBaselineRequestContext baselineRequestContext)
+            IUBaselineRequestContext baselineRequestContext,
+            IUintraSearchRepository<SearchableMember> uintraSearchRepository)
         {
-            _elasticIndex = elasticIndex;
             _profileLinkProvider = profileLinkProvider;
             _groupService = groupService;
             _intranetMemberService = intranetMemberService;
             _groupMemberService = groupMemberService;
             _baselineRequestContext = baselineRequestContext;
+            _uintraSearchRepository = uintraSearchRepository;
         }
 
         public void Map(UserListPanelModel node, UserListPanelViewModel viewModel)
@@ -99,21 +99,21 @@ namespace Uintra.Features.UserList.Converters
         {
             var skip = (query.Page - 1) * AmountPerRequest;
 
-            var searchQuery = new MemberSearchQuery
+            var searchQuery = new SearchByMemberQuery()
             {
                 Text = query.Text,
                 Skip = skip,
                 Take = AmountPerRequest,
                 OrderingString = ElasticHelpers.FullName,
-                SearchableTypeIds = ((int) UintraSearchableTypeEnum.Member).ToEnumerable(),
+                SearchableTypeIds = EnumerableExtensions.ToEnumerable(((int) UintraSearchableTypeEnum.Member)),
                 GroupId = query.GroupId,
                 MembersOfGroup = query.MembersOfGroup
             };
 
-            var searchResult = _elasticIndex.Search(searchQuery);
+            var searchResult = AsyncHelpers.RunSync(() => _uintraSearchRepository.SearchAsync(searchQuery, string.Empty));
             var result = searchResult.Documents.Select(r => Guid.Parse(r.Id.ToString()));
 
-            return (result, searchResult.TotalHits);
+            return (result, searchResult.TotalCount);
         }
 
         private MembersRowsViewModel GetUsersRowsViewModel(Guid? groupId)
