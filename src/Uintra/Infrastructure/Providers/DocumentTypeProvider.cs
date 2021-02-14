@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Uintra.Core.Activity;
 using Uintra.Infrastructure.Constants;
 using Uintra.Infrastructure.Extensions;
@@ -103,5 +104,28 @@ namespace Uintra.Infrastructure.Providers
         public virtual string GetGroupMyGroupsOverviewPage() => DocumentTypeAliasConstants.GroupsMyGroupsOverviewPage;
 
         public virtual string GetGroupDeactivatedPage() => DocumentTypeAliasConstants.GroupsDeactivatedGroupPage;
+        
+        public virtual bool CanShowPreviewButton(string documentTypeAlias)
+        {
+            var disabledPreviewPages = new List<string>()
+            {
+                DocumentTypeAliasConstants.SocialOverviewPage,
+                DocumentTypeAliasConstants.SocialCreatePage,
+                DocumentTypeAliasConstants.SocialEditPage,
+                DocumentTypeAliasConstants.SocialDetailsPage,
+                DocumentTypeAliasConstants.EventsOverviewPage,
+                DocumentTypeAliasConstants.EventsEditPage,
+                DocumentTypeAliasConstants.EventsDetailsPage,
+                DocumentTypeAliasConstants.NewsOverviewPage,
+                DocumentTypeAliasConstants.NewsEditPage,
+                DocumentTypeAliasConstants.NewsDetailsPage,
+                DocumentTypeAliasConstants.GroupsMembersPage,
+                DocumentTypeAliasConstants.GroupsRoomPage,
+                DocumentTypeAliasConstants.GroupsDocumentsPage,
+                DocumentTypeAliasConstants.GroupsEditPage,
+            };
+            
+            return !disabledPreviewPages.Contains(documentTypeAlias);
+        }
     }
 }

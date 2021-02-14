@@ -19,6 +19,7 @@
         public const string EventsDetailsPage = "eventDetailsPage";
 
         public const string SocialOverviewPage = "socialDetailsPage";
+        public const string SocialCreatePage = "socialCreatePage";
         public const string SocialEditPage = "socialEditPage";
         public const string SocialDetailsPage = "socialDetailsPage";
 

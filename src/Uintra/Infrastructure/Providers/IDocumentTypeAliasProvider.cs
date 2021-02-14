@@ -36,5 +36,7 @@ namespace Uintra.Infrastructure.Providers
         string GetGroupEditPage();
         string GetGroupMyGroupsOverviewPage();
         string GetGroupDeactivatedPage();
+
+        bool CanShowPreviewButton(string documentTypeAlias);
     }
 }
