@@ -1,10 +1,13 @@
-﻿using Uintra.Features.Links.Models;
+﻿using Compent.Shared.Search.Contract;
+using Uintra.Features.Links.Models;
 
 namespace Uintra.Core.Search.Entities
 {
-    public class SearchableBase
+    public class SearchableBase : ISearchDocument
     {
-        public object Id { get; set; }
+        public string Id { get; set; }
+
+        public string Culture { get; set; }
 
         public string Title { get; set; }
 

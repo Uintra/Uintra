@@ -4,7 +4,7 @@ using UBaseline.Shared.Node;
 
 namespace Uintra.Features.Search.Models
 {
-    public class SearchPageViewModel:NodeViewModel
+    public class SearchPageViewModel: UBaseline.Shared.SearchPage.SearchPageViewModel
     {
         public IEnumerable<SearchResultViewModel> Results { get; set; } = Enumerable.Empty<SearchResultViewModel>();
 

@@ -1,4 +1,5 @@
-﻿using Uintra.Core.Search.Indexers;
+﻿using System.Linq;
+using Uintra.Core.Search.Indexers;
 using Uintra.Core.UmbracoEvents.Services.Contracts;
 using Umbraco.Core.Events;
 using Umbraco.Core.Models;
@@ -6,7 +7,7 @@ using Umbraco.Core.Services;
 
 namespace Uintra.Core.Article.Events
 {
-    public class ArticlePageEventService: IUmbracoContentPublishedEventService, IUmbracoContentUnPublishedEventService, IUmbracoContentTrashedEventService
+    public class ArticlePageEventService : IUmbracoContentPublishedEventService, IUmbracoContentUnPublishedEventService, IUmbracoContentTrashedEventService
     {
         private readonly IContentIndexer _contentIndexer;
 
@@ -20,24 +21,21 @@ namespace Uintra.Core.Article.Events
         {
             foreach (var content in args.PublishedEntities)
             {
-                _contentIndexer.FillIndex(content.Id);
+                // TODO: Search. Add by many, to avoid many operations
+                _contentIndexer.Index(content.Id);
             }
         }
 
         public void ProcessContentUnPublished(IContentService sender, PublishEventArgs<IContent> e)
         {
-            foreach (var content in e.PublishedEntities)
-            {
-                _contentIndexer.DeleteFromIndex(content.Id);
-            }
+            var ids = e.PublishedEntities.Select(c => c.Id.ToString());
+            _contentIndexer.Delete(ids);
         }
 
         public void ProcessContentTrashed(IContentService sender, MoveEventArgs<IContent> args)
         {
-            foreach (var content in args.MoveInfoCollection)
-            {
-                _contentIndexer.DeleteFromIndex(content.Entity.Id);
-            }
+            var ids = args.MoveInfoCollection.Select(c => c.Entity.Id.ToString());
+            _contentIndexer.Delete(ids);
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Uintra.Core.Search.Indexers.Diagnostics.Models;
 
 namespace Uintra.Core.Search.Indexers.Diagnostics

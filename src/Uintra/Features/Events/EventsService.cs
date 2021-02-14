@@ -1,8 +1,13 @@
-﻿using Compent.Extensions;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Compent.Shared.Extensions.Bcl;
+using Compent.Shared.Search.Contract;
+using UBaseline.Search.Core;
+using Uintra.Core.Search.Entities;
+using Uintra.Core.Search.Indexers;
+using Uintra.Core.Search.Indexers.Diagnostics;
 using Uintra.Core.Activity;
 using Uintra.Core.Activity.Entities;
 using Uintra.Core.Feed.Models;
@@ -10,14 +15,11 @@ using Uintra.Core.Feed.Services;
 using Uintra.Core.Feed.Settings;
 using Uintra.Core.Member.Entities;
 using Uintra.Core.Member.Services;
-using Uintra.Core.Search.Entities;
-using Uintra.Core.Search.Indexers;
-using Uintra.Core.Search.Indexers.Diagnostics;
-using Uintra.Core.Search.Indexers.Diagnostics.Models;
-using Uintra.Core.Search.Indexes;
+using Uintra.Core.Search.Repository;
 using Uintra.Features.CentralFeed.Enums;
 using Uintra.Features.Comments.Services;
 using Uintra.Features.Events.Entities;
+using Uintra.Features.Events.Extensions;
 using Uintra.Features.Groups.Services;
 using Uintra.Features.Likes.Services;
 using Uintra.Features.LinkPreview.Services;
@@ -40,6 +42,8 @@ using Uintra.Infrastructure.Caching;
 using Uintra.Infrastructure.Extensions;
 using Uintra.Infrastructure.TypeProviders;
 using static Uintra.Features.Notification.Configuration.NotificationTypeEnum;
+using ObjectExtensions = Compent.Extensions.ObjectExtensions;
+using Uintra.Core.Search.Queries.DeleteByType;
 
 namespace Uintra.Features.Events
 {
@@ -49,23 +53,27 @@ namespace Uintra.Features.Events
         ISubscribableService,
         INotifyableService,
         IReminderableService<Event>,
-        IIndexer
+        //IIndexer
+        ISearchDocumentIndexer // TODO: Search. It would be cool to extract all indexers into separate files, but regarding services it involves to much hussle. Discuss
     {
+        Type ISearchDocumentIndexer.Type => typeof(SearchableActivity);
+        public override Enum Type => IntranetActivityTypeEnum.Events;
+        public override Enum PermissionActivityType => PermissionResourceTypeEnum.Events;
+
         private readonly ICommentsService _commentsService;
         private readonly ILikesService _likesService;
         private readonly ISubscribeService _subscribeService;
         private readonly INotificationsService _notificationService;
         private readonly IMediaHelper _mediaHelper;
-        private readonly IElasticUintraActivityIndex _activityIndex;
         private readonly IDocumentIndexer _documentIndexer;
-        private readonly IIntranetMediaService _intranetMediaService;
         private readonly IGroupActivityService _groupActivityService;
         private readonly IActivitySubscribeSettingService _activitySubscribeSettingService;
         private readonly IGroupService _groupService;
         private readonly INotifierDataBuilder _notifierDataBuilder;
         private readonly IActivityLinkService _activityLinkService;
-        private readonly IIndexerDiagnosticService _indexerDiagnosticService;
         private readonly IUserTagService _userTagService;
+        private readonly IIndexContext<SearchableActivity> _indexContext;
+        private readonly IUintraSearchRepository<SearchableActivity> _searchRepository;
 
         public EventsService(
             IIntranetActivityRepository intranetActivityRepository,
@@ -77,7 +85,6 @@ namespace Uintra.Features.Events
             IPermissionsService permissionsService,
             INotificationsService notificationService,
             IMediaHelper mediaHelper,
-            IElasticUintraActivityIndex activityIndex,
             IDocumentIndexer documentIndexer,
             IActivityTypeProvider activityTypeProvider,
             IIntranetMediaService intranetMediaService,
@@ -88,8 +95,9 @@ namespace Uintra.Features.Events
             IGroupService groupService,
             INotifierDataBuilder notifierDataBuilder,
             IActivityLinkService activityLinkService,
-            IIndexerDiagnosticService indexerDiagnosticService,
-            IUserTagService userTagService)
+            IUserTagService userTagService,
+            IIndexContext<SearchableActivity> indexContext,
+            IUintraSearchRepository<SearchableActivity> searchRepository)
             : base(
                 intranetActivityRepository,
                 cacheService,
@@ -107,20 +115,17 @@ namespace Uintra.Features.Events
             _subscribeService = subscribeService;
             _notificationService = notificationService;
             _mediaHelper = mediaHelper;
-            _activityIndex = activityIndex;
             _documentIndexer = documentIndexer;
-            _intranetMediaService = intranetMediaService;
             _groupActivityService = groupActivityService;
             _activitySubscribeSettingService = activitySubscribeSettingService;
             _groupService = groupService;
             _notifierDataBuilder = notifierDataBuilder;
             _activityLinkService = activityLinkService;
-            _indexerDiagnosticService = indexerDiagnosticService;
             _userTagService = userTagService;
+            _indexContext = indexContext;
+            _searchRepository = searchRepository;
         }
 
-        public override Enum Type => IntranetActivityTypeEnum.Events;
-        public override Enum PermissionActivityType => PermissionResourceTypeEnum.Events;
 
         public IEnumerable<Event> GetPastEvents()
         {
@@ -130,7 +135,7 @@ namespace Uintra.Features.Events
         public IEnumerable<Event> GetComingEvents(DateTime fromDate)
         {
             var events = GetAll()
-                .Where(e => e.StartDate > fromDate && IsActualPublishDate(e))
+                .Where(e => e.StartDate > fromDate && e.IsActualPublishDate())
                 .OrderBy(e => e.StartDate);
             return events;
         }
@@ -173,7 +178,7 @@ namespace Uintra.Features.Events
         public IEnumerable<IFeedItem> GetItems() => GetOrderedActualItems();
         public IEnumerable<IFeedItem> GetGroupItems(Guid groupId)
         {
-	        return GetOrderedActualItems().Where(a => a.GroupId == groupId);
+            return GetOrderedActualItems().Where(a => a.GroupId == groupId);
         }
 
         public async Task<IEnumerable<IFeedItem>> GetItemsAsync()
@@ -237,24 +242,27 @@ namespace Uintra.Features.Events
         protected override void UpdateCache()
         {
             base.UpdateCache();
-            FillIndex();
+            AsyncHelpers.RunSync(RebuildIndex);
         }
 
         public override Event UpdateActivityCache(Guid id)
         {
             var cachedEvent = Get(id);
             var @event = base.UpdateActivityCache(id);
-            if (IsCacheable(@event) && (@event.GroupId is null || _groupService.IsActivityFromActiveGroup(@event)))
+            if (@event.IsCacheable() && (@event.GroupId is null || _groupService.IsActivityFromActiveGroup(@event)))
             {
-                _activityIndex.Index(Map(@event));
-                _documentIndexer.Index(@event.MediaIds);
+                // TODO: Search. Discuss usage of AsyncHelpers. Go for true tasks and refactor everything?
+
+                AsyncHelpers.RunSync(() => _searchRepository.IndexAsync(Map(@event)));
+                AsyncHelpers.RunSync(() => _documentIndexer.Index(@event.MediaIds));
                 return @event;
             }
 
             if (cachedEvent == null) return null;
 
-            _activityIndex.Delete(id);
-            _documentIndexer.DeleteFromIndex(cachedEvent.MediaIds);
+            AsyncHelpers.RunSync(() => _searchRepository.DeleteAsync(id.ToString()));
+            AsyncHelpers.RunSync(() => _documentIndexer.DeleteFromIndex(cachedEvent.MediaIds));
+
             _mediaHelper.DeleteMedia(cachedEvent.MediaIds);
             return null;
         }
@@ -263,24 +271,24 @@ namespace Uintra.Features.Events
         {
             var cachedEvent = await GetAsync(id);
             var @event = await base.UpdateActivityCacheAsync(id);
-            if (IsCacheable(@event) && (@event.GroupId is null || _groupService.IsActivityFromActiveGroup(@event)))
+            if (@event.IsCacheable() && (@event.GroupId is null || _groupService.IsActivityFromActiveGroup(@event)))
             {
-                _activityIndex.Index(Map(@event));
-                _documentIndexer.Index(@event.MediaIds);
+                await _searchRepository.IndexAsync(Map(@event));
+                await _documentIndexer.Index(@event.MediaIds);
                 return @event;
             }
 
             if (cachedEvent == null) return null;
 
-            _activityIndex.Delete(id);
-            _documentIndexer.DeleteFromIndex(cachedEvent.MediaIds);
+            await _searchRepository.DeleteAsync(id.ToString());
+            await _documentIndexer.DeleteFromIndex(cachedEvent.MediaIds);
             _mediaHelper.DeleteMedia(cachedEvent.MediaIds);
             return null;
         }
 
         public override bool IsActual(IIntranetActivity activity)
         {
-            return base.IsActual(activity) && IsActualPublishDate((Event) activity);
+            return base.IsActual(activity) && ((Event)activity).IsActualPublishDate();
         }
 
         public void UnSubscribe(Guid userId, Guid activityId)
@@ -301,7 +309,7 @@ namespace Uintra.Features.Events
         {
             NotifierData notifierData;
 
-            if (notificationType.In(CommentAdded, CommentEdited, CommentLikeAdded, CommentReplied))
+            if (ObjectExtensions.In(notificationType, CommentAdded, CommentEdited, CommentLikeAdded, CommentReplied))
             {
                 var comment = _commentsService.Get(entityId);
                 var parentActivity = Get(comment.ActivityId);
@@ -320,12 +328,11 @@ namespace Uintra.Features.Events
         {
             NotifierData notifierData;
 
-            if (notificationType.In(CommentAdded, CommentEdited, CommentLikeAdded, CommentReplied))
+            if (ObjectExtensions.In(notificationType, CommentAdded, CommentEdited, CommentLikeAdded, CommentReplied))
             {
                 var comment = await _commentsService.GetAsync(entityId);
                 var parentActivity = await GetAsync(comment.ActivityId);
-                notifierData =
-                    await _notifierDataBuilder.GetNotifierDataAsync(comment, parentActivity, notificationType);
+                notifierData = await _notifierDataBuilder.GetNotifierDataAsync(comment, parentActivity, notificationType);
             }
             else
             {
@@ -348,32 +355,40 @@ namespace Uintra.Features.Events
             return !@event.IsHidden ? @event : null;
         }
 
-        public IndexedModelResult FillIndex()
+        public async Task<bool> RebuildIndex()
         {
             try
             {
-                var activities = GetAll().Where(IsCacheable);
+                var activities = GetAll().Where(a => a.IsCacheable());
                 var searchableActivities = activities.Select(Map);
-                _activityIndex.DeleteByType(UintraSearchableTypeEnum.Events);
-                _activityIndex.Index(searchableActivities);
+                await _indexContext.EnsureIndex();
+                var query = new DeleteSearchableActivityByTypeQuery
+                {
+                    Type = UintraSearchableTypeEnum.Events
+                };
+                await _searchRepository.DeleteByQuery(query, string.Empty);
+                await _searchRepository.IndexAsync(searchableActivities);
 
-                return _indexerDiagnosticService.GetSuccessResult(typeof(EventsService).Name, searchableActivities);
+                return true;
+                //return _indexerDiagnosticService.GetSuccessResult(typeof(EventsService).Name, searchableActivities);
             }
             catch (Exception e)
             {
-                return _indexerDiagnosticService.GetFailedResult(e.Message + e.StackTrace, typeof(EventsService).Name);
+                return false;
+
+                //return _indexerDiagnosticService.GetFailedResult(e.Message + e.StackTrace, typeof(EventsService).Name);
             }
         }
 
-        private bool IsCacheable(Event @event) => !IsEventHidden(@event) && IsActualPublishDate(@event);
-
-        private bool IsActualPublishDate(Event @event) => DateTime.Compare(@event.PublishDate, DateTime.UtcNow) <= 0;
-
-        private bool IsEventHidden(Event @event) => @event == null || @event.IsHidden;
-
-        private SearchableUintraActivity Map(Event @event)
+        public Task<bool> Delete(IEnumerable<string> nodeIds)
         {
-            var searchableActivity = @event.Map<SearchableUintraActivity>();
+            // TODO: search. Discuss never used Delete
+            throw new NotImplementedException();
+        }
+
+        private SearchableActivity Map(Event @event)
+        {
+            var searchableActivity = @event.Map<SearchableActivity>();
             searchableActivity.Url = _activityLinkService.GetLinks(@event.Id).Details;
             searchableActivity.UserTagNames = _userTagService.Get(@event.Id).Select(t => t.Text);
             return searchableActivity;
@@ -381,7 +396,7 @@ namespace Uintra.Features.Events
 
         private ActivitySubscribeSettingDto Map(IIntranetActivity activity)
         {
-            var @event = (Event) activity;
+            var @event = (Event)activity;
             return @event.Map<ActivitySubscribeSettingDto>();
         }
     }

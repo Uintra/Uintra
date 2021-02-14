@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using UBaseline.Shared.Node;
 using UBaseline.Shared.PanelContainer;
 using Uintra.Core.Search.Entities;
 

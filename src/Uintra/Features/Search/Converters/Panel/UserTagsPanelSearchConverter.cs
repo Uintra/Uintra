@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using Compent.Shared.Extensions.Bcl;
+﻿using Compent.Shared.Extensions.Bcl;
 using Uintra.Core.Search.Converters.SearchDocumentPanelConverter;
 using Uintra.Core.Search.Entities;
 using Uintra.Features.Tagging.UserTags.Models;

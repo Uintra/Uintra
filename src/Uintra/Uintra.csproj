@@ -101,14 +101,20 @@
     <Reference Include="Compent.Shared.Repository.EntityFramework, Version=0.7.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Compent.Shared.Repository.EntityFramework.0.7.1\lib\net472\Compent.Shared.Repository.EntityFramework.dll</HintPath>
     </Reference>
+    <Reference Include="Compent.Shared.Search.Contract, Version=0.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Compent.Shared.Search.Contract.0.2.0-UintraSearchUpdate\lib\net472\Compent.Shared.Search.Contract.dll</HintPath>
+    </Reference>
+    <Reference Include="Compent.Shared.Search.Elasticsearch, Version=0.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Compent.Shared.Search.Elasticsearch.0.3.0-UintraSearchUpdate\lib\net472\Compent.Shared.Search.Elasticsearch.dll</HintPath>
+    </Reference>
     <Reference Include="CookComputing.XmlRpcV2, Version=2.5.0.0, Culture=neutral, PublicKeyToken=a7d6e17aa302004d, processorArchitecture=MSIL">
       <HintPath>..\..\packages\xmlrpcnet.2.5.0\lib\net20\CookComputing.XmlRpcV2.dll</HintPath>
     </Reference>
     <Reference Include="CSharpTest.Net.Collections, Version=14.906.1403.1082, Culture=neutral, PublicKeyToken=06aee00cce822474, processorArchitecture=MSIL">
       <HintPath>..\..\packages\CSharpTest.Net.Collections.14.906.1403.1082\lib\net40\CSharpTest.Net.Collections.dll</HintPath>
     </Reference>
-    <Reference Include="Elasticsearch.Net, Version=5.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Elasticsearch.Net.5.6.5\lib\net461\Elasticsearch.Net.dll</HintPath>
+    <Reference Include="Elasticsearch.Net, Version=7.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Elasticsearch.Net.7.9.0\lib\net461\Elasticsearch.Net.dll</HintPath>
     </Reference>
     <Reference Include="Elmah, Version=1.2.14706.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
@@ -300,8 +306,11 @@
     <Reference Include="MySql.Data, Version=6.9.12.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <HintPath>..\..\packages\MySql.Data.6.9.12\lib\net45\MySql.Data.dll</HintPath>
     </Reference>
-    <Reference Include="Nest, Version=5.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NEST.5.6.5\lib\net461\Nest.dll</HintPath>
+    <Reference Include="Nest, Version=7.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NEST.7.9.0\lib\net461\Nest.dll</HintPath>
+    </Reference>
+    <Reference Include="Nest.JsonNetSerializer, Version=7.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NEST.JsonNetSerializer.7.0.0\lib\netstandard2.0\Nest.JsonNetSerializer.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -362,8 +371,8 @@
       <Private>True</Private>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Buffers, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\System.Buffers.4.4.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Buffers.4.5.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
     </Reference>
     <Reference Include="System.Collections.Immutable, Version=1.2.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\System.Collections.Immutable.1.5.0\lib\netstandard2.0\System.Collections.Immutable.dll</HintPath>
@@ -385,8 +394,8 @@
     <Reference Include="System.Data.SqlServerCe.Entity, Version=4.0.0.1, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Umbraco.SqlServerCE.4.0.0.1\lib\net472\System.Data.SqlServerCe.Entity.dll</HintPath>
     </Reference>
-    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.2.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\System.Diagnostics.DiagnosticSource.4.4.1\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.3.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Diagnostics.DiagnosticSource.4.5.1\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
     </Reference>
     <Reference Include="System.Diagnostics.FileVersionInfo, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\System.Diagnostics.FileVersionInfo.4.3.0\lib\net46\System.Diagnostics.FileVersionInfo.dll</HintPath>
@@ -428,8 +437,8 @@
       <Private>True</Private>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Memory, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\System.Memory.4.5.1\lib\netstandard2.0\System.Memory.dll</HintPath>
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Memory.4.5.3\lib\netstandard2.0\System.Memory.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http, Version=4.1.1.2, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\System.Net.Http.4.3.3\lib\net46\System.Net.Http.dll</HintPath>
@@ -464,8 +473,8 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Runtime.Caching" />
-    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\System.Runtime.CompilerServices.Unsafe.4.5.1\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.Extensions, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\System.Runtime.Extensions.4.3.0\lib\net462\System.Runtime.Extensions.dll</HintPath>
@@ -581,6 +590,12 @@
     </Reference>
     <Reference Include="UBaseline.Core, Version=0.2.15.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Compent.UBaseline.Core.0.2.15\lib\net472\UBaseline.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="UBaseline.Search.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Compent.UBaseline.Search.Elasticsearch.0.2.6-UintraUpdateSearch\lib\net472\UBaseline.Search.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="UBaseline.Search.Elasticsearch, Version=0.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Compent.UBaseline.Search.Elasticsearch.0.2.6-UintraUpdateSearch\lib\net472\UBaseline.Search.Elasticsearch.dll</HintPath>
     </Reference>
     <Reference Include="UBaseline.Shared, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Compent.UBaseline.Core.0.2.15\lib\net472\UBaseline.Shared.dll</HintPath>
@@ -953,6 +968,32 @@
     <Compile Include="Core\MediaToolkit\Util\RegexEngine.cs" />
     <Compile Include="Core\Member\CommandBus\MentionHandle.cs" />
     <Compile Include="Core\Member\Controllers\MemberGroupController.cs" />
+    <Compile Include="Core\Search\Extensions\SearchExtensions.cs" />
+    <Compile Include="Core\Search\Helpers\UintraSearchHighlightingHelper.cs" />
+    <Compile Include="Core\Search\IndexContext\UintraIndexContext.cs" />
+    <Compile Include="Core\Search\Indexers\IUserTagIndexer.cs" />
+    <Compile Include="Core\Search\Indexers\MemberIndexer.cs" />
+    <Compile Include="Core\Search\Indexers\UserTagIndexer.cs" />
+    <Compile Include="Core\Search\InjectModules\ElasticSearchInjectModule.cs" />
+    <Compile Include="Core\Search\Providers\ITokenizerProvider.cs" />
+    <Compile Include="Core\Search\Providers\UintraAnalyzerProvider.cs" />
+    <Compile Include="Core\Search\Providers\UintraCharFiltersProvider.cs" />
+    <Compile Include="Core\Search\Providers\UintraFiltersProvider.cs" />
+    <Compile Include="Core\Search\Providers\UintraTokenizerProvider.cs" />
+    <Compile Include="Core\Search\Queries\DeleteByType\DeleteSearchableActivityByTypeQuery.cs" />
+    <Compile Include="Core\Search\Queries\DeleteByType\DeleteSearchableActivityByTypeSpecification.cs" />
+    <Compile Include="Core\Search\Queries\DeleteByType\DeleteSearchableActivityByTypeSpecificationFactory.cs" />
+    <Compile Include="Core\Search\Queries\SearchByMember\SearchByMemberQuery.cs" />
+    <Compile Include="Core\Search\Queries\SearchByMember\SearchByMemberSpecification.cs" />
+    <Compile Include="Core\Search\Queries\SearchByMember\SearchByMemberSpecificationFactory.cs" />
+    <Compile Include="Core\Search\Queries\SearchByText\SearchByTextQuery.cs" />
+    <Compile Include="Core\Search\Queries\SearchByText\SearchByTextSpecification.cs" />
+    <Compile Include="Core\Search\Queries\SearchByText\SearchByTextSpecificationFactory.cs" />
+    <Compile Include="Core\Search\Repository\ActivityUserTagSearchRepository.cs" />
+    <Compile Include="Core\Search\Repository\IActivityUserTagSearchRepository.cs" />
+    <Compile Include="Core\Search\Repository\IUintraSearchRepository.cs" />
+    <Compile Include="Core\Search\Repository\UintraSearchRepository.cs" />
+    <Compile Include="Core\Search\Settings\ElasticSearchSettings.cs" />
     <Compile Include="Core\UbaselineModels\ForbiddenPageViewModel.cs" />
     <Compile Include="Core\UbaselineModels\PageNotFoundPageModel.cs" />
     <Compile Include="Core\Updater\2.0\Migration.cs" />
@@ -973,6 +1014,7 @@
     <Compile Include="Features\Breadcrumbs\Services\Contracts\IBreadcrumbService.cs" />
     <Compile Include="Features\Breadcrumbs\Services\Implementations\BreadcrumbService.cs" />
     <Compile Include="Features\Breadcrumbs\UnjectModules\BreadcrumbInjectModule.cs" />
+    <Compile Include="Features\Events\Extensions\EventsExtensions.cs" />
     <Compile Include="Features\Events\Handlers\EventHandler.cs" />
     <Compile Include="Core\UmbracoEvents\Services\Contracts\IUmbracoContentPublishedEventService.cs" />
     <Compile Include="Core\UmbracoEvents\Services\Contracts\IUmbracoContentUnPublishedEventService.cs" />
@@ -991,6 +1033,7 @@
     <Compile Include="Features\Media\Images\Constants\ImageConstants.cs" />
     <Compile Include="Features\Navigation\Services\ISubNavigationModelBuilder.cs" />
     <Compile Include="Features\Navigation\Services\SubNavigationModelBuilder.cs" />
+    <Compile Include="Features\News\Extensions\NewsExtensions.cs" />
     <Compile Include="Features\Notification\Models\UserMentionNotificationModel.cs" />
     <Compile Include="Features\Notification\Services\IUserMentionNotificationService.cs" />
     <Compile Include="Features\Notification\Services\UserMentionNotificationService.cs" />
@@ -999,6 +1042,9 @@
     <Compile Include="Features\OpenGraph\Services\Contracts\IOpenGraphService.cs" />
     <Compile Include="Features\OpenGraph\Services\Implementations\OpenGraphService.cs" />
     <Compile Include="Features\Permissions\Models\MemberGroupDeleteModel.cs" />
+    <Compile Include="Features\Search\Converters\Panel\ContactPanelSearchConverter.cs" />
+    <Compile Include="Features\Search\Converters\Panel\ImagePanelSearchConverter.cs" />
+    <Compile Include="Features\Search\Converters\Panel\TextPanelSearchConverter.cs" />
     <Compile Include="Features\Search\Converters\Panel\UserTagsPanelSearchConverter.cs" />
     <Compile Include="Features\Tagging\UserTags\Converters\TagsPropertyEditorConverter.cs" />
     <Compile Include="Features\Tagging\UserTags\Converters\UserTagsPanelViewModelConverter.cs" />
@@ -1034,9 +1080,7 @@
     <Compile Include="Core\Search\Entities\Mappings\SearchableContentMap.cs" />
     <Compile Include="Core\Search\Entities\Mappings\SearchableDocumentMap.cs" />
     <Compile Include="Core\Search\Entities\Mappings\SearchableTagMap.cs" />
-    <Compile Include="Core\Search\Entities\Mappings\SearchableUintraActivityMap.cs" />
     <Compile Include="Core\Search\Entities\Mappings\SearchableUserMap.cs" />
-    <Compile Include="Core\Search\Entities\SearchableActivity.cs" />
     <Compile Include="Core\Search\Entities\SearchableBase.cs" />
     <Compile Include="Core\Search\Entities\SearchableContent.cs" />
     <Compile Include="Core\Search\Entities\SearchableDocument.cs" />
@@ -1044,7 +1088,7 @@
     <Compile Include="Core\Search\Entities\SearchablePanel.cs" />
     <Compile Include="Core\Search\Entities\SearchableTag.cs" />
     <Compile Include="Core\Search\Entities\SearchableTypeEnum.cs" />
-    <Compile Include="Core\Search\Entities\SearchableUintraActivity.cs" />
+    <Compile Include="Core\Search\Entities\SearchableActivity.cs" />
     <Compile Include="Core\Search\Entities\SearchableUserGroupInfo.cs" />
     <Compile Include="Core\Search\Entities\SearchResult.cs" />
     <Compile Include="Core\Search\Entities\UintraSearchableTypeEnum.cs" />
@@ -1059,29 +1103,6 @@
     <Compile Include="Core\Search\Indexers\DocumentIndexer.cs" />
     <Compile Include="Core\Search\Indexers\IContentIndexer.cs" />
     <Compile Include="Core\Search\Indexers\IDocumentIndexer.cs" />
-    <Compile Include="Core\Search\Indexers\IIndexer.cs" />
-    <Compile Include="Core\Search\Indexers\IUserTagsSearchIndexer.cs" />
-    <Compile Include="Core\Search\Indexers\MembersIndexer.cs" />
-    <Compile Include="Core\Search\Indexers\UserTagsSearchIndexer.cs" />
-    <Compile Include="Core\Search\Indexes\ActivityUserTagIndex.cs" />
-    <Compile Include="Core\Search\Indexes\ElasticActivityIndex.cs" />
-    <Compile Include="Core\Search\Indexes\ElasticContentIndex.cs" />
-    <Compile Include="Core\Search\Indexes\ElasticDocumentIndex.cs" />
-    <Compile Include="Core\Search\Indexes\ElasticIndex.cs" />
-    <Compile Include="Core\Search\Indexes\ElasticMemberIndex.cs" />
-    <Compile Include="Core\Search\Indexes\ElasticTagIndex.cs" />
-    <Compile Include="Core\Search\Indexes\ElasticUintraActivityIndex.cs" />
-    <Compile Include="Core\Search\Indexes\IActivityUserTagIndex.cs" />
-    <Compile Include="Core\Search\Indexes\IElasticActivityIndex.cs" />
-    <Compile Include="Core\Search\Indexes\IElasticContentIndex.cs" />
-    <Compile Include="Core\Search\Indexes\IElasticDocumentIndex.cs" />
-    <Compile Include="Core\Search\Indexes\IElasticEntityMapper.cs" />
-    <Compile Include="Core\Search\Indexes\IElasticIndex.cs" />
-    <Compile Include="Core\Search\Indexes\IElasticMemberIndex.cs" />
-    <Compile Include="Core\Search\Indexes\IElasticTagIndex.cs" />
-    <Compile Include="Core\Search\Indexes\IElasticUintraActivityIndex.cs" />
-    <Compile Include="Core\Search\Indexes\UintraElasticIndex.cs" />
-    <Compile Include="Core\Search\IoC\SearchInjectModule.cs" />
     <Compile Include="Core\Search\Paging\BaseSearchPagingHelper.cs" />
     <Compile Include="Core\Search\Paging\ISearchPagingHelper.cs" />
     <Compile Include="Core\Search\Providers\ISearchableTypeProvider.cs" />
@@ -1089,8 +1110,6 @@
     <Compile Include="Core\Search\Providers\SearchableTypeProvider.cs" />
     <Compile Include="Core\Search\Providers\SearchContentPanelConverterProvider.cs" />
     <Compile Include="Core\Search\Providers\SearchScoreProvider.cs" />
-    <Compile Include="Core\Search\Repository\ElasticSearchRepository.cs" />
-    <Compile Include="Core\Search\Repository\IElasticSearchRepository.cs" />
     <Compile Include="Core\Search\Sorting\BaseSearchSortingHelper.cs" />
     <Compile Include="Core\Search\Sorting\ISearchSortingHelper.cs" />
     <Compile Include="Core\UbaselineModels\FileModel.cs" />
@@ -1313,9 +1332,6 @@
     <Compile Include="Features\Search\Models\SearchPageViewModel.cs" />
     <Compile Include="Features\Search\Models\UintraSearchResultViewModel.cs" />
     <Compile Include="Features\Search\Page\SearchPageConverter.cs" />
-    <Compile Include="Features\Search\Queries\MemberSearchQuery.cs" />
-    <Compile Include="Features\Search\Queries\SearchTextQuery.cs" />
-    <Compile Include="Features\Search\AutoMapperProfile\SearchableActivityAutoMapperProfile.cs" />
     <Compile Include="Features\Search\AutoMapperProfile\SearchAutoMapperProfile.cs" />
     <Compile Include="Features\Search\AutoMapperProfile\SearchResultAutoMapperProfile.cs" />
     <Compile Include="Features\Search\SearchConstants.cs" />
@@ -2053,6 +2069,7 @@
     <Content Include="App_Plugins\ContentPreview\package.manifest" />
     <Content Include="App_Plugins\AnchorField\package.manifest" />
     <Content Include="config\Uintra\panelContainerSettings.json" />
+    <Content Include="config\UBaseline\searchSettings.json" />
     <None Include="config\umbracoSettings.config" />
     <EmbeddedResource Include="Core\MediaToolkit\ffmpeg.exe.gz" />
     <None Include="packages.config" />

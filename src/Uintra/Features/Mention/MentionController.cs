@@ -1,47 +1,50 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Http;
 using UBaseline.Core.Controllers;
 using Uintra.Core.Search.Entities;
-using Uintra.Core.Search.Indexes;
+using Uintra.Core.Search.Queries;
+using Uintra.Core.Search.Repository;
 using Uintra.Features.Links;
 using Uintra.Features.Mention.Models;
-using Uintra.Features.Search.Queries;
 using Uintra.Infrastructure.Extensions;
 
 namespace Uintra.Features.Mention
 {
     public class MentionController : UBaselineApiController
     {
-        private readonly IElasticIndex _elasticIndex;
         private readonly IProfileLinkProvider _profileLinkProvider;
+        private readonly IUintraSearchRepository _searchRepository;
 
-        public MentionController(IElasticIndex elasticIndex, IProfileLinkProvider profileLinkProvider)
+        public MentionController(
+            IProfileLinkProvider profileLinkProvider,
+            IUintraSearchRepository searchRepository)
         {
-            _elasticIndex = elasticIndex;
             _profileLinkProvider = profileLinkProvider;
+            _searchRepository = searchRepository;
         }
 
         [HttpGet]
-        public IEnumerable<MentionUserModel> SearchMention(string query)
+        public async Task<IEnumerable<MentionUserModel>> SearchMention(string query)
         {
-            var searchResult = _elasticIndex.Search(new SearchTextQuery
+            var searchByTextQuery = new SearchByTextQuery
             {
                 Text = query,
                 Take = 5,
                 SearchableTypeIds = UintraSearchableTypeEnum.Member.ToInt().ToListOfOne(),
                 OnlyPinned = false,
                 ApplyHighlights = false
-            });
-
+            };
+            var searchResult = await _searchRepository.SearchAsyncTyped(searchByTextQuery);
+            
             var results = searchResult.Documents.Select(d =>
             {
                 var searchableUser = (SearchableMember)d;
                 var user = new MentionUserModel()
                 {
-
-                    Id = Guid.Parse(searchableUser.Id.ToString()),
+                    Id = Guid.Parse(searchableUser.Id),
                     Value = searchableUser.FullName
                 };
                 user.Url = _profileLinkProvider.GetProfileLink(user.Id);
@@ -49,7 +52,6 @@ namespace Uintra.Features.Mention
             });
 
             return results;
-
         }
     }
 }

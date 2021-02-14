@@ -2,6 +2,8 @@
 {
     public static class SearchConstants
     {
+        public static readonly string AttachmentsPipelineName = "attachments";
+
         public static class Global
         {
             public const int FragmentSize = 100; // depends on elastic fragment_size setting for highlighting (by default 100)

@@ -1,64 +1,70 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using Compent.Shared.Extensions.Bcl;
+using Compent.Shared.Search.Contract;
 using UBaseline.Core.Controllers;
+using UBaseline.Search.Core;
 using Uintra.Core.Localization;
 using Uintra.Core.Search.Entities;
 using Uintra.Core.Search.Helpers;
-using Uintra.Core.Search.Indexers;
 using Uintra.Core.Search.Indexers.Diagnostics.Models;
-using Uintra.Core.Search.Indexes;
-using Uintra.Core.Search.Providers;
+using Uintra.Core.Search.Repository;
 using Uintra.Features.Search.Models;
-using Uintra.Features.Search.Queries;
 using Uintra.Infrastructure.Extensions;
+using ISearchableTypeProvider = Uintra.Core.Search.Providers.ISearchableTypeProvider;
+using SearchAutocompleteResultViewModel = Uintra.Features.Search.Models.SearchAutocompleteResultViewModel;
+using SearchByTextQuery = Uintra.Core.Search.Queries.SearchByTextQuery;
+using SearchFilterModel = Uintra.Features.Search.Models.SearchFilterModel;
+using SearchResultViewModel = Uintra.Features.Search.Models.SearchResultViewModel;
 
 namespace Uintra.Features.Search.Web
 {
-    //todo refactor duplicated code in SearchPageConverter
+    //todo refactor duplicated code in SearchPageConverter|
     //todo after refactor remove unused models and methods
     public class SearchController : UBaselineApiController
     {
         private string SearchTranslationPrefix { get; } = "Search.";
         private int AutocompleteSuggestionCount { get; } = 10;
-        private  int ResultsPerPage { get; } = 20;
+        private int ResultsPerPage { get; } = 20;
 
-        private readonly IElasticIndex _elasticIndex;
-        private readonly IEnumerable<IIndexer> _searchableServices;
         private readonly IIntranetLocalizationService _localizationService;
         private readonly ISearchUmbracoHelper _searchUmbracoHelper;
         private readonly ISearchableTypeProvider _searchableTypeProvider;
-
+        private readonly IEnumerable<ISearchDocumentIndexer> indexers;
+        private readonly IUintraSearchRepository _searchRepository;
+        
         public SearchController(
-            IElasticIndex elasticIndex,
-            IEnumerable<IIndexer> searchableServices,
             IIntranetLocalizationService localizationService,
             ISearchUmbracoHelper searchUmbracoHelper,
-            ISearchableTypeProvider searchableTypeProvider)
+            ISearchableTypeProvider searchableTypeProvider,
+            IEnumerable<ISearchDocumentIndexer> indexers,
+            IUintraSearchRepository searchRepository)
         {
-            _elasticIndex = elasticIndex;
-            _searchableServices = searchableServices;
             _localizationService = localizationService;
             _searchUmbracoHelper = searchUmbracoHelper;
             _searchableTypeProvider = searchableTypeProvider;
+            this.indexers = indexers;
+            _searchRepository = searchRepository;
         }
 
         [HttpPost]
-        public  SearchPageViewModel Search (SearchFilterModel model)
+        public async Task<SearchPageViewModel> Search(SearchFilterModel model)
         {
             var searchableTypeIds = model.Types.Count > 0 ? model.Types : GetSearchableTypes().Select(t => t.ToInt());
-
-            var searchResult = _elasticIndex.Search(new SearchTextQuery
+            var searchByTextQuery = new SearchByTextQuery
             {
                 Text = model.Query,
                 Take = ResultsPerPage * model.Page,
                 SearchableTypeIds = searchableTypeIds,
                 OnlyPinned = model.OnlyPinned,
                 ApplyHighlights = true
-            });
+            };
 
+            var searchResult = await _searchRepository.SearchAsyncTyped(searchByTextQuery);
+            
             var resultModel = GetSearchPage(searchResult);
             resultModel.Query = model.Query;
 
@@ -66,14 +72,16 @@ namespace Uintra.Features.Search.Web
         }
 
         [HttpPost]
-        public IEnumerable<SearchAutocompleteResultViewModel> Autocomplete(SearchRequest searchRequest)
+        public async Task<IEnumerable<SearchAutocompleteResultViewModel>> Autocomplete(SearchRequest searchRequest)
         {
-            var searchResult = _elasticIndex.Search(new SearchTextQuery
+            var searchByTextQuery = new SearchByTextQuery
             {
                 Text = searchRequest.Query,
                 Take = AutocompleteSuggestionCount,
-                SearchableTypeIds = GetAutocompleteSearchableTypes().Select(u=>u.ToInt())
-            });
+                SearchableTypeIds = GetAutocompleteSearchableTypes().Select(u => u.ToInt())
+            };
+
+            var searchResult = await _searchRepository.SearchAsync(searchByTextQuery, String.Empty);
 
             var result = GetAutocompleteResultModels(searchResult.Documents).ToList();
             if (result.Count > 0)
@@ -85,7 +93,7 @@ namespace Uintra.Features.Search.Web
             return result;
         }
 
-        protected virtual SearchPageViewModel GetSearchPage(SearchResult<SearchableBase> searchResult)
+        protected virtual SearchPageViewModel GetSearchPage(Core.Search.Entities.SearchResult<SearchableBase> searchResult)
         {
             var searchResultViewModels = searchResult.Documents.Select(d =>
             {
@@ -111,18 +119,19 @@ namespace Uintra.Features.Search.Web
             var result = new SearchPageViewModel()
             {
                 Results = searchResultViewModels,
-                ResultsCount = (int)searchResult.TotalHits,
+                ResultsCount = (int)searchResult.TotalCount,
                 FilterItems = filterItems,
-                AllTypesPlaceholder = GetLabelWithCount("Search.Filter.All.lbl", (int)searchResult.TotalHits),
-                BlockScrolling = searchResult.TotalHits <= searchResultViewModels.Count
+                AllTypesPlaceholder = GetLabelWithCount("Search.Filter.All.lbl", (int)searchResult.TotalCount),
+                BlockScrolling = searchResult.TotalCount <= searchResultViewModels.Count
             };
 
             return result;
         }
 
-        protected virtual IEnumerable<SearchAutocompleteResultViewModel> GetAutocompleteResultModels(IEnumerable<SearchableBase> searchResults)
+        protected virtual IEnumerable<SearchAutocompleteResultViewModel> GetAutocompleteResultModels(
+            IEnumerable<ISearchDocument> searchResults)
         {
-            var result = searchResults.Select(searchResult =>
+            var result = searchResults.OfType<SearchableBase>().Select(searchResult =>
             {
                 var model = searchResult.Map<SearchAutocompleteResultViewModel>();
 
@@ -170,21 +179,40 @@ namespace Uintra.Features.Search.Web
         }
 
         [HttpPost]
-        public RebuildIndexStatusModel RebuildIndex()
+        public async Task<RebuildIndexStatusModel> RebuildIndex()
         {
-            var success = _elasticIndex.RecreateIndex(out var error);
-            var res = new List<IndexedModelResult>();
+            // TODO: Search. Add wrapper with detailed result?
+            // TODO: Search. Adjust FE
+            //var indexRebuildResults = indexers.Select(i =>
+            //    (IndexType: i.Type, Task: i.RebuildIndex()))
+            //    .AsList();
 
-            if (success)
+            //await Task.WhenAll(indexRebuildResults.Select(i => i.Task));
+            //var res = indexRebuildResults.Select(i => new IndexedModelResult()
+            //{
+            //    IndexedName = i.IndexType.ToString(),
+            //    Success = i.Task.Result
+            //});
+
+            var results = new List<IndexedModelResult>();
+
+            foreach (var indexer in indexers)
             {
-                res.AddRange(_searchableServices.Select(s => s.FillIndex()));
+                var result = await indexer.RebuildIndex();
+                results.Add(new IndexedModelResult()
+                {
+                    IndexedName =  indexer.Type.ToString(),
+                    Success = result
+                });
+
+
             }
 
             var status = new RebuildIndexStatusModel
             {
-                Success = success,
-                Message = error,
-                Index = res
+                Success = results.All(i => i.Success),
+                //Message = error,
+                Index = results
             };
 
             return status;
@@ -201,7 +229,7 @@ namespace Uintra.Features.Search.Web
                 UintraSearchableTypeEnum.Member,
                 UintraSearchableTypeEnum.Tag
             };
-        
+
         private static IEnumerable<UintraSearchableTypeEnum> GetSearchableTypes()
         {
             return GetAutocompleteSearchableTypes().Except(UintraSearchableTypeEnum.Tag.ToEnumerable());

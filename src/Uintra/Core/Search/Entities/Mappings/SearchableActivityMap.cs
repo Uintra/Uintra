@@ -7,6 +7,7 @@ namespace Uintra.Core.Search.Entities.Mappings
         public SearchableActivityMap()
         {
             Text(t => t.Name(n => n.Description).Analyzer(ElasticHelpers.ReplaceNgram));
+            Text(t => t.Name(n => n.UserTagNames).Analyzer(ElasticHelpers.Tag));
         }
     }
 }
