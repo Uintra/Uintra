@@ -5,6 +5,7 @@ using Compent.Shared.Search.Elasticsearch.Providers;
 using Nest;
 using Uintra.Core.Search.Helpers;
 using Uintra.Core.Search.Providers;
+using Uintra.Features.Search;
 
 namespace Uintra.Core.Search
 {
@@ -84,6 +85,9 @@ namespace Uintra.Core.Search
                 .MapAsync<T>(descriptor => descriptor.Index(Indices).Properties(pd => mapping))
                 .ConfigureAwait(false);
 
+            string error;
+            if (!EnsureAttachmentsPipelineExists(out error)) throw new System.Exception($"Attachment fails: [{error}]");
+
             return response.ToSearchResponse();
         }
 
@@ -98,6 +102,36 @@ namespace Uintra.Core.Search
             tokenizerProvider.Apply(analysisDescriptor);
             
             return analysisDescriptor;
+        }
+
+        private bool EnsureAttachmentsPipelineExists(out string error)
+        {
+            error = string.Empty;
+
+            var pipelineResponse = client.Ingest.GetPipeline(el => el.Id(SearchConstants.AttachmentsPipelineName));
+            if (pipelineResponse.IsValid)
+            {
+                return true;
+            }
+
+            var putPipelineResponse = client.Ingest.PutPipeline(
+                SearchConstants.AttachmentsPipelineName, p => p
+                .Description("Extract attachment information")
+                .Processors(pr => pr
+                    .Attachment<Entities.SearchableDocument>(a => a
+                        .Field(f => f.Data)
+                        .TargetField(f => f.Attachment))
+                    .Remove<Entities.SearchableDocument>(r => r
+                        .Field(f => f
+                            .Field(z => z.Data)))));
+
+            if (!putPipelineResponse.IsValid)
+            {
+                //RequestError(putPipelineResponse);
+                error = putPipelineResponse.DebugInformation;
+                return false;
+            }
+            return true;
         }
     }
 }

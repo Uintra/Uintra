@@ -66,8 +66,10 @@ namespace Uintra.Core.Search.Repository
                 );
             }
 
-            descriptor.Refresh(Refresh.WaitFor);//.Pipeline(PipelineId);
-
+            if (items.Any() && items.First() is SearchableDocument)
+                descriptor.Pipeline(SearchConstants.AttachmentsPipelineName).Refresh(Refresh.WaitFor);
+            else
+                descriptor.Refresh(Refresh.WaitFor);
 
             var response = await client.BulkAsync(descriptor).ConfigureAwait(false);
 
