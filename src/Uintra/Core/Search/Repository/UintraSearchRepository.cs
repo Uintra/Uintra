@@ -40,13 +40,13 @@ namespace Uintra.Core.Search.Repository
 
         public override async Task<string> IndexAsync(T item)
         {
-            if (item == null) return default;
+            if (item == null) return default(string);
             
             var response = await client
                 .IndexAsync<T>(item, x => x.Index(indexContext.IndexName.Name).Refresh(Refresh.False))
                 .ConfigureAwait(false);
             
-            return !response.IsFail() && !response.Id.IsEmpty() ? response.Id : default;
+            return !response.IsFail() && !response.Id.IsEmpty() ? response.Id : default(string);
         }
 
         public override async Task<int> IndexAsync(IEnumerable<T> items)
