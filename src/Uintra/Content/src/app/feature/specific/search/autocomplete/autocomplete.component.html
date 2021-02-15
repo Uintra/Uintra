@@ -19,7 +19,7 @@
 
     <span class="icon icon-search-icon"></span>
   </div>
-  <ul *ngIf="isFocused && inputValue.length > 1" class="autocomplete-list">
+  <ul *ngIf="isFocused && inputValue.length > minNumberOfCharacters" class="autocomplete-list">
     <li
       *ngFor="let item of autocompleteList; index as i"
       class="autocomplete-list__item">

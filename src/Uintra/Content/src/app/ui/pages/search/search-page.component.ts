@@ -18,6 +18,7 @@ import { Indexer } from '../../../shared/abstractions/indexer';
 export class SearchPage extends Indexer<number> implements OnInit, OnDestroy {
 
   private $searchSubscription: Subscription;
+  private minNumberOfCharacters: number; 
   public data: ISearchPage;
 
   public inputValue = '';
@@ -52,6 +53,8 @@ export class SearchPage extends Indexer<number> implements OnInit, OnDestroy {
   }
 
   public ngOnInit(): void {
+    this.minNumberOfCharacters = this.searchService.minNumberOfCharactersToSearch;
+
     if(this.data.filterItems) {
       this.availableFilters = this.data.filterItems.map((item: any) => ({
         id: item.id,
@@ -88,7 +91,12 @@ export class SearchPage extends Indexer<number> implements OnInit, OnDestroy {
 
   public onQueryChange(val: string): void {
     this.inputValue = val;
-    this._query.next(val);
+    const str = this.inputValue.trim();
+
+    if(str.length > this.minNumberOfCharacters)
+    {
+      this._query.next(val);
+    }
   }
 
   public onTagsChange(val): void {
