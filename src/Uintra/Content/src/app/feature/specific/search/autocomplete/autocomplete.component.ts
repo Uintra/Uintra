@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { SearchService } from '../search.service';
@@ -21,6 +21,8 @@ export class AutocompleteComponent implements OnInit, OnDestroy {
   isFocused: boolean;
   inputValueToRestore: string;
 
+  public minNumberOfCharacters: number; 
+
   constructor(
     private searchService: SearchService,
     private router: Router
@@ -29,7 +31,7 @@ export class AutocompleteComponent implements OnInit, OnDestroy {
       debounceTime(300),
       distinctUntilChanged()
     ).subscribe((value: string) => {
-      if (value.trim() && value.trim().length > 1) {
+      if (value.trim() && value.trim().length > this.minNumberOfCharacters) {
         this.$autocompleteSubscription = this.searchService.autocomplete(value).subscribe((res: IAutocompleteItem[]) => {
           this.autocompleteList = res.map(suggestion => ({
             ...suggestion,
@@ -44,6 +46,8 @@ export class AutocompleteComponent implements OnInit, OnDestroy {
   }
 
   public ngOnInit(): void {
+    this.minNumberOfCharacters = this.searchService.minNumberOfCharactersToSearch;
+
     this.router.events.subscribe(e => {
       if (e instanceof NavigationStart) {
         this.closeAutocomplete();
