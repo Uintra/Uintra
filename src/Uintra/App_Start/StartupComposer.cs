@@ -56,7 +56,7 @@ namespace Uintra
                 .AddLogging()
                 .AddUBaseline()
                 .AddSearch()
-                .AddUBaselineSearch()
+                //.AddUBaselineSearch()
                 .AddUBaselineElasticsearchSearch()
                 .RegisterInjectModules(assembly)
                 .RegisterMvcControllers(assembly)
