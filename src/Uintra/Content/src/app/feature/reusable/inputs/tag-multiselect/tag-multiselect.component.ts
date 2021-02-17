@@ -1,6 +1,7 @@
-import { Component, Input, forwardRef } from "@angular/core";
+import { Component, Input, forwardRef, OnChanges } from "@angular/core";
 import { ITagData } from "./tag-multiselect.interface";
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
+import { SimpleChanges } from '@angular/core';
 
 @Component({
   selector: "app-tag-multiselect",
@@ -14,7 +15,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
     }
   ]
 })
-export class TagMultiselectComponent implements ControlValueAccessor {
+export class TagMultiselectComponent implements ControlValueAccessor, OnChanges {
   @Input() availableTags: Array<ITagData>;
   @Input() placeholder: string;
 
@@ -81,6 +82,12 @@ export class TagMultiselectComponent implements ControlValueAccessor {
   }
 
   onChange: any = () => {
+  }
+
+  ngOnChanges(value: SimpleChanges) {
+    const selectedListIds = this.selectedList.map(x => x.id);
+    this.selectedList = this.availableTags
+      .filter(tag => selectedListIds.includes(tag.id));
   }
 
   onTouched: any = () => {
