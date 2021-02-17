@@ -120,19 +120,21 @@ namespace Uintra.Core.Search.Queries
             var desc = new List<QueryContainer>
             {
                 new QueryContainerDescriptor<SearchableContent>().Nested(nes => nes
-                    //.Path(p => p.Panels)
+                    .Path(x => x.Panels)
                     .Query(q => q
                         .Match(m => m
                             .Query(query)
+                            .Analyzer(ElasticHelpers.ReplaceNgram)
                             .Field(f => f.Panels.First().Title)))),
 
                 new QueryContainerDescriptor<SearchableContent>()
                     .Nested(nes => nes
-                        //.Path(p => p.Panels)
+                        .Path(x => x.Panels)
                         .Query(q => q
                             .Match(m => m
                                 .Query(query)
-                                .Field(f => f.Panels.First().Content)))),
+                                .Analyzer(ElasticHelpers.ReplaceNgram)
+                                .Field(f => f.Panels.First().Content))))
             };
 
             return desc.ToArray();
