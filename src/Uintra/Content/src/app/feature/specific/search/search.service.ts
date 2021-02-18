@@ -18,7 +18,7 @@ export class SearchService {
 
   private prefix = '/ubaseline/api/';
   public groupMembersRefreshTrigger = new Subject();
-  public minNumberOfCharactersToSearch: number = 1;
+  public minNumberOfCharactersToSearch: number = 2;
 
   constructor(private http: HttpClient) { }
 

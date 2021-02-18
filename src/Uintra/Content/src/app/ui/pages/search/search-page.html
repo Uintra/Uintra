@@ -34,7 +34,7 @@
                         (ngModelChange)="onCbxChange($event)">
           {{'search.Filter.OnlyPinned.chkbx' | translate}}
         </checkbox-input>
-        <h2 class="search-results__title">
+        <h2 *ngIf="isDisplaySearchResult" class="search-results__title">
           {{getResultsTitle()}}
         </h2>
         <div *ngIf="resultsList.length"
