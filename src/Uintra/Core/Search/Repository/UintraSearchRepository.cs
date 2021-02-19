@@ -150,10 +150,21 @@ namespace Uintra.Core.Search.Repository
             return result;
         }
 
+        public override async Task<ISearchResult<ISearchDocument>> SearchAsync<TQuery>(TQuery query, string culture)
+        {
+            SearchQuerySpecification<SearchDocument> specification = this.searchSpecificationFactory.CreateSearchSpecification<TQuery>(query, culture);
+            SearchDescriptor<SearchDocument> searchDescriptor = specification.Descriptor.AllIndices();
+            ISearchResponse<JObject> response = await this.client.SearchAsync<JObject>((ISearchRequest) searchDescriptor).ConfigureAwait(false);
+            if (!response.IsFail())
+                return this.MapToResult(response);
+            this.LogError((IResponse) response);
+            return (ISearchResult<ISearchDocument>) new Entities.SearchResult<ISearchDocument>();
+        }
+
         public async Task<Entities.SearchResult<SearchableBase>> SearchAsyncTyped<TQuery>(TQuery query) where TQuery : ISearchQuery<SearchDocument>
         {
             // TODO: Search. Localization?
-            var result = (await base.SearchAsync(query, String.Empty)) as Entities.SearchResult<SearchableBase>;
+            var result = (await SearchAsync(query, String.Empty)) as Entities.SearchResult<SearchableBase>;
             return result;
         }
     }

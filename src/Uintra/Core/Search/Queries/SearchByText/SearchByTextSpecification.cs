@@ -117,27 +117,40 @@ namespace Uintra.Core.Search.Queries
 
         private QueryContainer[] GetContentDescriptors(string query)
         {
-            var desc = new List<QueryContainer>
+            var existTitle = new QueryContainerDescriptor<SearchableContent>()
+                .Nested(n => n.Path(p => p.Panels).Query(q => q.Exists(e => e.Field(f => f.Panels.First().Title))));
+
+            var searchTitle = new QueryContainerDescriptor<SearchableContent>().Nested(nes => nes
+                .Path(x => x.Panels)
+                .Query(q => q
+                    .Match(m => m
+                        .Query(query)
+                        .Analyzer(ElasticHelpers.ReplaceNgram)
+                        .Field(f => f.Panels.First().Title))));
+            
+            var existContent = new QueryContainerDescriptor<SearchableContent>()
+                .Nested(n => n.Path(p => p.Panels).Query(q => q.Exists(e => e.Field(f => f.Panels.First().Content))));
+
+            var searchContent = new QueryContainerDescriptor<SearchableContent>().Nested(nes => nes
+                .Path(x => x.Panels)
+                .Query(q => q
+                    .Match(m => m
+                        .Query(query)
+                        .Analyzer(ElasticHelpers.ReplaceNgram)
+                        .Field(f => f.Panels.First().Content))));
+            
+            var desc = new[]
             {
-                new QueryContainerDescriptor<SearchableContent>().Nested(nes => nes
-                    //.Path(x => x.Panels)
-                    .Query(q => q
-                        .Match(m => m
-                            .Query(query)
-                            //.Analyzer(ElasticHelpers.ReplaceNgram)
-                            .Field(f => f.Panels.First().Title)))),
-
-                new QueryContainerDescriptor<SearchableContent>()
-                    .Nested(nes => nes
-                        //.Path(x => x.Panels)
-                        .Query(q => q
-                            .Match(m => m
-                                .Query(query)
-                                //.Analyzer(ElasticHelpers.ReplaceNgram)
-                                .Field(f => f.Panels.First().Content))))
+                new QueryContainerDescriptor<SearchableContent>().Bool(b => b.Must(existTitle, searchTitle)),
+                new QueryContainerDescriptor<SearchableContent>().Bool(b => b.Must(existContent, searchContent))
             };
-
-            return desc.ToArray();
+           
+            return new QueryContainerDescriptor<SearchableContent>()
+                .Bool(
+                    b => b.Must(desc)
+                )
+                .ToEnumerable()
+                .ToArray();
         }
 
         private QueryContainer GetActivityDescriptor(string query)
