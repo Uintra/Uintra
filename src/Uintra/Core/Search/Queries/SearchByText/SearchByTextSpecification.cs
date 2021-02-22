@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Compent.Shared.DependencyInjection.Contract;
 using Compent.Shared.Extensions.Bcl;
@@ -95,7 +96,7 @@ namespace Uintra.Core.Search.Queries
         {
             var containers = new List<QueryContainer>();
             containers.AddRange(GetBaseDescriptor(query).ToEnumerable());
-            containers.AddRange(GetContentDescriptors(query));
+            containers.AddRange(GetContentDescriptors(query).ToEnumerable());
             containers.AddRange(GetActivityDescriptor(query).ToEnumerable());
             containers.AddRange(GetDocumentsDescriptor(query).ToEnumerable());
             containers.Add(GetTagNames<SearchableActivity>(query));
@@ -115,29 +116,12 @@ namespace Uintra.Core.Search.Queries
             return desc;
         }
 
-        private QueryContainer[] GetContentDescriptors(string query)
+        private QueryContainer GetContentDescriptors(string query)
         {
-            var desc = new List<QueryContainer>
-            {
-                new QueryContainerDescriptor<SearchableContent>().Nested(nes => nes
-                    //.Path(x => x.Panels)
-                    .Query(q => q
-                        .Match(m => m
-                            .Query(query)
-                            //.Analyzer(ElasticHelpers.ReplaceNgram)
-                            .Field(f => f.Panels.First().Title)))),
-
-                new QueryContainerDescriptor<SearchableContent>()
-                    .Nested(nes => nes
-                        //.Path(x => x.Panels)
-                        .Query(q => q
-                            .Match(m => m
-                                .Query(query)
-                                //.Analyzer(ElasticHelpers.ReplaceNgram)
-                                .Field(f => f.Panels.First().Content))))
-            };
-
-            return desc.ToArray();
+            return new QueryContainerDescriptor<SearchableContent>().Match(m => m
+                .Query(query)
+                .Analyzer(ElasticHelpers.ReplaceNgram)
+                .Field(f => f.AggregatedTextFromPanels));
         }
 
         private QueryContainer GetActivityDescriptor(string query)

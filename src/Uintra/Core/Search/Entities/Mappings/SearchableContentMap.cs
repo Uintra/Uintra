@@ -7,13 +7,7 @@ namespace Uintra.Core.Search.Entities.Mappings
     {
         public SearchableContentMap()
         {
-            Nested<SearchablePanel>(nst =>
-                nst.Name(n => n.Panels.First())
-                    .Properties(p => p.Text(t => t.Name(n => n.Content).Fielddata().Analyzer(ElasticHelpers.ReplaceNgram))));
-
-            Nested<SearchablePanel>(nst =>
-                nst.Name(n => n.Panels.First())
-                    .Properties(p => p.Text(t => t.Name(n => n.Title).Fielddata().Analyzer(ElasticHelpers.ReplaceNgram))));
+            Text(t => t.Name(n => n.AggregatedTextFromPanels).Fielddata().Analyzer(ElasticHelpers.ReplaceNgram));
         }
     }
 }

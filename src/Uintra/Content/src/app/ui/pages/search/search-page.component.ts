@@ -30,6 +30,7 @@ export class SearchPage extends Indexer<number> implements OnInit, OnDestroy {
   public query = '';
   public resultsCount: number;
   public isResultsLoading = false;
+  public isDisplaySearchResult = false;
   public isScrollDisabled = false;
   public _query = new Subject<string>();
 
@@ -40,9 +41,7 @@ export class SearchPage extends Indexer<number> implements OnInit, OnDestroy {
     private sanitizer: DomSanitizer,
   ) {
     super();
-    this.route.data.subscribe((data: ISearchPage) =>  { 
-      return this.data = data 
-    });
+    this.route.data.subscribe((data: ISearchPage) => this.data = data);
 
     this._query.pipe(
       debounceTime(200),
@@ -62,9 +61,6 @@ export class SearchPage extends Indexer<number> implements OnInit, OnDestroy {
       }));
     }
     
-    if(this.data.results) {
-      this.resultsList = this.data.results.map(this.checkSocialTitle);
-    }
     this.inputValue = this.data.query;
 
     const paramsSubscription = this.route.queryParams.subscribe(params => {
@@ -91,12 +87,7 @@ export class SearchPage extends Indexer<number> implements OnInit, OnDestroy {
 
   public onQueryChange(val: string): void {
     this.inputValue = val;
-    const str = this.inputValue.trim();
-
-    if(str.length > this.minNumberOfCharacters)
-    {
-      this._query.next(val);
-    }
+    this._query.next(val);
   }
 
   public onTagsChange(val): void {
@@ -137,8 +128,13 @@ export class SearchPage extends Indexer<number> implements OnInit, OnDestroy {
   }
 
   public getResults(): void {
-    this.isResultsLoading = true;
+    if(this.inputValue.length <= this.minNumberOfCharacters) {
+      this.resetSearchResult();
+      return;
+    }
 
+    this.isResultsLoading = true;
+    this.isDisplaySearchResult = true;
     this.searchService.search(this.requestDataBuilder()).pipe(
       finalize(() => {
         this.isResultsLoading = false;
@@ -151,12 +147,20 @@ export class SearchPage extends Indexer<number> implements OnInit, OnDestroy {
         description: this.sanitizer.bypassSecurityTrustHtml(result.description),
       }));
       this.query = res.query;
+
       if(res.filterItems) {
         this.availableFilters = res.filterItems.map((item: any) => ({ id: item.id, text: item.name }));
       }
       this.data.allTypesPlaceholder = res.allTypesPlaceholder;
       this.resultsCount = res.resultsCount;
     });
+  }
+
+  private resetSearchResult() {
+    this.isDisplaySearchResult = false;
+    this.data.allTypesPlaceholder = null;
+    this.availableFilters = []
+    this.resultsList = [];
   }
 
   public onLoadMore(): void {

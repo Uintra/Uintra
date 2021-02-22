@@ -54,15 +54,20 @@ namespace Uintra.Core.Search.Helpers
         public SearchableContent GetContent(IPublishedContent publishedContent)
         {
             var panelsComposition = _nodeModelService.Get<NodeModel>(publishedContent.Id) as IPanelsComposition;
+            
+            var seed = string.Empty;
+            var aggregatedTextFromPanels = panelsComposition == null
+                ? string.Empty
+                : _searchContentPanelConverterProvider.Convert(panelsComposition)
+                    .Aggregate(seed, (s, panel) => s += $"{panel.Title} {panel.Content}");
+            
             return new SearchableContent
             {
                 Id = publishedContent.Id.ToString(),
                 Type = SearchableTypeEnum.Content.ToInt(),
                 Url = publishedContent.Url.ToLinkModel(),
                 Title = publishedContent.Name,
-                Panels = panelsComposition == null
-                    ? Enumerable.Empty<SearchablePanel>()
-                    : _searchContentPanelConverterProvider.Convert(panelsComposition)
+                AggregatedTextFromPanels = aggregatedTextFromPanels
             };
         }
     }
