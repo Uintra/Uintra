@@ -1304,9 +1304,6 @@
     <Compile Include="Features\Permissions\Models\PermissionUpdateViewModel.cs" />
     <Compile Include="Features\Permissions\Models\PermissionViewModel.cs" />
     <Compile Include="Features\Search\CommandBus\MemberHandle.cs" />
-    <Compile Include="Features\Search\Configuration\IElasticSettings.cs" />
-    <Compile Include="Features\Search\Configuration\ISearchApplicationSettings.cs" />
-    <Compile Include="Features\Search\Configuration\SearchApplicationSettings.cs" />
     <Compile Include="Features\Search\Converters\Panel\ArticleContinuedPanelSearchConverter.cs" />
     <Compile Include="Features\Search\Converters\Panel\ArticleStartPanelSearchConverter.cs" />
     <Compile Include="Features\Search\Converters\Panel\DocumentLibraryPanelSearchConverter.cs" />

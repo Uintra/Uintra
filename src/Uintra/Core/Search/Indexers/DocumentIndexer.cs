@@ -7,10 +7,10 @@ using System.Web;
 using System.Web.Hosting;
 using Compent.Extensions;
 using Compent.Shared.Search.Contract;
+using UBaseline.Search.Core;
 using Uintra.Core.Search.Entities;
 using Uintra.Core.Search.Repository;
 using Uintra.Features.Media.Helpers;
-using Uintra.Features.Search.Configuration;
 using Uintra.Infrastructure.Constants;
 using Uintra.Infrastructure.Extensions;
 using Umbraco.Core.Logging;
@@ -30,7 +30,7 @@ namespace Uintra.Core.Search.Indexers
         private readonly IUintraSearchRepository<SearchableDocument> _searchRepository;
         private readonly IMediaHelper _mediaHelper;
         private readonly IMediaService _mediaService;
-        private readonly ISearchApplicationSettings _settings;
+        private readonly ISearchSettings _searchSettings;
         private readonly ILogger _logger;
 
         public DocumentIndexer(
@@ -38,14 +38,14 @@ namespace Uintra.Core.Search.Indexers
             IUintraSearchRepository<SearchableDocument> searchRepository, 
             IMediaHelper mediaHelper, 
             IMediaService mediaService, 
-            ISearchApplicationSettings settings, 
+            ISearchSettings searchSettings,
             ILogger logger)
         {
             _indexContext = indexContext;
             _searchRepository = searchRepository;
             _mediaHelper = mediaHelper;
             _mediaService = mediaService;
-            _settings = settings;
+            _searchSettings = searchSettings;
             _logger = logger;
         }
 
@@ -164,7 +164,7 @@ namespace Uintra.Core.Search.Indexers
             var fileName = Path.GetFileName(content.Url);
             var extension = Path.GetExtension(fileName)?.Trim('.');
 
-            var isFileExtensionAllowedForIndex = _settings.IndexingDocumentTypesKey.Contains(extension, StringComparison.OrdinalIgnoreCase);
+            var isFileExtensionAllowedForIndex = _searchSettings.IndexingDocumentTypes.Contains(extension, StringComparison.OrdinalIgnoreCase);
             
             if (!content.Url.IsNullOrEmpty())
             {
