@@ -1,9 +1,9 @@
 {
   "SearchSettings": {
-    "Host": "127.0.0.1",
-    "Port": "9200",
+    "Host": "40.114.193.79",
+    "Port": "9979",
     "IndexPrefix": "uintra20",
-    "IndexingDocumentTypes": [ "doc", "docx", "pdf", "ppt", "pptx", "odf" ],
+    "IndexingDocumentTypes": [ "doc", "docx", "pdf", "ppt", "pptx", "odf", "txt", "rtf" ],
     "HighlightedFragmentSize": 300,
     "SearchResultDescriptionSize": 300,
     "SearchDocumentPriorities": {

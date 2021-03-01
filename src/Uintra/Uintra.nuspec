@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>Uintra</id>
+    <version>2.1.0</version>
+    <title>Uintra</title>
+    <authors>Compent</authors>
+    <owners>Compent</owners>
+    <description>Uintra - An open source and lightweight framework for making an Extranet, Intranet or client portal based on Umbraco.</description>
+    <summary>Installs Uintra + Umbrac CMS in your Visual Studio ASP.NET project</summary>
+    <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <!--<iconUrl>https://uintra.com/сontent/images/logo.svg</iconUrl>-->
+    <projectUrl>https://uintra.com/releases/</projectUrl>
+    <repository type="git" url="https://github.com/Uintra/Uintra"/>
+    <copyright>Copyright ©  2021</copyright>
+    <language>en-US</language>
+    <tags>uintra</tags>
+    <dependencies>
+      <dependency id="Compent.Shared.Repository.EntityFramework" version="0.7.1" />
+      <dependency id="Compent.CommandBus" version="1.2.1" />
+      <dependency id="Compent.LinkPreview.HttpClient" version="1.2.6" />
+      <dependency id="Compent.Shared.Logging.Serilog" version="0.1.0.2" />
+      <dependency id="Compent.Shared.ConfigurationProvider.Json" version="0.2.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="Content\**" target="UintraFiles/Content" exclude="**/node_modules/**" />
+    <file src="uSync\**" target="content/uSync" />
+    <file src="install.ps1" target="tools" />
+    <file src="wwwroot\**" target="content/wwwroot" />
+
+    <file src="bin\UBaseline.UI.dll" target="lib\net472" />
+    <file src="bin\UBaseline.Core.dll" target="lib\net472" />
+    <file src="bin\UBaseline.Shared.dll" target="lib\net472" />
+    
+    <!--<file src="bin\Release\Compent.Shared.ConfigurationProvider.Contract.dll" target="lib\net472" />
+    <file src="bin\Release\Compent.Shared.ConfigurationProvider.Json.dll" target="lib\net472" />
+    <file src="bin\Release\Compent.Shared.DependencyInjection.Contract.dll" target="lib\net472" />
+    <file src="bin\Release\Compent.Shared.DependencyInjection.LightInject.dll" target="lib\net472" />
+    <file src="bin\Release\Compent.Shared.Extensions.Bcl.dll" target="lib\net472" />
+    <file src="bin\Release\Compent.Shared.Repository.Contract.dll" target="lib\net472" />
+    <file src="bin\Release\Compent.Shared.Repository.EntityFramework.dll" target="lib\net472" />
+    
+    <file src="bin\Release\Compent.Shared.Logging.Contract.dll" target="lib\net472" />
+    <file src="bin\Release\Compent.Shared.Logging.Serilog.dll" target="lib\net472" />-->
+    
+  </files>
+</package>

@@ -920,29 +920,6 @@
     <Content Include="images\preview.png" />
     <Content Include="images\videoLoader.jpg" />
     <Content Include="images\videoLoaderFailure.jpg" />
-    <Content Include="Tests\UI\cypress\fixtures\image.png" />
-    <Content Include="Tests\UI\cypress\fixtures\pagesElements.json" />
-    <Content Include="Tests\UI\cypress\fixtures\sample.mp4" />
-    <Content Include="Tests\UI\cypress\fixtures\test.pdf" />
-    <Content Include="Tests\UI\cypress\fixtures\userData.json" />
-    <Content Include="Tests\UI\cypress\fixtures\validationMassages.json" />
-    <Content Include="Tests\UI\cypress\integration\commentsTest.js" />
-    <Content Include="Tests\UI\cypress\integration\eventActivityTest.js" />
-    <Content Include="Tests\UI\cypress\integration\loginTest.js" />
-    <Content Include="Tests\UI\cypress\integration\newsActivityTest.js" />
-    <Content Include="Tests\UI\cypress\integration\socialActivityTest.js" />
-    <Content Include="Tests\UI\cypress\plugins\index.js" />
-    <Content Include="Tests\UI\cypress\support\centralFeedCommands.js" />
-    <Content Include="Tests\UI\cypress\support\commands.js" />
-    <Content Include="Tests\UI\cypress\support\eventActivityCommands.js" />
-    <Content Include="Tests\UI\cypress\support\index.js" />
-    <Content Include="Tests\UI\cypress\support\loginCommands.js" />
-    <Content Include="Tests\UI\cypress\support\loremText.js" />
-    <Content Include="Tests\UI\cypress\support\newsActivityCommands.js" />
-    <Content Include="Tests\UI\cypress\support\socialActivityCommands.js" />
-    <Content Include="Tests\UI\package-lock.json" />
-    <Content Include="Tests\UI\package.json" />
-    <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Plugins\Utils\Search\SearchDashboard.cs" />
@@ -2133,16 +2110,8 @@
     <Content Include="Views\UBaseline\Microdata.cshtml" />
     <Content Include="Views\SimpleLoginPage.cshtml" />
     <Content Include="Views\InternalServerErrorPage.cshtml" />
-    <None Include="Web.Base.config" />
-    <None Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.QA.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
+    <Content Include="Uintra.nuspec" />
+    <Content Include="Web.config.install.xdt" />
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.2.6.1\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
