@@ -3,13 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
-using Uintra.Features.Search.Configuration;
 using Uintra.Infrastructure.ApplicationSettings.Models;
 using static System.Configuration.ConfigurationManager;
 
 namespace Uintra.Infrastructure.ApplicationSettings
 {
-    public class ApplicationSettings : ConfigurationSection, IApplicationSettings, IElasticSettings
+    public class ApplicationSettings : ConfigurationSection, IApplicationSettings
     {
         private GoogleOAuth _googleOAuth;
 
@@ -28,24 +27,6 @@ namespace Uintra.Infrastructure.ApplicationSettings
         public const string MailNotificationNoReplyNameKey = "Notifications.Mail.NoReplyName";
         public const string UintraSuperUsersKey = "UintraSuperUsers";
         public const string DaytimeSavingOffsetKey = "DaytimeSavingOffset";
-
-        private const string SearchUrlKey = "Search.Url";
-        private const string SearchLimitBulkOperationKey = "Search.LimitBulkOperation";
-        private const string SearchNumberOfShardsKey = "Search.NumberOfShards";
-        private const string SearchNumberOfReplicasKey = "Search.NumberOfReplicas";
-        private const string SearchIndexNameKey = "Search.IndexName";
-        private const string SearchUserNameKey = "Search.Username";
-        private const string SearchPasswordKey = "Search.Password";
-
-        public string SearchUrl => AppSettings[SearchUrlKey];
-        public int LimitBulkOperation => string.IsNullOrEmpty(AppSettings[SearchLimitBulkOperationKey])?1500:Convert.ToInt32(AppSettings[SearchLimitBulkOperationKey]);
-        public int NumberOfShards => string.IsNullOrEmpty(AppSettings[SearchNumberOfShardsKey])?1:Convert.ToInt32(AppSettings[SearchNumberOfShardsKey]);
-        public int NumberOfReplicas => string.IsNullOrEmpty(AppSettings[SearchNumberOfReplicasKey])?0:Convert.ToInt32(AppSettings[SearchNumberOfReplicasKey]);
-        public string IndexName => string.IsNullOrEmpty(AppSettings[SearchIndexNameKey])
-            ? DateTime.Now.Ticks.ToString()
-            : AppSettings[SearchIndexNameKey];
-        public string SearchUserName => AppSettings[SearchUserNameKey];
-        public string SearchPassword => AppSettings[SearchPasswordKey];
 
         public string MailNotificationNoReplyEmail => AppSettings[MailNotificationNoReplyEmailKey];
         public string MailNotificationNoReplyName => AppSettings[MailNotificationNoReplyNameKey];

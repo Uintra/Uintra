@@ -102,10 +102,10 @@
       <HintPath>..\..\packages\Compent.Shared.Repository.EntityFramework.0.7.1\lib\net472\Compent.Shared.Repository.EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="Compent.Shared.Search.Contract, Version=0.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Compent.Shared.Search.Contract.0.2.0-UintraSearchUpdate\lib\net472\Compent.Shared.Search.Contract.dll</HintPath>
+      <HintPath>..\..\packages\Compent.Shared.Search.Contract.0.2.0\lib\net472\Compent.Shared.Search.Contract.dll</HintPath>
     </Reference>
     <Reference Include="Compent.Shared.Search.Elasticsearch, Version=0.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Compent.Shared.Search.Elasticsearch.0.3.0-UintraSearchUpdate\lib\net472\Compent.Shared.Search.Elasticsearch.dll</HintPath>
+      <HintPath>..\..\packages\Compent.Shared.Search.Elasticsearch.0.3.0\lib\net472\Compent.Shared.Search.Elasticsearch.dll</HintPath>
     </Reference>
     <Reference Include="CookComputing.XmlRpcV2, Version=2.5.0.0, Culture=neutral, PublicKeyToken=a7d6e17aa302004d, processorArchitecture=MSIL">
       <HintPath>..\..\packages\xmlrpcnet.2.5.0\lib\net20\CookComputing.XmlRpcV2.dll</HintPath>
@@ -592,10 +592,10 @@
       <HintPath>..\..\packages\Compent.UBaseline.Core.0.2.15\lib\net472\UBaseline.Core.dll</HintPath>
     </Reference>
     <Reference Include="UBaseline.Search.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Compent.UBaseline.Search.Elasticsearch.0.2.6-UintraUpdateSearch\lib\net472\UBaseline.Search.Core.dll</HintPath>
+      <HintPath>..\..\packages\Compent.UBaseline.Search.Elasticsearch.0.2.7\lib\net472\UBaseline.Search.Core.dll</HintPath>
     </Reference>
-    <Reference Include="UBaseline.Search.Elasticsearch, Version=0.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Compent.UBaseline.Search.Elasticsearch.0.2.6-UintraUpdateSearch\lib\net472\UBaseline.Search.Elasticsearch.dll</HintPath>
+    <Reference Include="UBaseline.Search.Elasticsearch, Version=0.2.7.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Compent.UBaseline.Search.Elasticsearch.0.2.7\lib\net472\UBaseline.Search.Elasticsearch.dll</HintPath>
     </Reference>
     <Reference Include="UBaseline.Shared, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Compent.UBaseline.Core.0.2.15\lib\net472\UBaseline.Shared.dll</HintPath>
@@ -1304,9 +1304,6 @@
     <Compile Include="Features\Permissions\Models\PermissionUpdateViewModel.cs" />
     <Compile Include="Features\Permissions\Models\PermissionViewModel.cs" />
     <Compile Include="Features\Search\CommandBus\MemberHandle.cs" />
-    <Compile Include="Features\Search\Configuration\IElasticSettings.cs" />
-    <Compile Include="Features\Search\Configuration\ISearchApplicationSettings.cs" />
-    <Compile Include="Features\Search\Configuration\SearchApplicationSettings.cs" />
     <Compile Include="Features\Search\Converters\Panel\ArticleContinuedPanelSearchConverter.cs" />
     <Compile Include="Features\Search\Converters\Panel\ArticleStartPanelSearchConverter.cs" />
     <Compile Include="Features\Search\Converters\Panel\DocumentLibraryPanelSearchConverter.cs" />

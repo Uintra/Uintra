@@ -26,7 +26,6 @@ using Uintra.Features.Permissions;
 using Uintra.Features.Permissions.Implementation;
 using Uintra.Features.Permissions.Interfaces;
 using Uintra.Features.Permissions.TypeProviders;
-using Uintra.Features.Search.Configuration;
 using Uintra.Features.Subscribe;
 using Uintra.Infrastructure.ApplicationSettings;
 using Uintra.Infrastructure.Caching;
@@ -43,7 +42,6 @@ namespace Uintra.Infrastructure.Ioc
         {
             //configurations
             services.AddSingleton<IApplicationSettings, ApplicationSettings.ApplicationSettings>();
-            services.AddSingleton<IElasticSettings, ApplicationSettings.ApplicationSettings>();
 
             //services
             services.AddSingleton<IInformationService, InformationService>();

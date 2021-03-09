@@ -18,7 +18,6 @@ using Uintra.Core.Search.Repository;
 using Uintra.Core.Search.Sorting;
 using Uintra.Features.Events;
 using Uintra.Features.News;
-using Uintra.Features.Search.Configuration;
 using Uintra.Features.Search.Member;
 using Uintra.Features.Search.Web;
 using Uintra.Features.Social;
@@ -79,7 +78,6 @@ namespace Uintra.Core.Search
 
             services.AddScoped<ISearchUmbracoHelper, SearchUmbracoHelper>();
             services.AddSingleton<ISearchableTypeProvider>(d => new Providers.SearchableTypeProvider(typeof(UintraSearchableTypeEnum)));
-            services.AddSingleton<ISearchApplicationSettings, SearchApplicationSettings>();
 
             services.AddScoped<ISearchContentPanelConverterProvider, SearchContentPanelConverterProvider>();
             services.AddScoped<IMemberSearchDescriptorBuilder, MemberSearchDescriptorBuilder>();
