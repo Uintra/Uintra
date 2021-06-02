@@ -87,8 +87,8 @@ Open Visual Studio 2017 that you installed earlier
        - App_Start folder
        - Controllers folder
        - Models folder
-       - In Views folder:
            - UmbracoIdentityAccount folder
+       - In Views folder:
            - Account.cshtml file
            - AccountLayout.cshtml file
             
