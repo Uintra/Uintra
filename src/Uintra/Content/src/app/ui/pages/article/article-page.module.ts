@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { UbaselineCoreModule } from 'ubaseline-next-for-uintra';
+import { AS_DYNAMIC_COMPONENT, UbaselineCoreModule } from 'ubaseline-next-for-uintra';
 import { ArticlePage } from './article-page.component';
 import { CanDeactivateGuard } from 'src/app/shared/services/general/can-deactivate.service';
 import { GroupDetailsWrapperModule } from 'src/app/feature/specific/groups/group-details-wrapper/group-details-wrapper.module';
@@ -15,6 +15,9 @@ import { BreadcrumbsModule } from 'src/app/shared/ui-elements/breadcrumbs/breadc
     UbaselineCoreModule,
     GroupDetailsWrapperModule,
     BreadcrumbsModule
+  ],
+  providers: [
+    { provide: AS_DYNAMIC_COMPONENT, useValue: ArticlePage }
   ],
   exports: [
     ArticlePage

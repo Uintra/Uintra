@@ -2,7 +2,7 @@ import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
 
-import { UbaselineCoreModule } from "ubaseline-next-for-uintra";
+import { AS_DYNAMIC_COMPONENT, UbaselineCoreModule } from "ubaseline-next-for-uintra";
 import { UintraNewsDetailsPage } from "./uintra-news-details-page.component";
 import { UlinkModule } from "src/app/shared/pipes/link/ulink.module";
 import { LikeButtonModule } from 'src/app/feature/reusable/ui-elements/like-button/like-button.module';
@@ -28,7 +28,7 @@ import { TranslateModule } from '@ngx-translate/core';
     AttachmentsModule,
     TranslateModule,
   ],
-  providers: [],
+  providers: [{ provide: AS_DYNAMIC_COMPONENT, useValue: UintraNewsDetailsPage }],
   entryComponents: [UintraNewsDetailsPage]
 })
 export class UintraNewsDetailsPageModule {}

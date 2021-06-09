@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { UbaselineCoreModule } from 'ubaseline-next-for-uintra';
+import { AS_DYNAMIC_COMPONENT, UbaselineCoreModule } from 'ubaseline-next-for-uintra';
 import { UintraNewsEditPage } from './uintra-news-edit-page.component';
 import { DROPZONE_CONFIG } from 'ngx-dropzone-wrapper';
 import { UlinkModule } from 'src/app/shared/pipes/link/ulink.module';
@@ -30,9 +30,12 @@ import { DEFAULT_DROPZONE_CONFIG } from 'src/app/shared/constants/dropzone/drop-
     GroupDetailsWrapperModule,
   ],
   entryComponents: [UintraNewsEditPage],
-  providers: [{
+  providers: [
+    {
     provide: DROPZONE_CONFIG,
-    useValue: DEFAULT_DROPZONE_CONFIG
-  }]
+    useValue: DEFAULT_DROPZONE_CONFIG,
+  },
+  { provide: AS_DYNAMIC_COMPONENT, useValue: UintraNewsEditPage }
+]
 })
 export class UintraNewsEditPageModule {}

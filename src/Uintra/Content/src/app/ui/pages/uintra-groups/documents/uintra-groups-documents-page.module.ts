@@ -2,7 +2,7 @@ import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
 
-import { UbaselineCoreModule } from "ubaseline-next-for-uintra";
+import { AS_DYNAMIC_COMPONENT, UbaselineCoreModule } from "ubaseline-next-for-uintra";
 import { UintraGroupsDocumentsPage } from "./uintra-groups-documents-page.component";
 import { GroupDetailsWrapperModule } from 'src/app/feature/specific/groups/group-details-wrapper/group-details-wrapper.module';
 import { DropzoneWrapperModule } from 'src/app/feature/reusable/ui-elements/dropzone-wrapper/dropzone-wrapper.module';
@@ -20,6 +20,7 @@ import { TranslateModule } from '@ngx-translate/core';
     DocumentTableModule,
     TranslateModule,
   ],
+  providers: [{ provide: AS_DYNAMIC_COMPONENT, useValue: UintraGroupsDocumentsPage }],
   entryComponents: [UintraGroupsDocumentsPage]
 })
 export class UintraGroupsDocumentsPageModule {}
