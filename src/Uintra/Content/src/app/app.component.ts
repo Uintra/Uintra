@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, ActivationStart, ChildActivationStart } from '@angular/router';
+import { ActivatedRoute, Router, ActivationStart, ChildActivationStart, ChildActivationEnd } from '@angular/router';
 import { LoginPage } from './ui/pages/login/login-page.component';
 import { TranslateService } from '@ngx-translate/core';
 import { IApplication } from './shared/interfaces/components/application/iapplication.interface';
@@ -42,7 +42,7 @@ export class AppComponent implements OnInit {
           }
         }
       }
-      if (!this.isLoginPage && val instanceof ChildActivationStart) {
+      if (!this.isLoginPage && val instanceof ChildActivationEnd) {
         this.hasLeftLoginPage = true;
       }
     });

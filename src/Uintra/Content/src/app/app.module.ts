@@ -55,7 +55,7 @@ import { TrustHtmlPipe } from './shared/pipes/trust-html/trust-html.pipe';
     }),
   ],
   providers: [
-    { provide: DYNAMIC_COMPONENTS, useValue: panels },
+    { provide: DYNAMIC_COMPONENTS, useValue: [...panels, ...pages] },
     { provide: UrlSerializer, useClass: CustomUrlSerializer },
     HasDataChangedService,
     CanDeactivateGuard,

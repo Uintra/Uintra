@@ -22,17 +22,14 @@
             }
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="wwwroot/favicon.ico">
-<link rel="stylesheet" href="/wwwroot/styles.1002ec32ed089e3a35fa.css"></head>
+<link rel="stylesheet" href="/wwwroot/styles.2156de37595371683aa8.css"></head>
 <body>
   @Html.Raw(Model.BodyScript)
   @Html.Raw(Model.BodyLocalScript)
   <app-root></app-root>
   
               <div id="page-content" style="position:absolute;">
-                  <script type="text/javascript" id="page-content-script">
-                      var pageContent = document.getElementById("page-content");
-                      if (pageContent) pageContent.style.marginLeft = "-9999px";
-                  </script>
+                  
                   @Html.Action("Navigation", "PageContent", new { node = Model.Node })
                   @Html.Action("Index", "PageContent", new { node = Model.Node })
               </div>
@@ -40,5 +37,5 @@
               @Html.Partial("Microdata", Model.MetaData?.Microdata ?? string.Empty)
             
   @Html.Raw(Model.FooterLocalScript)
-<script src="/wwwroot/runtime.702bbf114f88ab152993.js"></script><script src="/wwwroot/polyfills-es5.c7d5ecb54f50a2004811.js" nomodule></script><script src="/wwwroot/polyfills.896347a564bfaa001494.js"></script><script src="/wwwroot/main.00314c796cb0ba1fd89c.js"></script></body>
+<script src="/wwwroot/runtime.ce3f2f0d3fbd05e01349.js" defer></script><script src="/wwwroot/polyfills-es5.9695acc26ad83b831d2d.js" nomodule defer></script><script src="/wwwroot/polyfills.14c1d2e0cf3a31ddcd84.js" defer></script><script src="/wwwroot/scripts.2795e76c46157f1294b2.js" defer></script><script src="/wwwroot/main.b30f1c2a8d4478756647.js" defer></script></body>
 </html>

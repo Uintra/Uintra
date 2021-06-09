@@ -2,7 +2,7 @@ import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
 
-import { UbaselineCoreModule } from "ubaseline-next-for-uintra";
+import { AS_DYNAMIC_COMPONENT, UbaselineCoreModule } from "ubaseline-next-for-uintra";
 import { UlinkModule } from "src/app/shared/pipes/link/ulink.module";
 import { LikeButtonModule } from 'src/app/feature/reusable/ui-elements/like-button/like-button.module';
 import { UserAvatarModule } from 'src/app/feature/reusable/ui-elements/user-avatar/user-avatar.module';
@@ -31,7 +31,7 @@ import { CanDeactivateGuard } from 'src/app/shared/services/general/can-deactiva
     TranslateModule,
     EventSubscriptionModule,
   ],
-  providers: [],
+  providers: [{ provide: AS_DYNAMIC_COMPONENT, useValue: EventDetailsPage }],
   entryComponents: [EventDetailsPage]
 })
 export class EventDetailsPageModule {}

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { UbaselineCoreModule } from 'ubaseline-next-for-uintra';
+import { AS_DYNAMIC_COMPONENT, UbaselineCoreModule } from 'ubaseline-next-for-uintra';
 import { ProfileEditPage } from './profile-edit-page.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CanDeactivateGuard } from 'src/app/shared/services/general/can-deactivate.service';
@@ -22,6 +22,9 @@ import { TranslateModule } from '@ngx-translate/core';
     DropzoneWrapperModule,
     CheckboxInputModule,
     TranslateModule,
+  ],
+  providers: [
+    { provide: AS_DYNAMIC_COMPONENT, useValue: ProfileEditPage }
   ],
   entryComponents: [ProfileEditPage]
 })
