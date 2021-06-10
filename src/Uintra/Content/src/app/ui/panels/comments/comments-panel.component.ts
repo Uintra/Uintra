@@ -1,5 +1,4 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { ICommentsPanel } from 'src/app/shared/interfaces/panels/comments/comments-panel.interface';
 
 @Component({
@@ -12,9 +11,7 @@ export class CommentsPanel implements OnInit {
 
   public data: ICommentsPanel;
 
-  constructor(private activatedRoute: ActivatedRoute) {
-    this.activatedRoute.data.subscribe((data: ICommentsPanel) => this.data = data);
-  }
+  constructor() {}
 
   public ngOnInit(): void { }
 }

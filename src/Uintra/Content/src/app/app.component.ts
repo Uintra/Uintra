@@ -5,6 +5,9 @@ import { TranslateService } from '@ngx-translate/core';
 import { IApplication } from './shared/interfaces/components/application/iapplication.interface';
 import { HeaderService } from './shared/services/general/header.service';
 import { ViewportScroller } from '@angular/common';
+import { ResolveService } from 'ubaseline-next-for-uintra';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -12,6 +15,7 @@ import { ViewportScroller } from '@angular/common';
   styleUrls: ['./app.component.less']
 })
 export class AppComponent implements OnInit {
+  alive$ = new Subject();
 
   public title = 'uintra20';
   public isLoginPage = true;
@@ -22,14 +26,13 @@ export class AppComponent implements OnInit {
   public latestActivities: any;
   constructor(
     private router: Router,
-    private route: ActivatedRoute,
     private translateService: TranslateService,
-    private headerService: HeaderService,
-    private viewportScroller: ViewportScroller
+    private viewportScroller: ViewportScroller,
+    private resolveService: ResolveService,
   ) {
-    this.route.data.subscribe((data: IApplication) => {
+    this.resolveService.pageDataChanged$.pipe(takeUntil(this.alive$)).subscribe((data: IApplication) => {
       this.data = data;
-      this.hasPanels = data && data.panels && data.panels;
+      this.hasPanels = data && data.panels && data.panels.length;
     });
 
     this.router.events.subscribe(val => {
@@ -66,6 +69,11 @@ export class AppComponent implements OnInit {
     targetElement.blur();
 
     this.viewportScroller.scrollToPosition([0, targetElement.offsetTop])
+  }
+
+  ngOnDestroy(): void {
+    this.alive$.next();
+    this.alive$.complete();
   }
 }
 

@@ -17,14 +17,9 @@ export class ArticlePage implements OnInit {
   public subNavigation: ISubNavigation[];
 
   constructor(
-    private activatedRoute: ActivatedRoute,
     private hasDataChangedService: HasDataChangedService,
     private canDeactivateService: CanDeactivateGuard,
-  ) {
-    this.activatedRoute.data.subscribe((data: IArcticlePage) => {
-      this.data = data;
-    });
-  }
+  ) {}
 
   public ngOnInit(): void {
     this.setSubNavigation();

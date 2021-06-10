@@ -43,18 +43,13 @@ export class EventDetailsPage implements OnInit, OnDestroy {
   $eventSubscription: Subscription;
 
   constructor(
-    private activatedRoute: ActivatedRoute,
     private imageGalleryService: ImageGalleryService,
     private sanitizer: DomSanitizer,
     private eventSubscription: EventSubscriptionService,
     private hasDataChangedService: HasDataChangedService,
     private canDeactivateService: CanDeactivateGuard,
     private translateService: TranslateService
-  ) {
-    this.activatedRoute.data.subscribe((data: IEventDetailsPage) => {
-      this.data = data;
-    });
-  }
+  ) {}
 
   get locationUrl() {
     if (this.data) {
