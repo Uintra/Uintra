@@ -19,25 +19,23 @@ export class EventEditPage {
   public data: IEventEditPage;
 
   constructor(
-    private route: ActivatedRoute,
     private router: Router,
     private activityService: ActivityService,
     private translate: TranslateService,
     private hasDataChangedService: HasDataChangedService,
     private canDeactivateService: CanDeactivateGuard,
-  ) {
-    this.route.data.subscribe((data: IEventEditPage) => {
-      this.data = data;
-      //TODO move data mapping to back-end...
-      this.data.details.title = this.data.details.headerInfo.title;
-      this.data.details.creator = { id: this.data.details.headerInfo.owner.id };
-      this.data.details.pinAllowed = this.data.pinAllowed;
-      this.data.details.members = this.data.members;
-      
-      this.data.details.selectedTags = this.data.details.tags;
-      this.data.details.lightboxPreviewModel.medias = this.data.details.lightboxPreviewModel.medias || [];
-      this.data.details.lightboxPreviewModel.otherFiles = this.data.details.lightboxPreviewModel.otherFiles || [];
-    });
+  ) {}
+
+  ngOnInit(): void {
+    //TODO move data mapping to back-end...
+    this.data.details.title = this.data.details.headerInfo.title;
+    this.data.details.creator = { id: this.data.details.headerInfo.owner.id };
+    this.data.details.pinAllowed = this.data.pinAllowed;
+    this.data.details.members = this.data.members;
+    
+    this.data.details.selectedTags = this.data.details.tags;
+    this.data.details.lightboxPreviewModel.medias = this.data.details.lightboxPreviewModel.medias || [];
+    this.data.details.lightboxPreviewModel.otherFiles = this.data.details.lightboxPreviewModel.otherFiles || [];
   }
 
   public onSubmit(data): void {

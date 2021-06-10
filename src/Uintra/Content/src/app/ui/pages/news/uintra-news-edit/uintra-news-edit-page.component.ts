@@ -26,14 +26,11 @@ export class UintraNewsEditPage implements OnInit, OnDestroy {
   public tags: ITagData[];
 
   constructor(
-    private route: ActivatedRoute,
     private activityService: ActivityService,
     private router: Router,
     private hasDataChangedService: HasDataChangedService,
     private canDeactivateService: CanDeactivateGuard,
-  ) {
-    this.route.data.subscribe((data: IUintraNewsEditPage) => this.data = data);
-  }
+  ) {}
 
   public ngOnInit(): void {
     if (this.data) {

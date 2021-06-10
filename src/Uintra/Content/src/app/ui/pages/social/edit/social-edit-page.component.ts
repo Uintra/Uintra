@@ -29,19 +29,17 @@ export class SocialEditPageComponent implements OnDestroy {
   public socialEditForm: FormGroup;
 
   constructor(
-    private activatedRoute: ActivatedRoute,
     private socialService: ActivityService,
     private router: Router,
     private routerResolverService: RouterResolverService,
     private hasDataChangedService: HasDataChangedService,
     private canDeactivateService: CanDeactivateGuard,
     private translate: TranslateService
-  ) {
-    this.activatedRoute.data.subscribe((data: ISocialEditPage) => {
-      this.data = data;
-      this.onParse();
-      this.initSocialEditForm();
-    });
+  ) {}
+
+  ngOnInit(): void {
+    this.onParse();
+    this.initSocialEditForm();
   }
 
   public ngOnDestroy(): void {

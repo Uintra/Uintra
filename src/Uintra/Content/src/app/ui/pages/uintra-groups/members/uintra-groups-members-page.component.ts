@@ -16,15 +16,10 @@ export class UintraGroupsMembersPage {
   private refreshSubscription: Subscription;
 
   constructor(
-    private activatedRoute: ActivatedRoute,
     private router: Router,
     private searchService: SearchService,
     private resolveService: ResolveService,
-  ) {
-    this.activatedRoute.data.subscribe((data: UintraGroupsMembers) => {
-      this.data = data;
-    });
-  }
+  ) {}
 
   ngOnInit() {
     this.refreshSubscription = this.searchService.groupMembersRefreshTrigger.subscribe(async (res: UintraGroupsMembers) => {

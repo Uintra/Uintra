@@ -20,14 +20,11 @@ export class EventCreatePage implements OnDestroy {
   public inProgress: boolean;
 
   constructor(
-    private activatedRoute: ActivatedRoute,
     private router: Router,
     private activityService: ActivityService,
     private hasDataChangedService: HasDataChangedService,
     private canDeactivateService: CanDeactivateGuard,
-  ) {
-    this.activatedRoute.data.subscribe((data: IEventCreatePage) => this.data = data);
-  }
+  ) {}
 
   public ngOnDestroy(): void {
     if (this.$eventSubscription) { this.$eventSubscription.unsubscribe(); }

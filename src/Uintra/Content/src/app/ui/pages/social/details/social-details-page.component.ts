@@ -43,7 +43,6 @@ export class SocialDetailsPanelComponent extends Indexer<number> implements OnIn
     private translateService: TranslateService
   ) {
     super();
-    this.activatedRoute.data.subscribe((data: ISocialDetailsPage) => this.data = data);
   }
 
   public ngOnInit(): void {

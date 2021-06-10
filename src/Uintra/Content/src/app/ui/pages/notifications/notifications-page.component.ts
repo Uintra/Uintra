@@ -21,13 +21,9 @@ export class NotificationsPage extends Indexer<number> implements OnInit, OnDest
   public $notificationsSubscription: Subscription;
 
   constructor(
-    private route: ActivatedRoute,
     private navNotificationsService: NavNotificationsService,
   ) {
     super();
-    this.route.data.subscribe((data: INotificationsPage) => {
-      this.data = data;
-    });
   }
 
   public ngOnInit(): void {

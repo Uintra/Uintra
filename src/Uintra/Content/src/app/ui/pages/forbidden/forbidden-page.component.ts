@@ -1,5 +1,4 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'forbidden-page',
@@ -11,9 +10,5 @@ export class ForbiddenPage {
 
   public data: any;
 
-  constructor(
-    private route: ActivatedRoute
-  ) {
-    this.route.data.subscribe((data: any) => this.data = data);
-  }
+  constructor() {}
 }

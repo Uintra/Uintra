@@ -30,15 +30,12 @@ export class ProfileEditPage implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
-    private activatedRoute: ActivatedRoute,
     private profileService: ProfileService,
     private hasDataChangedService: HasDataChangedService,
     private canDeactivateService: CanDeactivateGuard,
     private translate: TranslateService,
     private downloadedPhotoWatcherService: DownloadedPhotoWatcherService
-  ) {
-    this.activatedRoute.data.subscribe((data: IProfileEditPage) => this.data = data);
-  }
+  ) {}
 
   @HostListener('window:beforeunload') checkIfDataChanged() {
     return !this.hasDataChangedService.hasDataChanged || !this.checkIfdataChanged();

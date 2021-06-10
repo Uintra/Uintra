@@ -24,18 +24,13 @@ export class UintraGroupsRoomPage implements OnInit {
   public socialCreateData: ISocialCreate;
 
   constructor(
-    private route: ActivatedRoute,
     private groupsService: GroupsService,
     private router: Router,
     private hasDataChangedService: HasDataChangedService,
     private canDeactivateService: CanDeactivateGuard,
     private translate: TranslateService,
     private resolveService: ResolveService,
-  ) {
-    this.route.data.subscribe((data: IUintraGroupsRoomPage) => {
-      this.data = data;
-    });
-  }
+  ) {}
 
   public ngOnInit(): void {
     this.setSocialCreateData();

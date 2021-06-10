@@ -19,17 +19,15 @@ export class UintraGroupsDocumentsPage {
   public isUploadPossible: boolean;
 
   constructor(
-    private route: ActivatedRoute,
     private uintraGroupsService: UintraGroupsService,
     private router: Router,
-  ) {
-    this.route.data.subscribe((data: UintraGroupsDocuments) => {
-      if (!data.requiresRedirect) {
-        this.data = data;
-      } else {
-        this.router.navigate([data.errorLink.originalUrl]);
-      }
-    });
+  ) {}
+
+  ngOnInit(): void {
+    //TODO: move this logic to guard
+    if (this.data.requiresRedirect) {
+      this.router.navigate([this.data.errorLink.originalUrl]);
+    }
   }
 
   public onUploadSuccess(fileArray: Array<any> = []): void {

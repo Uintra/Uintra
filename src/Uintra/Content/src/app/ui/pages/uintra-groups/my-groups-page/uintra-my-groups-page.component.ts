@@ -12,12 +12,5 @@ export class UintraMyGroupsPage {
 
   public data: UintraMyGroups;
 
-  constructor(
-    private activatedRoute: ActivatedRoute,
-
-  ) {
-    this.activatedRoute.data.subscribe((data: UintraMyGroups) => {
-      this.data = data;
-    });
-  }
+  constructor() {}
 }

@@ -12,9 +12,5 @@ export class PageNotFoundPage {
 
   public data: INotFoundPage;
 
-  constructor(
-    private route: ActivatedRoute
-  ) {
-    this.route.data.subscribe((data: INotFoundPage) => this.data = data);
-  }
+  constructor() {}
 }

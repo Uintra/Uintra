@@ -14,18 +14,14 @@ export class ProfilePage extends Indexer<number> implements OnInit {
   public data: IProfilePage;
 
   constructor(
-    private activatedRoute: ActivatedRoute,
     private router: Router) {
     super();
   }
 
-  public ngOnInit(): void {
-    this.activatedRoute.data.subscribe((data: IProfilePage) => {
-      if (!data.requiresRedirect) {
-        this.data = data;
-      } else {
-        this.router.navigate([data.errorLink.originalUrl]);
-      }
-    });
+  ngOnInit(): void {
+    //TODO: move this logic to guard
+    if (this.data.requiresRedirect) {
+      this.router.navigate([this.data.errorLink.originalUrl]);
+    }
   }
 }

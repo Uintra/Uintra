@@ -41,7 +41,6 @@ export class SearchPage extends Indexer<number> implements OnInit, OnDestroy {
     private sanitizer: DomSanitizer,
   ) {
     super();
-    this.route.data.subscribe((data: ISearchPage) => this.data = data);
 
     this._query.pipe(
       debounceTime(200),

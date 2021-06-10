@@ -21,12 +21,10 @@ export class HomePage extends Indexer<number> implements OnInit {
   public otherPanels: any;
 
   constructor(
-    private route: ActivatedRoute,
     private hasDataChangedService: HasDataChangedService,
     private canDeactivateService: CanDeactivateGuard,
   ) {
     super();
-    this.route.data.subscribe((data: IHomePage) => this.data = data);
   }
 
   public ngOnInit(): void {

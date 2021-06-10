@@ -28,13 +28,10 @@ export class UintraNewsDetailsPage implements OnInit {
   detailsTitle: SafeHtml;
 
   constructor(
-    private activatedRoute: ActivatedRoute,
     private imageGalleryService: ImageGalleryService,
     private sanitizer: DomSanitizer,
     private translateService: TranslateService
-  ) {
-    this.activatedRoute.data.subscribe((data: IUintraNewsDetailsPage) => this.data = data);
-  }
+  ) {}
 
   public ngOnInit(): void {
     if (this.data) {

@@ -15,18 +15,16 @@ export class UintraGroupsEditPage {
   public data: UintraGroupEdit;
 
   constructor(
-    private route: ActivatedRoute,
     private router: Router,
     private hasDataChangedService: HasDataChangedService,
     private canDeactivateService: CanDeactivateGuard,
-  ) {
-    this.route.data.subscribe(data => {
-      if (!data.requiresRedirect) {
-        this.data = data;
-      } else {
-        this.router.navigate([data.errorLink.originalUrl]);
-      }
-    });
+  ) {}
+
+  ngOnInit(): void {
+    //TODO: move this logic to guard
+    if (this.data.requiresRedirect) {
+      this.router.navigate([this.data.errorLink.originalUrl]);
+    }
   }
 
   public canDeactivate(): Observable<boolean> | boolean {

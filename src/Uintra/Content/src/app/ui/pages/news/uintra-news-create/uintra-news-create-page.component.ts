@@ -15,18 +15,16 @@ export class UintraNewsCreatePage {
   public data: UintraNewsCreate;
 
   constructor(
-    private activatedRoute: ActivatedRoute,
     private router: Router,
     private hasDataChangedService: HasDataChangedService,
     private canDeactivateService: CanDeactivateGuard
-  ) {
-    this.activatedRoute.data.subscribe((data: UintraNewsCreate) => {
-      if (!data.requiresRedirect) {
-        this.data = data;
-      } else {
-        this.router.navigate([data.errorLink.originalUrl]);
-      }
-    });
+  ) {}
+
+  ngOnInit(): void {
+    //TODO: move this logic to guard
+    if (this.data.requiresRedirect) {
+      this.router.navigate([this.data.errorLink.originalUrl]);
+    }
   }
 
   public canDeactivate(): Observable<boolean> | boolean {
