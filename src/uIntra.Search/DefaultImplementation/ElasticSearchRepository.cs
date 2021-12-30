@@ -25,7 +25,7 @@ namespace Uintra.Search
             _exceptionLogger = exceptionLogger;
             IndexName = $"{configuration.IndexPrefix}{indexName.ToLower()}";
 
-            var connectionSettings = new ConnectionSettings(new Uri(configuration.Url)).DefaultIndex(IndexName);
+            var connectionSettings = new ConnectionSettings(new Uri($"http://{configuration.Host}:{configuration.Port}")).DefaultIndex(IndexName);
             Client = new ElasticClient(connectionSettings);
         }
 
@@ -149,7 +149,7 @@ namespace Uintra.Search
 
         public void Save(IEnumerable<T> documents)
         {
-            foreach (var entity in documents.Split(Configuration.LimitBulkOperation))
+            foreach (var entity in documents.Split(Configuration.LimitBulkOperation.GetValueOrDefault()))
             {
                 var closure = entity;
                 var bulkResponse = Client.Bulk(b => SetPipelines(b
