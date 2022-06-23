@@ -1,4 +1,4 @@
-﻿using Compent.Shared.Configuration.Builders.Azure.Helpers;
+﻿using Microsoft.Extensions.Configuration;
 using Ninject;
 using Uintra.Search.Configuration;
 
@@ -10,7 +10,8 @@ namespace Uintra.Search.Ioc
         {
             kernel.Bind<IElasticConfigurationSection>().ToMethod(c =>
             {
-                var section = AzureConfigSectionHelper.GetConfigSection<ElasticConfigurationSection>();
+                var configuration = kernel.Get<IConfiguration>();
+                var section = configuration.GetSection(ElasticConfigurationSection.SettingName).Get<ElasticConfigurationSection>();
                 section.IndexPrefix = indexPrefix;
                 return section;
             }).InSingletonScope();

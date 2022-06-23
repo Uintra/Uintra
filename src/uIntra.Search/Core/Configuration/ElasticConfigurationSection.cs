@@ -1,14 +1,12 @@
-﻿using Compent.Shared.Configuration.Builders.Azure.Attributes;
-
+﻿
 namespace Uintra.Search.Configuration
 {
-    [AzureAppConfiguration(SettingName = "Shared.Elastic5")]
     public class ElasticConfigurationSection : IElasticConfigurationSection
     {
-        [AzureKeyVaultReference]
+        public static string SettingName => "Shared.Elastic5";
+
         public string Host { get; set; }
 
-        [AzureKeyVaultReference]
         public string Port { get; set; }
 
         public int? LimitBulkOperation { get; set; }
